@@ -1,13 +1,11 @@
 package org.sonar.css.parser;
 
-import com.google.common.base.Joiner;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 import org.junit.Test;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-import static org.sonar.sslr.tests.Assertions.assertThat;
-
-public class CssStylesheetTest {
+public class CssStylesheetTest extends TestBase {
 
   private LexerlessGrammar b = CssGrammarImpl.createGrammar();
 
@@ -16,10 +14,5 @@ public class CssStylesheetTest {
     assertThat(b.getRootRule())
         .matches(code("p {color:red;text-align:center;}"))
         .matches(code("@import \"subs.css\";","p {color:red;text-align:center;}"));
-  }
-
-
-  private static String code(String... lines) {
-    return Joiner.on("\n").join(lines);
   }
 }
