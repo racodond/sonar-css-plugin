@@ -1,0 +1,234 @@
+/*
+ * Sonar CSS Plugin
+ * Copyright (C) 2013 Tamas Kende
+ * kende.tamas@gmail.com
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
+ */
+package org.sonar.css.parser;
+
+import com.sonar.sslr.api.GenericTokenType;
+
+import org.sonar.sslr.grammar.GrammarRuleKey;
+import org.sonar.sslr.grammar.LexerlessGrammarBuilder;
+import org.sonar.sslr.parser.LexerlessGrammar;
+
+/**
+ * CSS grammar based on http://www.w3.org/TR/CSS2/syndata.html
+ * @author tkende
+ *
+ */
+public enum CssGrammarImpl implements GrammarRuleKey {
+
+  stylesheet,
+  statement,
+  atRule,
+  block,
+  ruleset,
+  selector,
+  declaration,
+  property,
+  value,
+  any,
+  unused,
+
+  ident,
+  atkeyword,
+  string,
+  bad_string,
+  bad_uri,
+  bad_comment,
+  hash,
+  number,
+  percentage,
+  dimension,
+  uri,
+  unicodeRange,
+  cdo,
+  cdc,
+
+  colon,
+  semiColon,
+  lCurlyBracket,
+  rCurlyBracket,
+  lParenthesis,
+  rParenthesis,
+  lBracket,
+  rBracket,
+
+  whiteSpace,
+  whiteSpaces,
+  comment,
+  function,
+  includes,
+  dashMatch,
+  delim,
+
+  _ident,
+  _name,
+  _nmstart,
+  _nonascii,
+  _unicode,
+  _escape,
+  _nmchar,
+  _num,
+  _string,
+  _string1,
+  _string2,
+  _badString,
+  _badString1,
+  _badString2,
+  _badcomment,
+  _badcomment1,
+  _badcomment2,
+  _baduri,
+  _baduri1,
+  _baduri2,
+  _baduri3,
+  _nl,
+  _w,
+
+  eof;
+
+  public static LexerlessGrammar createGrammar() {
+    return createGrammarBuilder().build();
+  }
+
+  public static LexerlessGrammarBuilder createGrammarBuilder() {
+    LexerlessGrammarBuilder b = LexerlessGrammarBuilder.create();
+    macros(b);
+    tokens(b);
+    syntax(b);
+    b.setRootRule(stylesheet);
+
+    return b;
+  }
+
+  private static void syntax(LexerlessGrammarBuilder b) {
+    b.rule(stylesheet).is(b.zeroOrMore(b.firstOf(cdo, cdc, whiteSpace, statement)));
+    b.rule(statement).is(b.firstOf(ruleset, atRule));
+    b.rule(atRule).is(
+        atkeyword, whiteSpaces, b.zeroOrMore(any), b.firstOf(block, b.sequence(semiColon, whiteSpaces)));
+    b.rule(block).is(
+        lCurlyBracket, whiteSpaces, b.zeroOrMore(
+            b.firstOf(
+                any,
+                block,
+                b.sequence(atkeyword, whiteSpaces),
+                b.sequence(semiColon, whiteSpaces))),
+        rCurlyBracket, whiteSpaces);
+    b.rule(ruleset).is(b.optional(selector),
+        lCurlyBracket, whiteSpaces, b.optional(declaration),
+        b.zeroOrMore(b.sequence(semiColon, whiteSpaces, b.optional(declaration))),
+        rCurlyBracket, whiteSpaces);
+    b.rule(selector).is(b.oneOrMore(any));
+    b.rule(declaration).is(property, whiteSpaces, colon, whiteSpaces, value);
+    b.rule(property).is(ident);
+    b.rule(value).is(b.oneOrMore(b.firstOf(any, block, b.sequence(atkeyword, whiteSpaces))));
+    b.rule(any).is(b.firstOf(
+        ident, number, percentage, dimension, string, delim, uri, hash, unicodeRange, includes, dashMatch, colon,
+        b.sequence(
+            function, whiteSpaces, b.zeroOrMore(/*b.firstOf(*/any/*, unused)*/), rParenthesis),
+        b.sequence(lParenthesis, whiteSpaces, b.zeroOrMore(/*b.firstOf(*/any/*, unused)*/), rParenthesis),
+        b.sequence(lBracket, whiteSpaces, b.zeroOrMore(/*b.firstOf(*/any/*, unused)*/), rBracket)
+        ), whiteSpaces);
+    b.rule(unused).is(b.firstOf(
+        block,
+        b.sequence(atkeyword, whiteSpaces),
+        b.sequence(semiColon, whiteSpaces),
+        b.sequence(cdo, whiteSpaces),
+        b.sequence(cdc, whiteSpaces)
+        ));
+
+    b.rule(eof).is(b.token(GenericTokenType.EOF, b.endOfInput())).skip();
+
+  }
+
+  private static void tokens(LexerlessGrammarBuilder b) {
+    b.rule(ident).is(_ident);
+    b.rule(atkeyword).is("@", ident);
+    b.rule(string).is(_string);
+    b.rule(bad_string).is(_badString);
+    b.rule(bad_uri).is(_baduri);
+    b.rule(bad_comment).is(_badcomment);
+    b.rule(hash).is("#", _name);
+    b.rule(number).is(_num);
+    b.rule(percentage).is(_num, "%");
+    b.rule(dimension).is(_num, ident);
+    b.rule(uri).is(b.firstOf(
+        b.sequence("url(", _w, string, _w, rParenthesis),
+        b.sequence("url(", _w,
+            b.zeroOrMore(
+                b.firstOf(
+                    b.regexp("[!#$%&*-\\[\\]-~]"),
+                    _nonascii,
+                    _escape
+                    )
+                ),
+            _w, rParenthesis
+            )
+        ));
+    b.rule(unicodeRange).is(b.regexp("u\\+[0-9a-f?]{1,6}(-[0-9a-f]{1,6})?"));
+    b.rule(cdo).is("<!--");
+    b.rule(cdc).is("-->");
+    b.rule(colon).is(":");
+    b.rule(semiColon).is(";");
+    b.rule(lCurlyBracket).is("{");
+    b.rule(rCurlyBracket).is("}");
+    b.rule(lParenthesis).is("(");
+    b.rule(rParenthesis).is(")");
+    b.rule(lBracket).is("[");
+    b.rule(rBracket).is("]");
+    b.rule(whiteSpace).is(b.regexp("[ \t\r\n\f]+"));
+    b.rule(whiteSpaces).is(b.zeroOrMore(whiteSpace));
+    b.rule(comment).is(b.regexp("\\/\\*[^*]*\\*+([^/*][^*]*\\*+)*\\/"));
+    b.rule(function).is(ident, lParenthesis);
+    b.rule(includes).is("~=");
+    b.rule(dashMatch).is("|=");
+    b.rule(delim).is(b.regexp("[^\"'\\{\\}\\(\\)\\[\\]:; \t\r\n\f]"));
+
+  }
+
+  private static void macros(LexerlessGrammarBuilder b) {
+    b.rule(_ident).is(b.optional("-"), _nmstart, b.zeroOrMore(_nmchar));
+    b.rule(_name).is(b.oneOrMore(_nmchar));
+    b.rule(_nmstart).is(b.firstOf(b.regexp("(?i)[_a-z]"), _nonascii, _escape));
+    b.rule(_nonascii).is(b.regexp("[^\\x00-\\xED]"));
+    b.rule(_unicode).is(b.regexp("\\\\[0-9a-f]{1,6}(\\r\\n|[ \\n\\r\\t\\f])?"));
+    b.rule(_escape).is(b.firstOf(_unicode, b.regexp("\\\\[^\\n\\r\\f0-9a-f]")));
+    b.rule(_nmchar).is(b.firstOf(b.regexp("(?i)[_a-z0-9-]"), _nonascii, _escape));
+    b.rule(_num).is(b.firstOf(b.regexp("[0-9]*\\.[0-9]+"), b.regexp("[0-9]+")));
+    b.rule(_string).is(b.firstOf(_string1, _string2));
+    b.rule(_string1).is(
+        "\"", b.zeroOrMore(b.firstOf(b.regexp("[^\\n\\r\\f\\\\\"]"), b.sequence("\\",_nl), _escape), "\""));
+    b.rule(_string2).is(
+        "'", b.zeroOrMore(b.firstOf(b.regexp("[^\\n\\r\\f\\\\']"), b.sequence("\\",_nl), _escape), "'"));
+    b.rule(_badString).is(b.firstOf(_badString1, _badString2));
+    b.rule(_badString1).is("\"", b.zeroOrMore(
+        b.regexp("[^\\n\\r\\f\\\\\"]"), b.sequence("\\", _nl), _escape), "\"");
+    b.rule(_badString2).is("'", b.zeroOrMore(
+        b.regexp("[^\\n\\r\\f\\\\\"]"), b.sequence("\\", _nl), _escape), "'");
+    b.rule(_badcomment).is(b.firstOf(_badcomment1, _badcomment2));
+    b.rule(_badcomment1).is(b.regexp("\\/\\*[^*]*\\*+([^/*][^*]*\\*+)*"));
+    b.rule(_badcomment2).is(b.regexp("\\/\\*[^*]*(\\*+[^/*][^*]*)*"));
+    b.rule(_baduri).is(b.firstOf(_baduri1, _baduri2, _baduri3));
+    b.rule(_baduri1).is("url(", _w, b.zeroOrMore(b.firstOf(b.regexp("[!#$%&*-~]"), _nonascii, _escape)), _w);
+    b.rule(_baduri2).is("url(", _w, _string, _w);
+    b.rule(_baduri3).is("url(", _w, _badString);
+    b.rule(_nl).is(b.firstOf("\n", "\r\n", "\r", "\f"));
+    b.rule(_w).is(b.regexp("[ \\t\\r\\n\\f]*"));
+  }
+
+}
