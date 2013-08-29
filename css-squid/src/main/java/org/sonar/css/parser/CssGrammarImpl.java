@@ -191,12 +191,17 @@ public enum CssGrammarImpl implements GrammarRuleKey {
     b.rule(rParenthesis).is(")");
     b.rule(lBracket).is("[");
     b.rule(rBracket).is("]");
-    b.rule(whiteSpace).is(b.regexp("[ \t\r\n\f]+"));
+    b.rule(whiteSpace).is(b.regexp("[ \\t\\r\\n\\f]+"));
     b.rule(whiteSpaces).is(b.zeroOrMore(whiteSpace));
     b.rule(comment).is(b.regexp("\\/\\*[^*]*\\*+([^/*][^*]*\\*+)*\\/"));
     b.rule(function).is(ident, lParenthesis);
     b.rule(includes).is("~=");
     b.rule(dashMatch).is("|=");
+    /**
+     * TODO: How to cover this:
+     * any other character not matched by the above rules,
+     * and neither a single nor a double quote
+     */
     b.rule(delim).is(b.regexp("[^\"'\\{\\}\\(\\)\\[\\]:; \t\r\n\f]"));
 
   }
@@ -219,7 +224,7 @@ public enum CssGrammarImpl implements GrammarRuleKey {
     b.rule(_badString1).is("\"", b.zeroOrMore(
         b.regexp("[^\\n\\r\\f\\\\\"]"), b.sequence("\\", _nl), _escape), "\"");
     b.rule(_badString2).is("'", b.zeroOrMore(
-        b.regexp("[^\\n\\r\\f\\\\\"]"), b.sequence("\\", _nl), _escape), "'");
+        b.regexp("[^\\n\\r\\f\\\\\']"), b.sequence("\\", _nl), _escape), "'");
     b.rule(_badcomment).is(b.firstOf(_badcomment1, _badcomment2));
     b.rule(_badcomment1).is(b.regexp("\\/\\*[^*]*\\*+([^/*][^*]*\\*+)*"));
     b.rule(_badcomment2).is(b.regexp("\\/\\*[^*]*(\\*+[^/*][^*]*)*"));
