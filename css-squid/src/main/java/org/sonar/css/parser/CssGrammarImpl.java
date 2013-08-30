@@ -223,8 +223,8 @@ public enum CssGrammarImpl implements GrammarRuleKey {
   }
 
   private static void macros(LexerlessGrammarBuilder b) {
-    b.rule(_ident).is(b.optional("-"), _nmstart, b.zeroOrMore(_nmchar)).skip();
-    b.rule(_name).is(b.oneOrMore(_nmchar)).skip();
+    b.rule(_ident).is(b.token(GenericTokenType.IDENTIFIER, b.sequence(b.optional("-"), _nmstart, b.zeroOrMore(_nmchar)))).skip();
+    b.rule(_name).is(b.token(GenericTokenType.LITERAL, b.oneOrMore(_nmchar))).skip();
     b.rule(_nmstart).is(
         b.firstOf(b.regexp("(?i)[_a-z]"), _nonascii, _escape)).skip();
     b.rule(_nonascii).is(b.regexp("[^\\x00-\\xED]")).skip();
@@ -234,9 +234,9 @@ public enum CssGrammarImpl implements GrammarRuleKey {
         b.firstOf(_unicode, b.regexp("\\\\[^\\n\\r\\f0-9a-f]"))).skip();
     b.rule(_nmchar).is(
         b.firstOf(b.regexp("(?i)[_a-z0-9-]"), _nonascii, _escape)).skip();
-    b.rule(_num).is(b.optional("-"), // NOT DEFINED IN THE W3 spec
-        b.firstOf(b.regexp("[0-9]*\\.[0-9]+"), b.regexp("[0-9]+"))).skip();
-    b.rule(_string).is(b.firstOf(_string1, _string2)).skip();
+    b.rule(_num).is(b.token(GenericTokenType.LITERAL, b.sequence(b.optional("-"), // NOT DEFINED IN THE W3 spec
+        b.firstOf(b.regexp("[0-9]*\\.[0-9]+"), b.regexp("[0-9]+"))))).skip();
+    b.rule(_string).is(b.token(GenericTokenType.LITERAL, b.firstOf(_string1, _string2))).skip();
     b.rule(_string1).is(
         "\"",
         b.zeroOrMore(b.firstOf(b.regexp("[^\\n\\r\\f\\\\\"]"),
