@@ -162,10 +162,11 @@ public enum CssGrammarImpl implements GrammarRuleKey {
             b.sequence(lBracket,
                 whiteSpaces,
                 b.zeroOrMore(b.firstOf(any, unused)), rBracket),
-            ident, number, percentage, dimension, string,
-            delim, uri, hash, unicodeRange, includes, dashMatch,
+            percentage, dimension, string,
+            uri, hash, unicodeRange, includes, dashMatch,
+            ident, number, delim,
             colon),
-            whiteSpaces);
+            whiteSpaces).skipIfOneChild();
     b.rule(unused).is(
         b.firstOf(block, b.sequence(atkeyword, whiteSpaces),
             b.sequence(semiColon, whiteSpaces),
@@ -185,8 +186,8 @@ public enum CssGrammarImpl implements GrammarRuleKey {
     b.rule(bad_comment).is(_badcomment);
     b.rule(hash).is("#", _name);
     b.rule(number).is(_num);
-    b.rule(percentage).is(_num, "%");
-    b.rule(dimension).is(_num, ident);
+    b.rule(percentage).is(number, "%");
+    b.rule(dimension).is(number, ident);
     b.rule(uri).is(
         b.firstOf(b.sequence("url(", _w, string, _w, rParenthesis), b
             .sequence("url(", _w, b.zeroOrMore(b.firstOf(
@@ -222,50 +223,50 @@ public enum CssGrammarImpl implements GrammarRuleKey {
   }
 
   private static void macros(LexerlessGrammarBuilder b) {
-    b.rule(_ident).is(b.optional("-"), _nmstart, b.zeroOrMore(_nmchar));
-    b.rule(_name).is(b.oneOrMore(_nmchar));
+    b.rule(_ident).is(b.optional("-"), _nmstart, b.zeroOrMore(_nmchar)).skip();
+    b.rule(_name).is(b.oneOrMore(_nmchar)).skip();
     b.rule(_nmstart).is(
-        b.firstOf(b.regexp("(?i)[_a-z]"), _nonascii, _escape));
-    b.rule(_nonascii).is(b.regexp("[^\\x00-\\xED]"));
+        b.firstOf(b.regexp("(?i)[_a-z]"), _nonascii, _escape)).skip();
+    b.rule(_nonascii).is(b.regexp("[^\\x00-\\xED]")).skip();
     b.rule(_unicode).is(
-        b.regexp("\\\\[0-9a-f]{1,6}(\\r\\n|[ \\n\\r\\t\\f])?"));
+        b.regexp("\\\\[0-9a-f]{1,6}(\\r\\n|[ \\n\\r\\t\\f])?")).skip();
     b.rule(_escape).is(
-        b.firstOf(_unicode, b.regexp("\\\\[^\\n\\r\\f0-9a-f]")));
+        b.firstOf(_unicode, b.regexp("\\\\[^\\n\\r\\f0-9a-f]"))).skip();
     b.rule(_nmchar).is(
-        b.firstOf(b.regexp("(?i)[_a-z0-9-]"), _nonascii, _escape));
+        b.firstOf(b.regexp("(?i)[_a-z0-9-]"), _nonascii, _escape)).skip();
     b.rule(_num).is(b.optional("-"), // NOT DEFINED IN THE W3 spec
-        b.firstOf(b.regexp("[0-9]*\\.[0-9]+"), b.regexp("[0-9]+")));
-    b.rule(_string).is(b.firstOf(_string1, _string2));
+        b.firstOf(b.regexp("[0-9]*\\.[0-9]+"), b.regexp("[0-9]+"))).skip();
+    b.rule(_string).is(b.firstOf(_string1, _string2)).skip();
     b.rule(_string1).is(
         "\"",
         b.zeroOrMore(b.firstOf(b.regexp("[^\\n\\r\\f\\\\\"]"),
-            b.sequence("\\", _nl), _escape)), "\"");
+            b.sequence("\\", _nl), _escape)), "\"").skip();
     b.rule(_string2).is(
         "'",
         b.zeroOrMore(b.firstOf(b.regexp("[^\\n\\r\\f\\\\']"),
-            b.sequence("\\", _nl), _escape)), "'");
-    b.rule(_badString).is(b.firstOf(_badString1, _badString2));
+            b.sequence("\\", _nl), _escape)), "'").skip();
+    b.rule(_badString).is(b.firstOf(_badString1, _badString2)).skip();
     b.rule(_badString1).is(
         "\"",
         b.zeroOrMore(b.regexp("[^\\n\\r\\f\\\\\"]"),
-            b.sequence("\\", _nl), _escape), "\"");
+            b.sequence("\\", _nl), _escape), "\"").skip();
     b.rule(_badString2).is(
         "'",
         b.zeroOrMore(b.regexp("[^\\n\\r\\f\\\\\']"),
-            b.sequence("\\", _nl), _escape), "'");
-    b.rule(_badcomment).is(b.firstOf(_badcomment1, _badcomment2));
-    b.rule(_badcomment1).is(b.regexp("\\/\\*[^*]*\\*+([^/*][^*]*\\*+)*"));
-    b.rule(_badcomment2).is(b.regexp("\\/\\*[^*]*(\\*+[^/*][^*]*)*"));
-    b.rule(_baduri).is(b.firstOf(_baduri1, _baduri2, _baduri3));
+            b.sequence("\\", _nl), _escape), "'").skip();
+    b.rule(_badcomment).is(b.firstOf(_badcomment1, _badcomment2)).skip();
+    b.rule(_badcomment1).is(b.regexp("\\/\\*[^*]*\\*+([^/*][^*]*\\*+)*")).skip();
+    b.rule(_badcomment2).is(b.regexp("\\/\\*[^*]*(\\*+[^/*][^*]*)*")).skip();
+    b.rule(_baduri).is(b.firstOf(_baduri1, _baduri2, _baduri3)).skip();
     b.rule(_baduri1).is(
         "url(",
         _w,
         b.zeroOrMore(b.firstOf(b.regexp("[!#$%&*-~]"), _nonascii,
-            _escape)), _w);
-    b.rule(_baduri2).is("url(", _w, _string, _w);
-    b.rule(_baduri3).is("url(", _w, _badString);
-    b.rule(_nl).is(b.firstOf("\n", "\r\n", "\r", "\f"));
-    b.rule(_w).is(b.regexp("[ \\t\\r\\n\\f]*"));
+            _escape)), _w).skip();
+    b.rule(_baduri2).is("url(", _w, _string, _w).skip();
+    b.rule(_baduri3).is("url(", _w, _badString).skip();
+    b.rule(_nl).is(b.firstOf("\n", "\r\n", "\r", "\f")).skip();
+    b.rule(_w).is(b.regexp("[ \\t\\r\\n\\f]*")).skip();
   }
 
 }
