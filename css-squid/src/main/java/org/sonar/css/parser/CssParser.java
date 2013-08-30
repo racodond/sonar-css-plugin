@@ -20,27 +20,18 @@
 package org.sonar.css.parser;
 
 
-import org.sonar.css.CssConfiguration;
-
-import com.google.common.annotations.VisibleForTesting;
 import com.sonar.sslr.impl.Parser;
 import com.sonar.sslr.impl.events.ParsingEventListener;
+import org.sonar.css.CssConfiguration;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.parser.ParserAdapter;
-
-import java.nio.charset.Charset;
 
 public final class CssParser {
   private CssParser() {
   }
 
-  @VisibleForTesting
-  public static Parser<LexerlessGrammar> create(ParsingEventListener... parsingEventListeners) {
-    return create(new CssConfiguration(Charset.forName("UTF-8")), parsingEventListeners);
-  }
-
   public static Parser<LexerlessGrammar> create(CssConfiguration conf, ParsingEventListener... parsingEventListeners) {
-    return new ParserAdapter<LexerlessGrammar>(conf.getCharset(), CssGrammarImpl.createGrammar());
+    return new ParserAdapter<LexerlessGrammar>(conf.getCharset(), CssGrammar.createGrammar());
   }
 
 }

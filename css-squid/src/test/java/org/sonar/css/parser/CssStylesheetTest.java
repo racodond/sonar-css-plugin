@@ -7,7 +7,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 public class CssStylesheetTest extends TestBase {
 
-  private LexerlessGrammar b = CssGrammarImpl.createGrammar();
+  private LexerlessGrammar b = CssGrammar.createGrammar();
 
   @Test
   public void css() {

@@ -7,11 +7,11 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class LowLevelTest extends TestBase{
 
-  private LexerlessGrammar b = CssGrammarImpl.createGrammar();
+  private LexerlessGrammar b = CssGrammar.createGrammar();
 
   @Test
   public void strings() {
-    assertThat(b.rule(CssGrammarImpl.string))
+    assertThat(b.rule(CssGrammar.string))
         .matches("\"\"")
         .matches("\"subs.css\"")
         .matches("'asdawddawd'")
@@ -31,7 +31,7 @@ public class LowLevelTest extends TestBase{
 
   @Test
   public void idents() {
-    assertThat(b.rule(CssGrammarImpl.ident))
+    assertThat(b.rule(CssGrammar.ident))
         .matches("p")
         .matches("b\\&W\\?")
         .matches("B\\&W\\?")
@@ -41,14 +41,14 @@ public class LowLevelTest extends TestBase{
 
   @Test
   public void declaration() {
-    assertThat(b.rule(CssGrammarImpl.declaration))
+    assertThat(b.rule(CssGrammar.declaration))
         .matches("color: blue")
         .notMatches("color: blue;");
   }
 
   @Test
   public void numbers(){
-    assertThat(b.rule(CssGrammarImpl.number))
+    assertThat(b.rule(CssGrammar.number))
     .matches("0.5")
     .matches("1")
     .matches("-3")
@@ -60,7 +60,7 @@ public class LowLevelTest extends TestBase{
 
   @Test
   public void percentage(){
-    assertThat(b.rule(CssGrammarImpl.percentage))
+    assertThat(b.rule(CssGrammar.percentage))
     .matches("0.5%")
     .matches("1%")
     .matches("-3%")
@@ -71,7 +71,7 @@ public class LowLevelTest extends TestBase{
 
   @Test
   public void dimension(){
-    assertThat(b.rule(CssGrammarImpl.dimension))
+    assertThat(b.rule(CssGrammar.dimension))
     .matches("0.5em")
     .matches("1ex")
     .matches("-3px")
@@ -82,7 +82,7 @@ public class LowLevelTest extends TestBase{
 
   @Test
   public void selector() {
-    assertThat(b.rule(CssGrammarImpl.selector))
+    assertThat(b.rule(CssGrammar.selector))
         .matches("h6")
         .matches("h1, h2")
         .matches("h3, h4 & h5")
@@ -100,29 +100,29 @@ public class LowLevelTest extends TestBase{
 
   @Test
   public void block() {
-    assertThat(b.rule(CssGrammarImpl.block))
+    assertThat(b.rule(CssGrammar.block))
         .matches("{ causta: \"}\" + ({7} * '\\'') }");
   }
 
   @Test
   public void uri() {
-    assertThat(b.rule(CssGrammarImpl.uri))
+    assertThat(b.rule(CssGrammar.uri))
         .matches("url(\"http://www.example.com/pinkish.png\")")
         .matches("url(\"yellow\")");
   }
 
   @Test
   public void counter() {
-    assertThat(b.rule(CssGrammarImpl.any))
+    assertThat(b.rule(CssGrammar.any))
         .matches("counter(par-num, upper-roman)");
   }
 
   @Test
   public void color() {
-    assertThat(b.rule(CssGrammarImpl.hash))
+    assertThat(b.rule(CssGrammar.hash))
         .matches("#ff0000");
 
-    assertThat(b.rule(CssGrammarImpl.any))
+    assertThat(b.rule(CssGrammar.any))
     .matches("rgb(110%, 0%, 0%)")
     .matches("rgb(255,-10,0)")
     .matches("rgb(255,0,0)");

@@ -7,11 +7,11 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class RuleSetTest extends TestBase {
 
-  private LexerlessGrammar b = CssGrammarImpl.createGrammar();
+  private LexerlessGrammar b = CssGrammar.createGrammar();
 
   @Test
   public void atRuleTest() {
-    assertThat(b.rule(CssGrammarImpl.ruleset))
+    assertThat(b.rule(CssGrammar.ruleset))
         .matches("p{color:red;}")
         .matches(code(
             "h1 {",

@@ -7,11 +7,11 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class AtRulesTest extends TestBase {
 
-  private LexerlessGrammar b = CssGrammarImpl.createGrammar();
+  private LexerlessGrammar b = CssGrammar.createGrammar();
 
   @Test
   public void atRuleTest() {
-    assertThat(b.rule(CssGrammarImpl.atRule))
+    assertThat(b.rule(CssGrammar.atRule))
         .matches("@import \"subs.css\";")
         .matches("@import \"print-main.css\" print;")
         .matches(

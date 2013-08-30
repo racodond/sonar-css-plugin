@@ -25,8 +25,18 @@ import java.nio.charset.Charset;
 
 public class CssConfiguration extends SquidConfiguration {
 
+  private boolean ignoreHeaderComments;
+
   public CssConfiguration(Charset charset) {
     super(charset);
+  }
+
+  public void setIgnoreHeaderComments(boolean ignoreHeaderComments) {
+    this.ignoreHeaderComments = ignoreHeaderComments;
+  }
+
+  public boolean getIgnoreHeaderComments() {
+    return ignoreHeaderComments;
   }
 
 }

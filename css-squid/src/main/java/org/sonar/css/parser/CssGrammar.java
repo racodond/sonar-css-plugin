@@ -33,7 +33,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  * @author tkende
  *
  */
-public enum CssGrammarImpl implements GrammarRuleKey {
+public enum CssGrammar implements GrammarRuleKey {
 
   stylesheet,
   statement,
@@ -121,7 +121,7 @@ public enum CssGrammarImpl implements GrammarRuleKey {
 
   private static void syntax(LexerlessGrammarBuilder b) {
     b.rule(stylesheet).is(
-        b.zeroOrMore(b.firstOf(cdo, cdc, whiteSpace, statement)));
+        b.zeroOrMore(b.firstOf(cdo, cdc, whiteSpace, statement)), eof);
     b.rule(statement).is(b.firstOf(ruleset, atRule));
     b.rule(atRule).is(atkeyword, whiteSpaces, b.zeroOrMore(any),
         b.firstOf(block, b.sequence(semiColon, whiteSpaces)));

@@ -32,7 +32,7 @@ import java.net.URISyntaxException;
 import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class CssRealCodeTest {
-  private LexerlessGrammar b = CssGrammarImpl.createGrammar();
+  private LexerlessGrammar b = CssGrammar.createGrammar();
 
 
   @Test
