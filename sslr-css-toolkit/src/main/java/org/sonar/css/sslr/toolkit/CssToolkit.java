@@ -19,18 +19,7 @@
  */
 package org.sonar.css.sslr.toolkit;
 
-import com.google.common.collect.ImmutableList;
-import org.sonar.colorizer.CDocTokenizer;
-import org.sonar.colorizer.CppDocTokenizer;
-import org.sonar.colorizer.JavadocTokenizer;
-import org.sonar.colorizer.StringTokenizer;
-import org.sonar.colorizer.Tokenizer;
-import org.sonar.css.CssConfiguration;
-import org.sonar.css.parser.CssParser;
 import org.sonar.sslr.toolkit.Toolkit;
-
-import java.nio.charset.Charset;
-import java.util.List;
 
 public final class CssToolkit {
   private CssToolkit() {
@@ -38,15 +27,7 @@ public final class CssToolkit {
 
   public static void main(String[] args) {
     System.setProperty("com.apple.mrj.application.apple.menu.about.name", "SSDK");
-    new Toolkit(CssParser.create(new CssConfiguration(Charset.defaultCharset())),
-        getTokenizers(), "SSLR CSS Toolkit").run();
+    new Toolkit("SSLR CSS Toolkit", new CssConfigurationModel()).run();
   }
 
-  public static List<Tokenizer> getTokenizers() {
-    return ImmutableList.of(new StringTokenizer("<span class=\"s\">", "</span>"),
-        new CDocTokenizer("<span class=\"cd\">", "</span>"), new JavadocTokenizer(
-            "<span class=\"cppd\">", "</span>"), new CppDocTokenizer(
-            "<span class=\"cppd\">", "</span>")/*, new KeywordsTokenizer(
-            "<span class=\"k\">", "</span>", CssKeyword.keywordValues())*/);
-  }
 }

@@ -12,14 +12,20 @@ public class RuleSetTest extends TestBase {
   @Test
   public void atRuleTest() {
     assertThat(b.rule(CssGrammar.ruleset))
-        .matches("p{color:red;}")
-        .matches(code(
-            "h1 {",
-            "font-weight: bold;",
-            "font-size: 12px;",
-            "font-family: Helvetica;",
-            "font-variant: normal;",
-            "}"));
+      .matches("p{color:red;}")
+      .matches(code(
+        "h1 {",
+        "font-weight: bold;",
+        "font-size: 12px;",
+        "font-family: Helvetica;",
+        "font-variant: normal;",
+        "}"))
+      .matches(code(
+        "div" +
+          "{" +
+          "transform:rotate(30deg);" +
+          "}"
+        ));
   }
 
 }

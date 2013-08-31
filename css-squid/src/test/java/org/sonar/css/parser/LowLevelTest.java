@@ -84,8 +84,10 @@ public class LowLevelTest extends TestBase{
   public void selector() {
     assertThat(b.rule(CssGrammar.selector))
         .matches("h6")
+        .notMatches("h6 ")
         .matches("h1, h2")
-        .matches("h3, h4 & h5")
+        .matches("h4 + h5")
+        .matches("h3, h4 + h5")
         .notMatches("h3{")
         .matches(code("p[example=\"public class foo\\",
           "{\\",
