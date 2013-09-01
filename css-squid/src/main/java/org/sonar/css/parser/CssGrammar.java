@@ -169,31 +169,23 @@ public enum CssGrammar implements GrammarRuleKey {
       b.zeroOrMore(b.sequence(semiColon, whiteSpaces,
         b.optional(declaration))), rCurlyBracket, whiteSpaces);
 
-    // b.rule(selector).is(b.oneOrMore(any));
-    b.rule(selector).is(subSelector, b.zeroOrMore(b.firstOf(subSelector, b.sequence(",", whiteSpaces))));
+    b.rule(selector).is(subSelector, b.zeroOrMore(b.firstOf(subSelector, b.sequence(whiteSpaces, ",", whiteSpaces))));
     b.rule(subSelector).is(simpleSelector, b.zeroOrMore(combinators, simpleSelector));
     b.rule(combinators).is(b.firstOf(descendantComb, adjacentComb, precededComb, childComb)).skip();
-    // b.rule(combinators).is(any);
     b.rule(descendantComb).is(whiteSpace, b.nextNot(combinators));
     b.rule(childComb).is(b.optional(whiteSpace), ">", b.optional(b.zeroOrMore(whiteSpace)));
     b.rule(adjacentComb).is(b.optional(whiteSpace), "+", b.optional(b.zeroOrMore(whiteSpace)));
     b.rule(precededComb).is(b.optional(whiteSpace), "~", b.optional(b.zeroOrMore(whiteSpace)));
-    b.rule(simpleSelector).is(b.firstOf(typeSelector, universalSelector));
+    b.rule(simpleSelector).is(b.firstOf(typeSelector, universalSelector)).skip();
     b.rule(typeSelector).is(ident, b.zeroOrMore(b.firstOf(attributeSelector, idSelector, classSelector, pseudo)));
-    // b.rule(typeSelector).is(any);
     b.rule(universalSelector).is(
       b.firstOf(
         b.sequence("*", b.zeroOrMore(b.firstOf(attributeSelector, idSelector, classSelector, pseudo))),
         b.oneOrMore(b.firstOf(attributeSelector, idSelector, classSelector, pseudo))));
-    // b.rule(universalSelector).is(any);
     b.rule(attributeSelector).is(b.oneOrMore(lBracket, ident, b.optional(b.firstOf(dashMatch, includes, "="), any), rBracket));
-    // b.rule(attributeSelector).is(any);
     b.rule(classSelector).is(b.oneOrMore(".", ident));
-    // b.rule(classSelector).is(any);
     b.rule(idSelector).is("#", ident);
-    // b.rule(idSelector).is(any);
     b.rule(pseudo).is(colon, any);
-    // b.rule(pseudo).is(any);
 
     b.rule(declaration)
       .is(property, whiteSpaces, colon, whiteSpaces, value);
@@ -228,17 +220,18 @@ public enum CssGrammar implements GrammarRuleKey {
   }
 
   private static void tokens(LexerlessGrammarBuilder b) {
-    b.rule(ident).is(_ident);
+    b.rule(ident).is(whiteSpaces, _ident);
     b.rule(atkeyword).is("@", ident);
-    b.rule(string).is(_string);
+    b.rule(string).is(whiteSpaces, _string);
     b.rule(bad_string).is(_badString);
     b.rule(bad_uri).is(_baduri);
     b.rule(bad_comment).is(_badcomment);
-    b.rule(hash).is("#", _name);
-    b.rule(number).is(_num);
+    b.rule(hash).is(whiteSpaces, "#", _name);
+    b.rule(number).is(whiteSpaces, _num);
     b.rule(percentage).is(number, "%");
     b.rule(dimension).is(number, ident);
     b.rule(uri).is(
+      whiteSpaces,
       b.firstOf(b.sequence("url(", _w, string, _w, rParenthesis), b
         .sequence("url(", _w, b.zeroOrMore(b.firstOf(
           b.regexp("[!#$%&*-\\[\\]-~]"), _nonascii,

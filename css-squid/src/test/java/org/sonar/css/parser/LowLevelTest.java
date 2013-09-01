@@ -84,7 +84,6 @@ public class LowLevelTest extends TestBase{
   public void selector() {
     assertThat(b.rule(CssGrammar.selector))
         .matches("h6")
-        .notMatches("h6 ")
         .matches("h1, h2")
         .matches("h4 + h5")
         .matches("h3, h4 + h5")
@@ -97,7 +96,13 @@ public class LowLevelTest extends TestBase{
           "        this.x = x;\\",
           "    }\\",
           "\\",
-          "}\"]"));
+          "}\"]"))
+          .matches("h1,\nh2")
+          .matches("h2\n,h3")
+          .matches("/* */h2")
+   //       .matches("h2 /* comment*/")
+          .matches("/* comment */\nh2");
+
   }
 
   @Test
