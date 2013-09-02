@@ -13,6 +13,7 @@ public class CommentTest extends TestBase {
   public void css() {
     assertThat(b.rule(CssGrammar.ruleset))
         .matches(code("p {color:red;text-align:center;} /* comment */"))
+        .matches(code("/* comment */p {color:red;text-align:center;} /* comment */"))
         ;
   }
 

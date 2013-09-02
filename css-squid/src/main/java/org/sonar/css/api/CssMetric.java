@@ -10,6 +10,7 @@ public enum CssMetric implements MetricDef {
   LINES,
   LINES_OF_CODE,
   COMMENT_LINES,
+  COMMENT_BLANK_LINES,
   STATEMENTS,
   AT_RULES,
   RULE_SETS;
