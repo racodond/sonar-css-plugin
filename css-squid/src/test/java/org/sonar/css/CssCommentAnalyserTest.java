@@ -1,6 +1,6 @@
 /*
- * Sonar Erlang Plugin
- * Copyright (C) 2012 Tamas Kende
+ * Sonar CSS Plugin
+ * Copyright (C) 2013 Tamas Kende
  * kende.tamas@gmail.com
  *
  * This program is free software; you can redistribute it and/or

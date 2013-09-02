@@ -1,5 +1,5 @@
 /*
- * Sonar Css Plugin
+ * Sonar CSS Plugin
  * Copyright (C) 2013 Tamas Kende
  * kende.tamas@gmail.com
  *
