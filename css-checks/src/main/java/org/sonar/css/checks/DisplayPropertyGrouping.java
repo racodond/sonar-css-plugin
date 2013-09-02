@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * https://github.com/stubbornella/csslint/wiki/Beware-of-box-model-size
+ * https://github.com/stubbornella/csslint/wiki/Require-properties-appropriate-for-display
  * @author tkende
  *
  */
