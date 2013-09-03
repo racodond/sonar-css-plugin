@@ -64,8 +64,8 @@ public enum CssGrammar implements GrammarRuleKey {
   dimension,
   uri,
   unicodeRange,
- // cdo,
- // cdc,
+  // cdo,
+  // cdc,
 
   colon,
   semiColon,
@@ -82,6 +82,11 @@ public enum CssGrammar implements GrammarRuleKey {
   function,
   includes,
   dashMatch,
+  eq,
+  contains,
+  startsWith,
+  endsWith,
+  important,
   delim,
 
   simpleSelector, // either a type selector or universal selector followed immediately by zero or more attribute selectors, ID selectors, or
@@ -184,7 +189,7 @@ public enum CssGrammar implements GrammarRuleKey {
         b.firstOf(
             b.sequence("*", b.zeroOrMore(b.firstOf(attributeSelector, idSelector, classSelector, pseudo))),
             b.oneOrMore(b.firstOf(attributeSelector, idSelector, classSelector, pseudo))));
-    b.rule(attributeSelector).is(b.oneOrMore(lBracket, ident, b.optional(b.firstOf(dashMatch, includes, "="), any), rBracket));
+    b.rule(attributeSelector).is(b.oneOrMore(lBracket, ident, b.optional(b.firstOf(dashMatch, includes, eq, contains, startsWith, endsWith), any), rBracket));
     b.rule(classSelector).is(b.oneOrMore(".", ident));
     b.rule(idSelector).is("#", ident);
     b.rule(pseudo).is(colon, any);
@@ -209,13 +214,15 @@ public enum CssGrammar implements GrammarRuleKey {
                 b.zeroOrMore(b.firstOf(any, unused)), rBracket),
             percentage, dimension, string,
             uri, hash, unicodeRange, includes, dashMatch,
-            ident, number, colon, delim),
+            ident, number, colon, important, delim),
             whiteSpaces).skipIfOneChild();
     b.rule(unused).is(
         b.firstOf(block, b.sequence(atkeyword, whiteSpaces),
-            b.sequence(semiColon, whiteSpaces)/*,
-            b.sequence(cdo, whiteSpaces),
-            b.sequence(cdc, whiteSpaces)*/));
+            b.sequence(semiColon, whiteSpaces)/*
+                                               * ,
+                                               * b.sequence(cdo, whiteSpaces),
+                                               * b.sequence(cdc, whiteSpaces)
+                                               */));
 
     b.rule(eof).is(b.token(GenericTokenType.EOF, b.endOfInput())).skip();
 
@@ -240,8 +247,8 @@ public enum CssGrammar implements GrammarRuleKey {
                 _escape)), _w, rParenthesis)));
     b.rule(unicodeRange)
         .is(b.regexp("u\\+[0-9a-f?]{1,6}(-[0-9a-f]{1,6})?"));
- //   b.rule(cdo).is("<!--");
- //   b.rule(cdc).is("-->");
+    // b.rule(cdo).is("<!--");
+    // b.rule(cdc).is("-->");
     b.rule(colon).is(":");
     b.rule(semiColon).is(";");
     b.rule(lCurlyBracket).is("{");
@@ -260,6 +267,12 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(function).is(ident, lParenthesis);
     b.rule(includes).is("~=");
     b.rule(dashMatch).is("|=");
+    b.rule(eq).is("=");
+    b.rule(contains).is("*=");
+    b.rule(startsWith).is("^=");
+    b.rule(endsWith).is("$=");
+
+    b.rule(important).is("!important");
     /**
      * TODO: How to cover this: any other character not matched by the above
      * rules, and neither a single nor a double quote
