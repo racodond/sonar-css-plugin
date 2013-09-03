@@ -17,29 +17,32 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks;
+package org.sonar.css.api;
 
-import com.google.common.collect.ImmutableList;
+import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.TokenType;
 
-import java.util.List;
+public enum CssPunctuator implements TokenType {
+  CDO("<!--"), CDC("-->"), INCLUDES("~="), DASHMATCH("|="), PREFIXMATCH("^="), SUFFIXMATCH("$="),
+  SUBSTRINGMATCH("*="),  LCURLYBRACE("{"), RCURLYBRACE("}"), LPARENTHESIS("("), RPARENTHESIS(")"),
+  LBRACKET("["), RBRACKET("]"), DOT("."), SEMI(";"), COMMA(","), COLON(":"), EQUALS("=");
 
-public final class CheckList {
+  private final String value;
 
-  public static final String REPOSITORY_KEY = "css";
-
-  public static final String REPOSITORY_NAME = "Sonar";
-
-  private CheckList() {
+  private CssPunctuator(String word) {
+    this.value = word;
   }
 
-  public static List<Class<?>> getChecks() {
-    return ImmutableList.<Class<?>> of(
-      BewareOfBoxModel.class,
-      DisallowEmptyRules.class,
-      DisplayPropertyGrouping.class,
-      DuplicateProperties.class,
-      KnownProperties.class
-      );
+  public String getName() {
+    return name();
+  }
+
+  public String getValue() {
+    return value;
+  }
+
+  public boolean hasToBeSkippedFromAst(AstNode node) {
+    return false;
   }
 
 }

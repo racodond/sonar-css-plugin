@@ -17,29 +17,30 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks;
+package org.sonar.plugins.css.core;
 
-import com.google.common.collect.ImmutableList;
+import org.sonar.api.batch.AbstractSourceImporter;
+import org.sonar.api.batch.Phase;
+import org.sonar.api.batch.SensorContext;
+import org.sonar.api.resources.InputFileUtils;
+import org.sonar.api.resources.ProjectFileSystem;
 
-import java.util.List;
+@Phase(name = Phase.Name.PRE)
+public class CssSourceImporter extends AbstractSourceImporter {
 
-public final class CheckList {
-
-  public static final String REPOSITORY_KEY = "css";
-
-  public static final String REPOSITORY_NAME = "Sonar";
-
-  private CheckList() {
+  public CssSourceImporter(Css erlang) {
+    super(erlang);
   }
 
-  public static List<Class<?>> getChecks() {
-    return ImmutableList.<Class<?>> of(
-      BewareOfBoxModel.class,
-      DisallowEmptyRules.class,
-      DisplayPropertyGrouping.class,
-      DuplicateProperties.class,
-      KnownProperties.class
-      );
+  @Override
+  protected void analyse(ProjectFileSystem fileSystem, SensorContext context) {
+    parseDirs(context, InputFileUtils.toFiles(fileSystem.mainFiles(Css.KEY)), fileSystem
+        .getSourceDirs(), false, fileSystem.getSourceCharset());
+  }
+
+  @Override
+  public String toString() {
+    return getClass().getSimpleName();
   }
 
 }

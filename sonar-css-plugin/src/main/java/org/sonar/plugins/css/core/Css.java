@@ -17,29 +17,34 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks;
+package org.sonar.plugins.css.core;
 
-import com.google.common.collect.ImmutableList;
+import org.apache.commons.configuration.Configuration;
+import org.apache.commons.lang.StringUtils;
+import org.sonar.api.resources.AbstractLanguage;
+import org.sonar.plugins.css.CssPlugin;
 
-import java.util.List;
+public class Css extends AbstractLanguage {
 
-public final class CheckList {
+  public static final String KEY = "css";
 
-  public static final String REPOSITORY_KEY = "css";
+  private Configuration configuration;
 
-  public static final String REPOSITORY_NAME = "Sonar";
-
-  private CheckList() {
+  public Css(Configuration configuration) {
+    super(KEY, "Css");
+    this.configuration = configuration;
   }
 
-  public static List<Class<?>> getChecks() {
-    return ImmutableList.<Class<?>> of(
-      BewareOfBoxModel.class,
-      DisallowEmptyRules.class,
-      DisplayPropertyGrouping.class,
-      DuplicateProperties.class,
-      KnownProperties.class
-      );
+  public Configuration getConfiguration() {
+    return this.configuration;
+  }
+
+  public String[] getFileSuffixes() {
+    String[] suffixes = configuration.getStringArray(CssPlugin.FILE_SUFFIXES_KEY);
+    if (suffixes == null || suffixes.length == 0) {
+      suffixes = StringUtils.split(CssPlugin.FILE_SUFFIXES_DEFVALUE, ",");
+    }
+    return suffixes;
   }
 
 }

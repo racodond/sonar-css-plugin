@@ -1,0 +1,33 @@
+h1 {
+  color:red;
+}
+/* width and border */
+.mybox {
+    border: 1px solid black;
+    width: 100px;
+}
+
+/* width and border with box-sizing */
+.mybox {
+    box-sizing: border-box;
+    border: 1px solid black;
+    width: 100px;
+}
+
+/* width and border-top */
+.mybox {
+    border-top: 1px solid black;
+    width: 100px;
+}
+
+/* height and padding */
+.mybox {
+    height: 100px;
+    padding: 10px;
+}
+
+/* height and border-top of none */
+.mybox {
+    border-top: none;
+    height: 100px;
+}

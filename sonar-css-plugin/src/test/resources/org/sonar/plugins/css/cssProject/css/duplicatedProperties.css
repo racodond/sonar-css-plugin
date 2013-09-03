@@ -1,0 +1,21 @@
+h1 {
+  color:red;
+}
+/* properties with the same value */
+.mybox {
+    border: 1px solid black;
+    border: 1px solid black;
+}
+
+/* one after another with different values -->ignore */
+.mybox {
+    border: 1px solid black;
+    border: 1px solid red;
+}
+
+/* properties separated by another property */
+.mybox {
+    border: 1px solid black;
+    color: green;
+    border: 1px solid red;
+}

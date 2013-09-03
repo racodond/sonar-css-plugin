@@ -1,0 +1,12 @@
+h1 {
+  color:red;
+}
+/* clr isn't a known property */
+a {
+    clr: red;
+}
+
+/* -moz- is a vendor prefix, so ignore */
+a {
+    -moz-foo: bar;
+}

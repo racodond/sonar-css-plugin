@@ -17,34 +17,32 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.lexer;
+package org.sonar.plugins.css.cpd;
 
-import com.sonar.sslr.impl.Lexer;
-import com.sonar.sslr.impl.channel.PunctuatorChannel;
-import com.sonar.sslr.impl.channel.UnknownCharacterChannel;
-import org.sonar.css.api.CssPunctuator;
+import net.sourceforge.pmd.cpd.Tokenizer;
+import org.sonar.api.batch.AbstractCpdMapping;
+import org.sonar.api.resources.Language;
+import org.sonar.api.resources.ProjectFileSystem;
+import org.sonar.plugins.css.core.Css;
 
 import java.nio.charset.Charset;
 
-import static com.sonar.sslr.impl.channel.RegexpChannelBuilder.commentRegexp;
+public class CssCpdMapping extends AbstractCpdMapping {
 
-public final class CssLexer {
+  private final Css language;
+  private final Charset charset;
 
-  public static final String COMMENT = "(?:/\\*[\\s\\S]*?\\*/)";
-  public static final String COMMENT2 = "(?:\\<\\!--[\\s\\S]*?--\\>)";
-
-  private CssLexer() {
+  public CssCpdMapping(Css language, ProjectFileSystem fs) {
+    this.language = language;
+    this.charset = fs.getSourceCharset();
   }
 
-  public static Lexer create(Charset charset) {
-    return Lexer
-      .builder()
-      .withCharset(charset)
-      .withChannel(commentRegexp(COMMENT))
-      .withChannel(commentRegexp(COMMENT2))
-      .withChannel(new PunctuatorChannel(CssPunctuator.values()))
-      .withChannel(new UnknownCharacterChannel(true))
-      .build();
+  public Tokenizer getTokenizer() {
+    return new CssTokenizer(charset);
+  }
+
+  public Language getLanguage() {
+    return language;
   }
 
 }

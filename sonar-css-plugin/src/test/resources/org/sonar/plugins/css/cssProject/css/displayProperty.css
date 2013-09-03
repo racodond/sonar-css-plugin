@@ -1,0 +1,26 @@
+h1 {
+  color:red;
+}
+/* inline with height */
+.mybox {
+    display: inline;
+    height: 25px;
+}
+
+/* inline-block with float */
+.mybox {
+    display: inline-block;
+    float: left;
+}
+
+/* inline with margin-left */
+.mybox {
+    display: inline;
+    margin-left: 10px;
+}
+
+/* table and margin */
+.mybox {
+    display: table;
+    margin: 10px;
+}
