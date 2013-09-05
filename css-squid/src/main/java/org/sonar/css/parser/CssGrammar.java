@@ -137,6 +137,13 @@ public enum CssGrammar implements GrammarRuleKey {
 
   eof;
 
+  private static final String NMCHAR = "(?i)[_a-z0-9-]";
+  private static final String NONASCII = "[^\\x00-\\xED]";
+  private static final String NMSTART = "(?i)[_a-z]";
+  public static final String WHITESPACE = "[ \\t\\r\\n\\f]+";
+  public static final String IDENTIFIER = NMSTART+NMCHAR.replace("\\(\\?i\\)", "")+"*";
+  public static final String LITERAL = "\"[^\"]*?\"|'[^']*?'";
+
   public static LexerlessGrammar createGrammar() {
     return createGrammarBuilder().build();
   }
@@ -257,7 +264,7 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(rParenthesis).is(")");
     b.rule(lBracket).is("[");
     b.rule(rBracket).is("]");
-    b.rule(whiteSpace).is(b.regexp("[ \\t\\r\\n\\f]+")).skip();
+    b.rule(whiteSpace).is(b.regexp(WHITESPACE)).skip();
     b.rule(whiteSpaces).is(b.zeroOrMore(
         b.firstOf(
             b.skippedTrivia(whiteSpace),
@@ -285,14 +292,14 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(_ident).is(b.token(GenericTokenType.IDENTIFIER, b.sequence(b.optional("-"), _nmstart, b.zeroOrMore(_nmchar)))).skip();
     b.rule(_name).is(b.token(GenericTokenType.LITERAL, b.oneOrMore(_nmchar))).skip();
     b.rule(_nmstart).is(
-        b.firstOf(b.regexp("(?i)[_a-z]"), _nonascii, _escape)).skip();
-    b.rule(_nonascii).is(b.regexp("[^\\x00-\\xED]")).skip();
+        b.firstOf(b.regexp(NMSTART), _nonascii, _escape)).skip();
+    b.rule(_nonascii).is(b.regexp(NONASCII)).skip();
     b.rule(_unicode).is(
         b.regexp("\\\\[0-9a-f]{1,6}(\\r\\n|[ \\n\\r\\t\\f])?")).skip();
     b.rule(_escape).is(
         b.firstOf(_unicode, b.regexp("\\\\[^\\n\\r\\f0-9a-f]"))).skip();
     b.rule(_nmchar).is(
-        b.firstOf(b.regexp("(?i)[_a-z0-9-]"), _nonascii, _escape)).skip();
+        b.firstOf(b.regexp(NMCHAR), _nonascii, _escape)).skip();
     b.rule(_num).is(b.token(GenericTokenType.LITERAL, b.sequence(b.optional("-"), // '-' IS NOT DEFINED IN THE W3 spec
         b.firstOf(b.regexp("[0-9]*\\.[0-9]+"), b.regexp("[0-9]+"))))).skip();
     b.rule(_string).is(b.token(GenericTokenType.LITERAL, b.firstOf(_string1, _string2))).skip();

@@ -17,30 +17,33 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks;
+package org.sonar.plugins.css;
 
-import com.google.common.collect.ImmutableList;
+import org.sonar.plugins.css.core.Css;
 
-import java.util.Collection;
+import org.sonar.api.resources.Project;
+import org.sonar.commonrules.api.CommonRulesEngine;
+import org.sonar.commonrules.api.CommonRulesEngineProvider;
 
-public final class CheckList {
+public class CssCommonRulesEngineProvider extends CommonRulesEngineProvider {
 
-  public static final String REPOSITORY_KEY = "css";
-
-  public static final String REPOSITORY_NAME = "Sonar";
-
-  private CheckList() {
+  public CssCommonRulesEngineProvider() {
+    super();
   }
 
-  @SuppressWarnings("rawtypes")
-  public static Collection<Class> getChecks() {
-    return ImmutableList.<Class> of(
-      BewareOfBoxModel.class,
-      DisallowEmptyRules.class,
-      DisplayPropertyGrouping.class,
-      DuplicateProperties.class,
-      KnownProperties.class
-      );
+  public CssCommonRulesEngineProvider(Project project) {
+    super(project);
+  }
+
+  @Override
+  protected void doActivation(CommonRulesEngine engine) {
+    engine.activateRule("DuplicatedBlocks");
+    engine.activateRule("InsufficientCommentDensity");
+  }
+
+  @Override
+  protected String getLanguageKey() {
+    return Css.KEY;
   }
 
 }
