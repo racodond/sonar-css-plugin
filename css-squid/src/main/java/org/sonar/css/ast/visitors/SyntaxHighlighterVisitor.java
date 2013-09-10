@@ -1,5 +1,27 @@
+/*
+ * Sonar CSS Plugin
+ * Copyright (C) 2013 Tamas Kende
+ * kende.tamas@gmail.com
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
+ */
 package org.sonar.css.ast.visitors;
 
+import org.sonar.api.resources.File;
+
+import org.sonar.api.resources.JavaFile;
 import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
@@ -59,7 +81,7 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
       return;
     }
 
-    Resource<?> sonarFile = SquidUtils.convertJavaFileKeyFromSquidFormat(peekSourceFile().getKey());
+    Resource<?> sonarFile = convertFileKeyFromSquidFormat(peekSourceFile().getKey());
     highlighting = perspectives.as(Highlightable.class, sonarFile).newHighlighting();
 
     lineStart = Lists.newArrayList();
@@ -134,4 +156,24 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
     return sourceCode.getParent(SourceClass.class);
   }
 */
+
+  private static Resource<?> convertFileKeyFromSquidFormat(String key) {
+    boolean isCssFile = key.endsWith(".css");
+    if (isCssFile) {
+      key = key.substring(0, key.length() - ".css".length());
+    }
+
+    String convertedKey = key.replace('/', '.');
+    convertedKey = key.replace('\\', '.');
+    if (convertedKey.indexOf('.') == -1 && !"".equals(convertedKey)) {
+      convertedKey = "[default]." + convertedKey;
+
+    } else if (convertedKey.indexOf('.') == -1) {
+      convertedKey = "[default]";
+    }
+
+    File file = new File(convertedKey);
+    file.setEffectiveKey(convertedKey);
+    return file;
+  }
 }
