@@ -19,6 +19,10 @@
  */
 package org.sonar.plugins.css;
 
+import org.sonar.api.component.ResourcePerspectives;
+
+import javax.annotation.Nullable;
+
 import com.google.common.collect.Lists;
 import com.sonar.sslr.squid.AstScanner;
 import com.sonar.sslr.squid.SquidAstVisitor;
@@ -55,9 +59,12 @@ public class CssSquidSensor implements Sensor {
   private SensorContext context;
   private AstScanner<LexerlessGrammar> scanner;
 
-  public CssSquidSensor(RulesProfile profile, FileLinesContextFactory fileLinesContextFactory) {
+  private ResourcePerspectives resourcePerspectives;
+
+  public CssSquidSensor(RulesProfile profile, FileLinesContextFactory fileLinesContextFactory, ResourcePerspectives resourcePerspectives) {
     this.annotationCheckFactory = AnnotationCheckFactory.create(profile,
         CheckList.REPOSITORY_KEY, CheckList.getChecks());
+    this.resourcePerspectives = resourcePerspectives;
   }
 
   public boolean shouldExecuteOnProject(Project project) {
@@ -70,7 +77,7 @@ public class CssSquidSensor implements Sensor {
 
     Collection<SquidAstVisitor<LexerlessGrammar>> squidChecks = annotationCheckFactory.getChecks();
     List<SquidAstVisitor<LexerlessGrammar>> visitors = Lists.newArrayList(squidChecks);
-    this.scanner = CssAstScanner.create(createConfiguration(project), visitors
+    this.scanner = CssAstScanner.create(createConfiguration(project), resourcePerspectives, visitors
         .toArray(new SquidAstVisitor[visitors.size()]));
     scanner.scanFiles(InputFileUtils.toFiles(project.getFileSystem().mainFiles(Css.KEY)));
 
