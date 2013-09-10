@@ -17,30 +17,31 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks;
+package org.sonar.plugins.css.checks;
 
-import com.google.common.collect.ImmutableList;
+import org.sonar.plugins.css.core.Css;
 
-import java.util.Collection;
+import org.sonar.css.checks.CheckList;
 
-public final class CheckList {
+import org.sonar.api.rules.AnnotationRuleParser;
+import org.sonar.api.rules.Rule;
+import org.sonar.api.rules.RuleRepository;
 
-  public static final String REPOSITORY_KEY = "css";
+import java.util.List;
 
-  public static final String REPOSITORY_NAME = "Sonar";
+public class CssChecksRuleRepository extends RuleRepository {
 
-  private CheckList() {
+  private final AnnotationRuleParser annotationRuleParser;
+
+  public CssChecksRuleRepository(AnnotationRuleParser annotationRuleParser) {
+    super(CheckList.REPOSITORY_KEY, Css.KEY);
+    setName(CheckList.REPOSITORY_NAME);
+    this.annotationRuleParser = annotationRuleParser;
   }
 
-  @SuppressWarnings("rawtypes")
-  public static Collection<Class> getChecks() {
-    return ImmutableList.<Class> of(
-      BewareOfBoxModel.class,
-      DisallowEmptyRules.class,
-      DisplayPropertyGrouping.class,
-      DuplicateProperties.class,
-      KnownProperties.class
-      );
+  @Override
+  public List<Rule> createRules() {
+    return annotationRuleParser.parse(CheckList.REPOSITORY_KEY, CheckList.getChecks());
   }
 
 }

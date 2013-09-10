@@ -19,13 +19,19 @@
  */
 package org.sonar.css.lexer;
 
+import org.sonar.css.parser.CssGrammar;
+
+import com.sonar.sslr.api.GenericTokenType;
+
 import com.sonar.sslr.impl.Lexer;
+import com.sonar.sslr.impl.channel.BlackHoleChannel;
 import com.sonar.sslr.impl.channel.PunctuatorChannel;
 import com.sonar.sslr.impl.channel.UnknownCharacterChannel;
 import org.sonar.css.api.CssPunctuator;
 
 import java.nio.charset.Charset;
 
+import static com.sonar.sslr.impl.channel.RegexpChannelBuilder.regexp;
 import static com.sonar.sslr.impl.channel.RegexpChannelBuilder.commentRegexp;
 
 public final class CssLexer {
@@ -36,15 +42,24 @@ public final class CssLexer {
   private CssLexer() {
   }
 
+  /**
+   * TODO It is ugly, why we cannot use the CssGrammar rules directly?
+   * @param charset
+   * @return
+   */
   public static Lexer create(Charset charset) {
     return Lexer
-      .builder()
-      .withCharset(charset)
-      .withChannel(commentRegexp(COMMENT))
-      .withChannel(commentRegexp(COMMENT2))
-      .withChannel(new PunctuatorChannel(CssPunctuator.values()))
-      .withChannel(new UnknownCharacterChannel(true))
-      .build();
+        .builder()
+        .withCharset(charset)
+        .withChannel(commentRegexp(COMMENT))
+        .withChannel(commentRegexp(COMMENT2))
+        .withChannel(regexp(GenericTokenType.IDENTIFIER, CssGrammar.IDENTIFIER))
+        .withChannel(regexp(GenericTokenType.LITERAL, CssGrammar.LITERAL))
+        .withChannel(new PunctuatorChannel(CssPunctuator.values()))
+        .withChannel(new BlackHoleChannel("[ \\t\\r\\n\\f]+"))
+        .withChannel(new UnknownCharacterChannel(true))
+        .withFailIfNoChannelToConsumeOneCharacter(false)
+        .build();
   }
 
 }
