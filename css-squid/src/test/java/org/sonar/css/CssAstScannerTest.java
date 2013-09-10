@@ -19,8 +19,6 @@
  */
 package org.sonar.css;
 
-import org.junit.Ignore;
-
 import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.squid.AstScanner;
@@ -37,7 +35,6 @@ import static org.fest.assertions.Assertions.assertThat;
 @SuppressWarnings("unchecked")
 public class CssAstScannerTest {
 
-  @Ignore
   @Test
   public void files() {
     AstScanner<?> scanner = CssAstScanner.create(new CssConfiguration(
@@ -50,13 +47,12 @@ public class CssAstScannerTest {
     assertThat(project.getInt(CssMetric.FILES)).isEqualTo(2);
   }
 
-  @Ignore
   @Test
   public void comments() {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
         "src/test/resources/metrics/metric.css"));
     assertThat(file.getInt(CssMetric.COMMENT_BLANK_LINES)).isEqualTo(5);
-    assertThat(file.getInt(CssMetric.COMMENT_LINES)).isEqualTo(8);
+    assertThat(file.getInt(CssMetric.COMMENT_LINES)).isEqualTo(9);
     assertThat(file.getNoSonarTagLines()).contains(10);
     assertThat(file.getNoSonarTagLines().size()).isEqualTo(1);
   }

@@ -118,9 +118,9 @@ public class LowLevelTest extends TestBase{
           "}\"]"))
           .matches("h1,\nh2")
           .matches("h2\n,h3")
-          .matches("/* */h2")
-   //       .matches("h2 /* comment*/")
-          .matches("/* comment */\nh2");
+          .matches("h2 /* comment*/")
+          .matches("h2\n /* comment*/")
+          .matches("* ");
 
   }
 

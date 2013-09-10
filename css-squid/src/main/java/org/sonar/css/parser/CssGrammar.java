@@ -20,9 +20,7 @@
 package org.sonar.css.parser;
 
 import org.sonar.css.lexer.CssLexer;
-
 import com.sonar.sslr.api.GenericTokenType;
-
 import org.sonar.sslr.grammar.GrammarRuleKey;
 import org.sonar.sslr.grammar.LexerlessGrammarBuilder;
 import org.sonar.sslr.parser.LexerlessGrammar;
@@ -46,6 +44,7 @@ public enum CssGrammar implements GrammarRuleKey {
   selector, // comma separated more selector
   subSelector, // one or more simple selector separated with combinators
 
+  supDeclaration,
   declaration,
   property,
   value,
@@ -96,6 +95,8 @@ public enum CssGrammar implements GrammarRuleKey {
   // ADD SUBSTRING MATCHERS: ^= $= *=
   universalSelector, // If the universal selector is not the only component of a simple selector, the "*" may be omitted
 
+  subS,
+
   attributeSelector, // [att] | [att=val] | [att~=val] | [att|=val]
   classSelector, // '.'+ident --> type or universal
   idSelector, // '#'+ident --> type or universal
@@ -141,7 +142,7 @@ public enum CssGrammar implements GrammarRuleKey {
   private static final String NONASCII = "[^\\x00-\\xED]";
   private static final String NMSTART = "(?i)[_a-z]";
   public static final String WHITESPACE = "[ \\t\\r\\n\\f]+";
-  public static final String IDENTIFIER = NMSTART+NMCHAR.replace("\\(\\?i\\)", "")+"*";
+  public static final String IDENTIFIER = NMSTART + NMCHAR.replace("\\(\\?i\\)", "") + "*";
   public static final String LITERAL = "\"[^\"]*?\"|'[^']*?'";
 
   public static LexerlessGrammar createGrammar() {
@@ -159,77 +160,74 @@ public enum CssGrammar implements GrammarRuleKey {
   }
 
   private static void syntax(LexerlessGrammarBuilder b) {
-    b.rule(stylesheet).is(
-      b.zeroOrMore(b.firstOf(whiteSpace, statement)), eof);
-    b.rule(statement).is(b.firstOf(ruleset, atRule)); //--> add sass variable declaration here
-    b.rule(atRule).is(atkeyword, whiteSpaces, any,
+    b.rule(stylesheet).is(whiteSpaces, b.zeroOrMore(statement), eof);
+    b.rule(statement).is(b.firstOf(ruleset, atRule)); // --> add sass variable declaration here:DONE
+    b.rule(atRule).is(atkeyword, any,
       b.firstOf(block, b.sequence(b.zeroOrMore(any), semiColon)));
     b.rule(block).is(
       lCurlyBracket,
-      whiteSpaces,
       b.zeroOrMore(
         b.firstOf(
           atRule,
           ruleset,
           any)),
-      rCurlyBracket,
-      whiteSpaces);
+      rCurlyBracket);
     b.rule(ruleset).is(
-      b.optional(selector), // --> add sass parent selector '&' here
-      whiteSpaces,
+      b.optional(selector), // --> add sass parent selector '&' here:DONE
       lCurlyBracket,
-      whiteSpaces,
-      b.optional(declaration), //--> add sass variable declaration here
-                               //--> add sass subruleset here
-                                    /*--> add nested properties (font: 2px/3px {
-                                    family: fantasy;
-                                    size: 30em;
-                                    weight: bold;
-                                    } here */
-                               //--> add sass @extend, @import rule here
-      b.zeroOrMore(b.sequence(semiColon, whiteSpaces,
-        b.optional(declaration))), rCurlyBracket, whiteSpaces);
+      b.optional(supDeclaration), // --> add sass variable declaration here:DONE
+      // --> add sass subruleset here
+      /*--> add nested properties (font: 2px/3px {
+      family: fantasy;
+      size: 30em;
+      weight: bold;
+      } here */
+      // --> add sass @extend, @import rule here
+      b.zeroOrMore(b.sequence(semiColon,
+        b.optional(supDeclaration))), rCurlyBracket);
 
-    b.rule(selector).is(subSelector, b.zeroOrMore(b.firstOf(subSelector, b.sequence(whiteSpaces, ",", whiteSpaces))));
+    b.rule(selector).is(subSelector, b.zeroOrMore(b.firstOf(subSelector, addSpacing(",", b))));
     b.rule(subSelector).is(simpleSelector, b.zeroOrMore(combinators, simpleSelector));
     b.rule(combinators).is(b.firstOf(descendantComb, adjacentComb, precededComb, childComb)).skip();
     b.rule(descendantComb).is(whiteSpace, b.nextNot(combinators));
-    b.rule(childComb).is(b.optional(whiteSpace), ">", b.optional(b.zeroOrMore(whiteSpace)));
-    b.rule(adjacentComb).is(b.optional(whiteSpace), "+", b.optional(b.zeroOrMore(whiteSpace)));
-    b.rule(precededComb).is(b.optional(whiteSpace), "~", b.optional(b.zeroOrMore(whiteSpace)));
+    b.rule(childComb).is(addSpacing(">", b));
+    b.rule(adjacentComb).is(addSpacing("+", b));
+    b.rule(precededComb).is(addSpacing("~", b));
     b.rule(simpleSelector).is(b.firstOf(typeSelector, universalSelector)).skip();
-    b.rule(typeSelector).is(ident, b.zeroOrMore(b.firstOf(attributeSelector, idSelector, classSelector, pseudo)));
+    b.rule(typeSelector).is(ident, b.zeroOrMore(subS));
     b.rule(universalSelector).is(
       b.firstOf(
-        b.sequence("*", b.zeroOrMore(b.firstOf(attributeSelector, idSelector, classSelector, pseudo))),
-        b.oneOrMore(b.firstOf(attributeSelector, idSelector, classSelector, pseudo))));
+        b.sequence(addSpacing("*", b), b.zeroOrMore(subS)),
+        b.oneOrMore(subS)));
+
+    b.rule(subS).is(b.firstOf(attributeSelector, idSelector, classSelector, pseudo)).skip();
     b.rule(attributeSelector).is(b.oneOrMore(lBracket, ident, b.optional(b.firstOf(dashMatch, includes, eq, contains, startsWith, endsWith), any), rBracket));
     b.rule(classSelector).is(b.oneOrMore(".", ident));
     b.rule(idSelector).is("#", ident);
     b.rule(pseudo).is(colon, any);
 
+    b.rule(supDeclaration).is(declaration).skip();
+
     b.rule(declaration)
-      .is(property, whiteSpaces, colon, whiteSpaces, value);
+      .is(property, colon, value);
     b.rule(property).is(ident);
     b.rule(value).is(
-      b.oneOrMore(b.firstOf(any, block,
-        b.sequence(atkeyword, whiteSpaces))));
+      b.oneOrMore(b.firstOf(any, block, atkeyword)));
     b.rule(any)
-      .is(b.firstOf(
-        b.sequence(function, whiteSpaces,
-          b.zeroOrMore(b.firstOf(any, unused)),
-          rParenthesis),
-        b.sequence(lParenthesis,
-          whiteSpaces,
-          b.zeroOrMore(b.firstOf(any, unused)),
-          rParenthesis),
-        b.sequence(lBracket,
-          whiteSpaces,
-          b.zeroOrMore(b.firstOf(any, unused)), rBracket),
-        percentage, dimension, string,
-        uri, hash, unicodeRange, includes, dashMatch,
-        ident, number, colon, important, delim),
-        whiteSpaces).skipIfOneChild();
+      .is(
+        addSpacing(
+          b.firstOf(
+            b.sequence(function,
+              b.zeroOrMore(b.firstOf(any, unused)),
+              rParenthesis),
+            b.sequence(lParenthesis,
+              b.zeroOrMore(b.firstOf(any, unused)),
+              rParenthesis),
+            b.sequence(lBracket,
+              b.zeroOrMore(b.firstOf(any, unused)), rBracket),
+            percentage, dimension, string,
+            uri, hash, unicodeRange, includes, dashMatch,
+            ident, number, colon, important, delim), b)).skipIfOneChild();
     b.rule(unused).is(
       b.firstOf(block, b.sequence(atkeyword, whiteSpaces),
         b.sequence(semiColon, whiteSpaces)/*
@@ -243,48 +241,48 @@ public enum CssGrammar implements GrammarRuleKey {
   }
 
   private static void tokens(LexerlessGrammarBuilder b) {
-    b.rule(ident).is(whiteSpaces, _ident);
-    b.rule(atkeyword).is("@", ident);
-    b.rule(string).is(whiteSpaces, _string);
+    b.rule(ident).is(addSpacing(_ident, b));
+    b.rule(atkeyword).is(addSpacing(b.sequence("@", ident), b));
+    b.rule(string).is(addSpacing(_string, b));
     b.rule(bad_string).is(_badString);
     b.rule(bad_uri).is(_baduri);
     b.rule(bad_comment).is(_badcomment);
-    b.rule(hash).is(whiteSpaces, "#", _name);
-    b.rule(number).is(whiteSpaces, _num);
-    b.rule(percentage).is(number, "%");
-    b.rule(dimension).is(number, ident);
+    b.rule(hash).is(addSpacing(b.sequence("#", _name), b));
+    b.rule(number).is(addSpacing(_num, b));
+    b.rule(percentage).is(addSpacing(b.sequence(number, "%"), b));
+    b.rule(dimension).is(addSpacing(b.sequence(number, ident), b));
     b.rule(uri).is(
-      whiteSpaces,
-      b.firstOf(b.sequence("url(", _w, string, _w, rParenthesis), b
-        .sequence("url(", _w, b.zeroOrMore(b.firstOf(
-          b.regexp("[!#$%&*-\\[\\]-~]"), _nonascii,
-          _escape)), _w, rParenthesis)));
+      addSpacing(
+        b.firstOf(b.sequence("url(", _w, string, _w, rParenthesis), b
+          .sequence("url(", _w, b.zeroOrMore(b.firstOf(
+            b.regexp("[!#$%&*-\\[\\]-~]"), _nonascii,
+            _escape)), _w, rParenthesis)), b));
     b.rule(unicodeRange)
-      .is(b.regexp("u\\+[0-9a-f?]{1,6}(-[0-9a-f]{1,6})?"));
+      .is(addSpacing(b.regexp("u\\+[0-9a-f?]{1,6}(-[0-9a-f]{1,6})?"), b));
     // b.rule(cdo).is("<!--");
     // b.rule(cdc).is("-->");
-    b.rule(colon).is(":");
-    b.rule(semiColon).is(";");
-    b.rule(lCurlyBracket).is("{");
-    b.rule(rCurlyBracket).is("}");
-    b.rule(lParenthesis).is("(");
-    b.rule(rParenthesis).is(")");
-    b.rule(lBracket).is("[");
-    b.rule(rBracket).is("]");
+    b.rule(colon).is(addSpacing(":", b));
+    b.rule(semiColon).is(addSpacing(";", b));
+    b.rule(lCurlyBracket).is(addSpacing("{", b));
+    b.rule(rCurlyBracket).is(addSpacing("}", b));
+    b.rule(lParenthesis).is(addSpacing("(", b));
+    b.rule(rParenthesis).is(addSpacing(")", b));
+    b.rule(lBracket).is(addSpacing("[", b));
+    b.rule(rBracket).is(addSpacing("]", b));
     b.rule(whiteSpace).is(b.regexp(WHITESPACE)).skip();
     b.rule(whiteSpaces).is(b.zeroOrMore(
       b.firstOf(
         b.skippedTrivia(whiteSpace),
-        b.commentTrivia(b.regexp(CssLexer.COMMENT)), //--> add sass // comment here
+        b.commentTrivia(b.regexp(CssLexer.COMMENT)), // --> add sass // comment here
         b.commentTrivia(b.regexp(CssLexer.COMMENT2))))).skip();
     b.rule(comment).is(b.regexp("\\/\\*[^*]*\\*+([^/*][^*]*\\*+)*\\/"));
-    b.rule(function).is(ident, lParenthesis);
-    b.rule(includes).is("~=");
-    b.rule(dashMatch).is("|=");
-    b.rule(eq).is("=");
-    b.rule(contains).is("*=");
-    b.rule(startsWith).is("^=");
-    b.rule(endsWith).is("$=");
+    b.rule(function).is(addSpacing(b.sequence(ident, lParenthesis), b));
+    b.rule(includes).is(addSpacing("~=", b));
+    b.rule(dashMatch).is(addSpacing("|=", b));
+    b.rule(eq).is(addSpacing("=", b));
+    b.rule(contains).is(addSpacing("*=", b));
+    b.rule(startsWith).is(addSpacing("^=", b));
+    b.rule(endsWith).is(addSpacing("$=", b));
 
     b.rule(important).is("!important");
     /**
@@ -299,14 +297,14 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(_ident).is(b.token(GenericTokenType.IDENTIFIER, b.sequence(b.optional("-"), _nmstart, b.zeroOrMore(_nmchar)))).skip();
     b.rule(_name).is(b.token(GenericTokenType.LITERAL, b.oneOrMore(_nmchar))).skip();
     b.rule(_nmstart).is(
-        b.firstOf(b.regexp(NMSTART), _nonascii, _escape)).skip();
+      b.firstOf(b.regexp(NMSTART), _nonascii, _escape)).skip();
     b.rule(_nonascii).is(b.regexp(NONASCII)).skip();
     b.rule(_unicode).is(
       b.regexp("\\\\[0-9a-f]{1,6}(\\r\\n|[ \\n\\r\\t\\f])?")).skip();
     b.rule(_escape).is(
       b.firstOf(_unicode, b.regexp("\\\\[^\\n\\r\\f0-9a-f]"))).skip();
     b.rule(_nmchar).is(
-        b.firstOf(b.regexp(NMCHAR), _nonascii, _escape)).skip();
+      b.firstOf(b.regexp(NMCHAR), _nonascii, _escape)).skip();
     b.rule(_num).is(b.token(GenericTokenType.LITERAL, b.sequence(b.optional("-"), // '-' IS NOT DEFINED IN THE W3 spec
       b.firstOf(b.regexp("[0-9]*\\.[0-9]+"), b.regexp("[0-9]+"))))).skip();
     b.rule(_string).is(b.token(GenericTokenType.LITERAL, b.firstOf(_string1, _string2))).skip();
@@ -340,6 +338,10 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(_baduri3).is("url(", _w, _badString).skip();
     b.rule(_nl).is(b.firstOf("\n", "\r\n", "\r", "\f")).skip();
     b.rule(_w).is(b.regexp("[ \\t\\r\\n\\f]*")).skip();
+  }
+
+  private static Object addSpacing(Object value, LexerlessGrammarBuilder b) {
+    return b.sequence(value, whiteSpaces);
   }
 
 }
