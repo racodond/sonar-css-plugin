@@ -19,8 +19,8 @@
  */
 package org.sonar.css;
 
+import org.sonar.api.resources.Project;
 import org.sonar.api.component.ResourcePerspectives;
-
 import org.sonar.css.ast.visitors.SyntaxHighlighterVisitor;
 import com.google.common.base.Charsets;
 import com.sonar.sslr.impl.Parser;
@@ -65,10 +65,15 @@ public final class CssAstScanner {
   }
 
   public static AstScanner<LexerlessGrammar> create(CssConfiguration conf, SquidAstVisitor<LexerlessGrammar>... visitors) {
-    return create(conf, null, visitors);
+    return create(conf, null, null, visitors);
   }
 
-  public static AstScanner<LexerlessGrammar> create(CssConfiguration conf, ResourcePerspectives resourcePerspectives, SquidAstVisitor<LexerlessGrammar>... visitors) {
+  public static AstScanner<LexerlessGrammar> create(Project project, ResourcePerspectives resourcePerspectives, SquidAstVisitor<LexerlessGrammar>... visitors) {
+    return create(createConfiguration(project), project, resourcePerspectives, visitors);
+  }
+
+  public static AstScanner<LexerlessGrammar> create(CssConfiguration conf, Project project, ResourcePerspectives resourcePerspectives,
+    SquidAstVisitor<LexerlessGrammar>... visitors) {
     final SquidAstVisitorContextImpl<LexerlessGrammar> context = new SquidAstVisitorContextImpl<LexerlessGrammar>(new SourceProject("Css Project"));
     final Parser<LexerlessGrammar> parser = CssParser.create(conf);
 
@@ -81,9 +86,9 @@ public final class CssAstScanner {
     builder.setCommentAnalyser(new CssCommentAnalyser());
 
     builder.withSquidAstVisitor(CommentsVisitor.<LexerlessGrammar> builder().withCommentMetric(
-        CssMetric.COMMENT_LINES)
-        .withBlankCommentMetric(CssMetric.COMMENT_BLANK_LINES).withNoSonar(true)
-        .withIgnoreHeaderComment(false).build());
+      CssMetric.COMMENT_LINES)
+      .withBlankCommentMetric(CssMetric.COMMENT_BLANK_LINES).withNoSonar(true)
+      .withIgnoreHeaderComment(false).build());
 
     /* Files */
     builder.setFilesMetric(CssMetric.FILES);
@@ -93,33 +98,33 @@ public final class CssAstScanner {
      * selectors and declarations at-keywords
      */
     builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar> builder()
-        .setMetricDef(CssMetric.STATEMENTS)
-        .subscribeTo(CssGrammar.atkeyword, CssGrammar.selector, CssGrammar.declaration)
-        .build());
+      .setMetricDef(CssMetric.STATEMENTS)
+      .subscribeTo(CssGrammar.atkeyword, CssGrammar.selector, CssGrammar.declaration)
+      .build());
 
     /* Rule sets */
     builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar> builder()
-        .setMetricDef(CssMetric.RULE_SETS)
-        .subscribeTo(CssGrammar.ruleset)
-        .build());
+      .setMetricDef(CssMetric.RULE_SETS)
+      .subscribeTo(CssGrammar.ruleset)
+      .build());
 
     /* At rules */
     builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar> builder()
-        .setMetricDef(CssMetric.AT_RULES)
-        .subscribeTo(CssGrammar.atRule)
-        .build());
+      .setMetricDef(CssMetric.AT_RULES)
+      .subscribeTo(CssGrammar.atRule)
+      .build());
 
     /* Metrics */
     builder.withSquidAstVisitor(new LinesVisitor<LexerlessGrammar>(CssMetric.LINES));
     builder.withSquidAstVisitor(new LinesOfCodeVisitor<LexerlessGrammar>(CssMetric.LINES_OF_CODE));
     builder.withSquidAstVisitor(CommentsVisitor.<LexerlessGrammar> builder().withCommentMetric(CssMetric.COMMENT_LINES)
-        .withNoSonar(true)
-        .withIgnoreHeaderComment(conf.getIgnoreHeaderComments())
-        .build());
+      .withNoSonar(true)
+      .withIgnoreHeaderComment(conf.getIgnoreHeaderComments())
+      .build());
 
-    /* Syntax highlighter*/
-    if(resourcePerspectives != null){
-      builder.withSquidAstVisitor(new SyntaxHighlighterVisitor(resourcePerspectives, conf.getCharset()));
+    /* Syntax highlighter */
+    if (resourcePerspectives != null && project != null) {
+      builder.withSquidAstVisitor(new SyntaxHighlighterVisitor(resourcePerspectives, project, conf.getCharset()));
     }
 
     /* External visitors (typically Check ones) */
@@ -128,7 +133,10 @@ public final class CssAstScanner {
     }
 
     return builder.build();
+  }
 
+  private static CssConfiguration createConfiguration(Project project) {
+    return new CssConfiguration(project.getFileSystem().getSourceCharset());
   }
 
 }

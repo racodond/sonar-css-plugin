@@ -19,9 +19,6 @@
  */
 package org.sonar.css.ast.visitors;
 
-import org.sonar.api.resources.File;
-
-import org.sonar.api.resources.JavaFile;
 import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
@@ -32,8 +29,9 @@ import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.api.Trivia;
 import com.sonar.sslr.squid.SquidAstVisitor;
-import org.sonar.api.batch.SquidUtils;
 import org.sonar.api.component.ResourcePerspectives;
+import org.sonar.api.resources.File;
+import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.source.Highlightable;
 import org.sonar.css.parser.CssGrammar;
@@ -54,10 +52,12 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
 
   private Highlightable.HighlightingBuilder highlighting;
   private List<Integer> lineStart;
+  private Project project;
 
-  public SyntaxHighlighterVisitor(ResourcePerspectives perspectives, Charset charset) {
+  public SyntaxHighlighterVisitor(ResourcePerspectives perspectives, Project project,  Charset charset) {
     this.charset = charset;
     this.perspectives = perspectives;
+    this.project = project;
 
     ImmutableMap.Builder<AstNodeType, String> typesBuilder = ImmutableMap.builder();
     typesBuilder.put(CssGrammar.string, "s");
@@ -81,7 +81,7 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
       return;
     }
 
-    Resource<?> sonarFile = convertFileKeyFromSquidFormat(peekSourceFile().getKey());
+    Resource<?> sonarFile = File.fromIOFile(new java.io.File(peekSourceFile().getKey()), project);
     highlighting = perspectives.as(Highlightable.class, sonarFile).newHighlighting();
 
     lineStart = Lists.newArrayList();
@@ -140,23 +140,4 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
     return sourceCode.getParent(SourceFile.class);
   }
 
-  private static Resource<?> convertFileKeyFromSquidFormat(String key) {
-    boolean isCssFile = key.endsWith(".css");
-    if (isCssFile) {
-      key = key.substring(0, key.length() - ".css".length());
-    }
-
-    String convertedKey = key.replace('/', '.');
-    convertedKey = key.replace('\\', '.');
-    if (convertedKey.indexOf('.') == -1 && !"".equals(convertedKey)) {
-      convertedKey = "[root]." + convertedKey;
-
-    } else if (convertedKey.indexOf('.') == -1) {
-      convertedKey = "[root]";
-    }
-
-    File file = new File(convertedKey);
-    file.setEffectiveKey(convertedKey);
-    return file;
-  }
 }

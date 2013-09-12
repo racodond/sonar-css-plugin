@@ -77,17 +77,13 @@ public class CssSquidSensor implements Sensor {
 
     Collection<SquidAstVisitor<LexerlessGrammar>> squidChecks = annotationCheckFactory.getChecks();
     List<SquidAstVisitor<LexerlessGrammar>> visitors = Lists.newArrayList(squidChecks);
-    this.scanner = CssAstScanner.create(createConfiguration(project), resourcePerspectives, visitors
+    this.scanner = CssAstScanner.create(project, resourcePerspectives, visitors
         .toArray(new SquidAstVisitor[visitors.size()]));
     scanner.scanFiles(InputFileUtils.toFiles(project.getFileSystem().mainFiles(Css.KEY)));
 
     Collection<SourceCode> squidSourceFiles = scanner.getIndex().search(
         new QueryByType(SourceFile.class));
     save(squidSourceFiles);
-  }
-
-  private CssConfiguration createConfiguration(Project project) {
-    return new CssConfiguration(project.getFileSystem().getSourceCharset());
   }
 
   private void save(Collection<SourceCode> squidSourceFiles) {
