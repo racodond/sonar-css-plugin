@@ -19,6 +19,9 @@
  */
 package org.sonar.css;
 
+import org.sonar.api.component.ResourcePerspectives;
+
+import org.sonar.css.ast.visitors.SyntaxHighlighterVisitor;
 import com.google.common.base.Charsets;
 import com.sonar.sslr.impl.Parser;
 import com.sonar.sslr.squid.AstScanner;
@@ -62,6 +65,10 @@ public final class CssAstScanner {
   }
 
   public static AstScanner<LexerlessGrammar> create(CssConfiguration conf, SquidAstVisitor<LexerlessGrammar>... visitors) {
+    return create(conf, null, visitors);
+  }
+
+  public static AstScanner<LexerlessGrammar> create(CssConfiguration conf, ResourcePerspectives resourcePerspectives, SquidAstVisitor<LexerlessGrammar>... visitors) {
     final SquidAstVisitorContextImpl<LexerlessGrammar> context = new SquidAstVisitorContextImpl<LexerlessGrammar>(new SourceProject("Css Project"));
     final Parser<LexerlessGrammar> parser = CssParser.create(conf);
 
@@ -109,6 +116,11 @@ public final class CssAstScanner {
         .withNoSonar(true)
         .withIgnoreHeaderComment(conf.getIgnoreHeaderComments())
         .build());
+
+    /* Syntax highlighter*/
+    if(resourcePerspectives != null){
+      builder.withSquidAstVisitor(new SyntaxHighlighterVisitor(resourcePerspectives, conf.getCharset()));
+    }
 
     /* External visitors (typically Check ones) */
     for (SquidAstVisitor<LexerlessGrammar> visitor : visitors) {

@@ -47,7 +47,7 @@ public class CssPlugin extends SonarPlugin {
     return ImmutableList.of(
       Css.class,
       CssSourceImporter.class,
-      CssColorizerFormat.class,
+     // CssColorizerFormat.class,
 
       CssCpdMapping.class,
 
