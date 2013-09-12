@@ -139,23 +139,6 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
     }
     return sourceCode.getParent(SourceFile.class);
   }
-/*
-  private final SourcePackage peekParentPackage() {
-    SourceCode sourceCode = getContext().peekSourceCode();
-    if (sourceCode.isType(SourcePackage.class)) {
-      return (SourcePackage) getContext().peekSourceCode();
-    }
-    return sourceCode.getParent(SourcePackage.class);
-  }
-
-  private final SourceClass peekSourceClass() {
-    SourceCode sourceCode = getContext().peekSourceCode();
-    if (sourceCode.isType(SourceClass.class)) {
-      return (SourceClass) sourceCode;
-    }
-    return sourceCode.getParent(SourceClass.class);
-  }
-*/
 
   private static Resource<?> convertFileKeyFromSquidFormat(String key) {
     boolean isCssFile = key.endsWith(".css");
@@ -166,10 +149,10 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
     String convertedKey = key.replace('/', '.');
     convertedKey = key.replace('\\', '.');
     if (convertedKey.indexOf('.') == -1 && !"".equals(convertedKey)) {
-      convertedKey = "[default]." + convertedKey;
+      convertedKey = "[root]." + convertedKey;
 
     } else if (convertedKey.indexOf('.') == -1) {
-      convertedKey = "[default]";
+      convertedKey = "[root]";
     }
 
     File file = new File(convertedKey);

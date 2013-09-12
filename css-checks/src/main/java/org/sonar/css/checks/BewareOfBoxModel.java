@@ -56,7 +56,7 @@ public class BewareOfBoxModel extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    List<AstNode> declarations = astNode.getChildren(CssGrammar.declaration);
+    List<AstNode> declarations = astNode.getFirstChild(CssGrammar.block).getChildren(CssGrammar.declaration);
     int widthOrHeight = isWidthOrHeight(declarations);
     if (widthOrHeight > 0 && !isBoxSizing(declarations)) {
       if (isOtherUsed(widthOrHeight, declarations)) {

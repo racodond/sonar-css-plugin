@@ -49,7 +49,7 @@ public class CssPlugin extends SonarPlugin {
       CssSourceImporter.class,
      // CssColorizerFormat.class,
 
-      CssCpdMapping.class,
+     // CssCpdMapping.class,
 
       CssSquidSensor.class,
 

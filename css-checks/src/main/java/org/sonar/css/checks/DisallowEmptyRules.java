@@ -46,7 +46,7 @@ public class DisallowEmptyRules extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    List<AstNode> declarations = astNode.getChildren(CssGrammar.declaration);
+    List<AstNode> declarations = astNode.getFirstChild(CssGrammar.block).getChildren(CssGrammar.declaration);
     if (declarations.size() == 0) {
       getContext().createLineViolation(this, "Empty rule", astNode);
     }

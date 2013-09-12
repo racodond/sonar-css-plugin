@@ -139,7 +139,7 @@ public enum CssGrammar implements GrammarRuleKey {
   _nl,
   _w,
 
-  eof;
+  eof, otherSelector;
 
   private static final String NMCHAR = "(?i)[_a-z0-9-]";
   private static final String NONASCII = "[^\\x00-\\xED]";
@@ -169,7 +169,11 @@ public enum CssGrammar implements GrammarRuleKey {
         b.zeroOrMore(any),
         b.firstOf(
             semiColon,
-            b.sequence(lCurlyBracket, ruleset, rCurlyBracket)));
+            b.sequence(
+                lCurlyBracket,
+                b.zeroOrMore(
+                    b.firstOf(ruleset, supDeclaration)),
+                rCurlyBracket)));
 
     b.rule(block).is(
         lCurlyBracket,
@@ -181,8 +185,7 @@ public enum CssGrammar implements GrammarRuleKey {
         weight: bold;
         } here */
         // --> add sass @extend, @import rule here:DONE
-        b.zeroOrMore(b.sequence(semiColon,
-            b.optional(supDeclaration))), rCurlyBracket);
+        rCurlyBracket);
     b.rule(ruleset).is(
         b.optional(selector), // --> add sass parent selector '&' here:DONE
         block
@@ -195,12 +198,13 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(childComb).is(addSpacing(">", b));
     b.rule(adjacentComb).is(addSpacing("+", b));
     b.rule(precededComb).is(addSpacing("~", b));
-    b.rule(simpleSelector).is(b.firstOf(typeSelector, universalSelector)).skip();
+    b.rule(simpleSelector).is(b.firstOf(typeSelector, universalSelector, otherSelector)).skip();
     b.rule(typeSelector).is(ident, b.zeroOrMore(subS));
     b.rule(universalSelector).is(
         b.firstOf(
             b.sequence(addSpacing("*", b), b.zeroOrMore(subS)),
             b.oneOrMore(subS)));
+    b.rule(otherSelector).is(any, b.zeroOrMore(subS));
 
     b.rule(subS).is(b.firstOf(attributeSelector, idSelector, classSelector, pseudo)).skip();
     b.rule(attributeSelector).is(b.oneOrMore(lBracket, ident, b.optional(b.firstOf(dashMatch, includes, eq, contains, startsWith, endsWith), any), rBracket));
@@ -208,7 +212,9 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(idSelector).is("#", ident);
     b.rule(pseudo).is(colon, any);
 
-    b.rule(supDeclaration).is(declaration).skip();
+    b.rule(supDeclaration).is(
+        declaration,
+        b.zeroOrMore(b.firstOf(semiColon, declaration))).skip();
 
     b.rule(declaration)
         .is(property, colon, value);
@@ -230,13 +236,13 @@ public enum CssGrammar implements GrammarRuleKey {
                     percentage, dimension, string,
                     uri, hash, unicodeRange, includes, dashMatch,
                     ident, number, colon, important, delim), b)).skipIfOneChild();
-    //b.rule(unused).is(
-    //    b.firstOf(block, b.sequence(atkeyword, whiteSpaces),
-    //        b.sequence(semiColon, whiteSpaces)/*
-    //                                           * ,
-    //                                           * b.sequence(cdo, whiteSpaces),
-    //                                           * b.sequence(cdc, whiteSpaces)
-    //                                           */));
+    // b.rule(unused).is(
+    // b.firstOf(block, b.sequence(atkeyword, whiteSpaces),
+    // b.sequence(semiColon, whiteSpaces)/*
+    // * ,
+    // * b.sequence(cdo, whiteSpaces),
+    // * b.sequence(cdc, whiteSpaces)
+    // */));
 
     b.rule(eof).is(b.token(GenericTokenType.EOF, b.endOfInput())).skip();
 

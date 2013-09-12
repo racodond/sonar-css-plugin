@@ -61,7 +61,7 @@ public class DisplayPropertyGrouping extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    List<AstNode> declarations = astNode.getChildren(CssGrammar.declaration);
+    List<AstNode> declarations = astNode.getFirstChild(CssGrammar.block).getChildren(CssGrammar.declaration);
     List<String> avoidProps = isDisplay(declarations);
     if (avoidProps != null && avoidProps.size() > 0) {
       if (isOtherUsed(declarations, avoidProps)) {

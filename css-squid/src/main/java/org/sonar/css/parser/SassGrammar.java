@@ -47,7 +47,16 @@ public enum SassGrammar implements GrammarRuleKey {
     b.rule(varDeclaration).is(variable, CssGrammar.colon, CssGrammar.value, CssGrammar.semiColon);
     b.rule(variable).is("$", CssGrammar.ident);
     // + nested properties + @*
-    b.rule(CssGrammar.supDeclaration).override(b.firstOf(nestedProperty, CssGrammar.atRule, CssGrammar.ruleset, CssGrammar.declaration, varDeclaration)).skip();
+    b.rule(CssGrammar.supDeclaration).override(
+        b.oneOrMore(
+            b.firstOf(
+                nestedProperty,
+                CssGrammar.atRule,
+                CssGrammar.ruleset,
+                CssGrammar.declaration,
+                varDeclaration,
+                CssGrammar.semiColon))).skip();
+
     b.rule(CssGrammar.property).override(b.firstOf(variable, CssGrammar.ident));
 
     b.rule(nestedProperty).is(
