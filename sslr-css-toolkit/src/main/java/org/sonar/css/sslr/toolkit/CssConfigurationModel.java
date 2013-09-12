@@ -19,6 +19,8 @@
  */
 package org.sonar.css.sslr.toolkit;
 
+import org.sonar.css.parser.SassParser;
+
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.Grammar;
@@ -31,7 +33,6 @@ import org.sonar.colorizer.JavadocTokenizer;
 import org.sonar.colorizer.StringTokenizer;
 import org.sonar.colorizer.Tokenizer;
 import org.sonar.css.CssConfiguration;
-import org.sonar.css.parser.CssParser;
 import org.sonar.sslr.toolkit.AbstractConfigurationModel;
 import org.sonar.sslr.toolkit.ConfigurationProperty;
 import org.sonar.sslr.toolkit.Validators;
@@ -61,7 +62,8 @@ public class CssConfigurationModel extends AbstractConfigurationModel {
 
   @Override
   public Parser<? extends Grammar> doGetParser() {
-    return CssParser.create(getConfiguration());
+    return SassParser.create(getConfiguration());
+    //return CssParser.create(getConfiguration());
   }
 
   @Override

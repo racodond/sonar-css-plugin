@@ -125,12 +125,6 @@ public class LowLevelTest extends TestBase{
   }
 
   @Test
-  public void block() {
-    assertThat(b.rule(CssGrammar.block))
-        .matches("{ causta: \"}\" + ({7} * '\\'') }");
-  }
-
-  @Test
   public void uri() {
     assertThat(b.rule(CssGrammar.uri))
         .matches("url(\"http://www.example.com/pinkish.png\")")

@@ -19,26 +19,19 @@
  */
 package org.sonar.css.parser;
 
-import org.junit.Test;
+
+import com.sonar.sslr.impl.Parser;
+import com.sonar.sslr.impl.events.ParsingEventListener;
+import org.sonar.css.CssConfiguration;
 import org.sonar.sslr.parser.LexerlessGrammar;
+import org.sonar.sslr.parser.ParserAdapter;
 
-import static org.sonar.sslr.tests.Assertions.assertThat;
+public final class SassParser {
+  private SassParser() {
+  }
 
-public class AtRulesTest extends TestBase {
-
-  private LexerlessGrammar b = CssGrammar.createGrammar();
-
-  @Test
-  public void atRuleTest() {
-    assertThat(b.rule(CssGrammar.atRule))
-        .matches("@import \"subs.css\";")
-        .matches("@import \"print-main.css\" print;")
-        .matches(
-            code("@media print {"
-              + "      body { font-size: 10pt }"
-              + "    }"))
-        ;
-
+  public static Parser<LexerlessGrammar> create(CssConfiguration conf, ParsingEventListener... parsingEventListeners) {
+    return new ParserAdapter<LexerlessGrammar>(conf.getCharset(), SassGrammar.createGrammar());
   }
 
 }

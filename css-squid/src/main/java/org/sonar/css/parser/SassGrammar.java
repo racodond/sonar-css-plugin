@@ -33,8 +33,8 @@ public enum SassGrammar implements GrammarRuleKey {
 
   varDeclaration,
   variable,
-  parentSelector;
-
+  parentSelector,
+  nestedProperty;
 
   public static LexerlessGrammar createGrammar() {
     return createGrammarBuilder().build();
@@ -42,20 +42,27 @@ public enum SassGrammar implements GrammarRuleKey {
 
   public static LexerlessGrammarBuilder createGrammarBuilder() {
     LexerlessGrammarBuilder b = LexerlessGrammarBuilder.createBasedOn(CssGrammar.createGrammarBuilder());
-    //variable declaration + variable
+    // variable declaration + variable
     b.rule(CssGrammar.statement).override(b.firstOf(varDeclaration, CssGrammar.ruleset, CssGrammar.atRule));
     b.rule(varDeclaration).is(variable, CssGrammar.colon, CssGrammar.value, CssGrammar.semiColon);
     b.rule(variable).is("$", CssGrammar.ident);
-    b.rule(CssGrammar.supDeclaration).override(b.firstOf(CssGrammar.ruleset, CssGrammar.declaration, varDeclaration)).skip();
+    // + nested properties + @*
+    b.rule(CssGrammar.supDeclaration).override(b.firstOf(nestedProperty, CssGrammar.atRule, CssGrammar.ruleset, CssGrammar.declaration, varDeclaration)).skip();
     b.rule(CssGrammar.property).override(b.firstOf(variable, CssGrammar.ident));
 
-    //parent selector
+    b.rule(nestedProperty).is(
+        CssGrammar.ident, CssGrammar.colon, b.optional(CssGrammar.value),
+        CssGrammar.lCurlyBracket,
+        b.optional(CssGrammar.supDeclaration),
+        b.zeroOrMore(b.sequence(CssGrammar.semiColon, b.optional(CssGrammar.supDeclaration))),
+        CssGrammar.rCurlyBracket);
+
+    // parent selector
     b.rule(CssGrammar.simpleSelector).override(b.firstOf(CssGrammar.typeSelector, parentSelector, CssGrammar.universalSelector)).skip();
-    b.rule(parentSelector).is("&", b.zeroOrMore(CssGrammar.subS));
+    b.rule(parentSelector).is(CssGrammar.addSpacing("&", b), b.zeroOrMore(CssGrammar.subS));
 
-
+    b.setRootRule(CssGrammar.stylesheet);
     return b;
   }
-
 
 }

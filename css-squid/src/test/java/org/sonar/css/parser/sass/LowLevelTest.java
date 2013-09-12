@@ -34,45 +34,44 @@ public class LowLevelTest extends TestBase {
   @Test
   public void variable() {
     assertThat(b.rule(SassGrammar.variable))
-      .matches("$width");
+        .matches("$width");
   }
 
   @Test
   public void varDeclaration() {
     assertThat(b.rule(SassGrammar.varDeclaration))
-      .matches("$width:5em;")
-      .matches("$translucent-red: rgba(255, 0, 0, 0.5);");
+        .matches("$width:5em;")
+        .matches("$translucent-red: rgba(255, 0, 0, 0.5);");
   }
 
   @Test
   public void nestedVarDeclaration() {
     assertThat(b.rule(CssGrammar.ruleset))
-      .matches("p {color:red;$width:5em;}")
-      .matches(code(
-        "p {",
-        "color:red;",
-        "$width:5em;",
-        "}"));
+        .matches("p {color:red;$width:5em;}")
+        .matches(code(
+            "p {",
+            "color:red;",
+            "$width:5em;",
+            "}"));
   }
 
   @Test
   public void varUsage() {
     assertThat(b.rule(CssGrammar.declaration))
-      .matches("width: $width/2");
+        .matches("width: $width/2");
   }
 
   @Test
   public void parentSelector() {
     assertThat(b.rule(SassGrammar.parentSelector))
-      .matches("&")
-      .matches("&:hover");
+        .matches("&")
+        .matches("&:hover");
   }
 
   @Test
   public void parentSelector2() {
     assertThat(b.rule(CssGrammar.selector))
-      .matches("body.firefox &");
+        .matches("body.firefox &");
   }
-
 
 }
