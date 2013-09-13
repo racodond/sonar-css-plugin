@@ -37,6 +37,15 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  * @author tkende
  *
  */
+
+/***
+ *  TODO THIS IS PARSED INCORRECTLY:
+ *
+.heart-icon {
+    background: url(sprite.png) -16px 0 no-repeat;
+}
+ *
+ */
 public enum CssGrammar implements GrammarRuleKey {
 
   stylesheet,

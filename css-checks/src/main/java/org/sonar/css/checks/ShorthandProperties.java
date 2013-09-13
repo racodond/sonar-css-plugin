@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * https://github.com/stubbornella/csslint/wiki/Don%27t-use-too-many-web-fonts
+ * https://github.com/stubbornella/csslint/wiki/Require-shorthand-properties
  * @author tkende
  *
  */
-@Rule(key = "font-faces", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
+@Rule(key = "shorthand", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
 @BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
-public class ShordhandProperties extends SquidCheck<LexerlessGrammar> {
+public class ShorthandProperties extends SquidCheck<LexerlessGrammar> {
 
   private static List<String> margin = ImmutableList.<String> of("margin-left", "margin-right", "margin-top", "margin-bottom");
   private static List<String> padding = ImmutableList.<String> of("padding-left", "padding-right", "padding-top", "padding-bottom");

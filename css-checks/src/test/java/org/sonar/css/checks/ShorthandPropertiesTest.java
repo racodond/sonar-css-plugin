@@ -31,7 +31,7 @@ public class ShorthandPropertiesTest {
 
   @Test
   public void test() {
-    ShordhandProperties check = new ShordhandProperties();
+    ShorthandProperties check = new ShorthandProperties();
     SourceFile file = CssAstScanner.scanSingleFile(new File(
         "src/test/resources/checks/shorthand.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
