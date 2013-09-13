@@ -54,7 +54,7 @@ public class AllGradientDefinitions extends SquidCheck<LexerlessGrammar> {
   public void init() {
     subscribeTo(CssGrammar.ruleset);
   }
-
+  //Refactor to use multiple visitor (like Shorthand properties)
   @Override
   public void leaveNode(AstNode astNode) {
     if (astNode != null) {
