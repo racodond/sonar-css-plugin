@@ -62,7 +62,8 @@ public class LowLevelTest extends TestBase{
   public void declaration() {
     assertThat(b.rule(CssGrammar.declaration))
         .matches("color: blue")
-        .notMatches("color: blue;");
+        .notMatches("color: blue;")
+        .matches("*width: 200px");
   }
 
   @Test

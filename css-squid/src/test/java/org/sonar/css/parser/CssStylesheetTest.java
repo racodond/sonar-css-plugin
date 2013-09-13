@@ -41,6 +41,14 @@ public class CssStylesheetTest extends TestBase {
             "@media print {",
             "body { font-size: 10pt }",
             "}",
-            "h1 {color: blue }"));
+            "h1 {color: blue }"))
+        .matches(code(
+            ".mybox {" +
+              "  border: 1px solid black;" +
+              "  padding: 5px;" +
+              "  width: 100px;" +
+              "  *width: 200px;" +
+              "}"
+            ));
   }
 }

@@ -105,4 +105,19 @@ public class RuleSetTest extends TestBase {
             )
         );
   }
+
+  @Test
+  public void starHack() {
+    assertThat(b.rule(CssGrammar.ruleset))
+        .matches(code(
+            ".mybox {" +
+              "    border: 1px solid black;" +
+              "    padding: 5px;" +
+              "    width: 100px;" +
+              "    *width: 200px;" +
+              "}"
+            ));
+
+  }
+
 }

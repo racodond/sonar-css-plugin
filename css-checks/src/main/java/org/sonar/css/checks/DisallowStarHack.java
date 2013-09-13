@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.css.checks.utils.CssProperties;
-
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
@@ -31,13 +29,14 @@ import org.sonar.css.parser.CssGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
- * https://github.com/stubbornella/csslint/wiki/Require-use-of-known-properties
+ * https://github.com/stubbornella/csslint/wiki/Disallow-star-hack
  * @author tkende
  *
  */
-@Rule(key = "known-properties", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
+@Rule(key = "star-property-hack", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
 @BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
-public class KnownProperties extends SquidCheck<LexerlessGrammar> {
+public class DisallowStarHack extends SquidCheck<LexerlessGrammar> {
+
 
   @Override
   public void init() {
@@ -46,9 +45,8 @@ public class KnownProperties extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    String property = astNode.getTokenValue();
-    if (!CssProperties.isVendor(property) && !CssProperties.PROPERTIES.contains(property)) {
-      getContext().createLineViolation(this, "Unknown property", astNode);
+    if(astNode.getTokenValue().startsWith("*")){
+      getContext().createLineViolation(this, "Disallow star hack", astNode);
     }
   }
 

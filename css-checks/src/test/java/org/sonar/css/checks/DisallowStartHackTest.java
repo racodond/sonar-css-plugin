@@ -19,29 +19,24 @@
  */
 package org.sonar.css.checks;
 
-import com.google.common.collect.ImmutableList;
+import org.sonar.css.CssAstScanner;
 
-import java.util.Collection;
+import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
+import org.junit.Test;
+import org.sonar.squid.api.SourceFile;
 
-public final class CheckList {
+import java.io.File;
 
-  public static final String REPOSITORY_KEY = "css";
+public class DisallowStartHackTest {
 
-  public static final String REPOSITORY_NAME = "Sonar";
-
-  private CheckList() {
-  }
-
-  @SuppressWarnings("rawtypes")
-  public static Collection<Class> getChecks() {
-    return ImmutableList.<Class> of(
-      BewareOfBoxModel.class,
-      DisallowEmptyRules.class,
-      DisplayPropertyGrouping.class,
-      DuplicateProperties.class,
-      KnownProperties.class,
-      CompatibleVendorPrefixes.class
-      );
+  @Test
+  public void test() {
+    DisallowStarHack check = new DisallowStarHack();
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+        "src/test/resources/checks/starhack.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+        .atLine(3).withMessage("Disallow star hack")
+        .noMore();
   }
 
 }

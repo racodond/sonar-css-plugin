@@ -19,29 +19,24 @@
  */
 package org.sonar.css.checks;
 
-import com.google.common.collect.ImmutableList;
+import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
+import org.junit.Test;
+import org.sonar.css.CssAstScanner;
+import org.sonar.squid.api.SourceFile;
 
-import java.util.Collection;
+import java.io.File;
 
-public final class CheckList {
+public class VendorPrefixWithStandardTest {
 
-  public static final String REPOSITORY_KEY = "css";
-
-  public static final String REPOSITORY_NAME = "Sonar";
-
-  private CheckList() {
-  }
-
-  @SuppressWarnings("rawtypes")
-  public static Collection<Class> getChecks() {
-    return ImmutableList.<Class> of(
-      BewareOfBoxModel.class,
-      DisallowEmptyRules.class,
-      DisplayPropertyGrouping.class,
-      DuplicateProperties.class,
-      KnownProperties.class,
-      CompatibleVendorPrefixes.class
-      );
+  @Test
+  public void test() {
+    VendorPrefixWithStandard check = new VendorPrefixWithStandard();
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+        "src/test/resources/checks/vendorprefixwithstandard.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+    .atLine(3).withMessage("No standard property defined after").next()
+    .atLine(15).withMessage("No standard property defined after")
+    .noMore();
   }
 
 }

@@ -17,31 +17,37 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks;
+package org.sonar.css.checks.utils;
 
-import com.google.common.collect.ImmutableList;
+public class CssP {
 
-import java.util.Collection;
+  String name;
 
-public final class CheckList {
+  String vendor;
 
-  public static final String REPOSITORY_KEY = "css";
+  private CssP() {
 
-  public static final String REPOSITORY_NAME = "Sonar";
-
-  private CheckList() {
   }
 
-  @SuppressWarnings("rawtypes")
-  public static Collection<Class> getChecks() {
-    return ImmutableList.<Class> of(
-      BewareOfBoxModel.class,
-      DisallowEmptyRules.class,
-      DisplayPropertyGrouping.class,
-      DuplicateProperties.class,
-      KnownProperties.class,
-      CompatibleVendorPrefixes.class
-      );
+  public static CssP factory(String property) {
+    if (CssProperties.isVendor(property)) {
+      CssP ret = new CssP();
+      ret.vendor = property.replaceAll("(-)(.*?)(-.*)", "$2");
+      ret.name = property.replaceAll("(-.*?-)(.*)", "$2");
+      return ret;
+    }
+    CssP ret = new CssP();
+    ret.vendor = null;
+    ret.name = property;
+    return ret;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public String getVendor() {
+    return vendor;
   }
 
 }

@@ -1,0 +1,18 @@
+h1 {
+  color:red;
+}
+
+/* -moz- is a vendor prefix, so ignore */
+a {
+    -moz-foo: bar;
+}
+
+/* Missing -moz, -ms, and -o */
+.mybox {
+    -webkit-transform: translate(50px, 100px);
+}
+
+/* Missing -webkit */
+.mybox {
+    -moz-border-radius: 5px;
+}

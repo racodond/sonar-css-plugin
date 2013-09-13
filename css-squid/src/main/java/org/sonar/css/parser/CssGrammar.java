@@ -218,7 +218,7 @@ public enum CssGrammar implements GrammarRuleKey {
 
     b.rule(declaration)
         .is(property, colon, value);
-    b.rule(property).is(ident);
+    b.rule(property).is(b.optional("*"), ident);
     b.rule(value).is(
         b.oneOrMore(b.firstOf(any, block, atkeyword)));
     b.rule(any)

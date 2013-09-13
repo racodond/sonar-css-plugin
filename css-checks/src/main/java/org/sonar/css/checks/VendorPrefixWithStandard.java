@@ -19,37 +19,54 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.css.checks.utils.CssProperties;
-
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.checks.utils.CssP;
+import org.sonar.css.checks.utils.CssProperties;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
- * https://github.com/stubbornella/csslint/wiki/Require-use-of-known-properties
+ * https://github.com/stubbornella/csslint/wiki/Require-standard-property-with-vendor-prefix
  * @author tkende
  *
  */
-@Rule(key = "known-properties", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
+@Rule(key = "vendor-prefix", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
 @BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
-public class KnownProperties extends SquidCheck<LexerlessGrammar> {
+public class VendorPrefixWithStandard extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.property);
+    subscribeTo(CssGrammar.declaration);
   }
 
   @Override
-  public void visitNode(AstNode astNode) {
-    String property = astNode.getTokenValue();
-    if (!CssProperties.isVendor(property) && !CssProperties.PROPERTIES.contains(property)) {
-      getContext().createLineViolation(this, "Unknown property", astNode);
+  public void leaveNode(AstNode astNode) {
+    String property = astNode.getFirstChild(CssGrammar.property).getTokenValue();
+    if (CssProperties.isVendor(property)) {
+      CssP prop = CssP.factory(property);
+      if (!isNextExists(astNode, prop.getName())) {
+        getContext().createLineViolation(this, "No standard property defined after", astNode);
+      }
     }
   }
 
+  private boolean isNextExists(AstNode actual, String propertyName) {
+    AstNode next = actual.getNextSibling();
+    while (next != null) {
+      AstNode property = next.getFirstChild(CssGrammar.property);
+      if (property != null) {
+        String nextProperty = property.getTokenValue();
+        if (propertyName.equalsIgnoreCase(nextProperty)) {
+          return true;
+        }
+      }
+      next = next.getNextSibling();
+    }
+    return false;
+  }
 }
