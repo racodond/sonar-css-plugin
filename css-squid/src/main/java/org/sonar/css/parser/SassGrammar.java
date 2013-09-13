@@ -43,7 +43,7 @@ public enum SassGrammar implements GrammarRuleKey {
   public static LexerlessGrammarBuilder createGrammarBuilder() {
     LexerlessGrammarBuilder b = LexerlessGrammarBuilder.createBasedOn(CssGrammar.createGrammarBuilder());
     // variable declaration + variable
-    b.rule(CssGrammar.statement).override(b.firstOf(varDeclaration, CssGrammar.ruleset, CssGrammar.atRule));
+    b.rule(CssGrammar.statement).override(b.firstOf(varDeclaration, CssGrammar.atRule, CssGrammar.ruleset));
     b.rule(varDeclaration).is(variable, CssGrammar.colon, CssGrammar.value, CssGrammar.semiColon);
     b.rule(variable).is("$", CssGrammar.ident);
     // + nested properties + @*

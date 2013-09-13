@@ -37,7 +37,15 @@ public class AtRulesTest extends TestBase {
             code("@media print {"
               + "      body { font-size: 10pt }"
               + "    }"))
-        ;
+        .matches(
+            code(
+            "@font-face {" +
+              "font-family: 'MyFontFamily';" +
+              "src: url('myfont-webfont.eot') format('embedded-opentype')," +
+              "    url('myfont-webfont.woff') format('woff'), " +
+              "    url('myfont-webfont.ttf')  format('truetype')," +
+              "    url('myfont-webfont.svg#svgFontName') format('svg');" +
+              "}"));
 
   }
 

@@ -164,7 +164,7 @@ public enum CssGrammar implements GrammarRuleKey {
 
   private static void syntax(LexerlessGrammarBuilder b) {
     b.rule(stylesheet).is(whiteSpaces, b.zeroOrMore(statement), eof);
-    b.rule(statement).is(b.firstOf(ruleset, atRule)); // --> add sass variable declaration here:DONE
+    b.rule(statement).is(b.firstOf(atRule, ruleset)); // --> add sass variable declaration here:DONE
     b.rule(atRule).is(atkeyword,
         b.zeroOrMore(any),
         b.firstOf(
