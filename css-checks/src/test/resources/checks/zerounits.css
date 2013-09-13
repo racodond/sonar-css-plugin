@@ -1,0 +1,22 @@
+.mybox {
+    margin: 0px;
+}
+
+.mybox {
+    width: 0%;
+}
+
+.mybox {
+    padding: 10px 0px;
+}
+
+/*The following patterns are okay and do not cause warnings:*/
+
+.mybox {
+    margin: 0;
+}
+
+.mybox {
+    padding: 10px 0;
+}
+
