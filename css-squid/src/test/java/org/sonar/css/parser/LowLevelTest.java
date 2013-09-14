@@ -95,7 +95,7 @@ public class LowLevelTest extends TestBase{
     .matches("0.5em")
     .matches("1ex")
     .matches("-3px")
-    .matches("-12.23wookie")
+    .notMatches("-12.23wookie")
     .notMatches("12.4")
     ;
   }
