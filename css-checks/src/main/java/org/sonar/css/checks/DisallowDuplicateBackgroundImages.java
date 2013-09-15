@@ -19,6 +19,9 @@
  */
 package org.sonar.css.checks;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
@@ -37,6 +40,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
 public class DisallowDuplicateBackgroundImages extends SquidCheck<LexerlessGrammar> {
 
+  Set<String> urls = new HashSet<String>();
+
   @Override
   public void init() {
     subscribeTo(CssGrammar.property);
@@ -44,12 +49,23 @@ public class DisallowDuplicateBackgroundImages extends SquidCheck<LexerlessGramm
 
   @Override
   public void visitNode(AstNode astNode) {
-    if(astNode.getTokenValue().equalsIgnoreCase("background")){
+    if(astNode.getTokenValue().startsWith("background")){
       AstNode func = astNode.getParent().getFirstChild(CssGrammar.value).getFirstChild(CssGrammar.function);
-      if(func!=null && func.getTokenValue().equals("url")){
-        //TODO add function as one rule in grammar
+      if(func!=null && func.getFirstChild(CssGrammar.ident).getTokenValue().equals("url")){
+        String url = getStringValue(func.getFirstChild(CssGrammar.parameters).getFirstChild(CssGrammar.parameter)).replaceAll("['\"]", "");
+        if(!urls.add(url)){
+          getContext().createLineViolation(this, "Disallow duplicate background images", astNode);
+        }
       }
     }
-    getContext().createLineViolation(this, "Disallow regular expression like selectors", astNode);
+  }
+
+  private String getStringValue(AstNode node){
+    AstNode n = node.getFirstChild();
+    String ret = n.getTokenValue();
+    while((n = n.getNextSibling()) != null){
+      ret = ret.concat(n.getTokenValue());
+    }
+    return ret;
   }
 }

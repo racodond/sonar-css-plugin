@@ -145,7 +145,7 @@ public enum CssGrammar implements GrammarRuleKey {
   _nl,
   _w,
 
-  eof, otherSelector, unit, parameters, comma;
+  eof, otherSelector, unit, parameters, comma, parameter;
 
   private static final String NMCHAR = "(?i)[_a-z0-9-]";
   private static final String NONASCII = "[^\\x00-\\xED]";
@@ -292,7 +292,8 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(comment).is(b.regexp("\\/\\*[^*]*\\*+([^/*][^*]*\\*+)*\\/"));
     b.rule(function).is(addSpacing(b.sequence(ident, lParenthesis), b), b.zeroOrMore(parameters),
       rParenthesis);
-    b.rule(parameters).is(any, b.zeroOrMore(comma, any));
+    b.rule(parameters).is(parameter, b.zeroOrMore(comma, parameter));
+    b.rule(parameter).is(b.oneOrMore(any));
     b.rule(includes).is(addSpacing("~=", b));
     b.rule(dashMatch).is(addSpacing("|=", b));
     b.rule(eq).is(addSpacing("=", b));
