@@ -19,18 +19,20 @@
  */
 package org.sonar.plugins.css.cpd;
 
+import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.GenericTokenType;
 import com.sonar.sslr.api.Token;
-import com.sonar.sslr.impl.Lexer;
+import com.sonar.sslr.impl.Parser;
 import net.sourceforge.pmd.cpd.SourceCode;
 import net.sourceforge.pmd.cpd.TokenEntry;
 import net.sourceforge.pmd.cpd.Tokenizer;
 import net.sourceforge.pmd.cpd.Tokens;
-import org.sonar.css.lexer.CssLexer;
+import org.sonar.css.CssConfiguration;
+import org.sonar.css.parser.CssParser;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.io.File;
 import java.nio.charset.Charset;
-import java.util.List;
 
 public class CssTokenizer implements Tokenizer {
 
@@ -41,10 +43,10 @@ public class CssTokenizer implements Tokenizer {
   }
 
   public final void tokenize(SourceCode source, Tokens cpdTokens) {
-    Lexer lexer = CssLexer.create(charset);
     String fileName = source.getFileName();
-    List<Token> tokens = lexer.lex(new File(fileName));
-    for (Token token : tokens) {
+    Parser<LexerlessGrammar> parser = CssParser.create(new CssConfiguration(charset));
+    AstNode result = parser.parse(new File(fileName));
+    for (Token token : result.getTokens()) {
       TokenEntry cpdToken = new TokenEntry(getTokenImage(token), fileName, token.getLine());
       cpdTokens.add(cpdToken);
     }

@@ -19,7 +19,6 @@
  */
 package org.sonar.css.parser;
 
-import org.sonar.css.lexer.CssLexer;
 import com.sonar.sslr.api.GenericTokenType;
 import org.sonar.sslr.grammar.GrammarRuleKey;
 import org.sonar.sslr.grammar.LexerlessGrammarBuilder;
@@ -153,6 +152,8 @@ public enum CssGrammar implements GrammarRuleKey {
   public static final String WHITESPACE = "[ \\t\\r\\n\\f]+";
   public static final String IDENTIFIER = NMSTART + NMCHAR.replace("\\(\\?i\\)", "") + "*";
   public static final String LITERAL = "\"[^\"]*?\"|'[^']*?'";
+  public static final String COMMENT = "(?:/\\*[\\s\\S]*?\\*/)";
+  public static final String COMMENT2 = "(?:\\<\\!--[\\s\\S]*?--\\>)";
 
   public static LexerlessGrammar createGrammar() {
     return createGrammarBuilder().build();
@@ -287,8 +288,8 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(whiteSpaces).is(b.zeroOrMore(
         b.firstOf(
             b.skippedTrivia(whiteSpace),
-            b.commentTrivia(b.regexp(CssLexer.COMMENT)), // --> add sass // comment here
-            b.commentTrivia(b.regexp(CssLexer.COMMENT2))))).skip();
+            b.commentTrivia(b.regexp(COMMENT)), // --> add sass // comment here
+            b.commentTrivia(b.regexp(COMMENT2))))).skip();
     b.rule(comment).is(b.regexp("\\/\\*[^*]*\\*+([^/*][^*]*\\*+)*\\/"));
     b.rule(function).is(addSpacing(b.sequence(ident, lParenthesis), b), b.zeroOrMore(parameters),
         rParenthesis);

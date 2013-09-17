@@ -19,8 +19,6 @@
  */
 package org.sonar.plugins.css.cpd;
 
-import org.junit.Ignore;
-
 import net.sourceforge.pmd.cpd.SourceCode;
 import net.sourceforge.pmd.cpd.TokenEntry;
 import net.sourceforge.pmd.cpd.Tokens;
@@ -35,7 +33,6 @@ import static org.mockito.Mockito.when;
 
 public class CssTokenizerTest {
 
-  @Ignore
   @Test
   public void test() {
     CssTokenizer tokenizer = new CssTokenizer(Charset.forName("UTF-8"));
