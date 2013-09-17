@@ -19,25 +19,27 @@
  */
 package org.sonar.plugins.css;
 
-import org.sonar.api.component.ResourcePerspectives;
+import org.sonar.api.rules.ActiveRule;
 
-import javax.annotation.Nullable;
-
+import org.sonar.api.rule.RuleKey;
+import org.sonar.core.issue.DefaultIssueBuilder;
+import org.sonar.api.issue.Issue;
 import com.google.common.collect.Lists;
 import com.sonar.sslr.squid.AstScanner;
 import com.sonar.sslr.squid.SquidAstVisitor;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.checks.AnnotationCheckFactory;
+import org.sonar.api.component.ResourcePerspectives;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.File;
-import org.sonar.api.resources.InputFileUtils;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.Violation;
+import org.sonar.api.scan.filesystem.FileQuery;
+import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.css.CssAstScanner;
-import org.sonar.css.CssConfiguration;
 import org.sonar.css.api.CssMetric;
 import org.sonar.css.checks.CheckList;
 import org.sonar.plugins.css.core.Css;
@@ -58,13 +60,14 @@ public class CssSquidSensor implements Sensor {
   private Project project;
   private SensorContext context;
   private AstScanner<LexerlessGrammar> scanner;
-
   private ResourcePerspectives resourcePerspectives;
+  private ModuleFileSystem moduleFileSystem;
 
-  public CssSquidSensor(RulesProfile profile, FileLinesContextFactory fileLinesContextFactory, ResourcePerspectives resourcePerspectives) {
+  public CssSquidSensor(RulesProfile profile, FileLinesContextFactory fileLinesContextFactory, ResourcePerspectives resourcePerspectives, ModuleFileSystem moduleFileSystem) {
     this.annotationCheckFactory = AnnotationCheckFactory.create(profile,
         CheckList.REPOSITORY_KEY, CheckList.getChecks());
     this.resourcePerspectives = resourcePerspectives;
+    this.moduleFileSystem = moduleFileSystem;
   }
 
   public boolean shouldExecuteOnProject(Project project) {
@@ -79,7 +82,7 @@ public class CssSquidSensor implements Sensor {
     List<SquidAstVisitor<LexerlessGrammar>> visitors = Lists.newArrayList(squidChecks);
     this.scanner = CssAstScanner.create(project, resourcePerspectives, visitors
         .toArray(new SquidAstVisitor[visitors.size()]));
-    scanner.scanFiles(InputFileUtils.toFiles(project.getFileSystem().mainFiles(Css.KEY)));
+    scanner.scanFiles(moduleFileSystem.files(FileQuery.onSource()));
 
     Collection<SourceCode> squidSourceFiles = scanner.getIndex().search(
         new QueryByType(SourceFile.class));
@@ -110,8 +113,11 @@ public class CssSquidSensor implements Sensor {
     Collection<CheckMessage> messages = squidFile.getCheckMessages();
     if (messages != null) {
       for (CheckMessage message : messages) {
+        ActiveRule activeRule = annotationCheckFactory.getActiveRule(message.getCheck());
+        /*Issue issue = new DefaultIssueBuilder()
+        .ruleKey(RuleKey.of(activeRule.getRepositoryKey(), activeRule.getRuleKey())).build();*/
         Violation violation = Violation.create(
-            annotationCheckFactory.getActiveRule(message.getCheck()), sonarFile)
+            activeRule, sonarFile)
             .setLineId(message.getLine()).setMessage(message.getText(Locale.ENGLISH));
         context.saveViolation(violation);
       }

@@ -22,7 +22,7 @@ package org.sonar.plugins.css.cpd;
 import net.sourceforge.pmd.cpd.Tokenizer;
 import org.sonar.api.batch.AbstractCpdMapping;
 import org.sonar.api.resources.Language;
-import org.sonar.api.resources.ProjectFileSystem;
+import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.plugins.css.core.Css;
 
 import java.nio.charset.Charset;
@@ -32,9 +32,9 @@ public class CssCpdMapping extends AbstractCpdMapping {
   private final Css language;
   private final Charset charset;
 
-  public CssCpdMapping(Css language, ProjectFileSystem fs) {
+  public CssCpdMapping(Css language, ModuleFileSystem fs) {
     this.language = language;
-    this.charset = fs.getSourceCharset();
+    this.charset = fs.sourceCharset();
   }
 
   public Tokenizer getTokenizer() {
