@@ -25,10 +25,8 @@ import org.sonar.api.Properties;
 import org.sonar.api.Property;
 import org.sonar.api.SonarPlugin;
 import org.sonar.plugins.css.checks.CssChecksRuleRepository;
-import org.sonar.plugins.css.colorizer.CssColorizerFormat;
 import org.sonar.plugins.css.core.Css;
 import org.sonar.plugins.css.core.CssSourceImporter;
-import org.sonar.plugins.css.cpd.CssCpdMapping;
 
 @Properties({
   @Property(
@@ -47,7 +45,6 @@ public class CssPlugin extends SonarPlugin {
     return ImmutableList.of(
       Css.class,
       CssSourceImporter.class,
-     // CssColorizerFormat.class,
 
      // CssCpdMapping.class,
 
