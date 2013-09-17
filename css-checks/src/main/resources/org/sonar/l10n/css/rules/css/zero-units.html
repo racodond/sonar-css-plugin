@@ -1,0 +1,7 @@
+<h2>Disallow units for zero values</h2>
+<p>
+The value of 0 works without specifying units in all situations where numbers with units or percentages are allowed. There is no difference between 0px, 0em, 0%, or any other zero-value. The units aren't important because the value is still zero. CSS allows you to omit the units for zero values and still remain valid CSS.
+</p><p>
+It's recommended to remove units for all zero values because these units aren't being used by the browser and therefore can be safely removed to save bytes.
+</p>
+<p>Find more details <a href="https://github.com/stubbornella/csslint/wiki/Disallow-units-for-zero-values">here</a></p>

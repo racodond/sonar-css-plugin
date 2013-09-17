@@ -33,7 +33,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -47,38 +46,47 @@ import java.util.Set;
 @BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
 public class CompatibleVendorPrefixes extends SquidCheck<LexerlessGrammar> {
 
+  Map<String, Set<String>> properties = new HashMap<String, Set<String>>();
+
   @Override
   public void init() {
-    subscribeTo(CssGrammar.ruleset);
+    subscribeTo(CssGrammar.ruleset, CssGrammar.declaration);
+  }
+
+  @Override
+  public void visitNode(AstNode astNode) {
+    if (astNode.is(CssGrammar.ruleset)) {
+      properties.clear();
+    } else if (astNode.is(CssGrammar.declaration)) {
+      String property = astNode.getFirstChild(CssGrammar.property).getTokenValue();
+      if (CssProperties.isVendor(property)) {
+        CssP p = CssP.factory(property);
+        if (properties.containsKey(p.getName())) {
+          properties.get(p.getName()).add(p.getVendor());
+        } else {
+          properties.put(p.getName(), new HashSet<String>());
+          properties.get(p.getName()).add(p.getVendor());
+        }
+      }
+    }
   }
 
   @Override
   public void leaveNode(AstNode astNode) {
     if (astNode != null) {
-      List<AstNode> declarations = astNode.getFirstChild(CssGrammar.block).getChildren(CssGrammar.declaration);
-      Map<String, Set<String>> properties = new HashMap<String, Set<String>>();
-      for (AstNode declaration : declarations) {
-        String property = declaration.getFirstChild(CssGrammar.property).getTokenValue();
-        if (CssProperties.isVendor(property)) {
-          CssP p = CssP.factory(property);
-          if (properties.containsKey(p.getName())) {
-            properties.get(p.getName()).add(p.getVendor());
-          } else {
-            properties.put(p.getName(), new HashSet<String>());
-            properties.get(p.getName()).add(p.getVendor());
-          }
-        }
-      }
-      for (Entry<String, Set<String>> props : properties.entrySet()) {
-        CssProperty p = CssProperties.getProperty(props.getKey());
-        //If p is null it is an unknown vendor property
-        if (p != null) {
-          for (String vendor : p.getVendors()) {
-            if (!props.getValue().contains(vendor)) {
-              getContext().createLineViolation(this, "Missing vendor: -" + vendor + " for property: " + props.getKey(), astNode);
+      if (astNode.is(CssGrammar.ruleset)) {
+        for (Entry<String, Set<String>> props : properties.entrySet()) {
+          CssProperty p = CssProperties.getProperty(props.getKey());
+       // If p is null it is an unknown vendor property
+          if (p != null) {
+            for (String vendor : p.getVendors()) {
+              if (!props.getValue().contains(vendor)) {
+                getContext().createLineViolation(this, "Missing vendor: -" + vendor + " for property: " + props.getKey(), astNode);
+              }
             }
           }
         }
+        System.out.println();
       }
     }
 

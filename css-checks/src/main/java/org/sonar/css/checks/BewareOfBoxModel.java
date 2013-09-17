@@ -21,6 +21,8 @@ package org.sonar.css.checks;
 
 import com.google.common.collect.ImmutableList;
 
+import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 
 import com.sonar.sslr.api.AstNode;
@@ -49,54 +51,94 @@ public class BewareOfBoxModel extends SquidCheck<LexerlessGrammar> {
       "border", "border-top", "border-bottom", "padding", "padding-top", "padding-bottom"
       );
 
+  private EnumSet<Combinations> combinations;
+
   @Override
   public void init() {
-    subscribeTo(CssGrammar.ruleset);
+    subscribeTo(CssGrammar.ruleset, CssGrammar.declaration);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    List<AstNode> declarations = astNode.getFirstChild(CssGrammar.block).getChildren(CssGrammar.declaration);
-    int widthOrHeight = isWidthOrHeight(declarations);
-    if (widthOrHeight > 0 && !isBoxSizing(declarations)) {
-      if (isOtherUsed(widthOrHeight, declarations)) {
+    if (astNode.is(CssGrammar.ruleset)) {
+      combinations = EnumSet.noneOf(Combinations.class);
+    } else if (astNode.is(CssGrammar.declaration)) {
+      if (isBoxSizing(astNode)) {
+        combinations.clear();
+        combinations.add(Combinations.IS_BOX_SIZING);
+      }
+      if (!combinations.contains(Combinations.IS_BOX_SIZING)) {
+        if (!combinations.contains(Combinations.WIDTH_FOUND) && isWidth(astNode)) {
+          combinations.add(Combinations.WIDTH_FOUND);
+        } else if (!combinations.contains(Combinations.HEIGHT_FOUND) && isHeight(astNode)) {
+          combinations.add(Combinations.HEIGHT_FOUND);
+        }
+        if (isWidthSizing(astNode)) {
+          combinations.add(Combinations.WIDTH_SIZING);
+        }
+        if (isHeightSizing(astNode)) {
+          combinations.add(Combinations.HEIGHT_SIZING);
+        }
+      }
+    }
+  }
+
+  @Override
+  public void leaveNode(AstNode astNode) {
+    if (astNode.is(CssGrammar.ruleset)) {
+      if (combinations.containsAll(Arrays.asList(Combinations.WIDTH_FOUND, Combinations.WIDTH_SIZING))
+        || combinations.containsAll(Arrays.asList(Combinations.HEIGHT_FOUND, Combinations.HEIGHT_SIZING))) {
         getContext().createLineViolation(this, "Possible box sizing issue", astNode);
       }
     }
   }
 
-  private boolean isOtherUsed(int widthOrHeight, List<AstNode> declarations) {
-    List<String> others = (widthOrHeight == 1) ? heightSizing : widthSizing;
-    for (AstNode astNode : declarations) {
-      String property = astNode.getFirstChild(CssGrammar.property).getTokenValue();
-      String value = astNode.getFirstChild(CssGrammar.value).getTokenValue();
-      if (others.contains(property) && !"none".equalsIgnoreCase(value)) {
-        return true;
-      }
-    }
-    return false;
+  private boolean isWidthSizing(AstNode astNode) {
+    return isOtherUsed(widthSizing, astNode);
   }
 
-  private boolean isBoxSizing(List<AstNode> declarations) {
-    for (AstNode astNode : declarations) {
-      String property = astNode.getFirstChild(CssGrammar.property).getTokenValue();
-      if ("box-sizing".equalsIgnoreCase(property)) {
-        return "border-box".equalsIgnoreCase(astNode.getFirstChild(CssGrammar.value).getTokenValue());
-      }
-    }
-    return false;
+  private boolean isHeightSizing(AstNode astNode) {
+    return isOtherUsed(heightSizing, astNode);
   }
 
-  private int isWidthOrHeight(List<AstNode> declarations) {
-    for (AstNode astNode : declarations) {
-      String property = astNode.getFirstChild(CssGrammar.property).getToken().getValue();
-      if ("height".equalsIgnoreCase(property)) {
-        return 1;
-      } else if ("width".equalsIgnoreCase(property)) {
-        return 2;
-      }
+  private boolean isOtherUsed(List<String> props, AstNode declaration) {
+    String property = declaration.getFirstChild(CssGrammar.property).getTokenValue();
+    String value = declaration.getFirstChild(CssGrammar.value).getTokenValue();
+    return (props.contains(property) && !"none".equalsIgnoreCase(value));
+  }
+
+  private boolean isBoxSizing(AstNode declaration) {
+    String property = declaration.getFirstChild(CssGrammar.property).getTokenValue();
+    return "box-sizing".equalsIgnoreCase(property);
+    /*
+     * if ("box-sizing".equalsIgnoreCase(property)) {
+     * return "border-box".equalsIgnoreCase(declaration.getFirstChild(CssGrammar.value).getTokenValue());
+     * }
+     */
+  }
+
+  private boolean isWidth(AstNode astNode) {
+    return Combinations.WIDTH_FOUND.equals(isWidthOrHeight(astNode));
+  }
+
+  private boolean isHeight(AstNode astNode) {
+    return Combinations.HEIGHT_FOUND.equals(isWidthOrHeight(astNode));
+  }
+
+  private Combinations isWidthOrHeight(AstNode declaration) {
+    String property = declaration.getFirstChild(CssGrammar.property).getToken().getValue();
+    if ("height".equalsIgnoreCase(property)) {
+      return Combinations.HEIGHT_FOUND;
+    } else if ("width".equalsIgnoreCase(property)) {
+      return Combinations.WIDTH_FOUND;
     }
-    return 0;
+    return null;
+  }
+
+  private enum Combinations {
+    WIDTH_FOUND, WIDTH_SIZING,
+    HEIGHT_FOUND, HEIGHT_SIZING,
+    IS_BOX_SIZING;
   }
 
 }

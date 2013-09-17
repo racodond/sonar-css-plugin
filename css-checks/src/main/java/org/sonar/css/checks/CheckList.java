@@ -35,13 +35,28 @@ public final class CheckList {
   @SuppressWarnings("rawtypes")
   public static Collection<Class> getChecks() {
     return ImmutableList.<Class> of(
-      BewareOfBoxModel.class,
-      DisallowEmptyRules.class,
-      DisplayPropertyGrouping.class,
-      DuplicateProperties.class,
-      KnownProperties.class,
-      CompatibleVendorPrefixes.class
-      );
+        AllGradientDefinitions.class,
+        BulletproofFontFace.class,
+        BewareOfBoxModel.class,
+        CompatibleVendorPrefixes.class,
+        DisallowDuplicateBackgroundImages.class,
+        DisallowEmptyRules.class,
+        DisallowIdsInSelectors.class,
+        DisallowImport.class,
+        DisallowOverqualifiedElements.class,
+        DisallowSelectorsLikeRegEx.class,
+        DisallowStarHack.class,
+        DisallowUnderscoreHack.class,
+        DisallowUnitsForZeroValues.class,
+        DisallowUniversalSelector.class,
+        DisplayPropertyGrouping.class,
+        DuplicateProperties.class,
+        KnownProperties.class,
+        ShorthandProperties.class,
+        TooManyWebFonts.class,
+        VendorPrefixWithStandard.class
+        );
   }
 
 }
+

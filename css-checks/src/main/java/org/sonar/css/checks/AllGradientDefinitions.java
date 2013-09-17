@@ -30,6 +30,7 @@ import org.sonar.css.parser.CssGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -49,41 +50,44 @@ public class AllGradientDefinitions extends SquidCheck<LexerlessGrammar> {
       "-webkit-gradient.*");
 
   private static String gradientMatcher = "-(ms|o|moz|webkit)-.*gradient.*";
+  private List<String> gradientsFound;
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.ruleset);
+    subscribeTo(CssGrammar.ruleset, CssGrammar.declaration);
   }
-  //Refactor to use multiple visitor (like Shorthand properties)
+
+  @Override
+  public void visitNode(AstNode astNode) {
+    if (astNode.is(CssGrammar.ruleset)) {
+      gradientsFound = new ArrayList<String>(gradients);
+    } else if (astNode.is(CssGrammar.declaration)) {
+      String value = astNode.getFirstChild(CssGrammar.value).getTokenValue();
+      if (value.matches(gradientMatcher)) {
+        removeMatch(value);
+      }
+    }
+  }
+
   @Override
   public void leaveNode(AstNode astNode) {
     if (astNode != null) {
-      List<AstNode> declarations = astNode.getFirstChild(CssGrammar.block).getChildren(CssGrammar.declaration);
-      List<String> usedGradients = new ArrayList<String>();
-      for (AstNode declaration : declarations) {
-        String value = declaration.getFirstChild(CssGrammar.value).getTokenValue();
-        if (value.startsWith("-")) {
-          if (value.matches(gradientMatcher)) {
-            usedGradients.add(value);
-          }
-        }
-      }
-      for (String exptected : gradients) {
-        if(!findMatch(usedGradients, exptected)){
+      if (astNode.is(CssGrammar.ruleset)) {
+        for (String exptected : gradientsFound) {
           getContext().createLineViolation(this, "Missing gradient: " + exptected, astNode);
         }
-      }
 
+      }
     }
   }
 
-  private boolean findMatch(List<String> used, String defined) {
-    for (String use : used) {
-      if (use.matches(defined)) {
-        return true;
+  private void removeMatch(String value) {
+    Iterator<String> gradientIt = gradientsFound.iterator();
+    while (gradientIt.hasNext()) {
+      if (value.matches(gradientIt.next())) {
+        gradientIt.remove();
       }
     }
-    return false;
   }
 
 }

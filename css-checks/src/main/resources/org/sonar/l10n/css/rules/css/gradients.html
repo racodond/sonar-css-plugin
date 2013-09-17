@@ -1,0 +1,20 @@
+<h2>Require all gradient definitions</h2>
+<p>
+As of December 2011, there is still no standard CSS gradient implementation, which means using CSS gradients in a cross-browser way requires using many different vendor-prefixed versions. There are currently five different vendor-prefixed versions of CSS gradient:
+<ul>
+  <li>-ms-linear-gradient and -ms-radial-gradient for Internet Explorer 10+</li>
+  <li>-moz-linear-gradient and -moz-radial-gradient for Firefox 3.6+</li>
+  <li>-o-linear-gradient and -o-radial-gradient for Opera 11.10+</li>
+  <li>-webkit-linear-gradient and -webkit-radial-gradient for Safari 5+ and Chrome</li>
+  <li>-webkit-gradient for Safari 4+ and Chrome (aka "Old WebKit")</li>
+</ul>
+Meaning a simple two-color gradient that works across all browsers must look like this:
+</p>
+<pre>
+background: -moz-linear-gradient(top,  #1e5799 0%, #7db9e8 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #1e5799 0%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #1e5799 0%,#7db9e8 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #1e5799 0%,#7db9e8 100%); /* IE10+ */
+</pre>
+<p>Find more details <a href="https://github.com/stubbornella/csslint/wiki/Require-all-gradient-definitions">here</a></p>

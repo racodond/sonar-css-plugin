@@ -1,3 +1,22 @@
+/*
+ * Sonar CSS Plugin
+ * Copyright (C) 2013 Tamas Kende
+ * kende.tamas@gmail.com
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
+ */
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
@@ -35,11 +54,14 @@ public class BulletproofFontFace extends SquidCheck<LexerlessGrammar> {
       for (AstNode declaration : declarations) {
         if(declaration.getFirstChild(CssGrammar.property)
             .getTokenValue().equals("src")){
-          String firstAnyFunciontValue = declaration.getFirstChild(CssGrammar.value).getFirstChild(CssGrammar.any)
-              .getFirstChild(CssGrammar.string).getTokenValue();
+          String firstAnyFunciontValue = declaration.getFirstChild(CssGrammar.value)
+              .getFirstChild(CssGrammar.function).getFirstChild(CssGrammar.parameters)
+              .getFirstDescendant(CssGrammar.string).getTokenValue();
           if(!firstAnyFunciontValue.matches(".*\\.eot\\?.*?['\"]$")){
             getContext().createLineViolation(this, "First web font has missing query string or it is not eot", astNode);
           }
+          //We only care about the first function
+          return;
         }
       }
     }

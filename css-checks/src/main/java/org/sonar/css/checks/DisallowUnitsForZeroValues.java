@@ -29,11 +29,11 @@ import org.sonar.css.parser.CssGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
- * https://github.com/stubbornella/csslint/wiki/Disallow-universal-selector
+ * https://github.com/stubbornella/csslint/wiki/Disallow-units-for-zero-values
  * @author tkende
  *
  */
-@Rule(key = "universal-selector", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
+@Rule(key = "zero-units", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
 @BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
 public class DisallowUnitsForZeroValues extends SquidCheck<LexerlessGrammar> {
 
