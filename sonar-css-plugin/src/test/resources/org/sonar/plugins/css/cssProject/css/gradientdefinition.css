@@ -1,0 +1,12 @@
+/* Missing -moz, -ms, and -o */
+.mybox {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(100%,#7db9e8));
+    background: -webkit-linear-gradient(top,  #1e5799 0%,#7db9e8 100%);
+}
+
+/* Missing old and new -webkit */
+.mybox {
+    background: -moz-linear-gradient(top,  #1e5799 0%, #7db9e8 100%);
+    background: -o-linear-gradient(top,  #1e5799 0%,#7db9e8 100%);
+    background: -ms-linear-gradient(top,  #1e5799 0%,#7db9e8 100%);
+}

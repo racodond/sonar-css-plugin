@@ -1,0 +1,13 @@
+* {
+    color: red;
+}
+
+.selected * {
+    color: red;
+}
+
+/* universal selector is not key */
+.selected * a {
+    color: red;
+}
+
