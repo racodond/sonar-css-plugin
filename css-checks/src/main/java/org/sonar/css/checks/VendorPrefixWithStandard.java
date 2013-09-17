@@ -47,7 +47,7 @@ public class VendorPrefixWithStandard extends SquidCheck<LexerlessGrammar> {
   @Override
   public void leaveNode(AstNode astNode) {
     String property = astNode.getFirstChild(CssGrammar.property).getTokenValue();
-    if (CssProperties.isVendor(property)) {
+    if (CssProperties.isVendor(property) && CssProperties.getProperty(property) != null) {
       CssP prop = CssP.factory(property);
       if (!isNextExists(astNode, prop.getName())) {
         getContext().createLineViolation(this, "No standard property defined after", astNode);

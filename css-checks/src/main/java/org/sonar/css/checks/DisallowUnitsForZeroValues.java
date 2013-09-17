@@ -44,8 +44,9 @@ public class DisallowUnitsForZeroValues extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.getFirstChild(CssGrammar.number).getTokenValue().equals("0")) {
-      getContext().createLineViolation(this, "Disallow zero valus with units", astNode);
+    if (astNode.getFirstChild(CssGrammar.number).getTokenValue().equals("0")
+        && !astNode.hasAncestor(CssGrammar.function)) {
+      getContext().createLineViolation(this, "Disallow zero values with units", astNode);
     }
   }
 

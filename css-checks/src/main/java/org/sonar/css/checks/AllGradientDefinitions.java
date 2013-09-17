@@ -73,10 +73,11 @@ public class AllGradientDefinitions extends SquidCheck<LexerlessGrammar> {
   public void leaveNode(AstNode astNode) {
     if (astNode != null) {
       if (astNode.is(CssGrammar.ruleset)) {
-        for (String exptected : gradientsFound) {
-          getContext().createLineViolation(this, "Missing gradient: " + exptected, astNode);
+        if (gradientsFound.size() != gradients.size()) {
+          for (String exptected : gradientsFound) {
+            getContext().createLineViolation(this, "Missing gradient: " + exptected, astNode);
+          }
         }
-
       }
     }
   }

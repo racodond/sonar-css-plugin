@@ -40,4 +40,12 @@ public class DisallowOverqualifiedElementsTest {
         .noMore();
   }
 
+  @Test
+  public void test_n() {
+    DisallowOverqualifiedElements check = new DisallowOverqualifiedElements();
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+        "src/test/resources/checks/duplicatedProperties.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
+  }
+
 }

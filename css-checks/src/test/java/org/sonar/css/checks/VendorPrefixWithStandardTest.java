@@ -39,4 +39,14 @@ public class VendorPrefixWithStandardTest {
     .noMore();
   }
 
+  @Test
+  public void test_n() {
+    VendorPrefixWithStandard check = new VendorPrefixWithStandard();
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+        "src/test/resources/checks/vendorprefixes.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+    .atLine(12).withMessage("No standard property defined after").next()
+    .atLine(17).withMessage("No standard property defined after").noMore();
+  }
+
 }
