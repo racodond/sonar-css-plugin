@@ -15,3 +15,8 @@ p.active2 {
     color: green;
 }
 
+.button:active,.link-goto:active {
+}
+
+.a-we,.z-b>a,.a-c>a{
+}

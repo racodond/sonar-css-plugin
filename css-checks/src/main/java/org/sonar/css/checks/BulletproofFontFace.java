@@ -52,15 +52,17 @@ public class BulletproofFontFace extends SquidCheck<LexerlessGrammar> {
         .getFirstChild(CssGrammar.ident).getTokenValue().equals("font-face")) {
       List<AstNode> declarations = astNode.getChildren(CssGrammar.declaration);
       for (AstNode declaration : declarations) {
-        if(declaration.getFirstChild(CssGrammar.property)
-            .getTokenValue().equals("src")){
-          String firstAnyFunciontValue = declaration.getFirstChild(CssGrammar.value)
-              .getFirstChild(CssGrammar.function).getFirstChild(CssGrammar.parameters)
-              .getFirstDescendant(CssGrammar.string).getTokenValue();
-          if(!firstAnyFunciontValue.matches(".*\\.eot\\?.*?['\"]$")){
+        if (declaration.getFirstChild(CssGrammar.property)
+            .getTokenValue().equals("src")) {
+          String firstAnyFunciontValue = CssChecksUtil.getStringValue(
+              declaration.getFirstChild(CssGrammar.value)
+                  .getFirstChild(CssGrammar.function)
+                  .getFirstChild(CssGrammar.parameters)
+                  .getFirstDescendant(CssGrammar.parameter));
+          if (!firstAnyFunciontValue.matches(".*\\.eot\\?.*?['\"]?$")) {
             getContext().createLineViolation(this, "First web font has missing query string or it is not eot", astNode);
           }
-          //We only care about the first function
+          // We only care about the first function
           return;
         }
       }
