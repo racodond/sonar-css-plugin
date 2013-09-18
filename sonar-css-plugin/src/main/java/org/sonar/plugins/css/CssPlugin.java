@@ -27,6 +27,7 @@ import org.sonar.api.SonarPlugin;
 import org.sonar.plugins.css.checks.CssChecksRuleRepository;
 import org.sonar.plugins.css.core.Css;
 import org.sonar.plugins.css.core.CssSourceImporter;
+import org.sonar.plugins.css.cpd.CssCpdMapping;
 
 @Properties({
   @Property(
@@ -46,7 +47,7 @@ public class CssPlugin extends SonarPlugin {
       Css.class,
       CssSourceImporter.class,
 
-     // CssCpdMapping.class,
+      CssCpdMapping.class,
 
       CssSquidSensor.class,
 

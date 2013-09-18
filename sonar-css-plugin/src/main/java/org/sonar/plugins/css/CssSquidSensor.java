@@ -19,11 +19,6 @@
  */
 package org.sonar.plugins.css;
 
-import org.sonar.api.rules.ActiveRule;
-
-import org.sonar.api.rule.RuleKey;
-import org.sonar.core.issue.DefaultIssueBuilder;
-import org.sonar.api.issue.Issue;
 import com.google.common.collect.Lists;
 import com.sonar.sslr.squid.AstScanner;
 import com.sonar.sslr.squid.SquidAstVisitor;
@@ -36,6 +31,7 @@ import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.File;
 import org.sonar.api.resources.Project;
+import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.rules.Violation;
 import org.sonar.api.scan.filesystem.FileQuery;
 import org.sonar.api.scan.filesystem.ModuleFileSystem;
