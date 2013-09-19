@@ -87,8 +87,9 @@ public final class CssAstScanner {
 
     builder.withSquidAstVisitor(CommentsVisitor.<LexerlessGrammar> builder().withCommentMetric(
       CssMetric.COMMENT_LINES)
-      .withBlankCommentMetric(CssMetric.COMMENT_BLANK_LINES).withNoSonar(true)
-      .withIgnoreHeaderComment(false).build());
+      .withBlankCommentMetric(CssMetric.COMMENT_BLANK_LINES)
+      .withNoSonar(true)
+      .withIgnoreHeaderComment(conf.getIgnoreHeaderComments()).build());
 
     /* Files */
     builder.setFilesMetric(CssMetric.FILES);
@@ -117,10 +118,7 @@ public final class CssAstScanner {
     /* Metrics */
     builder.withSquidAstVisitor(new LinesVisitor<LexerlessGrammar>(CssMetric.LINES));
     builder.withSquidAstVisitor(new LinesOfCodeVisitor<LexerlessGrammar>(CssMetric.LINES_OF_CODE));
-    builder.withSquidAstVisitor(CommentsVisitor.<LexerlessGrammar> builder().withCommentMetric(CssMetric.COMMENT_LINES)
-      .withNoSonar(true)
-      .withIgnoreHeaderComment(conf.getIgnoreHeaderComments())
-      .build());
+
 
     /* Syntax highlighter */
     if (resourcePerspectives != null && project != null) {

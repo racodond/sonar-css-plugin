@@ -60,7 +60,6 @@ public enum CssGrammar implements GrammarRuleKey {
   property,
   value,
   any,
-  unused,
 
   ident,
   atkeyword,
@@ -74,8 +73,6 @@ public enum CssGrammar implements GrammarRuleKey {
   dimension,
   uri,
   unicodeRange,
-  // cdo,
-  // cdc,
 
   colon,
   semiColon,
@@ -241,14 +238,6 @@ public enum CssGrammar implements GrammarRuleKey {
                     percentage, dimension, string,
                     uri, hash, unicodeRange, includes, dashMatch,
                     ident, number, colon, important, delim), b)).skipIfOneChild();
-    // b.rule(unused).is(
-    // b.firstOf(block, b.sequence(atkeyword, whiteSpaces),
-    // b.sequence(semiColon, whiteSpaces)/*
-    // * ,
-    // * b.sequence(cdo, whiteSpaces),
-    // * b.sequence(cdc, whiteSpaces)
-    // */));
-
     b.rule(eof).is(b.token(GenericTokenType.EOF, b.endOfInput())).skip();
 
   }
@@ -257,9 +246,9 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(ident).is(addSpacing(_ident, b));
     b.rule(atkeyword).is(addSpacing(b.sequence("@", ident), b));
     b.rule(string).is(addSpacing(_string, b));
-    b.rule(bad_string).is(_badString);
-    b.rule(bad_uri).is(_baduri);
-    b.rule(bad_comment).is(_badcomment);
+    b.rule(bad_string).is(_badString);    //TODO: do we need this?
+    b.rule(bad_uri).is(_baduri);          //TODO: do we need this?
+    b.rule(bad_comment).is(_badcomment);  //TODO: do we need this?
     b.rule(hash).is(addSpacing(b.sequence("#", _name), b));
     b.rule(number).is(addSpacing(_num, b));
     b.rule(percentage).is(addSpacing(b.sequence(number, "%"), b));
@@ -273,8 +262,6 @@ public enum CssGrammar implements GrammarRuleKey {
                     _escape)), _w, rParenthesis)), b));
     b.rule(unicodeRange)
         .is(addSpacing(b.regexp("u\\+[0-9a-f?]{1,6}(-[0-9a-f]{1,6})?"), b));
-    // b.rule(cdo).is("<!--");
-    // b.rule(cdc).is("-->");
     b.rule(colon).is(addSpacing(":", b));
     b.rule(semiColon).is(addSpacing(";", b));
     b.rule(lCurlyBracket).is(addSpacing("{", b));
