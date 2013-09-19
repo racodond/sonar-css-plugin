@@ -62,8 +62,14 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
     ImmutableMap.Builder<AstNodeType, String> typesBuilder = ImmutableMap.builder();
     typesBuilder.put(CssGrammar.string, "s");
     typesBuilder.put(CssGrammar.value, "s");
-    typesBuilder.put(CssGrammar.property, "k");
-    typesBuilder.put(CssGrammar.selector, "k");
+    typesBuilder.put(CssGrammar.property, "c");
+    typesBuilder.put(CssGrammar.typeSelector, "k");
+    typesBuilder.put(CssGrammar.universalSelector, "k");
+    typesBuilder.put(CssGrammar.classSelector, "h");
+    typesBuilder.put(CssGrammar.pseudo, "h");
+    typesBuilder.put(CssGrammar.attributeSelector, "h");
+    typesBuilder.put(CssGrammar.idSelector, "h");
+    typesBuilder.put(CssGrammar.atkeyword, "p");
     types = typesBuilder.build();
   }
 

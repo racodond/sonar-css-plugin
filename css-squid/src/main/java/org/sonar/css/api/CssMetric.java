@@ -47,7 +47,7 @@ public enum CssMetric implements MetricDef {
   }
 
   public boolean isThereAggregationFormula() {
-    return false;
+    return true;
   }
 
   public CalculatedMetricFormula getCalculatedMetricFormula() {
