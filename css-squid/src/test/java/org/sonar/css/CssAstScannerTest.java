@@ -51,7 +51,6 @@ public class CssAstScannerTest {
   public void comments() {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
         "src/test/resources/metrics/metric.css"));
-    assertThat(file.getInt(CssMetric.COMMENT_BLANK_LINES)).isEqualTo(5);
     assertThat(file.getInt(CssMetric.COMMENT_LINES)).isEqualTo(2);
     assertThat(file.getNoSonarTagLines()).contains(10);
     assertThat(file.getNoSonarTagLines().size()).isEqualTo(1);

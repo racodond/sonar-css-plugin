@@ -19,9 +19,6 @@
  */
 package org.sonar.css;
 
-import org.sonar.api.resources.Project;
-import org.sonar.api.component.ResourcePerspectives;
-import org.sonar.css.ast.visitors.SyntaxHighlighterVisitor;
 import com.google.common.base.Charsets;
 import com.sonar.sslr.impl.Parser;
 import com.sonar.sslr.squid.AstScanner;
@@ -31,7 +28,10 @@ import com.sonar.sslr.squid.metrics.CommentsVisitor;
 import com.sonar.sslr.squid.metrics.CounterVisitor;
 import com.sonar.sslr.squid.metrics.LinesOfCodeVisitor;
 import com.sonar.sslr.squid.metrics.LinesVisitor;
+import org.sonar.api.component.ResourcePerspectives;
+import org.sonar.api.resources.Project;
 import org.sonar.css.api.CssMetric;
+import org.sonar.css.ast.visitors.SyntaxHighlighterVisitor;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.css.parser.CssParser;
 import org.sonar.squid.api.SourceCode;
@@ -87,7 +87,6 @@ public final class CssAstScanner {
 
     builder.withSquidAstVisitor(CommentsVisitor.<LexerlessGrammar> builder().withCommentMetric(
       CssMetric.COMMENT_LINES)
-      .withBlankCommentMetric(CssMetric.COMMENT_BLANK_LINES)
       .withNoSonar(true)
       .withIgnoreHeaderComment(conf.getIgnoreHeaderComments()).build());
 
