@@ -48,12 +48,12 @@ public class DisallowOverspecificSelectors extends SquidCheck<LexerlessGrammar> 
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.selector, CssGrammar.simpleSelector);
+    subscribeTo(CssGrammar.subSelector, CssGrammar.simpleSelector);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.is(CssGrammar.selector)) {
+    if (astNode.is(CssGrammar.subSelector)) {
       deepness = 0;
     } else {
       deepness++;
@@ -62,7 +62,7 @@ public class DisallowOverspecificSelectors extends SquidCheck<LexerlessGrammar> 
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (astNode.is(CssGrammar.selector)) {
+    if (astNode.is(CssGrammar.subSelector)) {
       if (deepness > deepnessThreshold) {
         getContext().createLineViolation(this, "Disallow overspecified selectors",
             astNode);

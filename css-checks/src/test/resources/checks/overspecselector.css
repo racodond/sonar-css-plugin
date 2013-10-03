@@ -16,3 +16,6 @@ ul:hover #class a{
 
 ul > div +li {
 }
+
+.button.class,.link.class,.button.class2:active,.link.class3:active{
+}
