@@ -191,18 +191,18 @@ public enum CssGrammar implements GrammarRuleKey {
         // --> add sass @extend, @import rule here:DONE
         rCurlyBracket);
     b.rule(ruleset).is(
-        b.optional(selector), // --> add sass parent selector '&' here:DONE
+        addSpacing(b.optional(selector), b), // --> add sass parent selector '&' here:DONE
         block
         );
 
-    b.rule(selector).is(subSelector, b.zeroOrMore(b.firstOf(subSelector, addSpacing(",", b))));
+    b.rule(selector).is(subSelector, b.zeroOrMore(b.firstOf(subSelector, comma)));
     b.rule(subSelector).is(simpleSelector, b.zeroOrMore(combinators, simpleSelector));
     b.rule(combinators).is(b.firstOf(descendantComb, adjacentComb, precededComb, childComb)).skip();
     b.rule(descendantComb).is(whiteSpace, b.nextNot(combinators));
     b.rule(childComb).is(addSpacing(">", b));
     b.rule(adjacentComb).is(addSpacing("+", b));
     b.rule(precededComb).is(addSpacing("~", b));
-    b.rule(simpleSelector).is(b.firstOf(universalSelector, typeSelector, otherSelector)).skip();
+    b.rule(simpleSelector).is(b.firstOf(universalSelector, typeSelector, otherSelector));
     b.rule(typeSelector).is(ident, b.zeroOrMore(subS));
     b.rule(universalSelector).is(
         b.firstOf(
@@ -243,7 +243,7 @@ public enum CssGrammar implements GrammarRuleKey {
   }
 
   private static void tokens(LexerlessGrammarBuilder b) {
-    b.rule(ident).is(addSpacing(_ident, b));
+    b.rule(ident).is(_ident);
     b.rule(atkeyword).is(addSpacing(b.sequence("@", ident), b));
     b.rule(string).is(addSpacing(_string, b));
     b.rule(bad_string).is(_badString);    //TODO: do we need this?
@@ -346,7 +346,7 @@ public enum CssGrammar implements GrammarRuleKey {
   }
 
   static Object addSpacing(Object value, LexerlessGrammarBuilder b) {
-    return b.sequence(value, whiteSpaces);
+    return b.sequence(b.optional(whiteSpace), value, whiteSpaces);
   }
 
 }

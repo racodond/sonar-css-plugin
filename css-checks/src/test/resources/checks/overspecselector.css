@@ -1,0 +1,18 @@
+.mybox {
+    color: red !important;
+}
+
+ul l p a {
+}
+
+ul:hover a.id #class a{
+}
+
+ul > div + a +li {
+}
+
+ul:hover #class a{
+}
+
+ul > div +li {
+}
