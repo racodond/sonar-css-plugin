@@ -170,7 +170,7 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(stylesheet).is(whiteSpaces, b.zeroOrMore(statement), eof);
     b.rule(statement).is(b.firstOf(atRule, ruleset)); // --> add sass variable declaration here:DONE
     b.rule(atRule).is(atkeyword,
-        b.zeroOrMore(any),
+        addSpacing(b.zeroOrMore(any), b),
         b.firstOf(
             semiColon,
             b.sequence(
@@ -196,19 +196,19 @@ public enum CssGrammar implements GrammarRuleKey {
         );
 
     b.rule(selector).is(subSelector, b.zeroOrMore(b.firstOf(subSelector, comma)));
-    b.rule(subSelector).is(simpleSelector, b.zeroOrMore(combinators, simpleSelector));
+    b.rule(subSelector).is(addSpacing(b.sequence(simpleSelector, b.zeroOrMore(combinators, simpleSelector)),b));
     b.rule(combinators).is(b.firstOf(descendantComb, adjacentComb, precededComb, childComb)).skip();
-    b.rule(descendantComb).is(whiteSpace, b.nextNot(combinators));
+    b.rule(descendantComb).is(b.regexp(" +"), b.nextNot(b.firstOf(">","+","~")), b.next(simpleSelector));
     b.rule(childComb).is(addSpacing(">", b));
     b.rule(adjacentComb).is(addSpacing("+", b));
     b.rule(precededComb).is(addSpacing("~", b));
-    b.rule(simpleSelector).is(b.firstOf(universalSelector, typeSelector, otherSelector));
+    b.rule(simpleSelector).is(addSpacing(b.firstOf(universalSelector, typeSelector, otherSelector), b));
     b.rule(typeSelector).is(ident, b.zeroOrMore(subS));
     b.rule(universalSelector).is(
         b.firstOf(
             b.sequence(addSpacing("*", b), b.nextNot(ident), b.zeroOrMore(subS)),
             b.oneOrMore(subS)));
-    b.rule(otherSelector).is(any, b.zeroOrMore(subS));
+    b.rule(otherSelector).is("zz", any, b.zeroOrMore(subS));
 
     b.rule(subS).is(b.firstOf(attributeSelector, idSelector, classSelector, pseudo)).skip();
     b.rule(attributeSelector).is(b.oneOrMore(lBracket, ident, b.optional(b.firstOf(dashMatch, includes, eq, contains, startsWith, endsWith), any), rBracket));
@@ -227,7 +227,7 @@ public enum CssGrammar implements GrammarRuleKey {
         b.oneOrMore(b.firstOf(any, block, atkeyword)));
     b.rule(any)
         .is(
-            addSpacing(
+           // addSpacing(
                 b.firstOf(
                     function,
                     b.sequence(lParenthesis,
@@ -235,9 +235,19 @@ public enum CssGrammar implements GrammarRuleKey {
                         rParenthesis),
                     b.sequence(lBracket,
                         b.zeroOrMore(any), rBracket),
-                    percentage, dimension, string,
-                    uri, hash, unicodeRange, includes, dashMatch,
-                    ident, number, colon, important, delim), b)).skipIfOneChild();
+                    percentage,
+                    dimension,
+                    string,
+                    uri,
+                    hash,
+                    unicodeRange,
+                    includes,
+                    dashMatch,
+                    addSpacing(ident, b),
+                    number,
+                    colon,
+                    important,
+                    addSpacing(delim, b))/*, b)*/).skipIfOneChild();
     b.rule(eof).is(b.token(GenericTokenType.EOF, b.endOfInput())).skip();
 
   }
@@ -281,7 +291,7 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(function).is(addSpacing(b.sequence(ident, lParenthesis), b), b.zeroOrMore(parameters),
         rParenthesis);
     b.rule(parameters).is(parameter, b.zeroOrMore(comma, parameter));
-    b.rule(parameter).is(b.oneOrMore(any));
+    b.rule(parameter).is(addSpacing(b.oneOrMore(any), b));
     b.rule(includes).is(addSpacing("~=", b));
     b.rule(dashMatch).is(addSpacing("|=", b));
     b.rule(eq).is(addSpacing("=", b));
@@ -346,7 +356,7 @@ public enum CssGrammar implements GrammarRuleKey {
   }
 
   static Object addSpacing(Object value, LexerlessGrammarBuilder b) {
-    return b.sequence(b.optional(whiteSpace), value, whiteSpaces);
+    return b.sequence(/*b.optional(whiteSpace),*/ value, whiteSpaces);
   }
 
 }
