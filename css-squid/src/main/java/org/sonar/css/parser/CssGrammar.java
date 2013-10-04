@@ -172,7 +172,7 @@ public enum CssGrammar implements GrammarRuleKey {
             b.sequence(
                 lCurlyBracket,
                 b.zeroOrMore(
-                    b.firstOf(ruleset, supDeclaration)),
+                    b.firstOf(atRule, ruleset, supDeclaration)),
                 rCurlyBracket)));
 
     b.rule(block).is(

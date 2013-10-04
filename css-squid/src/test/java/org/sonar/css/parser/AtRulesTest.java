@@ -39,13 +39,32 @@ public class AtRulesTest extends TestBase {
               + "    }"))
         .matches(
             code(
-            "@font-face {" +
-              "font-family: 'MyFontFamily';" +
-              "src: url('myfont-webfont.eot') format('embedded-opentype')," +
-              "    url('myfont-webfont.woff') format('woff'), " +
-              "    url('myfont-webfont.ttf')  format('truetype')," +
-              "    url('myfont-webfont.svg#svgFontName') format('svg');" +
-              "}"));
+                "@font-face {",
+                "font-family: 'MyFontFamily';",
+                "src: url('myfont-webfont.eot') format('embedded-opentype'),",
+                "    url('myfont-webfont.woff') format('woff'), ",
+                "    url('myfont-webfont.ttf')  format('truetype'),",
+                "    url('myfont-webfont.svg#svgFontName') format('svg');",
+                "}"))
+        .matches(code(
+            "@media screen and -webkit-min-device-pixel-ratio 0{",
+            ".form select {",
+            "color: red;",
+            "}}"))
+        .matches(code(
+            "@media screen and -webkit-min-device-pixel-ratio 0{",
+            "@font-face {",
+            "font-family:Icons;",
+            "src:url(fonts/Icons.svg#Icons) format(svg);",
+            "}",
+            "",
+            ".t {",
+            "-webkit-transform:translateZ(0);",
+            "-moz-transform:translateZ(0);",
+            "-o-transform:translateZ(0);",
+            "transform:translateZ(0);",
+            "}",
+            "}"));
 
   }
 
