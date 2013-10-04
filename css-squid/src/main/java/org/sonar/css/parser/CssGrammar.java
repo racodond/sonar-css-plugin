@@ -107,10 +107,6 @@ public enum CssGrammar implements GrammarRuleKey {
   idSelector,
   pseudo,
 
-  descendantSelector,
-  childSelecotr,
-  adjacentSiblingSelector,
-
   combinators,
   descendantComb,
   childComb,
@@ -141,7 +137,7 @@ public enum CssGrammar implements GrammarRuleKey {
   _nl,
   _w,
 
-  eof, otherSelector, unit, parameters, comma, parameter;
+  eof, animationEvent, unit, parameters, comma, parameter, to, from;
 
   private static final String NMCHAR = "(?i)[_a-z0-9-]";
   private static final String NONASCII = "[^\\x00-\\xED]";
@@ -195,23 +191,33 @@ public enum CssGrammar implements GrammarRuleKey {
         block
         );
 
-    b.rule(selector).is(subSelector, b.zeroOrMore(b.firstOf(subSelector, comma)));
-    b.rule(subSelector).is(addSpacing(b.sequence(simpleSelector, b.zeroOrMore(combinators, simpleSelector)),b));
+    b.rule(selector).is(subSelector, b.zeroOrMore(b.sequence(comma, subSelector)));
+    b.rule(subSelector).is(b.sequence(
+        simpleSelector,
+        b.zeroOrMore(combinators, simpleSelector),
+        b.optional(whiteSpaces, b.next(b.firstOf(comma, eof)))));
     b.rule(combinators).is(b.firstOf(descendantComb, adjacentComb, precededComb, childComb)).skip();
-    b.rule(descendantComb).is(b.regexp(" +"), b.nextNot(b.firstOf(">","+","~")), b.next(simpleSelector));
+    b.rule(descendantComb).is(whiteSpaces, b.nextNot(b.firstOf(">", "+", "~")), b.next(simpleSelector));
     b.rule(childComb).is(addSpacing(">", b));
     b.rule(adjacentComb).is(addSpacing("+", b));
     b.rule(precededComb).is(addSpacing("~", b));
-    b.rule(simpleSelector).is(addSpacing(b.firstOf(universalSelector, typeSelector, otherSelector), b));
+    b.rule(simpleSelector).is(
+        b.firstOf(universalSelector, typeSelector, animationEvent),
+        b.optional(whiteSpaces, b.next(combinators)));
     b.rule(typeSelector).is(ident, b.zeroOrMore(subS));
     b.rule(universalSelector).is(
         b.firstOf(
             b.sequence(addSpacing("*", b), b.nextNot(ident), b.zeroOrMore(subS)),
             b.oneOrMore(subS)));
-    b.rule(otherSelector).is("zz", any, b.zeroOrMore(subS));
+    b.rule(animationEvent).is(b.firstOf(from, to, percentage));
 
     b.rule(subS).is(b.firstOf(attributeSelector, idSelector, classSelector, pseudo)).skip();
-    b.rule(attributeSelector).is(b.oneOrMore(lBracket, ident, b.optional(b.firstOf(dashMatch, includes, eq, contains, startsWith, endsWith), any), rBracket));
+    b.rule(attributeSelector).is(
+        b.oneOrMore(lBracket, ident,
+            b.optional(
+                b.firstOf(dashMatch, includes, eq, contains, startsWith, endsWith),
+                any),
+            rBracket));
     b.rule(classSelector).is(b.oneOrMore(".", ident));
     b.rule(idSelector).is("#", ident);
     b.rule(pseudo).is(colon, any);
@@ -222,32 +228,32 @@ public enum CssGrammar implements GrammarRuleKey {
 
     b.rule(declaration)
         .is(property, colon, value);
-    b.rule(property).is(ident);
+    b.rule(property).is(addSpacing(ident, b));
     b.rule(value).is(
         b.oneOrMore(b.firstOf(any, block, atkeyword)));
     b.rule(any)
         .is(
-           // addSpacing(
-                b.firstOf(
-                    function,
-                    b.sequence(lParenthesis,
-                        b.zeroOrMore(any),
-                        rParenthesis),
-                    b.sequence(lBracket,
-                        b.zeroOrMore(any), rBracket),
-                    percentage,
-                    dimension,
-                    string,
-                    uri,
-                    hash,
-                    unicodeRange,
-                    includes,
-                    dashMatch,
-                    addSpacing(ident, b),
-                    number,
-                    colon,
-                    important,
-                    addSpacing(delim, b))/*, b)*/).skipIfOneChild();
+            // addSpacing(
+            b.firstOf(
+                function,
+                b.sequence(lParenthesis,
+                    b.zeroOrMore(any),
+                    rParenthesis),
+                b.sequence(lBracket,
+                    b.zeroOrMore(any), rBracket),
+                percentage,
+                dimension,
+                string,
+                uri,
+                hash,
+                unicodeRange,
+                includes,
+                dashMatch,
+                addSpacing(ident, b),
+                number,
+                colon,
+                important,
+                addSpacing(delim, b))/* , b) */).skipIfOneChild();
     b.rule(eof).is(b.token(GenericTokenType.EOF, b.endOfInput())).skip();
 
   }
@@ -256,9 +262,9 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(ident).is(_ident);
     b.rule(atkeyword).is(addSpacing(b.sequence("@", ident), b));
     b.rule(string).is(addSpacing(_string, b));
-    b.rule(bad_string).is(_badString);    //TODO: do we need this?
-    b.rule(bad_uri).is(_baduri);          //TODO: do we need this?
-    b.rule(bad_comment).is(_badcomment);  //TODO: do we need this?
+    b.rule(bad_string).is(_badString); // TODO: do we need this?
+    b.rule(bad_uri).is(_baduri); // TODO: do we need this?
+    b.rule(bad_comment).is(_badcomment); // TODO: do we need this?
     b.rule(hash).is(addSpacing(b.sequence("#", _name), b));
     b.rule(number).is(addSpacing(_num, b));
     b.rule(percentage).is(addSpacing(b.sequence(number, "%"), b));
@@ -298,6 +304,9 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(contains).is(addSpacing("*=", b));
     b.rule(startsWith).is(addSpacing("^=", b));
     b.rule(endsWith).is(addSpacing("$=", b));
+
+    b.rule(from).is(addSpacing("from", b));
+    b.rule(to).is(addSpacing("to", b));
 
     b.rule(important).is("!important");
     /**
@@ -356,7 +365,7 @@ public enum CssGrammar implements GrammarRuleKey {
   }
 
   static Object addSpacing(Object value, LexerlessGrammarBuilder b) {
-    return b.sequence(/*b.optional(whiteSpace),*/ value, whiteSpaces);
+    return b.sequence(/* b.optional(whiteSpace), */value, whiteSpaces);
   }
 
 }
