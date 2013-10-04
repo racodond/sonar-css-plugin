@@ -47,8 +47,11 @@ public class CssTokenizer implements Tokenizer {
     Parser<LexerlessGrammar> parser = CssParser.create(new CssConfiguration(charset));
     AstNode result = parser.parse(new File(fileName));
     for (Token token : result.getTokens()) {
-      TokenEntry cpdToken = new TokenEntry(getTokenImage(token), fileName, token.getLine());
-      cpdTokens.add(cpdToken);
+      // TODO: the descendantComb is a null token
+      if (token != null) {
+        TokenEntry cpdToken = new TokenEntry(getTokenImage(token), fileName, token.getLine());
+        cpdTokens.add(cpdToken);
+      }
     }
     cpdTokens.add(TokenEntry.getEOF());
   }
