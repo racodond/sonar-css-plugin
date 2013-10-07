@@ -52,6 +52,7 @@ public class DuplicateProperties extends SquidCheck<LexerlessGrammar> {
     findDuplicates(declarations);
   }
 
+  //TODO refactor this
   private void findDuplicates(List<AstNode> declarations) {
     List<Declarations> decs = new ArrayList<Declarations>();
     for (AstNode astNode : declarations) {

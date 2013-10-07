@@ -86,7 +86,6 @@ public class CompatibleVendorPrefixes extends SquidCheck<LexerlessGrammar> {
             }
           }
         }
-        System.out.println();
       }
     }
 
