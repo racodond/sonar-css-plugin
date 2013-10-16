@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.css.CssAstScanner;
-
 import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
 import org.junit.Test;
 import org.sonar.squid.api.SourceFile;
@@ -32,7 +30,7 @@ public class DisallowOverqualifiedElementsTest {
   @Test
   public void test() {
     DisallowOverqualifiedElements check = new DisallowOverqualifiedElements();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
+    SourceFile file = TestHelper.scanSingleFile(new File(
         "src/test/resources/checks/overqualified.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
         .atLine(1).withMessage("Disallow overqualified elements").next()
@@ -43,7 +41,7 @@ public class DisallowOverqualifiedElementsTest {
   @Test
   public void test_n() {
     DisallowOverqualifiedElements check = new DisallowOverqualifiedElements();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
+    SourceFile file = TestHelper.scanSingleFile(new File(
         "src/test/resources/checks/duplicatedProperties.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
   }

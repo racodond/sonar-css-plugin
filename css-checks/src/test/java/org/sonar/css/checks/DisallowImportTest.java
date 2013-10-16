@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.css.CssAstScanner;
-
 import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
 import org.junit.Test;
 import org.sonar.squid.api.SourceFile;
@@ -32,7 +30,7 @@ public class DisallowImportTest {
   @Test
   public void test() {
     DisallowImport check = new DisallowImport();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
+    SourceFile file = TestHelper.scanSingleFile(new File(
         "src/test/resources/checks/import.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
         .atLine(1).withMessage("Disallow imports").next()

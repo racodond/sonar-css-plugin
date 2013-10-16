@@ -21,7 +21,6 @@ package org.sonar.css.checks;
 
 import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
 import org.sonar.squid.api.SourceFile;
 
 import java.io.File;
@@ -31,7 +30,7 @@ public class VendorPrefixWithStandardTest {
   @Test
   public void test() {
     VendorPrefixWithStandard check = new VendorPrefixWithStandard();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
+    SourceFile file = TestHelper.scanSingleFile(new File(
         "src/test/resources/checks/vendorprefixwithstandard.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
     .atLine(3).withMessage("No standard property defined after").next()
@@ -42,7 +41,7 @@ public class VendorPrefixWithStandardTest {
   @Test
   public void test_n() {
     VendorPrefixWithStandard check = new VendorPrefixWithStandard();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
+    SourceFile file = TestHelper.scanSingleFile(new File(
         "src/test/resources/checks/vendorprefixes.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
     .atLine(12).withMessage("No standard property defined after").next()

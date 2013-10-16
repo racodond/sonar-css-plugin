@@ -19,7 +19,6 @@
  */
 package org.sonar.css;
 
-import com.google.common.base.Charsets;
 import com.sonar.sslr.impl.Parser;
 import com.sonar.sslr.squid.AstScanner;
 import com.sonar.sslr.squid.SquidAstVisitor;
@@ -29,53 +28,28 @@ import com.sonar.sslr.squid.metrics.CounterVisitor;
 import com.sonar.sslr.squid.metrics.LinesOfCodeVisitor;
 import com.sonar.sslr.squid.metrics.LinesVisitor;
 import org.sonar.api.component.ResourcePerspectives;
-import org.sonar.api.resources.Project;
+import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.css.api.CssMetric;
 import org.sonar.css.ast.visitors.SyntaxHighlighterVisitor;
 import org.sonar.css.parser.CssGrammar;
-import org.sonar.css.parser.CssParser;
-import org.sonar.squid.api.SourceCode;
-import org.sonar.squid.api.SourceFile;
 import org.sonar.squid.api.SourceProject;
-import org.sonar.squid.indexer.QueryByType;
 import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.io.File;
-import java.util.Collection;
+import org.sonar.sslr.parser.ParserAdapter;
 
 public final class CssAstScanner {
 
   private CssAstScanner() {
   }
 
-  /**
-  * Helper method for testing checks without having to deploy them on a Sonar instance.
-  */
-  public static SourceFile scanSingleFile(File file, SquidAstVisitor<LexerlessGrammar>... visitors) {
-    if (!file.isFile()) {
-      throw new IllegalArgumentException("File '" + file + "' not found.");
-    }
-    AstScanner<LexerlessGrammar> scanner = create(new CssConfiguration(Charsets.UTF_8), visitors);
-    scanner.scanFile(file);
-    Collection<SourceCode> sources = scanner.getIndex().search(new QueryByType(SourceFile.class));
-    if (sources.size() != 1) {
-      throw new IllegalStateException("Only one SourceFile was expected whereas " + sources.size() + " has been returned.");
-    }
-    return (SourceFile) sources.iterator().next();
+  public static AstScanner<LexerlessGrammar> create(ModuleFileSystem fileSystem, SquidAstVisitor<LexerlessGrammar>... visitors) {
+    return create(fileSystem, null, visitors);
   }
 
-  public static AstScanner<LexerlessGrammar> create(CssConfiguration conf, SquidAstVisitor<LexerlessGrammar>... visitors) {
-    return create(conf, null, null, visitors);
-  }
-
-  public static AstScanner<LexerlessGrammar> create(Project project, ResourcePerspectives resourcePerspectives, SquidAstVisitor<LexerlessGrammar>... visitors) {
-    return create(createConfiguration(project), project, resourcePerspectives, visitors);
-  }
-
-  public static AstScanner<LexerlessGrammar> create(CssConfiguration conf, Project project, ResourcePerspectives resourcePerspectives,
+  public static AstScanner<LexerlessGrammar> create(ModuleFileSystem fileSystem, ResourcePerspectives resourcePerspectives,
     SquidAstVisitor<LexerlessGrammar>... visitors) {
+    final CssConfiguration conf = new CssConfiguration(fileSystem.sourceCharset());
     final SquidAstVisitorContextImpl<LexerlessGrammar> context = new SquidAstVisitorContextImpl<LexerlessGrammar>(new SourceProject("Css Project"));
-    final Parser<LexerlessGrammar> parser = CssParser.create(conf);
+    final Parser<LexerlessGrammar> parser = new ParserAdapter<LexerlessGrammar>(fileSystem.sourceCharset(), CssGrammar.createGrammar());
 
     AstScanner.Builder<LexerlessGrammar> builder = AstScanner.<LexerlessGrammar> builder(context).setBaseParser(parser);
 
@@ -120,8 +94,8 @@ public final class CssAstScanner {
 
 
     /* Syntax highlighter */
-    if (resourcePerspectives != null && project != null) {
-      builder.withSquidAstVisitor(new SyntaxHighlighterVisitor(resourcePerspectives, project, conf.getCharset()));
+    if (resourcePerspectives != null && fileSystem != null) {
+      builder.withSquidAstVisitor(new SyntaxHighlighterVisitor(resourcePerspectives, fileSystem));
     }
 
     /* External visitors (typically Check ones) */
@@ -131,9 +105,4 @@ public final class CssAstScanner {
 
     return builder.build();
   }
-
-  private static CssConfiguration createConfiguration(Project project) {
-    return new CssConfiguration(project.getFileSystem().getSourceCharset());
-  }
-
 }

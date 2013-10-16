@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.css.CssAstScanner;
-
 import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
 import org.junit.Test;
 import org.sonar.squid.api.SourceFile;
@@ -32,7 +30,7 @@ public class DisallowUnitsForZeroValuesTest {
   @Test
   public void test() {
     DisallowUnitsForZeroValues check = new DisallowUnitsForZeroValues();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
+    SourceFile file = TestHelper.scanSingleFile(new File(
         "src/test/resources/checks/zerounits.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
         .atLine(2).withMessage("Disallow zero values with units").next()

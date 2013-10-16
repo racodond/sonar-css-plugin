@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.css.CssAstScanner;
-
 import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
 import org.junit.Test;
 import org.sonar.squid.api.SourceFile;
@@ -32,7 +30,7 @@ public class DisplayPropertyGroupingTest {
   @Test
   public void test() {
     DisplayPropertyGrouping check = new DisplayPropertyGrouping();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
+    SourceFile file = TestHelper.scanSingleFile(new File(
         "src/test/resources/checks/displayProperty.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
     .atLine(5).withMessage("Unnecessary property with display").next()

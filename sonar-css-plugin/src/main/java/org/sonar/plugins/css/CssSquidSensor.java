@@ -19,6 +19,8 @@
  */
 package org.sonar.plugins.css;
 
+import org.sonar.css.CssConfiguration;
+
 import com.google.common.collect.Lists;
 import com.sonar.sslr.squid.AstScanner;
 import com.sonar.sslr.squid.SquidAstVisitor;
@@ -76,7 +78,7 @@ public class CssSquidSensor implements Sensor {
 
     Collection<SquidAstVisitor<LexerlessGrammar>> squidChecks = annotationCheckFactory.getChecks();
     List<SquidAstVisitor<LexerlessGrammar>> visitors = Lists.newArrayList(squidChecks);
-    this.scanner = CssAstScanner.create(project, resourcePerspectives, visitors
+    this.scanner = CssAstScanner.create(moduleFileSystem, resourcePerspectives, visitors
         .toArray(new SquidAstVisitor[visitors.size()]));
     scanner.scanFiles(moduleFileSystem.files(FileQuery.onSource()));
 
@@ -89,7 +91,7 @@ public class CssSquidSensor implements Sensor {
     for (SourceCode squidSourceFile : squidSourceFiles) {
       SourceFile squidFile = (SourceFile) squidSourceFile;
 
-      File sonarFile = File.fromIOFile(new java.io.File(squidFile.getKey()), project);
+      File sonarFile = File.fromIOFile(new java.io.File(squidFile.getKey()), moduleFileSystem.sourceDirs());
 
       saveMeasures(sonarFile, squidFile);
       saveViolations(sonarFile, squidFile);
@@ -111,7 +113,11 @@ public class CssSquidSensor implements Sensor {
       for (CheckMessage message : messages) {
         ActiveRule activeRule = annotationCheckFactory.getActiveRule(message.getCheck());
         /*Issue issue = new DefaultIssueBuilder()
-        .ruleKey(RuleKey.of(activeRule.getRepositoryKey(), activeRule.getRuleKey())).build();*/
+        .ruleKey(RuleKey.of(activeRule.getRepositoryKey(), activeRule.getRuleKey()))
+        .line(message.getLine())
+        .build();
+        context.saveViolation(issue);*/
+
         Violation violation = Violation.create(
             activeRule, sonarFile)
             .setLineId(message.getLine()).setMessage(message.getText(Locale.ENGLISH));

@@ -19,7 +19,6 @@
  */
 package org.sonar.css;
 
-import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.squid.AstScanner;
 import org.junit.Test;
@@ -32,14 +31,11 @@ import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-@SuppressWarnings("unchecked")
 public class CssAstScannerTest {
 
   @Test
   public void files() {
-    AstScanner<?> scanner = CssAstScanner.create(new CssConfiguration(
-        Charsets.UTF_8));
-    scanner.scanFiles(ImmutableList.of(
+    AstScanner<?> scanner = TestHelper.scanFiles(ImmutableList.of(
         new File("src/test/resources/form-elements.css"),
         new File("src/test/resources/normalize.css")));
     SourceProject project = (SourceProject) scanner.getIndex().search(
@@ -49,7 +45,7 @@ public class CssAstScannerTest {
 
   @Test
   public void comments() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
+    SourceFile file = TestHelper.scanSingleFile(new File(
         "src/test/resources/metrics/metric.css"));
     assertThat(file.getInt(CssMetric.COMMENT_LINES)).isEqualTo(2);
     assertThat(file.getNoSonarTagLines()).contains(10);
@@ -58,35 +54,35 @@ public class CssAstScannerTest {
 
   @Test
   public void lines() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
+    SourceFile file = TestHelper.scanSingleFile(new File(
         "src/test/resources/metrics/metric.css"));
     assertThat(file.getInt(CssMetric.LINES)).isEqualTo(24);
   }
 
   @Test
   public void lines_of_code() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
+    SourceFile file = TestHelper.scanSingleFile(new File(
         "src/test/resources/metrics/metric.css"));
     assertThat(file.getInt(CssMetric.LINES_OF_CODE)).isEqualTo(17);
   }
 
   @Test
   public void statements() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
+    SourceFile file = TestHelper.scanSingleFile(new File(
         "src/test/resources/metrics/metric.css"));
     assertThat(file.getInt(CssMetric.STATEMENTS)).isEqualTo(11);
   }
 
   @Test
   public void ruleSets() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
+    SourceFile file = TestHelper.scanSingleFile(new File(
         "src/test/resources/metrics/metric.css"));
     assertThat(file.getInt(CssMetric.RULE_SETS)).isEqualTo(5);
   }
 
   @Test
   public void atRules() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
+    SourceFile file = TestHelper.scanSingleFile(new File(
         "src/test/resources/metrics/metric.css"));
     assertThat(file.getInt(CssMetric.AT_RULES)).isEqualTo(1);
   }

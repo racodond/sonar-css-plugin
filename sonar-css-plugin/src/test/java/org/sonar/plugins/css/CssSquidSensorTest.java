@@ -19,6 +19,8 @@
  */
 package org.sonar.plugins.css;
 
+import org.sonar.api.scan.filesystem.FileType;
+
 import org.sonar.api.scan.filesystem.FileQuery;
 
 import org.sonar.api.scan.filesystem.ModuleFileSystem;
@@ -62,6 +64,7 @@ public class CssSquidSensorTest {
     when(fileLinesContextFactory.createFor(Mockito.any(Resource.class))).thenReturn(fileLinesContext);
     fileSystem = mock(ModuleFileSystem.class);
     when(fileSystem.files(Mockito.any(FileQuery.class))).thenReturn(Arrays.asList(new File("src/test/resources/org/sonar/plugins/css/cssProject/css/boxSizing.css")));
+    when(fileSystem.sourceCharset()).thenReturn(Charset.forName("UTF-8"));
     sensor = new CssSquidSensor(mock(RulesProfile.class), fileLinesContextFactory, null, fileSystem);
   }
 
@@ -82,14 +85,7 @@ public class CssSquidSensorTest {
 
   @Test
   public void should_analyse() {
-    ProjectFileSystem fs = mock(ProjectFileSystem.class);
-    when(fs.getSourceCharset()).thenReturn(Charset.forName("UTF-8"));
-    InputFile inputFile = InputFileUtils.create(
-        new File("src/test/resources/org/sonar/plugins/css/cssProject/css"),
-        new File("src/test/resources/org/sonar/plugins/css/cssProject/css/boxSizing.css"));
-    when(fs.mainFiles(Css.KEY)).thenReturn(ImmutableList.of(inputFile));
     Project project = new Project("key");
-    project.setFileSystem(fs);
     SensorContext context = mock(SensorContext.class);
 
     sensor.analyse(project, context);

@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.css.CssAstScanner;
-
 import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
 import org.junit.Test;
 import org.sonar.squid.api.SourceFile;
@@ -32,7 +30,7 @@ public class CompatibleVendorPrefixesTest {
   @Test
   public void test() {
     CompatibleVendorPrefixes check = new CompatibleVendorPrefixes();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
+    SourceFile file = TestHelper.scanSingleFile(new File(
         "src/test/resources/checks/vendorprefixes.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
     .atLine(11).withMessage("Missing vendor: -moz for property: transform").next()

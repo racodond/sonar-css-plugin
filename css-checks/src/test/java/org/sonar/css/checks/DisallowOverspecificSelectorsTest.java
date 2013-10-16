@@ -21,7 +21,6 @@ package org.sonar.css.checks;
 
 import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
 import org.sonar.squid.api.SourceFile;
 
 import java.io.File;
@@ -31,7 +30,7 @@ public class DisallowOverspecificSelectorsTest {
   @Test
   public void test() {
     DisallowOverspecificSelectors check = new DisallowOverspecificSelectors();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
+    SourceFile file = TestHelper.scanSingleFile(new File(
         "src/test/resources/checks/overspecselector.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
         .atLine(5).withMessage("Disallow overspecified selectors").next()
@@ -44,7 +43,7 @@ public class DisallowOverspecificSelectorsTest {
   public void test2() {
     DisallowOverspecificSelectors check = new DisallowOverspecificSelectors();
     check.setDeepnessThreshold(4);
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
+    SourceFile file = TestHelper.scanSingleFile(new File(
         "src/test/resources/checks/overspecselector.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
   }

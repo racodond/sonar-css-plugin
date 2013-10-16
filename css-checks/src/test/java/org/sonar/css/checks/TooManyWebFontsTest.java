@@ -21,7 +21,6 @@ package org.sonar.css.checks;
 
 import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
 import org.sonar.squid.api.SourceFile;
 
 import java.io.File;
@@ -32,7 +31,7 @@ public class TooManyWebFontsTest {
   public void test() {
     TooManyWebFonts check = new TooManyWebFonts();
     check.setFontFaceThreshold(3);
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
+    SourceFile file = TestHelper.scanSingleFile(new File(
         "src/test/resources/checks/toomanywebfonts.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
     .atLine(1).withMessage("Do not use too many web fonts, the number of font-faces is 5 greater than 3 authorized.")

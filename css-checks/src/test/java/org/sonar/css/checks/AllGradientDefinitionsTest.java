@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.css.CssAstScanner;
-
 import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
 import org.junit.Test;
 import org.sonar.squid.api.SourceFile;
@@ -32,7 +30,7 @@ public class AllGradientDefinitionsTest {
   @Test
   public void test() {
     AllGradientDefinitions check = new AllGradientDefinitions();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
+    SourceFile file = TestHelper.scanSingleFile(new File(
         "src/test/resources/checks/gradientdefinition.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
     .atLine(2).withMessage("Missing gradient: -moz-(linear|radial)-gradient.*").next()
