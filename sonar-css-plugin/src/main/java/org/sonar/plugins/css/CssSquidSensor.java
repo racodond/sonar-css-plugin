@@ -19,8 +19,6 @@
  */
 package org.sonar.plugins.css;
 
-import org.sonar.css.CssConfiguration;
-
 import com.google.common.collect.Lists;
 import com.sonar.sslr.squid.AstScanner;
 import com.sonar.sslr.squid.SquidAstVisitor;
@@ -28,13 +26,15 @@ import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.checks.AnnotationCheckFactory;
 import org.sonar.api.component.ResourcePerspectives;
+import org.sonar.api.issue.Issuable;
+import org.sonar.api.issue.Issue;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.File;
 import org.sonar.api.resources.Project;
+import org.sonar.api.rule.RuleKey;
 import org.sonar.api.rules.ActiveRule;
-import org.sonar.api.rules.Violation;
 import org.sonar.api.scan.filesystem.FileQuery;
 import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.css.CssAstScanner;
@@ -49,7 +49,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 
 public class CssSquidSensor implements Sensor {
 
@@ -112,16 +111,12 @@ public class CssSquidSensor implements Sensor {
     if (messages != null) {
       for (CheckMessage message : messages) {
         ActiveRule activeRule = annotationCheckFactory.getActiveRule(message.getCheck());
-        /*Issue issue = new DefaultIssueBuilder()
-        .ruleKey(RuleKey.of(activeRule.getRepositoryKey(), activeRule.getRuleKey()))
-        .line(message.getLine())
-        .build();
-        context.saveViolation(issue);*/
-
-        Violation violation = Violation.create(
-            activeRule, sonarFile)
-            .setLineId(message.getLine()).setMessage(message.getText(Locale.ENGLISH));
-        context.saveViolation(violation);
+        Issuable issuable = resourcePerspectives.as(Issuable.class, sonarFile);
+        Issue issue = issuable.newIssueBuilder()
+            .ruleKey(RuleKey.of(activeRule.getRepositoryKey(), activeRule.getRuleKey()))
+            .line(message.getLine())
+            .build();
+        issuable.addIssue(issue);
       }
     }
   }
