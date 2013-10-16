@@ -19,13 +19,6 @@
  */
 package org.sonar.plugins.css;
 
-import org.sonar.api.scan.filesystem.FileType;
-
-import org.sonar.api.scan.filesystem.FileQuery;
-
-import org.sonar.api.scan.filesystem.ModuleFileSystem;
-
-import com.google.common.collect.ImmutableList;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -34,13 +27,11 @@ import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.resources.InputFile;
-import org.sonar.api.resources.InputFileUtils;
 import org.sonar.api.resources.Language;
 import org.sonar.api.resources.Project;
-import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.api.resources.Resource;
-import org.sonar.plugins.css.core.Css;
+import org.sonar.api.scan.filesystem.FileQuery;
+import org.sonar.api.scan.filesystem.ModuleFileSystem;
 
 import java.io.File;
 import java.nio.charset.Charset;

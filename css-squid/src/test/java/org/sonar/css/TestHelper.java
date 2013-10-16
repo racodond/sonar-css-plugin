@@ -53,7 +53,6 @@ public class TestHelper {
 
   public static SourceFile scanSingleFile(File file) {
     AstScanner<LexerlessGrammar> scanner = scanFiles(ImmutableList.of(file));
-    scanner.scanFile(file);
     Collection<SourceCode> sources = scanner.getIndex().search(new QueryByType(SourceFile.class));
     return (SourceFile) sources.iterator().next();
   }

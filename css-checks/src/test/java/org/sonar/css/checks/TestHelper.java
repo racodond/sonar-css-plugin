@@ -55,7 +55,6 @@ public class TestHelper {
 
   public static SourceFile scanSingleFile(File file, SquidCheck<LexerlessGrammar> check) {
     AstScanner<LexerlessGrammar> scanner = scanFiles(ImmutableList.of(file), check);
-    scanner.scanFile(file);
     Collection<SourceCode> sources = scanner.getIndex().search(new QueryByType(SourceFile.class));
     return (SourceFile) sources.iterator().next();
   }
