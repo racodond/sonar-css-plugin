@@ -79,7 +79,7 @@ public class CssSquidSensor implements Sensor {
     List<SquidAstVisitor<LexerlessGrammar>> visitors = Lists.newArrayList(squidChecks);
     this.scanner = CssAstScanner.create(moduleFileSystem, resourcePerspectives, visitors
         .toArray(new SquidAstVisitor[visitors.size()]));
-    scanner.scanFiles(moduleFileSystem.files(FileQuery.onSource()));
+    scanner.scanFiles(moduleFileSystem.files(Css.sourceQuery));
 
     Collection<SourceCode> squidSourceFiles = scanner.getIndex().search(
         new QueryByType(SourceFile.class));
