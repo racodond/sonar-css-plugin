@@ -48,12 +48,12 @@ public class ShorthandProperties extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.ruleset, CssGrammar.declaration);
+    subscribeTo(CssGrammar.ruleset, CssGrammar.atRule, CssGrammar.declaration);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.getType().equals(CssGrammar.ruleset)) {
+    if (astNode.getType().equals(CssGrammar.ruleset) || astNode.getType().equals(CssGrammar.atRule)) {
       properties.clear();
     } else if (astNode.getType().equals(CssGrammar.declaration)) {
       String property = astNode.getFirstChild(CssGrammar.property).getTokenValue();
@@ -65,7 +65,7 @@ public class ShorthandProperties extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (astNode.getType().equals(CssGrammar.ruleset)) {
+    if (astNode.getType().equals(CssGrammar.ruleset) || astNode.getType().equals(CssGrammar.atRule)) {
       if (properties.containsAll(margin)) {
         getContext().createLineViolation(this, "Margin shorthand can be applied", astNode);
       }

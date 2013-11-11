@@ -50,12 +50,12 @@ public class CompatibleVendorPrefixes extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.ruleset, CssGrammar.declaration);
+    subscribeTo(CssGrammar.ruleset, CssGrammar.atRule, CssGrammar.declaration);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.is(CssGrammar.ruleset)) {
+    if (astNode.is(CssGrammar.ruleset) || astNode.is(CssGrammar.atRule)) {
       properties.clear();
     } else if (astNode.is(CssGrammar.declaration)) {
       String property = astNode.getFirstChild(CssGrammar.property).getTokenValue();

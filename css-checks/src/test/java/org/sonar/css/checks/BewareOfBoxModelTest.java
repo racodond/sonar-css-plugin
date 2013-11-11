@@ -33,8 +33,8 @@ public class BewareOfBoxModelTest {
     SourceFile file = TestHelper.scanSingleFile(new File(
         "src/test/resources/checks/boxSizing.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-    .atLine(5).withMessage("Possible box sizing issue").next()
-    .atLine(24).withMessage("Possible box sizing issue").noMore();
+    .atLine(14).withMessage("Possible box sizing issue").next()
+    .atLine(33).withMessage("Possible box sizing issue").noMore();
   }
 
 }

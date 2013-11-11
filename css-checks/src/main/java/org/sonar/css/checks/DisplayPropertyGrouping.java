@@ -56,7 +56,7 @@ public class DisplayPropertyGrouping extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.ruleset);
+    subscribeTo(CssGrammar.ruleset, CssGrammar.atRule);
   }
 
   @Override
