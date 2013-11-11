@@ -28,8 +28,6 @@ import org.sonar.check.Rule;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-import java.util.List;
-
 /**
  * https://github.com/stubbornella/csslint/wiki/Disallow-empty-rules
  * @author tkende
@@ -39,16 +37,28 @@ import java.util.List;
 @BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
 public class DisallowEmptyRules extends SquidCheck<LexerlessGrammar> {
 
+  int counter = 0;
+
   @Override
   public void init() {
-    subscribeTo(CssGrammar.ruleset, CssGrammar.atRule);
+    subscribeTo(CssGrammar.ruleset, CssGrammar.atRule, CssGrammar.declaration);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    List<AstNode> declarations = astNode.getFirstChild(CssGrammar.block).getChildren(CssGrammar.declaration);
-    if (declarations.size() == 0) {
-      getContext().createLineViolation(this, "Empty rule", astNode);
+    if (astNode.is(CssGrammar.declaration)) {
+      counter++;
+    } else {
+      counter = 0;
+    }
+  }
+
+  @Override
+  public void leaveNode(AstNode astNode) {
+    if (astNode.is(CssGrammar.ruleset, CssGrammar.atRule)) {
+      if (counter == 0) {
+        getContext().createLineViolation(this, "Empty rule", astNode);
+      }
     }
   }
 }

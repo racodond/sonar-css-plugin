@@ -137,7 +137,7 @@ public enum CssGrammar implements GrammarRuleKey {
   _nl,
   _w,
 
-  eof, animationEvent, unit, parameters, comma, parameter, to, from;
+  eof, animationEvent, unit, parameters, comma, parameter, to, from, atRuleBlock;
 
   private static final String NMCHAR = "(?i)[_a-z0-9-]";
   private static final String NONASCII = "[^\\x00-\\xED]";
@@ -169,11 +169,8 @@ public enum CssGrammar implements GrammarRuleKey {
         addSpacing(b.zeroOrMore(any), b),
         b.firstOf(
             semiColon,
-            b.sequence(
-                lCurlyBracket,
-                b.zeroOrMore(
-                    b.firstOf(atRule, ruleset, supDeclaration)),
-                rCurlyBracket)));
+            atRuleBlock
+            ));
 
     b.rule(block).is(
         lCurlyBracket,
@@ -186,6 +183,13 @@ public enum CssGrammar implements GrammarRuleKey {
         } here */
         // --> add sass @extend, @import rule here:DONE
         rCurlyBracket);
+
+    b.rule(atRuleBlock).is(
+        lCurlyBracket,
+        b.zeroOrMore(
+            b.firstOf(atRule, ruleset, supDeclaration)),
+        rCurlyBracket);
+
     b.rule(ruleset).is(
         addSpacing(b.optional(selector), b), // --> add sass parent selector '&' here:DONE
         block

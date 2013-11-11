@@ -35,8 +35,16 @@ public class DisallowEmptyRuleTest {
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
         .atLine(4).withMessage("Empty rule").next()
         .atLine(6).withMessage("Empty rule").next()
-        .atLine(10).withMessage("Empty rule").noMore();
+        .atLine(10).withMessage("Empty rule").next()
+        .atLine(14).withMessage("Empty rule").noMore();
+  }
 
+  @Test
+  public void test2() {
+    DisallowEmptyRules check = new DisallowEmptyRules();
+    SourceFile file = TestHelper.scanSingleFile(new File(
+        "src/test/resources/checks/fontface.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
   }
 
 }
