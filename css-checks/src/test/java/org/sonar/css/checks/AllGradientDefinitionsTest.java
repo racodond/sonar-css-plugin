@@ -41,4 +41,12 @@ public class AllGradientDefinitionsTest {
     .noMore();
   }
 
+  @Test
+  public void test2() {
+    AllGradientDefinitions check = new AllGradientDefinitions();
+    SourceFile file = TestHelper.scanSingleFile(new File(
+        "src/test/resources/checks/fontface.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
+  }
+
 }

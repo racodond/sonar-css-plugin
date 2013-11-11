@@ -46,9 +46,10 @@ public class DuplicateProperties extends SquidCheck<LexerlessGrammar> {
     subscribeTo(CssGrammar.ruleset, CssGrammar.atRule);
   }
 
+  //TODO refactor this to not use getDescendants
   @Override
   public void visitNode(AstNode astNode) {
-    List<AstNode> declarations = astNode.getFirstChild(CssGrammar.block).getChildren(CssGrammar.declaration);
+    List<AstNode> declarations = astNode.getDescendants(CssGrammar.declaration);
     findDuplicates(declarations);
   }
 

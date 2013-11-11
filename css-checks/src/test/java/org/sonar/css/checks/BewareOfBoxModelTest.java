@@ -37,4 +37,12 @@ public class BewareOfBoxModelTest {
     .atLine(33).withMessage("Possible box sizing issue").noMore();
   }
 
+  @Test
+  public void test2() {
+    BewareOfBoxModel check = new BewareOfBoxModel();
+    SourceFile file = TestHelper.scanSingleFile(new File(
+        "src/test/resources/checks/fontface.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
+  }
+
 }

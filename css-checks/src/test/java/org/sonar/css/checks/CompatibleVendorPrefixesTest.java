@@ -39,4 +39,12 @@ public class CompatibleVendorPrefixesTest {
     .atLine(16).withMessage("Missing vendor: -webkit for property: border-radius").noMore();
   }
 
+  @Test
+  public void test2() {
+    CompatibleVendorPrefixes check = new CompatibleVendorPrefixes();
+    SourceFile file = TestHelper.scanSingleFile(new File(
+        "src/test/resources/checks/fontface.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
+  }
+
 }

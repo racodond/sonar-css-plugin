@@ -38,4 +38,12 @@ public class DisplayPropertyGroupingTest {
     .atLine(23).withMessage("Unnecessary property with display").noMore();
   }
 
+  @Test
+  public void test2() {
+    DisplayPropertyGrouping check = new DisplayPropertyGrouping();
+    SourceFile file = TestHelper.scanSingleFile(new File(
+        "src/test/resources/checks/fontface.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
+  }
+
 }

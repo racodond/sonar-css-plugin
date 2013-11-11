@@ -37,4 +37,12 @@ public class DuplicatedPropertiesTest {
         .atLine(20).withMessage("Duplicated property in the declarations").noMore();
   }
 
+  @Test
+  public void test2() {
+    DuplicateProperties check = new DuplicateProperties();
+    SourceFile file = TestHelper.scanSingleFile(new File(
+        "src/test/resources/checks/fontface.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
+  }
+
 }
