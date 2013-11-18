@@ -312,7 +312,7 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(from).is(addSpacing("from", b));
     b.rule(to).is(addSpacing("to", b));
 
-    b.rule(important).is("!important");
+    b.rule(important).is(addSpacing("!important", b));
     /**
      * TODO: How to cover this: any other character not matched by the above
      * rules, and neither a single nor a double quote
