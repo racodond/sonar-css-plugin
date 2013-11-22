@@ -32,30 +32,14 @@ public class RuleSetTest extends TestBase {
   private LexerlessGrammar b = SassGrammar.createGrammar();
 
   @Test
-  public void variable() {
+  public void nestedVarDeclaration() {
     assertThat(b.rule(CssGrammar.ruleset))
-        .matches(
-            code(
-            "#main p {" +
-              "  color: #00ff00;" +
-              "  width: 97%;" +
-              "" +
-              "  .redbox {" +
-              "    background-color: #ff0000;" +
-              "    color: #000000;" +
-              "  }" +
-              "}"
-            ))
-        .matches(
-            code(
-            "a {" +
-              "  font-weight: bold;" +
-              "  text-decoration: none;" +
-              "  body.firefox & { font-weight: normal; };" +
-              "  &:hover { text-decoration: underline; };" +
-              "}"
-            )
-        );
+        .matches("p {color:red;$width:5em;}")
+        .matches(code(
+            "p {",
+            "color:red;",
+            "$width:5em;",
+            "}"));
   }
 
   @Test
@@ -117,7 +101,29 @@ public class RuleSetTest extends TestBase {
               "    *width: 200px;" +
               "}"
             ));
+  }
 
+  @Test
+  public void nestedRules() {
+    assertThat(b.rule(CssGrammar.stylesheet))
+        .matches(code(
+            "#main p {",
+            "  color: #00ff00;",
+            "  width: 97%;",
+            "  .redbox {",
+            "    background-color: #ff0000;",
+            "    color: #000000;",
+            "  }",
+            "}"))
+        .matches(code(
+            "   #main {",
+            "     width: 97%",
+            "     p, div {",
+            "       font-size: 2em;",
+            "       a { font-weight: bold; }",
+            "     }",
+            "     pre { font-size: 3em; }",
+            "   }"));
   }
 
 }

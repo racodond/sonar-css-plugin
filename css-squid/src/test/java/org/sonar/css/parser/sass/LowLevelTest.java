@@ -45,40 +45,6 @@ public class LowLevelTest extends TestBase {
   }
 
   @Test
-  public void nestedVarDeclaration() {
-    assertThat(b.rule(CssGrammar.ruleset))
-        .matches("p {color:red;$width:5em;}")
-        .matches(code(
-            "p {",
-            "color:red;",
-            "$width:5em;",
-            "}"));
-  }
-
-  @Test
-  public void nestedRules() {
-    assertThat(b.rule(CssGrammar.stylesheet))
-        .matches(code(
-            "#main p {",
-            "  color: #00ff00;",
-            "  width: 97%;",
-            "  .redbox {",
-            "    background-color: #ff0000;",
-            "    color: #000000;",
-            "  }",
-            "}"))
-        .matches(code(
-            "   #main {",
-            "     width: 97%",
-            "     p, div {",
-            "       font-size: 2em;",
-            "       a { font-weight: bold; }",
-            "     }",
-            "     pre { font-size: 3em; }",
-            "   }"));
-  }
-
-  @Test
   public void varUsage() {
     assertThat(b.rule(CssGrammar.declaration))
         .matches("width: $width/2");
@@ -114,18 +80,6 @@ public class LowLevelTest extends TestBase {
         .matches("body.firefox &");
   }
 
-  @Test
-  public void nestedProperties() {
-    assertThat(b.rule(CssGrammar.ruleset))
-        .matches(code(
-            ".funky {",
-            "  font: {",
-            "    family: fantasy;",
-            "    size: 30em;",
-            "    weight: bold;",
-            "  }",
-            "}"));
-  }
 
   // NEED TEST FOR PLACEHOLDER SELECTORS
 
