@@ -103,9 +103,24 @@ public class LowLevelTest extends TestBase {
         .notMatches("10px/8px")
         .matches("$width/2")
         .matches("(500px/2)")
-        .matches("5px + (8px/2px) + 2");
+        .matches("5px + (8px/2px) + 2")
+        .matches("rgba(255, 0, 0, 0.75)+rgba(0, 255, 0, 0.75)")
+        .notMatches("10px / 8px")
+        .matches("$width / 2")
+        .matches("(500px / 2)")
+        .matches("5px + (8px / 2px) + 2")
+        .matches("rgba(255, 0, 0, 0.75) + rgba(0, 255, 0, 0.75)");;
         //not good yet
         //.matches("5px + 8px/2px");
+  }
+
+  @Test
+  public void stringOperations(){
+    assertThat(b.rule(SassGrammar.stringExp))
+    .matches("e + -resize")
+    .matches("\"Foo \" + Bar")
+    .matches("sans- + \"serif\"");
+
   }
 
 }

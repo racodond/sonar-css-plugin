@@ -34,7 +34,7 @@ public enum SassGrammar implements GrammarRuleKey {
   varDeclaration,
   variable,
   parentSelector,
-  nestedProperty, subDeclaration, placeHolderSelector, interpolation, expression, additiveExp, multiplicativeExp, primaryExp, multi, div;
+  nestedProperty, subDeclaration, placeHolderSelector, interpolation, expression, additiveExp, multiplicativeExp, primaryExp, multi, div, stringExp;
 
   public static final String SINGLE_LINE_COMMENT = "//[^\\n\\r]*+";
 
@@ -50,7 +50,7 @@ public enum SassGrammar implements GrammarRuleKey {
      */
     b.rule(CssGrammar.statement).override(b.firstOf(varDeclaration, CssGrammar.atRule, CssGrammar.ruleset));
     b.rule(varDeclaration).is(variable, CssGrammar.colon, CssGrammar.value, CssGrammar.semiColon);
-    b.rule(variable).is("$", CssGrammar.ident);
+    b.rule(variable).is(CssGrammar.addSpacing(b.sequence("$", CssGrammar.ident), b));
     // nested properties
     // @*
     // nested rules
@@ -124,6 +124,7 @@ public enum SassGrammar implements GrammarRuleKey {
         CssGrammar.rCurlyBracket);
     // #{} interpolation
     // aritchmetic expressions
+    // string expressions
     /**
      * ANY OVERRIDE
      */
@@ -136,6 +137,7 @@ public enum SassGrammar implements GrammarRuleKey {
             b.sequence(CssGrammar.lBracket,
                 b.zeroOrMore(CssGrammar.any), CssGrammar.rBracket),
             expression,
+            stringExp,
             CssGrammar.percentage,
             CssGrammar.dimension,
             CssGrammar.string,
@@ -177,6 +179,13 @@ public enum SassGrammar implements GrammarRuleKey {
         b.sequence(CssGrammar.lParenthesis, expression, CssGrammar.rParenthesis),
         CssGrammar.number
         ));
+
+    // string expressions
+    b.rule(stringExp).is(
+        b.firstOf(CssGrammar.string, CssGrammar.ident),
+        CssGrammar.addSpacing("+", b),
+        b.firstOf(CssGrammar.string, CssGrammar.ident)
+        );
 
     b.setRootRule(CssGrammar.stylesheet);
     return b;

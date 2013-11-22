@@ -260,7 +260,7 @@ public enum CssGrammar implements GrammarRuleKey {
   }
 
   private static void tokens(LexerlessGrammarBuilder b) {
-    b.rule(ident).is(_ident);
+    b.rule(ident).is(addSpacing(_ident,b));
     b.rule(atkeyword).is(addSpacing(b.sequence("@", ident), b));
     b.rule(string).is(addSpacing(_string, b));
     b.rule(bad_string).is(_badString); // TODO: do we need this?
