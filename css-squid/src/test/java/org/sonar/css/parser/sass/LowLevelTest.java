@@ -80,7 +80,6 @@ public class LowLevelTest extends TestBase {
         .matches("body.firefox &");
   }
 
-
   // NEED TEST FOR PLACEHOLDER SELECTORS
 
   @Test
@@ -96,6 +95,17 @@ public class LowLevelTest extends TestBase {
             "// They won't appear in the CSS output,",
             "// since they use the single-line comment syntax.",
             "a { color: green; }"));
+  }
+
+  @Test
+  public void arithmeticExpressions() {
+    assertThat(b.rule(SassGrammar.expression))
+        .notMatches("10px/8px")
+        .matches("$width/2")
+        .matches("(500px/2)")
+        .matches("5px + (8px/2px) + 2");
+        //not good yet
+        //.matches("5px + 8px/2px");
   }
 
 }

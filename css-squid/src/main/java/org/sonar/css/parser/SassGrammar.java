@@ -34,7 +34,7 @@ public enum SassGrammar implements GrammarRuleKey {
   varDeclaration,
   variable,
   parentSelector,
-  nestedProperty, subDeclaration, placeHolderSelector, interpolation;
+  nestedProperty, subDeclaration, placeHolderSelector, interpolation, expression, additiveExp, multiplicativeExp, primaryExp, multi, div;
 
   public static final String SINGLE_LINE_COMMENT = "//[^\\n\\r]*+";
 
@@ -118,11 +118,12 @@ public enum SassGrammar implements GrammarRuleKey {
             b.skippedTrivia(CssGrammar.whiteSpace),
             b.commentTrivia(b.regexp("(?:" + CssGrammar.COMMENT + "|" + CssGrammar.COMMENT2 + "|" + SINGLE_LINE_COMMENT + ")"))))).skip();
 
-    // #{} interpolation
     b.rule(interpolation).is(
         "#", CssGrammar.lCurlyBracket,
         CssGrammar.any,
         CssGrammar.rCurlyBracket);
+    // #{} interpolation
+    // aritchmetic expressions
     /**
      * ANY OVERRIDE
      */
@@ -134,6 +135,7 @@ public enum SassGrammar implements GrammarRuleKey {
                 CssGrammar.rParenthesis),
             b.sequence(CssGrammar.lBracket,
                 b.zeroOrMore(CssGrammar.any), CssGrammar.rBracket),
+            expression,
             CssGrammar.percentage,
             CssGrammar.dimension,
             CssGrammar.string,
@@ -148,6 +150,33 @@ public enum SassGrammar implements GrammarRuleKey {
             CssGrammar.colon,
             CssGrammar.important,
             CssGrammar.addSpacing(CssGrammar.delim, b))).skipIfOneChild();
+
+    // expressions
+    b.rule(expression).is(
+        additiveExp);
+
+    b.rule(additiveExp).is(
+        multiplicativeExp, b.zeroOrMore(b.firstOf(CssGrammar.addSpacing("+", b), CssGrammar.addSpacing("-", b)), multiplicativeExp)).skipIfOneChild();
+    b.rule(multiplicativeExp).is(
+        b.firstOf(div, multi));
+    b.rule(multi).is(
+        primaryExp, b.zeroOrMore(CssGrammar.addSpacing("*", b), primaryExp)).skipIfOneChild();
+
+    b.rule(div).is(
+        b.firstOf(
+            b.sequence(variable, CssGrammar.addSpacing("/", b), primaryExp),
+            b.sequence(CssGrammar.lParenthesis, primaryExp, CssGrammar.addSpacing("/", b), primaryExp, CssGrammar.rParenthesis)
+            // TODO cover expressions like: margin-left: 5px + 8px/2px; // Uses +, does division
+            )).skipIfOneChild();
+
+    b.rule(primaryExp).is(b.firstOf(
+        CssGrammar.dimension,
+        CssGrammar.hash,
+        CssGrammar.function,
+        variable,
+        b.sequence(CssGrammar.lParenthesis, expression, CssGrammar.rParenthesis),
+        CssGrammar.number
+        ));
 
     b.setRootRule(CssGrammar.stylesheet);
     return b;

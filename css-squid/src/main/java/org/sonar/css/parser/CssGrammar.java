@@ -364,7 +364,7 @@ public enum CssGrammar implements GrammarRuleKey {
   }
 
   static Object addSpacing(Object value, LexerlessGrammarBuilder b) {
-    return b.sequence(/* b.optional(whiteSpace), */value, whiteSpaces);
+    return b.sequence(value, whiteSpaces);
   }
 
 }
