@@ -85,7 +85,6 @@ public enum CssGrammar implements GrammarRuleKey {
 
   whiteSpace,
   whiteSpaces,
-  comment,
   function,
   includes,
   dashMatch,
@@ -164,7 +163,7 @@ public enum CssGrammar implements GrammarRuleKey {
 
   private static void syntax(LexerlessGrammarBuilder b) {
     b.rule(stylesheet).is(whiteSpaces, b.zeroOrMore(statement), eof);
-    b.rule(statement).is(b.firstOf(atRule, ruleset)); // --> add sass variable declaration here:DONE
+    b.rule(statement).is(b.firstOf(atRule, ruleset));
     b.rule(atRule).is(atkeyword,
         addSpacing(b.zeroOrMore(any), b),
         b.firstOf(
@@ -174,8 +173,7 @@ public enum CssGrammar implements GrammarRuleKey {
 
     b.rule(block).is(
         lCurlyBracket,
-        b.optional(supDeclaration), // --> add sass variable declaration here:DONE
-        // --> add sass subruleset here:DONE
+        b.optional(supDeclaration),
         /*--> add nested properties (font: 2px/3px {
         family: fantasy;
         size: 30em;
@@ -191,7 +189,7 @@ public enum CssGrammar implements GrammarRuleKey {
         rCurlyBracket);
 
     b.rule(ruleset).is(
-        addSpacing(b.optional(selector), b), // --> add sass parent selector '&' here:DONE
+        addSpacing(b.optional(selector), b),
         block
         );
 
@@ -237,7 +235,6 @@ public enum CssGrammar implements GrammarRuleKey {
         b.oneOrMore(b.firstOf(any, block, atkeyword)));
     b.rule(any)
         .is(
-            // addSpacing(
             b.firstOf(
                 function,
                 b.sequence(lParenthesis,
@@ -257,7 +254,7 @@ public enum CssGrammar implements GrammarRuleKey {
                 number,
                 colon,
                 important,
-                addSpacing(delim, b))/* , b) */).skipIfOneChild();
+                addSpacing(delim, b))).skipIfOneChild();
     b.rule(eof).is(b.token(GenericTokenType.EOF, b.endOfInput())).skip();
 
   }
@@ -295,9 +292,7 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(whiteSpaces).is(b.zeroOrMore(
         b.firstOf(
             b.skippedTrivia(whiteSpace),
-            b.commentTrivia(b.regexp(COMMENT)), // --> add sass // comment here
-            b.commentTrivia(b.regexp(COMMENT2))))).skip();
-    b.rule(comment).is(b.regexp("\\/\\*[^*]*\\*+([^/*][^*]*\\*+)*\\/"));
+            b.commentTrivia(b.regexp("(?:"+COMMENT+"|"+COMMENT2+")"))))).skip();
     b.rule(function).is(addSpacing(b.sequence(ident, lParenthesis), b), b.zeroOrMore(parameters),
         rParenthesis);
     b.rule(parameters).is(parameter, b.zeroOrMore(comma, parameter));

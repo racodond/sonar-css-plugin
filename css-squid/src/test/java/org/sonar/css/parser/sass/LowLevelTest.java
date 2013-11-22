@@ -56,6 +56,29 @@ public class LowLevelTest extends TestBase {
   }
 
   @Test
+  public void nestedRules() {
+    assertThat(b.rule(CssGrammar.stylesheet))
+        .matches(code(
+            "#main p {",
+            "  color: #00ff00;",
+            "  width: 97%;",
+            "  .redbox {",
+            "    background-color: #ff0000;",
+            "    color: #000000;",
+            "  }",
+            "}"))
+        .matches(code(
+            "   #main {",
+            "     width: 97%",
+            "     p, div {",
+            "       font-size: 2em;",
+            "       a { font-weight: bold; }",
+            "     }",
+            "     pre { font-size: 3em; }",
+            "   }"));
+  }
+
+  @Test
   public void varUsage() {
     assertThat(b.rule(CssGrammar.declaration))
         .matches("width: $width/2");
@@ -66,12 +89,59 @@ public class LowLevelTest extends TestBase {
     assertThat(b.rule(SassGrammar.parentSelector))
         .matches("&")
         .matches("&:hover");
+
+    assertThat(b.rule(CssGrammar.ruleset))
+        .matches(code(
+            "a {",
+            "  font-weight: bold;",
+            "  text-decoration: none;",
+            "  &:hover { text-decoration: underline; }",
+            "  body.firefox & { font-weight: normal; }",
+            "}"))
+        .matches(code(
+            "#main {",
+            "  color: black;",
+            "  a {",
+            "    font-weight: bold;",
+            "    &:hover { color: red; }",
+            "  }",
+            "}"));
   }
 
   @Test
   public void parentSelector2() {
     assertThat(b.rule(CssGrammar.selector))
         .matches("body.firefox &");
+  }
+
+  @Test
+  public void nestedProperties() {
+    assertThat(b.rule(CssGrammar.ruleset))
+        .matches(code(
+            ".funky {",
+            "  font: {",
+            "    family: fantasy;",
+            "    size: 30em;",
+            "    weight: bold;",
+            "  }",
+            "}"));
+  }
+
+  // NEED TEST FOR PLACEHOLDER SELECTORS
+
+  @Test
+  public void comment() {
+    assertThat(b.rule(CssGrammar.stylesheet))
+        .matches(code(
+            "/* This comment is",
+            " * several lines long.",
+            " * since it uses the CSS comment syntax,",
+            " * it will appear in the CSS output. */",
+            "body { color: black; }",
+            "// These comments are only one line long each.",
+            "// They won't appear in the CSS output,",
+            "// since they use the single-line comment syntax.",
+            "a { color: green; }"));
   }
 
 }

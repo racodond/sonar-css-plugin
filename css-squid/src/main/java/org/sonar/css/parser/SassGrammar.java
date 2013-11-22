@@ -34,7 +34,9 @@ public enum SassGrammar implements GrammarRuleKey {
   varDeclaration,
   variable,
   parentSelector,
-  nestedProperty;
+  nestedProperty, subDeclaration, placeHolderSelector, interpolation;
+
+  public static final String SINGLE_LINE_COMMENT = "//[^\\n\\r]*+";
 
   public static LexerlessGrammar createGrammar() {
     return createGrammarBuilder().build();
@@ -43,32 +45,109 @@ public enum SassGrammar implements GrammarRuleKey {
   public static LexerlessGrammarBuilder createGrammarBuilder() {
     LexerlessGrammarBuilder b = LexerlessGrammarBuilder.createBasedOn(CssGrammar.createGrammarBuilder());
     // variable declaration + variable
+    /**
+     * STATEMENT OVERRIDE
+     */
     b.rule(CssGrammar.statement).override(b.firstOf(varDeclaration, CssGrammar.atRule, CssGrammar.ruleset));
     b.rule(varDeclaration).is(variable, CssGrammar.colon, CssGrammar.value, CssGrammar.semiColon);
     b.rule(variable).is("$", CssGrammar.ident);
-    // + nested properties + @*
-    b.rule(CssGrammar.supDeclaration).override(
-        b.oneOrMore(
-            b.firstOf(
-                nestedProperty,
-                CssGrammar.atRule,
-                CssGrammar.ruleset,
-                CssGrammar.declaration,
-                varDeclaration,
-                CssGrammar.semiColon))).skip();
+    // nested properties
+    // @*
+    // nested rules
+    b.rule(subDeclaration).is(
+        b.firstOf(
+            nestedProperty,
+            CssGrammar.atRule,
+            CssGrammar.ruleset,
+            CssGrammar.declaration,
+            varDeclaration)
+        );
 
-    b.rule(CssGrammar.property).override(b.firstOf(variable, CssGrammar.ident));
+    /**
+     * SUPDECLARATION OVERRIDE
+     */
+    b.rule(CssGrammar.supDeclaration).override(
+        subDeclaration,
+        b.zeroOrMore(
+            b.firstOf(CssGrammar.semiColon, subDeclaration)
+            )).skip();
+
+    /**
+     * PROPERTY OVERRIDE
+     */
+    b.rule(CssGrammar.property).override(b.firstOf(CssGrammar.addSpacing(variable, b), CssGrammar.addSpacing(CssGrammar.ident, b)));
 
     b.rule(nestedProperty).is(
         CssGrammar.ident, CssGrammar.colon, b.optional(CssGrammar.value),
-        CssGrammar.lCurlyBracket,
-        b.optional(CssGrammar.supDeclaration),
-        b.zeroOrMore(b.sequence(CssGrammar.semiColon, b.optional(CssGrammar.supDeclaration))),
-        CssGrammar.rCurlyBracket);
+        CssGrammar.block);
 
     // parent selector
-    b.rule(CssGrammar.simpleSelector).override(b.firstOf(CssGrammar.typeSelector, parentSelector, CssGrammar.universalSelector)).skip();
     b.rule(parentSelector).is(CssGrammar.addSpacing("&", b), b.zeroOrMore(CssGrammar.subS));
+    /**
+     * SIMPLESELECTOR OVERRIDE
+     */
+    b.rule(CssGrammar.simpleSelector).override(
+        b.firstOf(
+            CssGrammar.universalSelector,
+            CssGrammar.typeSelector,
+            CssGrammar.animationEvent,
+            parentSelector),
+        b.optional(
+            CssGrammar.whiteSpaces, b.next(CssGrammar.combinators))
+        ).skip();
+
+    // placeholder selector
+    b.rule(placeHolderSelector).is("%", CssGrammar.ident);
+    /**
+     * SUBS OVERRIDE
+     */
+    b.rule(CssGrammar.subS).override(
+        b.firstOf(
+            CssGrammar.attributeSelector,
+            CssGrammar.idSelector,
+            CssGrammar.classSelector,
+            placeHolderSelector,
+            CssGrammar.pseudo)).skip();
+
+    // single line comment
+    /**
+     * WHITESPACES OVERRIDE
+     */
+    b.rule(CssGrammar.whiteSpaces).override(b.zeroOrMore(
+        b.firstOf(
+            b.skippedTrivia(CssGrammar.whiteSpace),
+            b.commentTrivia(b.regexp("(?:" + CssGrammar.COMMENT + "|" + CssGrammar.COMMENT2 + "|" + SINGLE_LINE_COMMENT + ")"))))).skip();
+
+    // #{} interpolation
+    b.rule(interpolation).is(
+        "#", CssGrammar.lCurlyBracket,
+        CssGrammar.any,
+        CssGrammar.rCurlyBracket);
+    /**
+     * ANY OVERRIDE
+     */
+    b.rule(CssGrammar.any).override(
+        b.firstOf(
+            CssGrammar.function,
+            b.sequence(CssGrammar.lParenthesis,
+                b.zeroOrMore(CssGrammar.any),
+                CssGrammar.rParenthesis),
+            b.sequence(CssGrammar.lBracket,
+                b.zeroOrMore(CssGrammar.any), CssGrammar.rBracket),
+            CssGrammar.percentage,
+            CssGrammar.dimension,
+            CssGrammar.string,
+            interpolation,
+            CssGrammar.uri,
+            CssGrammar.hash,
+            CssGrammar.unicodeRange,
+            CssGrammar.includes,
+            CssGrammar.dashMatch,
+            CssGrammar.addSpacing(CssGrammar.ident, b),
+            CssGrammar.number,
+            CssGrammar.colon,
+            CssGrammar.important,
+            CssGrammar.addSpacing(CssGrammar.delim, b))).skipIfOneChild();
 
     b.setRootRule(CssGrammar.stylesheet);
     return b;
