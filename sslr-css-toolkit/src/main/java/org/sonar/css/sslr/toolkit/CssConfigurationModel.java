@@ -32,6 +32,7 @@ import org.sonar.colorizer.StringTokenizer;
 import org.sonar.colorizer.Tokenizer;
 import org.sonar.css.CssConfiguration;
 import org.sonar.css.parser.CssGrammar;
+import org.sonar.css.parser.SassGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.parser.ParserAdapter;
 import org.sonar.sslr.toolkit.AbstractConfigurationModel;
@@ -63,8 +64,8 @@ public class CssConfigurationModel extends AbstractConfigurationModel {
 
   @Override
   public Parser<? extends Grammar> doGetParser() {
-    //return SassParser.create(getConfiguration());
-    return new ParserAdapter<LexerlessGrammar>(getCharset(), CssGrammar.createGrammar());
+    return new ParserAdapter<LexerlessGrammar>(getCharset(), SassGrammar.createGrammar());
+    //return new ParserAdapter<LexerlessGrammar>(getCharset(), CssGrammar.createGrammar());
   }
 
   @Override

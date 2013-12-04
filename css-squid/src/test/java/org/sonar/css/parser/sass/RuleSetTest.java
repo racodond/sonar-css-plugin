@@ -34,96 +34,120 @@ public class RuleSetTest extends TestBase {
   @Test
   public void nestedVarDeclaration() {
     assertThat(b.rule(CssGrammar.ruleset))
-        .matches("p {color:red;$width:5em;}")
-        .matches(code(
-            "p {",
-            "color:red;",
-            "$width:5em;",
-            "}"));
+      .matches("p {color:red;$width:5em;}")
+      .matches(code(
+        "p {",
+        "color:red;",
+        "$width:5em;",
+        "}"));
   }
 
   @Test
   public void nestedProperties() {
     assertThat(b.rule(CssGrammar.ruleset))
-        .matches(
-            code(
-            ".funky {" +
-              "  font: {" +
-              "  family: fantasy;" +
-              "    size: 30em;" +
-              "    weight: bold;" +
-              "  }" +
-              "}"
-            )
+      .matches(
+        code(
+        ".funky {" +
+          "  font: {" +
+          "  family: fantasy;" +
+          "    size: 30em;" +
+          "    weight: bold;" +
+          "  }" +
+          "}"
         )
-        .matches(
-            code(
-            ".funky {" +
-              "  font: 2px/3px {" +
-              "  family: fantasy;" +
-              "    size: 30em;" +
-              "    weight: bold;" +
-              "  }" +
-              "}"
-            )
-        );
+      )
+      .matches(
+        code(
+        ".funky {" +
+          "  font: 2px/3px {" +
+          "  family: fantasy;" +
+          "    size: 30em;" +
+          "    weight: bold;" +
+          "  }" +
+          "}"
+        )
+      );
   }
 
   @Test
   public void nestedImport() {
     assertThat(b.rule(CssGrammar.ruleset))
-        .matches(
-            code(
-            "#main {" +
-              "  @import \"example\";" +
-              "}"
-            )
-        ).matches(
-            code(
-            ".sidebar {" +
-              "  width: 300px;" +
-              "  @media screen and (orientation: landscape) {" +
-              "    width: 500px;" +
-              "  }" +
-              "}"
-            )
-        );
+      .matches(
+        code(
+        "#main {" +
+          "  @import \"example\";" +
+          "}"
+        )
+      ).matches(
+        code(
+        ".sidebar {" +
+          "  width: 300px;" +
+          "  @media screen and (orientation: landscape) {" +
+          "    width: 500px;" +
+          "  }" +
+          "}"
+        )
+      );
   }
 
   @Test
   public void starHack() {
     assertThat(b.rule(CssGrammar.ruleset))
-        .matches(code(
-            ".mybox {" +
-              "    border: 1px solid black;" +
-              "    padding: 5px;" +
-              "    width: 100px;" +
-              "    *width: 200px;" +
-              "}"
-            ));
+      .matches(code(
+        ".mybox {" +
+          "    border: 1px solid black;" +
+          "    padding: 5px;" +
+          "    width: 100px;" +
+          "    *width: 200px;" +
+          "}"
+        ));
   }
 
   @Test
   public void nestedRules() {
     assertThat(b.rule(CssGrammar.stylesheet))
-        .matches(code(
-            "#main p {",
-            "  color: #00ff00;",
-            "  width: 97%;",
-            "  .redbox {",
-            "    background-color: #ff0000;",
-            "    color: #000000;",
-            "  }",
-            "}"))
-        .matches(code(
-            "   #main {",
-            "     width: 97%",
-            "     p, div {",
-            "       font-size: 2em;",
-            "       a { font-weight: bold; }",
-            "     }",
-            "     pre { font-size: 3em; }",
-            "   }"));
+      .matches(code(
+        "#main p {",
+        "  color: #00ff00;",
+        "  width: 97%;",
+        "  .redbox {",
+        "    background-color: #ff0000;",
+        "    color: #000000;",
+        "  }",
+        "}"))
+      .matches(code(
+        "   #main {",
+        "     width: 97%",
+        "     p, div {",
+        "       font-size: 2em;",
+        "       a { font-weight: bold; }",
+        "     }",
+        "     pre { font-size: 3em; }",
+        "   }"));
+  }
+
+  @Test
+  public void extend() {
+    assertThat(b.rule(CssGrammar.ruleset))
+      .matches(code(".seriousError {",
+        "@extend .error;",
+        "@extend .notice !optional;",
+        "border-width: 3px;",
+        "}"));
+    assertThat(b.rule(CssGrammar.stylesheet))
+      .matches(code(
+        "#fake-links .link {",
+        "  @extend a;",
+        "}",
+        "",
+        "a {",
+        "  color: blue;",
+        "  &:hover {",
+        "    text-decoration: underline;",
+        "  }",
+        "}"
+
+        ));
   }
 
 }
