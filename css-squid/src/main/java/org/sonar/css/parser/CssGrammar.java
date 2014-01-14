@@ -136,7 +136,7 @@ public enum CssGrammar implements GrammarRuleKey {
   _nl,
   _w,
 
-  eof, animationEvent, unit, parameters, comma, parameter, to, from, atRuleBlock;
+  eof, animationEvent, unit, parameters, comma, parameter, to, from, atRuleBlock, identNoWS;
 
   private static final String NMCHAR = "(?i)[_a-z0-9-]";
   private static final String NONASCII = "[^\\x00-\\xED]";
@@ -260,7 +260,7 @@ public enum CssGrammar implements GrammarRuleKey {
   }
 
   private static void tokens(LexerlessGrammarBuilder b) {
-    b.rule(ident).is(addSpacing(_ident,b));
+    b.rule(ident).is(_ident);
     b.rule(atkeyword).is(addSpacing(b.sequence("@", ident), b));
     b.rule(string).is(addSpacing(_string, b));
     b.rule(bad_string).is(_badString); // TODO: do we need this?

@@ -34,8 +34,7 @@ public enum SassGrammar implements GrammarRuleKey {
   varDeclaration,
   variable,
   parentSelector,
-  nestedProperty, subDeclaration, placeHolderSelector, interpolation,
-  expression, additiveExp, multiplicativeExp, primaryExp, stringExp;
+  nestedProperty, subDeclaration, placeHolderSelector, interpolation, expression, additiveExp, multiplicativeExp, primaryExp, multi, div, stringExp, def, extend, opt, debug, warn;
 
   public static final String SINGLE_LINE_COMMENT = "//[^\\n\\r]*+";
 
@@ -52,11 +51,18 @@ public enum SassGrammar implements GrammarRuleKey {
     b.rule(CssGrammar.statement).override(b.firstOf(varDeclaration, CssGrammar.atRule, CssGrammar.ruleset));
     b.rule(varDeclaration).is(variable, CssGrammar.colon, CssGrammar.value, CssGrammar.semiColon);
     b.rule(variable).is(CssGrammar.addSpacing(b.sequence("$", CssGrammar.ident), b));
+    b.rule(extend).is(CssGrammar.addSpacing("@extend", b), CssGrammar.addSpacing(CssGrammar.selector, b), b.optional(opt));
+    b.rule(opt).is("!optional");
     // nested properties
     // @*
     // nested rules
+    // extend
+    /**
+     * What is the differenc between this and the any?
+     */
     b.rule(subDeclaration).is(
         b.firstOf(
+            extend,
             nestedProperty,
             CssGrammar.atRule,
             CssGrammar.ruleset,
@@ -137,6 +143,9 @@ public enum SassGrammar implements GrammarRuleKey {
                 CssGrammar.rParenthesis),
             b.sequence(CssGrammar.lBracket,
                 b.zeroOrMore(CssGrammar.any), CssGrammar.rBracket),
+            def,
+            debug,
+            warn,
             expression,
             stringExp,
             CssGrammar.percentage,
@@ -154,26 +163,35 @@ public enum SassGrammar implements GrammarRuleKey {
             CssGrammar.important,
             CssGrammar.addSpacing(CssGrammar.delim, b))).skipIfOneChild();
 
+    b.rule(def).is(CssGrammar.addSpacing("!default", b));
+    b.rule(debug).is(CssGrammar.addSpacing("@debug", b), CssGrammar.value);
+    b.rule(warn).is(CssGrammar.addSpacing("@warn", b), CssGrammar.value);
     // expressions
     b.rule(expression).is(
         additiveExp);
 
     b.rule(additiveExp).is(
         multiplicativeExp, b.zeroOrMore(b.firstOf(CssGrammar.addSpacing("+", b), CssGrammar.addSpacing("-", b)), multiplicativeExp)).skipIfOneChild();
+    /*
+     * b.rule(multiplicativeExp).is(
+     * b.firstOf(div, multi));
+     */
     b.rule(multiplicativeExp).is(
-        b.firstOf(
-            b.sequence(variable,
-                b.zeroOrMore(b.firstOf(CssGrammar.addSpacing("/", b), CssGrammar.addSpacing("*", b)),
-                    primaryExp)),
-            b.sequence(CssGrammar.lParenthesis, primaryExp,
-                b.zeroOrMore(b.firstOf(CssGrammar.addSpacing("/", b), CssGrammar.addSpacing("*", b)),
-                    primaryExp), CssGrammar.rParenthesis),
+        primaryExp, b.zeroOrMore(b.firstOf(CssGrammar.addSpacing("*", b), CssGrammar.addSpacing("/", b)), primaryExp)).skipIfOneChild();
 
-            b.sequence(
-                primaryExp, b.zeroOrMore(CssGrammar.addSpacing("*", b), primaryExp))
-            // TODO cover expressions like: margin-left: 5px + 8px/2px; // Uses +, does division
-            )).skipIfOneChild();
-
+    /**
+     * It is not easy to properly cover this so for know these expressions will be divisions.
+     * If we need a rule around this area we can try to:
+     *  "Maybe one of the options is to split / duplicate grammar on two parts: one with "/" as a division, another one without, first one won't accept variables and expressions."
+     */
+    /*
+     * b.rule(div).is(
+     * b.firstOf(
+     * b.sequence(variable, CssGrammar.addSpacing("/", b), primaryExp),
+     * b.sequence(CssGrammar.lParenthesis, primaryExp, CssGrammar.addSpacing("/", b), primaryExp, CssGrammar.rParenthesis)
+     * // TODO cover expressions like: margin-left: 5px + 8px/2px; // Uses +, does division
+     * )).skipIfOneChild();
+     */
     b.rule(primaryExp).is(b.firstOf(
         CssGrammar.dimension,
         CssGrammar.hash,
@@ -185,9 +203,9 @@ public enum SassGrammar implements GrammarRuleKey {
 
     // string expressions
     b.rule(stringExp).is(
-        b.firstOf(CssGrammar.string, CssGrammar.ident),
+        b.firstOf(CssGrammar.string, CssGrammar.addSpacing(CssGrammar.ident, b)),
         CssGrammar.addSpacing("+", b),
-        b.firstOf(CssGrammar.string, CssGrammar.ident)
+        b.firstOf(CssGrammar.string, CssGrammar.addSpacing(CssGrammar.ident, b))
         );
 
     b.setRootRule(CssGrammar.stylesheet);

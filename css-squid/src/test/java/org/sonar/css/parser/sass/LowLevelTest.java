@@ -41,6 +41,8 @@ public class LowLevelTest extends TestBase {
   public void varDeclaration() {
     assertThat(b.rule(SassGrammar.varDeclaration))
         .matches("$width:5em;")
+      .matches("$width : 5em ; ")
+      .matches("$content: \"Second content?\" !default;")
         .matches("$translucent-red: rgba(255, 0, 0, 0.5);");
   }
 
@@ -100,27 +102,42 @@ public class LowLevelTest extends TestBase {
   @Test
   public void arithmeticExpressions() {
     assertThat(b.rule(SassGrammar.expression))
-        .notMatches("10px/8px")
+      // We cannot manage the difference now so it is an expression
+      .matches("10px/8px")
         .matches("$width/2")
         .matches("(500px/2)")
         .matches("5px + (8px/2px) + 2")
         .matches("rgba(255, 0, 0, 0.75)+rgba(0, 255, 0, 0.75)")
-        .notMatches("10px / 8px")
+      // We cannot manage the difference now so it is an expression
+      .matches("10px / 8px")
         .matches("$width / 2")
         .matches("(500px / 2)")
         .matches("5px + (8px / 2px) + 2")
         .matches("5px + (8px / 2px / 5em * 3px) + 2")
-        .matches("rgba(255, 0, 0, 0.75) + rgba(0, 255, 0, 0.75)")
-        // not good yet
-        .matches("5px + 8px/2px");
+      .matches("rgba(255, 0, 0, 0.75) + rgba(0, 255, 0, 0.75)")
+        //not good yet
+      .matches("5px + 8px/2px");
   }
 
   @Test
-  public void stringOperations() {
+  public void stringOperations(){
     assertThat(b.rule(SassGrammar.stringExp))
-        .matches("e + -resize")
-        .matches("\"Foo \" + Bar")
-        .matches("sans- + \"serif\"");
+    .matches("e + -resize")
+    .matches("\"Foo \" + Bar")
+    .matches("sans- + \"serif\"");
+
+  }
+
+  @Test
+  public void debugWarn() {
+    assertThat(b.rule(CssGrammar.any))
+      .matches("@debug e + -resize")
+      .matches("@warn \"Foo \" + Bar")
+      .matches("@debug sans- + \"serif\"")
+      .matches("@debug 10px / 8px")
+      .matches("@warn $width / 2")
+      .matches("@debug (500px / 2)")
+      .matches("@warn 5px + (8px / 2px) + 2");
   }
 
   @Test
@@ -128,7 +145,5 @@ public class LowLevelTest extends TestBase {
     assertThat(b.rule(CssGrammar.declaration))
         .matches("content: \"I ate #{5 + 10} pies!\"")
         .matches("font-family: sans- + \"serif\"");
-
   }
-
 }
