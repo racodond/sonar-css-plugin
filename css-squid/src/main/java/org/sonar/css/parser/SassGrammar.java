@@ -34,7 +34,8 @@ public enum SassGrammar implements GrammarRuleKey {
   varDeclaration,
   variable,
   parentSelector,
-  nestedProperty, subDeclaration, placeHolderSelector, interpolation, expression, additiveExp, multiplicativeExp, primaryExp, multi, div, stringExp;
+  nestedProperty, subDeclaration, placeHolderSelector, interpolation,
+  expression, additiveExp, multiplicativeExp, primaryExp, stringExp;
 
   public static final String SINGLE_LINE_COMMENT = "//[^\\n\\r]*+";
 
@@ -160,14 +161,16 @@ public enum SassGrammar implements GrammarRuleKey {
     b.rule(additiveExp).is(
         multiplicativeExp, b.zeroOrMore(b.firstOf(CssGrammar.addSpacing("+", b), CssGrammar.addSpacing("-", b)), multiplicativeExp)).skipIfOneChild();
     b.rule(multiplicativeExp).is(
-        b.firstOf(div, multi));
-    b.rule(multi).is(
-        primaryExp, b.zeroOrMore(CssGrammar.addSpacing("*", b), primaryExp)).skipIfOneChild();
-
-    b.rule(div).is(
         b.firstOf(
-            b.sequence(variable, CssGrammar.addSpacing("/", b), primaryExp),
-            b.sequence(CssGrammar.lParenthesis, primaryExp, CssGrammar.addSpacing("/", b), primaryExp, CssGrammar.rParenthesis)
+            b.sequence(variable,
+                b.zeroOrMore(b.firstOf(CssGrammar.addSpacing("/", b), CssGrammar.addSpacing("*", b)),
+                    primaryExp)),
+            b.sequence(CssGrammar.lParenthesis, primaryExp,
+                b.zeroOrMore(b.firstOf(CssGrammar.addSpacing("/", b), CssGrammar.addSpacing("*", b)),
+                    primaryExp), CssGrammar.rParenthesis),
+
+            b.sequence(
+                primaryExp, b.zeroOrMore(CssGrammar.addSpacing("*", b), primaryExp))
             // TODO cover expressions like: margin-left: 5px + 8px/2px; // Uses +, does division
             )).skipIfOneChild();
 

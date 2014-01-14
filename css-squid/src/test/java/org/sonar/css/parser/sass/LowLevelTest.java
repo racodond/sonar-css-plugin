@@ -109,17 +109,25 @@ public class LowLevelTest extends TestBase {
         .matches("$width / 2")
         .matches("(500px / 2)")
         .matches("5px + (8px / 2px) + 2")
-        .matches("rgba(255, 0, 0, 0.75) + rgba(0, 255, 0, 0.75)");;
-        //not good yet
-        //.matches("5px + 8px/2px");
+        .matches("5px + (8px / 2px / 5em * 3px) + 2")
+        .matches("rgba(255, 0, 0, 0.75) + rgba(0, 255, 0, 0.75)")
+        // not good yet
+        .matches("5px + 8px/2px");
   }
 
   @Test
-  public void stringOperations(){
+  public void stringOperations() {
     assertThat(b.rule(SassGrammar.stringExp))
-    .matches("e + -resize")
-    .matches("\"Foo \" + Bar")
-    .matches("sans- + \"serif\"");
+        .matches("e + -resize")
+        .matches("\"Foo \" + Bar")
+        .matches("sans- + \"serif\"");
+  }
+
+  @Test
+  public void specialDeclarations() {
+    assertThat(b.rule(CssGrammar.declaration))
+        .matches("content: \"I ate #{5 + 10} pies!\"")
+        .matches("font-family: sans- + \"serif\"");
 
   }
 
