@@ -220,8 +220,8 @@ public enum CssGrammar implements GrammarRuleKey {
                 b.firstOf(dashMatch, includes, eq, contains, startsWith, endsWith),
                 any),
             rBracket));
-    b.rule(classSelector).is(b.oneOrMore(".", ident));
-    b.rule(idSelector).is("#", ident);
+    b.rule(classSelector).is(b.oneOrMore(".", identNoWS));
+    b.rule(idSelector).is("#", identNoWS);
     b.rule(pseudo).is(colon, any);
 
     b.rule(supDeclaration).is(
@@ -260,7 +260,8 @@ public enum CssGrammar implements GrammarRuleKey {
   }
 
   private static void tokens(LexerlessGrammarBuilder b) {
-    b.rule(ident).is(_ident);
+    b.rule(ident).is(addSpacing(_ident,b));
+    b.rule(identNoWS).is(_ident);
     b.rule(atkeyword).is(addSpacing(b.sequence("@", ident), b));
     b.rule(string).is(addSpacing(_string, b));
     b.rule(bad_string).is(_badString); // TODO: do we need this?
