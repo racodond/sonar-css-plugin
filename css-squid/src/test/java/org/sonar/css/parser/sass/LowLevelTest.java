@@ -34,52 +34,52 @@ public class LowLevelTest extends TestBase {
   @Test
   public void variable() {
     assertThat(b.rule(SassGrammar.variable))
-      .matches("$width");
+        .matches("$width");
   }
 
   @Test
   public void varDeclaration() {
     assertThat(b.rule(SassGrammar.varDeclaration))
-      .matches("$width:5em;")
+        .matches("$width:5em;")
       .matches("$width : 5em ; ")
       .matches("$content: \"Second content?\" !default;")
-      .matches("$translucent-red: rgba(255, 0, 0, 0.5);");
+        .matches("$translucent-red: rgba(255, 0, 0, 0.5);");
   }
 
   @Test
   public void varUsage() {
     assertThat(b.rule(CssGrammar.declaration))
-      .matches("width: $width/2");
+        .matches("width: $width/2");
   }
 
   @Test
   public void parentSelector() {
     assertThat(b.rule(SassGrammar.parentSelector))
-      .matches("&")
-      .matches("&:hover");
+        .matches("&")
+        .matches("&:hover");
 
     assertThat(b.rule(CssGrammar.ruleset))
-      .matches(code(
-        "a {",
-        "  font-weight: bold;",
-        "  text-decoration: none;",
-        "  &:hover { text-decoration: underline; }",
-        "  body.firefox & { font-weight: normal; }",
-        "}"))
-      .matches(code(
-        "#main {",
-        "  color: black;",
-        "  a {",
-        "    font-weight: bold;",
-        "    &:hover { color: red; }",
-        "  }",
-        "}"));
+        .matches(code(
+            "a {",
+            "  font-weight: bold;",
+            "  text-decoration: none;",
+            "  &:hover { text-decoration: underline; }",
+            "  body.firefox & { font-weight: normal; }",
+            "}"))
+        .matches(code(
+            "#main {",
+            "  color: black;",
+            "  a {",
+            "    font-weight: bold;",
+            "    &:hover { color: red; }",
+            "  }",
+            "}"));
   }
 
   @Test
   public void parentSelector2() {
     assertThat(b.rule(CssGrammar.selector))
-      .matches("body.firefox &");
+        .matches("body.firefox &");
   }
 
   // NEED TEST FOR PLACEHOLDER SELECTORS
@@ -87,16 +87,16 @@ public class LowLevelTest extends TestBase {
   @Test
   public void comment() {
     assertThat(b.rule(CssGrammar.stylesheet))
-      .matches(code(
-        "/* This comment is",
-        " * several lines long.",
-        " * since it uses the CSS comment syntax,",
-        " * it will appear in the CSS output. */",
-        "body { color: black; }",
-        "// These comments are only one line long each.",
-        "// They won't appear in the CSS output,",
-        "// since they use the single-line comment syntax.",
-        "a { color: green; }"));
+        .matches(code(
+            "/* This comment is",
+            " * several lines long.",
+            " * since it uses the CSS comment syntax,",
+            " * it will appear in the CSS output. */",
+            "body { color: black; }",
+            "// These comments are only one line long each.",
+            "// They won't appear in the CSS output,",
+            "// since they use the single-line comment syntax.",
+            "a { color: green; }"));
   }
 
   @Test
@@ -104,26 +104,27 @@ public class LowLevelTest extends TestBase {
     assertThat(b.rule(SassGrammar.expression))
       // We cannot manage the difference now so it is an expression
       .matches("10px/8px")
-      .matches("$width/2")
-      .matches("(500px/2)")
-      .matches("5px + (8px/2px) + 2")
-      .matches("rgba(255, 0, 0, 0.75)+rgba(0, 255, 0, 0.75)")
+        .matches("$width/2")
+        .matches("(500px/2)")
+        .matches("5px + (8px/2px) + 2")
+        .matches("rgba(255, 0, 0, 0.75)+rgba(0, 255, 0, 0.75)")
       // We cannot manage the difference now so it is an expression
       .matches("10px / 8px")
-      .matches("$width / 2")
-      .matches("(500px / 2)")
-      .matches("5px + (8px / 2px) + 2")
+        .matches("$width / 2")
+        .matches("(500px / 2)")
+        .matches("5px + (8px / 2px) + 2")
+        .matches("5px + (8px / 2px / 5em * 3px) + 2")
       .matches("rgba(255, 0, 0, 0.75) + rgba(0, 255, 0, 0.75)")
-      // not good yet
+        //not good yet
       .matches("5px + 8px/2px");
   }
 
   @Test
-  public void stringOperations() {
+  public void stringOperations(){
     assertThat(b.rule(SassGrammar.stringExp))
-      .matches("e + -resize")
-      .matches("\"Foo \" + Bar")
-      .matches("sans- + \"serif\"");
+    .matches("e + -resize")
+    .matches("\"Foo \" + Bar")
+    .matches("sans- + \"serif\"");
 
   }
 
@@ -139,4 +140,10 @@ public class LowLevelTest extends TestBase {
       .matches("@warn 5px + (8px / 2px) + 2");
   }
 
+  @Test
+  public void specialDeclarations() {
+    assertThat(b.rule(CssGrammar.declaration))
+        .matches("content: \"I ate #{5 + 10} pies!\"")
+        .matches("font-family: sans- + \"serif\"");
+  }
 }
