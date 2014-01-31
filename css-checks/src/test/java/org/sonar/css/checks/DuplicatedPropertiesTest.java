@@ -38,6 +38,14 @@ public class DuplicatedPropertiesTest {
   }
 
   @Test
+  public void testBug() {
+    DuplicateProperties check = new DuplicateProperties();
+    SourceFile file = TestHelper.scanSingleFile(new File(
+        "src/test/resources/checks/noDuplication.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
+  }
+
+  @Test
   public void test2() {
     DuplicateProperties check = new DuplicateProperties();
     SourceFile file = TestHelper.scanSingleFile(new File(

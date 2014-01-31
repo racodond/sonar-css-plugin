@@ -226,7 +226,7 @@ public enum CssGrammar implements GrammarRuleKey {
 
     b.rule(supDeclaration).is(
         declaration,
-        b.zeroOrMore(b.firstOf(semiColon, declaration))).skip();
+        b.zeroOrMore(b.firstOf(semiColon, declaration)));
 
     b.rule(declaration)
         .is(property, colon, value);

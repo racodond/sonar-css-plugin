@@ -64,8 +64,8 @@ public class CssConfigurationModel extends AbstractConfigurationModel {
 
   @Override
   public Parser<? extends Grammar> doGetParser() {
-    return new ParserAdapter<LexerlessGrammar>(getCharset(), SassGrammar.createGrammar());
-    //return new ParserAdapter<LexerlessGrammar>(getCharset(), CssGrammar.createGrammar());
+    //return new ParserAdapter<LexerlessGrammar>(getCharset(), SassGrammar.createGrammar());
+    return new ParserAdapter<LexerlessGrammar>(getCharset(), CssGrammar.createGrammar());
   }
 
   @Override
