@@ -34,7 +34,22 @@ public enum SassGrammar implements GrammarRuleKey {
   varDeclaration,
   variable,
   parentSelector,
-  nestedProperty, subDeclaration, placeHolderSelector, interpolation, expression, additiveExp, multiplicativeExp, primaryExp, multi, div, stringExp, def, extend, opt, debug, warn;
+  nestedProperty,
+  subDeclaration,
+  placeHolderSelector,
+  interpolation,
+  expression,
+  additiveExp,
+  multiplicativeExp,
+  primaryExp,
+  multi,
+  div,
+  stringExp,
+  def,
+  extend,
+  opt,
+  debug,
+  warn;
 
   public static final String SINGLE_LINE_COMMENT = "//[^\\n\\r]*+";
 
@@ -182,7 +197,8 @@ public enum SassGrammar implements GrammarRuleKey {
     /**
      * It is not easy to properly cover this so for know these expressions will be divisions.
      * If we need a rule around this area we can try to:
-     *  "Maybe one of the options is to split / duplicate grammar on two parts: one with "/" as a division, another one without, first one won't accept variables and expressions."
+     *  "Maybe one of the options is to split / duplicate grammar on two parts: one with "/" as a division, another one without,
+     *  first one won't accept variables and expressions."
      */
     /*
      * b.rule(div).is(
