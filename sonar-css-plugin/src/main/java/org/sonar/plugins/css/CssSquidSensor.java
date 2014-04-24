@@ -68,7 +68,7 @@ public class CssSquidSensor implements Sensor {
   }
 
   public boolean shouldExecuteOnProject(Project project) {
-    return Css.KEY.equals(project.getLanguage().getKey());
+    return !moduleFileSystem.files(Css.sourceQuery).isEmpty();
   }
 
   public void analyse(Project project, SensorContext context) {
@@ -77,8 +77,7 @@ public class CssSquidSensor implements Sensor {
 
     Collection<SquidAstVisitor<LexerlessGrammar>> squidChecks = annotationCheckFactory.getChecks();
     List<SquidAstVisitor<LexerlessGrammar>> visitors = Lists.newArrayList(squidChecks);
-    this.scanner = CssAstScanner.create(moduleFileSystem, resourcePerspectives, visitors
-        .toArray(new SquidAstVisitor[visitors.size()]));
+    this.scanner = CssAstScanner.create(moduleFileSystem, resourcePerspectives, project, visitors.toArray(new SquidAstVisitor[visitors.size()]));
     scanner.scanFiles(moduleFileSystem.files(Css.sourceQuery));
 
     Collection<SourceCode> squidSourceFiles = scanner.getIndex().search(
@@ -90,7 +89,7 @@ public class CssSquidSensor implements Sensor {
     for (SourceCode squidSourceFile : squidSourceFiles) {
       SourceFile squidFile = (SourceFile) squidSourceFile;
 
-      File sonarFile = File.fromIOFile(new java.io.File(squidFile.getKey()), moduleFileSystem.sourceDirs());
+      File sonarFile = File.fromIOFile(new java.io.File(squidFile.getKey()), project);
 
       saveMeasures(sonarFile, squidFile);
       saveViolations(sonarFile, squidFile);

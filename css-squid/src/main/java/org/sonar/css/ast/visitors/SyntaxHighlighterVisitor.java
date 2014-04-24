@@ -31,6 +31,7 @@ import com.sonar.sslr.api.Trivia;
 import com.sonar.sslr.squid.SquidAstVisitor;
 import org.sonar.api.component.ResourcePerspectives;
 import org.sonar.api.resources.File;
+import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.api.source.Highlightable;
@@ -52,12 +53,12 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
 
   private Highlightable.HighlightingBuilder highlighting;
   private List<Integer> lineStart;
-  private List<java.io.File> sourceDirs;
+  private Project project;
 
-  public SyntaxHighlighterVisitor(ResourcePerspectives resourcePerspectives, ModuleFileSystem fileSystem) {
+  public SyntaxHighlighterVisitor(ResourcePerspectives resourcePerspectives, ModuleFileSystem fileSystem, Project project) {
     this.charset = fileSystem.sourceCharset();
     this.perspectives = resourcePerspectives;
-    this.sourceDirs = fileSystem.sourceDirs();
+    this.project = project;
     ImmutableMap.Builder<AstNodeType, String> typesBuilder = ImmutableMap.builder();
     typesBuilder.put(CssGrammar.string, "s");
     typesBuilder.put(CssGrammar.value, "s");
@@ -86,7 +87,8 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
       return;
     }
 
-    Resource<?> sonarFile = File.fromIOFile(new java.io.File(peekSourceFile().getKey()), sourceDirs);
+
+    Resource<?> sonarFile = File.fromIOFile(new java.io.File(peekSourceFile().getKey()), project);
     highlighting = perspectives.as(Highlightable.class, sonarFile).newHighlighting();
 
     lineStart = Lists.newArrayList();
