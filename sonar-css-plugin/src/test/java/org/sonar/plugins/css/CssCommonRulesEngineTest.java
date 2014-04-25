@@ -19,31 +19,27 @@
  */
 package org.sonar.plugins.css;
 
-import org.sonar.plugins.css.core.Css;
+import org.junit.Test;
+import org.sonar.commonrules.api.CommonRulesRepository;
 
-import org.sonar.api.resources.Project;
-import org.sonar.commonrules.api.CommonRulesEngine;
-import org.sonar.commonrules.api.CommonRulesEngineProvider;
+import static org.fest.assertions.Assertions.assertThat;
 
-public class CssCommonRulesEngineProvider extends CommonRulesEngineProvider {
+public class CssCommonRulesEngineTest {
 
-  public CssCommonRulesEngineProvider() {
-    super();
+  @Test
+  public void shouldProvideExpectedExtensions() {
+    CssCommonRulesEngine engine = new CssCommonRulesEngine();
+    assertThat(engine.provide()).isNotEmpty();
   }
 
-  public CssCommonRulesEngineProvider(Project project) {
-    super(project);
-  }
+  @Test
+  public void define_rules() {
+    CssCommonRulesEngine engine = new CssCommonRulesEngine();
+    CommonRulesRepository repo = engine.newRepository();
 
-  @Override
-  protected void doActivation(CommonRulesEngine engine) {
-    engine.activateRule("DuplicatedBlocks");
-    engine.activateRule("InsufficientCommentDensity");
-  }
-
-  @Override
-  protected String getLanguageKey() {
-    return Css.KEY;
+    assertThat(repo.rules()).hasSize(2);
+    assertThat(repo.rule(CommonRulesRepository.RULE_INSUFFICIENT_COMMENT_DENSITY)).isNotNull();
+    assertThat(repo.rule(CommonRulesRepository.RULE_DUPLICATED_BLOCKS)).isNotNull();
   }
 
 }

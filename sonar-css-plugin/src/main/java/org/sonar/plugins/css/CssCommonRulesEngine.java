@@ -19,18 +19,22 @@
  */
 package org.sonar.plugins.css;
 
-import org.junit.Test;
-import static org.fest.assertions.Assertions.assertThat;
+import org.sonar.commonrules.api.CommonRulesRepository;
+import org.sonar.plugins.css.core.Css;
 
-public class CssCommonRulesEngineProviderTest {
+import org.sonar.commonrules.api.CommonRulesEngine;
 
-  @Test
-  public void shouldProvideExpectedExtensions() {
-    CssCommonRulesEngineProvider provider = new CssCommonRulesEngineProvider();
-    assertThat(provider.provide().size()).isGreaterThan(1);
+public class CssCommonRulesEngine extends CommonRulesEngine {
 
-    provider = new CssCommonRulesEngineProvider(null);
-    assertThat(provider.provide().size()).isGreaterThan(1);
+  public CssCommonRulesEngine() {
+    super(Css.KEY);
+  }
+
+  @Override
+  protected void doEnableRules(CommonRulesRepository repository) {
+    repository
+      .enableDuplicatedBlocksRule()
+      .enableInsufficientCommentDensityRule(null);
   }
 
 }
