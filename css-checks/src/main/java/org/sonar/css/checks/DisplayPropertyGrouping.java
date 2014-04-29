@@ -35,8 +35,8 @@ import java.util.Map;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-properties-appropriate-for-display
- * @author tkende
  *
+ * @author tkende
  */
 @Rule(key = "display-property-grouping", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
 @BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
@@ -44,13 +44,14 @@ public class DisplayPropertyGrouping extends SquidCheck<LexerlessGrammar> {
 
   private Map<String, List<String>> rules = new HashMap<String, List<String>>() {
     private static final long serialVersionUID = -6508282306820423526L;
+
     {
       put("inline",
-          ImmutableList.<String> of(
-              "width", "height", "margin", "margin-top", "margin-bottom", "float"));
-      put("inline-block", ImmutableList.<String> of("float"));
-      put("block", ImmutableList.<String> of("vertical-align"));
-      put("table*", ImmutableList.<String> of("margin", "margin-top", "margin-bottom", "margin-left", "margin-right", "float"));
+        ImmutableList.<String>of(
+          "width", "height", "margin", "margin-top", "margin-bottom", "float"));
+      put("inline-block", ImmutableList.<String>of("float"));
+      put("block", ImmutableList.<String>of("vertical-align"));
+      put("table*", ImmutableList.<String>of("margin", "margin-top", "margin-bottom", "margin-left", "margin-right", "float"));
     }
   };
 
@@ -64,10 +65,8 @@ public class DisplayPropertyGrouping extends SquidCheck<LexerlessGrammar> {
   public void visitNode(AstNode astNode) {
     List<AstNode> declarations = astNode.getDescendants(CssGrammar.declaration);
     List<String> avoidProps = isDisplay(declarations);
-    if (avoidProps != null && avoidProps.size() > 0) {
-      if (isOtherUsed(declarations, avoidProps)) {
-        getContext().createLineViolation(this, "Unnecessary property with display", astNode);
-      }
+    if (avoidProps != null && avoidProps.size() > 0 && isOtherUsed(declarations, avoidProps)) {
+      getContext().createLineViolation(this, "Unnecessary property with display", astNode);
     }
   }
 

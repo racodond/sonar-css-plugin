@@ -39,8 +39,8 @@ import java.util.Set;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-compatible-vendor-prefixes
- * @author tkende
  *
+ * @author tkende
  */
 @Rule(key = "compatible-vendor-prefixes", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
 @BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
@@ -73,16 +73,14 @@ public class CompatibleVendorPrefixes extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (astNode != null) {
-      if (astNode.is(CssGrammar.ruleset)) {
-        for (Entry<String, Set<String>> props : properties.entrySet()) {
-          CssProperty p = CssProperties.getProperty(props.getKey());
-       // If p is null it is an unknown vendor property
-          if (p != null) {
-            for (String vendor : p.getVendors()) {
-              if (!props.getValue().contains(vendor)) {
-                getContext().createLineViolation(this, "Missing vendor: -" + vendor + " for property: " + props.getKey(), astNode);
-              }
+    if (astNode != null && astNode.is(CssGrammar.ruleset)) {
+      for (Entry<String, Set<String>> props : properties.entrySet()) {
+        CssProperty p = CssProperties.getProperty(props.getKey());
+        // If p is null it is an unknown vendor property
+        if (p != null) {
+          for (String vendor : p.getVendors()) {
+            if (!props.getValue().contains(vendor)) {
+              getContext().createLineViolation(this, "Missing vendor: -" + vendor + " for property: " + props.getKey(), astNode);
             }
           }
         }

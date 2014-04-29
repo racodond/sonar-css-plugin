@@ -30,8 +30,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Disallow-empty-rules
- * @author tkende
  *
+ * @author tkende
  */
 @Rule(key = "empty-rules", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
 @BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
@@ -55,10 +55,8 @@ public class DisallowEmptyRules extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (astNode.is(CssGrammar.ruleset, CssGrammar.atRule)) {
-      if (counter == 0) {
-        getContext().createLineViolation(this, "Empty rule", astNode);
-      }
+    if (astNode.is(CssGrammar.ruleset, CssGrammar.atRule) && counter == 0) {
+      getContext().createLineViolation(this, "Empty rule", astNode);
     }
   }
 }

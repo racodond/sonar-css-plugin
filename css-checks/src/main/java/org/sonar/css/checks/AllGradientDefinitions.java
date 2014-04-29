@@ -35,19 +35,19 @@ import java.util.List;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-all-gradient-definitions
- * @author tkende
  *
+ * @author tkende
  */
 @Rule(key = "gradients", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
 @BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
 public class AllGradientDefinitions extends SquidCheck<LexerlessGrammar> {
 
-  private static List<String> gradients = ImmutableList.<String> of(
-      "-ms-(linear|radial)-gradient.*",
-      "-moz-(linear|radial)-gradient.*",
-      "-o-(linear|radial)-gradient.*",
-      "-webkit-(linear|radial)-gradient.*",
-      "-webkit-gradient.*");
+  private static List<String> gradients = ImmutableList.<String>of(
+    "-ms-(linear|radial)-gradient.*",
+    "-moz-(linear|radial)-gradient.*",
+    "-o-(linear|radial)-gradient.*",
+    "-webkit-(linear|radial)-gradient.*",
+    "-webkit-gradient.*");
 
   private static String gradientMatcher = "-(ms|o|moz|webkit)-.*gradient.*";
   private List<String> gradientsFound;
@@ -71,13 +71,9 @@ public class AllGradientDefinitions extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (astNode != null) {
-      if (astNode.is(CssGrammar.ruleset)) {
-        if (gradientsFound.size() != gradients.size()) {
-          for (String exptected : gradientsFound) {
-            getContext().createLineViolation(this, "Missing gradient: " + exptected, astNode);
-          }
-        }
+    if (astNode != null && astNode.is(CssGrammar.ruleset) && gradientsFound.size() != gradients.size()) {
+      for (String exptected : gradientsFound) {
+        getContext().createLineViolation(this, "Missing gradient: " + exptected, astNode);
       }
     }
   }
