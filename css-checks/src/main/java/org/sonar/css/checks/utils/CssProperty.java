@@ -38,7 +38,7 @@ public class CssProperty {
   }
 
   public boolean isVendor(){
-    return vendors.size()>0;
+    return !vendors.isEmpty();
   }
 
   @Override

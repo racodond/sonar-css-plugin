@@ -65,7 +65,7 @@ public class DisplayPropertyGrouping extends SquidCheck<LexerlessGrammar> {
   public void visitNode(AstNode astNode) {
     List<AstNode> declarations = astNode.getDescendants(CssGrammar.declaration);
     List<String> avoidProps = isDisplay(declarations);
-    if (avoidProps != null && avoidProps.size() > 0 && isOtherUsed(declarations, avoidProps)) {
+    if (avoidProps != null && !avoidProps.isEmpty() && isOtherUsed(declarations, avoidProps)) {
       getContext().createLineViolation(this, "Unnecessary property with display", astNode);
     }
   }
