@@ -32,6 +32,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Beware-of-box-model-size
@@ -50,7 +51,7 @@ public class BewareOfBoxModel extends SquidCheck<LexerlessGrammar> {
     "border", "border-top", "border-bottom", "padding", "padding-top", "padding-bottom"
   );
 
-  private EnumSet<Combinations> combinations;
+  private Set<Combinations> combinations;
 
   @Override
   public void init() {
@@ -102,7 +103,7 @@ public class BewareOfBoxModel extends SquidCheck<LexerlessGrammar> {
   private boolean isOtherUsed(List<String> props, AstNode declaration) {
     String property = declaration.getFirstChild(CssGrammar.property).getTokenValue();
     String value = declaration.getFirstChild(CssGrammar.value).getTokenValue();
-    return (props.contains(property) && !"none".equalsIgnoreCase(value));
+    return props.contains(property) && !"none".equalsIgnoreCase(value);
   }
 
   private boolean isBoxSizing(AstNode declaration) {

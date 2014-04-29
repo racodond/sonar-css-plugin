@@ -29,6 +29,7 @@ import org.sonar.check.Rule;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,7 +83,7 @@ public class DisplayPropertyGrouping extends SquidCheck<LexerlessGrammar> {
         }
       }
     }
-    return null;
+    return Collections.emptyList();
   }
 
   private boolean isOtherUsed(List<AstNode> declarations, List<String> avoidProps) {

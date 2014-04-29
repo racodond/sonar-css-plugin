@@ -19,17 +19,16 @@
  */
 package org.sonar.plugins.css.core;
 
-import org.sonar.api.scan.filesystem.FileQuery;
-
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.resources.AbstractLanguage;
+import org.sonar.api.scan.filesystem.FileQuery;
 import org.sonar.plugins.css.CssPlugin;
 
 public class Css extends AbstractLanguage {
 
   public static final String KEY = "css";
-  public static FileQuery sourceQuery = FileQuery.onSource().onLanguage(KEY);
+  public static final FileQuery SOURCE_QUERY = FileQuery.onSource().onLanguage(KEY);
 
   private Configuration configuration;
 

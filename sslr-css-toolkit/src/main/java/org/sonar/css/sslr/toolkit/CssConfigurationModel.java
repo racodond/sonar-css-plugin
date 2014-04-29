@@ -21,7 +21,6 @@ package org.sonar.css.sslr.toolkit;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
-import com.sonar.sslr.api.Grammar;
 import com.sonar.sslr.impl.Parser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +31,6 @@ import org.sonar.colorizer.StringTokenizer;
 import org.sonar.colorizer.Tokenizer;
 import org.sonar.css.CssConfiguration;
 import org.sonar.css.parser.CssGrammar;
-import org.sonar.css.parser.SassGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.parser.ParserAdapter;
 import org.sonar.sslr.toolkit.AbstractConfigurationModel;
@@ -63,7 +61,7 @@ public class CssConfigurationModel extends AbstractConfigurationModel {
   }
 
   @Override
-  public Parser<? extends Grammar> doGetParser() {
+  public Parser doGetParser() {
     //return new ParserAdapter<LexerlessGrammar>(getCharset(), SassGrammar.createGrammar());
     return new ParserAdapter<LexerlessGrammar>(getCharset(), CssGrammar.createGrammar());
   }
@@ -85,7 +83,7 @@ public class CssConfigurationModel extends AbstractConfigurationModel {
 
   @VisibleForTesting
   static String getPropertyOrDefaultValue(String propertyKey,
-    String defaultValue) {
+                                          String defaultValue) {
     String propertyValue = System.getProperty(propertyKey);
 
     if (propertyValue == null) {

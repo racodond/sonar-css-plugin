@@ -100,7 +100,7 @@ public class DuplicateProperties extends SquidCheck<LexerlessGrammar> {
     return ret;
   }
 
-  private class Declarations {
+  private static class Declarations {
     String property;
     String value;
     private AstNode node;

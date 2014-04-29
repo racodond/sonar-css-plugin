@@ -35,7 +35,6 @@ import org.sonar.api.resources.File;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.api.rules.ActiveRule;
-import org.sonar.api.scan.filesystem.FileQuery;
 import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.css.CssAstScanner;
 import org.sonar.css.api.CssMetric;
@@ -62,13 +61,13 @@ public class CssSquidSensor implements Sensor {
 
   public CssSquidSensor(RulesProfile profile, FileLinesContextFactory fileLinesContextFactory, ResourcePerspectives resourcePerspectives, ModuleFileSystem moduleFileSystem) {
     this.annotationCheckFactory = AnnotationCheckFactory.create(profile,
-        CheckList.REPOSITORY_KEY, CheckList.getChecks());
+      CheckList.REPOSITORY_KEY, CheckList.getChecks());
     this.resourcePerspectives = resourcePerspectives;
     this.moduleFileSystem = moduleFileSystem;
   }
 
   public boolean shouldExecuteOnProject(Project project) {
-    return !moduleFileSystem.files(Css.sourceQuery).isEmpty();
+    return !moduleFileSystem.files(Css.SOURCE_QUERY).isEmpty();
   }
 
   public void analyse(Project project, SensorContext context) {
@@ -78,10 +77,10 @@ public class CssSquidSensor implements Sensor {
     Collection<SquidAstVisitor<LexerlessGrammar>> squidChecks = annotationCheckFactory.getChecks();
     List<SquidAstVisitor<LexerlessGrammar>> visitors = Lists.newArrayList(squidChecks);
     this.scanner = CssAstScanner.create(moduleFileSystem, resourcePerspectives, project, visitors.toArray(new SquidAstVisitor[visitors.size()]));
-    scanner.scanFiles(moduleFileSystem.files(Css.sourceQuery));
+    scanner.scanFiles(moduleFileSystem.files(Css.SOURCE_QUERY));
 
     Collection<SourceCode> squidSourceFiles = scanner.getIndex().search(
-        new QueryByType(SourceFile.class));
+      new QueryByType(SourceFile.class));
     save(squidSourceFiles);
   }
 
@@ -100,7 +99,7 @@ public class CssSquidSensor implements Sensor {
     context.saveMeasure(sonarFile, CoreMetrics.FILES, squidFile.getDouble(CssMetric.FILES));
     context.saveMeasure(sonarFile, CoreMetrics.LINES, squidFile.getDouble(CssMetric.LINES));
     context.saveMeasure(sonarFile, CoreMetrics.NCLOC, squidFile.getDouble(CssMetric.LINES_OF_CODE));
-    context.saveMeasure(sonarFile, CoreMetrics.FUNCTIONS, squidFile.getDouble(CssMetric.AT_RULES)+squidFile.getDouble(CssMetric.RULE_SETS));
+    context.saveMeasure(sonarFile, CoreMetrics.FUNCTIONS, squidFile.getDouble(CssMetric.AT_RULES) + squidFile.getDouble(CssMetric.RULE_SETS));
     context.saveMeasure(sonarFile, CoreMetrics.STATEMENTS, squidFile.getDouble(CssMetric.STATEMENTS));
     context.saveMeasure(sonarFile, CoreMetrics.COMMENT_LINES, squidFile.getDouble(CssMetric.COMMENT_LINES));
   }
@@ -112,10 +111,10 @@ public class CssSquidSensor implements Sensor {
         ActiveRule activeRule = annotationCheckFactory.getActiveRule(message.getCheck());
         Issuable issuable = resourcePerspectives.as(Issuable.class, sonarFile);
         Issue issue = issuable.newIssueBuilder()
-            .ruleKey(RuleKey.of(activeRule.getRepositoryKey(), activeRule.getRuleKey()))
-            .line(message.getLine())
-            .message(message.formatDefaultMessage())
-            .build();
+          .ruleKey(RuleKey.of(activeRule.getRepositoryKey(), activeRule.getRuleKey()))
+          .line(message.getLine())
+          .message(message.formatDefaultMessage())
+          .build();
         issuable.addIssue(issue);
       }
     }

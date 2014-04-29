@@ -20,7 +20,6 @@
 package org.sonar.plugins.css;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.api.Extension;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
 import org.sonar.api.SonarPlugin;
@@ -42,7 +41,7 @@ public class CssPlugin extends SonarPlugin {
   public static final String FILE_SUFFIXES_KEY = "sonar.css.file.suffixes";
   public static final String FILE_SUFFIXES_DEFVALUE = "css";
 
-  public ImmutableList<Class<? extends Extension>> getExtensions() {
+  public ImmutableList getExtensions() {
     return ImmutableList.of(
       Css.class,
       CssSourceImporter.class,

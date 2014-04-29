@@ -36,8 +36,8 @@ import java.util.Map.Entry;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Disallow-overqualified-elements
- * @author tkende
  *
+ * @author tkende
  */
 @Rule(key = "overqualified-elements", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
 @BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
@@ -59,7 +59,7 @@ public class DisallowOverqualifiedElements extends SquidCheck<LexerlessGrammar> 
   public void visitNode(AstNode astNode) {
     if (astNode.getPreviousSibling() != null && astNode.getPreviousSibling().isNot(CssGrammar.delim)) {
       Selectors newSelector = new Selectors(CssChecksUtil.getStringValue(astNode),
-          astNode.getPreviousSibling().getTokenValue(), astNode.getTokenLine());
+        astNode.getPreviousSibling().getTokenValue(), astNode.getTokenLine());
       int pos = selectors.indexOf(newSelector);
       if (pos >= 0) {
         selectors.get(pos).addElement(newSelector);
@@ -74,12 +74,12 @@ public class DisallowOverqualifiedElements extends SquidCheck<LexerlessGrammar> 
     for (Selectors key : selectors) {
       if (key.getElements().size() == 1) {
         getContext().createLineViolation(this, "Disallow overqualified elements",
-            key.getElements().entrySet().iterator().next().getValue());
+          key.getElements().entrySet().iterator().next().getValue());
       }
     }
   }
 
-  private class Selectors {
+  private static class Selectors {
     String className;
     Map<String, Integer> elements = new HashMap<String, Integer>();
 
