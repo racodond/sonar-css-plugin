@@ -51,7 +51,7 @@ public class DisallowDuplicateBackgroundImages extends SquidCheck<LexerlessGramm
   public void visitNode(AstNode astNode) {
     if(astNode.getTokenValue().startsWith("background")){
       AstNode func = astNode.getParent().getFirstChild(CssGrammar.value).getFirstChild(CssGrammar.function);
-      if(func!=null && func.getFirstChild(CssGrammar.ident).getTokenValue().equals("url")){
+      if(func!=null && "url".equals(func.getFirstChild(CssGrammar.ident).getTokenValue())) {
         String url = CssChecksUtil.getStringValue(func.getFirstChild(CssGrammar.parameters).getFirstChild(CssGrammar.parameter)).replaceAll("['\"]", "");
         if(!urls.add(url)){
           getContext().createLineViolation(this, "Disallow duplicate background images", astNode);

@@ -48,12 +48,10 @@ public class BulletproofFontFace extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.getFirstChild(CssGrammar.atkeyword)
-        .getFirstChild(CssGrammar.ident).getTokenValue().equals("font-face")) {
+    if ("font-face".equals(astNode.getFirstChild(CssGrammar.atkeyword).getFirstChild(CssGrammar.ident).getTokenValue())) {
       List<AstNode> declarations = astNode.getFirstDescendant(CssGrammar.atRuleBlock).getFirstChild(CssGrammar.supDeclaration).getChildren(CssGrammar.declaration);
       for (AstNode declaration : declarations) {
-        if (declaration.getFirstChild(CssGrammar.property)
-            .getTokenValue().equals("src")) {
+        if ("src".equals(declaration.getFirstChild(CssGrammar.property).getTokenValue())) {
           String firstAnyFunciontValue = CssChecksUtil.getStringValue(
               declaration.getFirstChild(CssGrammar.value)
                   .getFirstChild(CssGrammar.function)

@@ -44,8 +44,7 @@ public class DisallowUniversalSelector extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.getTokenValue().equals("*") &&
-      astNode.getFirstAncestor(CssGrammar.subSelector).getNextSibling() == null) {
+    if ("*".equals(astNode.getTokenValue()) && astNode.getFirstAncestor(CssGrammar.subSelector).getNextSibling() == null) {
       getContext().createLineViolation(this, "Disallow universal selector as key part", astNode);
     }
   }
