@@ -45,6 +45,7 @@ public class CssConfigurationModel extends AbstractConfigurationModel {
   private static final Logger LOG = LoggerFactory
     .getLogger(CssConfigurationModel.class);
   private static final String CHARSET_PROPERTY_KEY = "sonar.sourceEncoding";
+  private static final String END_TAG = "</span>";
 
   @VisibleForTesting
   ConfigurationProperty charsetProperty = new ConfigurationProperty("Charset",
@@ -69,10 +70,10 @@ public class CssConfigurationModel extends AbstractConfigurationModel {
   @Override
   public List<Tokenizer> doGetTokenizers() {
     return ImmutableList.of(
-      new StringTokenizer("<span class=\"s\">", "</span>"),
-      new CDocTokenizer("<span class=\"cd\">", "</span>"),
-      new JavadocTokenizer("<span class=\"cppd\">", "</span>"),
-      new CppDocTokenizer("<span class=\"cppd\">", "</span>")/*,
+      new StringTokenizer("<span class=\"s\">", END_TAG),
+      new CDocTokenizer("<span class=\"cd\">", END_TAG),
+      new JavadocTokenizer("<span class=\"cppd\">", END_TAG),
+      new CppDocTokenizer("<span class=\"cppd\">", END_TAG)/*,
       new KeywordsTokenizer("<span class=\"k\">", "</span>", EcmaScriptKeyword.keywordValues())*/);
   }
 
