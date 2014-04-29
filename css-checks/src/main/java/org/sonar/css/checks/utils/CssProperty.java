@@ -41,6 +41,7 @@ public class CssProperty {
     return vendors.size()>0;
   }
 
+  @Override
   public boolean equals(Object obj) {
     if(obj == null){
       return false;
@@ -67,4 +68,8 @@ public class CssProperty {
     return vendors;
   }
 
+  @Override
+  public int hashCode() {
+    return name.hashCode();
+  }
 }
