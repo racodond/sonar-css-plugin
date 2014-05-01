@@ -44,13 +44,6 @@
       <artifactId>sonar-plugin-api</artifactId>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>org.codehaus.sonar.plugins</groupId>
-      <artifactId>sonar-surefire-plugin</artifactId>
-      <type>sonar-plugin</type>
-      <version>3.3.2</version>
-      <scope>provided</scope>
-    </dependency>
 
     <dependency>
       <groupId>org.codehaus.sonar.common-rules</groupId>
