@@ -24,7 +24,7 @@ import org.sonar.css.parser.CssGrammar;
 
 import java.util.List;
 
-import com.sonar.sslr.squid.checks.SquidCheck;
+import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import org.sonar.check.BelongsToProfile;

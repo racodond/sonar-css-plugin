@@ -20,20 +20,20 @@
 package org.sonar.css;
 
 import com.sonar.sslr.impl.Parser;
-import com.sonar.sslr.squid.AstScanner;
-import com.sonar.sslr.squid.SquidAstVisitor;
-import com.sonar.sslr.squid.SquidAstVisitorContextImpl;
-import com.sonar.sslr.squid.metrics.CommentsVisitor;
-import com.sonar.sslr.squid.metrics.CounterVisitor;
-import com.sonar.sslr.squid.metrics.LinesOfCodeVisitor;
-import com.sonar.sslr.squid.metrics.LinesVisitor;
+import org.sonar.squidbridge.AstScanner;
+import org.sonar.squidbridge.SquidAstVisitor;
+import org.sonar.squidbridge.SquidAstVisitorContextImpl;
+import org.sonar.squidbridge.metrics.CommentsVisitor;
+import org.sonar.squidbridge.metrics.CounterVisitor;
+import org.sonar.squidbridge.metrics.LinesOfCodeVisitor;
+import org.sonar.squidbridge.metrics.LinesVisitor;
 import org.sonar.api.component.ResourcePerspectives;
 import org.sonar.api.resources.Project;
 import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.css.api.CssMetric;
 import org.sonar.css.ast.visitors.SyntaxHighlighterVisitor;
 import org.sonar.css.parser.CssGrammar;
-import org.sonar.squid.api.SourceProject;
+import org.sonar.squidbridge.api.SourceProject;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.parser.ParserAdapter;
 

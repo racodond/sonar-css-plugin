@@ -19,7 +19,7 @@
  */
 package org.sonar.css;
 
-import com.sonar.sslr.api.CommentAnalyser;
+import org.sonar.squidbridge.CommentAnalyser;
 
 public class CssCommentAnalyser extends CommentAnalyser {
 

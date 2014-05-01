@@ -82,7 +82,6 @@
                 <include>jaxen:jaxen</include>
                 <include>org.codehaus.sonar.sslr:sslr-toolkit</include>
                 <include>org.codehaus.sonar:sonar-colorizer</include>
-                <include>org.codehaus.sonar:sonar-squid</include>
                 <include>org.codehaus.sonar:sonar-channel</include>
                 <include>org.slf4j:slf4j-api</include>
                 <include>org.slf4j:jcl-over-slf4j</include>

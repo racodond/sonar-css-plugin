@@ -23,7 +23,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.squid.checks.SquidCheck;
+import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;

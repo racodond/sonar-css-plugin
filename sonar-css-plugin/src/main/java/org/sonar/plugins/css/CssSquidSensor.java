@@ -20,8 +20,8 @@
 package org.sonar.plugins.css;
 
 import com.google.common.collect.Lists;
-import com.sonar.sslr.squid.AstScanner;
-import com.sonar.sslr.squid.SquidAstVisitor;
+import org.sonar.squidbridge.AstScanner;
+import org.sonar.squidbridge.SquidAstVisitor;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.checks.AnnotationCheckFactory;
@@ -40,10 +40,10 @@ import org.sonar.css.CssAstScanner;
 import org.sonar.css.api.CssMetric;
 import org.sonar.css.checks.CheckList;
 import org.sonar.plugins.css.core.Css;
-import org.sonar.squid.api.CheckMessage;
-import org.sonar.squid.api.SourceCode;
-import org.sonar.squid.api.SourceFile;
-import org.sonar.squid.indexer.QueryByType;
+import org.sonar.squidbridge.api.CheckMessage;
+import org.sonar.squidbridge.api.SourceCode;
+import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.indexer.QueryByType;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.util.Collection;
