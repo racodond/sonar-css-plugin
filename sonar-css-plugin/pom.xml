@@ -14,13 +14,7 @@
 
   <name>CSS :: Sonar Plugin</name>
   <description>Enables analysis of CSS files.</description>
-
-  <scm>
-    <connection>scm:git:git@github.com:kalidasya/sonar-css.git</connection>
-    <developerConnection>scm:git:git@github.com:kalidasya/sonar-css.git</developerConnection>
-    <url>https://github.com/kalidasya/sonar-css</url>
-    <tag>HEAD</tag>
-  </scm>
+  <url>http://docs.codehaus.org/x/EYFMDg</url>
 
   <properties>
     <sonar.pluginKey>css</sonar.pluginKey>

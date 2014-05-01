@@ -19,6 +19,7 @@
   <inceptionYear>2013</inceptionYear>
   <organization>
     <name>Tamas Kende</name>
+    <url>mailto:kende.tamas@gmail.com</url>
   </organization>
   <licenses>
     <license>
@@ -45,9 +46,13 @@
   <scm>
     <connection>scm:git:git@github.com:kalidasya/sonar-css.git</connection>
     <developerConnection>scm:git:git@github.com:kalidasya/sonar-css.git</developerConnection>
-    <url>https://github.com/kalidasya/sonar-css</url>
+    <url>https://github.com/SonarCommunity/sonar-css</url>
     <tag>HEAD</tag>
   </scm>
+  <issueManagement>
+    <system>JIRA</system>
+    <url>http://jira.codehaus.org/browse/SONARPLUGINS/component/16550</url>
+  </issueManagement>
 
   <properties>
     <license.title>Sonar CSS Plugin</license.title>
