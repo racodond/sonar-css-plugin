@@ -20,19 +20,20 @@
 package org.sonar.css;
 
 import com.sonar.sslr.impl.Parser;
-import com.sonar.sslr.squid.AstScanner;
-import com.sonar.sslr.squid.SquidAstVisitor;
-import com.sonar.sslr.squid.SquidAstVisitorContextImpl;
-import com.sonar.sslr.squid.metrics.CommentsVisitor;
-import com.sonar.sslr.squid.metrics.CounterVisitor;
-import com.sonar.sslr.squid.metrics.LinesOfCodeVisitor;
-import com.sonar.sslr.squid.metrics.LinesVisitor;
+import org.sonar.squidbridge.AstScanner;
+import org.sonar.squidbridge.SquidAstVisitor;
+import org.sonar.squidbridge.SquidAstVisitorContextImpl;
+import org.sonar.squidbridge.metrics.CommentsVisitor;
+import org.sonar.squidbridge.metrics.CounterVisitor;
+import org.sonar.squidbridge.metrics.LinesOfCodeVisitor;
+import org.sonar.squidbridge.metrics.LinesVisitor;
 import org.sonar.api.component.ResourcePerspectives;
+import org.sonar.api.resources.Project;
 import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.css.api.CssMetric;
 import org.sonar.css.ast.visitors.SyntaxHighlighterVisitor;
 import org.sonar.css.parser.CssGrammar;
-import org.sonar.squid.api.SourceProject;
+import org.sonar.squidbridge.api.SourceProject;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.parser.ParserAdapter;
 
@@ -42,10 +43,10 @@ public final class CssAstScanner {
   }
 
   public static AstScanner<LexerlessGrammar> create(ModuleFileSystem fileSystem, SquidAstVisitor<LexerlessGrammar>... visitors) {
-    return create(fileSystem, null, visitors);
+    return create(fileSystem, null, null, visitors);
   }
 
-  public static AstScanner<LexerlessGrammar> create(ModuleFileSystem fileSystem, ResourcePerspectives resourcePerspectives,
+  public static AstScanner<LexerlessGrammar> create(ModuleFileSystem fileSystem, ResourcePerspectives resourcePerspectives, Project project,
     SquidAstVisitor<LexerlessGrammar>... visitors) {
     final CssConfiguration conf = new CssConfiguration(fileSystem.sourceCharset());
     final SquidAstVisitorContextImpl<LexerlessGrammar> context = new SquidAstVisitorContextImpl<LexerlessGrammar>(new SourceProject("Css Project"));
@@ -94,8 +95,8 @@ public final class CssAstScanner {
 
 
     /* Syntax highlighter */
-    if (resourcePerspectives != null && fileSystem != null) {
-      builder.withSquidAstVisitor(new SyntaxHighlighterVisitor(resourcePerspectives, fileSystem));
+    if (resourcePerspectives != null && fileSystem != null && project != null) {
+      builder.withSquidAstVisitor(new SyntaxHighlighterVisitor(resourcePerspectives, fileSystem, project));
     }
 
     /* External visitors (typically Check ones) */

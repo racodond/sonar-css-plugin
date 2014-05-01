@@ -19,20 +19,18 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.check.RuleProperty;
-
 import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.squid.checks.SquidCheck;
+import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * @author tkende
- *
  */
 @Rule(key = "overspecific-selectors", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
 @BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
@@ -62,11 +60,9 @@ public class DisallowOverspecificSelectors extends SquidCheck<LexerlessGrammar> 
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (astNode.is(CssGrammar.subSelector)) {
-      if (deepness > deepnessThreshold) {
-        getContext().createLineViolation(this, "Disallow overspecified selectors",
-            astNode);
-      }
+    if (astNode.is(CssGrammar.subSelector) && deepness > deepnessThreshold) {
+      getContext().createLineViolation(this, "Disallow overspecified selectors",
+        astNode);
     }
   }
 

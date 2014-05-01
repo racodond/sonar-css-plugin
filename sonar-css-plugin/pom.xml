@@ -14,13 +14,7 @@
 
   <name>CSS :: Sonar Plugin</name>
   <description>Enables analysis of CSS files.</description>
-
-  <scm>
-    <connection>scm:git:git@github.com:kalidasya/sonar-css.git</connection>
-    <developerConnection>scm:git:git@github.com:kalidasya/sonar-css.git</developerConnection>
-    <url>https://github.com/kalidasya/sonar-css</url>
-    <tag>HEAD</tag>
-  </scm>
+  <url>http://docs.codehaus.org/x/EYFMDg</url>
 
   <properties>
     <sonar.pluginKey>css</sonar.pluginKey>
@@ -44,18 +38,11 @@
       <artifactId>sonar-plugin-api</artifactId>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>org.codehaus.sonar.plugins</groupId>
-      <artifactId>sonar-surefire-plugin</artifactId>
-      <type>sonar-plugin</type>
-      <version>3.3.2</version>
-      <scope>provided</scope>
-    </dependency>
 
     <dependency>
       <groupId>org.codehaus.sonar.common-rules</groupId>
       <artifactId>sonar-common-rules</artifactId>
-      <version>1.0.1</version>
+      <version>1.2</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.sonar</groupId>

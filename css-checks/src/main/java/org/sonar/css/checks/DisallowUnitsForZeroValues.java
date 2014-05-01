@@ -20,7 +20,7 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.squid.checks.SquidCheck;
+import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
@@ -44,8 +44,7 @@ public class DisallowUnitsForZeroValues extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.getFirstChild(CssGrammar.number).getTokenValue().equals("0")
-        && !astNode.hasAncestor(CssGrammar.function)) {
+    if ("0".equals(astNode.getFirstChild(CssGrammar.number).getTokenValue()) && !astNode.hasAncestor(CssGrammar.function)) {
       getContext().createLineViolation(this, "Disallow zero values with units", astNode);
     }
   }

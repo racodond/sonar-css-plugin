@@ -21,7 +21,6 @@ package org.sonar.css.sslr.toolkit;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
-import com.sonar.sslr.api.Grammar;
 import com.sonar.sslr.impl.Parser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +31,6 @@ import org.sonar.colorizer.StringTokenizer;
 import org.sonar.colorizer.Tokenizer;
 import org.sonar.css.CssConfiguration;
 import org.sonar.css.parser.CssGrammar;
-import org.sonar.css.parser.SassGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.parser.ParserAdapter;
 import org.sonar.sslr.toolkit.AbstractConfigurationModel;
@@ -47,6 +45,7 @@ public class CssConfigurationModel extends AbstractConfigurationModel {
   private static final Logger LOG = LoggerFactory
     .getLogger(CssConfigurationModel.class);
   private static final String CHARSET_PROPERTY_KEY = "sonar.sourceEncoding";
+  private static final String END_TAG = "</span>";
 
   @VisibleForTesting
   ConfigurationProperty charsetProperty = new ConfigurationProperty("Charset",
@@ -63,7 +62,7 @@ public class CssConfigurationModel extends AbstractConfigurationModel {
   }
 
   @Override
-  public Parser<? extends Grammar> doGetParser() {
+  public Parser doGetParser() {
     //return new ParserAdapter<LexerlessGrammar>(getCharset(), SassGrammar.createGrammar());
     return new ParserAdapter<LexerlessGrammar>(getCharset(), CssGrammar.createGrammar());
   }
@@ -71,10 +70,10 @@ public class CssConfigurationModel extends AbstractConfigurationModel {
   @Override
   public List<Tokenizer> doGetTokenizers() {
     return ImmutableList.of(
-      new StringTokenizer("<span class=\"s\">", "</span>"),
-      new CDocTokenizer("<span class=\"cd\">", "</span>"),
-      new JavadocTokenizer("<span class=\"cppd\">", "</span>"),
-      new CppDocTokenizer("<span class=\"cppd\">", "</span>")/*,
+      new StringTokenizer("<span class=\"s\">", END_TAG),
+      new CDocTokenizer("<span class=\"cd\">", END_TAG),
+      new JavadocTokenizer("<span class=\"cppd\">", END_TAG),
+      new CppDocTokenizer("<span class=\"cppd\">", END_TAG)/*,
       new KeywordsTokenizer("<span class=\"k\">", "</span>", EcmaScriptKeyword.keywordValues())*/);
   }
 
@@ -85,7 +84,7 @@ public class CssConfigurationModel extends AbstractConfigurationModel {
 
   @VisibleForTesting
   static String getPropertyOrDefaultValue(String propertyKey,
-    String defaultValue) {
+                                          String defaultValue) {
     String propertyValue = System.getProperty(propertyKey);
 
     if (propertyValue == null) {

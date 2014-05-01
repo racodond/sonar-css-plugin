@@ -22,7 +22,7 @@ package org.sonar.css.checks;
 import com.google.common.collect.Lists;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.Token;
-import com.sonar.sslr.squid.checks.SquidCheck;
+import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
@@ -34,8 +34,8 @@ import java.util.List;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Disallow-duplicate-properties
- * @author tkende
  *
+ * @author tkende
  */
 @Rule(key = "duplicate-properties", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
 @BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
@@ -56,10 +56,9 @@ public class DuplicateProperties extends SquidCheck<LexerlessGrammar> {
       String property = astNode.getFirstChild(CssGrammar.property).getTokenValue();
       String value = getTokensAsString(astNode.getFirstChild(CssGrammar.value).getTokens());
       List<Declarations> storedDeclarations = findStoredDeclarations(property);
-      if (storedDeclarations.size() > 0) {
-        if(hasSameValue(storedDeclarations, value) || notAfter(storedDeclarations, astNode.getPreviousSibling().getPreviousSibling())){
-          getContext().createLineViolation(this, "Duplicated property in the declarations", astNode);
-        }
+      if (!storedDeclarations.isEmpty() && (hasSameValue(storedDeclarations, value)
+        || notAfter(storedDeclarations, astNode.getPreviousSibling().getPreviousSibling()))) {
+        getContext().createLineViolation(this, "Duplicated property in the declarations", astNode);
       }
       declarations.add(new Declarations(property, value, astNode));
     }
@@ -67,7 +66,7 @@ public class DuplicateProperties extends SquidCheck<LexerlessGrammar> {
 
   private boolean notAfter(List<Declarations> storedDeclarations, AstNode astNode) {
     for (Declarations declaration : storedDeclarations) {
-      if(declaration.getNode().equals(astNode)){
+      if (declaration.getNode().equals(astNode)) {
         return false;
       }
     }
@@ -76,7 +75,7 @@ public class DuplicateProperties extends SquidCheck<LexerlessGrammar> {
 
   private boolean hasSameValue(List<Declarations> storedDeclarations, String value) {
     for (Declarations declaration : storedDeclarations) {
-      if(declaration.getValue().equals(value)){
+      if (declaration.getValue().equals(value)) {
         return true;
       }
     }
@@ -101,12 +100,12 @@ public class DuplicateProperties extends SquidCheck<LexerlessGrammar> {
     return ret;
   }
 
-  private class Declarations {
+  private static class Declarations {
     String property;
     String value;
     private AstNode node;
 
-    public Declarations(String property, String value, AstNode node){
+    public Declarations(String property, String value, AstNode node) {
       this.property = property.trim();
       this.value = value.trim();
       this.node = node;

@@ -23,7 +23,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.squid.checks.SquidCheck;
+import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
@@ -51,7 +51,7 @@ public class DisallowDuplicateBackgroundImages extends SquidCheck<LexerlessGramm
   public void visitNode(AstNode astNode) {
     if(astNode.getTokenValue().startsWith("background")){
       AstNode func = astNode.getParent().getFirstChild(CssGrammar.value).getFirstChild(CssGrammar.function);
-      if(func!=null && func.getFirstChild(CssGrammar.ident).getTokenValue().equals("url")){
+      if(func!=null && "url".equals(func.getFirstChild(CssGrammar.ident).getTokenValue())) {
         String url = CssChecksUtil.getStringValue(func.getFirstChild(CssGrammar.parameters).getFirstChild(CssGrammar.parameter)).replaceAll("['\"]", "");
         if(!urls.add(url)){
           getContext().createLineViolation(this, "Disallow duplicate background images", astNode);

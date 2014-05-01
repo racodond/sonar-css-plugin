@@ -20,13 +20,8 @@
 package org.sonar.css.checks;
 
 import com.google.common.collect.ImmutableList;
-
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.List;
-
 import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.squid.checks.SquidCheck;
+import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
@@ -34,24 +29,29 @@ import org.sonar.check.Rule;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
+
 /**
  * https://github.com/stubbornella/csslint/wiki/Beware-of-box-model-size
- * @author tkende
  *
+ * @author tkende
  */
 @Rule(key = "box-model", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
 @BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
 public class BewareOfBoxModel extends SquidCheck<LexerlessGrammar> {
 
-  private List<String> widthSizing = ImmutableList.<String> of(
-      "border", "border-left", "border-right", "padding", "padding-left", "padding-right"
-      );
+  private List<String> widthSizing = ImmutableList.<String>of(
+    "border", "border-left", "border-right", "padding", "padding-left", "padding-right"
+  );
 
-  private List<String> heightSizing = ImmutableList.<String> of(
-      "border", "border-top", "border-bottom", "padding", "padding-top", "padding-bottom"
-      );
+  private List<String> heightSizing = ImmutableList.<String>of(
+    "border", "border-top", "border-bottom", "padding", "padding-top", "padding-bottom"
+  );
 
-  private EnumSet<Combinations> combinations;
+  private Set<Combinations> combinations;
 
   @Override
   public void init() {
@@ -85,11 +85,10 @@ public class BewareOfBoxModel extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (astNode.is(CssGrammar.ruleset)) {
-      if (combinations.containsAll(Arrays.asList(Combinations.WIDTH_FOUND, Combinations.WIDTH_SIZING))
-        || combinations.containsAll(Arrays.asList(Combinations.HEIGHT_FOUND, Combinations.HEIGHT_SIZING))) {
-        getContext().createLineViolation(this, "Possible box sizing issue", astNode);
-      }
+    if (astNode.is(CssGrammar.ruleset)
+      && (combinations.containsAll(Arrays.asList(Combinations.WIDTH_FOUND, Combinations.WIDTH_SIZING))
+      || combinations.containsAll(Arrays.asList(Combinations.HEIGHT_FOUND, Combinations.HEIGHT_SIZING)))) {
+      getContext().createLineViolation(this, "Possible box sizing issue", astNode);
     }
   }
 
@@ -104,7 +103,7 @@ public class BewareOfBoxModel extends SquidCheck<LexerlessGrammar> {
   private boolean isOtherUsed(List<String> props, AstNode declaration) {
     String property = declaration.getFirstChild(CssGrammar.property).getTokenValue();
     String value = declaration.getFirstChild(CssGrammar.value).getTokenValue();
-    return (props.contains(property) && !"none".equalsIgnoreCase(value));
+    return props.contains(property) && !"none".equalsIgnoreCase(value);
   }
 
   private boolean isBoxSizing(AstNode declaration) {

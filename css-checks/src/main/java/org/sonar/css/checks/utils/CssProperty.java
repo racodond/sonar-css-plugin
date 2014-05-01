@@ -38,9 +38,10 @@ public class CssProperty {
   }
 
   public boolean isVendor(){
-    return vendors.size()>0;
+    return !vendors.isEmpty();
   }
 
+  @Override
   public boolean equals(Object obj) {
     if(obj == null){
       return false;
@@ -67,4 +68,8 @@ public class CssProperty {
     return vendors;
   }
 
+  @Override
+  public int hashCode() {
+    return name.hashCode();
+  }
 }

@@ -21,7 +21,7 @@ package org.sonar.css.checks;
 
 import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.squid.checks.SquidCheck;
+import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
@@ -29,14 +29,15 @@ import org.sonar.check.Rule;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-properties-appropriate-for-display
- * @author tkende
  *
+ * @author tkende
  */
 @Rule(key = "display-property-grouping", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
 @BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
@@ -44,13 +45,14 @@ public class DisplayPropertyGrouping extends SquidCheck<LexerlessGrammar> {
 
   private Map<String, List<String>> rules = new HashMap<String, List<String>>() {
     private static final long serialVersionUID = -6508282306820423526L;
+
     {
       put("inline",
-          ImmutableList.<String> of(
-              "width", "height", "margin", "margin-top", "margin-bottom", "float"));
-      put("inline-block", ImmutableList.<String> of("float"));
-      put("block", ImmutableList.<String> of("vertical-align"));
-      put("table*", ImmutableList.<String> of("margin", "margin-top", "margin-bottom", "margin-left", "margin-right", "float"));
+        ImmutableList.<String>of(
+          "width", "height", "margin", "margin-top", "margin-bottom", "float"));
+      put("inline-block", ImmutableList.<String>of("float"));
+      put("block", ImmutableList.<String>of("vertical-align"));
+      put("table*", ImmutableList.<String>of("margin", "margin-top", "margin-bottom", "margin-left", "margin-right", "float"));
     }
   };
 
@@ -64,10 +66,8 @@ public class DisplayPropertyGrouping extends SquidCheck<LexerlessGrammar> {
   public void visitNode(AstNode astNode) {
     List<AstNode> declarations = astNode.getDescendants(CssGrammar.declaration);
     List<String> avoidProps = isDisplay(declarations);
-    if (avoidProps != null && avoidProps.size() > 0) {
-      if (isOtherUsed(declarations, avoidProps)) {
-        getContext().createLineViolation(this, "Unnecessary property with display", astNode);
-      }
+    if (avoidProps != null && !avoidProps.isEmpty() && isOtherUsed(declarations, avoidProps)) {
+      getContext().createLineViolation(this, "Unnecessary property with display", astNode);
     }
   }
 
@@ -83,7 +83,7 @@ public class DisplayPropertyGrouping extends SquidCheck<LexerlessGrammar> {
         }
       }
     }
-    return null;
+    return Collections.emptyList();
   }
 
   private boolean isOtherUsed(List<AstNode> declarations, List<String> avoidProps) {

@@ -20,7 +20,7 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.squid.checks.SquidCheck;
+import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
@@ -58,8 +58,7 @@ public class TooManyWebFonts extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.getFirstChild(CssGrammar.atkeyword)
-        .getFirstChild(CssGrammar.ident).getTokenValue().equals("font-face")) {
+    if ("font-face".equals(astNode.getFirstChild(CssGrammar.atkeyword).getFirstChild(CssGrammar.ident).getTokenValue())) {
       currentFontFace++;
     }
   }
