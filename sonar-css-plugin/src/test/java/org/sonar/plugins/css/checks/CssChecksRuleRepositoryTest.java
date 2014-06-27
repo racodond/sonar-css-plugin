@@ -35,7 +35,7 @@ public class CssChecksRuleRepositoryTest {
   public void test() {
     CssChecksRuleRepository ruleRepository = new CssChecksRuleRepository(new AnnotationRuleParser());
     assertThat(ruleRepository.getKey()).isEqualTo("css");
-    assertThat(ruleRepository.getName()).isEqualTo("Sonar");
+    assertThat(ruleRepository.getName()).isEqualTo("SonarQube");
     List<Rule> rules = ruleRepository.createRules();
     assertThat(rules.size()).isEqualTo(CheckList.getChecks().size());
   }
