@@ -33,7 +33,7 @@ public class Css extends AbstractLanguage {
   private Configuration configuration;
 
   public Css(Configuration configuration) {
-    super(KEY, "Css");
+    super(KEY, "CSS");
     this.configuration = configuration;
   }
 
