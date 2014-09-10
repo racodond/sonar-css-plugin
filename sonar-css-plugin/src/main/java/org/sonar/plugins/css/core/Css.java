@@ -19,8 +19,8 @@
  */
 package org.sonar.plugins.css.core;
 
-import org.apache.commons.configuration.Configuration;
 import org.apache.commons.lang.StringUtils;
+import org.sonar.api.config.Settings;
 import org.sonar.api.resources.AbstractLanguage;
 import org.sonar.api.scan.filesystem.FileQuery;
 import org.sonar.plugins.css.CssPlugin;
@@ -30,19 +30,19 @@ public class Css extends AbstractLanguage {
   public static final String KEY = "css";
   public static final FileQuery SOURCE_QUERY = FileQuery.onSource().onLanguage(KEY);
 
-  private Configuration configuration;
+  private Settings settings;
 
-  public Css(Configuration configuration) {
+  public Css(Settings settings) {
     super(KEY, "CSS");
-    this.configuration = configuration;
+    this.settings = settings;
   }
 
-  public Configuration getConfiguration() {
-    return this.configuration;
+  public Settings getSettings() {
+    return this.settings;
   }
 
   public String[] getFileSuffixes() {
-    String[] suffixes = configuration.getStringArray(CssPlugin.FILE_SUFFIXES_KEY);
+    String[] suffixes = settings.getStringArray(CssPlugin.FILE_SUFFIXES_KEY);
     if (suffixes == null || suffixes.length == 0) {
       suffixes = StringUtils.split(CssPlugin.FILE_SUFFIXES_DEFVALUE, ",");
     }

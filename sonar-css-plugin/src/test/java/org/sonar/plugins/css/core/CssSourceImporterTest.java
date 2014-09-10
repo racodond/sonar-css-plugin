@@ -19,85 +19,34 @@
  */
 package org.sonar.plugins.css.core;
 
-import org.apache.commons.configuration.Configuration;
 import org.junit.Before;
 import org.junit.Test;
-import org.sonar.api.CoreProperties;
-import org.sonar.api.batch.SensorContext;
-import org.sonar.api.resources.InputFile;
-import org.sonar.api.resources.InputFileUtils;
+import org.sonar.api.config.Settings;
 import org.sonar.api.resources.Language;
-import org.sonar.api.resources.Project;
-import org.sonar.api.resources.ProjectFileSystem;
-import org.sonar.api.resources.Resource;
 
-import java.io.File;
-import java.net.URISyntaxException;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.anyObject;
-import static org.mockito.Matchers.startsWith;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 public class CssSourceImporterTest {
 
-  private Configuration configuration;
+  private CssSourceImporter importer;
   private Css language;
 
   @Before
-  public void init() {
-    configuration = mock(Configuration.class);
-    when(configuration.getBoolean(CoreProperties.CORE_IMPORT_SOURCES_PROPERTY,
-        CoreProperties.CORE_IMPORT_SOURCES_DEFAULT_VALUE))
-        .thenReturn(true);
-    language = new Css(configuration);
+  public void setUp() {
+    language = new Css(new Settings());
+    importer = new CssSourceImporter(language);
   }
 
   @Test
-  public void testSourceImporter() throws URISyntaxException {
-    SensorContext context = mock(SensorContext.class);
-    CssSourceImporter importer = new CssSourceImporter(language);
-    assertEquals("CssSourceImporter", importer.toString());
+  public void testCreateImporter() throws Exception {
+    assertThat(importer.getLanguage(), is((Language) language));
+  }
 
-    final ProjectFileSystem fileSystem = mock(ProjectFileSystem.class);
-    when(fileSystem.getSourceCharset()).thenReturn(Charset.defaultCharset());
-
-    File sourceDir = new File(getClass().getResource("/org/sonar/plugins/css/").toURI());
-    List<File> sourceDirectories = new ArrayList<File>();
-    sourceDirectories.add(sourceDir);
-
-    List<File> files = new ArrayList<File>();
-    File fileToImport = new File(getClass().getResource("/org/sonar/plugins/css/import.css")
-        .toURI());
-    files.add(fileToImport);
-
-    when(fileSystem.getSourceDirs()).thenReturn(sourceDirectories);
-
-    List<InputFile> inputFiles = InputFileUtils.create(sourceDir, files);
-    when(fileSystem.mainFiles(Css.KEY)).thenReturn(inputFiles);
-
-    Project project = new Project("dummy") {
-
-      public ProjectFileSystem getFileSystem() {
-        return fileSystem;
-      }
-
-      public Language getLanguage() {
-        return language;
-      }
-
-      public Configuration getConfiguration() {
-        return configuration;
-      }
-    };
-    importer.shouldExecuteOnProject(project);
-    importer.analyse(project, context);
-    //TODO whats wrong with the line ending???
-    verify(context).saveSource((Resource) anyObject(), startsWith("This is content for fontface.css Css file used in unit tests."));
+  @Test
+  public void testToString() throws Exception {
+    assertNotNull(importer.toString());
   }
 
 }

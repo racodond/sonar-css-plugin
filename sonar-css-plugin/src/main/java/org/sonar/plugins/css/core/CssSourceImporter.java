@@ -28,19 +28,20 @@ import org.sonar.api.resources.ProjectFileSystem;
 @Phase(name = Phase.Name.PRE)
 public class CssSourceImporter extends AbstractSourceImporter {
 
-  public CssSourceImporter(Css erlang) {
-    super(erlang);
+
+  /**
+   * Instantiates a new php source importer.
+   */
+  public CssSourceImporter(Css css) {
+    super(css);
   }
 
-  @Override
-  protected void analyse(ProjectFileSystem fileSystem, SensorContext context) {
-    parseDirs(context, InputFileUtils.toFiles(fileSystem.mainFiles(Css.KEY)), fileSystem
-        .getSourceDirs(), false, fileSystem.getSourceCharset());
-  }
-
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String toString() {
-    return getClass().getSimpleName();
+    return "CSS Source Importer";
   }
 
 }
