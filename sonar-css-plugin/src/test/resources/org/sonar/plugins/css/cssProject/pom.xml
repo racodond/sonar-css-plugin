@@ -12,5 +12,6 @@
   <properties>
     <sonar.language>css</sonar.language>
     <sonar.host.url>http://localhost:9000/</sonar.host.url>
+	<sonar.sourceEncoding>utf-8</sonar.sourceEncoding>
   </properties>
 </project>
