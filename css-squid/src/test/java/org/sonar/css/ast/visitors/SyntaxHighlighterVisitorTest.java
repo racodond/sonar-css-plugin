@@ -22,7 +22,6 @@ package org.sonar.css.ast.visitors;
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -33,8 +32,6 @@ import org.sonar.css.CssAstScanner;
 import java.io.File;
 import java.util.List;
 
-// FIXME TODO
-@Ignore("TODO")
 public class SyntaxHighlighterVisitorTest {
 
   @Rule
@@ -70,22 +67,17 @@ public class SyntaxHighlighterVisitorTest {
   public void test_LF() throws Exception {
     this.eol = "\n";
     File file = temp.newFile();
-    Files.write(Files.toString(new File("src/test/files/highlighter/Example.java"), Charsets.UTF_8).replaceAll("\\r\\n", "\n").replaceAll("\\n", eol), file, Charsets.UTF_8);
+    Files.write(Files.toString(new File("src/test/resources/syntax_highlight.css"), Charsets.UTF_8).replaceAll("\\r\\n", "\n").replaceAll("\\n", eol), file, Charsets.UTF_8);
 
     CssAstScanner.scanSingleFile(file, syntaxHighlighterVisitor);
 
     lines = Files.readLines(file, Charsets.UTF_8);
-    Mockito.verify(highlighting).highlight(offset(1, 1), offset(3, 4), "cppd");
-    Mockito.verify(highlighting).highlight(offset(5, 1), offset(7, 4), "cppd");
-    Mockito.verify(highlighting).highlight(offset(8, 1), offset(8, 18), "a");
-    Mockito.verify(highlighting).highlight(offset(8, 19), offset(8, 27), "s");
-    Mockito.verify(highlighting).highlight(offset(9, 1), offset(9, 6), "k");
-    Mockito.verify(highlighting).highlight(offset(11, 3), offset(11, 7), "k");
-    Mockito.verify(highlighting).highlight(offset(12, 5), offset(12, 11), "k");
-    Mockito.verify(highlighting).highlight(offset(12, 12), offset(12, 14), "c");
-    Mockito.verify(highlighting).highlight(offset(17, 2), offset(17, 12), "k");
-    Mockito.verify(highlighting).highlight(offset(18, 21), offset(18, 29), "k");
-    Mockito.verify(highlighting).highlight(offset(18, 29), offset(18, 30), "c");
+    Mockito.verify(highlighting).highlight(offset(1, 1), offset(1, 19), "k");
+    Mockito.verify(highlighting).highlight(offset(1, 1), offset(1, 7), "h");
+    Mockito.verify(highlighting).highlight(offset(1, 7), offset(1, 19), "h");
+    Mockito.verify(highlighting).highlight(offset(2, 5), offset(2, 10), "c");
+    Mockito.verify(highlighting).highlight(offset(2, 12), offset(2, 15), "s");
+    Mockito.verify(highlighting).highlight(offset(5, 1), offset(7, 3), "cppd");
     Mockito.verify(highlighting).done();
     Mockito.verifyNoMoreInteractions(highlighting);
   }
@@ -94,22 +86,17 @@ public class SyntaxHighlighterVisitorTest {
   public void test_CR_LF() throws Exception {
     this.eol = "\r\n";
     File file = temp.newFile();
-    Files.write(Files.toString(new File("src/test/files/highlighter/Example.java"), Charsets.UTF_8).replaceAll("\\r\\n", "\n").replaceAll("\\n", eol), file, Charsets.UTF_8);
+    Files.write(Files.toString(new File("src/test/resources/syntax_highlight.css"), Charsets.UTF_8).replaceAll("\\r\\n", "\n").replaceAll("\\n", eol), file, Charsets.UTF_8);
 
     CssAstScanner.scanSingleFile(file, syntaxHighlighterVisitor);
 
     lines = Files.readLines(file, Charsets.UTF_8);
-    Mockito.verify(highlighting).highlight(offset(1, 1), offset(3, 4), "cppd");
-    Mockito.verify(highlighting).highlight(offset(5, 1), offset(7, 4), "cppd");
-    Mockito.verify(highlighting).highlight(offset(8, 1), offset(8, 18), "a");
-    Mockito.verify(highlighting).highlight(offset(8, 19), offset(8, 27), "s");
-    Mockito.verify(highlighting).highlight(offset(9, 1), offset(9, 6), "k");
-    Mockito.verify(highlighting).highlight(offset(11, 3), offset(11, 7), "k");
-    Mockito.verify(highlighting).highlight(offset(12, 5), offset(12, 11), "k");
-    Mockito.verify(highlighting).highlight(offset(12, 12), offset(12, 14), "c");
-    Mockito.verify(highlighting).highlight(offset(17, 2), offset(17, 12), "k");
-    Mockito.verify(highlighting).highlight(offset(18, 21), offset(18, 29), "k");
-    Mockito.verify(highlighting).highlight(offset(18, 29), offset(18, 30), "c");
+    Mockito.verify(highlighting).highlight(offset(1, 1), offset(1, 19), "k");
+    Mockito.verify(highlighting).highlight(offset(1, 1), offset(1, 7), "h");
+    Mockito.verify(highlighting).highlight(offset(1, 7), offset(1, 19), "h");
+    Mockito.verify(highlighting).highlight(offset(2, 5), offset(2, 10), "c");
+    Mockito.verify(highlighting).highlight(offset(2, 12), offset(2, 15), "s");
+    Mockito.verify(highlighting).highlight(offset(5, 1), offset(7, 3), "cppd");
     Mockito.verify(highlighting).done();
     Mockito.verifyNoMoreInteractions(highlighting);
   }
@@ -118,22 +105,17 @@ public class SyntaxHighlighterVisitorTest {
   public void test_CR() throws Exception {
     this.eol = "\r";
     File file = temp.newFile();
-    Files.write(Files.toString(new File("src/test/files/highlighter/Example.java"), Charsets.UTF_8).replaceAll("\\r\\n", "\n").replaceAll("\\n", eol), file, Charsets.UTF_8);
+    Files.write(Files.toString(new File("src/test/resources/syntax_highlight.css"), Charsets.UTF_8).replaceAll("\\r\\n", "\n").replaceAll("\\n", eol), file, Charsets.UTF_8);
 
     CssAstScanner.scanSingleFile(file, syntaxHighlighterVisitor);
 
     lines = Files.readLines(file, Charsets.UTF_8);
-    Mockito.verify(highlighting).highlight(offset(1, 1), offset(3, 4), "cppd");
-    Mockito.verify(highlighting).highlight(offset(5, 1), offset(7, 4), "cppd");
-    Mockito.verify(highlighting).highlight(offset(8, 1), offset(8, 18), "a");
-    Mockito.verify(highlighting).highlight(offset(8, 19), offset(8, 27), "s");
-    Mockito.verify(highlighting).highlight(offset(9, 1), offset(9, 6), "k");
-    Mockito.verify(highlighting).highlight(offset(11, 3), offset(11, 7), "k");
-    Mockito.verify(highlighting).highlight(offset(12, 5), offset(12, 11), "k");
-    Mockito.verify(highlighting).highlight(offset(12, 12), offset(12, 14), "c");
-    Mockito.verify(highlighting).highlight(offset(17, 2), offset(17, 12), "k");
-    Mockito.verify(highlighting).highlight(offset(18, 21), offset(18, 29), "k");
-    Mockito.verify(highlighting).highlight(offset(18, 29), offset(18, 30), "c");
+    Mockito.verify(highlighting).highlight(offset(1, 1), offset(1, 19), "k");
+    Mockito.verify(highlighting).highlight(offset(1, 1), offset(1, 7), "h");
+    Mockito.verify(highlighting).highlight(offset(1, 7), offset(1, 19), "h");
+    Mockito.verify(highlighting).highlight(offset(2, 5), offset(2, 10), "c");
+    Mockito.verify(highlighting).highlight(offset(2, 12), offset(2, 15), "s");
+    Mockito.verify(highlighting).highlight(offset(5, 1), offset(7, 3), "cppd");
     Mockito.verify(highlighting).done();
     Mockito.verifyNoMoreInteractions(highlighting);
   }
