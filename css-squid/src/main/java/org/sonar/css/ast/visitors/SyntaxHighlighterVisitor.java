@@ -43,13 +43,13 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
 
   private static final Map<AstNodeType, String> TYPES = ImmutableMap.<AstNodeType, String>builder()
     .put(CssGrammar.string, "s")
-    .put(CssGrammar.value, "s")
+    // .put(CssGrammar.value, "s") can contain atkeyword
     .put(CssGrammar.property, "c")
-    .put(CssGrammar.typeSelector, "k")
-    .put(CssGrammar.universalSelector, "k")
+    // .put(CssGrammar.typeSelector, "k") can contain *selector
+    // .put(CssGrammar.universalSelector, "k") can contain *selector
     .put(CssGrammar.classSelector, "h")
-    .put(CssGrammar.pseudo, "h")
-    .put(CssGrammar.attributeSelector, "h")
+    // .put(CssGrammar.pseudo, "h") can contain any
+    // .put(CssGrammar.attributeSelector, "h") can contain any
     .put(CssGrammar.idSelector, "h")
     .put(CssGrammar.atkeyword, "p")
     .build();
