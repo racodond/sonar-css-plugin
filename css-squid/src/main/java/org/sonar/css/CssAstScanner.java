@@ -44,7 +44,6 @@ import javax.annotation.Nullable;
 import java.io.File;
 import java.util.Collection;
 
-// FIXME Inject syntax highlighter from plugin
 public final class CssAstScanner {
 
   private CssAstScanner() {
