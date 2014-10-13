@@ -19,9 +19,10 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 import org.junit.Test;
+import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
@@ -30,13 +31,13 @@ public class DisallowUnitsForZeroValuesTest {
   @Test
   public void test() {
     DisallowUnitsForZeroValues check = new DisallowUnitsForZeroValues();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/zerounits.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/zerounits.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-        .atLine(2).withMessage("Disallow zero values with units").next()
-        .atLine(6).withMessage("Disallow zero values with units").next()
-        .atLine(10).withMessage("Disallow zero values with units")
-        .noMore();
+      .atLine(2).withMessage("Disallow zero values with units").next()
+      .atLine(6).withMessage("Disallow zero values with units").next()
+      .atLine(10).withMessage("Disallow zero values with units")
+      .noMore();
   }
 
 }

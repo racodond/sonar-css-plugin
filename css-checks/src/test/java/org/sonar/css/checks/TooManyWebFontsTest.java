@@ -19,9 +19,10 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 import org.junit.Test;
+import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
@@ -31,11 +32,11 @@ public class TooManyWebFontsTest {
   public void test() {
     TooManyWebFonts check = new TooManyWebFonts();
     check.setFontFaceThreshold(3);
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/toomanywebfonts.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/toomanywebfonts.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-    .atLine(1).withMessage("Do not use too many web fonts, the number of font-faces is 5 greater than 3 authorized.")
-    .noMore();
+      .atLine(1).withMessage("Do not use too many web fonts, the number of font-faces is 5 greater than 3 authorized.")
+      .noMore();
   }
 
 }

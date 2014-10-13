@@ -19,9 +19,10 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 import org.junit.Test;
+import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
@@ -30,12 +31,12 @@ public class DisallowIdsInSelectorTest {
   @Test
   public void test() {
     DisallowIdsInSelectors check = new DisallowIdsInSelectors();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/idsinselector.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/idsinselector.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-        .atLine(1).withMessage("Disallow IDs in selectors").next()
-        .atLine(5).withMessage("Disallow IDs in selectors")
-        .noMore();
+      .atLine(1).withMessage("Disallow IDs in selectors").next()
+      .atLine(5).withMessage("Disallow IDs in selectors")
+      .noMore();
   }
 
 }

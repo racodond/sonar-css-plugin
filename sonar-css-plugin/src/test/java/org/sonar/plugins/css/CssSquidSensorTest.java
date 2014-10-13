@@ -25,7 +25,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.sonar.api.batch.SensorContext;
-import org.sonar.api.component.ResourcePerspectives;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
@@ -35,6 +34,7 @@ import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.scan.filesystem.FileQuery;
 import org.sonar.api.scan.filesystem.ModuleFileSystem;
+import org.sonar.css.ast.visitors.SonarComponents;
 
 import java.io.File;
 import java.nio.charset.Charset;
@@ -59,15 +59,14 @@ public class CssSquidSensorTest {
     fileSystem = mock(ModuleFileSystem.class);
     when(fileSystem.files(Mockito.any(FileQuery.class))).thenReturn(Arrays.asList(new File("src/test/resources/org/sonar/plugins/css/cssProject/css/boxSizing.css")));
     when(fileSystem.sourceCharset()).thenReturn(Charset.forName("UTF-8"));
-    sensor = new CssSquidSensor(mock(RulesProfile.class), fileLinesContextFactory, null, fileSystem);
+    sensor = new CssSquidSensor(mock(RulesProfile.class), null, fileSystem);
   }
 
   @Test
   public void should_execute_on_javascript_project() {
     Project project = new Project("key");
     ModuleFileSystem fs = mock(ModuleFileSystem.class);
-    CssSquidSensor cssSensor = new CssSquidSensor(mock(RulesProfile.class), mock(FileLinesContextFactory.class),
-      mock(ResourcePerspectives.class), fs);
+    CssSquidSensor cssSensor = new CssSquidSensor(mock(RulesProfile.class), mock(SonarComponents.class), fs);
 
     when(fs.files(Mockito.any(FileQuery.class))).thenReturn(ListUtils.EMPTY_LIST);
     assertThat(cssSensor.shouldExecuteOnProject(project)).isFalse();
@@ -101,4 +100,5 @@ public class CssSquidSensorTest {
 
     project.setFileSystem(fs);
   }
+
 }

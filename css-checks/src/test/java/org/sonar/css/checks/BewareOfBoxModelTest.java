@@ -19,9 +19,10 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 import org.junit.Test;
+import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
@@ -30,18 +31,18 @@ public class BewareOfBoxModelTest {
   @Test
   public void test() {
     BewareOfBoxModel check = new BewareOfBoxModel();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/boxSizing.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/boxSizing.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-    .atLine(14).withMessage("Possible box sizing issue").next()
-    .atLine(33).withMessage("Possible box sizing issue").noMore();
+      .atLine(14).withMessage("Possible box sizing issue").next()
+      .atLine(33).withMessage("Possible box sizing issue").noMore();
   }
 
   @Test
   public void test2() {
     BewareOfBoxModel check = new BewareOfBoxModel();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/fontface.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/fontface.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
   }
 

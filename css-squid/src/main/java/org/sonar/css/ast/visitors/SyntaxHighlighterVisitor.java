@@ -19,6 +19,7 @@
  */
 package org.sonar.css.ast.visitors;
 
+import com.google.common.base.Preconditions;
 import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
@@ -28,16 +29,9 @@ import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.api.Trivia;
-import org.sonar.squidbridge.SquidAstVisitor;
-import org.sonar.api.component.ResourcePerspectives;
-import org.sonar.api.resources.File;
-import org.sonar.api.resources.Project;
-import org.sonar.api.resources.Resource;
-import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.api.source.Highlightable;
 import org.sonar.css.parser.CssGrammar;
-import org.sonar.squidbridge.api.SourceCode;
-import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.SquidAstVisitor;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.io.IOException;
@@ -47,35 +41,33 @@ import java.util.Map;
 
 public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> implements AstAndTokenVisitor {
 
-  private final ResourcePerspectives perspectives;
-  private final Map<AstNodeType, String> types;
+  private static final Map<AstNodeType, String> TYPES = ImmutableMap.<AstNodeType, String>builder()
+    .put(CssGrammar.string, "s")
+    .put(CssGrammar.value, "s")
+    .put(CssGrammar.property, "c")
+    .put(CssGrammar.typeSelector, "k")
+    .put(CssGrammar.universalSelector, "k")
+    .put(CssGrammar.classSelector, "h")
+    .put(CssGrammar.pseudo, "h")
+    .put(CssGrammar.attributeSelector, "h")
+    .put(CssGrammar.idSelector, "h")
+    .put(CssGrammar.atkeyword, "p")
+    .build();
+
+  private final SonarComponents sonarComponents;
   private final Charset charset;
 
   private Highlightable.HighlightingBuilder highlighting;
   private List<Integer> lineStart;
-  private Project project;
 
-  public SyntaxHighlighterVisitor(ResourcePerspectives resourcePerspectives, ModuleFileSystem fileSystem, Project project) {
-    this.charset = fileSystem.sourceCharset();
-    this.perspectives = resourcePerspectives;
-    this.project = project;
-    ImmutableMap.Builder<AstNodeType, String> typesBuilder = ImmutableMap.builder();
-    typesBuilder.put(CssGrammar.string, "s");
-    typesBuilder.put(CssGrammar.value, "s");
-    typesBuilder.put(CssGrammar.property, "c");
-    typesBuilder.put(CssGrammar.typeSelector, "k");
-    typesBuilder.put(CssGrammar.universalSelector, "k");
-    typesBuilder.put(CssGrammar.classSelector, "h");
-    typesBuilder.put(CssGrammar.pseudo, "h");
-    typesBuilder.put(CssGrammar.attributeSelector, "h");
-    typesBuilder.put(CssGrammar.idSelector, "h");
-    typesBuilder.put(CssGrammar.atkeyword, "p");
-    types = typesBuilder.build();
+  public SyntaxHighlighterVisitor(SonarComponents sonarComponents, Charset charset) {
+    this.sonarComponents = Preconditions.checkNotNull(sonarComponents);
+    this.charset = charset;
   }
 
   @Override
   public void init() {
-    for (AstNodeType type : types.keySet()) {
+    for (AstNodeType type : TYPES.keySet()) {
       subscribeTo(type);
     }
   }
@@ -87,9 +79,7 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
       return;
     }
 
-
-    Resource<?> sonarFile = File.fromIOFile(new java.io.File(peekSourceFile().getKey()), project);
-    highlighting = perspectives.as(Highlightable.class, sonarFile).newHighlighting();
+    highlighting = sonarComponents.highlightableFor(getContext().getFile()).newHighlighting();
 
     lineStart = Lists.newArrayList();
     final String content;
@@ -100,7 +90,7 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
     }
     lineStart.add(0);
     for (int i = 0; i < content.length(); i++) {
-      if (content.charAt(i) == '\n' || (content.charAt(i) == '\r' && i + 1 < content.length() && content.charAt(i + 1) != '\n')) {
+      if (content.charAt(i) == '\n' || content.charAt(i) == '\r' && i + 1 < content.length() && content.charAt(i + 1) != '\n') {
         lineStart.add(i + 1);
       }
     }
@@ -108,9 +98,10 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
 
   @Override
   public void visitNode(AstNode astNode) {
-    highlighting.highlight(astNode.getFromIndex(), astNode.getToIndex(), types.get(astNode.getType()));
+    highlighting.highlight(astNode.getFromIndex(), astNode.getToIndex(), TYPES.get(astNode.getType()));
   }
 
+  @Override
   public void visitToken(Token token) {
     for (Trivia trivia : token.getTrivia()) {
       if (trivia.isComment()) {
@@ -137,14 +128,6 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
     }
 
     highlighting.done();
-  }
-
-  private final SourceFile peekSourceFile() {
-    SourceCode sourceCode = getContext().peekSourceCode();
-    if (sourceCode.isType(SourceFile.class)) {
-      return (SourceFile) getContext().peekSourceCode();
-    }
-    return sourceCode.getParent(SourceFile.class);
   }
 
 }

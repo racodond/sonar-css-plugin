@@ -19,40 +19,58 @@
  */
 package org.sonar.css;
 
+import com.google.common.base.Charsets;
 import com.sonar.sslr.impl.Parser;
+import org.sonar.css.api.CssMetric;
+import org.sonar.css.ast.visitors.SonarComponents;
+import org.sonar.css.ast.visitors.SyntaxHighlighterVisitor;
+import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.AstScanner;
 import org.sonar.squidbridge.SquidAstVisitor;
 import org.sonar.squidbridge.SquidAstVisitorContextImpl;
+import org.sonar.squidbridge.api.SourceCode;
+import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.api.SourceProject;
+import org.sonar.squidbridge.indexer.QueryByType;
 import org.sonar.squidbridge.metrics.CommentsVisitor;
 import org.sonar.squidbridge.metrics.CounterVisitor;
 import org.sonar.squidbridge.metrics.LinesOfCodeVisitor;
 import org.sonar.squidbridge.metrics.LinesVisitor;
-import org.sonar.api.component.ResourcePerspectives;
-import org.sonar.api.resources.Project;
-import org.sonar.api.scan.filesystem.ModuleFileSystem;
-import org.sonar.css.api.CssMetric;
-import org.sonar.css.ast.visitors.SyntaxHighlighterVisitor;
-import org.sonar.css.parser.CssGrammar;
-import org.sonar.squidbridge.api.SourceProject;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.parser.ParserAdapter;
 
+import javax.annotation.Nullable;
+
+import java.io.File;
+import java.util.Collection;
+
+// FIXME Inject syntax highlighter from plugin
 public final class CssAstScanner {
 
   private CssAstScanner() {
   }
 
-  public static AstScanner<LexerlessGrammar> create(ModuleFileSystem fileSystem, SquidAstVisitor<LexerlessGrammar>... visitors) {
-    return create(fileSystem, null, null, visitors);
+  /**
+   * Helper method for testing checks without having to deploy them on a Sonar instance.
+   */
+  public static SourceFile scanSingleFile(File file, SquidAstVisitor<LexerlessGrammar>... visitors) {
+    if (!file.isFile()) {
+      throw new IllegalArgumentException("File '" + file + "' not found.");
+    }
+    AstScanner scanner = create(new CssConfiguration(Charsets.UTF_8), null, visitors);
+    scanner.scanFile(file);
+    Collection<SourceCode> sources = scanner.getIndex().search(new QueryByType(SourceFile.class));
+    if (sources.size() != 1) {
+      throw new IllegalStateException("Only one SourceFile was expected whereas " + sources.size() + " has been returned.");
+    }
+    return (SourceFile) sources.iterator().next();
   }
 
-  public static AstScanner<LexerlessGrammar> create(ModuleFileSystem fileSystem, ResourcePerspectives resourcePerspectives, Project project,
-    SquidAstVisitor<LexerlessGrammar>... visitors) {
-    final CssConfiguration conf = new CssConfiguration(fileSystem.sourceCharset());
+  public static AstScanner<LexerlessGrammar> create(CssConfiguration conf, @Nullable SonarComponents sonarComponents, SquidAstVisitor<LexerlessGrammar>... visitors) {
     final SquidAstVisitorContextImpl<LexerlessGrammar> context = new SquidAstVisitorContextImpl<LexerlessGrammar>(new SourceProject("Css Project"));
-    final Parser<LexerlessGrammar> parser = new ParserAdapter<LexerlessGrammar>(fileSystem.sourceCharset(), CssGrammar.createGrammar());
+    final Parser<LexerlessGrammar> parser = new ParserAdapter<LexerlessGrammar>(conf.charset(), CssGrammar.createGrammar());
 
-    AstScanner.Builder<LexerlessGrammar> builder = AstScanner.<LexerlessGrammar> builder(context).setBaseParser(parser);
+    AstScanner.Builder<LexerlessGrammar> builder = AstScanner.<LexerlessGrammar>builder(context).setBaseParser(parser);
 
     /* Metrics */
     builder.withMetrics(CssMetric.values());
@@ -60,10 +78,10 @@ public final class CssAstScanner {
     /* Comments */
     builder.setCommentAnalyser(new CssCommentAnalyser());
 
-    builder.withSquidAstVisitor(CommentsVisitor.<LexerlessGrammar> builder().withCommentMetric(
+    builder.withSquidAstVisitor(CommentsVisitor.<LexerlessGrammar>builder().withCommentMetric(
       CssMetric.COMMENT_LINES)
       .withNoSonar(true)
-      .withIgnoreHeaderComment(conf.getIgnoreHeaderComments()).build());
+      .withIgnoreHeaderComment(conf.ignoreHeaderComments()).build());
 
     /* Files */
     builder.setFilesMetric(CssMetric.FILES);
@@ -72,19 +90,19 @@ public final class CssAstScanner {
      * Statements not in CSS syntax term
      * selectors and declarations at-keywords
      */
-    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar> builder()
+    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
       .setMetricDef(CssMetric.STATEMENTS)
       .subscribeTo(CssGrammar.atkeyword, CssGrammar.selector, CssGrammar.declaration)
       .build());
 
     /* Rule sets */
-    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar> builder()
+    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
       .setMetricDef(CssMetric.RULE_SETS)
       .subscribeTo(CssGrammar.ruleset)
       .build());
 
     /* At rules */
-    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar> builder()
+    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
       .setMetricDef(CssMetric.AT_RULES)
       .subscribeTo(CssGrammar.atRule)
       .build());
@@ -93,10 +111,9 @@ public final class CssAstScanner {
     builder.withSquidAstVisitor(new LinesVisitor<LexerlessGrammar>(CssMetric.LINES));
     builder.withSquidAstVisitor(new LinesOfCodeVisitor<LexerlessGrammar>(CssMetric.LINES_OF_CODE));
 
-
     /* Syntax highlighter */
-    if (resourcePerspectives != null && fileSystem != null && project != null) {
-      builder.withSquidAstVisitor(new SyntaxHighlighterVisitor(resourcePerspectives, fileSystem, project));
+    if (sonarComponents != null) {
+      builder.withSquidAstVisitor(new SyntaxHighlighterVisitor(sonarComponents, conf.charset()));
     }
 
     /* External visitors (typically Check ones) */
@@ -106,4 +123,5 @@ public final class CssAstScanner {
 
     return builder.build();
   }
+
 }

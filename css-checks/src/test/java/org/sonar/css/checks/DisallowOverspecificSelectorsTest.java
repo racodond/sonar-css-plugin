@@ -19,9 +19,10 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 import org.junit.Test;
+import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
@@ -30,21 +31,21 @@ public class DisallowOverspecificSelectorsTest {
   @Test
   public void test() {
     DisallowOverspecificSelectors check = new DisallowOverspecificSelectors();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/overspecselector.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/overspecselector.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-        .atLine(5).withMessage("Disallow overspecified selectors").next()
-        .atLine(8).withMessage("Disallow overspecified selectors").next()
-        .atLine(11).withMessage("Disallow overspecified selectors")
-        .noMore();
+      .atLine(5).withMessage("Disallow overspecified selectors").next()
+      .atLine(8).withMessage("Disallow overspecified selectors").next()
+      .atLine(11).withMessage("Disallow overspecified selectors")
+      .noMore();
   }
 
   @Test
   public void test2() {
     DisallowOverspecificSelectors check = new DisallowOverspecificSelectors();
     check.setDeepnessThreshold(4);
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/overspecselector.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/overspecselector.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
   }
 

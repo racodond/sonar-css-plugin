@@ -19,9 +19,10 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 import org.junit.Test;
+import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
@@ -30,12 +31,12 @@ public class DisallowImportTest {
   @Test
   public void test() {
     DisallowImport check = new DisallowImport();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/import.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/import.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-        .atLine(1).withMessage("Disallow imports").next()
-        .atLine(2).withMessage("Disallow imports")
-        .noMore();
+      .atLine(1).withMessage("Disallow imports").next()
+      .atLine(2).withMessage("Disallow imports")
+      .noMore();
   }
 
 }

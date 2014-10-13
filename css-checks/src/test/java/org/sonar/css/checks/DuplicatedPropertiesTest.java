@@ -19,9 +19,10 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 import org.junit.Test;
+import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
@@ -30,26 +31,26 @@ public class DuplicatedPropertiesTest {
   @Test
   public void test() {
     DuplicateProperties check = new DuplicateProperties();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/duplicatedProperties.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/duplicatedProperties.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-        .atLine(7).withMessage("Duplicated property in the declarations").next()
-        .atLine(20).withMessage("Duplicated property in the declarations").noMore();
+      .atLine(7).withMessage("Duplicated property in the declarations").next()
+      .atLine(20).withMessage("Duplicated property in the declarations").noMore();
   }
 
   @Test
   public void testBug() {
     DuplicateProperties check = new DuplicateProperties();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/noDuplication.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/noDuplication.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
   }
 
   @Test
   public void test2() {
     DuplicateProperties check = new DuplicateProperties();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/fontface.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/fontface.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
   }
 

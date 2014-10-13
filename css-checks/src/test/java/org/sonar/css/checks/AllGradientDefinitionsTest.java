@@ -19,9 +19,10 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 import org.junit.Test;
+import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
@@ -30,22 +31,22 @@ public class AllGradientDefinitionsTest {
   @Test
   public void test() {
     AllGradientDefinitions check = new AllGradientDefinitions();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/gradientdefinition.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/gradientdefinition.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-    .atLine(2).withMessage("Missing gradient: -moz-(linear|radial)-gradient.*").next()
-    .atLine(2).withMessage("Missing gradient: -ms-(linear|radial)-gradient.*").next()
-    .atLine(2).withMessage("Missing gradient: -o-(linear|radial)-gradient.*").next()
-    .atLine(8).withMessage("Missing gradient: -webkit-(linear|radial)-gradient.*").next()
-    .atLine(8).withMessage("Missing gradient: -webkit-gradient.*")
-    .noMore();
+      .atLine(2).withMessage("Missing gradient: -moz-(linear|radial)-gradient.*").next()
+      .atLine(2).withMessage("Missing gradient: -ms-(linear|radial)-gradient.*").next()
+      .atLine(2).withMessage("Missing gradient: -o-(linear|radial)-gradient.*").next()
+      .atLine(8).withMessage("Missing gradient: -webkit-(linear|radial)-gradient.*").next()
+      .atLine(8).withMessage("Missing gradient: -webkit-gradient.*")
+      .noMore();
   }
 
   @Test
   public void test2() {
     AllGradientDefinitions check = new AllGradientDefinitions();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/fontface.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/fontface.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
   }
 

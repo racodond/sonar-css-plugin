@@ -19,9 +19,10 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 import org.junit.Test;
+import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
@@ -30,15 +31,15 @@ public class DisallowSelectorsLikeRegExTest {
   @Test
   public void test() {
     DisallowSelectorsLikeRegEx check = new DisallowSelectorsLikeRegEx();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/regexlikeselectors.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/regexlikeselectors.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-        .atLine(1).withMessage("Disallow regular expression like selectors").next()
-        .atLine(5).withMessage("Disallow regular expression like selectors").next()
-        .atLine(17).withMessage("Disallow regular expression like selectors").next()
-        .atLine(21).withMessage("Disallow regular expression like selectors").next()
-        .atLine(25).withMessage("Disallow regular expression like selectors")
-        .noMore();
+      .atLine(1).withMessage("Disallow regular expression like selectors").next()
+      .atLine(5).withMessage("Disallow regular expression like selectors").next()
+      .atLine(17).withMessage("Disallow regular expression like selectors").next()
+      .atLine(21).withMessage("Disallow regular expression like selectors").next()
+      .atLine(25).withMessage("Disallow regular expression like selectors")
+      .noMore();
   }
 
 }

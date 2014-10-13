@@ -19,9 +19,10 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 import org.junit.Test;
+import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
@@ -30,12 +31,11 @@ public class DisallowDuplicateBackgroundImagesTest {
   @Test
   public void test() {
     DisallowDuplicateBackgroundImages check = new DisallowDuplicateBackgroundImages();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/duplicatebackgroundimages.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/duplicatebackgroundimages.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-        .atLine(7).withMessage("Disallow duplicate background images").next()
-        .atLine(30).withMessage("Disallow duplicate background images").noMore();
-
+      .atLine(7).withMessage("Disallow duplicate background images").next()
+      .atLine(30).withMessage("Disallow duplicate background images").noMore();
   }
 
 }

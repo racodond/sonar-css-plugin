@@ -19,9 +19,10 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 import org.junit.Test;
+import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
@@ -30,20 +31,20 @@ public class CompatibleVendorPrefixesTest {
   @Test
   public void test() {
     CompatibleVendorPrefixes check = new CompatibleVendorPrefixes();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/vendorprefixes.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/vendorprefixes.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-    .atLine(11).withMessage("Missing vendor: -moz for property: transform").next()
-    .atLine(11).withMessage("Missing vendor: -ms for property: transform").next()
-    .atLine(11).withMessage("Missing vendor: -o for property: transform").next()
-    .atLine(16).withMessage("Missing vendor: -webkit for property: border-radius").noMore();
+      .atLine(11).withMessage("Missing vendor: -moz for property: transform").next()
+      .atLine(11).withMessage("Missing vendor: -ms for property: transform").next()
+      .atLine(11).withMessage("Missing vendor: -o for property: transform").next()
+      .atLine(16).withMessage("Missing vendor: -webkit for property: border-radius").noMore();
   }
 
   @Test
   public void test2() {
     CompatibleVendorPrefixes check = new CompatibleVendorPrefixes();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/fontface.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/fontface.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
   }
 

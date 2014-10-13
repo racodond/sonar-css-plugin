@@ -19,9 +19,10 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 import org.junit.Test;
+import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
@@ -30,12 +31,12 @@ public class BulletproofFontFaceTest {
   @Test
   public void test() {
     BulletproofFontFace check = new BulletproofFontFace();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/fontface.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/fontface.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-    .atLine(1).withMessage("First web font has missing query string or it is not eot").next()
-    .atLine(19).withMessage("First web font has missing query string or it is not eot")
-    .noMore();
+      .atLine(1).withMessage("First web font has missing query string or it is not eot").next()
+      .atLine(19).withMessage("First web font has missing query string or it is not eot")
+      .noMore();
   }
 
 }

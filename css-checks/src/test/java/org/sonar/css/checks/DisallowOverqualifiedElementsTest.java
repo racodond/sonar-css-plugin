@@ -19,9 +19,10 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 import org.junit.Test;
+import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
@@ -30,19 +31,19 @@ public class DisallowOverqualifiedElementsTest {
   @Test
   public void test() {
     DisallowOverqualifiedElements check = new DisallowOverqualifiedElements();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/overqualified.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/overqualified.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-        .atLine(1).withMessage("Disallow overqualified elements").next()
-        .atLine(5).withMessage("Disallow overqualified elements")
-        .noMore();
+      .atLine(1).withMessage("Disallow overqualified elements").next()
+      .atLine(5).withMessage("Disallow overqualified elements")
+      .noMore();
   }
 
   @Test
   public void test_n() {
     DisallowOverqualifiedElements check = new DisallowOverqualifiedElements();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/duplicatedProperties.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/duplicatedProperties.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
   }
 

@@ -19,9 +19,10 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 import org.junit.Test;
+import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
@@ -30,22 +31,22 @@ public class VendorPrefixWithStandardTest {
   @Test
   public void test() {
     VendorPrefixWithStandard check = new VendorPrefixWithStandard();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/vendorprefixwithstandard.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/vendorprefixwithstandard.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-    .atLine(3).withMessage("No standard property defined after").next()
-    .atLine(15).withMessage("No standard property defined after")
-    .noMore();
+      .atLine(3).withMessage("No standard property defined after").next()
+      .atLine(15).withMessage("No standard property defined after")
+      .noMore();
   }
 
   @Test
   public void test_n() {
     VendorPrefixWithStandard check = new VendorPrefixWithStandard();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/vendorprefixes.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/vendorprefixes.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-    .atLine(12).withMessage("No standard property defined after").next()
-    .atLine(17).withMessage("No standard property defined after").noMore();
+      .atLine(12).withMessage("No standard property defined after").next()
+      .atLine(17).withMessage("No standard property defined after").noMore();
   }
 
 }

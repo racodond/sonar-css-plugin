@@ -19,23 +19,31 @@
  */
 package org.sonar.css;
 
-import org.sonar.squidbridge.api.SquidConfiguration;
-
 import java.nio.charset.Charset;
 
-public class CssConfiguration extends SquidConfiguration {
+// FIXME Test
+public class CssConfiguration {
 
+  private Charset charset;
   private boolean ignoreHeaderComments;
 
   public CssConfiguration(Charset charset) {
-    super(charset);
+    this.charset = charset;
   }
 
-  public void setIgnoreHeaderComments(boolean ignoreHeaderComments) {
+  public void charset(Charset charset) {
+    this.charset = charset;
+  }
+
+  public Charset charset() {
+    return charset;
+  }
+
+  public void ignoreHeaderComments(boolean ignoreHeaderComments) {
     this.ignoreHeaderComments = ignoreHeaderComments;
   }
 
-  public boolean getIgnoreHeaderComments() {
+  public boolean ignoreHeaderComments() {
     return ignoreHeaderComments;
   }
 

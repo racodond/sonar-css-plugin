@@ -23,6 +23,7 @@ import com.google.common.collect.ImmutableList;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
 import org.sonar.api.SonarPlugin;
+import org.sonar.css.ast.visitors.SonarComponents;
 import org.sonar.plugins.css.checks.CssChecksRuleRepository;
 import org.sonar.plugins.css.core.Css;
 import org.sonar.plugins.css.core.CssSourceImporter;
@@ -41,11 +42,13 @@ public class CssPlugin extends SonarPlugin {
   public static final String FILE_SUFFIXES_KEY = "sonar.css.file.suffixes";
   public static final String FILE_SUFFIXES_DEFVALUE = "css";
 
+  @Override
   public ImmutableList getExtensions() {
     return ImmutableList.of(
       Css.class,
       CssSourceImporter.class,
 
+      SonarComponents.class,
       CssSquidSensor.class,
 
       CssCpdMapping.class,

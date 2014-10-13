@@ -19,9 +19,10 @@
  */
 package org.sonar.css.checks;
 
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 import org.junit.Test;
+import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
@@ -30,19 +31,19 @@ public class DisplayPropertyGroupingTest {
   @Test
   public void test() {
     DisplayPropertyGrouping check = new DisplayPropertyGrouping();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/displayProperty.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/displayProperty.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-    .atLine(5).withMessage("Unnecessary property with display").next()
-    .atLine(11).withMessage("Unnecessary property with display").next()
-    .atLine(23).withMessage("Unnecessary property with display").noMore();
+      .atLine(5).withMessage("Unnecessary property with display").next()
+      .atLine(11).withMessage("Unnecessary property with display").next()
+      .atLine(23).withMessage("Unnecessary property with display").noMore();
   }
 
   @Test
   public void test2() {
     DisplayPropertyGrouping check = new DisplayPropertyGrouping();
-    SourceFile file = TestHelper.scanSingleFile(new File(
-        "src/test/resources/checks/fontface.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/fontface.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
   }
 
