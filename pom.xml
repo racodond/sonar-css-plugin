@@ -44,7 +44,7 @@
   </modules>
 
   <scm>
-    <connection>scm:git:git@github.com:SonarCommunit/sonar-css.git</connection>
+    <connection>scm:git:git@github.com:SonarCommunity/sonar-css.git</connection>
     <developerConnection>scm:git:git@github.com:SonarCommunity/sonar-css.git</developerConnection>
     <url>https://github.com/SonarCommunity/sonar-css</url>
     <tag>HEAD</tag>
