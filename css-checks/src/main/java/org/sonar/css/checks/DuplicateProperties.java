@@ -43,18 +43,18 @@ public class DuplicateProperties extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.supDeclaration, CssGrammar.declaration);
+    subscribeTo(CssGrammar.SUP_DECLARATION, CssGrammar.DECLARATION);
   }
 
   List<Declarations> declarations = Lists.newArrayList();
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.getType().equals(CssGrammar.supDeclaration)) {
+    if (astNode.getType().equals(CssGrammar.SUP_DECLARATION)) {
       declarations.clear();
     } else {
-      String property = astNode.getFirstChild(CssGrammar.property).getTokenValue();
-      String value = getTokensAsString(astNode.getFirstChild(CssGrammar.value).getTokens());
+      String property = astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue();
+      String value = getTokensAsString(astNode.getFirstChild(CssGrammar.VALUE).getTokens());
       List<Declarations> storedDeclarations = findStoredDeclarations(property);
       if (!storedDeclarations.isEmpty() && (hasSameValue(storedDeclarations, value)
         || notAfter(storedDeclarations, astNode.getPreviousSibling().getPreviousSibling()))) {

@@ -38,7 +38,7 @@ public class DisallowImportant extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.important);
+    subscribeTo(CssGrammar.IMPORTANT);
   }
 
   @Override

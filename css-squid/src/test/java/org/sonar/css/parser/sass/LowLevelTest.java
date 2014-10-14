@@ -33,13 +33,13 @@ public class LowLevelTest extends TestBase {
 
   @Test
   public void variable() {
-    assertThat(b.rule(SassGrammar.variable))
+    assertThat(b.rule(SassGrammar.VARIABLE))
         .matches("$width");
   }
 
   @Test
   public void varDeclaration() {
-    assertThat(b.rule(SassGrammar.varDeclaration))
+    assertThat(b.rule(SassGrammar.VAR_DECLARATION))
         .matches("$width:5em;")
       .matches("$width : 5em ; ")
       .matches("$content: \"Second content?\" !default;")
@@ -48,17 +48,17 @@ public class LowLevelTest extends TestBase {
 
   @Test
   public void varUsage() {
-    assertThat(b.rule(CssGrammar.declaration))
+    assertThat(b.rule(CssGrammar.DECLARATION))
         .matches("width: $width/2");
   }
 
   @Test
   public void parentSelector() {
-    assertThat(b.rule(SassGrammar.parentSelector))
+    assertThat(b.rule(SassGrammar.PARENT_SELECTOR))
         .matches("&")
         .matches("&:hover");
 
-    assertThat(b.rule(CssGrammar.ruleset))
+    assertThat(b.rule(CssGrammar.RULESET))
         .matches(code(
             "a {",
             "  font-weight: bold;",
@@ -78,7 +78,7 @@ public class LowLevelTest extends TestBase {
 
   @Test
   public void parentSelector2() {
-    assertThat(b.rule(CssGrammar.selector))
+    assertThat(b.rule(CssGrammar.SELECTOR))
         .matches("body.firefox &");
   }
 
@@ -86,7 +86,7 @@ public class LowLevelTest extends TestBase {
 
   @Test
   public void comment() {
-    assertThat(b.rule(CssGrammar.stylesheet))
+    assertThat(b.rule(CssGrammar.STYLESHEET))
         .matches(code(
             "/* This comment is",
             " * several lines long.",
@@ -101,7 +101,7 @@ public class LowLevelTest extends TestBase {
 
   @Test
   public void arithmeticExpressions() {
-    assertThat(b.rule(SassGrammar.expression))
+    assertThat(b.rule(SassGrammar.EXPRESSION))
       // We cannot manage the difference now so it is an expression
       .matches("10px/8px")
         .matches("$width/2")
@@ -121,7 +121,7 @@ public class LowLevelTest extends TestBase {
 
   @Test
   public void stringOperations(){
-    assertThat(b.rule(SassGrammar.stringExp))
+    assertThat(b.rule(SassGrammar.STRING_EXP))
     .matches("e + -resize")
     .matches("\"Foo \" + Bar")
     .matches("sans- + \"serif\"");
@@ -130,7 +130,7 @@ public class LowLevelTest extends TestBase {
 
   @Test
   public void debugWarn() {
-    assertThat(b.rule(CssGrammar.any))
+    assertThat(b.rule(CssGrammar.ANY))
       .matches("@debug e + -resize")
       .matches("@warn \"Foo \" + Bar")
       .matches("@debug sans- + \"serif\"")
@@ -142,7 +142,7 @@ public class LowLevelTest extends TestBase {
 
   @Test
   public void specialDeclarations() {
-    assertThat(b.rule(CssGrammar.declaration))
+    assertThat(b.rule(CssGrammar.DECLARATION))
         .matches("content: \"I ate #{5 + 10} pies!\"")
         .matches("font-family: sans- + \"serif\"");
   }

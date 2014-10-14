@@ -39,7 +39,7 @@ public class DisallowIdsInSelectors extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.idSelector);
+    subscribeTo(CssGrammar.ID_SELECTOR);
   }
 
   @Override

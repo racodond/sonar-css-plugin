@@ -30,7 +30,7 @@ public class CommentTest extends TestBase {
 
   @Test
   public void css() {
-    assertThat(b.rule(CssGrammar.stylesheet))
+    assertThat(b.rule(CssGrammar.STYLESHEET))
         .matches(code("p {color:red;text-align:center;} /* comment */"))
         .matches(code("/* comment */p {color:red;text-align:center;} /* comment */"))
         ;

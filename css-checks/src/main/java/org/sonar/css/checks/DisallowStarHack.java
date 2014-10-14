@@ -40,7 +40,7 @@ public class DisallowStarHack extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.property);
+    subscribeTo(CssGrammar.PROPERTY);
   }
 
   @Override

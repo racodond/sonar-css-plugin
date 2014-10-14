@@ -55,14 +55,14 @@ public class BewareOfBoxModel extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.ruleset, CssGrammar.atRule, CssGrammar.declaration);
+    subscribeTo(CssGrammar.RULESET, CssGrammar.AT_RULE, CssGrammar.DECLARATION);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.is(CssGrammar.ruleset) || astNode.is(CssGrammar.atRule)) {
+    if (astNode.is(CssGrammar.RULESET) || astNode.is(CssGrammar.AT_RULE)) {
       combinations = EnumSet.noneOf(Combinations.class);
-    } else if (astNode.is(CssGrammar.declaration)) {
+    } else if (astNode.is(CssGrammar.DECLARATION)) {
       if (isBoxSizing(astNode)) {
         combinations.clear();
         combinations.add(Combinations.IS_BOX_SIZING);
@@ -85,7 +85,7 @@ public class BewareOfBoxModel extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (astNode.is(CssGrammar.ruleset)
+    if (astNode.is(CssGrammar.RULESET)
       && (combinations.containsAll(Arrays.asList(Combinations.WIDTH_FOUND, Combinations.WIDTH_SIZING))
       || combinations.containsAll(Arrays.asList(Combinations.HEIGHT_FOUND, Combinations.HEIGHT_SIZING)))) {
       getContext().createLineViolation(this, "Possible box sizing issue", astNode);
@@ -101,13 +101,13 @@ public class BewareOfBoxModel extends SquidCheck<LexerlessGrammar> {
   }
 
   private boolean isOtherUsed(List<String> props, AstNode declaration) {
-    String property = declaration.getFirstChild(CssGrammar.property).getTokenValue();
-    String value = declaration.getFirstChild(CssGrammar.value).getTokenValue();
+    String property = declaration.getFirstChild(CssGrammar.PROPERTY).getTokenValue();
+    String value = declaration.getFirstChild(CssGrammar.VALUE).getTokenValue();
     return props.contains(property) && !"none".equalsIgnoreCase(value);
   }
 
   private boolean isBoxSizing(AstNode declaration) {
-    String property = declaration.getFirstChild(CssGrammar.property).getTokenValue();
+    String property = declaration.getFirstChild(CssGrammar.PROPERTY).getTokenValue();
     return "box-sizing".equalsIgnoreCase(property);
     /*
      * if ("box-sizing".equalsIgnoreCase(property)) {
@@ -125,7 +125,7 @@ public class BewareOfBoxModel extends SquidCheck<LexerlessGrammar> {
   }
 
   private Combinations isWidthOrHeight(AstNode declaration) {
-    String property = declaration.getFirstChild(CssGrammar.property).getToken().getValue();
+    String property = declaration.getFirstChild(CssGrammar.PROPERTY).getToken().getValue();
     if ("height".equalsIgnoreCase(property)) {
       return Combinations.HEIGHT_FOUND;
     } else if ("width".equalsIgnoreCase(property)) {

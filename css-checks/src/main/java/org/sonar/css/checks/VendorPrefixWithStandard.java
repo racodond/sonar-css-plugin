@@ -41,12 +41,12 @@ public class VendorPrefixWithStandard extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.declaration);
+    subscribeTo(CssGrammar.DECLARATION);
   }
 
   @Override
   public void leaveNode(AstNode astNode) {
-    String property = astNode.getFirstChild(CssGrammar.property).getTokenValue();
+    String property = astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue();
     if (CssProperties.isVendor(property) && CssProperties.getProperty(property) != null) {
       CssP prop = CssP.factory(property);
       if (!isNextExists(astNode, prop.getName())) {
@@ -58,7 +58,7 @@ public class VendorPrefixWithStandard extends SquidCheck<LexerlessGrammar> {
   private boolean isNextExists(AstNode actual, String propertyName) {
     AstNode next = actual.getNextSibling();
     while (next != null) {
-      AstNode property = next.getFirstChild(CssGrammar.property);
+      AstNode property = next.getFirstChild(CssGrammar.PROPERTY);
       if (property != null) {
         String nextProperty = property.getTokenValue();
         if (propertyName.equalsIgnoreCase(nextProperty)) {

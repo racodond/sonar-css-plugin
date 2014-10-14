@@ -33,7 +33,7 @@ public class RuleSetTest extends TestBase {
 
   @Test
   public void nestedVarDeclaration() {
-    assertThat(b.rule(CssGrammar.ruleset))
+    assertThat(b.rule(CssGrammar.RULESET))
       .matches("p {color:red;$width:5em;}")
       .matches(code(
         "p {",
@@ -44,7 +44,7 @@ public class RuleSetTest extends TestBase {
 
   @Test
   public void nestedProperties() {
-    assertThat(b.rule(CssGrammar.ruleset))
+    assertThat(b.rule(CssGrammar.RULESET))
       .matches(
         code(
         ".funky {" +
@@ -71,7 +71,7 @@ public class RuleSetTest extends TestBase {
 
   @Test
   public void nestedImport() {
-    assertThat(b.rule(CssGrammar.ruleset))
+    assertThat(b.rule(CssGrammar.RULESET))
       .matches(
         code(
         "#main {" +
@@ -92,7 +92,7 @@ public class RuleSetTest extends TestBase {
 
   @Test
   public void starHack() {
-    assertThat(b.rule(CssGrammar.ruleset))
+    assertThat(b.rule(CssGrammar.RULESET))
       .matches(code(
         ".mybox {" +
           "    border: 1px solid black;" +
@@ -105,7 +105,7 @@ public class RuleSetTest extends TestBase {
 
   @Test
   public void nestedRules() {
-    assertThat(b.rule(CssGrammar.stylesheet))
+    assertThat(b.rule(CssGrammar.STYLESHEET))
       .matches(code(
         "#main p {",
         "  color: #00ff00;",
@@ -128,13 +128,13 @@ public class RuleSetTest extends TestBase {
 
   @Test
   public void extend() {
-    assertThat(b.rule(CssGrammar.ruleset))
+    assertThat(b.rule(CssGrammar.RULESET))
       .matches(code(".seriousError {",
         "@extend .error;",
         "@extend .notice !optional;",
         "border-width: 3px;",
         "}"));
-    assertThat(b.rule(CssGrammar.stylesheet))
+    assertThat(b.rule(CssGrammar.STYLESHEET))
       .matches(code(
         "#fake-links .link {",
         "  @extend a;",

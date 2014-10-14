@@ -40,7 +40,7 @@ public class DisallowUnderscoreHack extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.property);
+    subscribeTo(CssGrammar.PROPERTY);
   }
 
   @Override

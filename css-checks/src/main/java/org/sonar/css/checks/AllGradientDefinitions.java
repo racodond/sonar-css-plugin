@@ -54,15 +54,15 @@ public class AllGradientDefinitions extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.ruleset, CssGrammar.atRule, CssGrammar.declaration);
+    subscribeTo(CssGrammar.RULESET, CssGrammar.AT_RULE, CssGrammar.DECLARATION);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.is(CssGrammar.ruleset) || astNode.is(CssGrammar.atRule)) {
+    if (astNode.is(CssGrammar.RULESET) || astNode.is(CssGrammar.AT_RULE)) {
       gradientsFound = new ArrayList<String>(gradients);
-    } else if (astNode.is(CssGrammar.declaration)) {
-      String value = astNode.getFirstChild(CssGrammar.value).getTokenValue();
+    } else if (astNode.is(CssGrammar.DECLARATION)) {
+      String value = astNode.getFirstChild(CssGrammar.VALUE).getTokenValue();
       if (value.matches(gradientMatcher)) {
         removeMatch(value);
       }
@@ -71,7 +71,7 @@ public class AllGradientDefinitions extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (astNode != null && astNode.is(CssGrammar.ruleset) && gradientsFound.size() != gradients.size()) {
+    if (astNode != null && astNode.is(CssGrammar.RULESET) && gradientsFound.size() != gradients.size()) {
       for (String exptected : gradientsFound) {
         getContext().createLineViolation(this, "Missing gradient: " + exptected, astNode);
       }

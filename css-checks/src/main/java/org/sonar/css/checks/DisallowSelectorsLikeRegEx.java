@@ -39,9 +39,9 @@ public class DisallowSelectorsLikeRegEx extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.includes, CssGrammar.dashMatch,
-        CssGrammar.contains, CssGrammar.startsWith,
-        CssGrammar.endsWith);
+    subscribeTo(CssGrammar.INCLUDES, CssGrammar.DASH_MATCH,
+        CssGrammar.CONTAINS, CssGrammar.STARTS_WITH,
+        CssGrammar.ENDS_WITH);
   }
 
   @Override

@@ -48,15 +48,15 @@ public class ShorthandProperties extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.ruleset, CssGrammar.atRule, CssGrammar.declaration);
+    subscribeTo(CssGrammar.RULESET, CssGrammar.AT_RULE, CssGrammar.DECLARATION);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.getType().equals(CssGrammar.ruleset) || astNode.getType().equals(CssGrammar.atRule)) {
+    if (astNode.getType().equals(CssGrammar.RULESET) || astNode.getType().equals(CssGrammar.AT_RULE)) {
       properties.clear();
-    } else if (astNode.getType().equals(CssGrammar.declaration)) {
-      String property = astNode.getFirstChild(CssGrammar.property).getTokenValue();
+    } else if (astNode.getType().equals(CssGrammar.DECLARATION)) {
+      String property = astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue();
       if (margin.contains(property) || padding.contains(property)) {
         properties.add(property);
       }
@@ -65,7 +65,7 @@ public class ShorthandProperties extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (astNode.getType().equals(CssGrammar.ruleset) || astNode.getType().equals(CssGrammar.atRule)) {
+    if (astNode.getType().equals(CssGrammar.RULESET) || astNode.getType().equals(CssGrammar.AT_RULE)) {
       if (properties.containsAll(margin)) {
         getContext().createLineViolation(this, "Margin shorthand can be applied", astNode);
       }

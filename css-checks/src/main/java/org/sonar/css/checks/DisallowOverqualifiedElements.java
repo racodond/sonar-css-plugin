@@ -47,7 +47,7 @@ public class DisallowOverqualifiedElements extends SquidCheck<LexerlessGrammar> 
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.classSelector);
+    subscribeTo(CssGrammar.CLASS_SELECTOR);
   }
 
   @Override
@@ -57,7 +57,7 @@ public class DisallowOverqualifiedElements extends SquidCheck<LexerlessGrammar> 
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.getPreviousSibling() != null && astNode.getPreviousSibling().isNot(CssGrammar.delim)) {
+    if (astNode.getPreviousSibling() != null && astNode.getPreviousSibling().isNot(CssGrammar.DELIM)) {
       Selectors newSelector = new Selectors(CssChecksUtil.getStringValue(astNode),
         astNode.getPreviousSibling().getTokenValue(), astNode.getTokenLine());
       int pos = selectors.indexOf(newSelector);

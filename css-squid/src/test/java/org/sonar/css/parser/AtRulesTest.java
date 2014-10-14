@@ -30,7 +30,7 @@ public class AtRulesTest extends TestBase {
 
   @Test
   public void atRuleTest() {
-    assertThat(b.rule(CssGrammar.atRule))
+    assertThat(b.rule(CssGrammar.AT_RULE))
         .matches("@import \"subs.css\";")
         .matches("@import \"print-main.css\" print;")
         .matches(

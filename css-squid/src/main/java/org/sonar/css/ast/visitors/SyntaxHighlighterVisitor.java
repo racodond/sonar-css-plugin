@@ -42,16 +42,16 @@ import java.util.Map;
 public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> implements AstAndTokenVisitor {
 
   private static final Map<AstNodeType, String> TYPES = ImmutableMap.<AstNodeType, String>builder()
-    .put(CssGrammar.string, "s")
+    .put(CssGrammar.STRING, "s")
     // .put(CssGrammar.value, "s") can contain atkeyword
-    .put(CssGrammar.property, "c")
+    .put(CssGrammar.PROPERTY, "c")
     // .put(CssGrammar.typeSelector, "k") can contain *selector
     // .put(CssGrammar.universalSelector, "k") can contain *selector
-    .put(CssGrammar.classSelector, "h")
+    .put(CssGrammar.CLASS_SELECTOR, "h")
     // .put(CssGrammar.pseudo, "h") can contain any
     // .put(CssGrammar.attributeSelector, "h") can contain any
-    .put(CssGrammar.idSelector, "h")
-    .put(CssGrammar.atkeyword, "p")
+    .put(CssGrammar.ID_SELECTOR, "h")
+    .put(CssGrammar.AT_KEYWORD, "p")
     .build();
 
   private final SonarComponents sonarComponents;

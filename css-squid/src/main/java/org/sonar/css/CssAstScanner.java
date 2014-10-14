@@ -91,19 +91,19 @@ public final class CssAstScanner {
      */
     builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
       .setMetricDef(CssMetric.STATEMENTS)
-      .subscribeTo(CssGrammar.atkeyword, CssGrammar.selector, CssGrammar.declaration)
+      .subscribeTo(CssGrammar.AT_KEYWORD, CssGrammar.SELECTOR, CssGrammar.DECLARATION)
       .build());
 
     /* Rule sets */
     builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
       .setMetricDef(CssMetric.RULE_SETS)
-      .subscribeTo(CssGrammar.ruleset)
+      .subscribeTo(CssGrammar.RULESET)
       .build());
 
     /* At rules */
     builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
       .setMetricDef(CssMetric.AT_RULES)
-      .subscribeTo(CssGrammar.atRule)
+      .subscribeTo(CssGrammar.AT_RULE)
       .build());
 
     /* Metrics */

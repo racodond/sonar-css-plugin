@@ -48,7 +48,7 @@ public class TooManyWebFonts extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.atRule);
+    subscribeTo(CssGrammar.AT_RULE);
   }
 
   @Override
@@ -58,7 +58,7 @@ public class TooManyWebFonts extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    if ("font-face".equals(astNode.getFirstChild(CssGrammar.atkeyword).getFirstChild(CssGrammar.ident).getTokenValue())) {
+    if ("font-face".equals(astNode.getFirstChild(CssGrammar.AT_KEYWORD).getFirstChild(CssGrammar.IDENT).getTokenValue())) {
       currentFontFace++;
     }
   }

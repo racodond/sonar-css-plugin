@@ -43,18 +43,18 @@ public class BulletproofFontFace extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.atRule);
+    subscribeTo(CssGrammar.AT_RULE);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    if ("font-face".equals(astNode.getFirstChild(CssGrammar.atkeyword).getFirstChild(CssGrammar.ident).getTokenValue())) {
-      List<AstNode> declarations = astNode.getFirstDescendant(CssGrammar.atRuleBlock).getFirstChild(CssGrammar.supDeclaration).getChildren(CssGrammar.declaration);
+    if ("font-face".equals(astNode.getFirstChild(CssGrammar.AT_KEYWORD).getFirstChild(CssGrammar.IDENT).getTokenValue())) {
+      List<AstNode> declarations = astNode.getFirstDescendant(CssGrammar.atRuleBlock).getFirstChild(CssGrammar.SUP_DECLARATION).getChildren(CssGrammar.DECLARATION);
       for (AstNode declaration : declarations) {
-        if ("src".equals(declaration.getFirstChild(CssGrammar.property).getTokenValue())) {
+        if ("src".equals(declaration.getFirstChild(CssGrammar.PROPERTY).getTokenValue())) {
           String firstAnyFunciontValue = CssChecksUtil.getStringValue(
-              declaration.getFirstChild(CssGrammar.value)
-                  .getFirstChild(CssGrammar.function)
+              declaration.getFirstChild(CssGrammar.VALUE)
+                  .getFirstChild(CssGrammar.FUNCTION)
                   .getFirstChild(CssGrammar.parameters)
                   .getFirstDescendant(CssGrammar.parameter));
           if (!firstAnyFunciontValue.matches(".*\\.eot\\?.*?['\"]?$")) {

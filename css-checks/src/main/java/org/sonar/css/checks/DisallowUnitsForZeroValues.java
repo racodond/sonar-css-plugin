@@ -39,12 +39,12 @@ public class DisallowUnitsForZeroValues extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.dimension, CssGrammar.percentage);
+    subscribeTo(CssGrammar.DIMENSION, CssGrammar.PERCENTAGE);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    if ("0".equals(astNode.getFirstChild(CssGrammar.number).getTokenValue()) && !astNode.hasAncestor(CssGrammar.function)) {
+    if ("0".equals(astNode.getFirstChild(CssGrammar.NUMBER).getTokenValue()) && !astNode.hasAncestor(CssGrammar.FUNCTION)) {
       getContext().createLineViolation(this, "Disallow zero values with units", astNode);
     }
   }

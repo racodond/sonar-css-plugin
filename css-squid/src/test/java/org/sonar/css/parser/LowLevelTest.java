@@ -30,7 +30,7 @@ public class LowLevelTest extends TestBase{
 
   @Test
   public void strings() {
-    assertThat(b.rule(CssGrammar.string))
+    assertThat(b.rule(CssGrammar.STRING))
         .matches("\"\"")
         .matches("\"subs.css\"")
         .matches("'asdawddawd'")
@@ -50,7 +50,7 @@ public class LowLevelTest extends TestBase{
 
   @Test
   public void idents() {
-    assertThat(b.rule(CssGrammar.ident))
+    assertThat(b.rule(CssGrammar.IDENT))
         .matches("p")
         .matches("b\\&W\\?")
         .matches("B\\&W\\?")
@@ -60,7 +60,7 @@ public class LowLevelTest extends TestBase{
 
   @Test
   public void declaration() {
-    assertThat(b.rule(CssGrammar.declaration))
+    assertThat(b.rule(CssGrammar.DECLARATION))
         .matches("color: blue")
         .notMatches("color: blue;")
         .matches("*width: 200px");
@@ -68,7 +68,7 @@ public class LowLevelTest extends TestBase{
 
   @Test
   public void numbers(){
-    assertThat(b.rule(CssGrammar.number))
+    assertThat(b.rule(CssGrammar.NUMBER))
     .matches("0.5")
     .matches("1")
     .matches("-3")
@@ -80,7 +80,7 @@ public class LowLevelTest extends TestBase{
 
   @Test
   public void percentage(){
-    assertThat(b.rule(CssGrammar.percentage))
+    assertThat(b.rule(CssGrammar.PERCENTAGE))
     .matches("0.5%")
     .matches("1%")
     .matches("-3%")
@@ -91,7 +91,7 @@ public class LowLevelTest extends TestBase{
 
   @Test
   public void dimension(){
-    assertThat(b.rule(CssGrammar.dimension))
+    assertThat(b.rule(CssGrammar.DIMENSION))
     .matches("0.5em")
     .matches("1ex")
     .matches("-3px")
@@ -102,7 +102,7 @@ public class LowLevelTest extends TestBase{
 
   @Test
   public void selector() {
-    assertThat(b.rule(CssGrammar.selector))
+    assertThat(b.rule(CssGrammar.SELECTOR))
         .matches("h6")
         .matches("h1, h2")
         .matches("h4 + h5")
@@ -127,23 +127,23 @@ public class LowLevelTest extends TestBase{
 
   @Test
   public void uri() {
-    assertThat(b.rule(CssGrammar.uri))
+    assertThat(b.rule(CssGrammar.URI))
         .matches("url(\"http://www.example.com/pinkish.png\")")
         .matches("url(\"yellow\")");
   }
 
   @Test
   public void counter() {
-    assertThat(b.rule(CssGrammar.any))
+    assertThat(b.rule(CssGrammar.ANY))
         .matches("counter(par-num, upper-roman)");
   }
 
   @Test
   public void color() {
-    assertThat(b.rule(CssGrammar.hash))
+    assertThat(b.rule(CssGrammar.HASH))
         .matches("#ff0000");
 
-    assertThat(b.rule(CssGrammar.any))
+    assertThat(b.rule(CssGrammar.ANY))
     .matches("rgb(110%, 0%, 0%)")
     .matches("rgb(255,-10,0)")
     .matches("rgb(255,0,0)");

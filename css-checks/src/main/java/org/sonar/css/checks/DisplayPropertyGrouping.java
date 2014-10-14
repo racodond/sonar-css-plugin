@@ -58,13 +58,13 @@ public class DisplayPropertyGrouping extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.ruleset, CssGrammar.atRule);
+    subscribeTo(CssGrammar.RULESET, CssGrammar.AT_RULE);
   }
 
   //TODO refactor this to not use getDescendants
   @Override
   public void visitNode(AstNode astNode) {
-    List<AstNode> declarations = astNode.getDescendants(CssGrammar.declaration);
+    List<AstNode> declarations = astNode.getDescendants(CssGrammar.DECLARATION);
     List<String> avoidProps = isDisplay(declarations);
     if (avoidProps != null && !avoidProps.isEmpty() && isOtherUsed(declarations, avoidProps)) {
       getContext().createLineViolation(this, "Unnecessary property with display", astNode);
@@ -73,8 +73,8 @@ public class DisplayPropertyGrouping extends SquidCheck<LexerlessGrammar> {
 
   private List<String> isDisplay(List<AstNode> declarations) {
     for (AstNode astNode : declarations) {
-      String property = astNode.getFirstChild(CssGrammar.property).getToken().getValue();
-      String value = astNode.getFirstChild(CssGrammar.value).getTokenValue();
+      String property = astNode.getFirstChild(CssGrammar.PROPERTY).getToken().getValue();
+      String value = astNode.getFirstChild(CssGrammar.VALUE).getTokenValue();
       if ("display".equalsIgnoreCase(property)) {
         if (value.startsWith("table")) {
           return rules.get("table*");
@@ -88,7 +88,7 @@ public class DisplayPropertyGrouping extends SquidCheck<LexerlessGrammar> {
 
   private boolean isOtherUsed(List<AstNode> declarations, List<String> avoidProps) {
     for (AstNode astNode : declarations) {
-      String property = astNode.getFirstChild(CssGrammar.property).getTokenValue();
+      String property = astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue();
       if (avoidProps.contains(property)) {
         return true;
       }

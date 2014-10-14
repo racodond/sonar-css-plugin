@@ -30,7 +30,7 @@ public class RuleSetTest extends TestBase {
 
   @Test
   public void ruleSetTest() {
-    assertThat(b.rule(CssGrammar.ruleset))
+    assertThat(b.rule(CssGrammar.RULESET))
         .matches("p{color:red;}")
         .matches(
             code("h1 {", "font-weight: bold;", "font-size: 12px;",

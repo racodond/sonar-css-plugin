@@ -50,15 +50,15 @@ public class CompatibleVendorPrefixes extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.ruleset, CssGrammar.atRule, CssGrammar.declaration);
+    subscribeTo(CssGrammar.RULESET, CssGrammar.AT_RULE, CssGrammar.DECLARATION);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.is(CssGrammar.ruleset) || astNode.is(CssGrammar.atRule)) {
+    if (astNode.is(CssGrammar.RULESET) || astNode.is(CssGrammar.AT_RULE)) {
       properties.clear();
-    } else if (astNode.is(CssGrammar.declaration)) {
-      String property = astNode.getFirstChild(CssGrammar.property).getTokenValue();
+    } else if (astNode.is(CssGrammar.DECLARATION)) {
+      String property = astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue();
       if (CssProperties.isVendor(property)) {
         CssP p = CssP.factory(property);
         if (properties.containsKey(p.getName())) {
@@ -73,7 +73,7 @@ public class CompatibleVendorPrefixes extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (astNode != null && astNode.is(CssGrammar.ruleset)) {
+    if (astNode != null && astNode.is(CssGrammar.RULESET)) {
       for (Entry<String, Set<String>> props : properties.entrySet()) {
         CssProperty p = CssProperties.getProperty(props.getKey());
         // If p is null it is an unknown vendor property
