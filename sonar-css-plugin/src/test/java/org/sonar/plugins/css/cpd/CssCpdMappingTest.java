@@ -19,6 +19,7 @@
  */
 package org.sonar.plugins.css.cpd;
 
+import com.google.common.base.Charsets;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -41,6 +42,7 @@ public class CssCpdMappingTest {
   @Before
   public void setup() {
     ModuleFileSystem fileSystem = mock(ModuleFileSystem.class);
+    when(fileSystem.sourceCharset()).thenReturn(Charsets.UTF_8);
     when(fileSystem.files(Mockito.any(FileQuery.class))).thenReturn(Arrays.asList(new File("src/test/resources/org/sonar/plugins/css/cssProject/css/boxSizing.css")));
     mapping = new CssCpdMapping(
       new Css(new Settings()), fileSystem);

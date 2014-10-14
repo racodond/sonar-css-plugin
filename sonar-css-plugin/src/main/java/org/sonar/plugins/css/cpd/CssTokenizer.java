@@ -21,14 +21,13 @@ package org.sonar.plugins.css.cpd;
 
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.GenericTokenType;
+import com.sonar.sslr.api.RecognitionException;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.impl.Parser;
 import net.sourceforge.pmd.cpd.SourceCode;
 import net.sourceforge.pmd.cpd.TokenEntry;
 import net.sourceforge.pmd.cpd.Tokenizer;
 import net.sourceforge.pmd.cpd.Tokens;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.parser.ParserAdapter;
@@ -38,30 +37,27 @@ import java.nio.charset.Charset;
 
 public class CssTokenizer implements Tokenizer {
 
-  private static final Logger LOG = LoggerFactory.getLogger(CssTokenizer.class);
-  private final Charset charset;
+  private final Parser<LexerlessGrammar> parser;
 
   public CssTokenizer(Charset charset) {
-    this.charset = charset;
+    this.parser = new ParserAdapter<LexerlessGrammar>(charset, CssGrammar.createGrammar());
   }
 
+  @Override
   public final void tokenize(SourceCode source, Tokens cpdTokens) {
-    String fileName = source.getFileName();
-    Parser<LexerlessGrammar> parser = new ParserAdapter<LexerlessGrammar>(charset, CssGrammar.createGrammar());
-    AstNode result;
     try {
-      result = parser.parse(new File(fileName));
-    } catch (Exception e) {
-      LOG.warn(e.getMessage(), e);
-      return;
-    }
-    for (Token token : result.getTokens()) {
-      // TODO: the descendantComb is a null token
-      if (token != null) {
-        TokenEntry cpdToken = new TokenEntry(getTokenImage(token), fileName, token.getLine());
+      String filename = source.getFileName();
+
+      AstNode result = parser.parse(new File(filename));
+
+      for (Token token : result.getTokens()) {
+        TokenEntry cpdToken = new TokenEntry(getTokenImage(token), filename, token.getLine());
         cpdTokens.add(cpdToken);
       }
+    } catch (RecognitionException e) {
+      // Do nothing, the parse error is already properly reported by the Squid phase
     }
+
     cpdTokens.add(TokenEntry.getEOF());
   }
 
