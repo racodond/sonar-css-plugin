@@ -1,6 +1,13 @@
-sonar-css
-=========
+SonarQube CSS
+================
 
-Css plugin prototype for sonar
+This is the SonarQube CSS Plugin
 
-Please check: https://github.com/SonarCommunity/sonar-css for the latest changes
+Project homepage:
+http://docs.codehaus.org/x/EYFMDg
+
+Issue tracking:
+http://jira.codehaus.org/browse/SONARCSS
+
+CI builds:
+http://sonarplugins.ci.cloudbees.com/job/css
