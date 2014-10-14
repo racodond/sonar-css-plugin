@@ -57,13 +57,13 @@ public class CssConfigurationModel extends AbstractConfigurationModel {
     return Charset.forName(charsetProperty.getValue());
   }
 
+  @Override
   public List<ConfigurationProperty> getProperties() {
     return ImmutableList.of(charsetProperty);
   }
 
   @Override
   public Parser doGetParser() {
-    //return new ParserAdapter<LexerlessGrammar>(getCharset(), SassGrammar.createGrammar());
     return new ParserAdapter<LexerlessGrammar>(getCharset(), CssGrammar.createGrammar());
   }
 
@@ -73,8 +73,7 @@ public class CssConfigurationModel extends AbstractConfigurationModel {
       new StringTokenizer("<span class=\"s\">", END_TAG),
       new CDocTokenizer("<span class=\"cd\">", END_TAG),
       new JavadocTokenizer("<span class=\"cppd\">", END_TAG),
-      new CppDocTokenizer("<span class=\"cppd\">", END_TAG)/*,
-      new KeywordsTokenizer("<span class=\"k\">", "</span>", EcmaScriptKeyword.keywordValues())*/);
+      new CppDocTokenizer("<span class=\"cppd\">", END_TAG));
   }
 
   @VisibleForTesting
@@ -84,7 +83,7 @@ public class CssConfigurationModel extends AbstractConfigurationModel {
 
   @VisibleForTesting
   static String getPropertyOrDefaultValue(String propertyKey,
-                                          String defaultValue) {
+    String defaultValue) {
     String propertyValue = System.getProperty(propertyKey);
 
     if (propertyValue == null) {

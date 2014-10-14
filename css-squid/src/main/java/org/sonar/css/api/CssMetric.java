@@ -20,7 +20,6 @@
 package org.sonar.css.api;
 
 import org.sonar.squidbridge.measures.CalculatedMetricFormula;
-
 import org.sonar.squidbridge.measures.MetricDef;
 
 public enum CssMetric implements MetricDef {
@@ -33,22 +32,27 @@ public enum CssMetric implements MetricDef {
   AT_RULES,
   RULE_SETS;
 
+  @Override
   public String getName() {
     return name();
   }
 
+  @Override
   public boolean isCalculatedMetric() {
     return false;
   }
 
+  @Override
   public boolean aggregateIfThereIsAlreadyAValue() {
     return true;
   }
 
+  @Override
   public boolean isThereAggregationFormula() {
     return true;
   }
 
+  @Override
   public CalculatedMetricFormula getCalculatedMetricFormula() {
     return null;
   }

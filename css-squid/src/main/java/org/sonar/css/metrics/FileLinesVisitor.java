@@ -25,13 +25,13 @@ import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.GenericTokenType;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.api.Trivia;
-import org.sonar.squidbridge.SquidAstVisitor;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.resources.File;
 import org.sonar.api.resources.Project;
 import org.sonar.css.api.CssMetric;
+import org.sonar.squidbridge.SquidAstVisitor;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.util.List;
@@ -50,6 +50,7 @@ public class FileLinesVisitor extends SquidAstVisitor<LexerlessGrammar> implemen
     this.fileLinesContextFactory = fileLinesContextFactory;
   }
 
+  @Override
   public void visitToken(Token token) {
     if (token.getType().equals(GenericTokenType.EOF)) {
       return;

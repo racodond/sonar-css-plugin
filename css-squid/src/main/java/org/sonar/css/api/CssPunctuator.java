@@ -24,7 +24,7 @@ import com.sonar.sslr.api.TokenType;
 
 public enum CssPunctuator implements TokenType {
   CDO("<!--"), CDC("-->"), INCLUDES("~="), DASHMATCH("|="), PREFIXMATCH("^="), SUFFIXMATCH("$="),
-  SUBSTRINGMATCH("*="),  LCURLYBRACE("{"), RCURLYBRACE("}"), LPARENTHESIS("("), RPARENTHESIS(")"),
+  SUBSTRINGMATCH("*="), LCURLYBRACE("{"), RCURLYBRACE("}"), LPARENTHESIS("("), RPARENTHESIS(")"),
   LBRACKET("["), RBRACKET("]"), DOT("."), SEMI(";"), COMMA(","), COLON(":"), EQUALS("=");
 
   private final String value;
@@ -33,14 +33,17 @@ public enum CssPunctuator implements TokenType {
     this.value = word;
   }
 
+  @Override
   public String getName() {
     return name();
   }
 
+  @Override
   public String getValue() {
     return value;
   }
 
+  @Override
   public boolean hasToBeSkippedFromAst(AstNode node) {
     return false;
   }

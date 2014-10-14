@@ -37,10 +37,12 @@ public class CssCpdMapping extends AbstractCpdMapping {
     this.charset = fs.sourceCharset();
   }
 
+  @Override
   public Tokenizer getTokenizer() {
     return new CssTokenizer(charset);
   }
 
+  @Override
   public Language getLanguage() {
     return language;
   }
