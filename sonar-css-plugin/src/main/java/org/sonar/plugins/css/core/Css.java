@@ -30,17 +30,14 @@ public class Css extends AbstractLanguage {
   public static final String KEY = "css";
   public static final FileQuery SOURCE_QUERY = FileQuery.onSource().onLanguage(KEY);
 
-  private Settings settings;
+  private final Settings settings;
 
   public Css(Settings settings) {
     super(KEY, "CSS");
     this.settings = settings;
   }
 
-  public Settings getSettings() {
-    return this.settings;
-  }
-
+  @Override
   public String[] getFileSuffixes() {
     String[] suffixes = settings.getStringArray(CssPlugin.FILE_SUFFIXES_KEY);
     if (suffixes == null || suffixes.length == 0) {

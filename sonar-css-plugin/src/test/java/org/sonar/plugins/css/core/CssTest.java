@@ -17,33 +17,36 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css;
+package org.sonar.plugins.css.core;
 
-import java.nio.charset.Charset;
+import org.junit.Test;
+import org.sonar.api.config.Settings;
 
-public class CssConfiguration {
+import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
-  private Charset charset;
-  private boolean ignoreHeaderComments;
+public class CssTest {
 
-  public CssConfiguration(Charset charset) {
-    this.charset = charset;
+  @Test
+  public void language_key_and_name() {
+    Css css = new Css(mock(Settings.class));
+    assertThat(css.getKey()).isEqualTo("css");
+    assertThat(css.getName()).isEqualTo("CSS");
   }
 
-  public void charset(Charset charset) {
-    this.charset = charset;
+  @Test
+  public void default_suffixes() {
+    Css css = new Css(mock(Settings.class));
+    assertThat(css.getFileSuffixes()).containsOnly("css");
   }
 
-  public Charset charset() {
-    return charset;
-  }
+  @Test
+  public void custom_suffixes() {
+    Settings settings = new Settings();
+    settings.setProperty("sonar.css.file.suffixes", ".foo,bar");
 
-  public void ignoreHeaderComments(boolean ignoreHeaderComments) {
-    this.ignoreHeaderComments = ignoreHeaderComments;
-  }
-
-  public boolean ignoreHeaderComments() {
-    return ignoreHeaderComments;
+    Css css = new Css(settings);
+    assertThat(css.getFileSuffixes()).containsOnly(".foo", "bar");
   }
 
 }

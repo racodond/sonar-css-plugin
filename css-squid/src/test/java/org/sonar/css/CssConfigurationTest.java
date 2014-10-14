@@ -19,31 +19,40 @@
  */
 package org.sonar.css;
 
+import com.google.common.base.Charsets;
+import org.junit.Test;
+
 import java.nio.charset.Charset;
 
-public class CssConfiguration {
+import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
-  private Charset charset;
-  private boolean ignoreHeaderComments;
+public class CssConfigurationTest {
 
-  public CssConfiguration(Charset charset) {
-    this.charset = charset;
+  @Test
+  public void charset() {
+    Charset charset = mock(Charset.class);
+    Charset charset2 = mock(Charset.class);
+
+    CssConfiguration conf = new CssConfiguration(charset);
+
+    assertThat(conf.charset()).isSameAs(charset);
+
+    conf.charset(charset2);
+    assertThat(conf.charset()).isSameAs(charset2);
   }
 
-  public void charset(Charset charset) {
-    this.charset = charset;
-  }
+  @Test
+  public void ignoreHeaderComments() {
+    CssConfiguration conf = new CssConfiguration(Charsets.UTF_8);
 
-  public Charset charset() {
-    return charset;
-  }
+    assertThat(conf.ignoreHeaderComments()).isFalse();
 
-  public void ignoreHeaderComments(boolean ignoreHeaderComments) {
-    this.ignoreHeaderComments = ignoreHeaderComments;
-  }
+    conf.ignoreHeaderComments(true);
+    assertThat(conf.ignoreHeaderComments()).isTrue();
 
-  public boolean ignoreHeaderComments() {
-    return ignoreHeaderComments;
+    conf.ignoreHeaderComments(false);
+    assertThat(conf.ignoreHeaderComments()).isFalse();
   }
 
 }

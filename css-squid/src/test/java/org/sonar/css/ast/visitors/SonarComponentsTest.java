@@ -19,7 +19,7 @@
  */
 package org.sonar.css.ast.visitors;
 
-import org.sonar.api.BatchExtension;
+import org.junit.Test;
 import org.sonar.api.component.ResourcePerspectives;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
@@ -27,26 +27,37 @@ import org.sonar.api.source.Highlightable;
 
 import java.io.File;
 
-public class SonarComponents implements BatchExtension {
+import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
-  private final ResourcePerspectives resourcePerspectives;
-  private final Project project;
+public class SonarComponentsTest {
 
-  public SonarComponents(ResourcePerspectives resourcePerspectives, Project project) {
-    this.resourcePerspectives = resourcePerspectives;
-    this.project = project;
+  @Test
+  public void highlightableFor() {
+
+    ResourcePerspectives resourcePerspectives = mock(ResourcePerspectives.class);
+    File file = mock(File.class);
+    final Resource resource = mock(Resource.class);
+
+    SonarComponents sonarComponents = new SonarComponents(resourcePerspectives, mock(Project.class)) {
+
+      @Override
+      public Resource resourceFromIOFile(File file) {
+        return resource;
+      }
+
+    };
+
+    sonarComponents.highlightableFor(file);
+    verify(resourcePerspectives).as(Highlightable.class, resource);
   }
 
-  public Resource resourceFromIOFile(File file) {
-    return org.sonar.api.resources.File.fromIOFile(file, project);
-  }
-
-  public Highlightable highlightableFor(File file) {
-    return resourcePerspectives.as(Highlightable.class, resourceFromIOFile(file));
-  }
-
-  public ResourcePerspectives getResourcePerspectives() {
-    return resourcePerspectives;
+  @Test
+  public void getResourcePerspectives() {
+    ResourcePerspectives resourcePerspectives = mock(ResourcePerspectives.class);
+    SonarComponents sonarComponents = new SonarComponents(resourcePerspectives, mock(Project.class));
+    assertThat(sonarComponents.getResourcePerspectives()).isSameAs(resourcePerspectives);
   }
 
 }
