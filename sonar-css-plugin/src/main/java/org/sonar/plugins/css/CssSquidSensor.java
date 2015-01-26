@@ -19,10 +19,10 @@
  */
 package org.sonar.plugins.css;
 
-import com.google.common.collect.Lists;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
-import org.sonar.api.checks.AnnotationCheckFactory;
+import org.sonar.api.batch.rule.CheckFactory;
+import org.sonar.api.batch.rule.Checks;
 import org.sonar.api.issue.Issuable;
 import org.sonar.api.issue.Issue;
 import org.sonar.api.measures.CoreMetrics;
@@ -30,7 +30,6 @@ import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.File;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rule.RuleKey;
-import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.css.CssAstScanner;
 import org.sonar.css.CssConfiguration;
@@ -47,11 +46,10 @@ import org.sonar.squidbridge.indexer.QueryByType;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.util.Collection;
-import java.util.List;
 
 public class CssSquidSensor implements Sensor {
 
-  private final AnnotationCheckFactory annotationCheckFactory;
+  private final CheckFactory checkFactory;
 
   private Project project;
   private SensorContext context;
@@ -59,9 +57,8 @@ public class CssSquidSensor implements Sensor {
   private final SonarComponents sonarComponents;
   private final ModuleFileSystem moduleFileSystem;
 
-  public CssSquidSensor(RulesProfile profile, SonarComponents sonarComponents, ModuleFileSystem moduleFileSystem) {
-    this.annotationCheckFactory = AnnotationCheckFactory.create(profile,
-      CheckList.REPOSITORY_KEY, CheckList.getChecks());
+  public CssSquidSensor(RulesProfile profile, SonarComponents sonarComponents, ModuleFileSystem moduleFileSystem, CheckFactory checkFactory) {
+    this.checkFactory = checkFactory;
     this.sonarComponents = sonarComponents;
     this.moduleFileSystem = moduleFileSystem;
   }
@@ -76,25 +73,26 @@ public class CssSquidSensor implements Sensor {
     this.project = project;
     this.context = context;
 
-    Collection<SquidAstVisitor<LexerlessGrammar>> squidChecks = annotationCheckFactory.getChecks();
-    List<SquidAstVisitor<LexerlessGrammar>> visitors = Lists.newArrayList(squidChecks);
+    Checks<SquidAstVisitor> checks = checkFactory.<SquidAstVisitor>create(CheckList.REPOSITORY_KEY).addAnnotatedChecks(CheckList.getChecks());
+    Collection<SquidAstVisitor> checkList = checks.all();
+    //List<SquidAstVisitor<LexerlessGrammar>> visitors = Lists.newArrayList(squidChecks);
     CssConfiguration conf = new CssConfiguration(moduleFileSystem.sourceCharset());
-    this.scanner = CssAstScanner.create(conf, sonarComponents, visitors.toArray(new SquidAstVisitor[visitors.size()]));
+    this.scanner = CssAstScanner.create(conf, sonarComponents, checkList.toArray(new SquidAstVisitor[checkList.size()]));
     scanner.scanFiles(moduleFileSystem.files(Css.SOURCE_QUERY));
 
     Collection<SourceCode> squidSourceFiles = scanner.getIndex().search(
       new QueryByType(SourceFile.class));
-    save(squidSourceFiles);
+    save(squidSourceFiles, checks);
   }
 
-  private void save(Collection<SourceCode> squidSourceFiles) {
+  private void save(Collection<SourceCode> squidSourceFiles, Checks<SquidAstVisitor> checks) {
     for (SourceCode squidSourceFile : squidSourceFiles) {
       SourceFile squidFile = (SourceFile) squidSourceFile;
 
       File sonarFile = File.fromIOFile(new java.io.File(squidFile.getKey()), project);
 
       saveMeasures(sonarFile, squidFile);
-      saveViolations(sonarFile, squidFile);
+      saveViolations(sonarFile, squidFile, checks);
     }
   }
 
@@ -102,19 +100,18 @@ public class CssSquidSensor implements Sensor {
     context.saveMeasure(sonarFile, CoreMetrics.FILES, squidFile.getDouble(CssMetric.FILES));
     context.saveMeasure(sonarFile, CoreMetrics.LINES, squidFile.getDouble(CssMetric.LINES));
     context.saveMeasure(sonarFile, CoreMetrics.NCLOC, squidFile.getDouble(CssMetric.LINES_OF_CODE));
-    //context.saveMeasure(sonarFile, CoreMetrics.FUNCTIONS, squidFile.getDouble(CssMetric.AT_RULES) + squidFile.getDouble(CssMetric.RULE_SETS));
     context.saveMeasure(sonarFile, CoreMetrics.STATEMENTS, squidFile.getDouble(CssMetric.STATEMENTS));
     context.saveMeasure(sonarFile, CoreMetrics.COMMENT_LINES, squidFile.getDouble(CssMetric.COMMENT_LINES));
   }
 
-  private void saveViolations(File sonarFile, SourceFile squidFile) {
+  private void saveViolations(File sonarFile, SourceFile squidFile, Checks<SquidAstVisitor> checks) {
     Collection<CheckMessage> messages = squidFile.getCheckMessages();
     if (messages != null) {
       for (CheckMessage message : messages) {
-        ActiveRule activeRule = annotationCheckFactory.getActiveRule(message.getCheck());
+        RuleKey activeRule = checks.ruleKey((SquidAstVisitor) message.getCheck());
         Issuable issuable = sonarComponents.getResourcePerspectives().as(Issuable.class, sonarFile);
         Issue issue = issuable.newIssueBuilder()
-          .ruleKey(RuleKey.of(activeRule.getRepositoryKey(), activeRule.getRuleKey()))
+          .ruleKey(RuleKey.of(activeRule.repository(), activeRule.rule()))
           .line(message.getLine())
           .message(message.formatDefaultMessage())
           .build();

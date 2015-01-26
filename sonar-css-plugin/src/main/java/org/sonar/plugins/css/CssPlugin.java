@@ -26,7 +26,6 @@ import org.sonar.api.SonarPlugin;
 import org.sonar.css.ast.visitors.SonarComponents;
 import org.sonar.plugins.css.checks.CssChecksRuleRepository;
 import org.sonar.plugins.css.core.Css;
-import org.sonar.plugins.css.core.CssSourceImporter;
 import org.sonar.plugins.css.cpd.CssCpdMapping;
 
 @Properties({
@@ -46,7 +45,6 @@ public class CssPlugin extends SonarPlugin {
   public ImmutableList getExtensions() {
     return ImmutableList.of(
       Css.class,
-      CssSourceImporter.class,
 
       SonarComponents.class,
       CssSquidSensor.class,

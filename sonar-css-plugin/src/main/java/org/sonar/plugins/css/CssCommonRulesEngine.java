@@ -19,10 +19,9 @@
  */
 package org.sonar.plugins.css;
 
+import org.sonar.commonrules.api.CommonRulesEngine;
 import org.sonar.commonrules.api.CommonRulesRepository;
 import org.sonar.plugins.css.core.Css;
-
-import org.sonar.commonrules.api.CommonRulesEngine;
 
 public class CssCommonRulesEngine extends CommonRulesEngine {
 

@@ -19,13 +19,11 @@
  */
 package org.sonar.plugins.css.checks;
 
-import org.sonar.plugins.css.core.Css;
-
-import org.sonar.css.checks.CheckList;
-
 import org.sonar.api.rules.AnnotationRuleParser;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleRepository;
+import org.sonar.css.checks.CheckList;
+import org.sonar.plugins.css.core.Css;
 
 import java.util.List;
 
