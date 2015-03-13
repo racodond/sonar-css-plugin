@@ -12,6 +12,9 @@ http://jira.codehaus.org/browse/SONARCSS
 CI builds:
 http://sonarplugins.ci.cloudbees.com/job/css
 
+Download and Version and information:
+http://update.sonarsource.org/plugins/css-confluence.html
+
 ## Description / Features
 The plugin enables analysis of CSS within SonarQube.
 
