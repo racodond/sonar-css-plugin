@@ -1,0 +1,15 @@
+<h2>Do not use 4095 selectors in one sheet file</h2>
+<p>
+    Web applications concatenate CSS files to improve performance, which can result in large numbers of style rules in a single file. Enter the
+    <a href="http://marc.baffl.co.uk/browser_bugs/css-selector-limit/">4095 selector limitation for IE browsers</a>. An IE bug whereby the browser will only apply style for the first 4095 selectors declared per file. Impacted browsers include IE6, IE7, IE8 and IE9.
+</p>
+<p>
+    <h3>Solution</h3>
+    Reduce the number of CSS selectors per file to a number less than 4096. Several approaches for doing so include:
+    <ul>
+        <li>Refactoring existing CSS</li>
+        <li>Splitting the CSS payload into multiple files</li>
+        <li>Reevaluating current browser support strategy (wink, wink)</li>
+    </ul>
+</p>
+<p>Find more details <a href="http://www.habdas.org/msie-4095-selector-limit/">here</a></p>
