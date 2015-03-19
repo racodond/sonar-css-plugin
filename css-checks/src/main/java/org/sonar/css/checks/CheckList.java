@@ -56,7 +56,9 @@ public final class CheckList {
         KnownProperties.class,
         ShorthandProperties.class,
         TooManyWebFonts.class,
-        VendorPrefixWithStandard.class
+        VendorPrefixWithStandard.class,
+        SelectorNumberThreshold.class,
+        ImportNumberThreshold.class
         );
   }
 

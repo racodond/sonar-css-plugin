@@ -26,16 +26,15 @@ import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
-public class S20Test {
+public class ImportNumberThresholdTest {
 
   @Test
   public void test() {
-    S20 check = new S20();
+    ImportNumberThreshold check = new ImportNumberThreshold();
     SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/s20.css"), check);
+      "src/test/resources/checks/importThreshold.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(1).withMessage("Do not use too many selectors, the number of selectors are 4097 greater than " +
-      "4095 authorized.")
+      .atLine(1).withMessage("This sheet imports 32 other sheets, 1 more than the 31 maximum.")
       .noMore();
   }
 

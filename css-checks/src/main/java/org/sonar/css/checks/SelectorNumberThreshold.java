@@ -29,9 +29,9 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  * @author tkende
  *
  */
-@Rule(key = "s20", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
+@Rule(key = "S2732", priority = Priority.CRITICAL, cardinality = Cardinality.SINGLE)
 @BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
-public class S20 extends SquidCheck<LexerlessGrammar> {
+public class SelectorNumberThreshold extends SquidCheck<LexerlessGrammar> {
 
   private static final int DEFAULT_THRESHOLD = 4095;
 
@@ -55,9 +55,9 @@ public class S20 extends SquidCheck<LexerlessGrammar> {
   @Override
   public void leaveFile(AstNode astNode) {
     if (currentSelectorCount > DEFAULT_THRESHOLD) {
-      getContext().createLineViolation(this, "Do not use too many selectors, the number of selectors are {0,number,#}" +
-          " greater than {1,number,#} authorized.", astNode, currentSelectorCount,
-          DEFAULT_THRESHOLD);
+      getContext().createLineViolation(this, "This sheet contains {0,number,#} selectors, {1,number,#} more than" +
+          " the {2,number,#} maximum.", astNode, currentSelectorCount,
+        currentSelectorCount - DEFAULT_THRESHOLD, DEFAULT_THRESHOLD);
     }
   }
 }
