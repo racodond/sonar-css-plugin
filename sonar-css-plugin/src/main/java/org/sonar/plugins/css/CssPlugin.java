@@ -52,6 +52,7 @@ public class CssPlugin extends SonarPlugin {
       CssCpdMapping.class,
 
       CssCommonRulesEngine.class,
+      CssCommonRulesDecorator.class,
       CssChecksRuleRepository.class,
       CssProfile.class);
   }
