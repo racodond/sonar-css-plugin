@@ -18,19 +18,6 @@
           <txt>mn</txt>
         </prop>
       </chc>
-      <chc>
-        <rule-repo>css</rule-repo>
-        <rule-key>InsufficientCommentDensity</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>5.0</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
     </chc>
     <chc>
       <key>READABILITY</key>
@@ -179,19 +166,6 @@ TEMPORARY HACK TILL THE PROPER SUB-CH IS NOT ADDED
       <chc>
         <rule-repo>css</rule-repo>
         <rule-key>overspecific-selectors</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>2.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>css</rule-repo>
-        <rule-key>DuplicatedBlocks</rule-key>
         <prop>
           <key>remediationFunction</key>
           <txt>linear</txt>
