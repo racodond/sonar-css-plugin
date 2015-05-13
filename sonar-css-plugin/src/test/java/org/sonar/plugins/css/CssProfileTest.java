@@ -22,12 +22,11 @@ package org.sonar.plugins.css;
 import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import org.sonar.api.profiles.AnnotationProfileParser;
 import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.profiles.XMLProfileParser;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
+import org.sonar.css.checks.CheckList;
 import org.sonar.plugins.css.core.Css;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -37,15 +36,17 @@ import static org.mockito.Mockito.when;
 
 public class CssProfileTest {
 
-  @Test
-  public void should_create_sonar_way_profile() {
-      CssProfile definition = new CssProfile(universalRuleFinder());
-      RulesProfile profile = definition.createProfile(ValidationMessages.create());
+    @Test
+    public void should_create_sonar_way_profile() {
+        ValidationMessages validation = ValidationMessages.create();
+        CssProfile definition = new CssProfile(universalRuleFinder());
+        RulesProfile profile = definition.createProfile(validation);
 
-      assertThat(profile.getName()).isEqualTo("Sonar way");
-      assertThat(profile.getLanguage()).isEqualTo(Css.KEY);
-      assertThat(profile.getActiveRules()).hasSize(24);
-  }
+        assertThat(profile.getName()).isEqualTo(CssProfile.SONAR_WAY_PROFILE_NAME);
+        assertThat(profile.getLanguage()).isEqualTo(Css.KEY);
+        assertThat(profile.getActiveRulesByRepository(CheckList.REPOSITORY_KEY)).hasSize(24);
+        assertThat(validation.hasErrors()).isFalse();
+    }
 
     private RuleFinder universalRuleFinder() {
         RuleFinder ruleFinder = mock(RuleFinder.class);
