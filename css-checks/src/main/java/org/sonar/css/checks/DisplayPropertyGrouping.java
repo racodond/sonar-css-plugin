@@ -21,6 +21,10 @@ package org.sonar.css.checks;
 
 import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
+import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Cardinality;
@@ -39,8 +43,13 @@ import java.util.Map;
  *
  * @author tkende
  */
-@Rule(key = "display-property-grouping", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
-@BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
+@Rule(
+  key = "display-property-grouping",
+  name = "Require properties appropriate for display",
+  priority = Priority.MAJOR)
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
+@SqaleConstantRemediation("5min")
+@ActivatedByDefault
 public class DisplayPropertyGrouping extends SquidCheck<LexerlessGrammar> {
 
   private Map<String, List<String>> rules = new HashMap<String, List<String>>() {

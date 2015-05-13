@@ -20,6 +20,10 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
+import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Cardinality;
@@ -35,8 +39,13 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  * @author tkende
  *
  */
-@Rule(key = "vendor-prefix", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
-@BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
+@Rule(
+    key = "vendor-prefix",
+    name = "Require standard property with vendor prefix",
+    priority = Priority.MAJOR)
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
+@SqaleConstantRemediation("10min")
+@ActivatedByDefault
 public class VendorPrefixWithStandard extends SquidCheck<LexerlessGrammar> {
 
   @Override

@@ -21,11 +21,15 @@ package org.sonar.css.checks;
 
 import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.parser.CssGrammar;
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
@@ -38,8 +42,13 @@ import java.util.List;
  *
  * @author tkende
  */
-@Rule(key = "gradients", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
-@BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
+@Rule(
+  key = "gradients",
+  name = "Require all gradient definitions",
+  priority = Priority.MAJOR)
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
+@SqaleConstantRemediation("10min")
+@ActivatedByDefault
 public class AllGradientDefinitions extends SquidCheck<LexerlessGrammar> {
 
   private static List<String> gradients = ImmutableList.<String>of(
