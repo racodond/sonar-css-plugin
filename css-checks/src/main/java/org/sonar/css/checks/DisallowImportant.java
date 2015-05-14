@@ -52,6 +52,6 @@ public class DisallowImportant extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    getContext().createLineViolation(this, "Disallow !important", astNode);
+    getContext().createLineViolation(this, "Remove this usage of the \"!important\" annotation", astNode);
   }
 }

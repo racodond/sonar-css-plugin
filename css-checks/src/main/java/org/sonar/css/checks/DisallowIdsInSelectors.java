@@ -53,6 +53,6 @@ public class DisallowIdsInSelectors extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    getContext().createLineViolation(this, "Disallow IDs in selectors", astNode);
+    getContext().createLineViolation(this, "Remove the ID in this selector", astNode);
   }
 }

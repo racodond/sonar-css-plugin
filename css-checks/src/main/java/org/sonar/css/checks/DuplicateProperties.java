@@ -67,7 +67,7 @@ public class DuplicateProperties extends SquidCheck<LexerlessGrammar> {
       List<Declarations> storedDeclarations = findStoredDeclarations(property);
       if (!storedDeclarations.isEmpty() && (hasSameValue(storedDeclarations, value)
         || notAfter(storedDeclarations, astNode.getPreviousSibling().getPreviousSibling()))) {
-        getContext().createLineViolation(this, "Duplicated property in the declarations", astNode);
+        getContext().createLineViolation(this, "Remove this duplicated property", astNode);
       }
       declarations.add(new Declarations(property, value, astNode));
     }

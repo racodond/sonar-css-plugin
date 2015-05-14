@@ -54,7 +54,7 @@ public class DisallowUnderscoreHack extends SquidCheck<LexerlessGrammar> {
   @Override
   public void visitNode(AstNode astNode) {
     if(astNode.getTokenValue().startsWith("_")){
-      getContext().createLineViolation(this, "Disallow underscore hack", astNode);
+      getContext().createLineViolation(this, "Remove this usage of \"_\"", astNode);
     }
   }
 

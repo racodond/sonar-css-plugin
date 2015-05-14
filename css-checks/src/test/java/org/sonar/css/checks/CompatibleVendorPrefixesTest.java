@@ -34,10 +34,10 @@ public class CompatibleVendorPrefixesTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/vendorprefixes.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(11).withMessage("Missing vendor: -moz for property: transform").next()
-      .atLine(11).withMessage("Missing vendor: -ms for property: transform").next()
-      .atLine(11).withMessage("Missing vendor: -o for property: transform").next()
-      .atLine(16).withMessage("Missing vendor: -webkit for property: border-radius").noMore();
+      .atLine(11).withMessage("Add the missing vendor prefix: -moz to the property: transform").next()
+      .atLine(11).withMessage("Add the missing vendor prefix: -ms to the property: transform").next()
+      .atLine(11).withMessage("Add the missing vendor prefix: -o to the property: transform").next()
+      .atLine(16).withMessage("Add the missing vendor prefix: -webkit to the property: border-radius").noMore();
   }
 
   @Test

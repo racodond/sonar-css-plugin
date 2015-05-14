@@ -59,7 +59,7 @@ public class VendorPrefixWithStandard extends SquidCheck<LexerlessGrammar> {
     if (CssProperties.isVendor(property) && CssProperties.getProperty(property) != null) {
       CssP prop = CssP.factory(property);
       if (!isNextExists(astNode, prop.getName())) {
-        getContext().createLineViolation(this, "No standard property defined after", astNode);
+        getContext().createLineViolation(this, "Define the standard property after this vendor-prefixed property", astNode);
       }
     }
   }

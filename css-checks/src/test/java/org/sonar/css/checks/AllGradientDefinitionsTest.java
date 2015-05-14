@@ -34,11 +34,11 @@ public class AllGradientDefinitionsTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/gradientdefinition.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(2).withMessage("Missing gradient: -moz-(linear|radial)-gradient.*").next()
-      .atLine(2).withMessage("Missing gradient: -ms-(linear|radial)-gradient.*").next()
-      .atLine(2).withMessage("Missing gradient: -o-(linear|radial)-gradient.*").next()
-      .atLine(8).withMessage("Missing gradient: -webkit-(linear|radial)-gradient.*").next()
-      .atLine(8).withMessage("Missing gradient: -webkit-gradient.*")
+      .atLine(2).withMessage("Add missing gradient definition: -moz-(linear|radial)-gradient.*").next()
+      .atLine(2).withMessage("Add missing gradient definition: -ms-(linear|radial)-gradient.*").next()
+      .atLine(2).withMessage("Add missing gradient definition: -o-(linear|radial)-gradient.*").next()
+      .atLine(8).withMessage("Add missing gradient definition: -webkit-(linear|radial)-gradient.*").next()
+      .atLine(8).withMessage("Add missing gradient definition: -webkit-gradient.*")
       .noMore();
   }
 

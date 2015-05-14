@@ -34,7 +34,7 @@ public class DisallowImportantTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/important.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(2).withMessage("Disallow !important")
+      .atLine(2).withMessage("Remove this usage of the \"!important\" annotation")
       .noMore();
   }
 

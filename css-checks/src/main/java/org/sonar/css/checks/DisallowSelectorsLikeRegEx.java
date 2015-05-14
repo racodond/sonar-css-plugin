@@ -39,7 +39,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  */
 @Rule(
   key = "regex-selectors",
-  name = "Selectors matching a regular expression should not be used",
+  name = "Regular expression like selectors should not be used",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.CPU_EFFICIENCY)
 @SqaleConstantRemediation("1h")
@@ -55,6 +55,6 @@ public class DisallowSelectorsLikeRegEx extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    getContext().createLineViolation(this, "Disallow regular expression like selectors", astNode);
+    getContext().createLineViolation(this, "Remove this regular expression like selector", astNode);
   }
 }

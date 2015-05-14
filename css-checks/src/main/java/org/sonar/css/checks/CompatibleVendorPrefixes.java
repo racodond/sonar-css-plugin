@@ -89,7 +89,7 @@ public class CompatibleVendorPrefixes extends SquidCheck<LexerlessGrammar> {
         if (p != null) {
           for (String vendor : p.getVendors()) {
             if (!props.getValue().contains(vendor)) {
-              getContext().createLineViolation(this, "Missing vendor: -" + vendor + " for property: " + props.getKey(), astNode);
+              getContext().createLineViolation(this, "Add the missing vendor prefix: -" + vendor + " to the property: " + props.getKey(), astNode);
             }
           }
         }

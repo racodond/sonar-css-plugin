@@ -55,7 +55,7 @@ public class DisallowStarHack extends SquidCheck<LexerlessGrammar> {
   @Override
   public void visitNode(AstNode astNode) {
     if(astNode.getTokenValue().startsWith("*")){
-      getContext().createLineViolation(this, "Disallow star hack", astNode);
+      getContext().createLineViolation(this, "Remove this usage of \"*\"", astNode);
     }
   }
 

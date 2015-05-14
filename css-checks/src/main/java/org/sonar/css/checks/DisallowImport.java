@@ -54,7 +54,7 @@ public class DisallowImport extends SquidCheck<LexerlessGrammar> {
   @Override
   public void visitNode(AstNode astNode) {
     if ("import".equals(astNode.getFirstChild(CssGrammar.AT_KEYWORD).getFirstChild(CssGrammar.IDENT).getTokenValue())) {
-      getContext().createLineViolation(this, "Disallow imports", astNode);
+      getContext().createLineViolation(this, "Remove this @import", astNode);
     }
   }
 }

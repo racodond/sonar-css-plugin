@@ -70,8 +70,7 @@ public class DisallowOverspecificSelectors extends SquidCheck<LexerlessGrammar> 
   @Override
   public void leaveNode(AstNode astNode) {
     if (astNode.is(CssGrammar.SUB_SELECTOR) && deepness > deepnessThreshold) {
-      getContext().createLineViolation(this, "Disallow overspecified selectors",
-        astNode);
+      getContext().createLineViolation(this, "Simplify this over-specified selector", astNode);
     }
   }
 

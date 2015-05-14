@@ -75,8 +75,8 @@ public class TooManyWebFonts extends SquidCheck<LexerlessGrammar> {
   @Override
   public void leaveFile(AstNode astNode) {
     if (currentFontFace > fontFaceThreshold) {
-      getContext().createLineViolation(this, "Do not use too many web fonts, the number of font-faces is {0} greater than {1} authorized.", astNode, currentFontFace,
-          fontFaceThreshold);
+      getContext().createLineViolation(this, "Reduce the number of web fonts. The number of "
+        + "@font-face is {0} greater than {1} authorized.", astNode, currentFontFace, fontFaceThreshold);
     }
   }
 

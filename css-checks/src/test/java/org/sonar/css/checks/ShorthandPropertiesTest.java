@@ -34,8 +34,8 @@ public class ShorthandPropertiesTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/shorthand.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(1).withMessage("Margin shorthand can be applied").next()
-      .atLine(21).withMessage("Padding shorthand can be applied")
+      .atLine(1).withMessage("Use margin shorthand instead").next()
+      .atLine(21).withMessage("Use padding shorthand instead")
       .noMore();
   }
 

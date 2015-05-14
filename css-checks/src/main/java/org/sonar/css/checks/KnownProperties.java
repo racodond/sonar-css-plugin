@@ -57,7 +57,7 @@ public class KnownProperties extends SquidCheck<LexerlessGrammar> {
   public void visitNode(AstNode astNode) {
     String property = astNode.getTokenValue();
     if (!CssProperties.isVendor(property) && !CssProperties.PROPERTIES.contains(property)) {
-      getContext().createLineViolation(this, "Unknown property", astNode);
+      getContext().createLineViolation(this, "Remove the usage of this unknown property", astNode);
     }
   }
 

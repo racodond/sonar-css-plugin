@@ -67,7 +67,8 @@ public class BulletproofFontFace extends SquidCheck<LexerlessGrammar> {
                   .getFirstChild(CssGrammar.parameters)
                   .getFirstDescendant(CssGrammar.parameter));
           if (!firstAnyFunciontValue.matches(".*\\.eot\\?.*?['\"]?$")) {
-            getContext().createLineViolation(this, "First web font has missing query string or it is not eot", astNode);
+            getContext().createLineViolation(this, "Check that the first file is the .eot file and that the workaround for "
+              + "IE is set", astNode);
           }
           // We only care about the first function
           return;

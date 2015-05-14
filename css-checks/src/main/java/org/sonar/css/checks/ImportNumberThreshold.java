@@ -69,8 +69,8 @@ public class ImportNumberThreshold extends SquidCheck<LexerlessGrammar> {
   @Override
   public void leaveFile(AstNode astNode) {
     if (currentImportCount > DEFAULT_THRESHOLD) {
-      getContext().createFileViolation(this, "This sheet imports {0,number,integer} other sheets, {1,number,integer}" +
-        " more than the {2,number,integer} maximum.",
+      getContext().createFileViolation(this, "Reduce the number of @import. This sheet imports {0,number,integer} other sheets, "
+        + "{1,number,integer} more than the {2,number,integer} maximum.",
         currentImportCount, currentImportCount - DEFAULT_THRESHOLD, DEFAULT_THRESHOLD);
     }
   }

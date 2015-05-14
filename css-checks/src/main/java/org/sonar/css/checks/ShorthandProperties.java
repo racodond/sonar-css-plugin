@@ -76,10 +76,10 @@ public class ShorthandProperties extends SquidCheck<LexerlessGrammar> {
   public void leaveNode(AstNode astNode) {
     if (astNode.getType().equals(CssGrammar.RULESET) || astNode.getType().equals(CssGrammar.AT_RULE)) {
       if (properties.containsAll(margin)) {
-        getContext().createLineViolation(this, "Margin shorthand can be applied", astNode);
+        getContext().createLineViolation(this, "Use margin shorthand instead", astNode);
       }
       if (properties.containsAll(padding)) {
-        getContext().createLineViolation(this, "Padding shorthand can be applied", astNode);
+        getContext().createLineViolation(this, "Use padding shorthand instead", astNode);
       }
     }
   }
