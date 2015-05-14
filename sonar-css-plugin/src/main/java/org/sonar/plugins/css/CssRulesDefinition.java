@@ -17,8 +17,24 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-@ParametersAreNonnullByDefault
-package org.sonar.plugins.css.checks;
+package org.sonar.plugins.css;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.css.checks.CheckList;
+import org.sonar.plugins.css.core.Css;
+import org.sonar.squidbridge.annotations.AnnotationBasedRulesDefinition;
 
+public class CssRulesDefinition implements RulesDefinition {
+
+    @Override
+    public void define(Context context) {
+        NewRepository repository = context
+            .createRepository(CheckList.REPOSITORY_KEY, Css.KEY)
+            .setName(CheckList.REPOSITORY_NAME);
+
+        AnnotationBasedRulesDefinition.load(repository, "css", CheckList.getChecks());
+
+        repository.done();
+    }
+
+}

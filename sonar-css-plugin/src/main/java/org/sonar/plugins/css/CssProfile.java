@@ -19,35 +19,27 @@
  */
 package org.sonar.plugins.css;
 
-import org.sonar.api.profiles.AnnotationProfileParser;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.rules.ActiveRule;
+import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.css.checks.CheckList;
 import org.sonar.plugins.css.core.Css;
-
-import java.util.List;
+import org.sonar.squidbridge.annotations.AnnotationBasedProfileBuilder;
 
 public class CssProfile extends ProfileDefinition {
 
-  public static final String PROFILE_NAME = RulesProfile.SONAR_WAY_NAME;
-  private final AnnotationProfileParser annotationProfileParser;
+    private final RuleFinder ruleFinder;
 
-  public CssProfile(AnnotationProfileParser annotationProfileParser) {
-    this.annotationProfileParser = annotationProfileParser;
-  }
+    public static final String SONAR_WAY_PROFILE_NAME = "Sonar way";
 
-  @Override
-  public RulesProfile createProfile(ValidationMessages validation) {
-    RulesProfile ret = RulesProfile.create(PROFILE_NAME, Css.KEY);
+    public CssProfile(RuleFinder ruleFinder) {
+        this.ruleFinder = ruleFinder;
+    }
 
-    RulesProfile checks = annotationProfileParser.parse(CheckList.REPOSITORY_KEY,
-        CheckList.REPOSITORY_NAME, Css.KEY, CheckList.getChecks(), validation);
-
-    List<ActiveRule> rules = checks.getActiveRules();
-    ret.setActiveRules(rules);
-    return ret;
-  }
-
+    @Override
+    public RulesProfile createProfile(ValidationMessages messages) {
+        AnnotationBasedProfileBuilder annotationBasedProfileBuilder = new AnnotationBasedProfileBuilder(ruleFinder);
+        return annotationBasedProfileBuilder.build(CheckList.REPOSITORY_KEY, SONAR_WAY_PROFILE_NAME, Css.KEY, CheckList.getChecks(), messages);
+    }
 }
