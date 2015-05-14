@@ -45,7 +45,7 @@ import java.util.Set;
  */
 @Rule(
   key = "box-model",
-  name = "Beware of box model size",
+  name = "\"box-sizing\" property should be specified",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("1h")

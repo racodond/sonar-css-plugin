@@ -44,7 +44,7 @@ import java.util.List;
  */
 @Rule(
   key = "gradients",
-  name = "Require all gradient definitions",
+  name = "Gradient definitions should be set for all vendors",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("10min")

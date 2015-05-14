@@ -39,7 +39,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  */
 @Rule(
   key = "underscore-property-hack",
-  name = "Disallow underscore hack",
+  name = "Underscore hack should not be used",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("1h")

@@ -45,7 +45,7 @@ import java.util.Map.Entry;
  */
 @Rule(
   key = "overqualified-elements",
-  name = "Disallow overqualified elements",
+  name = "Name of overqualified element should be removed",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
 @SqaleConstantRemediation("1h")

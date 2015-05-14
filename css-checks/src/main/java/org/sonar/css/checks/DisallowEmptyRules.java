@@ -39,7 +39,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  */
 @Rule(
   key = "empty-rules",
-  name = "Disallow empty rules",
+  name = "Empty rules should be removed",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("5min")

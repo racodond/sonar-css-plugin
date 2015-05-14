@@ -43,7 +43,7 @@ import java.util.List;
  */
 @Rule(
   key = "shorthand",
-  name = "Require shorthand properties",
+  name = "Shorthand properties should be used whenever possible",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
 @SqaleConstantRemediation("5min")

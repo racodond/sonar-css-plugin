@@ -39,7 +39,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  */
 @Rule(
   key = "regex-selectors",
-  name = "Disallow selectors that look like regular expressions",
+  name = "Selectors matching a regular expression should not be used",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.CPU_EFFICIENCY)
 @SqaleConstantRemediation("1h")

@@ -39,7 +39,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  */
 @Rule(
   key = "zero-units",
-  name = "Disallow units for zero values",
+  name = "Units for zero values should be removed",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
 @SqaleConstantRemediation("2min")

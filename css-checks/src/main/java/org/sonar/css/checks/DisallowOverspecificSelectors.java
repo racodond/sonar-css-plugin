@@ -38,7 +38,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  */
 @Rule(
   key = "overspecific-selectors",
-  name = "Disallow overspecified selectors",
+  name = "Over-specified selectors should be simplified",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_CHANGEABILITY)
 @SqaleConstantRemediation("2h")

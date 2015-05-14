@@ -45,7 +45,7 @@ import java.util.Map;
  */
 @Rule(
   key = "display-property-grouping",
-  name = "Require properties appropriate for display",
+  name = "Properties that do not work with the \"display\" property should be removed",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
 @SqaleConstantRemediation("5min")

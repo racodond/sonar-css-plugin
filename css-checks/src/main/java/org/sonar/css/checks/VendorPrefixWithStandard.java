@@ -41,7 +41,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  */
 @Rule(
     key = "vendor-prefix",
-    name = "Require standard property with vendor prefix",
+    name = "Standard properties should be specified along with vendor-prefixed properties",
     priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("10min")

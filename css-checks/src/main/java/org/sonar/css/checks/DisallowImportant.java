@@ -38,7 +38,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  */
 @Rule(
   key = "important",
-  name = "Disallow !important",
+  name = "\"!important\" annotation should not be used",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_CHANGEABILITY)
 @SqaleConstantRemediation("1h")

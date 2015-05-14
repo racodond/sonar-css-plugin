@@ -38,7 +38,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  */
 @Rule(
   key = "S2735",
-  name = "Stylesheets should not be too \"@import\" too many other sheets",
+  name = "Stylesheets should not \"@import\" too many other sheets",
   priority = Priority.CRITICAL)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)

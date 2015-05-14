@@ -42,7 +42,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  */
 @Rule(
   key = "duplicate-background-images",
-  name = "Disallow duplicate background images",
+  name = "Duplicated background images should be removed",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.DATA_CHANGEABILITY)
 @SqaleConstantRemediation("10min")

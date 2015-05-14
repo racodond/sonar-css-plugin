@@ -43,7 +43,7 @@ import org.sonar.check.Rule;
  */
 @Rule(
   key = "bulletproof-font-face",
-  name = "Bulletproof font face",
+  name = "Font face should be made compatible with IE 6, 7 and 8",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("10min")

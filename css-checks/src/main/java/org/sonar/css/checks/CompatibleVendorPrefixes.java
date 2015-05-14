@@ -48,7 +48,7 @@ import java.util.Set;
  */
 @Rule(
   key = "compatible-vendor-prefixes",
-  name = "Require compatible vendor prefixes",
+  name = "Missing vendor prefixes should be added to experimental CSS properties",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("10min")

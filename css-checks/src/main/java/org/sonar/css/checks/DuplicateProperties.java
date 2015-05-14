@@ -43,7 +43,7 @@ import java.util.List;
  */
 @Rule(
   key = "duplicate-properties",
-  name = "Disallow duplicate properties",
+  name = "Duplicated properties should be removed",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
 @SqaleConstantRemediation("10min")
