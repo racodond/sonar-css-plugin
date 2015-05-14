@@ -20,7 +20,8 @@
 package org.sonar.plugins.css;
 
 import org.junit.Test;
-import org.sonar.commonrules.api.CommonRulesRepository;
+import org.sonar.squidbridge.commonrules.api.CommonRulesRepository;
+import org.sonar.squidbridge.commonrules.internal.CommonRulesConstants;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -36,10 +37,9 @@ public class CssCommonRulesEngineTest {
   public void define_rules() {
     CssCommonRulesEngine engine = new CssCommonRulesEngine();
     CommonRulesRepository repo = engine.newRepository();
-
-    assertThat(repo.rules()).hasSize(2);
-    assertThat(repo.rule(CommonRulesRepository.RULE_INSUFFICIENT_COMMENT_DENSITY)).isNotNull();
-    assertThat(repo.rule(CommonRulesRepository.RULE_DUPLICATED_BLOCKS)).isNotNull();
+    assertThat(repo.enabledRuleKeys()).containsOnly(
+      CommonRulesConstants.RULE_DUPLICATED_BLOCKS,
+      CommonRulesConstants.RULE_INSUFFICIENT_COMMENT_DENSITY);
   }
 
 }

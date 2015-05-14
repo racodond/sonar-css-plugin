@@ -19,21 +19,14 @@
  */
 package org.sonar.plugins.css;
 
-import org.sonar.squidbridge.commonrules.api.CommonRulesEngine;
-import org.sonar.squidbridge.commonrules.api.CommonRulesRepository;
+import org.sonar.api.batch.fs.FileSystem;
+import org.sonar.api.batch.rule.CheckFactory;
+import org.sonar.api.component.ResourcePerspectives;
 import org.sonar.plugins.css.core.Css;
+import org.sonar.squidbridge.commonrules.api.CommonRulesDecorator;
 
-public class CssCommonRulesEngine extends CommonRulesEngine {
-
-  public CssCommonRulesEngine() {
-    super(Css.KEY);
+public class CssCommonRulesDecorator extends CommonRulesDecorator {
+  public CssCommonRulesDecorator(FileSystem fs, CheckFactory checkFactory, ResourcePerspectives perspectives) {
+    super(Css.KEY, fs, checkFactory, perspectives);
   }
-
-  @Override
-  protected void doEnableRules(CommonRulesRepository repository) {
-    repository
-      .enableDuplicatedBlocksRule()
-      .enableInsufficientCommentDensityRule(null);
-  }
-
 }
