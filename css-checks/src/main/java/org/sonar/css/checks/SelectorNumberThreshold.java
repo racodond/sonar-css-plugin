@@ -55,8 +55,8 @@ public class SelectorNumberThreshold extends SquidCheck<LexerlessGrammar> {
   @Override
   public void leaveFile(AstNode astNode) {
     if (currentSelectorCount > DEFAULT_THRESHOLD) {
-      getContext().createLineViolation(this, "This sheet contains {0,number,#} selectors, {1,number,#} more than" +
-          " the {2,number,#} maximum.", astNode, currentSelectorCount,
+      getContext().createFileViolation(this, "This sheet contains {0,number,integer} selectors, {1,number,integer} more than" +
+          " the {2,number,integer} maximum.", currentSelectorCount,
         currentSelectorCount - DEFAULT_THRESHOLD, DEFAULT_THRESHOLD);
     }
   }
