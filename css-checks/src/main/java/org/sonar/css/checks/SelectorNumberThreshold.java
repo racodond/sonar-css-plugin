@@ -21,10 +21,10 @@ package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.check.*;
+import org.sonar.check.Priority;
+import org.sonar.check.Rule;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleLinearRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
@@ -37,7 +37,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "S2732",
   name = "Stylesheets should not contain too many selectors",
-  priority = Priority.CRITICAL)
+  priority = Priority.CRITICAL,
+  tags = {Tags.BROWSER_COMPATIBILITY, Tags.BUG, Tags.DESIGN})
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.HARDWARE_RELATED_PORTABILITY)
 @SqaleLinearRemediation(coeff = "10min", effortToFixDescription = "number of selectors beyond the limit")

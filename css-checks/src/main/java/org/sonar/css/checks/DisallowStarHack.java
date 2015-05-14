@@ -21,15 +21,13 @@ package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.check.BelongsToProfile;
-import org.sonar.check.Cardinality;
-import org.sonar.check.Priority;
-import org.sonar.check.Rule;
-import org.sonar.css.parser.CssGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
@@ -40,7 +38,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "star-property-hack",
   name = "Star hack should not be used",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = {Tags.CONVENTION})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("1h")
 @ActivatedByDefault

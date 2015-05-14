@@ -22,8 +22,6 @@ package org.sonar.css.checks;
 import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.check.BelongsToProfile;
-import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.parser.CssGrammar;
@@ -45,7 +43,8 @@ import java.util.List;
 @Rule(
   key = "gradients",
   name = "Gradient definitions should be set for all vendors",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = {Tags.BROWSER_COMPATIBILITY})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault

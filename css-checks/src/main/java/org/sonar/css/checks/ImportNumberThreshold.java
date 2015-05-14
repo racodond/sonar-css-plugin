@@ -21,8 +21,6 @@ package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.check.BelongsToProfile;
-import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.parser.CssGrammar;
@@ -39,7 +37,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "S2735",
   name = "Stylesheets should not \"@import\" too many other sheets",
-  priority = Priority.CRITICAL)
+  priority = Priority.CRITICAL,
+  tags = {Tags.BROWSER_COMPATIBILITY, Tags.BUG})
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleLinearRemediation(coeff = "10min", effortToFixDescription = "number of imports beyond the limit")

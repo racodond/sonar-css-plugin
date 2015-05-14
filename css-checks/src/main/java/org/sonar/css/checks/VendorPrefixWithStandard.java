@@ -21,17 +21,15 @@ package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.check.BelongsToProfile;
-import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.utils.CssP;
 import org.sonar.css.checks.utils.CssProperties;
 import org.sonar.css.parser.CssGrammar;
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
+import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
@@ -40,9 +38,10 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  *
  */
 @Rule(
-    key = "vendor-prefix",
-    name = "Standard properties should be specified along with vendor-prefixed properties",
-    priority = Priority.MAJOR)
+  key = "vendor-prefix",
+  name = "Standard properties should be specified along with vendor-prefixed properties",
+  priority = Priority.MAJOR,
+  tags = {Tags.BROWSER_COMPATIBILITY})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault

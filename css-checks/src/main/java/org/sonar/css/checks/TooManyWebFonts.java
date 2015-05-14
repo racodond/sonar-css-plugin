@@ -21,16 +21,14 @@ package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.check.BelongsToProfile;
-import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.css.parser.CssGrammar;
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
+import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
@@ -41,7 +39,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "font-faces",
   name = "The number of web fonts should be reduced",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = {Tags.PERFORMANCE})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
@@ -76,7 +75,7 @@ public class TooManyWebFonts extends SquidCheck<LexerlessGrammar> {
   public void leaveFile(AstNode astNode) {
     if (currentFontFace > fontFaceThreshold) {
       getContext().createFileViolation(this, "Reduce the number of web fonts. The number of "
-        + "@font-face is {0} greater than {1} authorized.", currentFontFace, fontFaceThreshold);
+          + "@font-face is {0} greater than {1} authorized.", currentFontFace, fontFaceThreshold);
     }
   }
 

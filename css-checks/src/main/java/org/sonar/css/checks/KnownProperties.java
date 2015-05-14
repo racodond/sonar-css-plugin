@@ -42,7 +42,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "known-properties",
   name = "Unknown CSS properties should be removed",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = {Tags.PITFALL})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault

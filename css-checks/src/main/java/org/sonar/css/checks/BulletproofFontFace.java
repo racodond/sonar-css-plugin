@@ -21,20 +21,16 @@ package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.check.Priority;
+import org.sonar.check.Rule;
 import org.sonar.css.parser.CssGrammar;
-
-import java.util.List;
-
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-import org.sonar.check.BelongsToProfile;
-import org.sonar.check.Cardinality;
-import org.sonar.check.Priority;
-import org.sonar.check.Rule;
+import java.util.List;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Bulletproof-font-face
@@ -44,7 +40,8 @@ import org.sonar.check.Rule;
 @Rule(
   key = "bulletproof-font-face",
   name = "Font face should be made compatible with IE 6, 7 and 8",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = {Tags.BROWSER_COMPATIBILITY})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
