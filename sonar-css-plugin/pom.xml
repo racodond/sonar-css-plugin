@@ -11,7 +11,7 @@
   <artifactId>sonar-css-plugin</artifactId>
   <packaging>sonar-plugin</packaging>
 
-  <name>CSS :: Sonar Plugin</name>
+  <name>CSS :: SonarQube Plugin</name>
   <description>Enables analysis of CSS files.</description>
   <url>http://docs.codehaus.org/x/EYFMDg</url>
 

@@ -14,7 +14,7 @@
   <packaging>pom</packaging>
 
   <name>CSS</name>
-  <description>Parent pom of Sonar css plugin</description>
+  <description>Parent POM of the SonarQube CSS Plugin</description>
   <url />
   <inceptionYear>2013</inceptionYear>
   <organization>
@@ -55,7 +55,7 @@
   </issueManagement>
 
   <properties>
-    <license.title>Sonar CSS Plugin</license.title>
+    <license.title>SonarQube CSS Plugin</license.title>
     <license.mailto>kende.tamas@gmail.com</license.mailto>
 
     <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>

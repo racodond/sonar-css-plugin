@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.sonar.plugins</groupId>
   <artifactId>sonar-css-plugin-test-project</artifactId>
-  <name>Sample Css project for Sonar CSS plugin</name>
+  <name>Sample CSS project for the SonarQube CSS Plugin</name>
   <version>1.0-SNAPSHOT</version>
   <build>
     <sourceDirectory>css/</sourceDirectory>
