@@ -1,0 +1,8 @@
+@media (min-width: 320px) {
+  .box1 {
+    border-color: orange; 
+  }
+  .box2 {
+    border-color: orangered;
+  }
+}
