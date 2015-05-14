@@ -35,7 +35,7 @@ public class TooManyWebFontsTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/toomanywebfonts.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(1).withMessage("Reduce the number of web fonts. The number of @font-face is 5 greater than 3 authorized.")
+      .withMessage("Reduce the number of web fonts. The number of @font-face is 5 greater than 3 authorized.")
       .noMore();
   }
 
