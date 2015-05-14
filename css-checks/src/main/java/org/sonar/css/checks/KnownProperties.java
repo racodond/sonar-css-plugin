@@ -19,9 +19,13 @@
  */
 package org.sonar.css.checks;
 
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.css.checks.utils.CssProperties;
 
 import com.sonar.sslr.api.AstNode;
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Cardinality;
@@ -35,8 +39,13 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  * @author tkende
  *
  */
-@Rule(key = "known-properties", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
-@BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
+@Rule(
+  key = "known-properties",
+  name = "Require use of known properties",
+  priority = Priority.MAJOR)
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
+@SqaleConstantRemediation("10min")
+@ActivatedByDefault
 public class KnownProperties extends SquidCheck<LexerlessGrammar> {
 
   @Override

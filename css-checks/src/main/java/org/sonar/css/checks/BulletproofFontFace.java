@@ -20,10 +20,14 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.css.parser.CssGrammar;
 
 import java.util.List;
 
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
@@ -37,8 +41,13 @@ import org.sonar.check.Rule;
  * @author tkende
  *
  */
-@Rule(key = "bulletproof-font-face", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
-@BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
+@Rule(
+  key = "bulletproof-font-face",
+  name = "Bulletproof font face",
+  priority = Priority.MAJOR)
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
+@SqaleConstantRemediation("10min")
+@ActivatedByDefault
 public class BulletproofFontFace extends SquidCheck<LexerlessGrammar> {
 
   @Override

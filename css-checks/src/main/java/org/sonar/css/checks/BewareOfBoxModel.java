@@ -21,6 +21,10 @@ package org.sonar.css.checks;
 
 import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
+import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Cardinality;
@@ -39,8 +43,13 @@ import java.util.Set;
  *
  * @author tkende
  */
-@Rule(key = "box-model", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
-@BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
+@Rule(
+  key = "box-model",
+  name = "Beware of box model size",
+  priority = Priority.MAJOR)
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
+@SqaleConstantRemediation("1h")
+@ActivatedByDefault
 public class BewareOfBoxModel extends SquidCheck<LexerlessGrammar> {
 
   private List<String> widthSizing = ImmutableList.<String>of(

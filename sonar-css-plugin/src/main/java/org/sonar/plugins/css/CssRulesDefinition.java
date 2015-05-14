@@ -17,26 +17,24 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.plugins.css.checks;
+package org.sonar.plugins.css;
 
-import org.junit.Test;
-import org.sonar.api.rules.AnnotationRuleParser;
-import org.sonar.api.rules.Rule;
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.css.checks.CheckList;
+import org.sonar.plugins.css.core.Css;
+import org.sonar.squidbridge.annotations.AnnotationBasedRulesDefinition;
 
-import java.util.List;
+public class CssRulesDefinition implements RulesDefinition {
 
-import static org.fest.assertions.Assertions.assertThat;
+    @Override
+    public void define(Context context) {
+        NewRepository repository = context
+            .createRepository(CheckList.REPOSITORY_KEY, Css.KEY)
+            .setName(CheckList.REPOSITORY_NAME);
 
-public class CssChecksRuleRepositoryTest {
+        AnnotationBasedRulesDefinition.load(repository, "css", CheckList.getChecks());
 
-  @Test
-  public void test() {
-    CssChecksRuleRepository ruleRepository = new CssChecksRuleRepository(new AnnotationRuleParser());
-    assertThat(ruleRepository.getKey()).isEqualTo("css");
-    assertThat(ruleRepository.getName()).isEqualTo("SonarQube");
-    List<Rule> rules = ruleRepository.createRules();
-    assertThat(rules.size()).isEqualTo(CheckList.getChecks().size());
-  }
+        repository.done();
+    }
 
 }

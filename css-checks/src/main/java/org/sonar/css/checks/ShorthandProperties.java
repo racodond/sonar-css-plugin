@@ -21,6 +21,10 @@ package org.sonar.css.checks;
 
 import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
+import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Cardinality;
@@ -37,8 +41,13 @@ import java.util.List;
  * @author tkende
  *
  */
-@Rule(key = "shorthand", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
-@BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
+@Rule(
+  key = "shorthand",
+  name = "Require shorthand properties",
+  priority = Priority.MAJOR)
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
+@SqaleConstantRemediation("5min")
+@ActivatedByDefault
 public class ShorthandProperties extends SquidCheck<LexerlessGrammar> {
 
   private static List<String> margin = ImmutableList.<String> of("margin-left", "margin-right", "margin-top", "margin-bottom");

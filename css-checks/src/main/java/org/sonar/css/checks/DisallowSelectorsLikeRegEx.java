@@ -20,6 +20,10 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
+import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Cardinality;
@@ -33,8 +37,13 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  * @author tkende
  *
  */
-@Rule(key = "regex-selectors", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
-@BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
+@Rule(
+  key = "regex-selectors",
+  name = "Disallow selectors that look like regular expressions",
+  priority = Priority.MAJOR)
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.CPU_EFFICIENCY)
+@SqaleConstantRemediation("1h")
+@ActivatedByDefault
 public class DisallowSelectorsLikeRegEx extends SquidCheck<LexerlessGrammar> {
 
   @Override

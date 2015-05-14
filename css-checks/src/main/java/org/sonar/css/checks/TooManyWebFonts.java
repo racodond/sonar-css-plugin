@@ -20,6 +20,10 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
+import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Cardinality;
@@ -34,8 +38,13 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  * @author tkende
  *
  */
-@Rule(key = "font-faces", priority = Priority.MAJOR, cardinality = Cardinality.SINGLE)
-@BelongsToProfile(title = CheckList.REPOSITORY_NAME, priority = Priority.MAJOR)
+@Rule(
+  key = "font-faces",
+  name = "Don't use too many web fonts",
+  priority = Priority.MAJOR)
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
+@SqaleConstantRemediation("5min")
+@ActivatedByDefault
 public class TooManyWebFonts extends SquidCheck<LexerlessGrammar> {
 
   private static final int DEFAULT_THRESHOLD = 2;
