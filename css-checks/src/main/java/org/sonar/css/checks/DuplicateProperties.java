@@ -43,7 +43,7 @@ import java.util.List;
  */
 @Rule(
   key = "duplicate-properties",
-  name = "Disallow duplicate properties",
+  name = "Duplicated properties should be removed",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
 @SqaleConstantRemediation("10min")
@@ -67,7 +67,7 @@ public class DuplicateProperties extends SquidCheck<LexerlessGrammar> {
       List<Declarations> storedDeclarations = findStoredDeclarations(property);
       if (!storedDeclarations.isEmpty() && (hasSameValue(storedDeclarations, value)
         || notAfter(storedDeclarations, astNode.getPreviousSibling().getPreviousSibling()))) {
-        getContext().createLineViolation(this, "Duplicated property in the declarations", astNode);
+        getContext().createLineViolation(this, "Remove this duplicated property", astNode);
       }
       declarations.add(new Declarations(property, value, astNode));
     }

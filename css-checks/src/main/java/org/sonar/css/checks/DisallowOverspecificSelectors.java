@@ -38,7 +38,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  */
 @Rule(
   key = "overspecific-selectors",
-  name = "Disallow overspecified selectors",
+  name = "Over-specified selectors should be simplified",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_CHANGEABILITY)
 @SqaleConstantRemediation("2h")
@@ -70,8 +70,7 @@ public class DisallowOverspecificSelectors extends SquidCheck<LexerlessGrammar> 
   @Override
   public void leaveNode(AstNode astNode) {
     if (astNode.is(CssGrammar.SUB_SELECTOR) && deepness > deepnessThreshold) {
-      getContext().createLineViolation(this, "Disallow overspecified selectors",
-        astNode);
+      getContext().createLineViolation(this, "Simplify this over-specified selector", astNode);
     }
   }
 

@@ -34,8 +34,8 @@ public class VendorPrefixWithStandardTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/vendorprefixwithstandard.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(3).withMessage("No standard property defined after").next()
-      .atLine(15).withMessage("No standard property defined after")
+      .atLine(3).withMessage("Define the standard property after this vendor-prefixed property").next()
+      .atLine(15).withMessage("Define the standard property after this vendor-prefixed property")
       .noMore();
   }
 
@@ -45,8 +45,8 @@ public class VendorPrefixWithStandardTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/vendorprefixes.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(12).withMessage("No standard property defined after").next()
-      .atLine(17).withMessage("No standard property defined after").noMore();
+      .atLine(12).withMessage("Define the standard property after this vendor-prefixed property").next()
+      .atLine(17).withMessage("Define the standard property after this vendor-prefixed property").noMore();
   }
 
 }

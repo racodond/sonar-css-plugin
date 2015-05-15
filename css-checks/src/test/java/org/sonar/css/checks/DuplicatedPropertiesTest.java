@@ -34,8 +34,8 @@ public class DuplicatedPropertiesTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/duplicatedProperties.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(7).withMessage("Duplicated property in the declarations").next()
-      .atLine(20).withMessage("Duplicated property in the declarations").noMore();
+      .atLine(7).withMessage("Remove this duplicated property").next()
+      .atLine(20).withMessage("Remove this duplicated property").noMore();
   }
 
   @Test

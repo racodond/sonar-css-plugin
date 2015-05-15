@@ -45,7 +45,7 @@ import java.util.Map;
  */
 @Rule(
   key = "display-property-grouping",
-  name = "Require properties appropriate for display",
+  name = "Properties that do not work with the \"display\" property should be removed",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
 @SqaleConstantRemediation("5min")
@@ -76,7 +76,7 @@ public class DisplayPropertyGrouping extends SquidCheck<LexerlessGrammar> {
     List<AstNode> declarations = astNode.getDescendants(CssGrammar.DECLARATION);
     List<String> avoidProps = isDisplay(declarations);
     if (avoidProps != null && !avoidProps.isEmpty() && isOtherUsed(declarations, avoidProps)) {
-      getContext().createLineViolation(this, "Unnecessary property with display", astNode);
+      getContext().createLineViolation(this, "Remove this property that does not work with the \"display\" property", astNode);
     }
   }
 

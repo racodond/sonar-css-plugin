@@ -39,7 +39,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  */
 @Rule(
   key = "universal-selector",
-  name = "Disallow universal selector",
+  name = "Universal selector should not be used as key part",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.CPU_EFFICIENCY)
 @SqaleConstantRemediation("1h")
@@ -54,7 +54,7 @@ public class DisallowUniversalSelector extends SquidCheck<LexerlessGrammar> {
   @Override
   public void visitNode(AstNode astNode) {
     if ("*".equals(astNode.getTokenValue()) && astNode.getFirstAncestor(CssGrammar.SUB_SELECTOR).getNextSibling() == null) {
-      getContext().createLineViolation(this, "Disallow universal selector as key part", astNode);
+      getContext().createLineViolation(this, "Remove this usage of the universal selector as key part", astNode);
     }
   }
 

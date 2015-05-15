@@ -34,11 +34,11 @@ public class DisallowSelectorsLikeRegExTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/regexlikeselectors.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(1).withMessage("Disallow regular expression like selectors").next()
-      .atLine(5).withMessage("Disallow regular expression like selectors").next()
-      .atLine(17).withMessage("Disallow regular expression like selectors").next()
-      .atLine(21).withMessage("Disallow regular expression like selectors").next()
-      .atLine(25).withMessage("Disallow regular expression like selectors")
+      .atLine(1).withMessage("Remove this regular expression like selector").next()
+      .atLine(5).withMessage("Remove this regular expression like selector").next()
+      .atLine(17).withMessage("Remove this regular expression like selector").next()
+      .atLine(21).withMessage("Remove this regular expression like selector").next()
+      .atLine(25).withMessage("Remove this regular expression like selector")
       .noMore();
   }
 

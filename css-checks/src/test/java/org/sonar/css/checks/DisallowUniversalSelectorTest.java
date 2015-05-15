@@ -34,8 +34,8 @@ public class DisallowUniversalSelectorTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/universalselector.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(1).withMessage("Disallow universal selector as key part").next()
-      .atLine(5).withMessage("Disallow universal selector as key part")
+      .atLine(1).withMessage("Remove this usage of the universal selector as key part").next()
+      .atLine(5).withMessage("Remove this usage of the universal selector as key part")
       .noMore();
   }
 

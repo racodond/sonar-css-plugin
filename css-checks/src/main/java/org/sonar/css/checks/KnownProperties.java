@@ -41,7 +41,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  */
 @Rule(
   key = "known-properties",
-  name = "Require use of known properties",
+  name = "Unknown CSS properties should be removed",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
 @SqaleConstantRemediation("10min")
@@ -57,7 +57,7 @@ public class KnownProperties extends SquidCheck<LexerlessGrammar> {
   public void visitNode(AstNode astNode) {
     String property = astNode.getTokenValue();
     if (!CssProperties.isVendor(property) && !CssProperties.PROPERTIES.contains(property)) {
-      getContext().createLineViolation(this, "Unknown property", astNode);
+      getContext().createLineViolation(this, "Remove the usage of this unknown property", astNode);
     }
   }
 

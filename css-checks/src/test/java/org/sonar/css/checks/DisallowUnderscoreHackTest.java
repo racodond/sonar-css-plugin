@@ -34,7 +34,7 @@ public class DisallowUnderscoreHackTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/underscorehack.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(3).withMessage("Disallow underscore hack")
+      .atLine(3).withMessage("Remove this usage of \"_\"")
       .noMore();
   }
 

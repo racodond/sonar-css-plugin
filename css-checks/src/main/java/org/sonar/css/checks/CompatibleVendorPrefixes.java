@@ -48,7 +48,7 @@ import java.util.Set;
  */
 @Rule(
   key = "compatible-vendor-prefixes",
-  name = "Require compatible vendor prefixes",
+  name = "Missing vendor prefixes should be added to experimental CSS properties",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("10min")
@@ -89,7 +89,7 @@ public class CompatibleVendorPrefixes extends SquidCheck<LexerlessGrammar> {
         if (p != null) {
           for (String vendor : p.getVendors()) {
             if (!props.getValue().contains(vendor)) {
-              getContext().createLineViolation(this, "Missing vendor: -" + vendor + " for property: " + props.getKey(), astNode);
+              getContext().createLineViolation(this, "Add the missing vendor prefix: -" + vendor + " to the property: " + props.getKey(), astNode);
             }
           }
         }

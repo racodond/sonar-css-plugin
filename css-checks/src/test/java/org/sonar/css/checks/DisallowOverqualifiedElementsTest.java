@@ -34,8 +34,8 @@ public class DisallowOverqualifiedElementsTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/overqualified.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(1).withMessage("Disallow overqualified elements").next()
-      .atLine(5).withMessage("Disallow overqualified elements")
+      .atLine(1).withMessage("Remove the name of this overqualified element").next()
+      .atLine(5).withMessage("Remove the name of this overqualified element")
       .noMore();
   }
 

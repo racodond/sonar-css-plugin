@@ -39,7 +39,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  */
 @Rule(
   key = "ids",
-  name = "Disallow IDs in selectors",
+  name = "IDs in selectors should be removed",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_CHANGEABILITY)
 @SqaleConstantRemediation("1h")
@@ -53,6 +53,6 @@ public class DisallowIdsInSelectors extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    getContext().createLineViolation(this, "Disallow IDs in selectors", astNode);
+    getContext().createLineViolation(this, "Remove the ID in this selector", astNode);
   }
 }

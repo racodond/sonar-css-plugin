@@ -39,7 +39,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  */
 @Rule(
   key = "import",
-  name = "Disallow @import",
+  name = "\"@import\" command should not be used",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
 @SqaleConstantRemediation("1h")
@@ -54,7 +54,7 @@ public class DisallowImport extends SquidCheck<LexerlessGrammar> {
   @Override
   public void visitNode(AstNode astNode) {
     if ("import".equals(astNode.getFirstChild(CssGrammar.AT_KEYWORD).getFirstChild(CssGrammar.IDENT).getTokenValue())) {
-      getContext().createLineViolation(this, "Disallow imports", astNode);
+      getContext().createLineViolation(this, "Remove this @import", astNode);
     }
   }
 }

@@ -34,7 +34,7 @@ public class SelectorNumberThresholdTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/S2732.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .withMessage("This sheet contains 4,097 selectors, 2 more than the 4,095 maximum.")
+      .withMessage("Reduce the number of selectors. This sheet contains 4,097 selectors, 2 more than the 4,095 maximum.")
       .noMore();
   }
 

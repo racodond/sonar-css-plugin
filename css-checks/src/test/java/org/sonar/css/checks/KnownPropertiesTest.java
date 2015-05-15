@@ -34,7 +34,7 @@ public class KnownPropertiesTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/knownProperty.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(6).withMessage("Unknown property").noMore();
+      .atLine(6).withMessage("Remove the usage of this unknown property").noMore();
   }
 
 }

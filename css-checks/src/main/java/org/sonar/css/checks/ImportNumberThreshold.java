@@ -38,7 +38,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  */
 @Rule(
   key = "S2735",
-  name = "Stylesheets should not be too \"@import\" too many other sheets",
+  name = "Stylesheets should not \"@import\" too many other sheets",
   priority = Priority.CRITICAL)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
@@ -69,8 +69,8 @@ public class ImportNumberThreshold extends SquidCheck<LexerlessGrammar> {
   @Override
   public void leaveFile(AstNode astNode) {
     if (currentImportCount > DEFAULT_THRESHOLD) {
-      getContext().createFileViolation(this, "This sheet imports {0,number,integer} other sheets, {1,number,integer}" +
-        " more than the {2,number,integer} maximum.",
+      getContext().createFileViolation(this, "Reduce the number of @import. This sheet imports {0,number,integer} other sheets, "
+        + "{1,number,integer} more than the {2,number,integer} maximum.",
         currentImportCount, currentImportCount - DEFAULT_THRESHOLD, DEFAULT_THRESHOLD);
     }
   }

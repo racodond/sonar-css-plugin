@@ -34,9 +34,9 @@ public class DisplayPropertyGroupingTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/displayProperty.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(5).withMessage("Unnecessary property with display").next()
-      .atLine(11).withMessage("Unnecessary property with display").next()
-      .atLine(23).withMessage("Unnecessary property with display").noMore();
+      .atLine(5).withMessage("Remove this property that does not work with the \"display\" property").next()
+      .atLine(11).withMessage("Remove this property that does not work with the \"display\" property").next()
+      .atLine(23).withMessage("Remove this property that does not work with the \"display\" property").noMore();
   }
 
   @Test

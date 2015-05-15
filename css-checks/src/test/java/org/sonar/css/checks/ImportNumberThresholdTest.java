@@ -34,7 +34,7 @@ public class ImportNumberThresholdTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/importThreshold.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .withMessage("This sheet imports 32 other sheets, 1 more than the 31 maximum.")
+      .withMessage("Reduce the number of @import. This sheet imports 32 other sheets, 1 more than the 31 maximum.")
       .noMore();
   }
 

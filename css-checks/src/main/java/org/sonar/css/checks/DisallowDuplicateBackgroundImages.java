@@ -42,7 +42,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  */
 @Rule(
   key = "duplicate-background-images",
-  name = "Disallow duplicate background images",
+  name = "Duplicated background images should be removed",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.DATA_CHANGEABILITY)
 @SqaleConstantRemediation("10min")
@@ -63,7 +63,7 @@ public class DisallowDuplicateBackgroundImages extends SquidCheck<LexerlessGramm
       if(func!=null && "url".equals(func.getFirstChild(CssGrammar.IDENT).getTokenValue()) && func.getFirstChild(CssGrammar.parameters) != null) {
         String url = CssChecksUtil.getStringValue(func.getFirstChild(CssGrammar.parameters).getFirstChild(CssGrammar.parameter)).replaceAll("['\"]", "");
         if(!urls.add(url)){
-          getContext().createLineViolation(this, "Disallow duplicate background images", astNode);
+          getContext().createLineViolation(this, "Remove this duplicated background image", astNode);
         }
       }
     }

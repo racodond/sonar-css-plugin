@@ -34,7 +34,7 @@ public class DisallowStartHackTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/starhack.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(3).withMessage("Disallow star hack")
+      .atLine(3).withMessage("Remove this usage of \"*\"")
       .noMore();
   }
 

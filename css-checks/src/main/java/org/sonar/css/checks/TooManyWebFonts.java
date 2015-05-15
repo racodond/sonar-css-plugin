@@ -40,7 +40,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  */
 @Rule(
   key = "font-faces",
-  name = "Don't use too many web fonts",
+  name = "The number of web fonts should be reduced",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
 @SqaleConstantRemediation("5min")
@@ -75,8 +75,8 @@ public class TooManyWebFonts extends SquidCheck<LexerlessGrammar> {
   @Override
   public void leaveFile(AstNode astNode) {
     if (currentFontFace > fontFaceThreshold) {
-      getContext().createLineViolation(this, "Do not use too many web fonts, the number of font-faces is {0} greater than {1} authorized.", astNode, currentFontFace,
-          fontFaceThreshold);
+      getContext().createLineViolation(this, "Reduce the number of web fonts. The number of "
+        + "@font-face is {0} greater than {1} authorized.", astNode, currentFontFace, fontFaceThreshold);
     }
   }
 

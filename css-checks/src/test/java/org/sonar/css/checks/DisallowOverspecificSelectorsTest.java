@@ -34,9 +34,9 @@ public class DisallowOverspecificSelectorsTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/overspecselector.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(5).withMessage("Disallow overspecified selectors").next()
-      .atLine(8).withMessage("Disallow overspecified selectors").next()
-      .atLine(11).withMessage("Disallow overspecified selectors")
+      .atLine(5).withMessage("Simplify this over-specified selector").next()
+      .atLine(8).withMessage("Simplify this over-specified selector").next()
+      .atLine(11).withMessage("Simplify this over-specified selector")
       .noMore();
   }
 

@@ -38,7 +38,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  */
 @Rule(
   key = "important",
-  name = "Disallow !important",
+  name = "\"!important\" annotation should not be used",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_CHANGEABILITY)
 @SqaleConstantRemediation("1h")
@@ -52,6 +52,6 @@ public class DisallowImportant extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    getContext().createLineViolation(this, "Disallow !important", astNode);
+    getContext().createLineViolation(this, "Remove this usage of the \"!important\" annotation", astNode);
   }
 }

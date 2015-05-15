@@ -34,8 +34,8 @@ public class BulletproofFontFaceTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/fontface.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(1).withMessage("First web font has missing query string or it is not eot").next()
-      .atLine(19).withMessage("First web font has missing query string or it is not eot")
+      .atLine(1).withMessage("Check that the first file is the .eot file and that the workaround for IE is set").next()
+      .atLine(19).withMessage("Check that the first file is the .eot file and that the workaround for IE is set")
       .noMore();
   }
 

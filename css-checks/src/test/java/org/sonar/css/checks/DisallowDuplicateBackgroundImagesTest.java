@@ -34,8 +34,8 @@ public class DisallowDuplicateBackgroundImagesTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/duplicatebackgroundimages.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(7).withMessage("Disallow duplicate background images").next()
-      .atLine(30).withMessage("Disallow duplicate background images").noMore();
+      .atLine(7).withMessage("Remove this duplicated background image").next()
+      .atLine(30).withMessage("Remove this duplicated background image").noMore();
   }
 
 }

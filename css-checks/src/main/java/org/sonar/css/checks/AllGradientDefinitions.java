@@ -44,7 +44,7 @@ import java.util.List;
  */
 @Rule(
   key = "gradients",
-  name = "Require all gradient definitions",
+  name = "Gradient definitions should be set for all vendors",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("10min")
@@ -82,7 +82,7 @@ public class AllGradientDefinitions extends SquidCheck<LexerlessGrammar> {
   public void leaveNode(AstNode astNode) {
     if (astNode != null && astNode.is(CssGrammar.RULESET) && gradientsFound.size() != gradients.size()) {
       for (String exptected : gradientsFound) {
-        getContext().createLineViolation(this, "Missing gradient: " + exptected, astNode);
+        getContext().createLineViolation(this, "Add missing gradient definition: " + exptected, astNode);
       }
     }
   }

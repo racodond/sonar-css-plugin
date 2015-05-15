@@ -34,9 +34,9 @@ public class DisallowUnitsForZeroValuesTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/zerounits.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(2).withMessage("Disallow zero values with units").next()
-      .atLine(6).withMessage("Disallow zero values with units").next()
-      .atLine(10).withMessage("Disallow zero values with units")
+      .atLine(2).withMessage("Remove the unit for this zero value").next()
+      .atLine(6).withMessage("Remove the unit for this zero value").next()
+      .atLine(10).withMessage("Remove the unit for this zero value")
       .noMore();
   }
 

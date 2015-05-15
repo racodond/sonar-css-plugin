@@ -34,8 +34,8 @@ public class DisallowIdsInSelectorTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/idsinselector.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(1).withMessage("Disallow IDs in selectors").next()
-      .atLine(5).withMessage("Disallow IDs in selectors")
+      .atLine(1).withMessage("Remove the ID in this selector").next()
+      .atLine(5).withMessage("Remove the ID in this selector")
       .noMore();
   }
 

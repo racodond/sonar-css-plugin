@@ -39,7 +39,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  */
 @Rule(
   key = "star-property-hack",
-  name = "Disallow star hack",
+  name = "Star hack should not be used",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("1h")
@@ -55,7 +55,7 @@ public class DisallowStarHack extends SquidCheck<LexerlessGrammar> {
   @Override
   public void visitNode(AstNode astNode) {
     if(astNode.getTokenValue().startsWith("*")){
-      getContext().createLineViolation(this, "Disallow star hack", astNode);
+      getContext().createLineViolation(this, "Remove this usage of \"*\"", astNode);
     }
   }
 

@@ -45,7 +45,7 @@ import java.util.Set;
  */
 @Rule(
   key = "box-model",
-  name = "Beware of box model size",
+  name = "\"box-sizing\" property should be specified",
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("1h")
@@ -97,7 +97,7 @@ public class BewareOfBoxModel extends SquidCheck<LexerlessGrammar> {
     if (astNode.is(CssGrammar.RULESET)
       && (combinations.containsAll(Arrays.asList(Combinations.WIDTH_FOUND, Combinations.WIDTH_SIZING))
       || combinations.containsAll(Arrays.asList(Combinations.HEIGHT_FOUND, Combinations.HEIGHT_SIZING)))) {
-      getContext().createLineViolation(this, "Possible box sizing issue", astNode);
+      getContext().createLineViolation(this, "Check this potential box sizing issue", astNode);
     }
   }
 
@@ -146,7 +146,7 @@ public class BewareOfBoxModel extends SquidCheck<LexerlessGrammar> {
   private enum Combinations {
     WIDTH_FOUND, WIDTH_SIZING,
     HEIGHT_FOUND, HEIGHT_SIZING,
-    IS_BOX_SIZING;
+    IS_BOX_SIZING
   }
 
 }
