@@ -44,7 +44,7 @@ public class DisallowEmptyRuleTest {
   public void test2() {
     DisallowEmptyRules check = new DisallowEmptyRules();
     SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/fontface.css"), check);
+      "src/test/resources/checks/boxSizing.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
   }
 
