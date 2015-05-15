@@ -1,12 +1,34 @@
+/* Known property: color => Compliant */
 h1 {
   color:red;
 }
-/* clr isn't a known property */
+
+/* Unknown property: clr => Non-compliant */
 a {
-    clr: red;
+  clr:red;
 }
 
-/* -moz- is a vendor prefix, so ignore */
+/* Vendor-prefixed property: -moz- => Compliant */
 a {
-    -moz-foo: bar;
+  -moz-foo: bar;
+}
+
+/* Known property with '*' hack: color => Compliant */
+a {
+  *color:red;
+}
+
+/* Known property with '_' hack: color => Compliant */
+a {
+  _color:red;
+}
+
+/* Unknown property with '*' hack: clr => Non-compliant */
+a {
+  *clr:red;
+}
+
+/* Unknown property with '_' hack: clr => Non-compliant */
+a {
+  _clr:red;
 }

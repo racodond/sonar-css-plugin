@@ -31,10 +31,11 @@ public class KnownPropertiesTest {
   @Test
   public void test() {
     KnownProperties check = new KnownProperties();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/knownProperty.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/knownProperty.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(6).withMessage("Remove the usage of this unknown property").noMore();
+      .atLine(8).withMessage("Remove the usage of this unknown property: clr").next()
+      .atLine(28).withMessage("Remove the usage of this unknown property: clr").next()
+      .atLine(33).withMessage("Remove the usage of this unknown property: clr").noMore();
   }
 
 }
