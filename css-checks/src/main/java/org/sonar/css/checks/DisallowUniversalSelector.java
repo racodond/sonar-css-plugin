@@ -40,7 +40,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "universal-selector",
   name = "Universal selector should not be used as key part",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = {Tags.PERFORMANCE})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.CPU_EFFICIENCY)
 @SqaleConstantRemediation("1h")
 @ActivatedByDefault
