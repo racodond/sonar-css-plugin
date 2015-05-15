@@ -34,8 +34,8 @@ import java.util.List;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Bulletproof-font-face
- * @author tkende
  *
+ * @author tkende
  */
 @Rule(
   key = "bulletproof-font-face",
@@ -54,24 +54,28 @@ public class BulletproofFontFace extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    if ("font-face".equals(astNode.getFirstChild(CssGrammar.AT_KEYWORD).getFirstChild(CssGrammar.IDENT).getTokenValue())) {
+    if ("font-face".equals(astNode.getFirstChild(CssGrammar.AT_KEYWORD).getFirstChild(CssGrammar.IDENT).getTokenValue()) && !isEmptyFontFace(astNode)) {
       List<AstNode> declarations = astNode.getFirstDescendant(CssGrammar.atRuleBlock).getFirstChild(CssGrammar.SUP_DECLARATION).getChildren(CssGrammar.DECLARATION);
       for (AstNode declaration : declarations) {
         if ("src".equals(declaration.getFirstChild(CssGrammar.PROPERTY).getTokenValue())) {
           String firstAnyFunciontValue = CssChecksUtil.getStringValue(
-              declaration.getFirstChild(CssGrammar.VALUE)
-                  .getFirstChild(CssGrammar.FUNCTION)
-                  .getFirstChild(CssGrammar.parameters)
-                  .getFirstDescendant(CssGrammar.parameter));
+            declaration.getFirstChild(CssGrammar.VALUE)
+              .getFirstChild(CssGrammar.FUNCTION)
+              .getFirstChild(CssGrammar.parameters)
+              .getFirstDescendant(CssGrammar.parameter));
           if (!firstAnyFunciontValue.matches(".*\\.eot\\?.*?['\"]?$")) {
-            getContext().createLineViolation(this, "Check that the first file is the .eot file and that the workaround for "
-              + "IE is set", astNode);
+            getContext().createLineViolation(this,
+              "Check that the first file is the .eot file and that the workaround for IE is set", astNode);
           }
           // We only care about the first function
           return;
         }
       }
     }
+  }
+
+  private boolean isEmptyFontFace(AstNode astNode) {
+    return astNode.getFirstDescendant(CssGrammar.atRuleBlock).getFirstChild(CssGrammar.SUP_DECLARATION) == null;
   }
 
 }
