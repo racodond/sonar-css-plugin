@@ -59,8 +59,8 @@ public final class CheckList {
       VendorPrefixWithStandard.class,
       SelectorNumberThreshold.class,
       ImportNumberThreshold.class,
-      TabCharacterCheck.class
+      TabCharacterCheck.class,
+      MaximumNumberOfRulesPerSheetCheck.class
       );
   }
-
 }
