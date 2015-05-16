@@ -31,5 +31,5 @@ public class Tags {
   private Tags() {
     // This class only defines constants
   }
-  
+
 }

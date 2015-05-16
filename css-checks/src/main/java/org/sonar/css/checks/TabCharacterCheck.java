@@ -19,44 +19,53 @@
  */
 package org.sonar.css.checks;
 
+import com.google.common.io.Files;
 import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.api.utils.SonarException;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.checks.utils.CssProperties;
-import org.sonar.css.parser.CssGrammar;
+import org.sonar.css.CharsetAwareVisitor;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-/**
- * https://github.com/stubbornella/csslint/wiki/Require-use-of-known-properties
- * @author tkende
- *
- */
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;
+
 @Rule(
-  key = "known-properties",
-  name = "Unknown CSS properties should be removed",
-  priority = Priority.MAJOR,
-  tags = {Tags.PITFALL})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
-@SqaleConstantRemediation("10min")
+  key = "tab-character",
+  name = "Tabulation characters should not be used",
+  priority = Priority.MINOR,
+  tags = {Tags.CONVENTION})
 @ActivatedByDefault
-public class KnownProperties extends SquidCheck<LexerlessGrammar> {
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
+@SqaleConstantRemediation("2min")
+public class TabCharacterCheck extends SquidCheck<LexerlessGrammar> implements CharsetAwareVisitor {
+
+  private Charset charset;
 
   @Override
-  public void init() {
-    subscribeTo(CssGrammar.PROPERTY);
+  public void setCharset(Charset charset) {
+    this.charset = charset;
   }
 
   @Override
-  public void visitNode(AstNode astNode) {
-    // Ignore '*' and '_' hacks
-    String property = astNode.getTokenValue().matches("^[\\*_].*$") ? astNode.getTokenValue().substring(1) : astNode.getTokenValue();
-    if (!CssProperties.isVendor(property) && !CssProperties.PROPERTIES.contains(property)) {
-      getContext().createLineViolation(this, "Remove the usage of this unknown property: " + property, astNode);
+  public void visitFile(AstNode astNode) {
+    List<String> lines;
+    try {
+      lines = Files.readLines(getContext().getFile(), charset);
+    } catch (IOException e) {
+      throw new SonarException(e);
+    }
+    for (String line : lines) {
+      if (line.contains("\t")) {
+        getContext().createFileViolation(this, "Replace all tab characters in this file by sequences of white-spaces.");
+        break;
+      }
     }
   }
 

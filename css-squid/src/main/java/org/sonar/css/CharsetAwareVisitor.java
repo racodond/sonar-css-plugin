@@ -17,25 +17,12 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks;
+package org.sonar.css;
 
-import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import java.nio.charset.Charset;
 
-import java.io.File;
+public interface CharsetAwareVisitor {
 
-public class KnownPropertiesTest {
-
-  @Test
-  public void test() {
-    KnownProperties check = new KnownProperties();
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/knownProperty.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(8).withMessage("Remove the usage of this unknown property: clr").next()
-      .atLine(28).withMessage("Remove the usage of this unknown property: clr").next()
-      .atLine(33).withMessage("Remove the usage of this unknown property: clr").noMore();
-  }
+  void setCharset(Charset charset);
 
 }

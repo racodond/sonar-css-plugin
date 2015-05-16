@@ -26,16 +26,22 @@ import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
-public class KnownPropertiesTest {
+public class TabCharacterCheckTest {
+
+  private TabCharacterCheck check = new TabCharacterCheck();
 
   @Test
-  public void test() {
-    KnownProperties check = new KnownProperties();
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/knownProperty.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(8).withMessage("Remove the usage of this unknown property: clr").next()
-      .atLine(28).withMessage("Remove the usage of this unknown property: clr").next()
-      .atLine(33).withMessage("Remove the usage of this unknown property: clr").noMore();
+  public void should_find_tab_characters_and_raise_an_issue() {
+    SourceFile testFile = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/tabcharacter.css"), check);
+    CheckMessagesVerifier.verify(testFile.getCheckMessages()).next()
+      .withMessage("Replace all tab characters in this file by sequences of white-spaces.")
+      .noMore();
+  }
+
+  @Test
+  public void should_not_find_tab_characters_and_not_raise_an_issue() {
+    SourceFile testFile = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/notabcharacter.css"), check);
+    CheckMessagesVerifier.verify(testFile.getCheckMessages()).noMore();
   }
 
 }
