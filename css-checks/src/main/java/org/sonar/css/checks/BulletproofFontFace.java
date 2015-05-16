@@ -47,9 +47,12 @@ import java.util.List;
 @ActivatedByDefault
 public class BulletproofFontFace extends SquidCheck<LexerlessGrammar> {
 
+  boolean foundEot;
+
   @Override
   public void init() {
     subscribeTo(CssGrammar.AT_RULE);
+    foundEot = false;
   }
 
   @Override
@@ -58,14 +61,16 @@ public class BulletproofFontFace extends SquidCheck<LexerlessGrammar> {
       List<AstNode> declarations = astNode.getFirstDescendant(CssGrammar.atRuleBlock).getFirstChild(CssGrammar.SUP_DECLARATION).getChildren(CssGrammar.DECLARATION);
       for (AstNode declaration : declarations) {
         if ("src".equals(declaration.getFirstChild(CssGrammar.PROPERTY).getTokenValue())) {
-          String firstAnyFunciontValue = CssChecksUtil.getStringValue(
+          String firstAnyFunctionValue = CssChecksUtil.getStringValue(
             declaration.getFirstChild(CssGrammar.VALUE)
-              .getFirstChild(CssGrammar.FUNCTION)
-              .getFirstChild(CssGrammar.parameters)
-              .getFirstDescendant(CssGrammar.parameter));
-          if (!firstAnyFunciontValue.matches(".*\\.eot\\?.*?['\"]?$")) {
+              .getFirstChild(CssGrammar.URI)
+              .getFirstChild(CssGrammar._URI_CONTENT));
+          // http://blog.fontspring.com/2011/02/the-new-bulletproof-font-face-syntax/ eot can be in a previous font-face
+          if (!firstAnyFunctionValue.matches(".*\\.eot\\?.*?['\"]?$") && !foundEot) {
             getContext().createLineViolation(this,
               "Check that the first file is the .eot file and that the workaround for IE is set", astNode);
+          } else {
+            foundEot = true;
           }
           // We only care about the first function
           return;

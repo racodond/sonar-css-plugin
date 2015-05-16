@@ -25,6 +25,7 @@ import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
+import java.text.MessageFormat;
 
 public class SelectorNumberThresholdTest {
 
@@ -34,7 +35,7 @@ public class SelectorNumberThresholdTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/S2732.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .withMessage("Reduce the number of selectors. This sheet contains 4,097 selectors, 2 more than the 4,095 maximum.")
+      .withMessage(MessageFormat.format("Reduce the number of selectors. This sheet contains {0,number,integer} selectors, {1,number,integer} more than the {2,number,integer} maximum.", 4097, 2, 4095))
       .noMore();
   }
 

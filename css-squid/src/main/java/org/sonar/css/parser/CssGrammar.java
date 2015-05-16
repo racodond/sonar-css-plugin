@@ -136,7 +136,7 @@ public enum CssGrammar implements GrammarRuleKey {
   _NL,
   _W,
 
-  eof, animationEvent, unit, parameters, comma, parameter, to, from, atRuleBlock, identNoWS;
+  eof, animationEvent, unit, parameters, comma, parameter, to, from, atRuleBlock, identNoWS, _URI_CONTENT;
 
   private static final String NMCHAR_REGEX = "(?i)[_a-z0-9-]";
   private static final String NONASCII_REGEX = "[^\\x00-\\xED]";
@@ -236,6 +236,7 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(ANY)
       .is(
         b.firstOf(
+          URI,
           FUNCTION,
           b.sequence(OPEN_PARENTHESIS,
             b.zeroOrMore(ANY),
@@ -245,7 +246,6 @@ public enum CssGrammar implements GrammarRuleKey {
           PERCENTAGE,
           DIMENSION,
           STRING,
-          URI,
           HASH,
           UNICODE_RANGE,
           INCLUDES,
@@ -274,10 +274,16 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(unit).is(b.firstOf("em", "ex", "ch", "rem", "vw", "vh", "vmin", "vmax", "cm", "mm", "in", "px", "pt", "pc"));
     b.rule(URI).is(
       addSpacing(
-        b.firstOf(b.sequence("url(", _W, STRING, _W, CLOSE_PARENTHESIS), b
-          .sequence("url(", _W, b.zeroOrMore(b.firstOf(
-            b.regexp("[!#$%&*-\\[\\]-~]"), _NONASCII,
-            _ESCAPE)), _W, CLOSE_PARENTHESIS)), b));
+        b.sequence("url(", _URI_CONTENT, CLOSE_PARENTHESIS), b));
+    b.rule(_URI_CONTENT).is(
+      b.sequence(_W, b.firstOf(
+        STRING,
+        b.zeroOrMore(
+          b.firstOf(
+            b.regexp("[!#$%&*-\\[\\]-~]+"),
+            _NONASCII,
+            _ESCAPE))
+      ), _W));
     b.rule(UNICODE_RANGE)
       .is(addSpacing(b.regexp("u\\+[0-9a-f?]{1,6}(-[0-9a-f]{1,6})?"), b));
     b.rule(COLON).is(addSpacing(":", b));
