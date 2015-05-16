@@ -28,9 +28,10 @@ import java.io.File;
 
 public class TabCharacterCheckTest {
 
+  private TabCharacterCheck check = new TabCharacterCheck();
+
   @Test
   public void should_find_tab_characters_and_raise_an_issue() {
-    TabCharacterCheck check = new TabCharacterCheck();
     SourceFile testFile = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/tabcharacter.css"), check);
     CheckMessagesVerifier.verify(testFile.getCheckMessages()).next()
       .withMessage("Replace all tab characters in this file by sequences of white-spaces.")
@@ -39,7 +40,6 @@ public class TabCharacterCheckTest {
 
   @Test
   public void should_not_find_tab_characters_and_not_raise_an_issue() {
-    TabCharacterCheck check = new TabCharacterCheck();
     SourceFile testFile = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/notabcharacter.css"), check);
     CheckMessagesVerifier.verify(testFile.getCheckMessages()).noMore();
   }
