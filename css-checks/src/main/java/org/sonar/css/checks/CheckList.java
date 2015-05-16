@@ -58,8 +58,9 @@ public final class CheckList {
         TooManyWebFonts.class,
         VendorPrefixWithStandard.class,
         SelectorNumberThreshold.class,
-        ImportNumberThreshold.class
-        );
+        ImportNumberThreshold.class,
+        MaximumNumberOfRulesPerSheetCheck.class
+    );
   }
 
 }
