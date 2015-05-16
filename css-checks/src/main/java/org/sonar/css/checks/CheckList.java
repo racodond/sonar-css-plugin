@@ -34,33 +34,33 @@ public final class CheckList {
 
   @SuppressWarnings("rawtypes")
   public static Collection<Class> getChecks() {
-    return ImmutableList.<Class> of(
-        AllGradientDefinitions.class,
-        BulletproofFontFace.class,
-        BewareOfBoxModel.class,
-        CompatibleVendorPrefixes.class,
-        DisallowDuplicateBackgroundImages.class,
-        DisallowEmptyRules.class,
-        DisallowIdsInSelectors.class,
-        DisallowImport.class,
-        DisallowImportant.class,
-        DisallowOverqualifiedElements.class,
-        DisallowOverspecificSelectors.class,
-        DisallowSelectorsLikeRegEx.class,
-        DisallowStarHack.class,
-        DisallowUnderscoreHack.class,
-        DisallowUnitsForZeroValues.class,
-        DisallowUniversalSelector.class,
-        DisplayPropertyGrouping.class,
-        DuplicateProperties.class,
-        KnownProperties.class,
-        ShorthandProperties.class,
-        TooManyWebFonts.class,
-        VendorPrefixWithStandard.class,
-        SelectorNumberThreshold.class,
-        ImportNumberThreshold.class
-        );
+    return ImmutableList.<Class>of(
+      AllGradientDefinitions.class,
+      BulletproofFontFace.class,
+      BewareOfBoxModel.class,
+      CompatibleVendorPrefixes.class,
+      DisallowDuplicateBackgroundImages.class,
+      DisallowEmptyRules.class,
+      DisallowIdsInSelectors.class,
+      DisallowImport.class,
+      DisallowImportant.class,
+      DisallowOverqualifiedElements.class,
+      DisallowOverspecificSelectors.class,
+      DisallowSelectorsLikeRegEx.class,
+      DisallowStarHack.class,
+      DisallowUnderscoreHack.class,
+      DisallowUnitsForZeroValues.class,
+      DisallowUniversalSelector.class,
+      DisplayPropertyGrouping.class,
+      DuplicateProperties.class,
+      KnownProperties.class,
+      ShorthandProperties.class,
+      TooManyWebFonts.class,
+      VendorPrefixWithStandard.class,
+      SelectorNumberThreshold.class,
+      ImportNumberThreshold.class,
+      TabCharacterCheck.class
+      );
   }
 
 }
-
