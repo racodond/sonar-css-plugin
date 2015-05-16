@@ -22,15 +22,13 @@ package org.sonar.css.checks;
 import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.check.BelongsToProfile;
-import org.sonar.check.Cardinality;
-import org.sonar.check.Priority;
-import org.sonar.check.Rule;
-import org.sonar.css.parser.CssGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.util.ArrayList;
@@ -51,8 +49,8 @@ import java.util.List;
 @ActivatedByDefault
 public class ShorthandProperties extends SquidCheck<LexerlessGrammar> {
 
-  private static List<String> margin = ImmutableList.<String> of("margin-left", "margin-right", "margin-top", "margin-bottom");
-  private static List<String> padding = ImmutableList.<String> of("padding-left", "padding-right", "padding-top", "padding-bottom");
+  private static List<String> margin = ImmutableList.<String>of("margin-left", "margin-right", "margin-top", "margin-bottom");
+  private static List<String> padding = ImmutableList.<String>of("padding-left", "padding-right", "padding-top", "padding-bottom");
 
   List<String> properties = new ArrayList<String>();
 
