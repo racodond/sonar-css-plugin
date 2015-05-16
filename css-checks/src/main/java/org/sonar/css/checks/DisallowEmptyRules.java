@@ -19,6 +19,7 @@
  */
 package org.sonar.css.checks;
 
+import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
@@ -45,6 +46,12 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @ActivatedByDefault
 public class DisallowEmptyRules extends SquidCheck<LexerlessGrammar> {
 
+  private static final ImmutableList<String> AT_RULES_NOT_REQUIRING_DECLARATION_BLOCK = ImmutableList.of(
+    "charset",
+    "import",
+    "namespace"
+    );
+
   int counter = 0;
 
   @Override
@@ -63,8 +70,14 @@ public class DisallowEmptyRules extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (astNode.is(CssGrammar.RULESET, CssGrammar.AT_RULE) && counter == 0) {
+    if (counter == 0 && (astNode.is(CssGrammar.RULESET) || isAtRuleRequiringBlock(astNode))) {
       getContext().createLineViolation(this, "Remove this empty rule", astNode);
     }
+  }
+
+  private boolean isAtRuleRequiringBlock(AstNode astNode) {
+    return astNode.is(CssGrammar.AT_RULE)
+      && !AT_RULES_NOT_REQUIRING_DECLARATION_BLOCK.contains(astNode.getFirstChild(CssGrammar.AT_KEYWORD).getFirstChild(CssGrammar
+        .IDENT).getTokenValue());
   }
 }
