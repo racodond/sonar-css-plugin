@@ -34,10 +34,13 @@ public class DisallowEmptyRuleTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/emptyRule.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(4).withMessage("Remove this empty rule").next()
-      .atLine(6).withMessage("Remove this empty rule").next()
-      .atLine(10).withMessage("Remove this empty rule").next()
-      .atLine(14).withMessage("Remove this empty rule").noMore();
+      .atLine(5).withMessage("Remove this empty rule").next()
+      .atLine(7).withMessage("Remove this empty rule").next()
+      .atLine(11).withMessage("Remove this empty rule").next()
+      .atLine(16).withMessage("Remove this empty rule").next()
+      .atLine(17).withMessage("Remove this empty rule").next()
+      .atLine(18).withMessage("Remove this empty rule").next()
+      .atLine(19).withMessage("Remove this empty rule").noMore();
   }
 
   @Test
