@@ -43,7 +43,7 @@ public class MaximumNumberOfRulesPerSheetCheck extends SquidCheck<LexerlessGramm
 
   @RuleProperty(
     key = "Max",
-    description = "Maximum number of rules per stylesheet",
+    description = "The maximum allowed number of rules per stylesheet",
     defaultValue = "" + DEFAULT_MAX_RULES)
   private int max = DEFAULT_MAX_RULES;
 

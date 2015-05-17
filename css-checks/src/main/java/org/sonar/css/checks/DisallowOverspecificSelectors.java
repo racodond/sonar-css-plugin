@@ -46,8 +46,10 @@ public class DisallowOverspecificSelectors extends SquidCheck<LexerlessGrammar> 
 
   private static final int DEFAULT_NUM_LEVELS = 3;
 
-  @RuleProperty(key = "deepnessThreshold", defaultValue = ""
-    + DEFAULT_NUM_LEVELS)
+  @RuleProperty(
+    key = "deepnessThreshold",
+    description = "The maximum allowed depth of a selector",
+    defaultValue = "" + DEFAULT_NUM_LEVELS)
   private int deepnessThreshold = DEFAULT_NUM_LEVELS;
 
   private int deepness;
