@@ -34,8 +34,8 @@ public class DisallowImportTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/import.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(1).withMessage("Remove this @import").next()
-      .atLine(2).withMessage("Remove this @import")
+      .atLine(1).withMessage("Remove this @import rule").next()
+      .atLine(2).withMessage("Remove this @import rule")
       .noMore();
   }
 

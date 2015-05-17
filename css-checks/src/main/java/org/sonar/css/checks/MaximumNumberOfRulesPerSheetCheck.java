@@ -34,14 +34,17 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   key = "sheet-too-many-rules",
   name = "Stylesheets should not contain too many rules",
   priority = Priority.MAJOR,
-  tags = {Tags.DESIGN})
+  tags = {Tags.DESIGN, Tags.PERFORMANCE})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_CHANGEABILITY)
 @SqaleLinearRemediation(coeff = "5min", effortToFixDescription = "number of rules beyond the limit")
 public class MaximumNumberOfRulesPerSheetCheck extends SquidCheck<LexerlessGrammar> {
 
   private static final int DEFAULT_MAX_RULES = 500;
 
-  @RuleProperty(key = "maxRules", description = "Maximum number of rules per sheet")
+  @RuleProperty(
+    key = "Max",
+    description = "Maximum number of rules per stylesheet",
+    defaultValue = "" + DEFAULT_MAX_RULES)
   private int max = DEFAULT_MAX_RULES;
 
   private int currentRuleCount;

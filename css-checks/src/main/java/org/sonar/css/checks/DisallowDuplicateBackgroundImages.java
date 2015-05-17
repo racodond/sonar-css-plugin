@@ -42,7 +42,7 @@ import java.util.Set;
   key = "duplicate-background-images",
   name = "Duplicated background images should be removed",
   priority = Priority.MAJOR,
-  tags = {Tags.DESIGN})
+  tags = {Tags.DESIGN, Tags.PERFORMANCE})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.DATA_CHANGEABILITY)
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
