@@ -1,13 +1,12 @@
-<h2>Disallow !important</h2>
-<p>
-The !important annotation is used to artificially increase the specificity of a given property value in a rule. This is usually an indication that the specificity of the entire CSS has gotten a bit out of control and needs to be refactored. The more frequently !important is found in CSS, the more likely it is that developers are having trouble styling parts of a page effectively.
-</p>
-<p>
-Example:
+<p>The <code>!important</code> annotation is used to artificially increase the specificity of a given property value in a rule. This is usually an indication that the specificity of the entire CSS has gotten a bit out of control and needs to be refactored. The more frequently <code>!important</code> is found in CSS, the more likely it is that developers are having trouble styling parts of a page effectively.</p>
+<h2>Noncompliant Code Example</h2>
 <pre>
 .mybox {
-    color: red !important;
+  color: red !important;
 }
 </pre>
 </p>
-<p>Find more details <a href="https://github.com/stubbornella/csslint/wiki/Disallow-!important">here</a></p>
+<h2>See</h2>
+<ul>
+  <li><a href="https://github.com/stubbornella/csslint/wiki/Disallow-!important">CSSLint rule documentation</a></li>
+</ul>

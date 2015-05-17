@@ -1,12 +1,17 @@
-<h2>Disallow empty rules</h2>
-<p>
-An empty rule is one that doesn't contain any properties, such as:
-</p>
+<p>An empty rule is one that doesn't contain any properties. A lot of times, empty rules appear as a result of refactoring without further cleanup. Eliminating empty rules results in smaller file sizes and less style information for the browser to deal with.</p>
+<h2>Noncompliant Code Example</h2>
 <pre>
 .foo {
 }
+
+.foo {
+  /* blabla */
+}
+
+@font-face {
+}
 </pre>
-<p>
-A lot of times, empty rules appear as a result of refactoring without further cleanup. Eliminating empty rules results in smaller file sizes and less style information for the browser to deal with.
-</p>
-<p>Find more details <a href="https://github.com/stubbornella/csslint/wiki/Disallow-empty-rules">here</a></p>
+<h2>See</h2>
+<ul>
+  <li><a href="https://github.com/stubbornella/csslint/wiki/Disallow-empty-rules">CSSLint rule documentation</a></li>
+</ul>

@@ -34,8 +34,8 @@ public class BewareOfBoxModelTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/boxSizing.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(14).withMessage("Check this potential box sizing issue").next()
-      .atLine(33).withMessage("Check this potential box sizing issue").noMore();
+      .atLine(14).withMessage("Check this potential box model size issue").next()
+      .atLine(33).withMessage("Check this potential box model size issue").noMore();
   }
 
   @Test
