@@ -61,6 +61,7 @@ public final class CheckList {
       ShorthandProperties.class,
       TabCharacterCheck.class,
       TrailingWhitespaceCheck.class,
+      TodoTagPresenceCheck.class,
       TooManyWebFonts.class,
       VendorPrefixWithStandard.class
       );
