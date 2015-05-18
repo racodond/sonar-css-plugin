@@ -28,24 +28,24 @@ import java.io.File;
 
 public class TodoTagPresenceCheckTest {
 
+  private final static String MESSAGE = "Complete the task associated to this TODO comment.";
+  private TodoTagPresenceCheck check = new TodoTagPresenceCheck();
+
   @Test
   public void should_contain_todo_tags_and_raise_issues() {
-    TodoTagPresenceCheck check = new TodoTagPresenceCheck();
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/todoTagPresence.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(1).withMessage("Complete the task associated to this TODO comment.").next()
-      .atLine(6).withMessage("Complete the task associated to this TODO comment.").next()
-      .atLine(11).withMessage("Complete the task associated to this TODO comment.").next()
-      .atLine(19).withMessage("Complete the task associated to this TODO comment.").next()
-      .atLine(24).withMessage("Complete the task associated to this TODO comment.").next()
-      .atLine(25).withMessage("Complete the task associated to this TODO comment.").next()
-      .atLine(32).withMessage("Complete the task associated to this TODO comment.")
-      .noMore();
+      .atLine(1).withMessage(MESSAGE).next()
+      .atLine(6).withMessage(MESSAGE).next()
+      .atLine(11).withMessage(MESSAGE).next()
+      .atLine(19).withMessage(MESSAGE).next()
+      .atLine(24).withMessage(MESSAGE).next()
+      .atLine(25).withMessage(MESSAGE).next()
+      .atLine(32).withMessage(MESSAGE).noMore();
   }
 
   @Test
   public void should_not_contain_todo_tags_and_not_raise_issues() {
-    ExperimentalPropertyUsageCheck check = new ExperimentalPropertyUsageCheck();
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/emptyRule.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
   }
