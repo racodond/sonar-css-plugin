@@ -44,8 +44,8 @@ public class TodoTagPresenceCheckTest {
       .atLine(32).withMessage(MESSAGE).noMore();
   }
 
-    @Test
-    public void should_not_contain_todo_tags_and_not_raise_issues() {
+  @Test
+  public void should_not_contain_todo_tags_and_not_raise_issues() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/emptyRule.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
   }
