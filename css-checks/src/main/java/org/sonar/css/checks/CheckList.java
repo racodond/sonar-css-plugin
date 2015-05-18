@@ -53,14 +53,15 @@ public final class CheckList {
       DisallowUniversalSelector.class,
       DisplayPropertyGrouping.class,
       DuplicateProperties.class,
-      KnownProperties.class,
-      ShorthandProperties.class,
-      TooManyWebFonts.class,
-      VendorPrefixWithStandard.class,
-      SelectorNumberThreshold.class,
       ImportNumberThreshold.class,
+      KnownProperties.class,
+      MaximumNumberOfRulesPerSheetCheck.class,
+      SelectorNumberThreshold.class,
+      ShorthandProperties.class,
       TabCharacterCheck.class,
-      MaximumNumberOfRulesPerSheetCheck.class
+      TrailingWhitespaceCheck.class,
+      TooManyWebFonts.class,
+      VendorPrefixWithStandard.class
       );
   }
 }
