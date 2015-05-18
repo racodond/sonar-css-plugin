@@ -1,0 +1,8 @@
+.mybox {
+  -moz-border-radius: 5px;
+}
+
+.mybox {
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+}

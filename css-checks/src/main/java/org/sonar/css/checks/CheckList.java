@@ -53,6 +53,7 @@ public final class CheckList {
       DisallowUniversalSelector.class,
       DisplayPropertyGrouping.class,
       DuplicateProperties.class,
+      ExperimentalPropertyUsageCheck.class,
       ImportNumberThreshold.class,
       KnownProperties.class,
       MaximumNumberOfRulesPerSheetCheck.class,
