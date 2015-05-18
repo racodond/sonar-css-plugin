@@ -26,14 +26,14 @@ import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
-public class TodoTagPresenceCheckTest {
+public class FixmeTagPresenceCheckTest {
 
-  private final static String MESSAGE = "Complete the task associated to this TODO comment.";
-  private TodoTagPresenceCheck check = new TodoTagPresenceCheck();
+  private final static String MESSAGE = "Take the required action to fix the issue indicated by this comment.";
+  private FixmeTagPresenceCheck check = new FixmeTagPresenceCheck();
 
   @Test
   public void should_contain_todo_tags_and_raise_issues() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/todoTagPresence.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/fixmeTagPresence.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(1).withMessage(MESSAGE).next()
       .atLine(6).withMessage(MESSAGE).next()
@@ -44,8 +44,8 @@ public class TodoTagPresenceCheckTest {
       .atLine(32).withMessage(MESSAGE).noMore();
   }
 
-    @Test
-    public void should_not_contain_todo_tags_and_not_raise_issues() {
+  @Test
+  public void should_not_contain_todo_tags_and_not_raise_issues() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/emptyRule.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
   }
