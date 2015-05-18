@@ -48,8 +48,10 @@ public class TooManyWebFonts extends SquidCheck<LexerlessGrammar> {
 
   private static final int DEFAULT_THRESHOLD = 2;
 
-  @RuleProperty(key = "fontFaceThreshold", defaultValue = ""
-    + DEFAULT_THRESHOLD)
+  @RuleProperty(
+    key = "fontFaceThreshold",
+    description = "The maximum allowed number of fonts defined per stylesheet",
+    defaultValue = "" + DEFAULT_THRESHOLD)
   private int fontFaceThreshold = DEFAULT_THRESHOLD;
 
   private int currentFontFace;
@@ -75,7 +77,7 @@ public class TooManyWebFonts extends SquidCheck<LexerlessGrammar> {
   public void leaveFile(AstNode astNode) {
     if (currentFontFace > fontFaceThreshold) {
       getContext().createFileViolation(this, "Reduce the number of web fonts. The number of "
-          + "@font-face is {0} greater than {1} authorized.", currentFontFace, fontFaceThreshold);
+        + "@font-face is {0} greater than {1} authorized.", currentFontFace, fontFaceThreshold);
     }
   }
 

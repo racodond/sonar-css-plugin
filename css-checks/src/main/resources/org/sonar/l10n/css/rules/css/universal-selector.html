@@ -1,13 +1,14 @@
-<h2>Disallow universal selector</h2>
-<p>
-The universal selector (*) matches all elements. Though convenient for selecting a group of elements at a time, the universal selector causes performance issues when used as the key part (far-right) of a selector. For example, this type of rule should be avoided:
+<p>The universal selector (<code>*</code>) matches all elements. Though convenient for selecting a group of elements at a time, the universal selector causes performance issues when used as the key part (far-right) of a selector. For example, this type of rule should be avoided:
 <pre>
 .mybox * {
-    background: #fff;
-    color: #000;
-    background: rgba(255, 255, 255, 0.5);
+  background: #fff;
+  color: #000;
+  background: rgba(255, 255, 255, 0.5);
 }
 </pre>
-Browsers evaluate selectors from right-to-left, so this rule begins by first matching every element in the document. After that, each of those elements must be inspected to see if it matches the next criteria, which is having an ancestor with the class of mybox. The more complex the selector containing *, the slower the evaluation becomes. For this reason, it's recommended to avoid using the universal selector as the key part of a selector.
+Browsers evaluate selectors from right-to-left, so this rule begins by first matching every element in the document. After that, each of those elements must be inspected to see if it matches the next criteria, which is having an ancestor with the class of mybox. The more complex the selector containing <code>*</code>, the slower the evaluation becomes. For this reason, it's recommended to avoid using the universal selector as the key part of a selector.
 </p>
-<p>Find more details <a href="https://github.com/stubbornella/csslint/wiki/Disallow-universal-selector">here</a></p>
+<h2>See</h2>
+<ul>
+  <li><a href="https://github.com/stubbornella/csslint/wiki/Disallow-universal-selector">CSSLint rule documentation</a></li>
+</ul>

@@ -34,9 +34,36 @@ public class BulletproofFontFaceTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/fontface.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(1).withMessage("Check that the first file is the .eot file and that the workaround for IE is set").next()
-      .atLine(19).withMessage("Check that the first file is the .eot file and that the workaround for IE is set")
+      .atLine(1).withMessage("Check that the first file is the .eot file and that the workaround for IE is set")
       .noMore();
+  }
+
+
+  @Test
+  public void test3() {
+    BulletproofFontFace check = new BulletproofFontFace();
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/fontface2.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
+  }
+
+  @Test
+  public void test4() {
+    BulletproofFontFace check = new BulletproofFontFace();
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/fontface3.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(1).withMessage("Check that the first file is the .eot file and that the workaround for IE is set")
+      .noMore();
+  }
+
+
+  @Test
+  public void test2(){
+    BulletproofFontFace check = new BulletproofFontFace();
+    SourceFile file = CssAstScanner.scanSingleFile(new File(
+      "src/test/resources/checks/sonarcss-19.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
   }
 
 }

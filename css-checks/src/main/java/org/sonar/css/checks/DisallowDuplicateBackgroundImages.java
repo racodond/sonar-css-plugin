@@ -42,7 +42,7 @@ import java.util.Set;
   key = "duplicate-background-images",
   name = "Duplicated background images should be removed",
   priority = Priority.MAJOR,
-  tags = {Tags.DESIGN})
+  tags = {Tags.DESIGN, Tags.PERFORMANCE})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.DATA_CHANGEABILITY)
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
@@ -58,9 +58,9 @@ public class DisallowDuplicateBackgroundImages extends SquidCheck<LexerlessGramm
   @Override
   public void visitNode(AstNode astNode) {
     if(astNode.getTokenValue().startsWith("background")){
-      AstNode func = astNode.getParent().getFirstChild(CssGrammar.VALUE).getFirstChild(CssGrammar.FUNCTION);
-      if(func!=null && "url".equals(func.getFirstChild(CssGrammar.IDENT).getTokenValue()) && func.getFirstChild(CssGrammar.parameters) != null) {
-        String url = CssChecksUtil.getStringValue(func.getFirstChild(CssGrammar.parameters).getFirstChild(CssGrammar.parameter)).replaceAll("['\"]", "");
+      AstNode uri = astNode.getParent().getFirstChild(CssGrammar.VALUE).getFirstChild(CssGrammar.URI);
+      if(uri!=null) {
+        String url = CssChecksUtil.getStringValue(uri.getFirstChild(CssGrammar._URI_CONTENT)).replaceAll("['\"]", "");
         if(!urls.add(url)){
           getContext().createLineViolation(this, "Remove this duplicated background image", astNode);
         }
