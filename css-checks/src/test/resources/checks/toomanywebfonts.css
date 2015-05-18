@@ -2,40 +2,40 @@
     font-family: 'MyFontFamily1';
 
     /* First web font is missing query string */
-    src: url('myfont-webfont.eot') format('embedded-opentype'), 
-        url('myfont-webfont.woff') format('woff'), 
+    src: url('myfont-webfont.eot') format('embedded-opentype'),
+        url('myfont-webfont.woff') format('woff'),
         url('myfont-webfont.ttf')  format('truetype'),
         url('myfont-webfont.svg#svgFontName') format('svg');
 }
 
 @font-face {
     font-family: 'MyFontFamily2';
-    src: url('myfont-webfont.eot?#iefix') format('embedded-opentype'), 
-        url('myfont-webfont.woff') format('woff'), 
+    src: url('myfont-webfont.eot?#iefix') format('embedded-opentype'),
+        url('myfont-webfont.woff') format('woff'),
         url('myfont-webfont.ttf')  format('truetype'),
         url('myfont-webfont.svg#svgFontName') format('svg');
 }
 
 @font-face {
     font-family: 'MyFontFamily3';
-    src: url('myfont-webfont.woff?#wohoo') format('woff'), 
-	url('myfont-webfont.eot?#iefix') format('embedded-opentype'), 
+    src: url('myfont-webfont.woff?#wohoo') format('woff'),
+	url('myfont-webfont.eot?#iefix') format('embedded-opentype'),
         url('myfont-webfont.ttf')  format('truetype'),
         url('myfont-webfont.svg#svgFontName') format('svg');
 }
 
 @font-face {
     font-family: 'MyFontFamily4';
-    src: url('myfont-webfont.woff?#wohoo') format('woff'), 
-	url('myfont-webfont.eot?#iefix') format('embedded-opentype'), 
+    src: url('myfont-webfont.woff?#wohoo') format('woff'),
+	url('myfont-webfont.eot?#iefix') format('embedded-opentype'),
         url('myfont-webfont.ttf')  format('truetype'),
         url('myfont-webfont.svg#svgFontName') format('svg');
 }
 
 @font-face {
     font-family: 'MyFontFamily5';
-    src: url('myfont-webfont.woff?#wohoo') format('woff'), 
-	url('myfont-webfont.eot?#iefix') format('embedded-opentype'), 
+    src: url('myfont-webfont.woff?#wohoo') format('woff'),
+	url('myfont-webfont.eot?#iefix') format('embedded-opentype'),
         url('myfont-webfont.ttf')  format('truetype'),
         url('myfont-webfont.svg#svgFontName') format('svg');
 }
