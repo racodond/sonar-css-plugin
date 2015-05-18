@@ -36,6 +36,7 @@ public final class CheckList {
   public static Collection<Class> getChecks() {
     return ImmutableList.<Class>of(
       AllGradientDefinitions.class,
+      AlphabetizeDeclarationsCheck.class,
       BulletproofFontFace.class,
       BewareOfBoxModel.class,
       CompatibleVendorPrefixes.class,
