@@ -1,0 +1,50 @@
+/* Compliant */
+h1 {
+}
+
+/* Compliant */
+h1 {
+  color: red;
+}
+
+/* Compliant */
+h1 {
+  background-color: blue;
+  color: red;
+}
+
+/* Noncompliant */
+h1 {
+  background-color: blue
+}
+
+/* Noncompliant */
+h1 {
+  background-color: blue;
+  *color: red
+}
+
+/* Noncompliant */
+h1 {
+  background-color: blue;
+  _color: red;
+  width: 10px
+}
+
+/* Compliant */
+@font-face {
+  font-family: 'MyFontFamily';
+  src: url('myfont-webfont.woff?#wohoo') format('woff'),
+       url('myfont-webfont.eot?#iefix') format('embedded-opentype'),
+       url('myfont-webfont.ttf')  format('truetype'),
+       url('myfont-webfont.svg#svgFontName') format('svg');
+}
+
+/* Noncompliant */
+@font-face {
+  font-family: 'MyFontFamily';
+  src: url('myfont-webfont.woff?#wohoo') format('woff'),
+       url('myfont-webfont.eot?#iefix') format('embedded-opentype'),
+       url('myfont-webfont.ttf')  format('truetype'),
+       url('myfont-webfont.svg#svgFontName') format('svg')
+}
