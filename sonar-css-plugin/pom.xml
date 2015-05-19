@@ -38,6 +38,12 @@
       <scope>provided</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.codehaus.sonar</groupId>
+      <artifactId>sonar-deprecated</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
     <!-- dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
