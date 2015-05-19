@@ -23,6 +23,7 @@ import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.rule.CheckFactory;
 import org.sonar.api.batch.rule.Checks;
+import org.sonar.api.checks.NoSonarFilter;
 import org.sonar.api.issue.Issuable;
 import org.sonar.api.issue.Issue;
 import org.sonar.api.measures.CoreMetrics;
@@ -50,6 +51,7 @@ import java.util.Collection;
 public class CssSquidSensor implements Sensor {
 
   private final CheckFactory checkFactory;
+  private final NoSonarFilter noSonarFilter;
 
   private Project project;
   private SensorContext context;
@@ -57,10 +59,11 @@ public class CssSquidSensor implements Sensor {
   private final SonarComponents sonarComponents;
   private final ModuleFileSystem moduleFileSystem;
 
-  public CssSquidSensor(RulesProfile profile, SonarComponents sonarComponents, ModuleFileSystem moduleFileSystem, CheckFactory checkFactory) {
+  public CssSquidSensor(RulesProfile profile, SonarComponents sonarComponents, ModuleFileSystem moduleFileSystem, CheckFactory checkFactory, NoSonarFilter noSonarFilter) {
     this.checkFactory = checkFactory;
     this.sonarComponents = sonarComponents;
     this.moduleFileSystem = moduleFileSystem;
+    this.noSonarFilter = noSonarFilter;
   }
 
   @Override
@@ -90,6 +93,10 @@ public class CssSquidSensor implements Sensor {
       SourceFile squidFile = (SourceFile) squidSourceFile;
 
       File sonarFile = File.fromIOFile(new java.io.File(squidFile.getKey()), project);
+
+      if (sonarFile != null) {
+        noSonarFilter.addResource(sonarFile, squidFile.getNoSonarTagLines());
+      }
 
       saveMeasures(sonarFile, squidFile);
       saveViolations(sonarFile, squidFile, checks);

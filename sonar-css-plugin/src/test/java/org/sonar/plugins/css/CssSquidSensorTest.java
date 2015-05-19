@@ -29,6 +29,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.rule.CheckFactory;
+import org.sonar.api.checks.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
@@ -69,14 +70,14 @@ public class CssSquidSensorTest {
     checkFactory = mock(CheckFactory.class);
     when(checkFactory.create(Mockito.anyString())).thenReturn(mock(Checks.class)); //not sure what to mock here
 
-    sensor = new CssSquidSensor(mock(RulesProfile.class), null, fileSystem, mock(CheckFactory.class));
+    sensor = new CssSquidSensor(mock(RulesProfile.class), null, fileSystem, mock(CheckFactory.class), mock(NoSonarFilter.class));
   }
 
   @Test
   public void should_execute_on() {
     Project project = new Project("key");
     ModuleFileSystem fs = mock(ModuleFileSystem.class);
-    CssSquidSensor cssSensor = new CssSquidSensor(mock(RulesProfile.class), mock(SonarComponents.class), fs, mock(CheckFactory.class));
+    CssSquidSensor cssSensor = new CssSquidSensor(mock(RulesProfile.class), mock(SonarComponents.class), fs, mock(CheckFactory.class), mock(NoSonarFilter.class));
 
     when(fs.files(Mockito.any(FileQuery.class))).thenReturn(ListUtils.EMPTY_LIST);
     assertThat(cssSensor.shouldExecuteOnProject(project)).isFalse();
