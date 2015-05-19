@@ -19,19 +19,22 @@
  */
 package org.sonar.plugins.css;
 
+import com.google.common.collect.Lists;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.batch.fs.FileSystem;
+import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.batch.fs.InputFile.Type;
+import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.batch.rule.CheckFactory;
 import org.sonar.api.batch.rule.Checks;
-import org.sonar.api.checks.NoSonarFilter;
 import org.sonar.api.issue.Issuable;
 import org.sonar.api.issue.Issue;
+import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.resources.File;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rule.RuleKey;
-import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.css.CssAstScanner;
 import org.sonar.css.CssConfiguration;
 import org.sonar.css.api.CssMetric;
@@ -46,6 +49,7 @@ import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.indexer.QueryByType;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import java.io.File;
 import java.util.Collection;
 
 public class CssSquidSensor implements Sensor {
@@ -53,49 +57,51 @@ public class CssSquidSensor implements Sensor {
   private final CheckFactory checkFactory;
   private final NoSonarFilter noSonarFilter;
 
-  private Project project;
   private SensorContext context;
   private AstScanner<LexerlessGrammar> scanner;
   private final SonarComponents sonarComponents;
-  private final ModuleFileSystem moduleFileSystem;
+  private final FileSystem fs;
 
-  public CssSquidSensor(RulesProfile profile, SonarComponents sonarComponents, ModuleFileSystem moduleFileSystem, CheckFactory checkFactory, NoSonarFilter noSonarFilter) {
+  public CssSquidSensor(RulesProfile profile, SonarComponents sonarComponents, FileSystem fs, CheckFactory checkFactory, NoSonarFilter noSonarFilter) {
     this.checkFactory = checkFactory;
     this.sonarComponents = sonarComponents;
-    this.moduleFileSystem = moduleFileSystem;
+    this.fs = fs;
     this.noSonarFilter = noSonarFilter;
   }
 
   @Override
   public boolean shouldExecuteOnProject(Project project) {
-    return !moduleFileSystem.files(Css.SOURCE_QUERY).isEmpty();
+    return filesToAnalyze().iterator().hasNext();
   }
 
   @Override
   public void analyse(Project project, SensorContext context) {
-    this.project = project;
     this.context = context;
 
     Checks<SquidAstVisitor> checks = checkFactory.<SquidAstVisitor>create(CheckList.REPOSITORY_KEY).addAnnotatedChecks(CheckList.getChecks());
     Collection<SquidAstVisitor> checkList = checks.all();
-    //List<SquidAstVisitor<LexerlessGrammar>> visitors = Lists.newArrayList(squidChecks);
-    CssConfiguration conf = new CssConfiguration(moduleFileSystem.sourceCharset());
+    // List<SquidAstVisitor<LexerlessGrammar>> visitors = Lists.newArrayList(squidChecks);
+    CssConfiguration conf = new CssConfiguration(fs.encoding());
     this.scanner = CssAstScanner.create(conf, sonarComponents, checkList.toArray(new SquidAstVisitor[checkList.size()]));
-    scanner.scanFiles(moduleFileSystem.files(Css.SOURCE_QUERY));
+    scanner.scanFiles(Lists.newArrayList(filesToAnalyze()));
 
     Collection<SourceCode> squidSourceFiles = scanner.getIndex().search(
       new QueryByType(SourceFile.class));
     save(squidSourceFiles, checks);
   }
 
+  private Iterable<File> filesToAnalyze() {
+    return fs.files(fs.predicates().and(fs.predicates().hasLanguage(Css.KEY), fs.predicates().hasType(Type.MAIN)));
+  }
+
   private void save(Collection<SourceCode> squidSourceFiles, Checks<SquidAstVisitor> checks) {
     for (SourceCode squidSourceFile : squidSourceFiles) {
       SourceFile squidFile = (SourceFile) squidSourceFile;
 
-      File sonarFile = File.fromIOFile(new java.io.File(squidFile.getKey()), project);
+      InputFile sonarFile = fs.inputFile(fs.predicates().hasAbsolutePath(squidFile.getKey()));
 
       if (sonarFile != null) {
-        noSonarFilter.addResource(sonarFile, squidFile.getNoSonarTagLines());
+        noSonarFilter.addComponent(((DefaultInputFile) sonarFile).key(), squidFile.getNoSonarTagLines());
       }
 
       saveMeasures(sonarFile, squidFile);
@@ -103,7 +109,7 @@ public class CssSquidSensor implements Sensor {
     }
   }
 
-  private void saveMeasures(File sonarFile, SourceFile squidFile) {
+  private void saveMeasures(InputFile sonarFile, SourceFile squidFile) {
     context.saveMeasure(sonarFile, CoreMetrics.FILES, squidFile.getDouble(CssMetric.FILES));
     context.saveMeasure(sonarFile, CoreMetrics.LINES, squidFile.getDouble(CssMetric.LINES));
     context.saveMeasure(sonarFile, CoreMetrics.NCLOC, squidFile.getDouble(CssMetric.LINES_OF_CODE));
@@ -111,7 +117,7 @@ public class CssSquidSensor implements Sensor {
     context.saveMeasure(sonarFile, CoreMetrics.COMMENT_LINES, squidFile.getDouble(CssMetric.COMMENT_LINES));
   }
 
-  private void saveViolations(File sonarFile, SourceFile squidFile, Checks<SquidAstVisitor> checks) {
+  private void saveViolations(InputFile sonarFile, SourceFile squidFile, Checks<SquidAstVisitor> checks) {
     Collection<CheckMessage> messages = squidFile.getCheckMessages();
     if (messages != null) {
       for (CheckMessage message : messages) {

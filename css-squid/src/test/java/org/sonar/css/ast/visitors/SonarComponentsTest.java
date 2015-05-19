@@ -20,9 +20,12 @@
 package org.sonar.css.ast.visitors;
 
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.sonar.api.batch.fs.FilePredicate;
+import org.sonar.api.batch.fs.FilePredicates;
+import org.sonar.api.batch.fs.FileSystem;
+import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.component.ResourcePerspectives;
-import org.sonar.api.resources.Project;
-import org.sonar.api.resources.Resource;
 import org.sonar.api.source.Highlightable;
 
 import java.io.File;
@@ -30,6 +33,7 @@ import java.io.File;
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class SonarComponentsTest {
 
@@ -37,26 +41,22 @@ public class SonarComponentsTest {
   public void highlightableFor() {
 
     ResourcePerspectives resourcePerspectives = mock(ResourcePerspectives.class);
+    InputFile inputFile = mock(InputFile.class);
     File file = mock(File.class);
-    final Resource resource = mock(Resource.class);
+    FileSystem fs = mock(FileSystem.class);
+    when(fs.predicates()).thenReturn(mock(FilePredicates.class));
+    when(fs.inputFile(Mockito.any(FilePredicate.class))).thenReturn(inputFile);
 
-    SonarComponents sonarComponents = new SonarComponents(resourcePerspectives, mock(Project.class)) {
-
-      @Override
-      public Resource resourceFromIOFile(File file) {
-        return resource;
-      }
-
-    };
+    SonarComponents sonarComponents = new SonarComponents(resourcePerspectives, fs);
 
     sonarComponents.highlightableFor(file);
-    verify(resourcePerspectives).as(Highlightable.class, resource);
+    verify(resourcePerspectives).as(Highlightable.class, inputFile);
   }
 
   @Test
   public void getResourcePerspectives() {
     ResourcePerspectives resourcePerspectives = mock(ResourcePerspectives.class);
-    SonarComponents sonarComponents = new SonarComponents(resourcePerspectives, mock(Project.class));
+    SonarComponents sonarComponents = new SonarComponents(resourcePerspectives, mock(FileSystem.class));
     assertThat(sonarComponents.getResourcePerspectives()).isSameAs(resourcePerspectives);
   }
 

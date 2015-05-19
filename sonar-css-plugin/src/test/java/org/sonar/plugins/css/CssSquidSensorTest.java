@@ -19,26 +19,25 @@
  */
 package org.sonar.plugins.css;
 
-import org.sonar.api.batch.rule.Checks;
-
-import org.junit.Ignore;
 import com.google.common.collect.ImmutableList;
 import org.apache.commons.collections.ListUtils;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.batch.fs.FilePredicate;
+import org.sonar.api.batch.fs.FilePredicates;
+import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.rule.CheckFactory;
-import org.sonar.api.checks.NoSonarFilter;
+import org.sonar.api.batch.rule.Checks;
+import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
-import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.api.resources.Resource;
-import org.sonar.api.scan.filesystem.FileQuery;
-import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.css.ast.visitors.SonarComponents;
 
 import java.io.File;
@@ -53,7 +52,7 @@ import static org.mockito.Mockito.when;
 public class CssSquidSensorTest {
 
   private CssSquidSensor sensor;
-  private ModuleFileSystem fileSystem;
+  private FileSystem fs;
   private FileLinesContextFactory fileLinesContextFactory;
   private CheckFactory checkFactory;
 
@@ -63,26 +62,28 @@ public class CssSquidSensorTest {
     FileLinesContext fileLinesContext = mock(FileLinesContext.class);
     when(fileLinesContextFactory.createFor(Mockito.any(Resource.class))).thenReturn(fileLinesContext);
 
-    fileSystem = mock(ModuleFileSystem.class);
-    when(fileSystem.files(Mockito.any(FileQuery.class))).thenReturn(Arrays.asList(new File("src/test/resources/org/sonar/plugins/css/cssProject/css/boxSizing.css")));
-    when(fileSystem.sourceCharset()).thenReturn(Charset.forName("UTF-8"));
+    fs = mock(FileSystem.class);
+    when(fs.predicates()).thenReturn(mock(FilePredicates.class));
+    when(fs.files(Mockito.any(FilePredicate.class))).thenReturn(Arrays.asList(new File("src/test/resources/org/sonar/plugins/css/cssProject/css/boxSizing.css")));
+    when(fs.encoding()).thenReturn(Charset.forName("UTF-8"));
 
     checkFactory = mock(CheckFactory.class);
-    when(checkFactory.create(Mockito.anyString())).thenReturn(mock(Checks.class)); //not sure what to mock here
+    when(checkFactory.create(Mockito.anyString())).thenReturn(mock(Checks.class)); // not sure what to mock here
 
-    sensor = new CssSquidSensor(mock(RulesProfile.class), null, fileSystem, mock(CheckFactory.class), mock(NoSonarFilter.class));
+    sensor = new CssSquidSensor(mock(RulesProfile.class), null, fs, mock(CheckFactory.class), mock(NoSonarFilter.class));
   }
 
   @Test
   public void should_execute_on() {
     Project project = new Project("key");
-    ModuleFileSystem fs = mock(ModuleFileSystem.class);
+    FileSystem fs = mock(FileSystem.class);
+    when(fs.predicates()).thenReturn(mock(FilePredicates.class));
     CssSquidSensor cssSensor = new CssSquidSensor(mock(RulesProfile.class), mock(SonarComponents.class), fs, mock(CheckFactory.class), mock(NoSonarFilter.class));
 
-    when(fs.files(Mockito.any(FileQuery.class))).thenReturn(ListUtils.EMPTY_LIST);
+    when(fs.files(Mockito.any(FilePredicate.class))).thenReturn(ListUtils.EMPTY_LIST);
     assertThat(cssSensor.shouldExecuteOnProject(project)).isFalse();
 
-    when(fs.files(Mockito.any(FileQuery.class))).thenReturn(ImmutableList.of(new File("/tmp")));
+    when(fs.files(Mockito.any(FilePredicate.class))).thenReturn(ImmutableList.of(new File("/tmp")));
     assertThat(cssSensor.shouldExecuteOnProject(project)).isTrue();
   }
 
@@ -90,7 +91,6 @@ public class CssSquidSensorTest {
   @Test
   public void should_analyse() {
     Project project = new Project("key");
-    addProjectFileSystem(project);
     SensorContext context = mock(SensorContext.class);
 
     sensor.analyse(project, context);
@@ -101,16 +101,5 @@ public class CssSquidSensorTest {
     verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.STATEMENTS), Mockito.eq(18.0));
     verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.COMMENT_LINES), Mockito.eq(5.0));
   }
-
-  /**
-   * This is unavoidable in order to be compatible with sonarqube 4.2
-   */
-  private void addProjectFileSystem(Project project) {
-    ProjectFileSystem fs = mock(ProjectFileSystem.class);
-    when(fs.getSourceDirs()).thenReturn(Arrays.asList(new File("src/test/resources/org/sonar/plugins/css/cssProject/css/")));
-
-    project.setFileSystem(fs);
-  }
-
 
 }

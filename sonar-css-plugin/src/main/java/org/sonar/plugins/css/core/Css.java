@@ -22,13 +22,11 @@ package org.sonar.plugins.css.core;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.config.Settings;
 import org.sonar.api.resources.AbstractLanguage;
-import org.sonar.api.scan.filesystem.FileQuery;
 import org.sonar.plugins.css.CssPlugin;
 
 public class Css extends AbstractLanguage {
 
   public static final String KEY = "css";
-  public static final FileQuery SOURCE_QUERY = FileQuery.onSource().onLanguage(KEY);
 
   private final Settings settings;
 

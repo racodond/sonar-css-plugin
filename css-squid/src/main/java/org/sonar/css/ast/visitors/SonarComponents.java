@@ -20,9 +20,8 @@
 package org.sonar.css.ast.visitors;
 
 import org.sonar.api.BatchExtension;
+import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.component.ResourcePerspectives;
-import org.sonar.api.resources.Project;
-import org.sonar.api.resources.Resource;
 import org.sonar.api.source.Highlightable;
 
 import java.io.File;
@@ -30,19 +29,15 @@ import java.io.File;
 public class SonarComponents implements BatchExtension {
 
   private final ResourcePerspectives resourcePerspectives;
-  private final Project project;
+  private final FileSystem fs;
 
-  public SonarComponents(ResourcePerspectives resourcePerspectives, Project project) {
+  public SonarComponents(ResourcePerspectives resourcePerspectives, FileSystem fs) {
     this.resourcePerspectives = resourcePerspectives;
-    this.project = project;
-  }
-
-  public Resource resourceFromIOFile(File file) {
-    return org.sonar.api.resources.File.fromIOFile(file, project);
+    this.fs = fs;
   }
 
   public Highlightable highlightableFor(File file) {
-    return resourcePerspectives.as(Highlightable.class, resourceFromIOFile(file));
+    return resourcePerspectives.as(Highlightable.class, fs.inputFile(fs.predicates().hasAbsolutePath(file.getAbsolutePath())));
   }
 
   public ResourcePerspectives getResourcePerspectives() {
