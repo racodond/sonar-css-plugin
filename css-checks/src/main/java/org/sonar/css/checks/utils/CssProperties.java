@@ -19,7 +19,6 @@
  */
 package org.sonar.css.checks.utils;
 
-
 import com.google.common.collect.ImmutableList;
 
 /**
@@ -38,7 +37,7 @@ public final class CssProperties {
     "-ms-",
     "-webkit-",
     "-o-"
-  );
+    );
 
   public static final ImmutableList<CssProperty> PROPERTIES = ImmutableList.of(
     // A
@@ -54,36 +53,36 @@ public final class CssProperties {
     new CssProperty("animation-play-state", "webkit", "moz"),
     new CssProperty("animation-timing-function", "webkit", "moz"),
 
-      /*
-       * // vendor prefixed
-       * "-moz-animation-delay",
-       * "-moz-animation-direction",
-       * "-moz-animation-duration",
-       * "-moz-animation-iteration-count",
-       * "-moz-animation-name",
-       * "-moz-animation-play-state",
-       *
-       * "-ms-animation-delay",
-       * "-ms-animation-direction",
-       * "-ms-animation-duration",
-       * "-ms-animation-iteration-count",
-       * "-ms-animation-name",
-       * "-ms-animation-play-state",
-       *
-       * "-webkit-animation-delay",
-       * "-webkit-animation-direction",
-       * "-webkit-animation-duration",
-       * "-webkit-animation-iteration-count",
-       * "-webkit-animation-name",
-       * "-webkit-animation-play-state",
-       *
-       * "-o-animation-delay",
-       * "-o-animation-direction",
-       * "-o-animation-duration",
-       * "-o-animation-iteration-count",
-       * "-o-animation-name",
-       * "-o-animation-play-state",
-       */
+    /*
+     * // vendor prefixed
+     * "-moz-animation-delay",
+     * "-moz-animation-direction",
+     * "-moz-animation-duration",
+     * "-moz-animation-iteration-count",
+     * "-moz-animation-name",
+     * "-moz-animation-play-state",
+     * 
+     * "-ms-animation-delay",
+     * "-ms-animation-direction",
+     * "-ms-animation-duration",
+     * "-ms-animation-iteration-count",
+     * "-ms-animation-name",
+     * "-ms-animation-play-state",
+     * 
+     * "-webkit-animation-delay",
+     * "-webkit-animation-direction",
+     * "-webkit-animation-duration",
+     * "-webkit-animation-iteration-count",
+     * "-webkit-animation-name",
+     * "-webkit-animation-play-state",
+     * 
+     * "-o-animation-delay",
+     * "-o-animation-direction",
+     * "-o-animation-duration",
+     * "-o-animation-iteration-count",
+     * "-o-animation-name",
+     * "-o-animation-play-state",
+     */
     new CssProperty("appearance", "webkit", "moz"),
     new CssProperty("azimuth"),
 
@@ -423,7 +422,7 @@ public final class CssProperties {
     // Z
     new CssProperty("z-index"),
     new CssProperty("zoom")
-  );
+    );
 
   public static CssProperty getProperty(String property) {
     for (CssProperty p : PROPERTIES) {
@@ -441,6 +440,10 @@ public final class CssProperties {
       }
     }
     return false;
+  }
+
+  public static String getUnhackedProperty(String property) {
+    return property.startsWith("*") || property.startsWith("_") ? property.substring(1) : property;
   }
 
 }
