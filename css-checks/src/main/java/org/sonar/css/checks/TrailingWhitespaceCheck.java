@@ -40,7 +40,7 @@ import java.util.regex.Pattern;
   key = "S1131",
   name = "Lines should not end with trailing whitespaces",
   priority = Priority.MINOR,
-  tags = {Tags.CONVENTION})
+  tags = {Tags.FORMAT})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("1min")
 public class TrailingWhitespaceCheck extends SquidCheck<LexerlessGrammar> implements CharsetAwareVisitor {

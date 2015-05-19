@@ -1,0 +1,50 @@
+<p>For readability reasons, a declaration should comply to the following format:
+<ul>
+  <li>The property and the value should be defined on the same line</li>
+  <li>There should not be any whitespace between the property and the colon</li>
+  <li>There should be one single whitespace between the colon and the value</li>
+  <li>There should be one single whitespace between value and the <code>!important</code> annotation if present</li>
+  <li>There should not be any whitespace between the value (or <code>!important</code> annotation if present) and the ending semicolon</li>
+</ul>
+</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+h1 {
+  color:red;                   /* Noncompliant: missing whitespace between colon and value */
+}
+
+h1 {
+  color:    red;               /* Noncompliant: too many whitespaces between colon and value */
+}
+
+h1 {
+  color:
+    red;                       /* Noncompliant: property and value not defined on the same line */
+}
+
+h1 {
+  color: red ;                 /* Noncompliant: unexpected whitespace between value and ending semicolon */
+}
+
+h1 {
+  color: red !important ;      /* Noncompliant: unexpected whitespace between !important and ending semicolon */
+}
+
+h1 {
+  color: red!important;        /* Noncompliant: missing whitespace between value and !important */
+}
+
+h1 {
+  color: red     !important;   /* Noncompliant: too many whitespaces between value and !important */
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+h1 {
+  color: red;
+}
+
+h1 {
+  color: red !important;
+}
+</pre>

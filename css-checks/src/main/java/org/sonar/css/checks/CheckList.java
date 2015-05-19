@@ -40,6 +40,7 @@ public final class CheckList {
       BulletproofFontFace.class,
       BewareOfBoxModel.class,
       CompatibleVendorPrefixes.class,
+      DeclarationFormatCheck.class,
       DisallowDuplicateBackgroundImages.class,
       DisallowEmptyRules.class,
       DisallowIdsInSelectors.class,

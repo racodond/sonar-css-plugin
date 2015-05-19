@@ -1,0 +1,48 @@
+/* Compliant Code Examples */
+h1 {
+  color: red;
+}
+
+h1 {
+  color: red
+}
+
+h1 {
+  color: red !important;
+}
+
+h1 {
+  color: red !important
+}
+/* Noncompliant Code Examples */
+h1 {
+  color:
+red;                   /* Property and value not defined on the same line */
+  color:
+      green;           /* Property and value not defined on the same line */
+}
+
+h1 {
+  color:red;           /* Whitespace between property and colon */
+}
+
+h1 {
+  color:red;           /* Missing whitespace between colon and value */
+}
+
+h1 {
+  color:  red;         /* Too many whitespaces between colon and value */
+  color:		green; /* Too many whitespaces between colon and value*/
+}
+
+h1 {
+  color: red  !important; /* Too many whitespaces between value and !important */
+}
+
+h1 {
+  color: red ; /* Whitespace between value and semicolon */
+}
+
+h1 {
+  color: red !important ; /* Whitespace between !important and semicolon */
+}
