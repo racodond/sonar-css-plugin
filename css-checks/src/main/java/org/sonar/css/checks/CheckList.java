@@ -61,6 +61,7 @@ public final class CheckList {
       MaximumNumberOfRulesPerSheetCheck.class,
       NosonarTagPresenceCheck.class,
       SelectorNumberThreshold.class,
+      SemicolonDeclarationCheck.class,
       ShorthandProperties.class,
       TabCharacterCheck.class,
       TrailingWhitespaceCheck.class,

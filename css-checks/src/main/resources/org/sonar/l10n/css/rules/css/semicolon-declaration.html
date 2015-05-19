@@ -1,0 +1,26 @@
+<p>Adding a semicolon after the last declaration of a rule is not mandatory. But omitting this semicolon could lead to unexpected issues.</p>
+<h2>Noncompliant Code Example</h2>
+<p>Let's take the following piece of code as an example:<p>
+<pre>
+.foo {
+  background-color: red;
+  color: green             /* Noncompliant */
+}
+</pre>
+<p>Then, add some properties:</p>
+<pre>
+.foo {
+  background-color: red;
+  color: green             /* Noncompliant */
+  width: 30px;
+}
+</pre>
+Now, you might waste time figuring out why the width declaration isn't working. Even worse, you can even fail noticing that it's not working.
+<h2>Compliant Solution</h2>
+<pre>
+.foo {
+  background-color: red;
+  color: green;
+  width: 30px;
+}
+</pre>
