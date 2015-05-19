@@ -1,0 +1,38 @@
+/* FIXME: blabla */
+h1 {
+  color: green;
+}
+
+/* [FIXME] blabla */
+h1 {
+  color: green;
+}
+
+/* FIXME:
+    - blabla
+    - ...
+*/
+h1 {
+  color: green;
+}
+
+/* fixme: blabla */
+h1 {
+  color: green;
+}
+
+/* fixme:
+   fixme
+*/
+h1 {
+  color: green;
+}
+
+h1 {
+  color: green; /* FIXME: blabla */
+}
+
+/* fixmeforthefirsttime */
+h1 {
+  color: green;
+}

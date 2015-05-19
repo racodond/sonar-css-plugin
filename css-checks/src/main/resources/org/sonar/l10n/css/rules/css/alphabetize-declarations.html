@@ -1,0 +1,50 @@
+<p>To make sure that properties do not get accidentally duplicated in a rule, they should be alphabetically ordered. Note that vendor-prefixed properties are not taken into account for the ordering. Indeed vendor-prefixed properties should be specified before the related standard property (see {rule:css:vendor-prefix}).</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+/* Noncompliant: 'color' should be defined after 'border-color' */
+.mybox {
+  background-color: blue;
+  color: red;
+  border-color: green;
+}
+
+/* Noncompliant: '*color' should be defined after 'border-color' */
+.mybox {
+  background-color: blue;
+  *color: red;
+  border-color: green;
+}
+
+/* Noncompliant: '_color_ should be defined after 'border-color' */
+.mybox {
+  background-color: blue;
+  _color: red;
+  border-color: green;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+.mybox {
+  background-color: blue;
+  color: red;
+  color: green;
+}
+
+.mybox {
+  background-color: blue;
+  *color: red;
+  width: 10px;
+}
+
+.mybox {
+  background-color: blue;
+  _color: red;
+  width: 10px;
+}
+
+.mybox {
+  background-color: blue;
+  -moz-outline-radius: 10px;
+  color: red;
+}
+</pre>

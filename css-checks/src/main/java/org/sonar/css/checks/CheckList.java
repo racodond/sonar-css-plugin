@@ -36,6 +36,7 @@ public final class CheckList {
   public static Collection<Class> getChecks() {
     return ImmutableList.<Class>of(
       AllGradientDefinitions.class,
+      AlphabetizeDeclarationsCheck.class,
       BulletproofFontFace.class,
       BewareOfBoxModel.class,
       CompatibleVendorPrefixes.class,
@@ -54,13 +55,16 @@ public final class CheckList {
       DisplayPropertyGrouping.class,
       DuplicateProperties.class,
       ExperimentalPropertyUsageCheck.class,
+      FixmeTagPresenceCheck.class,
       ImportNumberThreshold.class,
       KnownProperties.class,
       MaximumNumberOfRulesPerSheetCheck.class,
+      NosonarTagPresenceCheck.class,
       SelectorNumberThreshold.class,
       ShorthandProperties.class,
       TabCharacterCheck.class,
       TrailingWhitespaceCheck.class,
+      TodoTagPresenceCheck.class,
       TooManyWebFonts.class,
       VendorPrefixWithStandard.class
       );
