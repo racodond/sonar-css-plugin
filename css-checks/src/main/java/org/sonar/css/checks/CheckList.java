@@ -58,6 +58,7 @@ public final class CheckList {
       FixmeTagPresenceCheck.class,
       ImportNumberThreshold.class,
       KnownProperties.class,
+      LeadingZerosCheck.class,
       MaximumNumberOfRulesPerSheetCheck.class,
       NosonarTagPresenceCheck.class,
       SelectorNumberThreshold.class,
