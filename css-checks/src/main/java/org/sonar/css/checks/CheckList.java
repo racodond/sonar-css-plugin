@@ -54,6 +54,7 @@ public final class CheckList {
       DisplayPropertyGrouping.class,
       DuplicateProperties.class,
       ExperimentalPropertyUsageCheck.class,
+      FixmeTagPresenceCheck.class,
       ImportNumberThreshold.class,
       KnownProperties.class,
       MaximumNumberOfRulesPerSheetCheck.class,
