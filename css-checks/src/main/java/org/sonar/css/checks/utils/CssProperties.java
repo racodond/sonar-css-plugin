@@ -33,10 +33,21 @@ public final class CssProperties {
   }
 
   public static final ImmutableList<String> VENDORS = ImmutableList.of(
+    "-ah-",
+    "-apple-",
+    "-atsc-",
+    "-hp-",
+    "-khtml-",
     "-moz-",
     "-ms-",
+    "mso-",
+    "-o-",
+    "prince-",
+    "-rim-",
+    "-ro-",
+    "-tc-",
     "-webkit-",
-    "-o-"
+    "-wap-"
     );
 
   public static final ImmutableList<CssProperty> PROPERTIES = ImmutableList.of(

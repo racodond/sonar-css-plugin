@@ -6,3 +6,21 @@
   border-radius: 5px;
   -webkit-border-radius: 5px;
 }
+
+.mybox {
+  -ah-border-radius: 5px;
+  -apple-border-radius: 5px;
+  -atsc-border-radius: 5px;
+  -hp-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -moz-border-radius: 5px;
+  mso-border-radius: 5px;
+  -o-border-radius: 5px;
+  prince-border-radius: 5px;
+  -ro-border-radius: 5px;
+  -rim-border-radius: 5px;
+  -tc-border-radius: 5px;
+  -wap-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
