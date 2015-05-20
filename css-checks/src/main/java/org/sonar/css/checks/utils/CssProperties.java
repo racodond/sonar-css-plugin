@@ -37,6 +37,7 @@ public final class CssProperties {
     "-apple-",
     "-atsc-",
     "-hp-",
+    "-icab-",
     "-khtml-",
     "-moz-",
     "-ms-",

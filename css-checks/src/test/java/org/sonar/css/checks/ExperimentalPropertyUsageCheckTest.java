@@ -51,7 +51,8 @@ public class ExperimentalPropertyUsageCheckTest {
       .atLine(22).withMessage(MESSAGE).next()
       .atLine(23).withMessage(MESSAGE).next()
       .atLine(24).withMessage(MESSAGE).next()
-      .atLine(25).withMessage(MESSAGE).noMore();
+      .atLine(25).withMessage(MESSAGE).next()
+      .atLine(26).withMessage(MESSAGE).noMore();
   }
 
   @Test
