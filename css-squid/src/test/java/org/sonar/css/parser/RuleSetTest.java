@@ -44,13 +44,9 @@ public class RuleSetTest extends TestBase {
       .matches(
         code(".visible-desktop {",
           "display: none !important ;", "}"))
-      .matches(
-        code(".mybox {;}"))
-      .matches(
-        code(".mybox {;;}"))
-      .matches(
-        code(".mybox {;color:green;}"))
-      .matches(
-        code(".mybox {}"));
+      .matches(".mybox {;}")
+      .matches(".mybox {;;}")
+      .matches(".mybox {;color:green;}")
+      .matches(".mybox {}");
   }
 }
