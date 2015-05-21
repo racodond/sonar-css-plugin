@@ -31,19 +31,26 @@ public class RuleSetTest extends TestBase {
   @Test
   public void ruleSetTest() {
     assertThat(b.rule(CssGrammar.RULESET))
-        .matches("p{color:red;}")
-        .matches(
-            code("h1 {", "font-weight: bold;", "font-size: 12px;",
-                "font-family: Helvetica;",
-                "font-variant: normal;", "}"))
-        .matches(code("div" + "{" + "transform:rotate(30deg);" + "}"))
-        .matches(
-            code(".mybox {", "    border: 1px solid black;",
-                "    padding: 5px;", "    width: 100px;",
-                "    *width: 200px;", "}"))
-        .matches(
-            code(".visible-desktop {",
-                "display: none !important ;", "}"));
-
+      .matches("p{color:red;}")
+      .matches(
+        code("h1 {", "font-weight: bold;", "font-size: 12px;",
+          "font-family: Helvetica;",
+          "font-variant: normal;", "}"))
+      .matches(code("div" + "{" + "transform:rotate(30deg);" + "}"))
+      .matches(
+        code(".mybox {", "    border: 1px solid black;",
+          "    padding: 5px;", "    width: 100px;",
+          "    *width: 200px;", "}"))
+      .matches(
+        code(".visible-desktop {",
+          "display: none !important ;", "}"))
+      .matches(
+        code(".mybox {;}"))
+      .matches(
+        code(".mybox {;;}"))
+      .matches(
+        code(".mybox {;color:green;}"))
+      .matches(
+        code(".mybox {}"));
   }
 }
