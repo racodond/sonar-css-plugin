@@ -24,7 +24,6 @@ import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.parser.CssGrammar;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
@@ -32,10 +31,10 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "declaration-format",
-  name = "Declarations should follow a common format",
+  name = "Formatting of declarations should be consistent",
   priority = Priority.MINOR,
+  status = "BETA",
   tags = {Tags.FORMAT})
-@ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("2min")
 public class DeclarationFormatCheck extends SquidCheck<LexerlessGrammar> {
@@ -50,9 +49,8 @@ public class DeclarationFormatCheck extends SquidCheck<LexerlessGrammar> {
     if (hasPropertyAndValueOnDifferentLines(astNode)
       || hasWhitespaceBetweenPropertyAndColon(astNode)
       || hasNoWhitespaceBetweenColonAndValue(astNode)
-      || hasTooManyWhitespacesBetweenColonAndValue(astNode)
-      || hasWhitespaceBetweenValueAndSemiColon(astNode)) {
-      getContext().createLineViolation(this, "Reformat the declaration to follow standard.", astNode);
+      || hasTooManyWhitespacesBetweenColonAndValue(astNode)) {
+      getContext().createLineViolation(this, "Reformat the declaration to comply with the standard", astNode);
     }
   }
 
@@ -73,21 +71,17 @@ public class DeclarationFormatCheck extends SquidCheck<LexerlessGrammar> {
     return astNode.getFirstChild(CssGrammar.VALUE).getToken().getColumn() - astNode.getFirstChild(CssGrammar.COLON).getToken().getColumn() > 2;
   }
 
-  private boolean hasWhitespaceBetweenValueAndSemiColon(AstNode astNode) {
-    if (astNode.getFirstChild(CssGrammar.SEMICOLON) != null) {
-      if (astNode.getFirstChild(CssGrammar.VALUE).getFirstChild(CssGrammar.IMPORTANT) != null) {
-        return astNode.getFirstChild(CssGrammar.VALUE).getToken().getColumn() + astNode.getFirstChild(CssGrammar.VALUE).getTokenOriginalValue().length() < astNode
-          .getFirstChild(CssGrammar.SEMICOLON).getToken().getColumn();
-      } else {
-        return astNode.getFirstChild(CssGrammar.VALUE).getFirstChild(CssGrammar.IMPORTANT).getToken().getColumn() + 10 < astNode
-          .getFirstChild(CssGrammar.SEMICOLON).getToken().getColumn();
-      }
-    }
-    return false;
-  }
-
-  private boolean hasTooManyWhitespacesBetweenValueAndImportant(AstNode astNode) {
-    return astNode.getFirstChild(CssGrammar.VALUE).getToken().getColumn() - astNode.getFirstChild(CssGrammar.COLON).getToken().getColumn() > 2;
-  }
+//  private boolean hasWhitespaceBetweenValueAndSemiColon(AstNode astNode) {
+//    if (astNode.getFirstChild(CssGrammar.SEMICOLON) != null) {
+//      if (astNode.getFirstChild(CssGrammar.VALUE).getFirstChild(CssGrammar.IMPORTANT) != null) {
+//        return astNode.getFirstChild(CssGrammar.VALUE).getToken().getColumn() + astNode.getFirstChild(CssGrammar.VALUE).getTokenOriginalValue().length() < astNode
+//          .getFirstChild(CssGrammar.SEMICOLON).getToken().getColumn();
+//      } else {
+//        return astNode.getFirstChild(CssGrammar.VALUE).getFirstChild(CssGrammar.IMPORTANT).getToken().getColumn() + 10 < astNode
+//          .getFirstChild(CssGrammar.SEMICOLON).getToken().getColumn();
+//      }
+//    }
+//    return false;
+//  }
 
 }

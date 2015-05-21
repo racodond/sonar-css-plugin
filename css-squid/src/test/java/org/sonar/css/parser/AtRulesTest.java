@@ -31,41 +31,44 @@ public class AtRulesTest extends TestBase {
   @Test
   public void atRuleTest() {
     assertThat(b.rule(CssGrammar.AT_RULE))
-        .matches("@import \"subs.css\";")
-        .matches("@import \"print-main.css\" print;")
-        .matches(
-            code("@media print {"
-              + "      body { font-size: 10pt }"
-              + "    }"))
-        .matches(
-            code(
-                "@font-face {",
-                "font-family: 'MyFontFamily';",
-                "src: url('myfont-webfont.eot') format('embedded-opentype'),",
-                "    url('myfont-webfont.woff') format('woff'), ",
-                "    url('myfont-webfont.ttf')  format('truetype'),",
-                "    url('myfont-webfont.svg#svgFontName') format('svg');",
-                "}"))
-        .matches(code(
-            "@media screen and -webkit-min-device-pixel-ratio 0{",
-            ".form select {",
-            "color: red;",
-            "}}"))
-        .matches(code(
-            "@media screen and -webkit-min-device-pixel-ratio 0{",
-            "@font-face {",
-            "font-family:Icons;",
-            "src:url(fonts/Icons.svg#Icons) format(svg);",
-            "}",
-            "",
-            ".t {",
-            "-webkit-transform:translateZ(0);",
-            "-moz-transform:translateZ(0);",
-            "-o-transform:translateZ(0);",
-            "transform:translateZ(0);",
-            "}",
-            "}"));
-
+      .matches("@import \"subs.css\";")
+      .matches("@import \"print-main.css\" print;")
+      .matches(
+        code("@media print {"
+          + "      body { font-size: 10pt }"
+          + "    }"))
+      .matches(
+        code(
+          "@font-face {",
+          "font-family: 'MyFontFamily';",
+          "src: url('myfont-webfont.eot') format('embedded-opentype'),",
+          "    url('myfont-webfont.woff') format('woff'), ",
+          "    url('myfont-webfont.ttf')  format('truetype'),",
+          "    url('myfont-webfont.svg#svgFontName') format('svg');",
+          "}"))
+      .matches(code(
+        "@media screen and -webkit-min-device-pixel-ratio 0{",
+        ".form select {",
+        "color: red;",
+        "}}"))
+      .matches(code(
+        "@media screen and -webkit-min-device-pixel-ratio 0{",
+        "@font-face {",
+        "font-family:Icons;",
+        "src:url(fonts/Icons.svg#Icons) format(svg);",
+        "}",
+        "",
+        ".t {",
+        "-webkit-transform:translateZ(0);",
+        "-moz-transform:translateZ(0);",
+        "-o-transform:translateZ(0);",
+        "transform:translateZ(0);",
+        "}",
+        "}"))
+      .matches("@font-face {;}")
+      .matches("@font-face {;;}")
+      .matches("@font-face {;font-family:Icons;}")
+      .matches("@font-face {}");
   }
 
 }

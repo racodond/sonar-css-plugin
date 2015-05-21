@@ -55,6 +55,7 @@ public final class CheckList {
       DisallowUniversalSelector.class,
       DisplayPropertyGrouping.class,
       DuplicateProperties.class,
+      EmptyDeclarationCheck.class,
       ExperimentalPropertyUsageCheck.class,
       FixmeTagPresenceCheck.class,
       ImportNumberThreshold.class,
