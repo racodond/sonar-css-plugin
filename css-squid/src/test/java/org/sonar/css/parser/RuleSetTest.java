@@ -49,6 +49,6 @@ public class RuleSetTest extends TestBase {
       .matches(".mybox {;color:green;}")
       .matches(".mybox {}")
       .matches("a {color:red}")
-      .matches(code("a {", "color:red", "background:none", "}"));
+      .matches(code("a {", "color:red;", "background:none;", "}"));
   }
 }
