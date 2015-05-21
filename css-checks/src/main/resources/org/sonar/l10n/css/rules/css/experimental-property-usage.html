@@ -1,4 +1,24 @@
 <p>Even though vendor-specific properties are guaranteed not to cause conflicts, it should be recognized that these extensions may also be subject to change at the vendor’s whim, as they don’t form part of the CSS specifications, even though they often mimic the proposed behavior of existing or forthcoming CSS properties. Thus, it is not recommended to use them in production code.</p>
+<p>The rule raises an issue when one of the following prefixes is found:
+<ul>
+  <li><code>-ms-</code> Microsoft</li>
+  <li><code>mso-</code> Microsoft Office</li>
+  <li><code>-moz-</code> Mozilla Foundation (Gecko-based browsers)</li>
+  <li><code>-o-</code>, <code>-xv-</code> Opera Software</li>
+  <li><code>-atsc-</code> Advanced Television Standards Committee</li>
+  <li><code>-wap-</code> The WAP Forum</li>
+  <li><code>-webkit-</code> Safari, Chrome (and other WebKit-based browsers)</li>
+  <li><code>-icab-</code> iCab</li>
+  <li><code>-khtml-</code> Konqueror browser</li>
+  <li><code>-apple-</code> Webkit supports properties using the -apple- prefixes as well</li>
+  <li><code>prince-</code> YesLogic</li>
+  <li><code>-ah-</code> Antenna House</li>
+  <li><code>-hp-</code> Hewlett Packard</li>
+  <li><code>-ro-</code> Real Objects</li>
+  <li><code>-rim-</code> Research In Motion</li>
+  <li><code>-tc-</code> Tall Components</li>
+</ul>
+</p>
 <h2>Noncompliant Code Example</h2>
 <pre>
 .mybox {
