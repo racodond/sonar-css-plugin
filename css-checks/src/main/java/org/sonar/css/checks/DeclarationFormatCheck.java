@@ -33,7 +33,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   key = "declaration-format",
   name = "Formatting of declarations should be consistent",
   priority = Priority.MINOR,
-  status = "BETA",
+  status = org.sonar.api.rules.Rule.STATUS_BETA,
   tags = {Tags.FORMAT})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("2min")
@@ -71,17 +71,18 @@ public class DeclarationFormatCheck extends SquidCheck<LexerlessGrammar> {
     return astNode.getFirstChild(CssGrammar.VALUE).getToken().getColumn() - astNode.getFirstChild(CssGrammar.COLON).getToken().getColumn() > 2;
   }
 
-//  private boolean hasWhitespaceBetweenValueAndSemiColon(AstNode astNode) {
-//    if (astNode.getFirstChild(CssGrammar.SEMICOLON) != null) {
-//      if (astNode.getFirstChild(CssGrammar.VALUE).getFirstChild(CssGrammar.IMPORTANT) != null) {
-//        return astNode.getFirstChild(CssGrammar.VALUE).getToken().getColumn() + astNode.getFirstChild(CssGrammar.VALUE).getTokenOriginalValue().length() < astNode
-//          .getFirstChild(CssGrammar.SEMICOLON).getToken().getColumn();
-//      } else {
-//        return astNode.getFirstChild(CssGrammar.VALUE).getFirstChild(CssGrammar.IMPORTANT).getToken().getColumn() + 10 < astNode
-//          .getFirstChild(CssGrammar.SEMICOLON).getToken().getColumn();
-//      }
-//    }
-//    return false;
-//  }
+  // private boolean hasWhitespaceBetweenValueAndSemiColon(AstNode astNode) {
+  // if (astNode.getFirstChild(CssGrammar.SEMICOLON) != null) {
+  // if (astNode.getFirstChild(CssGrammar.VALUE).getFirstChild(CssGrammar.IMPORTANT) != null) {
+  // return astNode.getFirstChild(CssGrammar.VALUE).getToken().getColumn() +
+  // astNode.getFirstChild(CssGrammar.VALUE).getTokenOriginalValue().length() < astNode
+  // .getFirstChild(CssGrammar.SEMICOLON).getToken().getColumn();
+  // } else {
+  // return astNode.getFirstChild(CssGrammar.VALUE).getFirstChild(CssGrammar.IMPORTANT).getToken().getColumn() + 10 < astNode
+  // .getFirstChild(CssGrammar.SEMICOLON).getToken().getColumn();
+  // }
+  // }
+  // return false;
+  // }
 
 }
