@@ -1,0 +1,20 @@
+<p>Shared coding conventions allow teams to collaborate efficiently. This rule checks that all selector names match a provided regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+With format "^[a-z][a-z\\-]*$":
+<pre>
+.myBox {  /* Noncompliant: Should be 'mybox' or 'my-box' instead for example */
+}
+
+#my_box {  /* Noncompliant: Should be 'mybox' or 'my-box' instead for example */
+}
+</pre>
+<h2>Compliant Solution</h2>
+With format "^[a-z][a-z\\-]*$":
+<pre>
+.mybox {
+}
+
+.my-box {
+}
+</pre>
+
