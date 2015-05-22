@@ -65,6 +65,7 @@ public final class CheckList {
       NosonarTagPresenceCheck.class,
       ParsingErrorCheck.class,
       SelectorNumberThreshold.class,
+      SelectorNamingConventionCheck.class,
       SemicolonDeclarationCheck.class,
       ShorthandProperties.class,
       TabCharacterCheck.class,

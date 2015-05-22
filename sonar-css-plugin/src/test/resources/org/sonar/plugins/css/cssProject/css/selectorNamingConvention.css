@@ -1,0 +1,23 @@
+.mybox { /* Compliant */
+}
+
+#my-box { /* Compliant */
+}
+
+div { /* Compliant */
+}
+
+.MYbOx { /* Noncompliant */
+}
+
+.ab_cd { /* Noncompliant */
+}
+
+.abcd #rrr div { /* Compliant */
+}
+
+.abcd #r8rr div { /* Noncompliant */
+}
+
+.abcd #-rrr div { /* Noncompliant */
+}
