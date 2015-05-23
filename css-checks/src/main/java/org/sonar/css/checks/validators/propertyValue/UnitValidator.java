@@ -17,31 +17,25 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.utils;
+package org.sonar.css.checks.validators.propertyValue;
 
-public class CssP {
+import com.sonar.sslr.api.AstNode;
+import org.sonar.css.parser.CssGrammar;
 
-  String name;
+import java.util.List;
 
-  String vendor;
+public class UnitValidator extends EnumValidator {
 
-  private CssP() {
-
+  public UnitValidator(List<String> allowedUnits) {
+    super(allowedUnits);
   }
 
-  public static CssP factory(String property) {
-    CssP ret = new CssP();
-    ret.vendor = CssProperties.getVendorPrefix(property);
-    ret.name = CssProperties.getPropertyWithoutVendorPrefix(property);
-    return ret;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public String getVendor() {
-    return vendor;
+  public boolean isValid(AstNode astNode) {
+    if ("0".equals(astNode.getTokenValue()) && astNode.getFirstChild(CssGrammar.UNIT) == null
+      || super.isValid(astNode.getFirstChild())) {
+      return true;
+    }
+    return false;
   }
 
 }

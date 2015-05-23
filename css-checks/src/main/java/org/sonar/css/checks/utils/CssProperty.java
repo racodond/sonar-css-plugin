@@ -19,17 +19,22 @@
  */
 package org.sonar.css.checks.utils;
 
-import java.util.Arrays;
+import com.sonar.sslr.api.AstNode;
+import org.sonar.css.checks.validators.propertyValue.PropertyValueValidator;
+import org.sonar.css.parser.CssGrammar;
+
 import java.util.List;
 
 public class CssProperty {
 
-  String name;
-  List<String> vendors;
+  private String name;
+  private List<String> vendors;
+  private PropertyValueValidator propertyValueValidator;
 
-  public CssProperty(String name, String... vendors){
+  public CssProperty(String name, List<String> vendors, PropertyValueValidator propertyValueValidator) {
     this.name = name;
-    this.vendors = Arrays.asList(vendors);
+    this.propertyValueValidator = propertyValueValidator;
+    this.vendors = vendors;
   }
 
   @Override
@@ -37,17 +42,17 @@ public class CssProperty {
     return name;
   }
 
-  public boolean isVendor(){
+  public boolean isVendor() {
     return !vendors.isEmpty();
   }
 
   @Override
   public boolean equals(Object obj) {
-    if(obj == null){
+    if (obj == null) {
       return false;
     }
 
-    if(!((obj instanceof CssProperty) || (obj instanceof String))){
+    if (!((obj instanceof CssProperty) || (obj instanceof String))) {
       return false;
     }
 
@@ -55,11 +60,13 @@ public class CssProperty {
   }
 
   public boolean isProperty(String property) {
-    if(name.equalsIgnoreCase(property)){
+    if (name.equalsIgnoreCase(property)) {
       return true;
     }
-    if(property.matches("\\-.*?\\-"+name)){
-      return true;
+    for (String vendor : CssProperties.VENDORS) {
+      if (property.matches(vendor + name)) {
+        return true;
+      }
     }
     return false;
   }
@@ -68,8 +75,20 @@ public class CssProperty {
     return vendors;
   }
 
+  public PropertyValueValidator getPropertyValueValidator() {
+    return propertyValueValidator;
+  }
+
   @Override
   public int hashCode() {
     return name.hashCode();
   }
+
+  public boolean isValidPropertyValue(AstNode astNode) {
+    if (!astNode.is(CssGrammar.VALUE)) {
+      throw new IllegalArgumentException("Node is not of type VALUE");
+    }
+    return propertyValueValidator != null ? propertyValueValidator.isValid(astNode) : true;
+  }
+
 }

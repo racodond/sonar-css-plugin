@@ -17,31 +17,25 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.utils;
+package org.sonar.css.checks;
 
-public class CssP {
+import org.junit.Test;
+import org.sonar.css.CssAstScanner;
+import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
-  String name;
+import java.io.File;
 
-  String vendor;
+public class ValidatePropertyValueCheckTest {
 
-  private CssP() {
+  private ValidatePropertyValueCheck check = new ValidatePropertyValueCheck();
 
-  }
-
-  public static CssP factory(String property) {
-    CssP ret = new CssP();
-    ret.vendor = CssProperties.getVendorPrefix(property);
-    ret.name = CssProperties.getPropertyWithoutVendorPrefix(property);
-    return ret;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public String getVendor() {
-    return vendor;
+  @Test
+  public void should_find_some_invalid_values_and_raise_issues() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/validatePropertyValue.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(10).withMessage("Replace the invalid value ggg of property transform").next()
+      .atLine(14).withMessage("Replace the invalid value ddd of property transform").noMore();
   }
 
 }

@@ -17,31 +17,10 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.utils;
+package org.sonar.css.checks.validators.propertyValue;
 
-public class CssP {
+import com.sonar.sslr.api.AstNode;
 
-  String name;
-
-  String vendor;
-
-  private CssP() {
-
-  }
-
-  public static CssP factory(String property) {
-    CssP ret = new CssP();
-    ret.vendor = CssProperties.getVendorPrefix(property);
-    ret.name = CssProperties.getPropertyWithoutVendorPrefix(property);
-    return ret;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public String getVendor() {
-    return vendor;
-  }
-
+public interface PropertyValueValidator {
+  boolean isValid(AstNode astNode);
 }

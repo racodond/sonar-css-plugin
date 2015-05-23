@@ -20,6 +20,11 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -32,12 +37,6 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-compatible-vendor-prefixes
@@ -88,7 +87,7 @@ public class CompatibleVendorPrefixes extends SquidCheck<LexerlessGrammar> {
         if (p != null) {
           for (String vendor : p.getVendors()) {
             if (!props.getValue().contains(vendor)) {
-              getContext().createLineViolation(this, "Add the missing vendor prefix: -" + vendor + " to the property: " + props.getKey(), astNode);
+              getContext().createLineViolation(this, "Add the missing vendor prefix: " + vendor + " to the property: " + props.getKey(), astNode);
             }
           }
         }
