@@ -20,14 +20,11 @@
 package org.sonar.css.checks.validators.propertyValue;
 
 import com.sonar.sslr.api.AstNode;
+import org.sonar.css.parser.CssGrammar;
 
 public class NumberValidator implements PropertyValueValidator {
 
-  public NumberValidator() {
-  }
-
   public boolean isValid(AstNode astNode) {
-    return astNode.getTokenValue().matches("-?\\d+(\\.\\d+)?");
+    return astNode.getFirstChild(CssGrammar.PERCENTAGE) != null;
   }
-
 }

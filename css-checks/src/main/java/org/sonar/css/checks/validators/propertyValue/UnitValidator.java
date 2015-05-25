@@ -19,23 +19,12 @@
  */
 package org.sonar.css.checks.validators.propertyValue;
 
-import com.sonar.sslr.api.AstNode;
-import org.sonar.css.parser.CssGrammar;
-
-import java.util.List;
+import com.google.common.collect.ImmutableList;
 
 public class UnitValidator extends EnumValidator {
 
-  public UnitValidator(List<String> allowedUnits) {
-    super(allowedUnits);
-  }
-
-  public boolean isValid(AstNode astNode) {
-    if ("0".equals(astNode.getTokenValue()) && astNode.getFirstChild(CssGrammar.UNIT) == null
-      || super.isValid(astNode.getFirstChild())) {
-      return true;
-    }
-    return false;
+  public UnitValidator() {
+    super(ImmutableList.of("em", "ex", "in", "cm", "mm", "pt", "pc", "px"));
   }
 
 }

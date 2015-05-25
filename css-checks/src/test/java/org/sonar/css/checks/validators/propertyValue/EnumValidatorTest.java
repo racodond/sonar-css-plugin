@@ -19,20 +19,35 @@
  */
 package org.sonar.css.checks.validators.propertyValue;
 
+import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
+import org.junit.Test;
 
-import java.util.List;
+import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-public class EnumValidator implements PropertyValueValidator {
+public class EnumValidatorTest {
 
-  private List<String> allowedValues;
+  EnumValidator validator = new EnumValidator(ImmutableList.of("scroll", "fixed"));
+  AstNode astNode = mock(AstNode.class);
 
-  public EnumValidator(List<String> allowedValues) {
-    this.allowedValues = allowedValues;
+  @Test
+  public void should_be_valid_when_value_is_in_list() {
+    when(astNode.getTokenValue()).thenReturn("scroll");
+    assertThat(validator.isValid(astNode)).isTrue();
   }
 
-  public boolean isValid(AstNode astNode) {
-    return allowedValues.contains(astNode.getTokenValue().toLowerCase());
+  @Test
+  public void should_be_valid_when_value_with_different_case_is_in_list() {
+    when(astNode.getTokenValue()).thenReturn("SCROLL");
+    assertThat(validator.isValid(astNode)).isTrue();
+  }
+
+  @Test
+  public void should_not_be_valid_when_value_is_not_in_list() {
+    when(astNode.getTokenValue()).thenReturn("abc");
+    assertThat(validator.isValid(astNode)).isFalse();
   }
 
 }

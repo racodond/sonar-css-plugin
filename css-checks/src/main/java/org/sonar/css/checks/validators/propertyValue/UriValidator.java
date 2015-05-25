@@ -22,17 +22,9 @@ package org.sonar.css.checks.validators.propertyValue;
 import com.sonar.sslr.api.AstNode;
 import org.sonar.css.parser.CssGrammar;
 
-public class LengthValidator implements PropertyValueValidator {
+public class UriValidator implements PropertyValueValidator {
 
   public boolean isValid(AstNode astNode) {
-    if (astNode.getFirstChild(CssGrammar.DIMENSION) != null
-      && astNode.getFirstChild(CssGrammar.DIMENSION).getFirstChild(CssGrammar.NUMBER) != null) {
-      if (astNode.getFirstChild(CssGrammar.DIMENSION).getFirstChild(CssGrammar.unit) != null) {
-        return new UnitValidator().isValid(astNode.getFirstChild(CssGrammar.DIMENSION).getFirstChild(CssGrammar.unit));
-      } else {
-        return new ZeroNumberValidator().isValid(astNode.getFirstChild(CssGrammar.DIMENSION).getFirstChild(CssGrammar.NUMBER));
-      }
-    }
-    return false;
+    return astNode.getFirstChild(CssGrammar.NUMBER) != null;
   }
 }
