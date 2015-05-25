@@ -36,28 +36,28 @@ import static org.mockito.Mockito.when;
 
 public class CssProfileTest {
 
-    @Test
-    public void should_create_sonar_way_profile() {
-        ValidationMessages validation = ValidationMessages.create();
-        CssProfile definition = new CssProfile(universalRuleFinder());
-        RulesProfile profile = definition.createProfile(validation);
+  @Test
+  public void should_create_sonar_way_profile() {
+    ValidationMessages validation = ValidationMessages.create();
+    CssProfile definition = new CssProfile(universalRuleFinder());
+    RulesProfile profile = definition.createProfile(validation);
 
-        assertThat(profile.getName()).isEqualTo(CssProfile.SONAR_WAY_PROFILE_NAME);
-        assertThat(profile.getLanguage()).isEqualTo(Css.KEY);
-        assertThat(profile.getActiveRulesByRepository(CheckList.REPOSITORY_KEY)).hasSize(33);
-        assertThat(validation.hasErrors()).isFalse();
-    }
+    assertThat(profile.getName()).isEqualTo(CssProfile.SONAR_WAY_PROFILE_NAME);
+    assertThat(profile.getLanguage()).isEqualTo(Css.KEY);
+    assertThat(profile.getActiveRulesByRepository(CheckList.REPOSITORY_KEY)).hasSize(33);
+    assertThat(validation.hasErrors()).isFalse();
+  }
 
-    private RuleFinder universalRuleFinder() {
-        RuleFinder ruleFinder = mock(RuleFinder.class);
-        when(ruleFinder.findByKey(anyString(), anyString())).thenAnswer(new Answer<Rule>() {
-            @Override
-            public Rule answer(InvocationOnMock iom) throws Throwable {
-                return Rule.create((String) iom.getArguments()[0], (String) iom.getArguments()[1], (String) iom.getArguments()[1]);
-            }
-        });
+  private RuleFinder universalRuleFinder() {
+    RuleFinder ruleFinder = mock(RuleFinder.class);
+    when(ruleFinder.findByKey(anyString(), anyString())).thenAnswer(new Answer<Rule>() {
+      @Override
+      public Rule answer(InvocationOnMock iom) throws Throwable {
+        return Rule.create((String) iom.getArguments()[0], (String) iom.getArguments()[1], (String) iom.getArguments()[1]);
+      }
+    });
 
-        return ruleFinder;
-    }
+    return ruleFinder;
+  }
 
 }
