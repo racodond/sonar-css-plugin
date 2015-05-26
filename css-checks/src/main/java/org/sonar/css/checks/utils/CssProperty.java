@@ -74,6 +74,8 @@ public class CssProperty {
           return true;
         }
       }
+    } else {
+        return true;
     }
     return false;
   }

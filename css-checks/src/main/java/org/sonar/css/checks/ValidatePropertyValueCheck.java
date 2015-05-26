@@ -25,7 +25,6 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.utils.CssProperties;
 import org.sonar.css.parser.CssGrammar;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
@@ -35,10 +34,10 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   key = "validate-property-value",
   name = "Property value should be valid",
   priority = Priority.CRITICAL,
+  status = org.sonar.api.rules.Rule.STATUS_BETA,
   tags = {Tags.BUG})
-@ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.INSTRUCTION_RELIABILITY)
-@SqaleConstantRemediation("5min")
+@SqaleConstantRemediation("10min")
 public class ValidatePropertyValueCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
@@ -48,8 +47,8 @@ public class ValidatePropertyValueCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (!CssProperties.getProperty(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue())
-      .isValidPropertyValue(astNode.getFirstChild(CssGrammar.VALUE))) {
+    if (CssProperties.getProperty(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue()) != null
+      && !CssProperties.getProperty(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue()).isValidPropertyValue(astNode.getFirstChild(CssGrammar.VALUE))) {
       getContext().createLineViolation(
         this,
         "Replace the invalid value {0} of property {1}",

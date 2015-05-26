@@ -25,6 +25,6 @@ import org.sonar.css.parser.CssGrammar;
 public class NumberValidator implements PropertyValueValidator {
 
   public boolean isValid(AstNode astNode) {
-    return astNode.getFirstChild(CssGrammar.PERCENTAGE) != null;
+    return astNode.getFirstChild(CssGrammar.NUMBER) != null;
   }
 }

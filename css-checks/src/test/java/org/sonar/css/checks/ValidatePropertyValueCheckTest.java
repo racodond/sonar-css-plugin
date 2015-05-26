@@ -35,8 +35,15 @@ public class ValidatePropertyValueCheckTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/validatePropertyValue.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(6).withMessage("Replace the invalid value abc of property float").next()
-      .atLine(18).withMessage("Replace the invalid value 10 of property word-spacing").next()
-      .atLine(19).withMessage("Replace the invalid value abc of property word-spacing").noMore();
+      .atLine(21).withMessage("Replace the invalid value 10 of property word-spacing").next()
+      .atLine(22).withMessage("Replace the invalid value abc of property word-spacing").next()
+      .atLine(36).withMessage("Replace the invalid value abc of property z-index").next()
+      .atLine(37).withMessage("Replace the invalid value 0.1 of property z-index").next()
+      .atLine(38).withMessage("Replace the invalid value -50.1 of property z-index").next()
+      .atLine(52).withMessage("Replace the invalid value abc of property line-height").next()
+      .atLine(69).withMessage("Replace the invalid value abc of property width").next()
+      .atLine(78).withMessage("Replace the invalid value http of property list-style-image").next()
+      .atLine(79).withMessage("Replace the invalid value abc of property list-style-image").noMore();
   }
 
 }

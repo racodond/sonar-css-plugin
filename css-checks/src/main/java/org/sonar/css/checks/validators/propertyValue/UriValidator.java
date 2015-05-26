@@ -25,6 +25,7 @@ import org.sonar.css.parser.CssGrammar;
 public class UriValidator implements PropertyValueValidator {
 
   public boolean isValid(AstNode astNode) {
-    return astNode.getFirstChild(CssGrammar.NUMBER) != null;
+    return astNode.getFirstChild(CssGrammar.URI) != null;
   }
+
 }
