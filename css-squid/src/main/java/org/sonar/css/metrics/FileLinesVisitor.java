@@ -19,18 +19,19 @@
  */
 package org.sonar.css.metrics;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 import com.sonar.sslr.api.AstAndTokenVisitor;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.GenericTokenType;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.api.Trivia;
+import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
-import org.sonar.api.resources.File;
-import org.sonar.api.resources.Project;
 import org.sonar.css.api.CssMetric;
+import org.sonar.css.ast.visitors.SonarComponents;
 import org.sonar.squidbridge.SquidAstVisitor;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
@@ -39,14 +40,14 @@ import java.util.Set;
 
 public class FileLinesVisitor extends SquidAstVisitor<LexerlessGrammar> implements AstAndTokenVisitor {
 
-  private final Project project;
+  private final SonarComponents sonarComponents;
   private final FileLinesContextFactory fileLinesContextFactory;
 
   private final Set<Integer> linesOfCode = Sets.newHashSet();
   private final Set<Integer> linesOfComments = Sets.newHashSet();
 
-  public FileLinesVisitor(Project project, FileLinesContextFactory fileLinesContextFactory) {
-    this.project = project;
+  public FileLinesVisitor(SonarComponents sonarComponents, FileLinesContextFactory fileLinesContextFactory) {
+    this.sonarComponents = sonarComponents;
     this.fileLinesContextFactory = fileLinesContextFactory;
   }
 
@@ -67,7 +68,8 @@ public class FileLinesVisitor extends SquidAstVisitor<LexerlessGrammar> implemen
 
   @Override
   public void leaveFile(AstNode astNode) {
-    File sonarFile = File.fromIOFile(getContext().getFile(), project);
+    InputFile sonarFile = sonarComponents.inputFileFor(getContext().getFile());
+    Preconditions.checkNotNull(sonarFile);
     FileLinesContext fileLinesContext = fileLinesContextFactory.createFor(sonarFile);
 
     int fileLength = getContext().peekSourceCode().getInt(CssMetric.LINES);

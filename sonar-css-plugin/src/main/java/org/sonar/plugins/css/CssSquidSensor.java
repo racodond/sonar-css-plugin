@@ -80,7 +80,6 @@ public class CssSquidSensor implements Sensor {
 
     Checks<SquidAstVisitor> checks = checkFactory.<SquidAstVisitor>create(CheckList.REPOSITORY_KEY).addAnnotatedChecks(CheckList.getChecks());
     Collection<SquidAstVisitor> checkList = checks.all();
-    // List<SquidAstVisitor<LexerlessGrammar>> visitors = Lists.newArrayList(squidChecks);
     CssConfiguration conf = new CssConfiguration(fs.encoding());
     this.scanner = CssAstScanner.create(conf, sonarComponents, checkList.toArray(new SquidAstVisitor[checkList.size()]));
     scanner.scanFiles(Lists.newArrayList(filesToAnalyze()));
@@ -110,7 +109,6 @@ public class CssSquidSensor implements Sensor {
   }
 
   private void saveMeasures(InputFile sonarFile, SourceFile squidFile) {
-    context.saveMeasure(sonarFile, CoreMetrics.FILES, squidFile.getDouble(CssMetric.FILES));
     context.saveMeasure(sonarFile, CoreMetrics.LINES, squidFile.getDouble(CssMetric.LINES));
     context.saveMeasure(sonarFile, CoreMetrics.NCLOC, squidFile.getDouble(CssMetric.LINES_OF_CODE));
     context.saveMeasure(sonarFile, CoreMetrics.STATEMENTS, squidFile.getDouble(CssMetric.STATEMENTS));

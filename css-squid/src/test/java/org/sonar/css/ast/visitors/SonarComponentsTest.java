@@ -38,8 +38,7 @@ import static org.mockito.Mockito.when;
 public class SonarComponentsTest {
 
   @Test
-  public void highlightableFor() {
-
+  public void inputFileFor() {
     ResourcePerspectives resourcePerspectives = mock(ResourcePerspectives.class);
     InputFile inputFile = mock(InputFile.class);
     File file = mock(File.class);
@@ -49,7 +48,17 @@ public class SonarComponentsTest {
 
     SonarComponents sonarComponents = new SonarComponents(resourcePerspectives, fs);
 
-    sonarComponents.highlightableFor(file);
+    assertThat(sonarComponents.inputFileFor(file)).isSameAs(inputFile);
+  }
+
+  @Test
+  public void highlightableFor() {
+    ResourcePerspectives resourcePerspectives = mock(ResourcePerspectives.class);
+    InputFile inputFile = mock(InputFile.class);
+
+    SonarComponents sonarComponents = new SonarComponents(resourcePerspectives, mock(FileSystem.class));
+
+    sonarComponents.highlightableFor(inputFile);
     verify(resourcePerspectives).as(Highlightable.class, inputFile);
   }
 
