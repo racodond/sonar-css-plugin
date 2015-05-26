@@ -26,11 +26,14 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.mockito.Mockito;
+import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.source.Highlightable;
 import org.sonar.css.CssAstScanner;
 
 import java.io.File;
 import java.util.List;
+
+import static org.mockito.Mockito.mock;
 
 public class SyntaxHighlighterVisitorTest {
 
@@ -48,7 +51,9 @@ public class SyntaxHighlighterVisitorTest {
 
   @Before
   public void setUp() {
-    Mockito.when(sonarComponents.highlightableFor(Mockito.any(File.class))).thenReturn(highlightable);
+    InputFile inputFile = mock(InputFile.class);
+    Mockito.when(sonarComponents.inputFileFor(Mockito.any(File.class))).thenReturn(inputFile);
+    Mockito.when(sonarComponents.highlightableFor(inputFile)).thenReturn(highlightable);
     Mockito.when(highlightable.newHighlighting()).thenReturn(highlighting);
   }
 

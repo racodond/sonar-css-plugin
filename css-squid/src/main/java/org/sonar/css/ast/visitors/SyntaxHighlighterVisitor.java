@@ -29,6 +29,7 @@ import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.api.Trivia;
+import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.source.Highlightable;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.SquidAstVisitor;
@@ -74,7 +75,9 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
       return;
     }
 
-    highlighting = sonarComponents.highlightableFor(getContext().getFile()).newHighlighting();
+    InputFile inputFile = sonarComponents.inputFileFor(getContext().getFile());
+    Preconditions.checkNotNull(inputFile);
+    highlighting = sonarComponents.highlightableFor(inputFile).newHighlighting();
 
     lineStart = Lists.newArrayList();
     final String content;
@@ -85,7 +88,7 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
     }
     lineStart.add(0);
     for (int i = 0; i < content.length(); i++) {
-      if (content.charAt(i) == '\n' || content.charAt(i) == '\r' && i + 1 < content.length() && content.charAt(i + 1) != '\n') {
+      if (content.charAt(i) == '\n' || (content.charAt(i) == '\r' && i + 1 < content.length() && content.charAt(i + 1) != '\n')) {
         lineStart.add(i + 1);
       }
     }
