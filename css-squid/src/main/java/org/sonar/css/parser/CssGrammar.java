@@ -244,13 +244,13 @@ public enum CssGrammar implements GrammarRuleKey {
             b.zeroOrMore(ANY), CLOSE_BRACKET),
           PERCENTAGE,
           DIMENSION,
+          NUMBER,
           STRING,
           HASH,
           UNICODE_RANGE,
           INCLUDES,
           DASH_MATCH,
           addSpacing(IDENT, b),
-          NUMBER,
           COLON,
           IMPORTANT,
           addSpacing(DELIM, b))).skipIfOneChild();
@@ -334,7 +334,7 @@ public enum CssGrammar implements GrammarRuleKey {
       b.firstOf(_UNICODE, b.regexp("\\\\[^\\n\\r\\f0-9a-f]"))).skip();
     b.rule(_NMCHAR).is(
       b.firstOf(b.regexp(NMCHAR_REGEX), _NONASCII, _ESCAPE)).skip();
-    b.rule(_NUM).is(b.token(GenericTokenType.LITERAL, b.sequence(b.optional("-"), // '-' IS NOT DEFINED IN THE W3 spec
+    b.rule(_NUM).is(b.token(GenericTokenType.LITERAL, b.sequence(b.optional(b.firstOf("-", "+")),
       b.firstOf(b.regexp("[0-9]*\\.[0-9]+"), b.regexp("[0-9]+"))))).skip();
     b.rule(_STRING).is(b.token(GenericTokenType.LITERAL, b.firstOf(_STRING1, _STRING2))).skip();
     b.rule(_STRING1).is(
