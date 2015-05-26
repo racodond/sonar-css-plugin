@@ -55,7 +55,7 @@ public class KnownProperties extends SquidCheck<LexerlessGrammar> {
   public void visitNode(AstNode astNode) {
     // Ignore '*' and '_' hacks
     String property = astNode.getTokenValue().matches("^[\\*_].*$") ? astNode.getTokenValue().substring(1) : astNode.getTokenValue();
-    if (!CssProperties.isVendor(property) && !CssProperties.PROPERTIES.contains(property)) {
+    if (!CssProperties.isVendor(property) && CssProperties.getProperty(property) == null) {
       getContext().createLineViolation(this, "Remove the usage of this unknown property: " + property, astNode);
     }
   }

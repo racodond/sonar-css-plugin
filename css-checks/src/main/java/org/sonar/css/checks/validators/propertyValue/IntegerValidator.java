@@ -25,6 +25,8 @@ import org.sonar.css.parser.CssGrammar;
 public class IntegerValidator implements PropertyValueValidator {
 
   public boolean isValid(AstNode astNode) {
-    return astNode.getFirstChild(CssGrammar.NUMBER) != null;
+    return astNode.getFirstChild(CssGrammar.NUMBER) != null
+      && astNode.getFirstChild(CssGrammar.NUMBER).getTokenValue().matches("[\\-\\+]{0,1}[0-9]+");
   }
+
 }

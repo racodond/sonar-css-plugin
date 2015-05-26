@@ -1,15 +1,20 @@
+/* Enum validation */
 .mybox {
-    transform: abc;
+  float: left;
+  float: right;
+  float: none;
+  float: abc; /* Noncompliant */
 }
 
+/* Enum validation */
 .mybox {
-    transform: def;
-}
-
-.mybox {
-    transform: ggg;
-}
-
-.mybox {
-    transform: ddd;
+  word-spacing: 10px;
+  word-spacing: 10em;
+  word-spacing: normal;
+  word-spacing: 0;
+  word-spacing: +0;
+  word-spacing: -0;
+  word-spacing: 0.0;
+  word-spacing: 10; /* Noncompliant */
+  word-spacing: abc; /* Noncompliant */
 }

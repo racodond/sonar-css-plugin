@@ -20,15 +20,9 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.checks.utils.CssP;
 import org.sonar.css.checks.utils.CssProperties;
 import org.sonar.css.checks.utils.CssProperty;
 import org.sonar.css.parser.CssGrammar;
@@ -37,6 +31,12 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-compatible-vendor-prefixes
@@ -67,12 +67,13 @@ public class CompatibleVendorPrefixes extends SquidCheck<LexerlessGrammar> {
     } else if (astNode.is(CssGrammar.DECLARATION)) {
       String property = astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue();
       if (CssProperties.isVendor(property)) {
-        CssP p = CssP.factory(property);
-        if (properties.containsKey(p.getName())) {
-          properties.get(p.getName()).add(p.getVendor());
+        String cssProperty = CssProperties.getPropertyWithoutVendorPrefix(property);
+        String cssVendorPrefix = CssProperties.getVendorPrefix(property);
+        if (properties.containsKey(cssProperty)) {
+          properties.get(cssProperty).add(cssVendorPrefix);
         } else {
-          properties.put(p.getName(), new HashSet<String>());
-          properties.get(p.getName()).add(p.getVendor());
+          properties.put(cssProperty, new HashSet<String>());
+          properties.get(cssProperty).add(cssVendorPrefix);
         }
       }
     }

@@ -24,7 +24,7 @@ import com.sonar.sslr.api.AstNode;
 public class ZeroNumberValidator implements PropertyValueValidator {
 
   public boolean isValid(AstNode astNode) {
-    return astNode.getTokenValue().matches("-?[0]*(\\.[0]+)?");
+    return astNode.getTokenValue().matches("([\\-\\+])?[0]*(\\.[0]+)?");
   }
 
 }

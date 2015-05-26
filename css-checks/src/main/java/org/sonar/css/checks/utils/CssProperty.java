@@ -29,21 +29,17 @@ public class CssProperty {
 
   private String name;
   private List<String> vendors;
-  private PropertyValueValidator propertyValueValidator;
+  private List<? extends PropertyValueValidator> propertyValueValidators;
 
-  public CssProperty(String name, List<String> vendors, PropertyValueValidator propertyValueValidator) {
+  public CssProperty(String name, List<String> vendors, List<? extends PropertyValueValidator> propertyValueValidators) {
     this.name = name;
-    this.propertyValueValidator = propertyValueValidator;
     this.vendors = vendors;
+    this.propertyValueValidators = propertyValueValidators;
   }
 
   @Override
   public String toString() {
     return name;
-  }
-
-  public boolean isVendor() {
-    return !vendors.isEmpty();
   }
 
   @Override
@@ -59,24 +55,8 @@ public class CssProperty {
     return name.equalsIgnoreCase(obj.toString());
   }
 
-  public boolean isProperty(String property) {
-    if (name.equalsIgnoreCase(property)) {
-      return true;
-    }
-    for (String vendor : CssProperties.VENDORS) {
-      if (property.matches(vendor + name)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   public List<String> getVendors() {
     return vendors;
-  }
-
-  public PropertyValueValidator getPropertyValueValidator() {
-    return propertyValueValidator;
   }
 
   @Override
@@ -88,7 +68,14 @@ public class CssProperty {
     if (!astNode.is(CssGrammar.VALUE)) {
       throw new IllegalArgumentException("Node is not of type VALUE");
     }
-    return propertyValueValidator != null ? propertyValueValidator.isValid(astNode) : true;
+    if (propertyValueValidators != null) {
+      for (PropertyValueValidator validator : propertyValueValidators) {
+        if (validator.isValid(astNode)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
 }

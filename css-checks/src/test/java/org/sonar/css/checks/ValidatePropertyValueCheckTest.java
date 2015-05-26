@@ -34,8 +34,9 @@ public class ValidatePropertyValueCheckTest {
   public void should_find_some_invalid_values_and_raise_issues() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/validatePropertyValue.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(10).withMessage("Replace the invalid value ggg of property transform").next()
-      .atLine(14).withMessage("Replace the invalid value ddd of property transform").noMore();
+      .atLine(6).withMessage("Replace the invalid value abc of property float").next()
+      .atLine(18).withMessage("Replace the invalid value 10 of property word-spacing").next()
+      .atLine(19).withMessage("Replace the invalid value abc of property word-spacing").noMore();
   }
 
 }

@@ -26,12 +26,12 @@ public class LengthValidator implements PropertyValueValidator {
 
   public boolean isValid(AstNode astNode) {
     if (astNode.getFirstChild(CssGrammar.DIMENSION) != null
-      && astNode.getFirstChild(CssGrammar.DIMENSION).getFirstChild(CssGrammar.NUMBER) != null) {
-      if (astNode.getFirstChild(CssGrammar.DIMENSION).getFirstChild(CssGrammar.unit) != null) {
-        return new UnitValidator().isValid(astNode.getFirstChild(CssGrammar.DIMENSION).getFirstChild(CssGrammar.unit));
-      } else {
-        return new ZeroNumberValidator().isValid(astNode.getFirstChild(CssGrammar.DIMENSION).getFirstChild(CssGrammar.NUMBER));
-      }
+      && astNode.getFirstChild(CssGrammar.DIMENSION).getFirstChild(CssGrammar.NUMBER) != null
+      && astNode.getFirstChild(CssGrammar.DIMENSION).getFirstChild(CssGrammar.unit) != null) {
+      return new UnitValidator().isValid(astNode.getFirstChild(CssGrammar.DIMENSION).getFirstChild(CssGrammar.unit));
+    }
+    if (astNode.getFirstChild(CssGrammar.NUMBER) != null) {
+      return new ZeroNumberValidator().isValid(astNode.getFirstChild(CssGrammar.NUMBER));
     }
     return false;
   }
