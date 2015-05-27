@@ -66,8 +66,8 @@ public class CompatibleVendorPrefixes extends SquidCheck<LexerlessGrammar> {
       properties.clear();
     } else if (astNode.is(CssGrammar.DECLARATION)) {
       String property = astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue();
-      if (CssProperties.isVendor(property)) {
-        String cssProperty = CssProperties.getPropertyWithoutVendorPrefix(property);
+      if (CssProperties.isVendorProperty(property)) {
+        String cssProperty = CssProperties.getPropertyNameWithoutVendorPrefix(property);
         String cssVendorPrefix = CssProperties.getVendorPrefix(property);
         if (properties.containsKey(cssProperty)) {
           properties.get(cssProperty).add(cssVendorPrefix);

@@ -29,4 +29,8 @@ public class IntegerValidator implements PropertyValueValidator {
       && astNode.getFirstChild(CssGrammar.NUMBER).getTokenValue().matches("[\\-\\+]{0,1}[0-9]+");
   }
 
+  public String getFormat() {
+    return "<integer>";
+  }
+
 }

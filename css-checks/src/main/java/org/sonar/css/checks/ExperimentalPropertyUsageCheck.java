@@ -48,7 +48,7 @@ public class ExperimentalPropertyUsageCheck extends SquidCheck<LexerlessGrammar>
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (CssProperties.isVendor(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue())) {
+    if (CssProperties.isVendorProperty(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue())) {
       getContext().createLineViolation(this, "Remove the usage of this experimental property", astNode);
     }
   }

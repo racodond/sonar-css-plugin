@@ -35,4 +35,9 @@ public class LengthValidator implements PropertyValueValidator {
     }
     return false;
   }
+
+  public String getFormat() {
+    return "<length>";
+  }
+
 }

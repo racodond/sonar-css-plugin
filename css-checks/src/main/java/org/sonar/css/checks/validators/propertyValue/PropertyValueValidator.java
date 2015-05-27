@@ -23,4 +23,5 @@ import com.sonar.sslr.api.AstNode;
 
 public interface PropertyValueValidator {
   boolean isValid(AstNode astNode);
+  String getFormat();
 }

@@ -279,7 +279,7 @@ public final class CssProperties {
       "font-weight",
       Collections.<String>emptyList(),
       ImmutableList.of(new EnumValidator(ImmutableList
-        .of("normal", "bold", "bolder", "lighter", "100", "200", "300", "400", "500", "600", "700", "800", "900"))))
+        .of("normal", "bold", "bolder", "lighter", "100", "200", "300", "400", "500", "600", "700", "800", "900")), inheritValidator))
     )
 
     // G
@@ -302,7 +302,7 @@ public final class CssProperties {
     .put("height", new CssProperty(
       "height",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("auto")), lengthValidator, percentageValidator))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("auto")), lengthValidator, percentageValidator, inheritValidator))
     )
     .put("hyphenate-after", new CssProperty("hyphenate-after", Collections.<String>emptyList(), null))
     .put("hyphenate-before", new CssProperty("hyphenate-before", Collections.<String>emptyList(), null))
@@ -321,18 +321,18 @@ public final class CssProperties {
     .put("left", new CssProperty(
       "left",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("auto")), lengthValidator, percentageValidator))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("auto")), lengthValidator, percentageValidator, inheritValidator))
     )
     .put("letter-spacing", new CssProperty(
       "letter-spacing",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("normal")), lengthValidator))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("normal")), lengthValidator, inheritValidator))
     )
     .put("line-height", new CssProperty(
       "line-height",
       Collections.<String>emptyList(),
       ImmutableList
-        .of(new EnumValidator(ImmutableList.of("normal")), lengthValidator, percentageValidator, numberValidator))
+        .of(new EnumValidator(ImmutableList.of("normal")), lengthValidator, percentageValidator, numberValidator, inheritValidator))
     )
     .put("line-stacking", new CssProperty("line-stacking", Collections.<String>emptyList(), null))
     .put("line-stacking-ruby", new CssProperty("line-stacking-ruby", Collections.<String>emptyList(), null))
@@ -342,19 +342,19 @@ public final class CssProperties {
     .put("list-style-image", new CssProperty(
       "list-style-image",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("none")), uriValidator))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("none")), uriValidator, inheritValidator))
     )
     .put("list-style-position", new CssProperty(
       "list-style-position",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("inside", "outside"))))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("inside", "outside")), inheritValidator))
     )
     .put("list-style-type", new CssProperty(
       "list-style-type",
       Collections.<String>emptyList(),
       ImmutableList.of(new EnumValidator(ImmutableList
         .of("disc", "circle", "square", "decimal", "decimal-leading-zero", "lower-roman", "upper-roman", "lower-greek",
-          "lower-latin", "upper-latin", "armenian", "georgian", "lower-alpha", "upper-alpha", "none"))))
+          "lower-latin", "upper-latin", "armenian", "georgian", "lower-alpha", "upper-alpha", "none")), inheritValidator))
     )
 
     // M
@@ -376,22 +376,22 @@ public final class CssProperties {
     .put("max-height", new CssProperty(
       "max-height",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("none")), lengthValidator, percentageValidator))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("none")), lengthValidator, percentageValidator, inheritValidator))
     )
     .put("max-width", new CssProperty(
       "max-width",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("none")), lengthValidator, percentageValidator))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("none")), lengthValidator, percentageValidator, inheritValidator))
     )
     .put("min-height", new CssProperty(
       "min-height",
       Collections.<String>emptyList(),
-      ImmutableList.of(lengthValidator, percentageValidator))
+      ImmutableList.of(lengthValidator, percentageValidator, inheritValidator))
     )
     .put("min-width", new CssProperty(
       "min-width",
       Collections.<String>emptyList(),
-      ImmutableList.of(lengthValidator, percentageValidator))
+      ImmutableList.of(lengthValidator, percentageValidator, inheritValidator))
     )
     .put("move-to", new CssProperty("move-to", Collections.<String>emptyList(), null))
 
@@ -407,7 +407,7 @@ public final class CssProperties {
     .put("orphans", new CssProperty(
       "orphans",
       Collections.<String>emptyList(),
-      ImmutableList.of(integerValidator))
+      ImmutableList.of(integerValidator, inheritValidator))
     )
     .put("outline", new CssProperty("outline", Collections.<String>emptyList(), null))
     .put("outline-color", new CssProperty("outline-color", Collections.<String>emptyList(), null))
@@ -417,7 +417,7 @@ public final class CssProperties {
     .put("overflow", new CssProperty(
       "overflow",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("visible", "hidden", "scroll", "auto"))))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("visible", "hidden", "scroll", "auto")), inheritValidator))
     )
     .put("overflow-style", new CssProperty("overflow-style", Collections.<String>emptyList(), null))
     .put("overflow-x", new CssProperty("overflow-x", Collections.<String>emptyList(), null))
@@ -435,17 +435,17 @@ public final class CssProperties {
     .put("page-break-after", new CssProperty(
       "page-break-after",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("auto", "always", "avoid", "left", "right"))))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("auto", "always", "avoid", "left", "right")), inheritValidator))
     )
     .put("page-break-before", new CssProperty(
       "page-break-before",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("auto", "always", "avoid", "left", "right"))))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("auto", "always", "avoid", "left", "right")), inheritValidator))
     )
     .put("page-break-inside", new CssProperty(
       "page-break-inside",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("avoid", "auto"))))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("avoid", "auto")), inheritValidator))
     )
     .put("page-policy", new CssProperty("page-policy", Collections.<String>emptyList(), null))
     .put("pause", new CssProperty("pause", Collections.<String>emptyList(), null))
@@ -458,14 +458,14 @@ public final class CssProperties {
     .put("pitch-range", new CssProperty(
       "pitch-range",
       Collections.<String>emptyList(),
-      ImmutableList.of(numberValidator))
+      ImmutableList.of(numberValidator, inheritValidator))
     )
     .put("play-during", new CssProperty("play-during", Collections.<String>emptyList(), null))
     .put("pointer-events", new CssProperty("pointer-events", Collections.<String>emptyList(), null))
     .put("position", new CssProperty(
       "position",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("static", "relative", "absolute", "fixed"))))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("static", "relative", "absolute", "fixed")), inheritValidator))
     )
     .put("presentation-level", new CssProperty("presentation-level", Collections.<String>emptyList(), null))
     .put("punctuation-trim", new CssProperty("punctuation-trim", Collections.<String>emptyList(), null))
@@ -482,12 +482,12 @@ public final class CssProperties {
     .put("richness", new CssProperty(
       "richness",
       Collections.<String>emptyList(),
-      ImmutableList.of(numberValidator))
+      ImmutableList.of(numberValidator, inheritValidator))
     )
     .put("right", new CssProperty(
       "right",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("auto")), lengthValidator, percentageValidator))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("auto")), lengthValidator, percentageValidator, inheritValidator))
     )
     .put("rotation", new CssProperty("rotation", Collections.<String>emptyList(), null))
     .put("rotation-point", new CssProperty("rotation-point", Collections.<String>emptyList(), null))
@@ -501,35 +501,35 @@ public final class CssProperties {
     .put("speak", new CssProperty(
       "speak",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("normal", "none", "spell-out"))))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("normal", "none", "spell-out")), inheritValidator))
     )
     .put("speak-header", new CssProperty(
       "speak-header",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("once", "always"))))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("once", "always")), inheritValidator))
     )
     .put("speak-numeral", new CssProperty(
       "speak-numeral",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("digits", "continuous"))))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("digits", "continuous")), inheritValidator))
     )
     .put("speak-punctuation", new CssProperty(
       "speak-punctuation",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("code", "none"))))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("code", "none")), inheritValidator))
     )
     .put("speech-rate", new CssProperty(
       "speech-rate",
       Collections.<String>emptyList(),
       ImmutableList
         .of(new EnumValidator(ImmutableList.of("x-slow", "slow", "medium", "fast", "x-fast", "faster", "slower")),
-          numberValidator))
+          numberValidator, inheritValidator))
     )
     .put("src", new CssProperty("src", Collections.<String>emptyList(), null))
     .put("stress", new CssProperty(
       "stress",
       Collections.<String>emptyList(),
-      ImmutableList.of(numberValidator))
+      ImmutableList.of(numberValidator, inheritValidator))
     )
     .put("string-set", new CssProperty("string-set", Collections.<String>emptyList(), null))
 
@@ -537,7 +537,7 @@ public final class CssProperties {
     .put("table-layout", new CssProperty(
       "table-layout",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("auto", "fixed"))))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("auto", "fixed")), inheritValidator))
     )
     .put("tab-size", new CssProperty("tab-size", ImmutableList.of("-moz-", "-o-"), null))
     .put("target", new CssProperty("target", Collections.<String>emptyList(), null))
@@ -547,7 +547,7 @@ public final class CssProperties {
     .put("text-align", new CssProperty(
       "text-align",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("left", "right", "center", "justify"))))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("left", "right", "center", "justify")), inheritValidator))
     )
     .put("text-align-last", new CssProperty("text-align-last", Collections.<String>emptyList(), null))
     .put("text-decoration", new CssProperty("text-decoration", Collections.<String>emptyList(), null))
@@ -556,7 +556,7 @@ public final class CssProperties {
     .put("text-indent", new CssProperty(
       "text-indent",
       Collections.<String>emptyList(),
-      ImmutableList.of(lengthValidator, percentageValidator))
+      ImmutableList.of(lengthValidator, percentageValidator, inheritValidator))
     )
     .put("text-justify", new CssProperty("text-justify", Collections.<String>emptyList(), null))
     .put("text-outline", new CssProperty("text-outline", Collections.<String>emptyList(), null))
@@ -567,13 +567,13 @@ public final class CssProperties {
     .put("text-transform", new CssProperty(
       "text-transform",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("capitalize", "uppercase", "lowercase", "none"))))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("capitalize", "uppercase", "lowercase", "none")), inheritValidator))
     )
     .put("text-wrap", new CssProperty("text-wrap", Collections.<String>emptyList(), null))
     .put("top", new CssProperty(
       "top",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("auto")), lengthValidator, percentageValidator))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("auto")), lengthValidator, percentageValidator, inheritValidator))
     )
     .put("transform", new CssProperty(
       "transform",
@@ -593,7 +593,7 @@ public final class CssProperties {
     .put("unicode-bidi", new CssProperty(
       "unicode-bidi",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("normal", "embed", "bidi-override"))))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("normal", "embed", "bidi-override")), inheritValidator))
     )
     .put("user-modify", new CssProperty("user-modify", ImmutableList.of("-webkit-", "-moz-"), null))
     .put("user-select", new CssProperty("user-select", ImmutableList.of("-webkit-", "-moz-", "-ms-"), null))
@@ -604,12 +604,12 @@ public final class CssProperties {
       Collections.<String>emptyList(),
       ImmutableList.of(new EnumValidator(
         ImmutableList.of("baseline", "sub", "super", "top", "text-top", "middle", "bottom", "text-bottom")),
-        percentageValidator, lengthValidator))
+        percentageValidator, lengthValidator, inheritValidator))
     )
     .put("visibility", new CssProperty(
       "visibility",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("visible", "hidden", "collapse"))))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("visible", "hidden", "collapse")), inheritValidator))
     )
     .put("voice-balance", new CssProperty("voice-balance", Collections.<String>emptyList(), null))
     .put("voice-duration", new CssProperty("voice-duration", Collections.<String>emptyList(), null))
@@ -625,25 +625,25 @@ public final class CssProperties {
       ImmutableList
         .of(new EnumValidator(ImmutableList.of("silent", "x-soft", "soft", "medium", "loud", "x-loud")),
           numberValidator,
-          percentageValidator))
+          percentageValidator, inheritValidator))
     )
 
     // W
     .put("white-space", new CssProperty(
       "white-space",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("normal", "pre", "nowrap", "pre-wrap", "pre-line"))))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("normal", "pre", "nowrap", "pre-wrap", "pre-line")), inheritValidator))
     )
     .put("white-space-collapse", new CssProperty("white-space-collapse", Collections.<String>emptyList(), null))
     .put("widows", new CssProperty(
       "widows",
       Collections.<String>emptyList(),
-      ImmutableList.of(integerValidator))
+      ImmutableList.of(integerValidator, inheritValidator))
     )
     .put("width", new CssProperty(
       "width",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("auto")), lengthValidator, percentageValidator))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("auto")), lengthValidator, percentageValidator, inheritValidator))
     )
     .put("word-break", new CssProperty("word-break", ImmutableList.of("-epub-", "-ms-"), null))
     .put("word-spacing", new CssProperty(
@@ -662,44 +662,44 @@ public final class CssProperties {
     .put("z-index", new CssProperty(
       "z-index",
       Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("auto")), integerValidator))
+      ImmutableList.of(new EnumValidator(ImmutableList.of("auto")), integerValidator, inheritValidator))
     )
     .put("zoom", new CssProperty("zoom", Collections.<String>emptyList(), null))
     .build();
 
-  public static CssProperty getProperty(String property) {
-    return PROPERTIES.get(property);
+  public static CssProperty getProperty(String propertyName) {
+    return PROPERTIES.get(propertyName);
   }
 
-  public static boolean isVendor(String property) {
+  public static boolean isVendorProperty(String propertyName) {
     for (String v : VENDORS) {
-      if (property.startsWith(v)) {
+      if (propertyName.startsWith(v)) {
         return true;
       }
     }
     return false;
   }
 
-  public static String getUnhackedProperty(String property) {
-    return property.startsWith("*") || property.startsWith("_") ? property.substring(1) : property;
+  public static String getUnhackedPropertyName(String propertyName) {
+    return propertyName.startsWith("*") || propertyName.startsWith("_") ? propertyName.substring(1) : propertyName;
   }
 
-  public static String getVendorPrefix(String property) {
+  public static String getVendorPrefix(String propertyName) {
     for (String v : VENDORS) {
-      if (property.startsWith(v)) {
+      if (propertyName.startsWith(v)) {
         return v;
       }
     }
     return null;
   }
 
-  public static String getPropertyWithoutVendorPrefix(String property) {
+  public static String getPropertyNameWithoutVendorPrefix(String propertyName) {
     for (String v : VENDORS) {
-      if (property.startsWith(v)) {
-        return property.replaceAll("(" + v + ")(.*)", "$2");
+      if (propertyName.startsWith(v)) {
+        return propertyName.replaceAll("(" + v + ")(.*)", "$2");
       }
     }
-    return property;
+    return propertyName;
   }
 
 }

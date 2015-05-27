@@ -27,4 +27,9 @@ public class PercentageValidator implements PropertyValueValidator {
   public boolean isValid(AstNode astNode) {
     return astNode.getFirstChild(CssGrammar.PERCENTAGE) != null;
   }
+
+  public String getFormat() {
+    return "<percentage>";
+  }
+
 }

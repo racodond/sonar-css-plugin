@@ -27,4 +27,9 @@ public class NumberValidator implements PropertyValueValidator {
   public boolean isValid(AstNode astNode) {
     return astNode.getFirstChild(CssGrammar.NUMBER) != null;
   }
+
+  public String getFormat() {
+    return "<number>";
+  }
+
 }

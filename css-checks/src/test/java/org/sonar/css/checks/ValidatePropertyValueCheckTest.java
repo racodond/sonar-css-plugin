@@ -34,16 +34,16 @@ public class ValidatePropertyValueCheckTest {
   public void should_find_some_invalid_values_and_raise_issues() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/validatePropertyValue.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(6).withMessage("Replace the invalid value abc of property float").next()
-      .atLine(21).withMessage("Replace the invalid value 10 of property word-spacing").next()
-      .atLine(22).withMessage("Replace the invalid value abc of property word-spacing").next()
-      .atLine(36).withMessage("Replace the invalid value abc of property z-index").next()
-      .atLine(37).withMessage("Replace the invalid value 0.1 of property z-index").next()
-      .atLine(38).withMessage("Replace the invalid value -50.1 of property z-index").next()
-      .atLine(52).withMessage("Replace the invalid value abc of property line-height").next()
-      .atLine(69).withMessage("Replace the invalid value abc of property width").next()
-      .atLine(78).withMessage("Replace the invalid value http of property list-style-image").next()
-      .atLine(79).withMessage("Replace the invalid value abc of property list-style-image").noMore();
+      .atLine(6).withMessage("Update the invalid value of property \"float\". Expected format: left | right | none | inherit").next()
+      .atLine(21).withMessage("Update the invalid value of property \"word-spacing\". Expected format: normal | <length> | inherit").next()
+      .atLine(22).withMessage("Update the invalid value of property \"word-spacing\". Expected format: normal | <length> | inherit").next()
+      .atLine(36).withMessage("Update the invalid value of property \"z-index\". Expected format: auto | <integer> | inherit").next()
+      .atLine(37).withMessage("Update the invalid value of property \"z-index\". Expected format: auto | <integer> | inherit").next()
+      .atLine(38).withMessage("Update the invalid value of property \"z-index\". Expected format: auto | <integer> | inherit").next()
+      .atLine(52).withMessage("Update the invalid value of property \"line-height\". Expected format: normal | <length> | <percentage> | <number> | inherit").next()
+      .atLine(69).withMessage("Update the invalid value of property \"width\". Expected format: auto | <length> | <percentage> | inherit").next()
+      .atLine(78).withMessage("Update the invalid value of property \"list-style-image\". Expected format: none | <uri> | inherit").next()
+      .atLine(79).withMessage("Update the invalid value of property \"list-style-image\". Expected format: none | <uri> | inherit").noMore();
   }
 
 }

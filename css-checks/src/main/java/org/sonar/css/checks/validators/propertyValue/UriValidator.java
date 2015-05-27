@@ -28,4 +28,8 @@ public class UriValidator implements PropertyValueValidator {
     return astNode.getFirstChild(CssGrammar.URI) != null;
   }
 
+  public String getFormat() {
+    return "<uri>";
+  }
+
 }

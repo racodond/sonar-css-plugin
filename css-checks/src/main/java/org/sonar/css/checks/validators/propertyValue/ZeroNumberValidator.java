@@ -27,4 +27,8 @@ public class ZeroNumberValidator implements PropertyValueValidator {
     return astNode.getTokenValue().matches("([\\-\\+])?[0]*(\\.[0]+)?");
   }
 
+    public String getFormat() {
+        return "Not implemented";
+    }
+
 }

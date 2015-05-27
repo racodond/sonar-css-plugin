@@ -59,6 +59,19 @@ public class CssProperty {
     return vendors;
   }
 
+  public String getValidatorFormat() {
+    StringBuilder format = new StringBuilder("");
+    if (propertyValueValidators != null) {
+      for (PropertyValueValidator validator : propertyValueValidators) {
+        if (format.length() != 0) {
+          format.append(" | ");
+        }
+        format.append(validator.getFormat());
+      }
+    }
+    return format.toString();
+  }
+
   @Override
   public int hashCode() {
     return name.hashCode();
@@ -75,7 +88,7 @@ public class CssProperty {
         }
       }
     } else {
-        return true;
+      return true;
     }
     return false;
   }

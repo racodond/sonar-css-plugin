@@ -35,4 +35,14 @@ public class EnumValidator implements PropertyValueValidator {
     return allowedValues.contains(astNode.getTokenValue().toLowerCase());
   }
 
+  public String getFormat() {
+    StringBuilder format = new StringBuilder("");
+    for (String allowedValue : allowedValues) {
+      if (format.length() != 0) {
+        format.append(" | ");
+      }
+      format.append(allowedValue);
+    }
+    return format.toString();
+  }
 }
