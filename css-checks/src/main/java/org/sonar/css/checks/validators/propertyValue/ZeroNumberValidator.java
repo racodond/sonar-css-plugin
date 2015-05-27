@@ -21,14 +21,19 @@ package org.sonar.css.checks.validators.propertyValue;
 
 import com.sonar.sslr.api.AstNode;
 
+import javax.annotation.Nonnull;
+
 public class ZeroNumberValidator implements PropertyValueValidator {
 
-  public boolean isValid(AstNode astNode) {
+  @Override
+  public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
     return astNode.getTokenValue().matches("([\\-\\+])?[0]*(\\.[0]+)?");
   }
 
-    public String getFormat() {
-        return "Not implemented";
-    }
+  @Override
+  @Nonnull
+  public String getValidatorFormat() {
+    return "Not implemented";
+  }
 
 }

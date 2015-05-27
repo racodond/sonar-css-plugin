@@ -21,22 +21,12 @@ package org.sonar.css.checks.validators.propertyValue;
 
 import com.google.common.collect.ImmutableList;
 
-import javax.annotation.Nonnull;
+public class MarginWidthValidator extends PropertyValueMultiValidator {
 
-public class LengthValidator extends DimensionValidator {
-
-  public LengthValidator(boolean positiveOnly) {
-    super(positiveOnly, ImmutableList.of("in", "cm", "mm", "pt", "pc", "px", "em", "ex"));
+  public MarginWidthValidator() {
+    super(ImmutableList.of(
+      new EnumValidator(ImmutableList.of("auto")),
+      BasePropertyValidatorFactory.getLengthValidator(),
+      BasePropertyValidatorFactory.getPercentageValidator()));
   }
-
-  @Override
-  @Nonnull
-  public String getValidatorFormat() {
-    if (isPositiveOnly()) {
-      return "<length> (>=0)";
-    } else {
-      return "<length>";
-    }
-  }
-
 }

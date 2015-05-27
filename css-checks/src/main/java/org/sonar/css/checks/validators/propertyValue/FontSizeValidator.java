@@ -21,10 +21,13 @@ package org.sonar.css.checks.validators.propertyValue;
 
 import com.google.common.collect.ImmutableList;
 
-public class InheritValidator extends EnumValidator {
+public class FontSizeValidator extends PropertyValueMultiValidator {
 
-  public InheritValidator() {
-    super(ImmutableList.of("inherit"));
+  public FontSizeValidator() {
+    super(ImmutableList.of(
+      new EnumValidator(ImmutableList.of("xx-small", "x-small", "small", "medium", "large", "x-large", "xx-large")),
+      new EnumValidator(ImmutableList.of("larger", "smaller")),
+      BasePropertyValidatorFactory.getPositiveLengthValidator(),
+      BasePropertyValidatorFactory.getPositivePercentageValidator()));
   }
-
 }

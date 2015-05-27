@@ -22,14 +22,10 @@ package org.sonar.css.checks.utils;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import org.sonar.css.checks.validators.propertyValue.EnumValidator;
-import org.sonar.css.checks.validators.propertyValue.InheritValidator;
-import org.sonar.css.checks.validators.propertyValue.IntegerValidator;
-import org.sonar.css.checks.validators.propertyValue.LengthValidator;
-import org.sonar.css.checks.validators.propertyValue.NumberValidator;
-import org.sonar.css.checks.validators.propertyValue.PercentageValidator;
-import org.sonar.css.checks.validators.propertyValue.UriValidator;
+import org.sonar.css.checks.validators.propertyValue.FontSizeValidator;
+import org.sonar.css.checks.validators.propertyValue.OutlineStyleValidator;
+import org.sonar.css.checks.validators.propertyValue.PropertyValidatorFactory;
 
-import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -39,13 +35,6 @@ import java.util.Map;
  * @author tkende
  */
 public final class CssProperties {
-
-  private static final InheritValidator inheritValidator = new InheritValidator();
-  private static final IntegerValidator integerValidator = new IntegerValidator();
-  private static final LengthValidator lengthValidator = new LengthValidator();
-  private static final NumberValidator numberValidator = new NumberValidator();
-  private static final PercentageValidator percentageValidator = new PercentageValidator();
-  private static final UriValidator uriValidator = new UriValidator();
 
   public static final ImmutableList<String> VENDORS = ImmutableList.of(
     "-ah-",
@@ -70,601 +59,1431 @@ public final class CssProperties {
   public static final Map<String, CssProperty> PROPERTIES = new ImmutableMap.Builder<String, CssProperty>()
 
     // A
-    .put("alignment-adjust", new CssProperty("alignment-adjust", Collections.<String>emptyList(), null))
-    .put("alignment-baseline", new CssProperty("alignment-baseline", Collections.<String>emptyList(), null))
-    .put("animation", new CssProperty("animation", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("animation-delay", new CssProperty("animation-delay", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("animation-direction", new CssProperty("animation-direction", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("animation-duration", new CssProperty("animation-duration", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("animation-fill-mode", new CssProperty("animation-fill-mode", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("animation-iteration-count", new CssProperty("animation-iteration-count", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("animation-name", new CssProperty("animation-name", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("animation-play-state", new CssProperty("animation-play-state", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("animation-timing-function", new CssProperty("animation-timing-function", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("appearance", new CssProperty("appearance", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("azimuth", new CssProperty("appearance", Collections.<String>emptyList(), null))
+    .put("alignment-adjust", new CssProperty("alignment-adjust")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("alignment-baseline", new CssProperty("alignment-baseline")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("animation", new CssProperty("animation")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("animation-delay", new CssProperty("animation-delay")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("animation-direction", new CssProperty("animation-direction")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("animation-duration", new CssProperty("animation-duration")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("animation-fill-mode", new CssProperty("animation-fill-mode")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("animation-iteration-count", new CssProperty("animation-iteration-count")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("animation-name", new CssProperty("animation-name")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("animation-play-state", new CssProperty("animation-play-state")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("animation-timing-function", new CssProperty("animation-timing-function")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("appearance", new CssProperty("appearance")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("azimuth", new CssProperty("azimuth")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
 
     // B
-    .put("backface-visibility", new CssProperty("backface-visibility", Collections.<String>emptyList(), null))
-    .put("background", new CssProperty("background", Collections.<String>emptyList(), null))
-    .put("background-attachment", new CssProperty(
-      "background-attachment",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("scroll", "fixed")), inheritValidator))
+    .put("backface-visibility", new CssProperty("backface-visibility")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("background-clip", new CssProperty("background-clip", Collections.<String>emptyList(), null))
-    .put("background-color", new CssProperty("background-color", Collections.<String>emptyList(), null))
-    .put("background-image", new CssProperty(
-      "background-image",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("none")), uriValidator, inheritValidator))
+
+    .put("background", new CssProperty("background")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("background-origin", new CssProperty("background-origin", Collections.<String>emptyList(), null))
-    .put("background-position", new CssProperty("background-position", Collections.<String>emptyList(), null))
-    .put("background-repeat", new CssProperty(
-      "background-repeat",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("repeat", "repeat-x", "repeat-y", "no-repeat")), inheritValidator))
+
+    .put("background-attachment", new CssProperty("background-attachment")
+      .addValidator(new EnumValidator(ImmutableList.of("scroll", "fixed")))
     )
-    .put("background-size", new CssProperty("background-size", Collections.<String>emptyList(), null))
-    .put("baseline-shift", new CssProperty("baseline-shift", Collections.<String>emptyList(), null))
-    .put("behavior", new CssProperty("behavior", Collections.<String>emptyList(), null))
-    .put("binding", new CssProperty("binding", Collections.<String>emptyList(), null))
-    .put("bleed", new CssProperty("bleed", Collections.<String>emptyList(), null))
-    .put("bookmark-label", new CssProperty("bookmark-label", Collections.<String>emptyList(), null))
-    .put("bookmark-level", new CssProperty("bookmark-level", Collections.<String>emptyList(), null))
-    .put("bookmark-state", new CssProperty("bookmark-state", Collections.<String>emptyList(), null))
-    .put("bookmark-target", new CssProperty("bookmark-target", Collections.<String>emptyList(), null))
-    .put("border", new CssProperty("border", Collections.<String>emptyList(), null))
-    .put("border-bottom", new CssProperty("border-bottom", Collections.<String>emptyList(), null))
-    .put("border-bottom-color", new CssProperty("border-bottom-color", Collections.<String>emptyList(), null))
-    .put("border-bottom-left-radius", new CssProperty("border-bottom-left-radius", Collections.<String>emptyList(), null))
-    .put("border-bottom-right-radius", new CssProperty("border-bottom-right-radius", Collections.<String>emptyList(), null))
-    .put("border-bottom-style", new CssProperty("border-bottom-style", Collections.<String>emptyList(), null))
-    .put("border-bottom-width", new CssProperty("border-bottom-width", Collections.<String>emptyList(), null))
-    .put("border-collapse", new CssProperty(
-      "border-collapse",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("collapse", "separate")), inheritValidator))
+
+    .put("background-clip", new CssProperty("background-clip")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("border-color", new CssProperty("border-color", Collections.<String>emptyList(), null))
-    .put("border-end", new CssProperty("border-end", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("border-end-colo", new CssProperty("border-end-colo", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("border-end-style", new CssProperty("border-end-style", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("border-end-width", new CssProperty("border-end-width", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("border-image", new CssProperty("border-image", ImmutableList.of("-webkit-", "-moz-", "-o-"), null))
-    .put("border-image-outset", new CssProperty("border-image-outset", Collections.<String>emptyList(), null))
-    .put("border-image-repeat", new CssProperty("border-image-repeat", Collections.<String>emptyList(), null))
-    .put("border-image-slice", new CssProperty("border-image-slice", Collections.<String>emptyList(), null))
-    .put("border-image-source", new CssProperty("border-image-source", Collections.<String>emptyList(), null))
-    .put("border-image-width", new CssProperty("border-image-width", Collections.<String>emptyList(), null))
-    .put("border-left", new CssProperty("border-left", Collections.<String>emptyList(), null))
-    .put("border-left-color", new CssProperty("border-left-color", Collections.<String>emptyList(), null))
-    .put("border-left-style", new CssProperty("border-left-style", Collections.<String>emptyList(), null))
-    .put("border-left-width", new CssProperty("border-left-width", Collections.<String>emptyList(), null))
-    .put("border-radius", new CssProperty("border-radius", ImmutableList.of("-webkit-"), null))
-    .put("border-right", new CssProperty("border-right", Collections.<String>emptyList(), null))
-    .put("border-right-color", new CssProperty("border-right-color", Collections.<String>emptyList(), null))
-    .put("border-right-style", new CssProperty("border-right-style", Collections.<String>emptyList(), null))
-    .put("border-right-width", new CssProperty("border-right-width", Collections.<String>emptyList(), null))
-    .put("border-start", new CssProperty("border-start", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("border-start-color", new CssProperty("border-start-color", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("border-start-style", new CssProperty("border-start-style", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("border-start-width", new CssProperty("border-start-width", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("border-spacing", new CssProperty("border-spacing", Collections.<String>emptyList(), null))
-    .put("border-style", new CssProperty("border-style", Collections.<String>emptyList(), null))
-    .put("border-top", new CssProperty("border-top", Collections.<String>emptyList(), null))
-    .put("border-top-color", new CssProperty("border-top-color", Collections.<String>emptyList(), null))
-    .put("border-top-left-radius", new CssProperty("border-top-left-radius", Collections.<String>emptyList(), null))
-    .put("border-top-right-radius", new CssProperty("border-top-right-radius", Collections.<String>emptyList(), null))
-    .put("border-top-style", new CssProperty("border-top-style", Collections.<String>emptyList(), null))
-    .put("border-top-width", new CssProperty("border-top-width", Collections.<String>emptyList(), null))
-    .put("border-width", new CssProperty("border-width", Collections.<String>emptyList(), null))
-    .put("bottom", new CssProperty(
-      "bottom",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("auto")), lengthValidator, percentageValidator, inheritValidator))
+
+    .put("background-color", new CssProperty("background-color")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("box-align", new CssProperty("box-align", ImmutableList.of("-webkit-", "-moz-", "-ms-"), null))
-    .put("box-decoration-break", new CssProperty("box-decoration-break", Collections.<String>emptyList(), null))
-    .put("box-direction", new CssProperty("box-direction", ImmutableList.of("-webkit-", "-moz-", "-ms-"), null))
-    .put("box-flex", new CssProperty("box-flex", ImmutableList.of("-webkit-", "-moz-", "-ms-"), null))
-    .put("box-flex-group", new CssProperty("box-flex-group", Collections.<String>emptyList(), null))
-    .put("box-lines", new CssProperty("box-lines", ImmutableList.of("-webkit-", "-ms-"), null))
-    .put("box-ordinal-group", new CssProperty("box-ordinal-group", ImmutableList.of("-webkit-", "-moz-", "-ms-"), null))
-    .put("box-orient", new CssProperty("box-orient", ImmutableList.of("-webkit-", "-moz-", "-ms-"), null))
-    .put("box-pack", new CssProperty("box-pack", ImmutableList.of("-webkit-", "-moz-", "-ms-"), null))
-    .put("box-shadow", new CssProperty("box-shadow", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("box-sizing", new CssProperty("box-sizing", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("break-after", new CssProperty("break-after", Collections.<String>emptyList(), null))
-    .put("break-before", new CssProperty("break-before", Collections.<String>emptyList(), null))
-    .put("break-inside", new CssProperty("break-inside", Collections.<String>emptyList(), null))
+
+    .put("background-image", new CssProperty("background-image")
+      .addValidator(new EnumValidator(ImmutableList.of("none")))
+      .addValidator(PropertyValidatorFactory.getUriValidator())
+    )
+
+    .put("background-origin", new CssProperty("background-origin")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("background-position", new CssProperty("background-position")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("background-repeat", new CssProperty("background-repeat")
+      .addValidator(new EnumValidator(ImmutableList.of("repeat", "repeat-x", "repeat-y", "no-repeat")))
+    )
+
+    .put("background-size", new CssProperty("background-size")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("baseline-shift", new CssProperty("baseline-shift")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("behavior", new CssProperty("behavior")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("binding", new CssProperty("binding")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("bleed", new CssProperty("bleed")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("bookmark-label", new CssProperty("bookmark-label")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("bookmark-level", new CssProperty("bookmark-level")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("bookmark-state", new CssProperty("bookmark-state")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("bookmark-target", new CssProperty("bookmark-target")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border", new CssProperty("border")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-bottom", new CssProperty("border-bottom")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-bottom-color", new CssProperty("border-bottom-color")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-bottom-left-radius", new CssProperty("border-bottom-left-radius")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-bottom-right-radius", new CssProperty("border-bottom-right-radius")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-bottom-style", new CssProperty("border-bottom-style")
+      .addValidator(PropertyValidatorFactory.getBorderStyleValidator())
+    )
+
+    .put("border-bottom-width", new CssProperty("border-bottom-width")
+      .addValidator(PropertyValidatorFactory.getBorderWidthValidator())
+    )
+
+    .put("border-collapse", new CssProperty("border-collapse")
+      .addValidator(new EnumValidator(ImmutableList.of("collapse", "separate")))
+    )
+
+    .put("border-color", new CssProperty("border-color")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-end", new CssProperty("border-end")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-end-color", new CssProperty("border-end-color")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-end-style", new CssProperty("border-end-style")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-end-width", new CssProperty("border-end-width")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-image", new CssProperty("border-image")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-o-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-image-outset", new CssProperty("border-image-outset")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-image-repeat", new CssProperty("border-image-repeat")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-image-slice", new CssProperty("border-image-slice")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-image-source", new CssProperty("border-image-source")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-image-width", new CssProperty("border-image-width")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-left", new CssProperty("border-left")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-left-color", new CssProperty("border-left-color")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-left-style", new CssProperty("border-left-style")
+      .addValidator(PropertyValidatorFactory.getBorderStyleValidator())
+    )
+
+    .put("border-left-width", new CssProperty("border-left-width")
+      .addValidator(PropertyValidatorFactory.getBorderWidthValidator())
+    )
+
+    .put("border-radius", new CssProperty("border-radius")
+      .addVendor("-webkit-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-right", new CssProperty("border-right")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-right-color", new CssProperty("border-right-color")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-right-style", new CssProperty("border-right-style")
+      .addValidator(PropertyValidatorFactory.getBorderStyleValidator())
+    )
+
+    .put("border-right-width", new CssProperty("border-right-width")
+      .addValidator(PropertyValidatorFactory.getBorderWidthValidator())
+    )
+
+    .put("border-start", new CssProperty("border-start")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+
+    )
+
+    .put("border-start-color", new CssProperty("border-start-color")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-start-style", new CssProperty("border-start-style")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-start-width", new CssProperty("border-start-width")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-spacing", new CssProperty("border-spacing")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-style", new CssProperty("border-style")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-top", new CssProperty("border-top")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-top-color", new CssProperty("border-top-color")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-top-left-radius", new CssProperty("border-top-left-radius")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-top-right-radius", new CssProperty("border-top-right-radius")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("border-top-style", new CssProperty("border-top-style")
+      .addValidator(PropertyValidatorFactory.getBorderStyleValidator())
+    )
+
+    .put("border-top-width", new CssProperty("border-top-width")
+      .addValidator(PropertyValidatorFactory.getBorderWidthValidator())
+    )
+
+    .put("border-width", new CssProperty("border-width")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("bottom", new CssProperty("bottom")
+      .addValidator(PropertyValidatorFactory.getAutoValueValidator())
+      .addValidator(PropertyValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+    )
+
+    .put("box-align", new CssProperty("box-align")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-ms-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("box-decoration-break", new CssProperty("box-decoration-break")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("box-direction", new CssProperty("box-direction")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-ms-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("box-flex", new CssProperty("box-flex")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-ms-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("box-flex-group", new CssProperty("box-flex-group")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("box-lines", new CssProperty("box-lines")
+      .addVendor("-webkit-")
+      .addVendor("-ms-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("box-ordinal-group", new CssProperty("box-ordinal-group")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-ms-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("box-orient", new CssProperty("box-orient")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-ms-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("box-pack", new CssProperty("box-pack")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-ms-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("box-shadow", new CssProperty("box-shadow")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("box-sizing", new CssProperty("box-sizing")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("break-after", new CssProperty("break-after")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("break-before", new CssProperty("break-before")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("break-inside", new CssProperty("break-inside")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
 
     // C
-    .put("caption-side", new CssProperty(
-      "caption-side",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("top", "bottom")), inheritValidator))
+    .put("caption-side", new CssProperty("caption-side")
+      .addValidator(new EnumValidator(ImmutableList.of("top", "bottom")))
     )
-    .put("clear", new CssProperty(
-      "clear",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("none", "left", "right", "both")), inheritValidator))
+
+    .put("clear", new CssProperty("clear")
+      .addValidator(new EnumValidator(ImmutableList.of("none", "left", "right", "both")))
     )
-    .put("clip", new CssProperty("clip", Collections.<String>emptyList(), null))
-    .put("color", new CssProperty("color", Collections.<String>emptyList(), null))
-    .put("color-profile", new CssProperty("color-profile", Collections.<String>emptyList(), null))
-    .put("column-count", new CssProperty("column-count", ImmutableList.of("-webkit-", "-moz-", "-ms-"), null))
-    .put("column-fill", new CssProperty("column-fill", Collections.<String>emptyList(), null))
-    .put("column-gap", new CssProperty("column-gap", ImmutableList.of("-webkit-", "-moz-", "-ms-"), null))
-    .put("column-rule", new CssProperty("column-rule", ImmutableList.of("-webkit-", "-moz-", "-ms-"), null))
-    .put("column-rule-color", new CssProperty("column-rule-color", ImmutableList.of("-webkit-", "-moz-", "-ms-"), null))
-    .put("column-rule-style", new CssProperty("column-rule-style", ImmutableList.of("-webkit-", "-moz-", "-ms-"), null))
-    .put("column-rule-width", new CssProperty("column-rule-width", ImmutableList.of("-webkit-", "-moz-", "-ms-"), null))
-    .put("column-span", new CssProperty("column-span", Collections.<String>emptyList(), null))
-    .put("column-width", new CssProperty("column-width", ImmutableList.of("-webkit-", "-moz-", "-ms-"), null))
-    .put("columns", new CssProperty("columns", Collections.<String>emptyList(), null))
-    .put("content", new CssProperty("content", Collections.<String>emptyList(), null))
-    .put("counter-increment", new CssProperty("counter-increment", Collections.<String>emptyList(), null))
-    .put("counter-reset", new CssProperty("counter-reset", Collections.<String>emptyList(), null))
-    .put("crop", new CssProperty("crop", Collections.<String>emptyList(), null))
-    .put("cue", new CssProperty(
-      "cue",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("none")), uriValidator, inheritValidator))
+
+    .put("clip", new CssProperty("clip")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("cue-after", new CssProperty(
-      "cue-after", Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("none")), uriValidator, inheritValidator))
+    .put("color", new CssProperty("color")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("column", new CssProperty("column", Collections.<String>emptyList(), null))
-    .put("cue-before", new CssProperty("cue-before", Collections.<String>emptyList(), null))
-    .put("cursor", new CssProperty("cursor", Collections.<String>emptyList(), null))
+    .put("color-profile", new CssProperty("color-profile")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("column-count", new CssProperty("column-count")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-ms-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("column-fill", new CssProperty("column-fill")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("column-gap", new CssProperty("column-gap")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-ms-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("column-rule", new CssProperty("column-rule")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-ms-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("column-rule-color", new CssProperty("column-rule-color")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-ms-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("column-rule-style", new CssProperty("column-rule-style")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-ms-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("column-rule-width", new CssProperty("column-rule-width")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-ms-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("column-span", new CssProperty("column-span")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("column-width", new CssProperty("column-width")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-ms-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("columns", new CssProperty("columns")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("content", new CssProperty("content")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("counter-increment", new CssProperty("counter-increment")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("counter-reset", new CssProperty("counter-reset")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("crop", new CssProperty("crop")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("cue", new CssProperty("cue")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("cue-after", new CssProperty("cue-after")
+      .addValidator(new EnumValidator(ImmutableList.of("none")))
+      .addValidator(PropertyValidatorFactory.getUriValidator())
+    )
+
+    .put("column", new CssProperty("column")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("cue-before", new CssProperty("cue-before")
+      .addValidator(new EnumValidator(ImmutableList.of("none")))
+      .addValidator(PropertyValidatorFactory.getUriValidator())
+    )
+
+    .put("cursor", new CssProperty("cursor")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
 
     // D
-    .put("direction", new CssProperty(
-      "direction", Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("ltr", "rtl")), inheritValidator))
+    .put("direction", new CssProperty("direction")
+      .addValidator(new EnumValidator(ImmutableList.of("ltr", "rtl")))
     )
-    .put("display", new CssProperty(
-      "display",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList
-        .of("inline", "block", "list-item", "inline-block", "table", "inline-table", "table-row-group", "table-header-group",
-          "table-footer-group", "table-row", "table-column-group", "table-column", "table-cell", "table-caption", "none")),
-        inheritValidator))
+
+    .put("display", new CssProperty("display")
+      .addValidator(new EnumValidator(
+        ImmutableList.of("inline", "block", "list-item", "inline-block", "table", "inline-table", "table-row-group",
+          "table-header-group",
+          "table-footer-group", "table-row", "table-column-group", "table-column", "table-cell",
+          "table-caption",
+          "none")))
     )
-    .put("dominant-baseline", new CssProperty("dominant-baseline", Collections.<String>emptyList(), null))
-    .put("drop-initial-after-adjust", new CssProperty("drop-initial-after-adjust", Collections.<String>emptyList(), null))
-    .put("drop-initial-after-align", new CssProperty("drop-initial-after-align", Collections.<String>emptyList(), null))
-    .put("drop-initial-before-adjust", new CssProperty("drop-initial-before-adjust", Collections.<String>emptyList(), null))
-    .put("drop-initial-before-align", new CssProperty("drop-initial-before-align", Collections.<String>emptyList(), null))
-    .put("drop-initial-size", new CssProperty("drop-initial-size", Collections.<String>emptyList(), null))
-    .put("drop-initial-value", new CssProperty("drop-initial-value", Collections.<String>emptyList(), null))
+
+    .put("dominant-baseline", new CssProperty("dominant-baseline")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("drop-initial-after-adjust", new CssProperty("drop-initial-after-adjust")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("drop-initial-after-align", new CssProperty("drop-initial-after-align")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("drop-initial-before-adjust", new CssProperty("drop-initial-before-adjust")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("drop-initial-before-align", new CssProperty("drop-initial-before-align")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("drop-initial-size", new CssProperty("drop-initial-size")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("drop-initial-value", new CssProperty("drop-initial-value")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
 
     // E
-    .put("elevation", new CssProperty("elevation", Collections.<String>emptyList(), null))
-    .put("empty-cells", new CssProperty(
-      "empty-cells",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("show", "hide")), inheritValidator))
+    .put("elevation", new CssProperty("elevation")
+      .addValidator(PropertyValidatorFactory.getAngleValidator())
+      .addValidator(new EnumValidator(ImmutableList.of("below", "level", "above", "higher", "lower")))
+    )
+
+    .put("empty-cells", new CssProperty("empty-cells")
+      .addValidator(new EnumValidator(ImmutableList.of("show", "hide")))
     )
 
     // F
-    .put("filter", new CssProperty("filter", Collections.<String>emptyList(), null))
-    .put("fit", new CssProperty("fit", Collections.<String>emptyList(), null))
-    .put("fit-position", new CssProperty("fit-position", Collections.<String>emptyList(), null))
-    .put("float", new CssProperty(
-      "float",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("left", "right", "none")), inheritValidator))
+    .put("filter", new CssProperty("filter")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("float-offset", new CssProperty("float-offset", Collections.<String>emptyList(), null))
-    .put("font", new CssProperty("font", Collections.<String>emptyList(), null))
-    .put("font-family", new CssProperty("font-family", Collections.<String>emptyList(), null))
-    .put("font-size", new CssProperty("font-size", Collections.<String>emptyList(), null))
-    .put("font-size-adjust", new CssProperty("font-size-adjust", Collections.<String>emptyList(), null))
-    .put("font-stretch", new CssProperty("font-stretch", Collections.<String>emptyList(), null))
-    .put("font-style", new CssProperty(
-      "font-style",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("normal", "italic", "oblique")), inheritValidator))
+
+    .put("fit", new CssProperty("fit")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("font-variant", new CssProperty(
-      "font-variant",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("normal", "small-caps")), inheritValidator))
+
+    .put("fit-position", new CssProperty("fit-position")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("font-weight", new CssProperty(
-      "font-weight",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList
-        .of("normal", "bold", "bolder", "lighter", "100", "200", "300", "400", "500", "600", "700", "800", "900")), inheritValidator))
+
+    .put("float", new CssProperty("float")
+      .addValidator(new EnumValidator(ImmutableList.of("left", "right", "none")))
+    )
+
+    .put("float-offset", new CssProperty("float-offset")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("font", new CssProperty("font")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("font-family", new CssProperty("font-family")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("font-size", new CssProperty("font-size")
+      .addValidator(new FontSizeValidator())
+    )
+
+    .put("font-size-adjust", new CssProperty("font-size-adjust")
+      .addValidator(new EnumValidator(ImmutableList.of("none")))
+      .addValidator(PropertyValidatorFactory.getNumberValidator())
+    )
+
+    .put("font-stretch", new CssProperty("font-stretch")
+      .addValidator(new EnumValidator(
+        ImmutableList.of("normal", "ultra-condensed", "extra-condensed", "condensed", "semi-condensed",
+          "semi-expanded", "expanded", "extra-expanded", "ultra-expanded")))
+    )
+
+    .put("font-style", new CssProperty("font-style")
+      .addValidator(new EnumValidator(ImmutableList.of("normal", "italic", "oblique")))
+    )
+
+    .put("font-variant", new CssProperty("font-variant").
+      addValidator(new EnumValidator(ImmutableList.of("normal", "small-caps")))
+    )
+
+    .put("font-weight", new CssProperty("font-weight")
+      .addValidator(new EnumValidator(ImmutableList
+        .of("normal", "bold", "bolder", "lighter", "100", "200", "300", "400", "500", "600", "700", "800",
+          "900")))
     )
 
     // G
-    .put("grid-cell-stacking", new CssProperty("grid-cell-stacking", Collections.<String>emptyList(), null))
-    .put("grid-column", new CssProperty("grid-column", Collections.<String>emptyList(), null))
-    .put("grid-columns", new CssProperty("grid-columns", Collections.<String>emptyList(), null))
-    .put("grid-column-align", new CssProperty("grid-column-align", Collections.<String>emptyList(), null))
-    .put("grid-column-sizing", new CssProperty("grid-column-sizing", Collections.<String>emptyList(), null))
-    .put("grid-column-span", new CssProperty("grid-column-span", Collections.<String>emptyList(), null))
-    .put("grid-flow", new CssProperty("grid-flow", Collections.<String>emptyList(), null))
-    .put("grid-layer", new CssProperty("grid-layer", Collections.<String>emptyList(), null))
-    .put("grid-row", new CssProperty("grid-row", Collections.<String>emptyList(), null))
-    .put("grid-rows", new CssProperty("grid-rows", Collections.<String>emptyList(), null))
-    .put("grid-row-align", new CssProperty("grid-row-align", Collections.<String>emptyList(), null))
-    .put("grid-row-span", new CssProperty("grid-row-span", Collections.<String>emptyList(), null))
-    .put("grid-row-sizing", new CssProperty("grid-row-sizing", Collections.<String>emptyList(), null))
+    .put("grid-cell-stacking", new CssProperty("grid-cell-stacking")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("grid-column", new CssProperty("grid-column")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("grid-columns", new CssProperty("grid-columns")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("grid-column-align", new CssProperty("grid-column-align")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("grid-column-sizing", new CssProperty("grid-column-sizing")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("grid-column-span", new CssProperty("grid-column-span")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("grid-flow", new CssProperty("grid-flow")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("grid-layer", new CssProperty("grid-layer")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("grid-row", new CssProperty("grid-row")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("grid-rows", new CssProperty("grid-rows")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("grid-row-align", new CssProperty("grid-row-align")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("grid-row-span", new CssProperty("grid-row-span")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("grid-row-sizing", new CssProperty("grid-row-sizing")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
 
     // H
-    .put("hanging-punctuation", new CssProperty("hanging-punctuation", Collections.<String>emptyList(), null))
-    .put("height", new CssProperty(
-      "height",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("auto")), lengthValidator, percentageValidator, inheritValidator))
+    .put("hanging-punctuation", new CssProperty("hanging-punctuation")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("hyphenate-after", new CssProperty("hyphenate-after", Collections.<String>emptyList(), null))
-    .put("hyphenate-before", new CssProperty("hyphenate-before", Collections.<String>emptyList(), null))
-    .put("hyphenate-character", new CssProperty("hyphenate-character", Collections.<String>emptyList(), null))
-    .put("hyphenate-lines", new CssProperty("hyphenate-lines", Collections.<String>emptyList(), null))
-    .put("hyphenate-resource", new CssProperty("hyphenate-resource", Collections.<String>emptyList(), null))
-    .put("hyphens", new CssProperty("hyphens", ImmutableList.of("-epub-", "-moz-"), null))
+
+    .put("height", new CssProperty("height")
+      .addValidator(PropertyValidatorFactory.getAutoValueValidator())
+      .addValidator(PropertyValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+    )
+
+    .put("hyphenate-after", new CssProperty("hyphenate-after")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("hyphenate-before", new CssProperty("hyphenate-before")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("hyphenate-character", new CssProperty("hyphenate-character")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("hyphenate-lines", new CssProperty("hyphenate-lines")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("hyphenate-resource", new CssProperty("hyphenate-resource")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("hyphens", new CssProperty("hyphens")
+      .addVendor("-epub-")
+      .addVendor("-moz-")
+      .addValidator(new EnumValidator(ImmutableList.of("none", "manual", "auto")))
+    )
 
     // I
-    .put("icon", new CssProperty("icon", Collections.<String>emptyList(), null))
-    .put("image-orientation", new CssProperty("image-orientation", Collections.<String>emptyList(), null))
-    .put("image-rendering", new CssProperty("image-rendering", Collections.<String>emptyList(), null))
-    .put("inline-box-align", new CssProperty("inline-box-align", Collections.<String>emptyList(), null))
+    .put("icon", new CssProperty("icon")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("image-orientation", new CssProperty("image-orientation")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("image-rendering", new CssProperty("image-rendering")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("inline-box-align", new CssProperty("inline-box-align")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
 
     // L
-    .put("left", new CssProperty(
-      "left",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("auto")), lengthValidator, percentageValidator, inheritValidator))
+    .put("left", new CssProperty("left")
+      .addValidator(PropertyValidatorFactory.getAutoValueValidator())
+      .addValidator(PropertyValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValidatorFactory.getPercentageValidator())
     )
-    .put("letter-spacing", new CssProperty(
-      "letter-spacing",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("normal")), lengthValidator, inheritValidator))
+
+    .put("letter-spacing", new CssProperty("letter-spacing").
+      addValidator(new EnumValidator(ImmutableList.of("normal")))
+      .addValidator(PropertyValidatorFactory.getLengthValidator())
     )
-    .put("line-height", new CssProperty(
-      "line-height",
-      Collections.<String>emptyList(),
-      ImmutableList
-        .of(new EnumValidator(ImmutableList.of("normal")), lengthValidator, percentageValidator, numberValidator, inheritValidator))
+
+    .put("line-height", new CssProperty("line-height")
+      .addValidator(new EnumValidator(ImmutableList.of("normal")))
+      .addValidator(PropertyValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+      .addValidator(PropertyValidatorFactory.getNumberValidator())
     )
-    .put("line-stacking", new CssProperty("line-stacking", Collections.<String>emptyList(), null))
-    .put("line-stacking-ruby", new CssProperty("line-stacking-ruby", Collections.<String>emptyList(), null))
-    .put("line-stacking-shift", new CssProperty("line-stacking-shift", Collections.<String>emptyList(), null))
-    .put("line-stacking-strategy", new CssProperty("line-stacking-strategy", Collections.<String>emptyList(), null))
-    .put("list-style", new CssProperty("list-style", Collections.<String>emptyList(), null))
-    .put("list-style-image", new CssProperty(
-      "list-style-image",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("none")), uriValidator, inheritValidator))
+
+    .put("line-stacking", new CssProperty("line-stacking")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("list-style-position", new CssProperty(
-      "list-style-position",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("inside", "outside")), inheritValidator))
+
+    .put("line-stacking-ruby", new CssProperty("line-stacking-ruby")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("list-style-type", new CssProperty(
-      "list-style-type",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList
-        .of("disc", "circle", "square", "decimal", "decimal-leading-zero", "lower-roman", "upper-roman", "lower-greek",
-          "lower-latin", "upper-latin", "armenian", "georgian", "lower-alpha", "upper-alpha", "none")), inheritValidator))
+
+    .put("line-stacking-shift", new CssProperty("line-stacking-shift")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("line-stacking-strategy", new CssProperty("line-stacking-strategy")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("list-style", new CssProperty("list-style")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("list-style-image", new CssProperty("list-style-image")
+      .addValidator(new EnumValidator(ImmutableList.of("none")))
+      .addValidator(PropertyValidatorFactory.getUriValidator())
+    )
+
+    .put("list-style-position", new CssProperty("list-style-position")
+      .addValidator(new EnumValidator(ImmutableList.of("inside", "outside")))
+    )
+
+    .put("list-style-type", new CssProperty("list-style-type")
+      .addValidator(new EnumValidator(ImmutableList
+        .of("disc", "circle", "square", "decimal", "decimal-leading-zero", "lower-roman", "upper-roman",
+          "lower-greek",
+          "lower-latin", "upper-latin", "armenian", "georgian", "lower-alpha", "upper-alpha", "none")))
     )
 
     // M
-    .put("margin", new CssProperty("margin", Collections.<String>emptyList(), null))
-    .put("margin-bottom", new CssProperty("margin-bottom", Collections.<String>emptyList(), null))
-    .put("margin-end", new CssProperty("margin-end", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("margin-left", new CssProperty("margin-left", Collections.<String>emptyList(), null))
-    .put("margin-right", new CssProperty("margin-right", Collections.<String>emptyList(), null))
-    .put("margin-start", new CssProperty("margin-start", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("margin-top", new CssProperty("margin-top", Collections.<String>emptyList(), null))
-    .put("mark", new CssProperty("mark", Collections.<String>emptyList(), null))
-    .put("mark-after", new CssProperty("mark-after", Collections.<String>emptyList(), null))
-    .put("mark-before", new CssProperty("mark-before", Collections.<String>emptyList(), null))
-    .put("marks", new CssProperty("marks", Collections.<String>emptyList(), null))
-    .put("marquee-direction", new CssProperty("marquee-direction", Collections.<String>emptyList(), null))
-    .put("marquee-play-count", new CssProperty("marquee-play-count", Collections.<String>emptyList(), null))
-    .put("marquee-speed", new CssProperty("marquee-speed", ImmutableList.of("-webkit-", "-wap-"), null))
-    .put("marquee-style", new CssProperty("marquee-style", ImmutableList.of("-webkit-", "-wap-"), null))
-    .put("max-height", new CssProperty(
-      "max-height",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("none")), lengthValidator, percentageValidator, inheritValidator))
+    .put("margin", new CssProperty("margin")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("max-width", new CssProperty(
-      "max-width",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("none")), lengthValidator, percentageValidator, inheritValidator))
+
+    .put("margin-bottom", new CssProperty("margin-bottom")
+      .addValidator(PropertyValidatorFactory.getMarginWidthValidator())
     )
-    .put("min-height", new CssProperty(
-      "min-height",
-      Collections.<String>emptyList(),
-      ImmutableList.of(lengthValidator, percentageValidator, inheritValidator))
+
+    .put("margin-end", new CssProperty("margin-end")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("min-width", new CssProperty(
-      "min-width",
-      Collections.<String>emptyList(),
-      ImmutableList.of(lengthValidator, percentageValidator, inheritValidator))
+
+    .put("margin-left", new CssProperty("margin-left")
+      .addValidator(PropertyValidatorFactory.getMarginWidthValidator())
     )
-    .put("move-to", new CssProperty("move-to", Collections.<String>emptyList(), null))
+
+    .put("margin-right", new CssProperty("margin-right")
+      .addValidator(PropertyValidatorFactory.getMarginWidthValidator())
+    )
+
+    .put("margin-start", new CssProperty("margin-start")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("margin-top", new CssProperty("margin-top")
+      .addValidator(PropertyValidatorFactory.getMarginWidthValidator())
+    )
+
+    .put("mark", new CssProperty("mark")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("mark-after", new CssProperty("mark-after")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("mark-before", new CssProperty("mark-before")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("marks", new CssProperty("marks")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("marquee-direction", new CssProperty("marquee-direction")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("marquee-play-count", new CssProperty("marquee-play-count")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("marquee-speed", new CssProperty("marquee-speed")
+      .addVendor("-webkit-")
+      .addVendor("-wap-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("marquee-style", new CssProperty("marquee-style")
+      .addVendor("-webkit-")
+      .addVendor("-wap-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("max-height", new CssProperty("max-height")
+      .addValidator(new EnumValidator(ImmutableList.of("none")))
+      .addValidator(PropertyValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+    )
+
+    .put("max-width", new CssProperty("max-width")
+      .addValidator(new EnumValidator(ImmutableList.of("none")))
+      .addValidator(PropertyValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+    )
+
+    .put("min-height", new CssProperty("min-height")
+      .addValidator(PropertyValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+    )
+
+    .put("min-width", new CssProperty("min-width")
+      .addValidator(PropertyValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+    )
+
+    .put("move-to", new CssProperty("move-to")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
 
     // N
-    .put("nav-down", new CssProperty("nav-down", Collections.<String>emptyList(), null))
-    .put("nav-index", new CssProperty("nav-index", Collections.<String>emptyList(), null))
-    .put("nav-left", new CssProperty("nav-left", Collections.<String>emptyList(), null))
-    .put("nav-right", new CssProperty("nav-right", Collections.<String>emptyList(), null))
-    .put("nav-up", new CssProperty("nav-up", Collections.<String>emptyList(), null))
+    .put("nav-down", new CssProperty("nav-down")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("nav-index", new CssProperty("nav-index")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("nav-left", new CssProperty("nav-left")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("nav-right", new CssProperty("nav-right")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("nav-up", new CssProperty("nav-up")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
 
     // O
-    .put("opacity", new CssProperty("opacity", Collections.<String>emptyList(), null))
-    .put("orphans", new CssProperty(
-      "orphans",
-      Collections.<String>emptyList(),
-      ImmutableList.of(integerValidator, inheritValidator))
+    .put("opacity", new CssProperty("opacity")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("outline", new CssProperty("outline", Collections.<String>emptyList(), null))
-    .put("outline-color", new CssProperty("outline-color", Collections.<String>emptyList(), null))
-    .put("outline-offset", new CssProperty("outline-offset", Collections.<String>emptyList(), null))
-    .put("outline-style", new CssProperty("outline-style", Collections.<String>emptyList(), null))
-    .put("outline-width", new CssProperty("outline-width", Collections.<String>emptyList(), null))
-    .put("overflow", new CssProperty(
-      "overflow",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("visible", "hidden", "scroll", "auto")), inheritValidator))
+
+    .put("orphans", new CssProperty("orphans")
+      .addValidator(PropertyValidatorFactory.getIntegerValidator())
     )
-    .put("overflow-style", new CssProperty("overflow-style", Collections.<String>emptyList(), null))
-    .put("overflow-x", new CssProperty("overflow-x", Collections.<String>emptyList(), null))
-    .put("overflow-y", new CssProperty("overflow-y", Collections.<String>emptyList(), null))
+
+    .put("outline", new CssProperty("outline")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("outline-color", new CssProperty("outline-color")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("outline-offset", new CssProperty("outline-offset")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("outline-style", new CssProperty("outline-style")
+      .addValidator(new OutlineStyleValidator())
+    )
+
+    .put("outline-width", new CssProperty("outline-width")
+      .addValidator(PropertyValidatorFactory.getBorderWidthValidator())
+    )
+
+    .put("overflow", new CssProperty("overflow")
+      .addValidator(new EnumValidator(ImmutableList.of("visible", "hidden", "scroll", "auto")))
+    )
+
+    .put("overflow-style", new CssProperty("overflow-style")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("overflow-x", new CssProperty("overflow-x")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("overflow-y", new CssProperty("overflow-y")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
 
     // P
-    .put("padding", new CssProperty("padding", Collections.<String>emptyList(), null))
-    .put("padding-bottom", new CssProperty("padding-bottom", Collections.<String>emptyList(), null))
-    .put("padding-end", new CssProperty("padding-end", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("padding-left", new CssProperty("padding-left", Collections.<String>emptyList(), null))
-    .put("padding-right", new CssProperty("padding-right", Collections.<String>emptyList(), null))
-    .put("padding-start", new CssProperty("padding-start", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("padding-top", new CssProperty("padding-top", Collections.<String>emptyList(), null))
-    .put("page", new CssProperty("page", Collections.<String>emptyList(), null))
-    .put("page-break-after", new CssProperty(
-      "page-break-after",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("auto", "always", "avoid", "left", "right")), inheritValidator))
+    .put("padding", new CssProperty("padding")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("page-break-before", new CssProperty(
-      "page-break-before",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("auto", "always", "avoid", "left", "right")), inheritValidator))
+
+    .put("padding-bottom", new CssProperty("padding-bottom")
+      .addValidator(PropertyValidatorFactory.getPaddingWidthValidator())
     )
-    .put("page-break-inside", new CssProperty(
-      "page-break-inside",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("avoid", "auto")), inheritValidator))
+
+    .put("padding-end", new CssProperty("padding-end")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("page-policy", new CssProperty("page-policy", Collections.<String>emptyList(), null))
-    .put("pause", new CssProperty("pause", Collections.<String>emptyList(), null))
-    .put("pause-after", new CssProperty("pause-after", Collections.<String>emptyList(), null))
-    .put("pause-before", new CssProperty("pause-before", Collections.<String>emptyList(), null))
-    .put("perspective", new CssProperty("perspective", Collections.<String>emptyList(), null))
-    .put("perspective-origin", new CssProperty("perspective-origin", Collections.<String>emptyList(), null))
-    .put("phonemes", new CssProperty("phonemes", Collections.<String>emptyList(), null))
-    .put("pitch", new CssProperty("pitch", Collections.<String>emptyList(), null))
-    .put("pitch-range", new CssProperty(
-      "pitch-range",
-      Collections.<String>emptyList(),
-      ImmutableList.of(numberValidator, inheritValidator))
+
+    .put("padding-left", new CssProperty("padding-left")
+      .addValidator(PropertyValidatorFactory.getPaddingWidthValidator())
     )
-    .put("play-during", new CssProperty("play-during", Collections.<String>emptyList(), null))
-    .put("pointer-events", new CssProperty("pointer-events", Collections.<String>emptyList(), null))
-    .put("position", new CssProperty(
-      "position",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("static", "relative", "absolute", "fixed")), inheritValidator))
+
+    .put("padding-right", new CssProperty("padding-right")
+      .addValidator(PropertyValidatorFactory.getPaddingWidthValidator())
     )
-    .put("presentation-level", new CssProperty("presentation-level", Collections.<String>emptyList(), null))
-    .put("punctuation-trim", new CssProperty("punctuation-trim", Collections.<String>emptyList(), null))
+
+    .put("padding-start", new CssProperty("padding-start")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("padding-top", new CssProperty("padding-top")
+      .addValidator(PropertyValidatorFactory.getPaddingWidthValidator())
+    )
+
+    .put("page", new CssProperty("page")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("page-break-after", new CssProperty("page-break-after")
+      .addValidator(PropertyValidatorFactory.getPageBreakValidator())
+    )
+
+    .put("page-break-before", new CssProperty("page-break-before")
+      .addValidator(PropertyValidatorFactory.getPageBreakValidator())
+    )
+
+    .put("page-break-inside", new CssProperty("page-break-inside")
+      .addValidator(new EnumValidator(ImmutableList.of("avoid", "auto")))
+    )
+
+    .put("page-policy", new CssProperty("page-policy")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("pause", new CssProperty("pause")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("pause-after", new CssProperty("pause-after")
+      .addValidator(PropertyValidatorFactory.getPauseValidator())
+    )
+
+    .put("pause-before", new CssProperty("pause-before")
+      .addValidator(PropertyValidatorFactory.getPauseValidator())
+    )
+
+    .put("perspective", new CssProperty("perspective")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("perspective-origin", new CssProperty("perspective-origin")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("phonemes", new CssProperty("phonemes")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("pitch", new CssProperty("pitch")
+      .addValidator(PropertyValidatorFactory.getPitchValidator())
+    )
+
+    .put("pitch-range", new CssProperty("pitch-range")
+      .addValidator(PropertyValidatorFactory.getNumberValidator())
+    )
+
+    .put("play-during", new CssProperty("play-during")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("pointer-events", new CssProperty("pointer-events")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("position", new CssProperty("position")
+      .addValidator(new EnumValidator(ImmutableList.of("static", "relative", "absolute", "fixed")))
+    )
+
+    .put("presentation-level", new CssProperty("presentation-level")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("punctuation-trim", new CssProperty("punctuation-trim")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
 
     // Q
-    .put("quotes", new CssProperty("quotes", Collections.<String>emptyList(), null))
+    .put("quotes", new CssProperty("quotes")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
 
     // R
-    .put("rendering-intent", new CssProperty("rendering-intent", Collections.<String>emptyList(), null))
-    .put("resize", new CssProperty("resize", Collections.<String>emptyList(), null))
-    .put("rest", new CssProperty("rest", Collections.<String>emptyList(), null))
-    .put("rest-after", new CssProperty("rest-after", Collections.<String>emptyList(), null))
-    .put("rest-before", new CssProperty("rest-before", Collections.<String>emptyList(), null))
-    .put("richness", new CssProperty(
-      "richness",
-      Collections.<String>emptyList(),
-      ImmutableList.of(numberValidator, inheritValidator))
+    .put("rendering-intent", new CssProperty("rendering-intent")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("right", new CssProperty(
-      "right",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("auto")), lengthValidator, percentageValidator, inheritValidator))
+
+    .put("resize", new CssProperty("resize")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("rotation", new CssProperty("rotation", Collections.<String>emptyList(), null))
-    .put("rotation-point", new CssProperty("rotation-point", Collections.<String>emptyList(), null))
-    .put("ruby-align", new CssProperty("ruby-align", Collections.<String>emptyList(), null))
-    .put("ruby-overhang", new CssProperty("ruby-overhang", Collections.<String>emptyList(), null))
-    .put("ruby-position", new CssProperty("ruby-position", Collections.<String>emptyList(), null))
-    .put("ruby-span", new CssProperty("ruby-span", Collections.<String>emptyList(), null))
+
+    .put("rest", new CssProperty("rest")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("rest-after", new CssProperty("rest-after")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("rest-before", new CssProperty("rest-before")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("richness", new CssProperty("richness")
+      .addValidator(PropertyValidatorFactory.getNumberValidator())
+    )
+
+    .put("right", new CssProperty("right")
+      .addValidator(PropertyValidatorFactory.getAutoValueValidator())
+      .addValidator(PropertyValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+    )
+
+    .put("rotation", new CssProperty("rotation")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("rotation-point", new CssProperty("rotation-point")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("ruby-align", new CssProperty("ruby-align")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("ruby-overhang", new CssProperty("ruby-overhang")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+    .put("ruby-position", new CssProperty("ruby-position")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+    .put("ruby-span", new CssProperty("ruby-span")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
 
     // S
-    .put("size", new CssProperty("size", Collections.<String>emptyList(), null))
-    .put("speak", new CssProperty(
-      "speak",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("normal", "none", "spell-out")), inheritValidator))
+    .put("size", new CssProperty("size")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("speak-header", new CssProperty(
-      "speak-header",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("once", "always")), inheritValidator))
+
+    .put("speak", new CssProperty("speak")
+      .addValidator(new EnumValidator(ImmutableList.of("normal", "none", "spell-out")))
     )
-    .put("speak-numeral", new CssProperty(
-      "speak-numeral",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("digits", "continuous")), inheritValidator))
+
+    .put("speak-header", new CssProperty("speak-header")
+      .addValidator(new EnumValidator(ImmutableList.of("once", "always")))
     )
-    .put("speak-punctuation", new CssProperty(
-      "speak-punctuation",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("code", "none")), inheritValidator))
+
+    .put("speak-numeral", new CssProperty("speak-numeral")
+      .addValidator(new EnumValidator(ImmutableList.of("digits", "continuous")))
     )
-    .put("speech-rate", new CssProperty(
-      "speech-rate",
-      Collections.<String>emptyList(),
-      ImmutableList
-        .of(new EnumValidator(ImmutableList.of("x-slow", "slow", "medium", "fast", "x-fast", "faster", "slower")),
-          numberValidator, inheritValidator))
+
+    .put("speak-punctuation", new CssProperty("speak-punctuation")
+      .addValidator(new EnumValidator(ImmutableList.of("code", "none")))
     )
-    .put("src", new CssProperty("src", Collections.<String>emptyList(), null))
-    .put("stress", new CssProperty(
-      "stress",
-      Collections.<String>emptyList(),
-      ImmutableList.of(numberValidator, inheritValidator))
+
+    .put("speech-rate", new CssProperty("speech-rate")
+      .addValidator(new EnumValidator(ImmutableList.of("x-slow", "slow", "medium", "fast", "x-fast", "faster", "slower")))
+      .addValidator(PropertyValidatorFactory.getNumberValidator())
     )
-    .put("string-set", new CssProperty("string-set", Collections.<String>emptyList(), null))
+
+    .put("src", new CssProperty("src")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("stress", new CssProperty("stress")
+      .addValidator(PropertyValidatorFactory.getNumberValidator())
+    )
+    .put("string-set", new CssProperty("string-set")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
 
     // T
-    .put("table-layout", new CssProperty(
-      "table-layout",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("auto", "fixed")), inheritValidator))
+    .put("table-layout", new CssProperty("table-layout")
+      .addValidator(new EnumValidator(ImmutableList.of("auto", "fixed")))
     )
-    .put("tab-size", new CssProperty("tab-size", ImmutableList.of("-moz-", "-o-"), null))
-    .put("target", new CssProperty("target", Collections.<String>emptyList(), null))
-    .put("target-name", new CssProperty("target-name", Collections.<String>emptyList(), null))
-    .put("target-new", new CssProperty("target-new", Collections.<String>emptyList(), null))
-    .put("target-position", new CssProperty("target-position", Collections.<String>emptyList(), null))
-    .put("text-align", new CssProperty(
-      "text-align",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("left", "right", "center", "justify")), inheritValidator))
+
+    .put("tab-size", new CssProperty("tab-size")
+      .addVendor("-moz-")
+      .addVendor("-o-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("text-align-last", new CssProperty("text-align-last", Collections.<String>emptyList(), null))
-    .put("text-decoration", new CssProperty("text-decoration", Collections.<String>emptyList(), null))
-    .put("text-emphasis", new CssProperty("text-emphasis", Collections.<String>emptyList(), null))
-    .put("text-height", new CssProperty("text-height", Collections.<String>emptyList(), null))
-    .put("text-indent", new CssProperty(
-      "text-indent",
-      Collections.<String>emptyList(),
-      ImmutableList.of(lengthValidator, percentageValidator, inheritValidator))
+
+    .put("target", new CssProperty("target")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("text-justify", new CssProperty("text-justify", Collections.<String>emptyList(), null))
-    .put("text-outline", new CssProperty("text-outline", Collections.<String>emptyList(), null))
-    .put("text-overflow", new CssProperty("text-overflow", Collections.<String>emptyList(), null))
-    .put("text-rendering", new CssProperty("text-rendering", Collections.<String>emptyList(), null))
-    .put("text-size-adjust", new CssProperty("text-size-adjust", ImmutableList.of("-webkit-", "-ms-"), null))
-    .put("text-shadow", new CssProperty("text-shadow", Collections.<String>emptyList(), null))
-    .put("text-transform", new CssProperty(
-      "text-transform",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("capitalize", "uppercase", "lowercase", "none")), inheritValidator))
+    .put("target-name", new CssProperty("target-name")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("text-wrap", new CssProperty("text-wrap", Collections.<String>emptyList(), null))
-    .put("top", new CssProperty(
-      "top",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("auto")), lengthValidator, percentageValidator, inheritValidator))
+    .put("target-new", new CssProperty("target-new")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("transform", new CssProperty(
-      "transform",
-      ImmutableList.of("-webkit-", "-moz-", "-ms-", "-o-"),
-      null)
+    .put("target-position", new CssProperty("target-position")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("transform-origin", new CssProperty("transform-origin", ImmutableList.of("-webkit-", "-moz-", "-ms-", "-o-"), null))
-    .put("transform-style", new CssProperty("transform-style", Collections.<String>emptyList(), null))
-    .put("transition", new CssProperty("transition", ImmutableList.of("-webkit-", "-moz-", "-o-"), null))
-    .put("transition-delay", new CssProperty("transition-delay", ImmutableList.of("-webkit-", "-moz-", "-o-"), null))
-    .put("transition-duration", new CssProperty("transition-duration", ImmutableList.of("-webkit-", "-moz-", "-o-"), null))
-    .put("transition-property", new CssProperty("transition-property", ImmutableList.of("-webkit-", "-moz-", "-o-"), null))
-    .put("transition-timing-function",
-      new CssProperty("transition-timing-function", ImmutableList.of("-webkit-", "-moz-", "-o-"), null))
+
+    .put("text-align", new CssProperty("text-align")
+      .addValidator(new EnumValidator(ImmutableList.of("left", "right", "center", "justify")))
+    )
+
+    .put("text-align-last", new CssProperty("text-align-last")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+    .put("text-decoration", new CssProperty("text-decoration")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+    .put("text-emphasis", new CssProperty("text-emphasis")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+    .put("text-height", new CssProperty("text-height")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("text-indent", new CssProperty("text-indent")
+      .addValidator(PropertyValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+    )
+
+    .put("text-justify", new CssProperty("text-justify")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+    .put("text-outline", new CssProperty("text-outline")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+    .put("text-overflow", new CssProperty("text-overflow")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+    .put("text-rendering", new CssProperty("text-rendering")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("text-size-adjust", new CssProperty("text-size-adjust")
+      .addVendor("-webkit-")
+      .addVendor("-ms-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("text-shadow", new CssProperty("text-shadow")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("text-transform", new CssProperty("text-transform")
+      .addValidator(new EnumValidator(ImmutableList.of("capitalize", "uppercase", "lowercase", "none")))
+    )
+
+    .put("text-wrap", new CssProperty("text-wrap")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("top", new CssProperty("top")
+      .addValidator(PropertyValidatorFactory.getAutoValueValidator())
+      .addValidator(PropertyValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+    )
+
+    .put("transform", new CssProperty("transform")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-ms-")
+      .addVendor("-o-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("transform-origin", new CssProperty("transform-origin")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-ms-")
+      .addVendor("-o-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("transform-style", new CssProperty("transform-style")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("transition", new CssProperty("transition")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-o-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("transition-delay", new CssProperty("transition-delay")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-o-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("transition-duration", new CssProperty("transition-duration")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-o-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("transition-property", new CssProperty("transition-property")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-o-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("transition-timing-function", new CssProperty("transition-timing-function")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-o-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
 
     // U
-    .put("unicode-bidi", new CssProperty(
-      "unicode-bidi",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("normal", "embed", "bidi-override")), inheritValidator))
+    .put("unicode-bidi", new CssProperty("unicode-bidi")
+      .addValidator(new EnumValidator(ImmutableList.of("normal", "embed", "bidi-override")))
     )
-    .put("user-modify", new CssProperty("user-modify", ImmutableList.of("-webkit-", "-moz-"), null))
-    .put("user-select", new CssProperty("user-select", ImmutableList.of("-webkit-", "-moz-", "-ms-"), null))
+
+    .put("user-modify", new CssProperty("user-modify")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("user-select", new CssProperty("user-select")
+      .addVendor("-webkit-")
+      .addVendor("-moz-")
+      .addVendor("-ms-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
 
     // V
-    .put("vertical-align", new CssProperty(
-      "vertical-align",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(
-        ImmutableList.of("baseline", "sub", "super", "top", "text-top", "middle", "bottom", "text-bottom")),
-        percentageValidator, lengthValidator, inheritValidator))
+    .put("vertical-align", new CssProperty("vertical-align")
+      .addValidator(new EnumValidator(
+        ImmutableList.of("baseline", "sub", "super", "top", "text-top", "middle", "bottom", "text-bottom")))
+      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+      .addValidator(PropertyValidatorFactory.getLengthValidator())
     )
-    .put("visibility", new CssProperty(
-      "visibility",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("visible", "hidden", "collapse")), inheritValidator))
+
+    .put("visibility", new CssProperty("visibility")
+      .addValidator(new EnumValidator(ImmutableList.of("visible", "hidden", "collapse")))
     )
-    .put("voice-balance", new CssProperty("voice-balance", Collections.<String>emptyList(), null))
-    .put("voice-duration", new CssProperty("voice-duration", Collections.<String>emptyList(), null))
-    .put("voice-family", new CssProperty("voice-family", Collections.<String>emptyList(), null))
-    .put("voice-pitch", new CssProperty("voice-pitch", Collections.<String>emptyList(), null))
-    .put("voice-pitch-range", new CssProperty("voice-pitch-range", Collections.<String>emptyList(), null))
-    .put("voice-rate", new CssProperty("voice-rate", Collections.<String>emptyList(), null))
-    .put("voice-stress", new CssProperty("voice-stress", Collections.<String>emptyList(), null))
-    .put("voice-volume", new CssProperty("voice-volume", Collections.<String>emptyList(), null))
-    .put("volume", new CssProperty(
-      "volume",
-      Collections.<String>emptyList(),
-      ImmutableList
-        .of(new EnumValidator(ImmutableList.of("silent", "x-soft", "soft", "medium", "loud", "x-loud")),
-          numberValidator,
-          percentageValidator, inheritValidator))
+
+    .put("voice-balance", new CssProperty("voice-balance")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("voice-duration", new CssProperty("voice-duration")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("voice-family", new CssProperty("voice-family")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("voice-pitch", new CssProperty("voice-pitch")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("voice-pitch-range", new CssProperty("voice-pitch-range")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("voice-rate", new CssProperty("voice-rate")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("voice-stress", new CssProperty("voice-stress")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("voice-volume", new CssProperty("voice-volume")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("volume", new CssProperty("volume")
+      .addValidator(new EnumValidator(ImmutableList.of("silent", "x-soft", "soft", "medium", "loud", "x-loud")))
+      .addValidator(PropertyValidatorFactory.getNumberValidator())
+      .addValidator(PropertyValidatorFactory.getPercentageValidator())
     )
 
     // W
-    .put("white-space", new CssProperty(
-      "white-space",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("normal", "pre", "nowrap", "pre-wrap", "pre-line")), inheritValidator))
+    .put("white-space", new CssProperty("white-space")
+      .addValidator(new EnumValidator(ImmutableList.of("normal", "pre", "nowrap", "pre-wrap", "pre-line")))
     )
-    .put("white-space-collapse", new CssProperty("white-space-collapse", Collections.<String>emptyList(), null))
-    .put("widows", new CssProperty(
-      "widows",
-      Collections.<String>emptyList(),
-      ImmutableList.of(integerValidator, inheritValidator))
+
+    .put("white-space-collapse", new CssProperty("white-space-collapse")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
-    .put("width", new CssProperty(
-      "width",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("auto")), lengthValidator, percentageValidator, inheritValidator))
+
+    .put("widows", new CssProperty("widows")
+      .addValidator(PropertyValidatorFactory.getIntegerValidator())
     )
-    .put("word-break", new CssProperty("word-break", ImmutableList.of("-epub-", "-ms-"), null))
-    .put("word-spacing", new CssProperty(
-      "word-spacing",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("normal")), lengthValidator, inheritValidator))
+
+    .put("width", new CssProperty("width")
+      .addValidator(PropertyValidatorFactory.getAutoValueValidator())
+      .addValidator(PropertyValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValidatorFactory.getPercentageValidator())
     )
-    .put("word-wrap", new CssProperty("word-wrap", Collections.<String>emptyList(), null))
-    .put("writing-mode", new CssProperty(
-      "writing-mode",
-      ImmutableList.of("-epub-", "-ms-"),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("horizontal-tb", "vertical-rl", "vertical-lr"))))
+
+    .put("word-break", new CssProperty("word-break")
+      .addVendor("-epub-")
+      .addVendor("-ms-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+
+    )
+
+    .put("word-spacing", new CssProperty("word-spacing")
+      .addValidator(new EnumValidator(ImmutableList.of("normal")))
+      .addValidator(PropertyValidatorFactory.getLengthValidator())
+    )
+
+    .put("word-wrap", new CssProperty("word-wrap")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
+    .put("writing-mode", new CssProperty("writing-mode")
+      .addVendor("-epub-")
+      .addVendor("-ms-")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
 
     // Z
-    .put("z-index", new CssProperty(
-      "z-index",
-      Collections.<String>emptyList(),
-      ImmutableList.of(new EnumValidator(ImmutableList.of("auto")), integerValidator, inheritValidator))
+    .put("z-index", new CssProperty("z-index")
+      .addValidator(PropertyValidatorFactory.getAutoValueValidator())
+      .addValidator(PropertyValidatorFactory.getIntegerValidator())
     )
-    .put("zoom", new CssProperty("zoom", Collections.<String>emptyList(), null))
+
+    .put("zoom", new CssProperty("zoom")
+      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+    )
+
     .build();
 
   public static CssProperty getProperty(String propertyName) {

@@ -22,14 +22,34 @@ package org.sonar.css.checks.validators.propertyValue;
 import com.sonar.sslr.api.AstNode;
 import org.sonar.css.parser.CssGrammar;
 
+import javax.annotation.Nonnull;
+
 public class PercentageValidator implements PropertyValueValidator {
 
-  public boolean isValid(AstNode astNode) {
-    return astNode.getFirstChild(CssGrammar.PERCENTAGE) != null;
+  private final boolean positiveOnly;
+
+  public PercentageValidator(boolean positiveOnly) {
+    this.positiveOnly = positiveOnly;
   }
 
-  public String getFormat() {
-    return "<percentage>";
+  @Override
+  public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
+    if (positiveOnly) {
+      return astNode.getFirstChild(CssGrammar.PERCENTAGE) != null
+        && Double.valueOf(astNode.getFirstChild(CssGrammar.PERCENTAGE).getTokenValue()) >= 0;
+    } else {
+      return astNode.getFirstChild(CssGrammar.PERCENTAGE) != null;
+    }
+  }
+
+  @Override
+  @Nonnull
+  public String getValidatorFormat() {
+    if (positiveOnly) {
+      return "<percentage> (>=0)";
+    } else {
+      return "<percentage>";
+    }
   }
 
 }

@@ -19,24 +19,23 @@
  */
 package org.sonar.css.checks.validators.propertyValue;
 
-import com.google.common.collect.ImmutableList;
+import com.sonar.sslr.api.AstNode;
 
 import javax.annotation.Nonnull;
 
-public class LengthValidator extends DimensionValidator {
+/** 
+ * Validator to be assigned to all checks whose validation is not yet implemented
+ */
+public class NotYetImplementedValidator implements PropertyValueValidator {
 
-  public LengthValidator(boolean positiveOnly) {
-    super(positiveOnly, ImmutableList.of("in", "cm", "mm", "pt", "pc", "px", "em", "ex"));
+  @Override
+  public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
+    return true;
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    if (isPositiveOnly()) {
-      return "<length> (>=0)";
-    } else {
-      return "<length>";
-    }
+    return "<not yet implemented>";
   }
-
 }

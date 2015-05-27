@@ -49,7 +49,8 @@ public class ValidatePropertyValueCheck extends SquidCheck<LexerlessGrammar> {
   @Override
   public void leaveNode(AstNode astNode) {
     if (CssProperties.getProperty(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue()) != null
-      && !CssProperties.getProperty(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue()).isValidPropertyValue(astNode.getFirstChild(CssGrammar.VALUE))) {
+      && !CssProperties.getProperty(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue()).isPropertyValueValid(
+        astNode.getFirstChild(CssGrammar.VALUE))) {
       getContext().createLineViolation(
         this,
         "Update the invalid value of property \"{0}\". Expected format: {1}",

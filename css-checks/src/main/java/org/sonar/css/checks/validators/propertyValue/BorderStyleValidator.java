@@ -21,22 +21,10 @@ package org.sonar.css.checks.validators.propertyValue;
 
 import com.google.common.collect.ImmutableList;
 
-import javax.annotation.Nonnull;
+public class BorderStyleValidator extends EnumValidator {
 
-public class LengthValidator extends DimensionValidator {
-
-  public LengthValidator(boolean positiveOnly) {
-    super(positiveOnly, ImmutableList.of("in", "cm", "mm", "pt", "pc", "px", "em", "ex"));
-  }
-
-  @Override
-  @Nonnull
-  public String getValidatorFormat() {
-    if (isPositiveOnly()) {
-      return "<length> (>=0)";
-    } else {
-      return "<length>";
-    }
+  public BorderStyleValidator() {
+    super(ImmutableList.of("none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset"));
   }
 
 }

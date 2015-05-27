@@ -22,14 +22,19 @@ package org.sonar.css.checks.validators.propertyValue;
 import com.sonar.sslr.api.AstNode;
 import org.sonar.css.parser.CssGrammar;
 
+import javax.annotation.Nonnull;
+
 public class IntegerValidator implements PropertyValueValidator {
 
-  public boolean isValid(AstNode astNode) {
+  @Override
+  public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
     return astNode.getFirstChild(CssGrammar.NUMBER) != null
       && astNode.getFirstChild(CssGrammar.NUMBER).getTokenValue().matches("[\\-\\+]{0,1}[0-9]+");
   }
 
-  public String getFormat() {
+  @Override
+  @Nonnull
+  public String getValidatorFormat() {
     return "<integer>";
   }
 

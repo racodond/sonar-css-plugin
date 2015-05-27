@@ -21,10 +21,12 @@ package org.sonar.css.checks.validators.propertyValue;
 
 import com.google.common.collect.ImmutableList;
 
-public class UnitValidator extends EnumValidator {
+public class BorderWidthValidator extends PropertyValueMultiValidator {
 
-  public UnitValidator() {
-    super(ImmutableList.of("em", "ex", "in", "cm", "mm", "pt", "pc", "px"));
+  public BorderWidthValidator() {
+    super(ImmutableList.of(
+      new EnumValidator(ImmutableList.of("thin", "medium", "thick")),
+      BasePropertyValidatorFactory.getPositiveLengthValidator()));
   }
 
 }

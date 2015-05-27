@@ -21,22 +21,14 @@ package org.sonar.css.checks.validators.propertyValue;
 
 import com.google.common.collect.ImmutableList;
 
-import javax.annotation.Nonnull;
+public class PauseValidator extends PropertyValueMultiValidator {
 
-public class LengthValidator extends DimensionValidator {
-
-  public LengthValidator(boolean positiveOnly) {
-    super(positiveOnly, ImmutableList.of("in", "cm", "mm", "pt", "pc", "px", "em", "ex"));
-  }
-
-  @Override
-  @Nonnull
-  public String getValidatorFormat() {
-    if (isPositiveOnly()) {
-      return "<length> (>=0)";
-    } else {
-      return "<length>";
-    }
+  public PauseValidator() {
+    super(ImmutableList.of(
+      BasePropertyValidatorFactory.getTimeValidator(),
+      // positiveOnly = true even if it is not properly stated that percentage may not be negative
+      // http://www.w3.org/TR/CSS21/aural.html#propdef-pause-after
+      BasePropertyValidatorFactory.getPositivePercentageValidator()));
   }
 
 }

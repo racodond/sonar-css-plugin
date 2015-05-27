@@ -21,7 +21,13 @@ package org.sonar.css.checks.validators.propertyValue;
 
 import com.sonar.sslr.api.AstNode;
 
+import javax.annotation.Nonnull;
+
 public interface PropertyValueValidator {
-  boolean isValid(AstNode astNode);
-  String getFormat();
+
+  boolean isPropertyValueValid(@Nonnull AstNode astNode);
+
+  @Nonnull
+  String getValidatorFormat();
+
 }

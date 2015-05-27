@@ -19,24 +19,28 @@
  */
 package org.sonar.css.checks.validators.propertyValue;
 
+import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
 
-import java.util.List;
+import javax.annotation.Nonnull;
 
 public class EnumValidator implements PropertyValueValidator {
 
-  private List<String> allowedValues;
+  private final ImmutableList<String> allowedValues;
 
-  public EnumValidator(List<String> allowedValues) {
+  public EnumValidator(ImmutableList<String> allowedValues) {
     this.allowedValues = allowedValues;
   }
 
-  public boolean isValid(AstNode astNode) {
-    return allowedValues.contains(astNode.getTokenValue().toLowerCase());
+  @Override
+  public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
+    return allowedValues.contains(astNode.getTokenValue());
   }
 
-  public String getFormat() {
-    StringBuilder format = new StringBuilder("");
+  @Override
+  @Nonnull
+  public String getValidatorFormat() {
+    StringBuilder format = new StringBuilder();
     for (String allowedValue : allowedValues) {
       if (format.length() != 0) {
         format.append(" | ");

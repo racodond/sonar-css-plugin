@@ -23,20 +23,16 @@ import com.google.common.collect.ImmutableList;
 
 import javax.annotation.Nonnull;
 
-public class LengthValidator extends DimensionValidator {
+public class FrequencyValidator extends DimensionValidator {
 
-  public LengthValidator(boolean positiveOnly) {
-    super(positiveOnly, ImmutableList.of("in", "cm", "mm", "pt", "pc", "px", "em", "ex"));
+  public FrequencyValidator() {
+    super(true, ImmutableList.of("Hz", "kHz"));
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    if (isPositiveOnly()) {
-      return "<length> (>=0)";
-    } else {
-      return "<length>";
-    }
+    return "<frequency>";
   }
 
 }

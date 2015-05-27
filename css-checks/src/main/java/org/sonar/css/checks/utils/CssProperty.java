@@ -19,27 +19,80 @@
  */
 package org.sonar.css.checks.utils;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.sonar.sslr.api.AstNode;
+import org.sonar.css.checks.validators.propertyValue.PropertyValidatorFactory;
 import org.sonar.css.checks.validators.propertyValue.PropertyValueValidator;
 import org.sonar.css.parser.CssGrammar;
 
+import javax.annotation.Nonnull;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CssProperty {
 
   private String name;
-  private List<String> vendors;
-  private List<? extends PropertyValueValidator> propertyValueValidators;
+  private List<String> vendors = new ArrayList<>();
+  private List<PropertyValueValidator> validators = new ArrayList<>();
 
-  public CssProperty(String name, List<String> vendors, List<? extends PropertyValueValidator> propertyValueValidators) {
+  public CssProperty(String name) {
     this.name = name;
-    this.vendors = vendors;
-    this.propertyValueValidators = propertyValueValidators;
   }
 
-  @Override
-  public String toString() {
+  @VisibleForTesting
+  @Nonnull
+  public String getName() {
     return name;
+  }
+
+  @Nonnull
+  public List<String> getVendors() {
+    return vendors;
+  }
+
+  @VisibleForTesting
+  @Nonnull
+  public List<PropertyValueValidator> getValidators() {
+    return validators;
+  }
+
+  @Nonnull
+  public CssProperty addValidator(@Nonnull PropertyValueValidator validator) {
+    validators.add(validator);
+    return this;
+  }
+
+  @Nonnull
+  public CssProperty addVendor(@Nonnull String vendor) {
+    vendors.add(vendor);
+    return this;
+  }
+
+  @Nonnull
+  public String getValidatorFormat() {
+    StringBuilder format = new StringBuilder("");
+    if (validators != null) {
+      for (PropertyValueValidator validator : validators) {
+        if (format.length() != 0) {
+          format.append(" | ");
+        }
+        format.append(validator.getValidatorFormat());
+      }
+    }
+    return format.toString();
+  }
+
+  public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
+    if (!astNode.is(CssGrammar.VALUE)) {
+      throw new IllegalArgumentException("Node is not of type VALUE");
+    }
+    for (PropertyValueValidator validator : validators) {
+      if (validator.isPropertyValueValid(astNode)) {
+        return true;
+      }
+    }
+    return PropertyValidatorFactory.getAllowedValuesForAllPropertiesValidator().isPropertyValueValid(astNode);
   }
 
   @Override
@@ -47,29 +100,10 @@ public class CssProperty {
     if (obj == null) {
       return false;
     }
-
     if (!((obj instanceof CssProperty) || (obj instanceof String))) {
       return false;
     }
-
     return name.equalsIgnoreCase(obj.toString());
-  }
-
-  public List<String> getVendors() {
-    return vendors;
-  }
-
-  public String getValidatorFormat() {
-    StringBuilder format = new StringBuilder("");
-    if (propertyValueValidators != null) {
-      for (PropertyValueValidator validator : propertyValueValidators) {
-        if (format.length() != 0) {
-          format.append(" | ");
-        }
-        format.append(validator.getFormat());
-      }
-    }
-    return format.toString();
   }
 
   @Override
@@ -77,20 +111,9 @@ public class CssProperty {
     return name.hashCode();
   }
 
-  public boolean isValidPropertyValue(AstNode astNode) {
-    if (!astNode.is(CssGrammar.VALUE)) {
-      throw new IllegalArgumentException("Node is not of type VALUE");
-    }
-    if (propertyValueValidators != null) {
-      for (PropertyValueValidator validator : propertyValueValidators) {
-        if (validator.isValid(astNode)) {
-          return true;
-        }
-      }
-    } else {
-      return true;
-    }
-    return false;
+  @Override
+  public String toString() {
+    return name;
   }
 
 }

@@ -1,0 +1,17 @@
+.mybox {
+  font-size: xx-small;
+  font-size: larger;
+  font-size: inherit;
+  font-size: 10%;
+  font-size: 10.5%;
+  font-size: +10.5%;
+  font-size: 10px;
+  font-size: 10.5em;
+  font-size: +10.5em;
+  font-size: 0;
+  font-size: -0;
+  font-size: +0;
+  font-size: -10em; /* Noncompliant */
+  font-size: -10%; /* Noncompliant */
+  font-size: abc; /* Noncompliant */
+}
