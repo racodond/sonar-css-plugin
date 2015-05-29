@@ -67,6 +67,10 @@ public final class CssProperties {
       .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
 
+    .put("all", new CssProperty("all")
+      .addValidator(new EnumValidator(ImmutableList.of("inherit", "initial", "unset")))
+    )
+
     .put("animation", new CssProperty("animation")
       .addVendor("-webkit-")
       .addVendor("-moz-")
@@ -1212,7 +1216,8 @@ public final class CssProperties {
     )
 
     .put("speech-rate", new CssProperty("speech-rate")
-      .addValidator(new EnumValidator(ImmutableList.of("x-slow", "slow", "medium", "fast", "x-fast", "faster", "slower")))
+      .addValidator(
+        new EnumValidator(ImmutableList.of("x-slow", "slow", "medium", "fast", "x-fast", "faster", "slower")))
       .addValidator(PropertyValidatorFactory.getNumberValidator())
     )
 

@@ -145,6 +145,13 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void all() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/all.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(5).withMessage("Update the invalid value of property \"all\". Expected format: inherit | initial | unset").noMore();
+  }
+
+  @Test
   public void font_size_adjust() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/font-size-adjust.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
