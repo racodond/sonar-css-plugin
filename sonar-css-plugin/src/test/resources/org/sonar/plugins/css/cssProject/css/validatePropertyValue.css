@@ -192,3 +192,20 @@
   pitch: inherit;
   pitch: x-low;
 }
+
+/* Angle validation */
+.mybox {
+  elevation: inherit;
+  elevation: below;
+  elevation: 10deg;
+  elevation: 10rad;
+  elevation: 10.5rad;
+  elevation: 0rad;
+  elevation: 0;
+  elevation: 0.0;
+  elevation: -10grad;
+  elevation: -10.4grad;
+  elevation: +10.4grad;
+  elevation: 10.4; /* Noncompliant */
+  elevation: abc; /* Noncompliant */
+}
