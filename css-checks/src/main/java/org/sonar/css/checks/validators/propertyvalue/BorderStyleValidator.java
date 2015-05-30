@@ -17,16 +17,14 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyValue;
+package org.sonar.css.checks.validators.propertyvalue;
 
 import com.google.common.collect.ImmutableList;
 
-public class BorderWidthValidator extends PropertyValueMultiValidator {
+public class BorderStyleValidator extends EnumValidator {
 
-  public BorderWidthValidator() {
-    super(ImmutableList.of(
-      new EnumValidator(ImmutableList.of("thin", "medium", "thick")),
-      BasePropertyValidatorFactory.getPositiveLengthValidator()));
+  public BorderStyleValidator() {
+    super(ImmutableList.of("none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset"));
   }
 
 }

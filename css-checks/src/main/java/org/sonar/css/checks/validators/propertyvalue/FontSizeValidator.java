@@ -17,14 +17,17 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyValue;
+package org.sonar.css.checks.validators.propertyvalue;
 
 import com.google.common.collect.ImmutableList;
 
-public class OutlineStyleValidator extends EnumValidator {
+public class FontSizeValidator extends PropertyValueMultiValidator {
 
-  public OutlineStyleValidator() {
-    super(ImmutableList.of("none", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset"));
+  public FontSizeValidator() {
+    super(ImmutableList.of(
+      new EnumValidator(ImmutableList.of("xx-small", "x-small", "small", "medium", "large", "x-large", "xx-large")),
+      new EnumValidator(ImmutableList.of("larger", "smaller")),
+      BasePropertyValidatorFactory.getPositiveLengthValidator(),
+      BasePropertyValidatorFactory.getPositivePercentageValidator()));
   }
-
 }

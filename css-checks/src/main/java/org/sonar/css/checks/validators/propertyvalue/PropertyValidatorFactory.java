@@ -17,12 +17,13 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyValue;
+package org.sonar.css.checks.validators.propertyvalue;
 
 public class PropertyValidatorFactory extends BasePropertyValidatorFactory {
 
   private static final PropertyValueValidator borderStyleValidator = new BorderStyleValidator();
   private static final PropertyValueValidator borderWidthValidator = new BorderWidthValidator();
+  private static final PropertyValueValidator colorValidator = new ColorValidator();
   private static final PropertyValueValidator fontSizeValidator = new FontSizeValidator();
   private static final PropertyValueValidator marginWidthValidator = new MarginWidthValidator();
   private static final PropertyValueValidator outlineStyleValidator = new OutlineStyleValidator();
@@ -33,6 +34,10 @@ public class PropertyValidatorFactory extends BasePropertyValidatorFactory {
 
   public static PropertyValueValidator getBorderStyleValidator() {
     return borderStyleValidator;
+  }
+
+  public static PropertyValueValidator getColorValidator() {
+    return colorValidator;
   }
 
   public static PropertyValueValidator getBorderWidthValidator() {

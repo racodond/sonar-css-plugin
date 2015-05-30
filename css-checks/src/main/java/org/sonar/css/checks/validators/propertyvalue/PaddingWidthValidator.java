@@ -17,21 +17,16 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyValue;
+package org.sonar.css.checks.validators.propertyvalue;
 
 import com.google.common.collect.ImmutableList;
-import javax.annotation.Nonnull;
 
-public class TimeValidator extends DimensionValidator {
+public class PaddingWidthValidator extends PropertyValueMultiValidator {
 
-  public TimeValidator() {
-    super(true, ImmutableList.of("ms", "s"));
-  }
-
-  @Override
-  @Nonnull
-  public String getValidatorFormat() {
-    return "<time>";
+  public PaddingWidthValidator() {
+    super(ImmutableList.of(
+      BasePropertyValidatorFactory.getPositiveLengthValidator(),
+      BasePropertyValidatorFactory.getPositivePercentageValidator()));
   }
 
 }

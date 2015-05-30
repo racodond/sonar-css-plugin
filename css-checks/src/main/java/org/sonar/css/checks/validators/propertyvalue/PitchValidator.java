@@ -17,16 +17,16 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyValue;
+package org.sonar.css.checks.validators.propertyvalue;
 
 import com.google.common.collect.ImmutableList;
 
-public class MarginWidthValidator extends PropertyValueMultiValidator {
+public class PitchValidator extends PropertyValueMultiValidator {
 
-  public MarginWidthValidator() {
+  public PitchValidator() {
     super(ImmutableList.of(
-      new EnumValidator(ImmutableList.of("auto")),
-      BasePropertyValidatorFactory.getLengthValidator(),
-      BasePropertyValidatorFactory.getPercentageValidator()));
+      BasePropertyValidatorFactory.getFrequencyValidator(),
+      new EnumValidator(ImmutableList.of("x-low", "low", "medium", "high", "x-high"))));
   }
+
 }

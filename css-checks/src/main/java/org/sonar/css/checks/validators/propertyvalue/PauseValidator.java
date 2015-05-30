@@ -17,14 +17,18 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyValue;
+package org.sonar.css.checks.validators.propertyvalue;
 
 import com.google.common.collect.ImmutableList;
 
-public class BorderStyleValidator extends EnumValidator {
+public class PauseValidator extends PropertyValueMultiValidator {
 
-  public BorderStyleValidator() {
-    super(ImmutableList.of("none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset"));
+  public PauseValidator() {
+    super(ImmutableList.of(
+      BasePropertyValidatorFactory.getTimeValidator(),
+      // positiveOnly = true even if it is not properly stated that percentage may not be negative
+      // http://www.w3.org/TR/CSS21/aural.html#propdef-pause-after
+      BasePropertyValidatorFactory.getPositivePercentageValidator()));
   }
 
 }

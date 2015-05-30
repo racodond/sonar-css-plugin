@@ -17,42 +17,26 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyValue;
+package org.sonar.css.checks.validators.propertyvalue;
 
 import com.google.common.collect.ImmutableList;
-import com.sonar.sslr.api.AstNode;
 
 import javax.annotation.Nonnull;
 
-public class PropertyValueMultiValidator implements PropertyValueValidator {
+public class LengthValidator extends DimensionValidator {
 
-  private final ImmutableList<PropertyValueValidator> validators;
-
-  public PropertyValueMultiValidator(@Nonnull ImmutableList<PropertyValueValidator> validators) {
-    this.validators = validators;
-  }
-
-  @Override
-  public boolean isPropertyValueValid(@Nonnull AstNode valueAstNode) {
-    for (PropertyValueValidator validator : validators) {
-      if (validator.isPropertyValueValid(valueAstNode)) {
-        return true;
-      }
-    }
-    return false;
+  public LengthValidator(boolean positiveOnly) {
+    super(positiveOnly, ImmutableList.of("in", "cm", "mm", "pt", "pc", "px", "em", "ex"));
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    StringBuilder format = new StringBuilder();
-    for (PropertyValueValidator validator : validators) {
-      if (format.length() > 0) {
-        format.append(" | ");
-      }
-      format.append(validator.getValidatorFormat());
+    if (isPositiveOnly()) {
+      return "<length> (>=0)";
+    } else {
+      return "<length>";
     }
-    return format.toString();
   }
 
 }

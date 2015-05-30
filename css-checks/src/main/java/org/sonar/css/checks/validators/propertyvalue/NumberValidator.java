@@ -17,24 +17,24 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyValue;
+package org.sonar.css.checks.validators.propertyvalue;
 
 import com.sonar.sslr.api.AstNode;
 import org.sonar.css.parser.CssGrammar;
 
 import javax.annotation.Nonnull;
 
-public class UriValidator implements PropertyValueValidator {
+public class NumberValidator implements PropertyValueValidator {
 
   @Override
   public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
-    return astNode.getFirstChild(CssGrammar.URI) != null;
+    return astNode.getFirstChild(CssGrammar.NUMBER) != null;
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    return "<uri>";
+    return "<number>";
   }
 
 }

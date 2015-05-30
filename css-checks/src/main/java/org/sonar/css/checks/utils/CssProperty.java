@@ -21,8 +21,8 @@ package org.sonar.css.checks.utils;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.sonar.sslr.api.AstNode;
-import org.sonar.css.checks.validators.propertyValue.PropertyValidatorFactory;
-import org.sonar.css.checks.validators.propertyValue.PropertyValueValidator;
+import org.sonar.css.checks.validators.propertyvalue.PropertyValidatorFactory;
+import org.sonar.css.checks.validators.propertyvalue.PropertyValueValidator;
 import org.sonar.css.parser.CssGrammar;
 
 import javax.annotation.Nonnull;

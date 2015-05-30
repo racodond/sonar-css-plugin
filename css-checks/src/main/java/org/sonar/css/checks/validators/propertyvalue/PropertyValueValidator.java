@@ -17,22 +17,17 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyValue;
+package org.sonar.css.checks.validators.propertyvalue;
 
-import com.google.common.collect.ImmutableList;
+import com.sonar.sslr.api.AstNode;
 
 import javax.annotation.Nonnull;
 
-public class FrequencyValidator extends DimensionValidator {
+public interface PropertyValueValidator {
 
-  public FrequencyValidator() {
-    super(true, ImmutableList.of("Hz", "kHz"));
-  }
+  boolean isPropertyValueValid(@Nonnull AstNode astNode);
 
-  @Override
   @Nonnull
-  public String getValidatorFormat() {
-    return "<frequency>";
-  }
+  String getValidatorFormat();
 
 }

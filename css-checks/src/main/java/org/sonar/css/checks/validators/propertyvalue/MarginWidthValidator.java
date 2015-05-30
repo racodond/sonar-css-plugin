@@ -17,14 +17,16 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyValue;
+package org.sonar.css.checks.validators.propertyvalue;
 
 import com.google.common.collect.ImmutableList;
 
-public class PageBreakValidator extends EnumValidator {
+public class MarginWidthValidator extends PropertyValueMultiValidator {
 
-  public PageBreakValidator() {
-    super(ImmutableList.of("auto", "always", "avoid", "left", "right"));
+  public MarginWidthValidator() {
+    super(ImmutableList.of(
+      new EnumValidator(ImmutableList.of("auto")),
+      BasePropertyValidatorFactory.getLengthValidator(),
+      BasePropertyValidatorFactory.getPercentageValidator()));
   }
-
 }

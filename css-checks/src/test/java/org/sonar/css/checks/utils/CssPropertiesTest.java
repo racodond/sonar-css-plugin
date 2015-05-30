@@ -20,8 +20,8 @@
 package org.sonar.css.checks.utils;
 
 import org.junit.Test;
-import org.sonar.css.checks.validators.propertyValue.NotYetImplementedValidator;
-import org.sonar.css.checks.validators.propertyValue.PropertyValueValidator;
+import org.sonar.css.checks.validators.propertyvalue.NotYetImplementedValidator;
+import org.sonar.css.checks.validators.propertyvalue.PropertyValueValidator;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -35,6 +35,17 @@ public class CssPropertiesTest {
   @Test
   public void number_of_properties() {
     assertThat(CssProperties.PROPERTIES.size()).isEqualTo(309);
+  }
+
+  @Test
+  public void number_of_not_yet_implemented_validator_properties() {
+    int count = 0;
+    for (CssProperty property : CssProperties.PROPERTIES.values()) {
+      if (containsNoYetImplementedValidator(property)) {
+        count++;
+      }
+    }
+    assertThat(count).isEqualTo(219);
   }
 
   @Test

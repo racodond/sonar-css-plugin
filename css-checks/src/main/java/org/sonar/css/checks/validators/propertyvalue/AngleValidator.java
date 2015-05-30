@@ -17,39 +17,22 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyValue;
+package org.sonar.css.checks.validators.propertyvalue;
 
-import com.sonar.sslr.api.AstNode;
-import org.sonar.css.parser.CssGrammar;
+import com.google.common.collect.ImmutableList;
 
 import javax.annotation.Nonnull;
 
-public class PercentageValidator implements PropertyValueValidator {
+public class AngleValidator extends DimensionValidator {
 
-  private final boolean positiveOnly;
-
-  public PercentageValidator(boolean positiveOnly) {
-    this.positiveOnly = positiveOnly;
-  }
-
-  @Override
-  public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
-    if (positiveOnly) {
-      return astNode.getFirstChild(CssGrammar.PERCENTAGE) != null
-        && Double.valueOf(astNode.getFirstChild(CssGrammar.PERCENTAGE).getTokenValue()) >= 0;
-    } else {
-      return astNode.getFirstChild(CssGrammar.PERCENTAGE) != null;
-    }
+  public AngleValidator() {
+    super(false, ImmutableList.of("deg", "grad", "rad"));
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    if (positiveOnly) {
-      return "<percentage> (>=0)";
-    } else {
-      return "<percentage>";
-    }
+    return "<angle>";
   }
 
 }

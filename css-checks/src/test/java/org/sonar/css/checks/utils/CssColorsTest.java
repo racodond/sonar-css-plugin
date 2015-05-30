@@ -17,16 +17,27 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyValue;
+package org.sonar.css.checks.utils;
 
-import com.google.common.collect.ImmutableList;
+import org.junit.Test;
 
-public class PaddingWidthValidator extends PropertyValueMultiValidator {
+import static org.fest.assertions.Assertions.assertThat;
 
-  public PaddingWidthValidator() {
-    super(ImmutableList.of(
-      BasePropertyValidatorFactory.getPositiveLengthValidator(),
-      BasePropertyValidatorFactory.getPositivePercentageValidator()));
+public class CssColorsTest {
+
+  @Test
+  public void number_of_svg_colors() {
+    assertThat(CssColors.SVG_COLORS.size()).isEqualTo(147);
+  }
+
+  @Test
+  public void number_of_css4_colors() {
+    assertThat(CssColors.CSS4_COLORS.size()).isEqualTo(1);
+  }
+
+  @Test
+  public void number_of_css2_system_colors() {
+    assertThat(CssColors.CSS2_SYSTEM_COLORS.size()).isEqualTo(28);
   }
 
 }

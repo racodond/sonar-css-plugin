@@ -17,23 +17,25 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyValue;
+package org.sonar.css.checks.validators.propertyvalue;
 
 import com.sonar.sslr.api.AstNode;
+import org.sonar.css.parser.CssGrammar;
 
 import javax.annotation.Nonnull;
 
-public class ZeroNumberValidator implements PropertyValueValidator {
+public class IntegerValidator implements PropertyValueValidator {
 
   @Override
   public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
-    return astNode.getTokenValue().matches("([\\-\\+])?[0]*(\\.[0]+)?");
+    return astNode.getFirstChild(CssGrammar.NUMBER) != null
+      && astNode.getFirstChild(CssGrammar.NUMBER).getTokenValue().matches("[\\-\\+]{0,1}[0-9]+");
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    return "Not implemented";
+    return "<integer>";
   }
 
 }

@@ -21,10 +21,8 @@ package org.sonar.css.checks.utils;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import org.sonar.css.checks.validators.propertyValue.EnumValidator;
-import org.sonar.css.checks.validators.propertyValue.FontSizeValidator;
-import org.sonar.css.checks.validators.propertyValue.OutlineStyleValidator;
-import org.sonar.css.checks.validators.propertyValue.PropertyValidatorFactory;
+import org.sonar.css.checks.validators.propertyvalue.EnumValidator;
+import org.sonar.css.checks.validators.propertyvalue.PropertyValidatorFactory;
 
 import java.util.Map;
 
@@ -153,7 +151,7 @@ public final class CssProperties {
     )
 
     .put("background-color", new CssProperty("background-color")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValidatorFactory.getColorValidator())
     )
 
     .put("background-image", new CssProperty("background-image")
@@ -218,7 +216,7 @@ public final class CssProperties {
     )
 
     .put("border-bottom-color", new CssProperty("border-bottom-color")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValidatorFactory.getColorValidator())
     )
 
     .put("border-bottom-left-radius", new CssProperty("border-bottom-left-radius")
@@ -301,7 +299,7 @@ public final class CssProperties {
     )
 
     .put("border-left-color", new CssProperty("border-left-color")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValidatorFactory.getColorValidator())
     )
 
     .put("border-left-style", new CssProperty("border-left-style")
@@ -322,7 +320,7 @@ public final class CssProperties {
     )
 
     .put("border-right-color", new CssProperty("border-right-color")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValidatorFactory.getColorValidator())
     )
 
     .put("border-right-style", new CssProperty("border-right-style")
@@ -371,7 +369,7 @@ public final class CssProperties {
     )
 
     .put("border-top-color", new CssProperty("border-top-color")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValidatorFactory.getColorValidator())
     )
 
     .put("border-top-left-radius", new CssProperty("border-top-left-radius")
@@ -493,7 +491,7 @@ public final class CssProperties {
       .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
     )
     .put("color", new CssProperty("color")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValidatorFactory.getColorValidator())
     )
     .put("color-profile", new CssProperty("color-profile")
       .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
@@ -680,7 +678,7 @@ public final class CssProperties {
     )
 
     .put("font-size", new CssProperty("font-size")
-      .addValidator(new FontSizeValidator())
+      .addValidator(PropertyValidatorFactory.getFontSizeValidator())
     )
 
     .put("font-size-adjust", new CssProperty("font-size-adjust")
@@ -1000,7 +998,8 @@ public final class CssProperties {
     )
 
     .put("outline-color", new CssProperty("outline-color")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValidatorFactory.getColorValidator())
+      .addValidator(new EnumValidator(ImmutableList.of("invert")))
     )
 
     .put("outline-offset", new CssProperty("outline-offset")
@@ -1008,7 +1007,7 @@ public final class CssProperties {
     )
 
     .put("outline-style", new CssProperty("outline-style")
-      .addValidator(new OutlineStyleValidator())
+      .addValidator(PropertyValidatorFactory.getOutlineStyleValidator())
     )
 
     .put("outline-width", new CssProperty("outline-width")

@@ -17,24 +17,39 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyValue;
+package org.sonar.css.checks.validators.propertyvalue;
 
 import com.sonar.sslr.api.AstNode;
 import org.sonar.css.parser.CssGrammar;
 
 import javax.annotation.Nonnull;
 
-public class NumberValidator implements PropertyValueValidator {
+public class PercentageValidator implements PropertyValueValidator {
+
+  private final boolean positiveOnly;
+
+  public PercentageValidator(boolean positiveOnly) {
+    this.positiveOnly = positiveOnly;
+  }
 
   @Override
   public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
-    return astNode.getFirstChild(CssGrammar.NUMBER) != null;
+    if (positiveOnly) {
+      return astNode.getFirstChild(CssGrammar.PERCENTAGE) != null
+        && Double.valueOf(astNode.getFirstChild(CssGrammar.PERCENTAGE).getTokenValue()) >= 0;
+    } else {
+      return astNode.getFirstChild(CssGrammar.PERCENTAGE) != null;
+    }
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    return "<number>";
+    if (positiveOnly) {
+      return "<percentage> (>=0)";
+    } else {
+      return "<percentage>";
+    }
   }
 
 }

@@ -152,6 +152,37 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void color() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/color.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(9).withMessage(
+        "Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(10).withMessage(
+        "Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(11).withMessage(
+        "Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(14).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(16).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(17).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(20).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(22).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(23).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(24).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(25).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(28).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(29).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(30).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(31).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(34).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(35).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(36).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(37).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(38).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(39).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(40).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").noMore();
+  }
+
+  @Test
   public void font_size_adjust() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/font-size-adjust.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()

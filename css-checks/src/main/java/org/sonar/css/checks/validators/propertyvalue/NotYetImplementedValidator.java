@@ -17,36 +17,25 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyValue;
+package org.sonar.css.checks.validators.propertyvalue;
 
-import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
 
 import javax.annotation.Nonnull;
 
-public class EnumValidator implements PropertyValueValidator {
-
-  private final ImmutableList<String> allowedValues;
-
-  public EnumValidator(ImmutableList<String> allowedValues) {
-    this.allowedValues = allowedValues;
-  }
+/** 
+ * Validator to be assigned to all checks whose validation is not yet implemented
+ */
+public class NotYetImplementedValidator implements PropertyValueValidator {
 
   @Override
   public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
-    return allowedValues.contains(astNode.getTokenValue());
+    return true;
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    StringBuilder format = new StringBuilder();
-    for (String allowedValue : allowedValues) {
-      if (format.length() != 0) {
-        format.append(" | ");
-      }
-      format.append(allowedValue);
-    }
-    return format.toString();
+    return "<not yet implemented>";
   }
 }
