@@ -97,7 +97,7 @@ public class CssFunctions {
     "alpha",
     "basicimage",
     "blendtrans",
-    // "Blur", exists in CSS_FUNCTIONS
+    "blur",
     "chroma",
     "compositor",
     "dropshadow",
@@ -108,10 +108,40 @@ public class CssFunctions {
     "glow",
     "gray",
     "icmfilter",
-    // "Invert", exists in CSS_FUNCTIONS
+    "invert",
     "light",
-    "maskFilter",
-    // "Matrix", exists in CSS_FUNCTIONS
+    "maskfilter",
+    "matrix",
+    "motionBlur",
+    "redirect",
+    "revealTrans",
+    "shadow",
+    "wave",
+    "xray"
+    );
+
+  /**
+   * See https://msdn.microsoft.com/en-us/library/ms673539(v=vs.85).aspx
+   */
+  public static ImmutableList<String> IE_STATIC_FILTERS_NOT_IN_CSS_FUNCTIONS = ImmutableList.of(
+    "alpha",
+    "basicimage",
+    "blendtrans",
+    // "blur", exists in CSS_FUNCTIONS
+    "chroma",
+    "compositor",
+    "dropshadow",
+    "emboss",
+    "engrave",
+    "flipH",
+    "flipV",
+    "glow",
+    "gray",
+    "icmfilter",
+    // "invert", exists in CSS_FUNCTIONS
+    "light",
+    "maskfilter",
+    // "matrix", exists in CSS_FUNCTIONS
     "motionBlur",
     "redirect",
     "revealTrans",

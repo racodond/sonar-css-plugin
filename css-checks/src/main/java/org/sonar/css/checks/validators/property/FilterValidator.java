@@ -21,6 +21,7 @@ package org.sonar.css.checks.validators.property;
 
 import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
+import org.sonar.css.checks.utils.CssFunctions;
 import org.sonar.css.checks.validators.PropertyValueValidator;
 import org.sonar.css.parser.CssGrammar;
 
@@ -46,8 +47,9 @@ public class FilterValidator implements PropertyValueValidator {
       if (!value.is(CssGrammar.FUNCTION) && !value.is(CssGrammar.URI)) {
         return false;
       }
-      // TODO: Deal with IE static filters
-      if (value.is(CssGrammar.FUNCTION) && !allowedFunctions.contains(value.getTokenValue())) {
+      if (value.is(CssGrammar.FUNCTION)
+        && !allowedFunctions.contains(value.getTokenValue().toLowerCase())
+        && !CssFunctions.IE_STATIC_FILTERS.contains(value.getTokenValue().toLowerCase())) {
         return false;
       }
     }

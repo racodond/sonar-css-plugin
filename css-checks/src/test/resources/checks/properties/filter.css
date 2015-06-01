@@ -15,4 +15,7 @@
   filter: blur(1px) none blur(1px); /* Noncompliant */
   filter: none 10px; /* Noncompliant */
   filter: 10px; /* Noncompliant */
+  filter: alpha(opacity=50);
+  filter: Alpha(opacity=50);
+  filter: Alpha(opacity=50) blur(1px);
 }
