@@ -21,11 +21,13 @@ package org.sonar.css.checks.validators.base.dimension;
 
 import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
-import javax.annotation.Nonnull;
-import org.sonar.css.checks.validators.base.EnumValidator;
 import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.base.EnumValidator;
+import org.sonar.css.checks.validators.base.FunctionValidator;
 import org.sonar.css.checks.validators.base.numeric.ZeroNumberValidator;
 import org.sonar.css.parser.CssGrammar;
+
+import javax.annotation.Nonnull;
 
 public abstract class DimensionValidator implements PropertyValueValidator {
 
@@ -43,6 +45,9 @@ public abstract class DimensionValidator implements PropertyValueValidator {
 
   @Override
   public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
+    if (new FunctionValidator(ImmutableList.of("calc")).isPropertyValueValid(astNode)) {
+      return true;
+    }
     if (astNode.getFirstChild(CssGrammar.DIMENSION) != null
       && astNode.getFirstChild(CssGrammar.DIMENSION).getFirstChild(CssGrammar.NUMBER) != null
       && astNode.getFirstChild(CssGrammar.DIMENSION).getFirstChild(CssGrammar.unit) != null) {

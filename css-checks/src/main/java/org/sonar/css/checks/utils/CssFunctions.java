@@ -25,6 +25,7 @@ public class CssFunctions {
 
   public static ImmutableList<String> CSS_FUNCTIONS = ImmutableList.of(
     "annotation",
+    "attr",
     "blur",
     "brightness",
     "calc",
@@ -79,6 +80,7 @@ public class CssFunctions {
     "stylistic",
     "swash",
     "symbols",
+    "toggle",
     "translate",
     "translatex",
     "translatey",
