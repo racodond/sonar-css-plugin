@@ -17,9 +17,21 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyvalue;
+package org.sonar.css.checks.validators;
 
-public class PropertyValidatorFactory extends BasePropertyValidatorFactory {
+import org.sonar.css.checks.validators.base.BasePropertyValueValidatorFactory;
+import org.sonar.css.checks.validators.base.ColorValidator;
+import org.sonar.css.checks.validators.property.BorderStyleValidator;
+import org.sonar.css.checks.validators.property.BorderWidthValidator;
+import org.sonar.css.checks.validators.property.FontSizeValidator;
+import org.sonar.css.checks.validators.property.MarginWidthValidator;
+import org.sonar.css.checks.validators.property.OutlineStyleValidator;
+import org.sonar.css.checks.validators.property.PaddingWidthValidator;
+import org.sonar.css.checks.validators.property.PageBreakValidator;
+import org.sonar.css.checks.validators.property.PauseValidator;
+import org.sonar.css.checks.validators.property.PitchValidator;
+
+public class PropertyValueValidatorFactory extends BasePropertyValueValidatorFactory {
 
   private static final PropertyValueValidator borderStyleValidator = new BorderStyleValidator();
   private static final PropertyValueValidator borderWidthValidator = new BorderWidthValidator();

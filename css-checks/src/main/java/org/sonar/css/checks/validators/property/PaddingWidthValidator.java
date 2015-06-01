@@ -17,22 +17,18 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyvalue;
+package org.sonar.css.checks.validators.property;
 
 import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.validators.base.BasePropertyValueValidatorFactory;
+import org.sonar.css.checks.validators.PropertyValueMultiValidator;
 
-import javax.annotation.Nonnull;
+public class PaddingWidthValidator extends PropertyValueMultiValidator {
 
-public class FrequencyValidator extends DimensionValidator {
-
-  public FrequencyValidator() {
-    super(true, ImmutableList.of("Hz", "kHz"));
-  }
-
-  @Override
-  @Nonnull
-  public String getValidatorFormat() {
-    return "<frequency>";
+  public PaddingWidthValidator() {
+    super(ImmutableList.of(
+      BasePropertyValueValidatorFactory.getPositiveLengthValidator(),
+      BasePropertyValueValidatorFactory.getPositivePercentageValidator()));
   }
 
 }

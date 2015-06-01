@@ -17,14 +17,19 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyvalue;
+package org.sonar.css.checks.validators.property;
 
 import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.validators.base.BasePropertyValueValidatorFactory;
+import org.sonar.css.checks.validators.base.EnumValidator;
+import org.sonar.css.checks.validators.PropertyValueMultiValidator;
 
-public class AllowedValuesForAllPropertiesValidator extends EnumValidator {
+public class MarginWidthValidator extends PropertyValueMultiValidator {
 
-  public AllowedValuesForAllPropertiesValidator() {
-    super(ImmutableList.of("inherit", "initial", "unset"));
+  public MarginWidthValidator() {
+    super(ImmutableList.of(
+      new EnumValidator(ImmutableList.of("auto")),
+      BasePropertyValueValidatorFactory.getLengthValidator(),
+      BasePropertyValueValidatorFactory.getPercentageValidator()));
   }
-
 }

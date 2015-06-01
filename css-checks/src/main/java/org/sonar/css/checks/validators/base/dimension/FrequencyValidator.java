@@ -17,16 +17,22 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyvalue;
+package org.sonar.css.checks.validators.base.dimension;
 
-import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.utils.CssUnits;
 
-public class BorderWidthValidator extends PropertyValueMultiValidator {
+import javax.annotation.Nonnull;
 
-  public BorderWidthValidator() {
-    super(ImmutableList.of(
-      new EnumValidator(ImmutableList.of("thin", "medium", "thick")),
-      BasePropertyValidatorFactory.getPositiveLengthValidator()));
+public class FrequencyValidator extends DimensionValidator {
+
+  public FrequencyValidator() {
+    super(true, CssUnits.FREQUENCY_UNITS);
+  }
+
+  @Override
+  @Nonnull
+  public String getValidatorFormat() {
+    return "<frequency>";
   }
 
 }

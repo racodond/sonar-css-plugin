@@ -17,42 +17,25 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyvalue;
+package org.sonar.css.checks.validators.base.numeric;
 
-import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
+import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.parser.CssGrammar;
 
 import javax.annotation.Nonnull;
 
-public class PropertyValueMultiValidator implements PropertyValueValidator {
-
-  private final ImmutableList<PropertyValueValidator> validators;
-
-  public PropertyValueMultiValidator(@Nonnull ImmutableList<PropertyValueValidator> validators) {
-    this.validators = validators;
-  }
+public class NumberValidator implements PropertyValueValidator {
 
   @Override
-  public boolean isPropertyValueValid(@Nonnull AstNode valueAstNode) {
-    for (PropertyValueValidator validator : validators) {
-      if (validator.isPropertyValueValid(valueAstNode)) {
-        return true;
-      }
-    }
-    return false;
+  public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
+    return astNode.getFirstChild(CssGrammar.NUMBER) != null;
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    StringBuilder format = new StringBuilder();
-    for (PropertyValueValidator validator : validators) {
-      if (format.length() > 0) {
-        format.append(" | ");
-      }
-      format.append(validator.getValidatorFormat());
-    }
-    return format.toString();
+    return "<number>";
   }
 
 }

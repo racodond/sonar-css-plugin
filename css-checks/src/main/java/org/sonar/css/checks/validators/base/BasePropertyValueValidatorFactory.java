@@ -17,11 +17,23 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyvalue;
+package org.sonar.css.checks.validators.base;
 
 import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.base.AllowedValuesForAllPropertiesValidator;
+import org.sonar.css.checks.validators.base.EnumValidator;
+import org.sonar.css.checks.validators.base.NotYetImplementedValidator;
+import org.sonar.css.checks.validators.base.UriValidator;
+import org.sonar.css.checks.validators.base.dimension.AngleValidator;
+import org.sonar.css.checks.validators.base.dimension.FrequencyValidator;
+import org.sonar.css.checks.validators.base.dimension.LengthValidator;
+import org.sonar.css.checks.validators.base.dimension.TimeValidator;
+import org.sonar.css.checks.validators.base.numeric.IntegerValidator;
+import org.sonar.css.checks.validators.base.numeric.NumberValidator;
+import org.sonar.css.checks.validators.base.numeric.PercentageValidator;
 
-public class BasePropertyValidatorFactory {
+public class BasePropertyValueValidatorFactory {
 
   private static final PropertyValueValidator angleValidator = new AngleValidator();
   private static final PropertyValueValidator autoValueValidator = new EnumValidator(ImmutableList.of("auto"));

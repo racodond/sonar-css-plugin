@@ -17,21 +17,40 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyvalue;
+package org.sonar.css.checks.validators.base.numeric;
 
-import com.google.common.collect.ImmutableList;
+import com.sonar.sslr.api.AstNode;
+import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.parser.CssGrammar;
+
 import javax.annotation.Nonnull;
 
-public class TimeValidator extends DimensionValidator {
+public class PercentageValidator implements PropertyValueValidator {
 
-  public TimeValidator() {
-    super(true, ImmutableList.of("ms", "s"));
+  private final boolean positiveOnly;
+
+  public PercentageValidator(boolean positiveOnly) {
+    this.positiveOnly = positiveOnly;
+  }
+
+  @Override
+  public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
+    if (positiveOnly) {
+      return astNode.getFirstChild(CssGrammar.PERCENTAGE) != null
+        && Double.valueOf(astNode.getFirstChild(CssGrammar.PERCENTAGE).getTokenValue()) >= 0;
+    } else {
+      return astNode.getFirstChild(CssGrammar.PERCENTAGE) != null;
+    }
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    return "<time>";
+    if (positiveOnly) {
+      return "<percentage> (>=0)";
+    } else {
+      return "<percentage>";
+    }
   }
 
 }

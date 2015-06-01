@@ -17,39 +17,42 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyvalue;
+package org.sonar.css.checks.validators;
 
+import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
-import org.sonar.css.parser.CssGrammar;
 
 import javax.annotation.Nonnull;
 
-public class PercentageValidator implements PropertyValueValidator {
+public class PropertyValueMultiValidator implements PropertyValueValidator {
 
-  private final boolean positiveOnly;
+  private final ImmutableList<PropertyValueValidator> validators;
 
-  public PercentageValidator(boolean positiveOnly) {
-    this.positiveOnly = positiveOnly;
+  public PropertyValueMultiValidator(@Nonnull ImmutableList<PropertyValueValidator> validators) {
+    this.validators = validators;
   }
 
   @Override
-  public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
-    if (positiveOnly) {
-      return astNode.getFirstChild(CssGrammar.PERCENTAGE) != null
-        && Double.valueOf(astNode.getFirstChild(CssGrammar.PERCENTAGE).getTokenValue()) >= 0;
-    } else {
-      return astNode.getFirstChild(CssGrammar.PERCENTAGE) != null;
+  public boolean isPropertyValueValid(@Nonnull AstNode valueAstNode) {
+    for (PropertyValueValidator validator : validators) {
+      if (validator.isPropertyValueValid(valueAstNode)) {
+        return true;
+      }
     }
+    return false;
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    if (positiveOnly) {
-      return "<percentage> (>=0)";
-    } else {
-      return "<percentage>";
+    StringBuilder format = new StringBuilder();
+    for (PropertyValueValidator validator : validators) {
+      if (format.length() > 0) {
+        format.append(" | ");
+      }
+      format.append(validator.getValidatorFormat());
     }
+    return format.toString();
   }
 
 }

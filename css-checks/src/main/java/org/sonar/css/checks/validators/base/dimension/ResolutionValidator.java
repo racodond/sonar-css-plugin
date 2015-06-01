@@ -17,16 +17,22 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyvalue;
+package org.sonar.css.checks.validators.base.dimension;
 
-import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.utils.CssUnits;
 
-public class MarginWidthValidator extends PropertyValueMultiValidator {
+import javax.annotation.Nonnull;
 
-  public MarginWidthValidator() {
-    super(ImmutableList.of(
-      new EnumValidator(ImmutableList.of("auto")),
-      BasePropertyValidatorFactory.getLengthValidator(),
-      BasePropertyValidatorFactory.getPercentageValidator()));
+public class ResolutionValidator extends DimensionValidator {
+
+  public ResolutionValidator() {
+    super(true, CssUnits.RESOLUTION_UNITS);
   }
+
+  @Override
+  @Nonnull
+  public String getValidatorFormat() {
+    return "<resolution>";
+  }
+
 }

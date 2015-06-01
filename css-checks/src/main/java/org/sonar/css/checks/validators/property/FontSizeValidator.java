@@ -17,18 +17,20 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyvalue;
+package org.sonar.css.checks.validators.property;
 
 import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.validators.base.BasePropertyValueValidatorFactory;
+import org.sonar.css.checks.validators.base.EnumValidator;
+import org.sonar.css.checks.validators.PropertyValueMultiValidator;
 
-public class PauseValidator extends PropertyValueMultiValidator {
+public class FontSizeValidator extends PropertyValueMultiValidator {
 
-  public PauseValidator() {
+  public FontSizeValidator() {
     super(ImmutableList.of(
-      BasePropertyValidatorFactory.getTimeValidator(),
-      // positiveOnly = true even if it is not properly stated that percentage may not be negative
-      // http://www.w3.org/TR/CSS21/aural.html#propdef-pause-after
-      BasePropertyValidatorFactory.getPositivePercentageValidator()));
+      new EnumValidator(ImmutableList.of("xx-small", "x-small", "small", "medium", "large", "x-large", "xx-large")),
+      new EnumValidator(ImmutableList.of("larger", "smaller")),
+      BasePropertyValueValidatorFactory.getPositiveLengthValidator(),
+      BasePropertyValueValidatorFactory.getPositivePercentageValidator()));
   }
-
 }
