@@ -45,7 +45,7 @@ public class CssPropertiesTest {
         count++;
       }
     }
-    assertThat(count).isEqualTo(219);
+    assertThat(count).isEqualTo(218);
   }
 
   @Test
