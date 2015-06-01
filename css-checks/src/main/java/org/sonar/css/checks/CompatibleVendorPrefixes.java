@@ -25,6 +25,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.utils.CssProperties;
 import org.sonar.css.checks.utils.CssProperty;
+import org.sonar.css.checks.utils.Vendors;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -66,7 +67,7 @@ public class CompatibleVendorPrefixes extends SquidCheck<LexerlessGrammar> {
       properties.clear();
     } else if (astNode.is(CssGrammar.DECLARATION)) {
       String property = astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue();
-      if (CssProperties.isVendorProperty(property)) {
+      if (Vendors.isVendorPrefixed(property)) {
         String cssProperty = CssProperties.getPropertyNameWithoutVendorPrefix(property);
         String cssVendorPrefix = CssProperties.getVendorPrefix(property);
         if (properties.containsKey(cssProperty)) {

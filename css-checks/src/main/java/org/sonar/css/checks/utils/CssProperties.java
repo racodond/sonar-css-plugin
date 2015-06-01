@@ -34,27 +34,7 @@ import java.util.Map;
  */
 public final class CssProperties {
 
-  public static final ImmutableList<String> VENDORS = ImmutableList.of(
-    "-ah-",
-    "-apple-",
-    "-atsc-",
-    "-epub-",
-    "-hp-",
-    "-icab-",
-    "-khtml-",
-    "-moz-",
-    "-ms-",
-    "mso-",
-    "-o-",
-    "prince-",
-    "-rim-",
-    "-ro-",
-    "-tc-",
-    "-webkit-",
-    "-wap-"
-    );
-
-  public static final Map<String, CssProperty> PROPERTIES = new ImmutableMap.Builder<String, CssProperty>()
+    public static final Map<String, CssProperty> PROPERTIES = new ImmutableMap.Builder<String, CssProperty>()
 
     // A
     .put("alignment-adjust", new CssProperty("alignment-adjust")
@@ -1494,21 +1474,12 @@ public final class CssProperties {
     return PROPERTIES.get(propertyName);
   }
 
-  public static boolean isVendorProperty(String propertyName) {
-    for (String v : VENDORS) {
-      if (propertyName.startsWith(v)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   public static String getUnhackedPropertyName(String propertyName) {
     return propertyName.startsWith("*") || propertyName.startsWith("_") ? propertyName.substring(1) : propertyName;
   }
 
   public static String getVendorPrefix(String propertyName) {
-    for (String v : VENDORS) {
+    for (String v : Vendors.VENDORS) {
       if (propertyName.startsWith(v)) {
         return v;
       }
@@ -1517,7 +1488,7 @@ public final class CssProperties {
   }
 
   public static String getPropertyNameWithoutVendorPrefix(String propertyName) {
-    for (String v : VENDORS) {
+    for (String v : Vendors.VENDORS) {
       if (propertyName.startsWith(v)) {
         return propertyName.replaceAll("(" + v + ")(.*)", "$2");
       }
