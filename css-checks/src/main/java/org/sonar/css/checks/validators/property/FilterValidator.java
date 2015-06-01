@@ -44,7 +44,7 @@ public class FilterValidator implements PropertyValueValidator {
       return "none".equals(values.get(0).getTokenValue()) && values.size() == 1;
     }
     for (AstNode value : values) {
-      if (!value.is(CssGrammar.FUNCTION) && !value.is(CssGrammar.URI)) {
+      if (!value.is(CssGrammar.FUNCTION) && !value.is(CssGrammar.URI) && !value.is(CssGrammar.IMPORTANT)) {
         return false;
       }
       if (value.is(CssGrammar.FUNCTION)

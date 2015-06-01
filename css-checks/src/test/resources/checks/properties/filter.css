@@ -18,4 +18,5 @@
   filter: alpha(opacity=50);
   filter: Alpha(opacity=50);
   filter: Alpha(opacity=50) blur(1px);
+  filter: Alpha(opacity=50) !important;
 }
