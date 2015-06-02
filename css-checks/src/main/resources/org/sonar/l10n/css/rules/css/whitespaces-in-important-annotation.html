@@ -1,0 +1,14 @@
+<p>For readability reasons, there should not be any whitespaces between <code>!</code> and the <code>important</code> annotation.
+</p><h2>Noncompliant Code Example</h2>
+<pre>
+.mybox {
+  width: 100px ! important;   /* Noncompliant */
+  width: 100px !  important;  /* Noncompliant */
+}
+
+</pre><h2>Compliant Solution</h2>
+<pre>
+.mybox {
+  width: 100px !important;
+}
+</pre>
