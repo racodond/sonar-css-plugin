@@ -1,0 +1,11 @@
+.mybox {
+   width: 100px !important;
+   width: 100px ! important;
+   width: 100px ! important ;
+   width: 100px !important ;
+   border: 1px solid black !important;
+   width: !important 100px; /* Noncompliant */
+   border: !important 1px solid black; /* Noncompliant */
+   border: 1px solid !important black; /* Noncompliant */
+   border: 1px solid black !important
+}
