@@ -17,28 +17,30 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks;
+package org.sonar.css.parser;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
-import java.io.File;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
-public class DisallowImportantTest {
+public class ImportantTest extends TestBase {
 
-  private DisallowImportant check = new DisallowImportant();
-  private final String MESSAGE = "Remove this usage of the \"!important\" annotation";
+  private LexerlessGrammar b = CssGrammar.createGrammar();
 
   @Test
-  public void test() {
+  public void should_be_important_statements() {
+    assertThat(b.rule(CssGrammar.IMPORTANT))
+      .matches("!important")
+      .matches("! important")
+      .matches("!  important");
+  }
 
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/important.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(2).withMessage(MESSAGE).next()
-      .atLine(3).withMessage(MESSAGE).next()
-      .atLine(4).withMessage(MESSAGE).noMore();
+  @Test
+  public void should_not_be_important_statements() {
+    assertThat(b.rule(CssGrammar.NUMBER))
+      .notMatches("important")
+      .notMatches("!import");
   }
 
 }
