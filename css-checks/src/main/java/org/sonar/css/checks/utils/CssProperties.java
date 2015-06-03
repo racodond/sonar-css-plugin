@@ -24,6 +24,7 @@ import com.google.common.collect.ImmutableMap;
 import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
 import org.sonar.css.checks.validators.property.BorderColorValidator;
 import org.sonar.css.checks.validators.property.FilterValidator;
+import org.sonar.css.checks.validators.property.FontWeightValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 
 import java.util.Map;
@@ -676,9 +677,7 @@ public final class CssProperties {
     )
 
     .put("font-weight", new CssProperty("font-weight")
-      .addValidator(new IdentifierValidator(ImmutableList
-        .of("normal", "bold", "bolder", "lighter", "100", "200", "300", "400", "500", "600", "700", "800",
-          "900")))
+      .addValidator(new FontWeightValidator())
     )
 
     // G
@@ -1192,7 +1191,7 @@ public final class CssProperties {
 
     .put("speech-rate", new CssProperty("speech-rate")
       .addValidator(
-        new IdentifierValidator(ImmutableList.of("x-slow", "slow", "medium", "fast", "x-fast", "faster", "slower")))
+          new IdentifierValidator(ImmutableList.of("x-slow", "slow", "medium", "fast", "x-fast", "faster", "slower")))
       .addValidator(PropertyValueValidatorFactory.getNumberValidator())
     )
 
@@ -1366,7 +1365,7 @@ public final class CssProperties {
     // V
     .put("vertical-align", new CssProperty("vertical-align")
       .addValidator(new IdentifierValidator(
-        ImmutableList.of("baseline", "sub", "super", "top", "text-top", "middle", "bottom", "text-bottom")))
+          ImmutableList.of("baseline", "sub", "super", "top", "text-top", "middle", "bottom", "text-bottom")))
       .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
       .addValidator(PropertyValueValidatorFactory.getLengthValidator())
     )
