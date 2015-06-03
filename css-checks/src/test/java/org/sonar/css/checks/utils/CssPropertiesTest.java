@@ -20,8 +20,6 @@
 package org.sonar.css.checks.utils;
 
 import org.junit.Test;
-import org.sonar.css.checks.validators.base.NotYetImplementedValidator;
-import org.sonar.css.checks.validators.PropertyValueValidator;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -35,51 +33,6 @@ public class CssPropertiesTest {
   @Test
   public void number_of_properties() {
     assertThat(CssProperties.PROPERTIES.size()).isEqualTo(309);
-  }
-
-  @Test
-  public void number_of_not_yet_implemented_validator_properties() {
-    int count = 0;
-    for (CssProperty property : CssProperties.PROPERTIES.values()) {
-      if (containsNoYetImplementedValidator(property)) {
-        count++;
-      }
-    }
-    assertThat(count).isEqualTo(218);
-  }
-
-  @Test
-  public void each_property_should_contain_at_least_one_validator() {
-    for (CssProperty property : CssProperties.PROPERTIES.values()) {
-      assertThat(property.getValidators().size()).isGreaterThanOrEqualTo(1);
-    }
-  }
-
-  @Test
-  public void there_should_not_be_not_yet_implemented_validator_with_other_validators() {
-    for (CssProperty property : CssProperties.PROPERTIES.values()) {
-      assertThat(containsNotYetImplementedValidatorWithOtherValidators(property)).isFalse();
-    }
-  }
-
-  private boolean containsNoYetImplementedValidator(CssProperty property) {
-    for (PropertyValueValidator validator : property.getValidators()) {
-      if (validator.getClass().equals(NotYetImplementedValidator.class)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  private boolean containsNotYetImplementedValidatorWithOtherValidators(CssProperty property) {
-    if (containsNoYetImplementedValidator(property)) {
-      for (PropertyValueValidator validator : property.getValidators()) {
-        if (!validator.getClass().equals(NotYetImplementedValidator.class)) {
-          return true;
-        }
-      }
-    }
-    return false;
   }
 
 }

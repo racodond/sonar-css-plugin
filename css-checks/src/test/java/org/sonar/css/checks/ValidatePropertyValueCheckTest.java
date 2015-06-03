@@ -121,6 +121,46 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void all() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/all.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(5).withMessage("Update the invalid value of property \"all\". Expected format: inherit | initial | unset").noMore();
+  }
+
+  @Test
+  public void border_color() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/border-color.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(7).withMessage("Update the invalid value of property \"border-color\". Expected format: [ <color> | transparent | currentColor ]{1,4}").next()
+      .atLine(12).withMessage("Update the invalid value of property \"border-color\". Expected format: [ <color> | transparent | currentColor ]{1,4}").noMore();
+  }
+
+  @Test
+  public void color() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/color.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(9).withMessage(
+        "Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(10).withMessage(
+        "Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(11).withMessage(
+        "Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
+      .atLine(16).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").noMore();
+  }
+
+  @Test
+  public void filter() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/filter.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(12).withMessage("Update the invalid value of property \"filter\". Expected format: none | [<uri> | <filter-function>]+").next()
+      .atLine(13).withMessage("Update the invalid value of property \"filter\". Expected format: none | [<uri> | <filter-function>]+").next()
+      .atLine(14).withMessage("Update the invalid value of property \"filter\". Expected format: none | [<uri> | <filter-function>]+").next()
+      .atLine(15).withMessage("Update the invalid value of property \"filter\". Expected format: none | [<uri> | <filter-function>]+").next()
+      .atLine(16).withMessage("Update the invalid value of property \"filter\". Expected format: none | [<uri> | <filter-function>]+").next()
+      .atLine(17).withMessage("Update the invalid value of property \"filter\". Expected format: none | [<uri> | <filter-function>]+").noMore();
+  }
+
+  @Test
   public void font_size() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/font-size.css"), check);
     CheckMessagesVerifier
@@ -142,56 +182,6 @@ public class ValidatePropertyValueCheckTest {
       .withMessage(
         "Update the invalid value of property \"font-size\". Expected format: xx-small | x-small | small | medium | large | x-large | xx-large | larger | smaller | <length> (>=0) | <percentage> (>=0)")
       .noMore();
-  }
-
-  @Test
-  public void all() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/all.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(5).withMessage("Update the invalid value of property \"all\". Expected format: inherit | initial | unset").noMore();
-  }
-
-  @Test
-  public void color() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/color.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(9).withMessage(
-        "Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
-      .atLine(10).withMessage(
-        "Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
-      .atLine(11).withMessage(
-        "Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
-      .atLine(14).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
-      .atLine(16).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
-      .atLine(17).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
-      .atLine(20).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
-      .atLine(22).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
-      .atLine(23).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
-      .atLine(24).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
-      .atLine(25).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
-      .atLine(28).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
-      .atLine(29).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
-      .atLine(30).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
-      .atLine(31).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
-      .atLine(34).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
-      .atLine(35).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
-      .atLine(36).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
-      .atLine(37).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
-      .atLine(38).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
-      .atLine(39).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").next()
-      .atLine(40).withMessage("Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor").noMore();
-  }
-
-  @Test
-  public void filter() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/filter.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(12).withMessage("Update the invalid value of property \"filter\". Expected format: none | [<uri> | <filter-function>]+").next()
-      .atLine(13).withMessage("Update the invalid value of property \"filter\". Expected format: none | [<uri> | <filter-function>]+").next()
-      .atLine(14).withMessage("Update the invalid value of property \"filter\". Expected format: none | [<uri> | <filter-function>]+").next()
-      .atLine(15).withMessage("Update the invalid value of property \"filter\". Expected format: none | [<uri> | <filter-function>]+").next()
-      .atLine(16).withMessage("Update the invalid value of property \"filter\". Expected format: none | [<uri> | <filter-function>]+").next()
-      .atLine(17).withMessage("Update the invalid value of property \"filter\". Expected format: none | [<uri> | <filter-function>]+").noMore();
   }
 
   @Test

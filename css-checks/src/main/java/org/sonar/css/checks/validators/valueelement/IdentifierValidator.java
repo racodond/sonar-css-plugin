@@ -17,40 +17,36 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.base.numeric;
+package org.sonar.css.checks.validators.valueelement;
 
-import com.sonar.sslr.api.AstNode;
-import org.sonar.css.checks.validators.PropertyValueValidator;
-import org.sonar.css.parser.CssGrammar;
-
+import com.google.common.collect.ImmutableList;
 import javax.annotation.Nonnull;
+import org.sonar.css.checks.utils.CssValueElement;
+import org.sonar.css.checks.utils.valueelements.Identifier;
+import org.sonar.css.checks.validators.PropertyValueElementValidator;
 
-public class PercentageValidator implements PropertyValueValidator {
+public class IdentifierValidator implements PropertyValueElementValidator {
 
-  private final boolean positiveOnly;
+  private final ImmutableList<String> allowedValues;
 
-  public PercentageValidator(boolean positiveOnly) {
-    this.positiveOnly = positiveOnly;
+  public IdentifierValidator(ImmutableList<String> allowedValues) {
+    this.allowedValues = allowedValues;
   }
 
-  @Override
-  public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
-    if (positiveOnly) {
-      return astNode.getFirstChild(CssGrammar.PERCENTAGE) != null
-        && Double.valueOf(astNode.getFirstChild(CssGrammar.PERCENTAGE).getTokenValue()) >= 0;
-    } else {
-      return astNode.getFirstChild(CssGrammar.PERCENTAGE) != null;
-    }
+  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+    return cssValueElement instanceof Identifier && allowedValues.contains(((Identifier) cssValueElement).getName());
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    if (positiveOnly) {
-      return "<percentage> (>=0)";
-    } else {
-      return "<percentage>";
+    StringBuilder format = new StringBuilder();
+    for (String allowedValue : allowedValues) {
+      if (format.length() != 0) {
+        format.append(" | ");
+      }
+      format.append(allowedValue);
     }
+    return format.toString();
   }
-
 }

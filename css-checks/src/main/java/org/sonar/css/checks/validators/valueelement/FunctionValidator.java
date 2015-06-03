@@ -17,37 +17,40 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.base;
+package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
-import com.sonar.sslr.api.AstNode;
+import org.sonar.css.checks.utils.CssValueElement;
+import org.sonar.css.checks.utils.valueelements.Function;
+import org.sonar.css.checks.validators.PropertyValueElementValidator;
 
 import javax.annotation.Nonnull;
-import org.sonar.css.checks.validators.PropertyValueValidator;
 
-public class EnumValidator implements PropertyValueValidator {
+public class FunctionValidator implements PropertyValueElementValidator {
 
-  private final ImmutableList<String> allowedValues;
+  private final ImmutableList<String> allowedFunctions;
 
-  public EnumValidator(ImmutableList<String> allowedValues) {
-    this.allowedValues = allowedValues;
+  public FunctionValidator(ImmutableList<String> allowedFunctions) {
+    this.allowedFunctions = allowedFunctions;
   }
 
   @Override
-  public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
-    return allowedValues.contains(astNode.getTokenValue());
+  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+    return cssValueElement instanceof Function && allowedFunctions.contains(((Function) cssValueElement).getName());
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    StringBuilder format = new StringBuilder();
-    for (String allowedValue : allowedValues) {
+    StringBuilder format = new StringBuilder("<function>(");
+    for (String allowedValue : allowedFunctions) {
       if (format.length() != 0) {
         format.append(" | ");
       }
       format.append(allowedValue);
     }
+    format.append(")");
     return format.toString();
   }
+
 }

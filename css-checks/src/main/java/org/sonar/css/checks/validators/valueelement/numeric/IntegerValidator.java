@@ -17,22 +17,25 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.base.dimension;
+package org.sonar.css.checks.validators.valueelement.numeric;
 
-import org.sonar.css.checks.utils.CssUnits;
+import org.sonar.css.checks.utils.CssValueElement;
+import org.sonar.css.checks.utils.valueelements.Number;
+import org.sonar.css.checks.validators.PropertyValueElementValidator;
 
 import javax.annotation.Nonnull;
 
-public class ResolutionValidator extends DimensionValidator {
+public class IntegerValidator implements PropertyValueElementValidator {
 
-  public ResolutionValidator() {
-    super(true, CssUnits.RESOLUTION_UNITS);
+  @Override
+  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+    return cssValueElement instanceof Number && ((Number) cssValueElement).isInteger();
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    return "<resolution>";
+    return "<integer>";
   }
 
 }

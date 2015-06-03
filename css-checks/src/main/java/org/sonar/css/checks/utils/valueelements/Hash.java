@@ -17,15 +17,22 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.base;
+package org.sonar.css.checks.utils.valueelements;
 
-import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.base.EnumValidator;
+import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.GenericTokenType;
+import org.sonar.css.checks.utils.CssValueElement;
 
-public class AllowedValuesForAllPropertiesValidator extends EnumValidator {
+public class Hash extends CssValueElement {
 
-  public AllowedValuesForAllPropertiesValidator() {
-    super(ImmutableList.of("inherit", "initial", "unset"));
+  private final String value;
+
+  public Hash(AstNode hashNode) {
+    value = "#" + hashNode.getFirstChild(GenericTokenType.LITERAL).getTokenValue();
+  }
+
+  public String getValue() {
+    return value;
   }
 
 }

@@ -17,22 +17,21 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.base.dimension;
+package org.sonar.css.checks.utils.valueelements;
 
-import org.sonar.css.checks.utils.CssUnits;
+import com.sonar.sslr.api.AstNode;
+import org.sonar.css.checks.utils.CssValueElement;
 
-import javax.annotation.Nonnull;
+public class Percentage extends CssValueElement {
 
-public class TimeValidator extends DimensionValidator {
+  private final double value;
 
-  public TimeValidator() {
-    super(true, CssUnits.TIME_UNITS);
+  public Percentage(AstNode numberNode) {
+    value = Double.valueOf(numberNode.getTokenValue());
   }
 
-  @Override
-  @Nonnull
-  public String getValidatorFormat() {
-    return "<time>";
+  public boolean isPositive() {
+    return value >= 0;
   }
 
 }

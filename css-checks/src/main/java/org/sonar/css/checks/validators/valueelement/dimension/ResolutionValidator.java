@@ -17,26 +17,22 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.base;
+package org.sonar.css.checks.validators.valueelement.dimension;
 
-import com.sonar.sslr.api.AstNode;
+import org.sonar.css.checks.utils.CssUnits;
 
 import javax.annotation.Nonnull;
-import org.sonar.css.checks.validators.PropertyValueValidator;
 
-/** 
- * Validator to be assigned to all checks whose validation is not yet implemented
- */
-public class NotYetImplementedValidator implements PropertyValueValidator {
+public class ResolutionValidator extends DimensionValidator {
 
-  @Override
-  public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
-    return true;
+  public ResolutionValidator() {
+    super(true, CssUnits.RESOLUTION_UNITS);
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    return "<not yet implemented>";
+    return "<resolution>";
   }
+
 }

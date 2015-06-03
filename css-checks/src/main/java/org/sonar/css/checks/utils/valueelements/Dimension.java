@@ -17,26 +17,28 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.base.numeric;
+package org.sonar.css.checks.utils.valueelements;
 
 import com.sonar.sslr.api.AstNode;
-import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.parser.CssGrammar;
 
-import javax.annotation.Nonnull;
+public class Dimension extends CssValueElement {
 
-public class IntegerValidator implements PropertyValueValidator {
+  private final double value;
+  private final String unit;
 
-  @Override
-  public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
-    return astNode.getFirstChild(CssGrammar.NUMBER) != null
-      && astNode.getFirstChild(CssGrammar.NUMBER).getTokenValue().matches("[\\-\\+]{0,1}[0-9]+");
+  public Dimension(AstNode dimensionNode) {
+    value = Double.valueOf(dimensionNode.getFirstChild(CssGrammar.NUMBER).getTokenValue());
+    unit = dimensionNode.getFirstChild(CssGrammar.unit).getTokenValue();
   }
 
-  @Override
-  @Nonnull
-  public String getValidatorFormat() {
-    return "<integer>";
+  public String getUnit() {
+    return unit;
+  }
+
+  public boolean isPositive() {
+    return value >= 0;
   }
 
 }

@@ -17,15 +17,25 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.property;
+package org.sonar.css.checks.validators.valueelement;
 
-import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.base.EnumValidator;
+import org.sonar.css.checks.utils.CssValueElement;
+import org.sonar.css.checks.utils.valueelements.Hash;
+import org.sonar.css.checks.validators.PropertyValueElementValidator;
 
-public class BorderStyleValidator extends EnumValidator {
+import javax.annotation.Nonnull;
 
-  public BorderStyleValidator() {
-    super(ImmutableList.of("none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset"));
+public class HashValidator implements PropertyValueElementValidator {
+
+  @Override
+  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+    return cssValueElement instanceof Hash && ((Hash) cssValueElement).getValue().matches("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
+  }
+
+  @Override
+  @Nonnull
+  public String getValidatorFormat() {
+    return "";
   }
 
 }

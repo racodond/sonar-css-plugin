@@ -17,22 +17,23 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.base.dimension;
-
-import org.sonar.css.checks.utils.CssUnits;
+package org.sonar.css.checks.validators.valueelement.numeric;
 
 import javax.annotation.Nonnull;
+import org.sonar.css.checks.utils.CssValueElement;
+import org.sonar.css.checks.validators.PropertyValueElementValidator;
 
-public class FrequencyValidator extends DimensionValidator {
+public class NumberValidator implements PropertyValueElementValidator {
 
-  public FrequencyValidator() {
-    super(true, CssUnits.FREQUENCY_UNITS);
+  @Override
+  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+    return cssValueElement instanceof org.sonar.css.checks.utils.valueelements.Number;
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    return "<frequency>";
+    return "<number>";
   }
 
 }

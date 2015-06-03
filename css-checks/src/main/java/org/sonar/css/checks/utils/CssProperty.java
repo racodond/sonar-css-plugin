@@ -20,9 +20,12 @@
 package org.sonar.css.checks.utils;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
-import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
+import org.sonar.css.checks.validators.PropertyValueElementValidator;
 import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.Validator;
+import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 import org.sonar.css.parser.CssGrammar;
 
 import javax.annotation.Nonnull;
@@ -32,9 +35,9 @@ import java.util.List;
 
 public class CssProperty {
 
-  private String name;
+  private final String name;
   private List<String> vendors = new ArrayList<>();
-  private List<PropertyValueValidator> validators = new ArrayList<>();
+  private List<Validator> validators = new ArrayList<>();
 
   public CssProperty(String name) {
     this.name = name;
@@ -53,12 +56,12 @@ public class CssProperty {
 
   @VisibleForTesting
   @Nonnull
-  public List<PropertyValueValidator> getValidators() {
+  public List<Validator> getValidators() {
     return validators;
   }
 
   @Nonnull
-  public CssProperty addValidator(@Nonnull PropertyValueValidator validator) {
+  public CssProperty addValidator(@Nonnull Validator validator) {
     validators.add(validator);
     return this;
   }
@@ -73,7 +76,7 @@ public class CssProperty {
   public String getValidatorFormat() {
     StringBuilder format = new StringBuilder("");
     if (validators != null) {
-      for (PropertyValueValidator validator : validators) {
+      for (Validator validator : validators) {
         if (format.length() != 0) {
           format.append(" | ");
         }
@@ -84,15 +87,32 @@ public class CssProperty {
   }
 
   public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
+
     if (!astNode.is(CssGrammar.VALUE)) {
-      throw new IllegalArgumentException("Node is not of type VALUE");
+      throw new IllegalArgumentException("Node is not of type VALUE: " + astNode.getType().toString());
     }
-    for (PropertyValueValidator validator : validators) {
-      if (validator.isPropertyValueValid(astNode)) {
+
+    if (validators.size() == 0) {
+      return true;
+    }
+
+    CssValue value = new CssValue(astNode);
+    if (value.getNumberOfValueElements() == 0) {
+      return false;
+    }
+
+    for (Validator validator : validators) {
+      if (validator instanceof PropertyValueElementValidator
+        && ((PropertyValueElementValidator) validator).isValid(value.getValueElements().get(0))) {
+        return true;
+      }
+      if (validator instanceof PropertyValueValidator
+        && ((PropertyValueValidator) validator).isValid(value)) {
         return true;
       }
     }
-    return PropertyValueValidatorFactory.getAllowedValuesForAllPropertiesValidator().isPropertyValueValid(astNode);
+
+    return new IdentifierValidator(ImmutableList.of("inherit", "initial", "unset")).isValid(value.getValueElements().get(0));
   }
 
   @Override

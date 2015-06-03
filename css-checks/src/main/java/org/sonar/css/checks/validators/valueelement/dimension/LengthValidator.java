@@ -17,18 +17,22 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.property;
+package org.sonar.css.checks.validators.valueelement.dimension;
 
-import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueValidator;
-import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
+import org.sonar.css.checks.utils.CssUnits;
 
-public class PaddingWidthValidator extends MultiPropertyValueValidator {
+import javax.annotation.Nonnull;
 
-  public PaddingWidthValidator() {
-    super(ImmutableList.of(
-      PropertyValueValidatorFactory.getPositiveLengthValidator(),
-      PropertyValueValidatorFactory.getPositivePercentageValidator()));
+public class LengthValidator extends DimensionValidator {
+
+  public LengthValidator(boolean positiveOnly) {
+    super(positiveOnly, CssUnits.LENGTH_UNITS);
+  }
+
+  @Override
+  @Nonnull
+  public String getValidatorFormat() {
+    return isPositiveOnly() ? "<length> (>=0)" : "<length>";
   }
 
 }
