@@ -433,7 +433,7 @@ public final class CssProperties {
     )
 
     .put("box-decoration-break", new CssProperty("box-decoration-break")
-
+      .addValidator(new IdentifierValidator(ImmutableList.of("slice, clone")))
     )
 
     .put("box-direction", new CssProperty("box-direction")
@@ -1431,7 +1431,7 @@ public final class CssProperties {
       .addValidator(new IdentifierValidator(
         ImmutableList
           .of("auto", "use-script", "baseline", "sub", "super", "top", "text-top", "central", "middle", "bottom",
-            "text-bottom")))
+              "text-bottom")))
       .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
       .addValidator(PropertyValueValidatorFactory.getLengthValidator())
     )

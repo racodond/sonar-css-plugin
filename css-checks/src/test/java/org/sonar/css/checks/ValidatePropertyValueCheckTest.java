@@ -329,7 +329,16 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
-  public void bpx_sizing() {
+  public void box_decoration_break() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/box-decoration-break.css"), check);
+    errorMessage = "Update the invalid value of property \"box-decoration-break\". Expected format: slice | clone";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(5).withMessage(errorMessage).next()
+      .atLine(6).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void box_sizing() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/box-sizing.css"), check);
     errorMessage = "Update the invalid value of property \"box-sizing\". Expected format: content-box | padding-box | border-box";
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
