@@ -31,33 +31,33 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-/**
- * https://github.com/stubbornella/csslint/wiki/Require-use-of-known-properties
- * @author tkende
- *
- */
 @Rule(
-  key = "known-properties",
-  name = "Unknown CSS properties should be removed",
-  priority = Priority.MAJOR,
-  tags = {Tags.PITFALL})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
-@SqaleConstantRemediation("10min")
+  key = "validate-property-value",
+  name = "Property value should be valid",
+  priority = Priority.CRITICAL,
+  tags = {Tags.BUG})
 @ActivatedByDefault
-public class KnownProperties extends SquidCheck<LexerlessGrammar> {
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.INSTRUCTION_RELIABILITY)
+@SqaleConstantRemediation("10min")
+public class ValidatePropertyValueCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.PROPERTY);
+    subscribeTo(CssGrammar.DECLARATION);
   }
 
   @Override
-  public void visitNode(AstNode astNode) {
-    // Ignore '*' and '_' hacks
-    String property = astNode.getTokenValue().matches("^[\\*_].*$") ? astNode.getTokenValue().substring(1) : astNode.getTokenValue();
-    if (!CssProperties.isVendorProperty(property) && CssProperties.getProperty(property) == null) {
-      getContext().createLineViolation(this, "Remove the usage of this unknown property: " + property, astNode);
+  public void leaveNode(AstNode astNode) {
+    if (CssProperties.getProperty(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue()) != null
+      && !CssProperties.getProperty(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue()).isPropertyValueValid(
+        astNode.getFirstChild(CssGrammar.VALUE))) {
+      getContext().createLineViolation(
+        this,
+        "Update the invalid value of property \"{0}\". Expected format: {1}",
+        astNode,
+        CssProperties.getProperty(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue()),
+        CssProperties.getProperty(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue()).getValidatorFormat()
+        );
     }
   }
-
 }

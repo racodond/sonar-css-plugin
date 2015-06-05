@@ -1,0 +1,6 @@
+.mybox {
+  all: inherit;
+  all: initial;
+  all: unset;
+  all: abc; /* Noncompliant */
+}

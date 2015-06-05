@@ -8,29 +8,6 @@
          url('myfont-webfont.svg#svgFontName') format('svg');
 }
 
-@font-face {
-    font-family: 'MyFontFamily';
-    src: url('myfont-webfont.eot?#iefix') format('embedded-opentype'),
-         url('myfont-webfont.woff') format('woff'),
-         url('myfont-webfont.ttf')  format('truetype'),
-         url('myfont-webfont.svg#svgFontName') format('svg');
-}
-
-@font-face {
-    font-family: 'MyFontFamily';
-    src: url('myfont-webfont.woff?#wohoo') format('woff'),
-	     url('myfont-webfont.eot?#iefix') format('embedded-opentype'),
-         url('myfont-webfont.ttf')  format('truetype'),
-         url('myfont-webfont.svg#svgFontName') format('svg');
-}
-
-@font-face {
-font-family:Icons;
-src:url(../fonts/Icons.eot?#iefix) format(embedded-opentype),url(../../fonts/Icons.woff) format(woff),url(../fonts/Icons.ttf) format(truetype),url(../fonts/Icons.svg#Icons) format(svg);
-font-weight:normal;
-font-style:normal;
-}
-
 /* Do not log an issue for an empty @font-face. An issue against "Empty rules should be removed" will be already logged. */
 @font-face {
 
@@ -40,3 +17,12 @@ font-style:normal;
 @font-face {
     font-family: 'MyFontFamily';
 }
+
+@font-face {
+    font-family: 'MyFontFamily';
+    src: url('myfont-webfont.eot?#iefix') format('embedded-opentype'),
+         url('myfont-webfont.woff') format('woff'),
+         url('myfont-webfont.ttf')  format('truetype'),
+         url('myfont-webfont.svg#svgFontName') format('svg');
+}
+

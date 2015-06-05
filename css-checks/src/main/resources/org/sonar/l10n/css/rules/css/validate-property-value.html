@@ -1,0 +1,560 @@
+<p>Browsers ignore invalid property values.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+.mybox {
+  word-spacing: 10px;
+  word-spacing: normal;
+  word-spacing: 0;
+  word-spacing: inherit;
+  word-spacing: 10;       /* Noncompliant: Missing length unit */
+  word-spacing: abc;      /* Noncompliant: abc value is not allowed */
+}
+</pre><h2>Implemented Checks</h2><p>Not all property values are currently checked. Here's the full list of implemented checks:</p>
+<h3><a target="_blank" href="http://www.w3.org/TR/CSS21/propidx.html">CSS 2.1</a></h3>
+<table border=1>
+  <thead>
+  <tr align=center>
+    <th>Name
+    <th>Values
+    <th>Checked
+  </thead>
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-azimuth">azimuth</a>
+    <td>&lt;angle&gt; | [[ left-side | far-left | left | center-left | center | center-right | right | far-right | right-side ] || behind ] | leftwards | rightwards
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/colors.html#propdef-background-attachment">background-attachment</a>
+    <td>scroll | fixed
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/colors.html#propdef-background-color">background-color</a>
+    <td>&lt;color&gt; | transparent | currentColor
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/colors.html#propdef-background-image">background-image</a>
+    <td>&lt;uri&gt; | none
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/colors.html#propdef-background-position">background-position</a>
+    <td>[ [ &lt;percentage&gt; | &lt;length&gt; | left | center | right ] [ &lt;percentage&gt; | &lt;length&gt; | top | center | bottom ]? ] | [ [ left | center | right ] || [ top | center | bottom ] ]
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/colors.html#propdef-background-repeat">background-repeat</a>
+    <td>repeat | repeat-x | repeat-y | no-repeat
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/colors.html#propdef-background">background</a>
+    <td>[background-color || background-image || background-repeat || background-attachment || background-position]
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/tables.html#propdef-border-collapse">border-collapse</a>
+    <td>collapse | separate
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-color">border-color</a>
+    <td>[ &lt;color&gt; | transparent ]{1,4}
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/tables.html#propdef-border-spacing">border-spacing</a>
+    <td>&lt;length&gt; &lt;length&gt;?
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-style">border-style</a>
+    <td>&lt;border-style&gt;{1,4}
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-top">border-top</a><br>
+      <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-right">border-right</a><br>
+      <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-bottom">border-bottom</a><br>
+      <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-left">border-left</a>
+    <td>[ &lt;border-width&gt; || &lt;border-style&gt; || border-top-color ]
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-top-color">border-top-color</a><br>
+      <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-right-color">border-right-color</a><br>
+      <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-bottom-color">border-bottom-color</a><br>
+      <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-left-color">border-left-color</a>
+    <td>&lt;color&gt; | transparent | currentColor
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-top-style">border-top-style</a><br>
+      <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-right-style">border-right-style</a><br>
+      <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-bottom-style">border-bottom-style</a><br>
+      <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-left-style">border-left-style</a>
+    <td>&lt;border-style&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-top-width">border-top-width</a><br>
+      <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-right-width">border-right-width</a><br>
+      <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-bottom-width">border-bottom-width</a><br>
+      <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-left-width">border-left-width</a>
+    <td>&lt;border-width&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-width">border-width</a>
+    <td>&lt;border-width&gt;{1,4}
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border">border</a>
+    <td>[ &lt;border-width&gt; || &lt;border-style&gt; || border-top-color ]
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visuren.html#propdef-bottom">bottom</a>
+    <td>&lt;length&gt; | &lt;percentage&gt; | auto
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/tables.html#propdef-caption-side">caption-side</a>
+    <td>top | bottom
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visuren.html#propdef-clear">clear</a>
+    <td>none | left | right | both
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visufx.html#propdef-clip">clip</a>
+    <td>&lt;shape&gt; | auto
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/colors.html#propdef-color">color</a>
+    <td>&lt;color&gt; | transparent | currentColor
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/generate.html#propdef-content">content</a>
+    <td>normal | none | [ &lt;string&gt; | &lt;uri&gt; | &lt;counter&gt; | attr(&lt;identifier&gt | open-quote | close-quote | no-open-quote | no-close-quote ]+
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/generate.html#propdef-counter-increment">counter-increment</a>
+    <td>[ &lt;identifier&gt; &lt;integer&gt;? ]+ | none
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/generate.html#propdef-counter-reset">counter-reset</a>
+    <td>[ &lt;identifier&gt; &lt;integer&gt;? ]+ | none
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-cue-after">cue-after</a>
+    <td>&lt;uri&gt; | none
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-cue-before">cue-before</a>
+    <td>&lt;uri&gt; | none
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-cue">cue</a>
+    <td>[ cue-before || cue-after ]
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/ui.html#propdef-cursor">cursor</a>
+    <td>[ [&lt;uri&gt; ,]* [ auto | crosshair | default | pointer | move | e-resize | ne-resize | nw-resize | n-resize | se-resize | sw-resize | s-resize | w-resize | text | wait | help | progress ] ]
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visuren.html#propdef-direction">direction</a>
+    <td>ltr | rtl
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visuren.html#propdef-display">display</a>
+    <td>inline | block | list-item | inline-block | table | inline-table | table-row-group | table-header-group | table-footer-group | table-row | table-column-group | table-column | table-cell | table-caption | none
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-elevation">elevation</a>
+    <td>&lt;angle&gt; | below | level | above | higher | lower
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/tables.html#propdef-empty-cells">empty-cells</a>
+    <td>show | hide
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visuren.html#propdef-float">float</a>
+    <td>left | right | none
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/fonts.html#propdef-font-family">font-family</a>
+    <td>[[ &lt;family-name&gt; | &lt;generic-family&gt; ] [, &lt;family-name&gt;| &lt;generic-family&gt;]* ]
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/fonts.html#propdef-font-size">font-size</a>
+    <td>xx-small | x-small | small | medium | large | x-large | xx-large | larger | smaller | &lt;length&gt; | &lt;percentage&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/fonts.html#propdef-font-style">font-style</a>
+    <td>normal | italic | oblique
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/fonts.html#propdef-font-variant">font-variant</a>
+    <td>normal | small-caps
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/fonts.html#propdef-font-weight">font-weight</a>
+    <td>normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/fonts.html#propdef-font">font</a>
+    <td>[ [ font-style || font-variant || font-weight ]? font-size [ / line-height ]? font-family ] | caption | icon | menu | message-box | small-caption | status-bar
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visudet.html#propdef-height">height</a>
+    <td>&lt;length&gt; | &lt;percentage&gt; | auto
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visuren.html#propdef-left">left</a>
+    <td>&lt;length&gt; | &lt;percentage&gt; | auto
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/text.html#propdef-letter-spacing">letter-spacing</a>
+    <td>normal | &lt;length&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visudet.html#propdef-line-height">line-height</a>
+    <td>normal | &lt;number&gt; | &lt;length&gt; | &lt;percentage&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/generate.html#propdef-list-style-image">list-style-image</a>
+    <td>&lt;uri&gt; | none
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/generate.html#propdef-list-style-position">list-style-position</a>
+    <td>inside | outside
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/generate.html#propdef-list-style-type">list-style-type</a>
+    <td>disc | circle | square | decimal | decimal-leading-zero | lower-roman | upper-roman | lower-greek | lower-latin | upper-latin | armenian | georgian | lower-alpha | upper-alpha | none
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/generate.html#propdef-list-style">list-style</a>
+    <td>[ &lt;list-style-type&gt; || &lt;list-style-position&gt; || &lt;list-style-image&gt; ]
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-margin-right">margin-right</a><br>
+      <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-margin-left">margin-left</a>
+    <td>&lt;margin-width&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-margin-top">margin-top</a><br>
+      <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-margin-bottom">margin-bottom</a>
+    <td>&lt;margin-width&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-margin">margin</a>
+    <td>&lt;margin-width&gt;{1,4}
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visudet.html#propdef-max-height">max-height</a>
+    <td>&lt;length&gt; | &lt;percentage&gt; | none
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visudet.html#propdef-max-width">max-width</a>
+    <td>&lt;length&gt; | &lt;percentage&gt; | none
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visudet.html#propdef-min-height">min-height</a>
+    <td>&lt;length&gt; | &lt;percentage&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visudet.html#propdef-min-width">min-width</a>
+    <td>&lt;length&gt; | &lt;percentage&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/page.html#propdef-orphans">orphans</a>
+    <td>&lt;integer&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/ui.html#propdef-outline-color">outline-color</a>
+    <td>&lt;color&gt; | transparent | currentColor | invert
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/ui.html#propdef-outline-style">outline-style</a>
+    <td>&lt;border-style&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/ui.html#propdef-outline-width">outline-width</a>
+    <td>&lt;border-width&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/ui.html#propdef-outline">outline</a>
+    <td>[ &lt;outline-color&gt; || &lt;outline-style&gt; || &lt;outline-width&gt; ]
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visufx.html#propdef-overflow">overflow</a>
+    <td>visible | hidden | scroll | auto
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-padding-top">padding-top</a><br>
+      <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-padding-right">padding-right</a><br>
+      <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-padding-bottom">padding-bottom</a><br>
+      <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-padding-left">padding-left</a>
+    <td>&lt;padding-width&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-padding">padding</a>
+    <td>&lt;padding-width&gt;{1,4}
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/page.html#propdef-page-break-after">page-break-after</a>
+    <td>auto | always | avoid | left | right
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/page.html#propdef-page-break-before">page-break-before</a>
+    <td>auto | always | avoid | left | right
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/page.html#propdef-page-break-inside">page-break-inside</a>
+    <td>avoid | auto
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-pause-after">pause-after</a>
+    <td>&lt;time&gt; | &lt;percentage&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-pause-before">pause-before</a>
+    <td>&lt;time&gt; | &lt;percentage&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-pause">pause</a>
+    <td>[ [&lt;time&gt; | &lt;percentage&gt;]{1,2} ]
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-pitch-range">pitch-range</a>
+    <td>&lt;number&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-pitch">pitch</a>
+    <td>&lt;frequency&gt; | x-low | low | medium | high | x-high
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-play-during">play-during</a>
+    <td>&lt;uri&gt; [ mix || repeat ]? | auto | none
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visuren.html#propdef-position">position</a>
+    <td>static | relative | absolute | fixed
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/generate.html#propdef-quotes">quotes</a>
+    <td>[&lt;string&gt; &lt;string&gt;]+ | none
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-richness">richness</a>
+    <td>&lt;number&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visuren.html#propdef-right">right</a>
+    <td>&lt;length&gt; | &lt;percentage&gt; | auto
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-speak-header">speak-header</a>
+    <td>once | always
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-speak-numeral">speak-numeral</a>
+    <td>digits | continuous
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-speak-punctuation">speak-punctuation</a>
+    <td>code | none
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-speak">speak</a>
+    <td>normal | none | spell-out
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-speech-rate">speech-rate</a>
+    <td>&lt;number&gt; | x-slow | slow | medium | fast | x-fast | faster | slower
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-stress">tress</a>
+    <td>&lt;number&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/tables.html#propdef-table-layout">table-layout</a>
+    <td>auto | fixed
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/text.html#propdef-text-align">text-align</a>
+    <td>left | right | center | justify
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/text.html#propdef-text-decoration">text-decoration</a>
+    <td>none | [ underline || overline || line-through || blink ]
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/text.html#propdef-text-indent">text-indent</a>
+    <td>&lt;length&gt; | &lt;percentage&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/text.html#propdef-text-transform">text-transform</a>
+    <td>capitalize | uppercase | lowercase | none
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visuren.html#propdef-top">top</a>
+    <td>&lt;length&gt; | &lt;percentage&gt; | auto
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visuren.html#propdef-unicode-bidi">unicode-bidi</a>
+    <td>normal | embed | bidi-override
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visudet.html#propdef-vertical-align">vertical-align</a>
+    <td>baseline | sub | super | top | text-top | middle | bottom | text-bottom | &lt;percentage&gt; | &lt;length&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visufx.html#propdef-visibility">visibility</a>
+    <td>visible | hidden | collapse
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-voice-family">voice-family</a>
+    <td>[[&lt;specific-voice&gt; | &lt;generic-voice&gt; ],]* [&lt;specific-voice&gt; | &lt;generic-voice&gt; ]
+    <td>No
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-volume">volume</a>
+    <td>&lt;number&gt; | &lt;percentage&gt; | silent | x-soft | soft | medium | loud | x-loud
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/text.html#propdef-white-space">white-space</a>
+    <td>normal | pre | nowrap | pre-wrap | pre-line
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/page.html#propdef-widows">widows</a>
+    <td>&lt;integer&gt;
+    <td>Yes
+
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visudet.html#propdef-width">width</a>
+    <td>&lt;length&gt; | &lt;percentage&gt; | auto
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/text.html#propdef-word-spacing">word-spacing</a>
+    <td>normal | &lt;length&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visuren.html#propdef-z-index">z-index</a>
+    <td>auto | &lt;integer&gt;
+    <td>Yes
+
+</table>
+
+<h3>CSS 3</h3>
+<table>
+  <thead>
+  <tr align=center>
+    <th>Name
+    <th>Values
+    <th>Checked
+  </thead>
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-cascade/#propdef-all">all</a>
+    <td>inherit | initial | unset
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-fonts-3/#font-size-adjust-prop">font-adjust</a>
+    <td>none | &lt;number&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-fonts-3/#font-stretch-prop">font-stretch</a>
+    <td>normal | ultra-condensed | extra-condensed | condensed | semi-condensed | semi-expanded | expanded | extra-expanded | ultra-expanded
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-text-3/#hyphens-property">hyphens</a>
+    <td>none | manual | auto
+    <td>Yes
+
+</table>

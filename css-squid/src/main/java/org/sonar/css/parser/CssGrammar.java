@@ -270,7 +270,7 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(NUMBER).is(addSpacing(_NUM, b));
     b.rule(PERCENTAGE).is(addSpacing(b.sequence(NUMBER, "%"), b));
     b.rule(DIMENSION).is(addSpacing(b.sequence(NUMBER, unit), b));
-    b.rule(unit).is(b.firstOf("em", "ex", "ch", "rem", "vw", "vh", "vmin", "vmax", "cm", "mm", "in", "px", "pt", "pc"));
+    b.rule(unit).is(b.firstOf("em", "ex", "ch", "rem", "vw", "vh", "vmin", "vmax", "cm", "mm", "in", "px", "pt", "pc", "ms", "s", "Hz", "kHz", "deg", "grad", "rad"));
     b.rule(URI).is(
       addSpacing(
         b.sequence("url(", _URI_CONTENT, CLOSE_PARENTHESIS), b));

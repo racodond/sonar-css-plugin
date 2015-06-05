@@ -23,7 +23,6 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.checks.utils.CssP;
 import org.sonar.css.checks.utils.CssProperties;
 import org.sonar.css.checks.utils.CssProperty;
 import org.sonar.css.parser.CssGrammar;
@@ -67,13 +66,14 @@ public class CompatibleVendorPrefixes extends SquidCheck<LexerlessGrammar> {
       properties.clear();
     } else if (astNode.is(CssGrammar.DECLARATION)) {
       String property = astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue();
-      if (CssProperties.isVendor(property)) {
-        CssP p = CssP.factory(property);
-        if (properties.containsKey(p.getName())) {
-          properties.get(p.getName()).add(p.getVendor());
+      if (CssProperties.isVendorProperty(property)) {
+        String cssProperty = CssProperties.getPropertyNameWithoutVendorPrefix(property);
+        String cssVendorPrefix = CssProperties.getVendorPrefix(property);
+        if (properties.containsKey(cssProperty)) {
+          properties.get(cssProperty).add(cssVendorPrefix);
         } else {
-          properties.put(p.getName(), new HashSet<String>());
-          properties.get(p.getName()).add(p.getVendor());
+          properties.put(cssProperty, new HashSet<String>());
+          properties.get(cssProperty).add(cssVendorPrefix);
         }
       }
     }
@@ -88,7 +88,7 @@ public class CompatibleVendorPrefixes extends SquidCheck<LexerlessGrammar> {
         if (p != null) {
           for (String vendor : p.getVendors()) {
             if (!props.getValue().contains(vendor)) {
-              getContext().createLineViolation(this, "Add the missing vendor prefix: -" + vendor + " to the property: " + props.getKey(), astNode);
+              getContext().createLineViolation(this, "Add the missing vendor prefix: " + vendor + " to the property: " + props.getKey(), astNode);
             }
           }
         }

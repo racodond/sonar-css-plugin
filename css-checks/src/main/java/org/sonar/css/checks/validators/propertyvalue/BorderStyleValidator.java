@@ -17,37 +17,14 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.utils;
+package org.sonar.css.checks.validators.propertyvalue;
 
-public class CssP {
+import com.google.common.collect.ImmutableList;
 
-  String name;
+public class BorderStyleValidator extends EnumValidator {
 
-  String vendor;
-
-  private CssP() {
-
-  }
-
-  public static CssP factory(String property) {
-    if (CssProperties.isVendor(property)) {
-      CssP ret = new CssP();
-      ret.vendor = property.replaceAll("(-)(.*?)(-.*)", "$2");
-      ret.name = property.replaceAll("(-.*?-)(.*)", "$2");
-      return ret;
-    }
-    CssP ret = new CssP();
-    ret.vendor = null;
-    ret.name = property;
-    return ret;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public String getVendor() {
-    return vendor;
+  public BorderStyleValidator() {
+    super(ImmutableList.of("none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset"));
   }
 
 }
