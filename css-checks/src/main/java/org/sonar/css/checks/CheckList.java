@@ -41,6 +41,7 @@ public final class CheckList {
       BewareOfBoxModel.class,
       CompatibleVendorPrefixes.class,
       DeclarationFormatCheck.class,
+      DeprecatedSystemColorsCheck.class,
       DisallowDuplicateBackgroundImages.class,
       DisallowEmptyRules.class,
       DisallowIdsInSelectors.class,
