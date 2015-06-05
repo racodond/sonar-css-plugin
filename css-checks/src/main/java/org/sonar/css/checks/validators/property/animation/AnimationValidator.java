@@ -29,7 +29,14 @@ import java.util.List;
 
 public class AnimationValidator implements PropertyValueValidator {
 
-
+  private final AnimationDelayValidator animationDelayValidator = new AnimationDelayValidator();
+  private final AnimationDirectionValidator animationDirectionValidator = new AnimationDirectionValidator();
+  private final AnimationDurationValidator animationDurationValidator = new AnimationDurationValidator();
+  private final AnimationFillModeValidator animationFillModeValidator = new AnimationFillModeValidator();
+  private final AnimationIterationCountValidator animationIterationCountValidator = new AnimationIterationCountValidator();
+  private final AnimationNameValidator animationNameValidator = new AnimationNameValidator();
+  private final AnimationPlayStateValidator animationPlayStateValidator = new AnimationPlayStateValidator();
+  private final AnimationTimingFunctionValidator animationTimingFunctionValidator = new AnimationTimingFunctionValidator();
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
@@ -39,14 +46,14 @@ public class AnimationValidator implements PropertyValueValidator {
       return false;
     }
     for (CssValueElement valueElement : valueElements) {
-      if (!new AnimationDelayValidator().isValid(valueElement)
-        && !new AnimationDirectionValidator().isValid(valueElement)
-        && !new AnimationDurationValidator().isValid(valueElement)
-        && !new AnimationFillModeValidator().isValid(valueElement)
-        && !new AnimationIterationCountValidator().isValid(valueElement)
-        && !new AnimationNameValidator().isValid(valueElement)
-        && !new AnimationPlayStateValidator().isValid(valueElement)
-        && !new AnimationTimingFunctionValidator().isValid(valueElement)) {
+      if (!animationDelayValidator.isValid(valueElement)
+        && !animationDirectionValidator.isValid(valueElement)
+        && !animationDurationValidator.isValid(valueElement)
+        && !animationFillModeValidator.isValid(valueElement)
+        && !animationIterationCountValidator.isValid(valueElement)
+        && !animationNameValidator.isValid(valueElement)
+        && !animationPlayStateValidator.isValid(valueElement)
+        && !animationTimingFunctionValidator.isValid(valueElement)) {
         return false;
       }
     }

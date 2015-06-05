@@ -17,21 +17,18 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.utils.valueelements;
+package org.sonar.css.checks.validators.valueelement;
 
-import com.sonar.sslr.api.AstNode;
-import org.sonar.css.checks.utils.CssValueElement;
+import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
+import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
 
-public class Delimiter extends CssValueElement {
+public class RadiusValidator extends MultiPropertyValueElementValidator {
 
-  private final String type;
-
-  public Delimiter(AstNode delimiterNode) {
-    type = delimiterNode.getTokenValue();
-  }
-
-  public String getType() {
-    return type;
+  public RadiusValidator() {
+    super(ImmutableList.of(
+      PropertyValueValidatorFactory.getPositiveLengthValidator(),
+      PropertyValueValidatorFactory.getPositivePercentageValidator()));
   }
 
 }

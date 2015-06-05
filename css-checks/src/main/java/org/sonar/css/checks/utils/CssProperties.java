@@ -43,6 +43,8 @@ import org.sonar.css.checks.validators.property.background.BackgroundClipValidat
 import org.sonar.css.checks.validators.property.background.BackgroundImageValidator;
 import org.sonar.css.checks.validators.property.background.BackgroundOriginValidator;
 import org.sonar.css.checks.validators.property.border.BorderColorValidator;
+import org.sonar.css.checks.validators.property.border.BorderRadiusPropertyValidator;
+import org.sonar.css.checks.validators.property.border.BorderRadiusValidator;
 import org.sonar.css.checks.validators.property.border.BorderSpacingValidator;
 import org.sonar.css.checks.validators.property.border.BorderStylePropertyValidator;
 import org.sonar.css.checks.validators.property.border.BorderValidator;
@@ -248,11 +250,11 @@ public final class CssProperties {
     )
 
     .put("border-bottom-left-radius", new CssProperty("border-bottom-left-radius")
-
+      .addValidator(new BorderRadiusValidator())
     )
 
     .put("border-bottom-right-radius", new CssProperty("border-bottom-right-radius")
-
+      .addValidator(new BorderRadiusValidator())
     )
 
     .put("border-bottom-style", new CssProperty("border-bottom-style")
@@ -340,7 +342,7 @@ public final class CssProperties {
 
     .put("border-radius", new CssProperty("border-radius")
       .addVendor("-webkit-")
-
+      .addValidator(new BorderRadiusPropertyValidator())
     )
 
     .put("border-right", new CssProperty("border-right")
@@ -400,11 +402,11 @@ public final class CssProperties {
     )
 
     .put("border-top-left-radius", new CssProperty("border-top-left-radius")
-
+      .addValidator(new BorderRadiusValidator())
     )
 
     .put("border-top-right-radius", new CssProperty("border-top-right-radius")
-
+      .addValidator(new BorderRadiusValidator())
     )
 
     .put("border-top-style", new CssProperty("border-top-style")
@@ -433,7 +435,7 @@ public final class CssProperties {
     )
 
     .put("box-decoration-break", new CssProperty("box-decoration-break")
-      .addValidator(new IdentifierValidator(ImmutableList.of("slice, clone")))
+      .addValidator(new IdentifierValidator(ImmutableList.of("slice", "clone")))
     )
 
     .put("box-direction", new CssProperty("box-direction")
@@ -1431,7 +1433,7 @@ public final class CssProperties {
       .addValidator(new IdentifierValidator(
         ImmutableList
           .of("auto", "use-script", "baseline", "sub", "super", "top", "text-top", "central", "middle", "bottom",
-              "text-bottom")))
+            "text-bottom")))
       .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
       .addValidator(PropertyValueValidatorFactory.getLengthValidator())
     )

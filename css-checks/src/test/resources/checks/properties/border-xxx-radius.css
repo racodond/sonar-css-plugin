@@ -1,0 +1,55 @@
+.mybox {
+  border-top-left-radius: inherit;
+  border-top-left-radius: 10px 10px;
+  border-top-left-radius: 10% 10%;
+  border-top-left-radius: 10px;
+  border-top-left-radius: 10%;
+  border-top-left-radius: -10px; /* Noncompliant */
+  border-top-left-radius: -10%; /* Noncompliant */
+  border-top-left-radius: 10px -10px; /* Noncompliant */
+  border-top-left-radius: -10px 10px; /* Noncompliant */
+  border-top-left-radius: 10px 10px 10px; /* Noncompliant */
+  border-top-left-radius: abc; /* Noncompliant */
+}
+
+.mybox {
+  border-top-right-radius: inherit;
+  border-top-right-radius: 10px 10px;
+  border-top-right-radius: 10% 10%;
+  border-top-right-radius: 10px;
+  border-top-right-radius: 10%;
+  border-top-right-radius: -10px; /* Noncompliant */
+  border-top-right-radius: -10%; /* Noncompliant */
+  border-top-right-radius: 10px -10px; /* Noncompliant */
+  border-top-right-radius: -10px 10px; /* Noncompliant */
+  border-top-right-radius: 10px 10px 10px; /* Noncompliant */
+  border-top-right-radius: abc; /* Noncompliant */
+}
+
+.mybox {
+  border-bottom-left-radius: inherit;
+  border-bottom-left-radius: 10px 10px;
+  border-bottom-left-radius: 10% 10%;
+  border-bottom-left-radius: 10px;
+  border-bottom-left-radius: 10%;
+  border-bottom-left-radius: -10px; /* Noncompliant */
+  border-bottom-left-radius: -10%; /* Noncompliant */
+  border-bottom-left-radius: 10px -10px; /* Noncompliant */
+  border-bottom-left-radius: -10px 10px; /* Noncompliant */
+  border-bottom-left-radius: 10px 10px 10px; /* Noncompliant */
+  border-bottom-left-radius: abc; /* Noncompliant */
+}
+
+.mybox {
+  border-bottom-right-radius: inherit;
+  border-bottom-right-radius: 10px 10px;
+  border-bottom-right-radius: 10% 10%;
+  border-bottom-right-radius: 10px;
+  border-bottom-right-radius: 10%;
+  border-bottom-right-radius: -10px; /* Noncompliant */
+  border-bottom-right-radius: -10%; /* Noncompliant */
+  border-bottom-right-radius: 10px -10px; /* Noncompliant */
+  border-bottom-right-radius: -10px 10px; /* Noncompliant */
+  border-bottom-right-radius: 10px 10px 10px; /* Noncompliant */
+  border-bottom-right-radius: abc; /* Noncompliant */
+}

@@ -272,6 +272,52 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void border_xxx_radius() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/border-xxx-radius.css"), check);
+    String errorMessageTopLeft = "Update the invalid value of property \"border-top-left-radius\". Expected format: [ <length>(>=0) | <percentage>(>=0) ]{1,2}";
+    String errorMessageTopRight = "Update the invalid value of property \"border-top-right-radius\". Expected format: [ <length>(>=0) | <percentage>(>=0) ]{1,2}";
+    String errorMessageBottomLeft = "Update the invalid value of property \"border-bottom-left-radius\". Expected format: [ <length>(>=0) | <percentage>(>=0) ]{1,2}";
+    String errorMessageBottomRight = "Update the invalid value of property \"border-bottom-right-radius\". Expected format: [ <length>(>=0) | <percentage>(>=0) ]{1,2}";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(7).withMessage(errorMessageTopLeft).next()
+      .atLine(8).withMessage(errorMessageTopLeft).next()
+      .atLine(9).withMessage(errorMessageTopLeft).next()
+      .atLine(10).withMessage(errorMessageTopLeft).next()
+      .atLine(11).withMessage(errorMessageTopLeft).next()
+      .atLine(12).withMessage(errorMessageTopLeft).next()
+      .atLine(21).withMessage(errorMessageTopRight).next()
+      .atLine(22).withMessage(errorMessageTopRight).next()
+      .atLine(23).withMessage(errorMessageTopRight).next()
+      .atLine(24).withMessage(errorMessageTopRight).next()
+      .atLine(25).withMessage(errorMessageTopRight).next()
+      .atLine(26).withMessage(errorMessageTopRight).next()
+      .atLine(35).withMessage(errorMessageBottomLeft).next()
+      .atLine(36).withMessage(errorMessageBottomLeft).next()
+      .atLine(37).withMessage(errorMessageBottomLeft).next()
+      .atLine(38).withMessage(errorMessageBottomLeft).next()
+      .atLine(39).withMessage(errorMessageBottomLeft).next()
+      .atLine(40).withMessage(errorMessageBottomLeft).next()
+      .atLine(49).withMessage(errorMessageBottomRight).next()
+      .atLine(50).withMessage(errorMessageBottomRight).next()
+      .atLine(51).withMessage(errorMessageBottomRight).next()
+      .atLine(52).withMessage(errorMessageBottomRight).next()
+      .atLine(53).withMessage(errorMessageBottomRight).next()
+      .atLine(54).withMessage(errorMessageBottomRight).noMore();
+  }
+
+  @Test
+  public void border_radius() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/border-radius.css"), check);
+    errorMessage = "Update the invalid value of property \"border-radius\". Expected format: [ <length>(>=0) | <percentage>(>=0) ]{1,4} [ / [ <length>(>=0) | <percentage>(>=0) ]{1,4} ]?";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(13).withMessage(errorMessage).next()
+      .atLine(14).withMessage(errorMessage).next()
+      .atLine(15).withMessage(errorMessage).next()
+      .atLine(16).withMessage(errorMessage).next()
+      .atLine(17).withMessage(errorMessage).noMore();
+  }
+
+  @Test
   public void border_xxx_style() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/border-xxx-style.css"), check);
     String errorMessageTop = "Update the invalid value of property \"border-top-style\". Expected format: none | hidden | dotted | dashed | solid | double | groove | ridge | inset | outset";
