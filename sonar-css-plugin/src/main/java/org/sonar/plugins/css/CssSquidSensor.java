@@ -125,6 +125,7 @@ public class CssSquidSensor implements Sensor {
           .ruleKey(RuleKey.of(activeRule.repository(), activeRule.rule()))
           .line(message.getLine())
           .message(message.formatDefaultMessage())
+          .effortToFix(message.getCost())
           .build();
         issuable.addIssue(issue);
       }
