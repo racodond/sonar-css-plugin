@@ -40,7 +40,6 @@ import org.sonar.css.checks.validators.property.animation.AnimationTimingFunctio
 import org.sonar.css.checks.validators.property.animation.AnimationValidator;
 import org.sonar.css.checks.validators.property.background.BackgroundAttachmentValidator;
 import org.sonar.css.checks.validators.property.background.BackgroundClipValidator;
-import org.sonar.css.checks.validators.property.background.BackgroundImageValidator;
 import org.sonar.css.checks.validators.property.background.BackgroundOriginValidator;
 import org.sonar.css.checks.validators.property.border.BorderColorValidator;
 import org.sonar.css.checks.validators.property.border.BorderRadiusPropertyValidator;
@@ -58,6 +57,7 @@ import org.sonar.css.checks.validators.valueelement.BorderWidthValidator;
 import org.sonar.css.checks.validators.valueelement.CueValidator;
 import org.sonar.css.checks.validators.valueelement.FunctionValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
+import org.sonar.css.checks.validators.valueelement.ImageValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineColorValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineStyleValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineWidthValidator;
@@ -187,7 +187,8 @@ public final class CssProperties {
     )
 
     .put("background-image", new CssProperty("background-image")
-      .addValidator(new BackgroundImageValidator())
+      .addValidator(PropertyValueValidatorFactory.getNoneValidator())
+      .addValidator(new ImageValidator())
     )
 
     .put("background-origin", new CssProperty("background-origin")

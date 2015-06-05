@@ -6,4 +6,16 @@
   background-image: url(http://mybox), url(http://mybox), url(http://mybox);
   background-image: 10; /* Noncompliant */
   background-image: 10, 10; /* Noncompliant */
+  background-image: image();
+  background-image: image-set();
+  background-image: cross-fade();
+  background-image: element();
+  background-image: linear-gradient();
+  background-image: repeating-linear-gradient();
+  background-image: radial-gradient();
+  background-image: repeating-radial-gradient();
+  background-image: repeating-radial-gradient() element() url(http://mybox);
+  background-image: abc(); /* Noncompliant */
+  background-image: -moz-linear-gradient();
+  background-image: -moz-abc(); /* Noncompliant */
 }

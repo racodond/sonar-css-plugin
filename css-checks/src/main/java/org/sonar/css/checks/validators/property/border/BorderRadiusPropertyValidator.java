@@ -22,8 +22,6 @@ package org.sonar.css.checks.validators.property.border;
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.Delimiter;
-import org.sonar.css.checks.utils.valueelements.Dimension;
-import org.sonar.css.checks.utils.valueelements.Percentage;
 import org.sonar.css.checks.validators.PropertyValueValidator;
 import org.sonar.css.checks.validators.valueelement.dimension.LengthValidator;
 import org.sonar.css.checks.validators.valueelement.numeric.PercentageValidator;
@@ -48,15 +46,9 @@ public class BorderRadiusPropertyValidator implements PropertyValueValidator {
     int numberDelimiters = 0;
     int positionDelimiter = 0;
     for (int i = 0; i < valueElements.size(); i++) {
-      if (!(valueElements.get(i) instanceof Percentage)
-        && !(valueElements.get(i) instanceof Dimension)
+      if (!percentageValidator.isValid(valueElements.get(i))
+        && !lengthValidator.isValid(valueElements.get(i))
         && !(valueElements.get(i) instanceof Delimiter)) {
-        return false;
-      }
-      if (valueElements.get(i) instanceof Percentage && !percentageValidator.isValid(valueElements.get(i))) {
-        return false;
-      }
-      if (valueElements.get(i) instanceof Dimension && !lengthValidator.isValid(valueElements.get(i))) {
         return false;
       }
       if (valueElements.get(i) instanceof Delimiter) {

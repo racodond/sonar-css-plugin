@@ -17,18 +17,26 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.property.background;
+package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
 import org.sonar.css.checks.validators.ValueElementListPropertyValueValidator;
-import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
-import org.sonar.css.checks.validators.valueelement.UriValidator;
 
-public class BackgroundImageValidator extends ValueElementListPropertyValueValidator {
+import javax.annotation.Nonnull;
 
-  public BackgroundImageValidator() {
-    getValidators().add(new IdentifierValidator(ImmutableList.of("none")));
+public class ImageValidator extends ValueElementListPropertyValueValidator {
+
+  public ImageValidator() {
     getValidators().add(new UriValidator());
+    getValidators().add(
+      new FunctionValidator(ImmutableList.of("image", "image-set", "cross-fade", "element", "linear-gradient", "radial-gradient", "repeating-linear-gradient",
+        "repeating-radial-gradient")));
+  }
+
+  @Nonnull
+  @Override
+  public String getValidatorFormat() {
+    return "<image> [, <image>]*";
   }
 
 }

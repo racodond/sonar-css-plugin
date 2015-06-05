@@ -188,10 +188,12 @@ public class ValidatePropertyValueCheckTest {
   @Test
   public void background_image() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/background-image.css"), check);
-    errorMessage = "Update the invalid value of property \"background-image\". Expected format: none | <uri> [, none | <uri>]*";
+    errorMessage = "Update the invalid value of property \"background-image\". Expected format: none | <image> [, <image>]*";
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(7).withMessage(errorMessage).next()
-      .atLine(8).withMessage(errorMessage).noMore();
+      .atLine(8).withMessage(errorMessage).next()
+      .atLine(18).withMessage(errorMessage).next()
+      .atLine(20).withMessage(errorMessage).noMore();
   }
 
   @Test

@@ -22,6 +22,7 @@ package org.sonar.css.checks.validators.property.border;
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.valueelement.BorderWidthValidator;
 
 import javax.annotation.Nonnull;
 
@@ -29,7 +30,7 @@ import java.util.List;
 
 public class BorderWidthPropertyValidator implements PropertyValueValidator {
 
-  org.sonar.css.checks.validators.valueelement.BorderWidthValidator BorderWidthValidator = new org.sonar.css.checks.validators.valueelement.BorderWidthValidator();
+  BorderWidthValidator borderWidthValidator = new BorderWidthValidator();
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
@@ -39,7 +40,7 @@ public class BorderWidthPropertyValidator implements PropertyValueValidator {
       return false;
     }
     for (CssValueElement valueElement : valueElements) {
-      if (!BorderWidthValidator.isValid(valueElement)) {
+      if (!borderWidthValidator.isValid(valueElement)) {
         return false;
       }
     }

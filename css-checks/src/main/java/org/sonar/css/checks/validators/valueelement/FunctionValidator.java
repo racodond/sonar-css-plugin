@@ -36,7 +36,7 @@ public class FunctionValidator implements PropertyValueElementValidator {
 
   @Override
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    return cssValueElement instanceof Function && allowedFunctions.contains(((Function) cssValueElement).getName());
+    return cssValueElement instanceof Function && allowedFunctions.contains(((Function) cssValueElement).getNameWithoutVendorPrefix());
   }
 
   @Override
