@@ -1,0 +1,7 @@
+.mybox {
+  clip: inherit;
+  clip: rect(10px,10px,10px,10px);
+  clip: auto;
+  clip: abc; /* Noncompliant */
+  clip: 10px; /* Noncompliant */
+}

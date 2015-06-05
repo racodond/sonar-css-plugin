@@ -329,6 +329,35 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void bpx_sizing() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/box-sizing.css"), check);
+    errorMessage = "Update the invalid value of property \"box-sizing\". Expected format: content-box | padding-box | border-box";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(6).withMessage(errorMessage).next()
+      .atLine(7).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void caret_color() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/caret-color.css"), check);
+    errorMessage = "Update the invalid value of property \"caret-color\". Expected format: auto | <color> | transparent | currentColor";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(9).withMessage(errorMessage).next()
+      .atLine(10).withMessage(errorMessage).next()
+      .atLine(11).withMessage(errorMessage).next()
+      .atLine(16).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void clip() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/clip.css"), check);
+    errorMessage = "Update the invalid value of property \"clip\". Expected format: <function>(rect) | auto";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(5).withMessage(errorMessage).next()
+      .atLine(6).withMessage(errorMessage).noMore();
+  }
+
+  @Test
   public void color() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/color.css"), check);
     errorMessage = "Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor";
@@ -721,6 +750,15 @@ public class ValidatePropertyValueCheckTest {
       .atLine(8).withMessage(errorMessage).next()
       .atLine(10).withMessage(errorMessage).next()
       .atLine(11).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void resize() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/resize.css"), check);
+    errorMessage = "Update the invalid value of property \"resize\". Expected format: none | both | horizontal | vertical";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(7).withMessage(errorMessage).next()
+      .atLine(8).withMessage(errorMessage).noMore();
   }
 
   @Test

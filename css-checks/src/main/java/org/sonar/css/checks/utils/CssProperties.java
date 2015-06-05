@@ -54,6 +54,7 @@ import org.sonar.css.checks.validators.property.line.LineStackingValidator;
 import org.sonar.css.checks.validators.valueelement.BorderStyleValidator;
 import org.sonar.css.checks.validators.valueelement.BorderWidthValidator;
 import org.sonar.css.checks.validators.valueelement.CueValidator;
+import org.sonar.css.checks.validators.valueelement.FunctionValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineColorValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineStyleValidator;
@@ -489,7 +490,7 @@ public final class CssProperties {
     .put("box-sizing", new CssProperty("box-sizing")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-
+      .addValidator(new IdentifierValidator(ImmutableList.of("content-box", "padding-box", "border-box")))
     )
 
     .put("break-after", new CssProperty("break-after")
@@ -509,16 +510,27 @@ public final class CssProperties {
       .addValidator(new IdentifierValidator(ImmutableList.of("top", "bottom")))
     )
 
+    .put("caret-color", new CssProperty("caret-color")
+      .addValidator(PropertyValueValidatorFactory.getAutoValidator())
+      .addValidator(PropertyValueValidatorFactory.getColorValidator())
+    )
+
     .put("clear", new CssProperty("clear")
       .addValidator(new IdentifierValidator(ImmutableList.of("none", "left", "right", "both")))
     )
 
     .put("clip", new CssProperty("clip")
-
+      .addValidator(new FunctionValidator(ImmutableList.of("rect")))
+      .addValidator(PropertyValueValidatorFactory.getAutoValidator())
     )
+
+    .put("clip-path", new CssProperty("clip-path")
+    )
+
     .put("color", new CssProperty("color")
       .addValidator(PropertyValueValidatorFactory.getColorValidator())
     )
+
     .put("color-profile", new CssProperty("color-profile")
 
     )
@@ -1172,7 +1184,7 @@ public final class CssProperties {
     )
 
     .put("resize", new CssProperty("resize")
-
+      .addValidator(new IdentifierValidator(ImmutableList.of("none", "both", "horizontal", "vertical")))
     )
 
     .put("rest", new CssProperty("rest")
