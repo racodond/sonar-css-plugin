@@ -25,14 +25,14 @@ import javax.annotation.Nonnull;
 
 public class TimeValidator extends DimensionValidator {
 
-  public TimeValidator() {
-    super(true, CssUnits.TIME_UNITS);
+  public TimeValidator(boolean positiveOnly) {
+    super(positiveOnly, CssUnits.TIME_UNITS);
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    return "<time>";
+    return isPositiveOnly() ? "<time>(>=0)" : "<time>";
   }
 
 }

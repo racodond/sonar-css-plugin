@@ -1,0 +1,35 @@
+.mybox {
+  appearance: inherit;
+  appearance: normal;
+  appearance: icon;
+  appearance: window;
+  appearance: desktop;
+  appearance: workspace;
+  appearance: document;
+  appearance: tooltip;
+  appearance: dialog;
+  appearance: button;
+  appearance: push-button;
+  appearance: hyperlink;
+  appearance: radio-button;
+  appearance: checkbox;
+  appearance: menu-item;
+  appearance: tab;
+  appearance: button;
+  appearance: menu;
+  appearance: menubar;
+  appearance: pull-down-menu;
+  appearance: pop-up-menu;
+  appearance: list-menu;
+  appearance: radio-group;
+  appearance: checkbox-group;
+  appearance: outline-tree;
+  appearance: range;
+  appearance: field;
+  appearance: combo-box;
+  appearance: signature;
+  appearance: password;
+  appearance: 10px; /* Noncompliant */
+  appearance: 10; /* Noncompliant */
+  appearance: abc; /* Noncompliant */
+}

@@ -1,0 +1,21 @@
+.mybox {
+  alignment-adjust: inherit;
+  alignment-adjust: auto;
+  alignment-adjust: baseline;
+  alignment-adjust: before-edge;
+  alignment-adjust: text-before-edge;
+  alignment-adjust: middle;
+  alignment-adjust: central;
+  alignment-adjust: after-edge;
+  alignment-adjust: text-after-edge;
+  alignment-adjust: ideographic;
+  alignment-adjust: alphabetic;
+  alignment-adjust: hanging;
+  alignment-adjust: mathematical;
+  alignment-adjust: 10%;
+  alignment-adjust: -10%;
+  alignment-adjust: 10px;
+  alignment-adjust: -10px;
+  alignment-adjust: abc; /* Noncompliant */
+  alignment-adjust: 10; /* Noncompliant */
+}

@@ -17,19 +17,27 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.property;
+package org.sonar.css.checks.validators.property.animation;
 
-import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueValidator;
-import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
-import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
+import org.sonar.css.checks.utils.CssValueElement;
+import org.sonar.css.checks.validators.PropertyValueElementValidator;
+import org.sonar.css.checks.validators.valueelement.dimension.TimeValidator;
 
-public class BorderWidthValidator extends MultiPropertyValueValidator {
+import javax.annotation.Nonnull;
 
-  public BorderWidthValidator() {
-    super(ImmutableList.of(
-      new IdentifierValidator(ImmutableList.of("thin", "medium", "thick")),
-      PropertyValueValidatorFactory.getPositiveLengthValidator()));
+public class AnimationDurationValidator implements PropertyValueElementValidator {
+
+  TimeValidator timeValidator = new TimeValidator(true);
+
+  @Override
+  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+    return timeValidator.isValid(cssValueElement);
+  }
+
+  @Nonnull
+  @Override
+  public String getValidatorFormat() {
+    return timeValidator.getValidatorFormat();
   }
 
 }

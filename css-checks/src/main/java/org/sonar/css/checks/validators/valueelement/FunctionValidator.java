@@ -44,7 +44,7 @@ public class FunctionValidator implements PropertyValueElementValidator {
   public String getValidatorFormat() {
     StringBuilder format = new StringBuilder("<function>(");
     for (String allowedValue : allowedFunctions) {
-      if (format.length() != 0) {
+      if (format.length() > 11) {
         format.append(" | ");
       }
       format.append(allowedValue);

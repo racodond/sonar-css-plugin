@@ -1,0 +1,7 @@
+.mybox {
+  animation-play-state: inherit;
+  animation-play-state: running;
+  animation-play-state: paused;
+  animation-play-state: abc; /* Noncompliant */
+  animation-play-state: 0; /* Noncompliant */
+}

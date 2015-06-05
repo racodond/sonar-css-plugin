@@ -1,0 +1,10 @@
+.mybox {
+  outline-offset: inherit;
+  outline-offset: 0;
+  outline-offset: 0px;
+  outline-offset: 0.5px;
+  outline-offset: +0.5px;
+  outline-offset: -0.5px;
+  outline-offset: abc; /* Noncompliant */
+  outline-offset: 10; /* Noncompliant */
+}

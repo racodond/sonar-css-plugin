@@ -1,0 +1,10 @@
+.mybox {
+  overflow: inherit;
+  overflow: visible;
+  overflow: hidden;
+  overflow: scroll;
+  overflow: auto;
+  overflow: 0; /* Noncompliant */
+  overflow: 0px; /* Noncompliant */
+  overflow: abc; /* Noncompliant */
+}

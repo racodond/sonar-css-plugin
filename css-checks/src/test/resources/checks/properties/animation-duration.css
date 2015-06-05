@@ -1,0 +1,10 @@
+.mybox {
+  animation-duration: inherit;
+  animation-duration: 10s;
+  animation-duration: 0;
+  animation-duration: -10s; /* Noncompliant */
+  animation-duration: +10ms;
+  animation-duration: 10; /* Noncompliant */
+  animation-duration: 10.5; /* Noncompliant */
+  animation-duration: abc; /* Noncompliant */
+}

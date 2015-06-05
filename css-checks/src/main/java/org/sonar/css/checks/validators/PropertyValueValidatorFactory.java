@@ -20,10 +20,10 @@
 package org.sonar.css.checks.validators;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.property.BorderWidthValidator;
 import org.sonar.css.checks.validators.property.MarginWidthValidator;
 import org.sonar.css.checks.validators.property.PaddingWidthValidator;
 import org.sonar.css.checks.validators.property.PauseValidator;
+import org.sonar.css.checks.validators.property.border.BorderWidthValidator;
 import org.sonar.css.checks.validators.valueelement.ColorValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 import org.sonar.css.checks.validators.valueelement.UriValidator;
@@ -43,12 +43,15 @@ public class PropertyValueValidatorFactory {
   private static final Validator frequencyValidator = new FrequencyValidator();
   private static final Validator integerValidator = new IntegerValidator();
   private static final Validator lengthValidator = new LengthValidator(false);
-  private static final Validator positiveLengthValidator = new LengthValidator(true);
   private static final Validator noneValidator = new IdentifierValidator(ImmutableList.of("none"));
-  private static final Validator numberValidator = new NumberValidator();
+  private static final Validator numberValidator = new NumberValidator(false);
   private static final Validator percentageValidator = new PercentageValidator(false);
+  private static final Validator positiveIntegerValidator = new IntegerValidator(true);
+  private static final Validator positiveLengthValidator = new LengthValidator(true);
+  private static final Validator positiveNumberValidator = new NumberValidator(true);
   private static final Validator positivePercentageValidator = new PercentageValidator(true);
-  private static final Validator timeValidator = new TimeValidator();
+  private static final Validator positiveTimeValidator = new TimeValidator(true);
+  private static final Validator timeValidator = new TimeValidator(false);
   private static final Validator uriValidator = new UriValidator();
 
   private static final Validator borderStyleValidator = new IdentifierValidator(ImmutableList.of("none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge",
@@ -101,8 +104,20 @@ public class PropertyValueValidatorFactory {
     return percentageValidator;
   }
 
+  public static Validator getPositiveIntegerValidator() {
+    return positiveIntegerValidator;
+  }
+
+  public static Validator getPositiveNumberValidator() {
+    return positiveNumberValidator;
+  }
+
   public static Validator getPositivePercentageValidator() {
     return positivePercentageValidator;
+  }
+
+  public static Validator getPositiveTimeValidator() {
+    return positiveTimeValidator;
   }
 
   public static Validator getTimeValidator() {

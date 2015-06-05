@@ -1,0 +1,7 @@
+.mybox {
+  line-stacking-shift: inherit;
+  line-stacking-shift: consider-shifts;
+  line-stacking-shift: disregard-shifts;
+  line-stacking-shift: 10; /* Noncompliant */
+  line-stacking-shift: abc; /* Noncompliant */
+}

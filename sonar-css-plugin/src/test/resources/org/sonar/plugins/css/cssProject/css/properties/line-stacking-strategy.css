@@ -1,0 +1,9 @@
+.mybox {
+  line-stacking-strategy: inherit;
+  line-stacking-strategy: inline-line-height;
+  line-stacking-strategy: block-line-height;
+  line-stacking-strategy: max-height;
+  line-stacking-strategy: grid-height;
+  line-stacking-strategy: 10; /* Noncompliant */
+  line-stacking-strategy: abc; /* Noncompliant */
+}

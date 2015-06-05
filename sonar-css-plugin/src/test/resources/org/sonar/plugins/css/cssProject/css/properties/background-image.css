@@ -1,0 +1,9 @@
+.mybox {
+  background-image: inherit;
+  background-image: none;
+  background-image: url(http://mybox);
+  background-image: url(http://mybox), url(http://mybox);
+  background-image: url(http://mybox), url(http://mybox), url(http://mybox);
+  background-image: 10; /* Noncompliant */
+  background-image: 10, 10; /* Noncompliant */
+}

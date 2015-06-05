@@ -1,0 +1,10 @@
+.mybox {
+  background-clip: inherit;
+  background-clip: border-box;
+  background-clip: padding-box;
+  background-clip: content-box;
+  background-clip: 10px; /* Noncompliant */
+  background-clip: 10; /* Noncompliant */
+  background-clip: border-box, padding-box
+
+}

@@ -27,7 +27,7 @@ public class PauseValidator extends MultiPropertyValueValidator {
 
   public PauseValidator() {
     super(ImmutableList.of(
-      PropertyValueValidatorFactory.getTimeValidator(),
+      PropertyValueValidatorFactory.getPositiveTimeValidator(),
       // positiveOnly = true even if it is not properly stated that percentage may not be negative
       // http://www.w3.org/TR/CSS21/aural.html#propdef-pause-after
         PropertyValueValidatorFactory.getPositivePercentageValidator()));

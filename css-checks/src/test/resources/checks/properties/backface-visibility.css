@@ -1,0 +1,8 @@
+.mybox {
+  backface-visibility: inherit;
+  backface-visibility: visible;
+  backface-visibility: hidden;
+  backface-visibility: 10px; /* Noncompliant */
+  backface-visibility: 10; /* Noncompliant */
+  backface-visibility: abc; /* Noncompliant */
+}

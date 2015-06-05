@@ -17,27 +17,34 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.property;
+package org.sonar.css.checks.validators.property.animation;
 
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.validators.PropertyValueValidator;
-import org.sonar.css.checks.validators.valueelement.ColorValidator;
 
 import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class BorderColorValidator implements PropertyValueValidator {
+public class AnimationValidator implements PropertyValueValidator {
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    if (value.getNumberOfValueElements() == 0 || value.getNumberOfValueElements() > 4) {
+    int numberOfElements = value.getNumberOfValueElements();
+    if (numberOfElements == 0 || numberOfElements > 8) {
       return false;
     }
     for (CssValueElement valueElement : valueElements) {
-      if (!new ColorValidator().isValid(valueElement)) {
+      if (!new AnimationDelayValidator().isValid(valueElement)
+        && !new AnimationDirectionValidator().isValid(valueElement)
+        && !new AnimationDurationValidator().isValid(valueElement)
+        && !new AnimationFillModeValidator().isValid(valueElement)
+        && !new AnimationIterationCountValidator().isValid(valueElement)
+        && !new AnimationNameValidator().isValid(valueElement)
+        && !new AnimationPlayStateValidator().isValid(valueElement)
+        && !new AnimationTimingFunctionValidator().isValid(valueElement)) {
         return false;
       }
     }
@@ -47,7 +54,7 @@ public class BorderColorValidator implements PropertyValueValidator {
   @Nonnull
   @Override
   public String getValidatorFormat() {
-    return "[ <color> | transparent | currentColor ]{1,4}";
+    return "<time> || <single-timing-function> || <time> || <single-animation-iteration-count> || <single-animation-direction> || <single-animation-fill-mode> || <single-animation-play-state> || <single-animation-name>";
   }
 
 }

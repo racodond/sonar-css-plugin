@@ -1,0 +1,9 @@
+.mybox {
+  min-height: 10px;
+  min-height: 0.5em;
+  min-height: auto;
+  min-height: abc; /* Noncompliant */
+  min-height: 5.5%;
+  min-height: 10Hz; /* Noncompliant */
+  min-height: inherit;
+}

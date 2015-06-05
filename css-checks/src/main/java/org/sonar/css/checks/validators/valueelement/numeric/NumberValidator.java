@@ -19,21 +19,35 @@
  */
 package org.sonar.css.checks.validators.valueelement.numeric;
 
-import javax.annotation.Nonnull;
 import org.sonar.css.checks.utils.CssValueElement;
+import org.sonar.css.checks.utils.valueelements.Number;
 import org.sonar.css.checks.validators.PropertyValueElementValidator;
+
+import javax.annotation.Nonnull;
 
 public class NumberValidator implements PropertyValueElementValidator {
 
+  private final boolean positiveOnly;
+
+  public NumberValidator(boolean positiveOnly) {
+    this.positiveOnly = positiveOnly;
+  }
+
   @Override
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    return cssValueElement instanceof org.sonar.css.checks.utils.valueelements.Number;
+    if (cssValueElement instanceof org.sonar.css.checks.utils.valueelements.Number) {
+      if (positiveOnly) {
+        return ((Number) cssValueElement).isPositive() ? true : false;
+      }
+      return true;
+    }
+    return false;
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    return "<number>";
+    return positiveOnly ? "<number>(>=0)" : "<number>";
   }
 
 }
