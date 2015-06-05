@@ -17,20 +17,17 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.property;
+package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueValidator;
-import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
+import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
+import org.sonar.css.checks.validators.valueelement.dimension.LengthValidator;
 
-public class PauseValidator extends MultiPropertyValueValidator {
+public class BorderWidthValidator extends MultiPropertyValueElementValidator {
 
-  public PauseValidator() {
-    super(ImmutableList.of(
-      PropertyValueValidatorFactory.getPositiveTimeValidator(),
-      // positiveOnly = true even if it is not properly stated that percentage may not be negative
-      // http://www.w3.org/TR/CSS21/aural.html#propdef-pause-after
-        PropertyValueValidatorFactory.getPositivePercentageValidator()));
+  public BorderWidthValidator() {
+    getValidators().add(new IdentifierValidator(ImmutableList.of("thin", "medium", "thick")));
+    getValidators().add(new LengthValidator(true));
   }
 
 }

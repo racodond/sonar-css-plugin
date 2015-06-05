@@ -1,0 +1,52 @@
+.mybox {
+  border-top: inherit;
+  border-top: dotted;
+  border-top: dotted thin;
+  border-top: dotted thin green;
+  border-top: thin green;
+  border-top: 10px green;
+  border-top: rgb(25,25,25) 10px;
+  border-top: dotted thin green green; /* Noncompliant */
+  border-top: dotted abc green; /* Noncompliant */
+  border-top: dotted -10px green; /* Noncompliant */
+}
+
+.mybox {
+  border-right: inherit;
+  border-right: dotted;
+  border-right: dotted thin;
+  border-right: dotted thin green;
+  border-right: thin green;
+  border-right: 10px green;
+  border-right: rgb(25,25,25) 10px;
+  border-right: dotted thin green green; /* Noncompliant */
+  border-right: dotted abc green; /* Noncompliant */
+  border-right: dotted -10px green; /* Noncompliant */
+}
+
+.mybox {
+  border-left: inherit;
+  border-left: dotted;
+  border-left: dotted thin;
+  border-left: dotted thin green;
+  border-left: thin green;
+  border-left: 10px green;
+  border-left: rgb(25,25,25) 10px;
+  border-left: dotted thin green green; /* Noncompliant */
+  border-left: dotted abc green; /* Noncompliant */
+  border-left: dotted -10px green; /* Noncompliant */
+}
+
+.mybox {
+  border-bottom: inherit;
+  border-bottom: dotted;
+  border-bottom: dotted thin;
+  border-bottom: dotted thin green;
+  border-bottom: thin green;
+  border-bottom: 10px green;
+  border-bottom: rgb(25,25,25) 10px;
+  border-bottom: dotted thin green green; /* Noncompliant */
+  border-bottom: dotted abc green; /* Noncompliant */
+  border-bottom: dotted -10px green; /* Noncompliant */
+}
+

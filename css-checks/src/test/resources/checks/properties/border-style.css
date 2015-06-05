@@ -1,0 +1,11 @@
+.mybox {
+  border-style: inherit;
+  border-style: dotted;
+  border-style: dotted dotted;
+  border-style: dotted dotted dotted;
+  border-style: dotted dotted dotted dotted;
+  border-style: dotted dotted dotted dotted dotted; /* Noncompliant */
+  border-style: dashed solid double dotted;
+  border-style: 10; /* Noncompliant */
+  border-style: 10px; /* Noncompliant */
+}

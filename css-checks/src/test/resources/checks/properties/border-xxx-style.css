@@ -1,0 +1,55 @@
+.mybox {
+  border-top-style: inherit;
+  border-top-style: none;
+  border-top-style: hidden;
+  border-top-style: dashed;
+  border-top-style: double;
+  border-top-style: groove;
+  border-top-style: ridge;
+  border-top-style: inset;
+  border-top-style: outset;
+  border-top-style: 10px; /* Noncompliant */
+  border-top-style: abc; /* Noncompliant */
+}
+
+.mybox {
+  border-right-style: inherit;
+  border-right-style: none;
+  border-right-style: hidden;
+  border-right-style: dashed;
+  border-right-style: double;
+  border-right-style: groove;
+  border-right-style: ridge;
+  border-right-style: inset;
+  border-right-style: outset;
+  border-right-style: 10px; /* Noncompliant */
+  border-right-style: abc; /* Noncompliant */
+}
+
+.mybox {
+  border-left-style: inherit;
+  border-left-style: none;
+  border-left-style: hidden;
+  border-left-style: dashed;
+  border-left-style: double;
+  border-left-style: groove;
+  border-left-style: ridge;
+  border-left-style: inset;
+  border-left-style: outset;
+  border-left-style: 10px; /* Noncompliant */
+  border-left-style: abc; /* Noncompliant */
+}
+
+.mybox {
+  border-bottom-style: inherit;
+  border-bottom-style: none;
+  border-bottom-style: hidden;
+  border-bottom-style: dashed;
+  border-bottom-style: double;
+  border-bottom-style: groove;
+  border-bottom-style: ridge;
+  border-bottom-style: inset;
+  border-bottom-style: outset;
+  border-bottom-style: 10px; /* Noncompliant */
+  border-bottom-style: abc; /* Noncompliant */
+}

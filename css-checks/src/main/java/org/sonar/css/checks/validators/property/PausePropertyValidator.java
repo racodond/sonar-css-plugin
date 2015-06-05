@@ -17,36 +17,30 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.property.animation;
+package org.sonar.css.checks.validators.property;
 
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.valueelement.PauseValidator;
 
 import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class AnimationValidator implements PropertyValueValidator {
+public class PausePropertyValidator implements PropertyValueValidator {
 
-
+  PauseValidator pauseValidator = new PauseValidator();
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
     int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0 || numberOfElements > 8) {
+    if (numberOfElements == 0 || numberOfElements > 2) {
       return false;
     }
     for (CssValueElement valueElement : valueElements) {
-      if (!new AnimationDelayValidator().isValid(valueElement)
-        && !new AnimationDirectionValidator().isValid(valueElement)
-        && !new AnimationDurationValidator().isValid(valueElement)
-        && !new AnimationFillModeValidator().isValid(valueElement)
-        && !new AnimationIterationCountValidator().isValid(valueElement)
-        && !new AnimationNameValidator().isValid(valueElement)
-        && !new AnimationPlayStateValidator().isValid(valueElement)
-        && !new AnimationTimingFunctionValidator().isValid(valueElement)) {
+      if (!pauseValidator.isValid(valueElement)) {
         return false;
       }
     }
@@ -56,7 +50,7 @@ public class AnimationValidator implements PropertyValueValidator {
   @Nonnull
   @Override
   public String getValidatorFormat() {
-    return "<time> || <single-timing-function> || <time> || <single-animation-iteration-count> || <single-animation-direction> || <single-animation-fill-mode> || <single-animation-play-state> || <single-animation-name>";
+    return "[ <time>(>=0) | <percentage&gt>(>=0) ]{1,2}";
   }
 
 }

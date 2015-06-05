@@ -1,0 +1,39 @@
+.mybox {
+  border-top-width: inherit;
+  border-top-width: thin;
+  border-top-width: medium;
+  border-top-width: thick;
+  border-top-width: 10px;
+  border-top-width: -10px; /* Noncompliant */
+  border-top-width: abc; /* Noncompliant */
+}
+
+.mybox {
+  border-right-width: inherit;
+  border-right-width: thin;
+  border-right-width: medium;
+  border-right-width: thick;
+  border-right-width: 10px;
+  border-right-width: -10px; /* Noncompliant */
+  border-right-width: abc; /* Noncompliant */
+}
+
+.mybox {
+  border-left-width: inherit;
+  border-left-width: thin;
+  border-left-width: medium;
+  border-left-width: thick;
+  border-left-width: 10px;
+  border-left-width: -10px; /* Noncompliant */
+  border-left-width: abc; /* Noncompliant */
+}
+
+.mybox {
+  border-bottom-width: inherit;
+  border-bottom-width: thin;
+  border-bottom-width: medium;
+  border-bottom-width: thick;
+  border-bottom-width: 10px;
+  border-bottom-width: -10px; /* Noncompliant */
+  border-bottom-width: abc; /* Noncompliant */
+}

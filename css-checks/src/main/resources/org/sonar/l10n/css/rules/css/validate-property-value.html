@@ -151,25 +151,25 @@
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-color">border-color</a>
     <td>[ &lt;color&gt; | transparent | currentColor ]{1,4}
-    <td>No
+    <td>Yes
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/tables.html#propdef-border-spacing">border-spacing</a>
     <td>&lt;length&gt; &lt;length&gt;?
-    <td>No
+    <td>Yes
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-style">border-style</a>
     <td>&lt;border-style&gt;{1,4}
-    <td>No
+    <td>Yes
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-top">border-top</a><br>
       <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-right">border-right</a><br>
       <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-bottom">border-bottom</a><br>
       <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-left">border-left</a>
-    <td>[ &lt;border-width&gt; || &lt;border-style&gt; || border-top-color ]
-    <td>No
+    <td>&lt;border-width&gt; || &lt;border-style&gt; || &lt;border-color&gt;
+    <td>Yes
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-top-color">border-top-color</a><br>
@@ -184,7 +184,7 @@
       <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-right-style">border-right-style</a><br>
       <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-bottom-style">border-bottom-style</a><br>
       <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-left-style">border-left-style</a>
-    <td>&lt;border-style&gt;
+    <td>none | hidden | dotted | dashed | solid | double | groove | ridge | inset | outset
     <td>Yes
 
   <tr>
@@ -192,18 +192,18 @@
       <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-right-width">border-right-width</a><br>
       <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-bottom-width">border-bottom-width</a><br>
       <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-left-width">border-left-width</a>
-    <td>&lt;border-width&gt;
+    <td>thin | medium | thick | &lt;length&gt(&gt;=0);
     <td>Yes
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-width">border-width</a>
     <td>&lt;border-width&gt;{1,4}
-    <td>No
+    <td>Yes
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border">border</a>
-    <td>[ &lt;border-width&gt; || &lt;border-style&gt; || border-top-color ]
-    <td>No
+    <td>&lt;border-width&gt; || &lt;border-style&gt; || &lt;color&gt;
+    <td>Yes
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visuren.html#propdef-bottom">bottom</a>
@@ -257,8 +257,8 @@
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-cue">cue</a>
-    <td>[ cue-before || cue-after ]
-    <td>No
+    <td>cue-before || cue-after
+    <td>Yes
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/ui.html#propdef-cursor">cursor</a>
@@ -421,21 +421,18 @@
     <td>No
 
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-margin-right">margin-right</a><br>
+    <td nowrap="nowrap">
+      <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-margin-top">margin-top</a><br>
+      <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-margin-right">margin-right</a><br>
+      <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-margin-bottom">margin-bottom</a><br>
       <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-margin-left">margin-left</a>
-    <td>&lt;margin-width&gt;
-    <td>Yes
-
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-margin-top">margin-top</a><br>
-      <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-margin-bottom">margin-bottom</a>
-    <td>&lt;margin-width&gt;
+    <td>auto | &lt;length&gt; | &lt;percentage&gt;
     <td>Yes
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-margin">margin</a>
     <td>&lt;margin-width&gt;{1,4}
-    <td>No
+    <td>Yes
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visudet.html#propdef-max-height">max-height</a>
@@ -463,24 +460,24 @@
     <td>Yes
 
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/ui.html#propdef-outline-color">outline-color</a>
-    <td>&lt;color&gt; | transparent | currentColor | invert
+    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-ui-3/#propdef-outline-color">outline-color</a>
+    <td>invert | &lt;border-color&gt;
     <td>Yes
 
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/ui.html#propdef-outline-style">outline-style</a>
-    <td>&lt;border-style&gt;
+    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-ui-3/#propdef-outline-style">outline-style</a>
+    <td>auto | &lt;border-style&gt;
     <td>Yes
 
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/ui.html#propdef-outline-width">outline-width</a>
+    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-ui-3/#propdef-outline-width">outline-width</a>
     <td>&lt;border-width&gt;
     <td>Yes
 
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/ui.html#propdef-outline">outline</a>
-    <td>[ &lt;outline-color&gt; || &lt;outline-style&gt; || &lt;outline-width&gt; ]
-    <td>No
+    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-ui-3/#propdef-outline">outline</a>
+    <td>&lt;outline-width&gt; || &lt;outline-style&gt; || &lt;outline-color&gt;
+    <td>Yes
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visufx.html#propdef-overflow">overflow</a>
@@ -492,13 +489,13 @@
       <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-padding-right">padding-right</a><br>
       <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-padding-bottom">padding-bottom</a><br>
       <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-padding-left">padding-left</a>
-    <td>&lt;padding-width&gt;
+    <td>&lt;length&gt;(&gt;=0) | &lt;percentage&gt;(&gt;=0)
     <td>Yes
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-padding">padding</a>
     <td>&lt;padding-width&gt;{1,4}
-    <td>No
+    <td>Yes
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/page.html#propdef-page-break-after">page-break-after</a>
@@ -527,8 +524,8 @@
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-pause">pause</a>
-    <td>[ [&lt;time&gt; | &lt;percentage&gt;]{1,2} ]
-    <td>No
+    <td>[ &lt;time&gt; | &lt;percentage&gt; ]{1,2}
+    <td>Yes
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-pitch-range">pitch-range</a>

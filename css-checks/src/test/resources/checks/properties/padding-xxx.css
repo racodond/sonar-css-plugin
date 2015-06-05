@@ -1,0 +1,39 @@
+.mybox {
+  padding-top: inherit;
+  padding-top: 50%;
+  padding-top: -50%; /* Noncompliant */
+  padding-top: 10pt;
+  padding-top: -10pt; /* Noncompliant */
+  padding-top: 10; /* Noncompliant */
+  padding-top: abc; /* Noncompliant */
+}
+
+.mybox {
+  padding-right: inherit;
+  padding-right: 50%;
+  padding-right: -50%; /* Noncompliant */
+  padding-right: 10pt;
+  padding-right: -10pt; /* Noncompliant */
+  padding-right: 10; /* Noncompliant */
+  padding-right: abc; /* Noncompliant */
+}
+
+.mybox {
+  padding-left: inherit;
+  padding-left: 50%;
+  padding-left: -50%; /* Noncompliant */
+  padding-left: 10pt;
+  padding-left: -10pt; /* Noncompliant */
+  padding-left: 10; /* Noncompliant */
+  padding-left: abc; /* Noncompliant */
+}
+
+.mybox {
+  padding-bottom: inherit;
+  padding-bottom: 50%;
+  padding-bottom: -50%; /* Noncompliant */
+  padding-bottom: 10pt;
+  padding-bottom: -10pt; /* Noncompliant */
+  padding-bottom: 10; /* Noncompliant */
+  padding-bottom: abc; /* Noncompliant */
+}

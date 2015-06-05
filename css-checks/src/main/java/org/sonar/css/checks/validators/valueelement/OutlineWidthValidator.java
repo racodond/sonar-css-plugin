@@ -17,19 +17,14 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.property.border;
+package org.sonar.css.checks.validators.valueelement;
 
-import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueValidator;
-import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
-import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
+import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
 
-public class BorderWidthValidator extends MultiPropertyValueValidator {
+public class OutlineWidthValidator extends MultiPropertyValueElementValidator {
 
-  public BorderWidthValidator() {
-    super(ImmutableList.of(
-      new IdentifierValidator(ImmutableList.of("thin", "medium", "thick")),
-      PropertyValueValidatorFactory.getPositiveLengthValidator()));
+  public OutlineWidthValidator() {
+    getValidators().add(new BorderWidthValidator());
   }
 
 }

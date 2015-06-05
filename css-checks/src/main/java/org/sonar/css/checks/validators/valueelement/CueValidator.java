@@ -17,18 +17,16 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.property;
+package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueValidator;
+import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
 import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
 
-public class MarginWidthValidator extends MultiPropertyValueValidator {
+public class CueValidator extends MultiPropertyValueElementValidator {
 
-  public MarginWidthValidator() {
-    super(ImmutableList.of(
-      PropertyValueValidatorFactory.getAutoValidator(),
-      PropertyValueValidatorFactory.getLengthValidator(),
-      PropertyValueValidatorFactory.getPercentageValidator()));
+  public CueValidator() {
+    super(ImmutableList.of(PropertyValueValidatorFactory.getUriValidator(), PropertyValueValidatorFactory.getNoneValidator()));
   }
+
 }

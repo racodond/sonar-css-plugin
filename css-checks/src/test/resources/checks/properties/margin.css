@@ -1,0 +1,15 @@
+.mybox {
+  margin: inherit;
+  margin: auto;
+  margin: 50%;
+  margin: -50%;
+  margin: 10pt;
+  margin: -10pt;
+  margin: 10; /* Noncompliant */
+  margin: abc; /* Noncompliant */
+  margin: 50% 50%;
+  margin: 50% 50% 50%;
+  margin: 50% 50% 50% 50%;
+  margin: 50% 50% 50% 50% 50%; /* Noncompliant */
+  margin: 50% 50% abc 50%; /* Noncompliant */
+}
