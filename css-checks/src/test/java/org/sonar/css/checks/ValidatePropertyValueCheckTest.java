@@ -828,6 +828,15 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void text_align() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/text-align.css"), check);
+    errorMessage = "Update the invalid value of property \"text-align\". Expected format: start | end | left | right | center | justify | match-parent | justify-all";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(11).withMessage(errorMessage).next()
+      .atLine(12).withMessage(errorMessage).noMore();
+  }
+
+  @Test
   public void vertical_align() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/vertical-align.css"), check);
     errorMessage = "Update the invalid value of property \"vertical-align\". Expected format: auto | use-script | baseline | sub | super | top | text-top | central | middle | bottom | text-bottom | <percentage> | <length>";
