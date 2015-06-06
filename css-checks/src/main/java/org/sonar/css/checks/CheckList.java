@@ -79,7 +79,8 @@ public final class CheckList {
       TooManyWebFonts.class,
       UnknownFunctionsCheck.class,
       ValidatePropertyValueCheck.class,
-      VendorPrefixWithStandard.class
+      VendorPrefixWithStandard.class,
+      WhitespacesInImportantAnnotationCheck.class
       );
   }
 }
