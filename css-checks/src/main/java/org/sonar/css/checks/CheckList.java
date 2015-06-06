@@ -61,6 +61,7 @@ public final class CheckList {
       EmptyDeclarationCheck.class,
       ExperimentalPropertyUsageCheck.class,
       FixmeTagPresenceCheck.class,
+      ImportantPositionCheck.class,
       ImportNumberThreshold.class,
       KnownProperties.class,
       LeadingZerosCheck.class,
