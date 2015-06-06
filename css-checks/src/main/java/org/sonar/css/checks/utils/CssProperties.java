@@ -21,8 +21,8 @@ package org.sonar.css.checks.utils;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import org.sonar.css.checks.validators.base.EnumValidator;
 import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
+import org.sonar.css.checks.validators.base.EnumValidator;
 
 import java.util.Map;
 
@@ -34,7 +34,7 @@ import java.util.Map;
  */
 public final class CssProperties {
 
-    public static final Map<String, CssProperty> PROPERTIES = new ImmutableMap.Builder<String, CssProperty>()
+  public static final Map<String, CssProperty> PROPERTIES = new ImmutableMap.Builder<String, CssProperty>()
 
     // A
     .put("alignment-adjust", new CssProperty("alignment-adjust")
