@@ -47,7 +47,7 @@ public class DeprecatedIEStaticFiltersCheck extends SquidCheck<LexerlessGrammar>
   @Override
   public void leaveNode(AstNode astNode) {
     if (astNode.getFirstChild(CssGrammar.FUNCTION) != null
-      && CssFunctions.IE_STATIC_FILTERS.contains(astNode.getFirstChild(CssGrammar.FUNCTION).getTokenValue().toLowerCase())) {
+      && CssFunctions.IE_STATIC_FILTERS_NOT_IN_CSS_FUNCTIONS.contains(astNode.getFirstChild(CssGrammar.FUNCTION).getTokenValue().toLowerCase())) {
       getContext().createLineViolation(this, "Remove this usage of the \"{0}\" Internet Explorer static filter.", astNode, astNode.getTokenValue());
     }
   }

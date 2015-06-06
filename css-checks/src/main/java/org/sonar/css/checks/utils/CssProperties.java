@@ -23,6 +23,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
 import org.sonar.css.checks.validators.base.EnumValidator;
+import org.sonar.css.checks.validators.property.FilterValidator;
 
 import java.util.Map;
 
@@ -630,7 +631,7 @@ public final class CssProperties {
 
     // F
     .put("filter", new CssProperty("filter")
-      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(new FilterValidator())
     )
 
     .put("fit", new CssProperty("fit")

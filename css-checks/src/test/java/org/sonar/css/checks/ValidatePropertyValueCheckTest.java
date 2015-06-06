@@ -183,6 +183,18 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void filter() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/filter.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(12).withMessage("Update the invalid value of property \"filter\". Expected format: none | [<uri> | <filter-function>]+").next()
+      .atLine(13).withMessage("Update the invalid value of property \"filter\". Expected format: none | [<uri> | <filter-function>]+").next()
+      .atLine(14).withMessage("Update the invalid value of property \"filter\". Expected format: none | [<uri> | <filter-function>]+").next()
+      .atLine(15).withMessage("Update the invalid value of property \"filter\". Expected format: none | [<uri> | <filter-function>]+").next()
+      .atLine(16).withMessage("Update the invalid value of property \"filter\". Expected format: none | [<uri> | <filter-function>]+").next()
+      .atLine(17).withMessage("Update the invalid value of property \"filter\". Expected format: none | [<uri> | <filter-function>]+").noMore();
+  }
+
+  @Test
   public void font_size_adjust() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/font-size-adjust.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
