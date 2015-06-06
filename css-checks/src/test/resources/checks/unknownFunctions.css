@@ -1,0 +1,7 @@
+.mybox {
+  color: hello(100); /* Noncompliant */
+  background-image: repeating-linear-gradient(180deg,rgb(26,198,204),rgb(26,198,204) 7%, rgb(100,100,100) 10%);
+  background-image: Repeating-linear-gradient(180deg,rgb(26,198,204),rgb(26,198,204) 7%, rgb(100,100,100) 10%);
+  background-image: -moz-linear-gradient(top, hsl(0, 80%, 70%), #bada55);
+  filter: alpha(opacity=50);
+}

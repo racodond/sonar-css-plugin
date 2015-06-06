@@ -24,6 +24,7 @@ import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.utils.CssProperties;
+import org.sonar.css.checks.utils.Vendors;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -54,7 +55,7 @@ public class VendorPrefixWithStandard extends SquidCheck<LexerlessGrammar> {
   @Override
   public void leaveNode(AstNode astNode) {
     String property = astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue();
-    if (CssProperties.isVendorProperty(property) && CssProperties.getProperty(CssProperties.getPropertyNameWithoutVendorPrefix(
+    if (Vendors.isVendorPrefixed(property) && CssProperties.getProperty(CssProperties.getPropertyNameWithoutVendorPrefix(
         property)) != null) {
       if (!isNextExists(astNode, CssProperties.getPropertyNameWithoutVendorPrefix(property))) {
         getContext().createLineViolation(this, "Define the standard property after this vendor-prefixed property", astNode);

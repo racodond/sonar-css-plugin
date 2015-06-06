@@ -26,6 +26,7 @@ import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.utils.CssProperties;
+import org.sonar.css.checks.utils.Vendors;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
@@ -52,7 +53,7 @@ public class AlphabetizeDeclarationsCheck extends SquidCheck<LexerlessGrammar> {
   public void leaveNode(AstNode astNode) {
     if (astNode.is(CssGrammar.DECLARATION)
       && astNode.getFirstChild(CssGrammar.PROPERTY) != null
-      && !CssProperties.isVendorProperty(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue())) {
+      && !Vendors.isVendorPrefixed(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue())) {
       declarations.add(CssProperties.getUnhackedPropertyName(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue()));
     } else if (astNode.is(CssGrammar.RULESET) || astNode.is(CssGrammar.AT_RULE)) {
       if (!arePropertiesAlphabeticallyOrdered(declarations)) {

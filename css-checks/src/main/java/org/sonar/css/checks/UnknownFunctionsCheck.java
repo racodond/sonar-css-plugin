@@ -23,7 +23,7 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.checks.utils.CssProperties;
+import org.sonar.css.checks.utils.CssFunctions;
 import org.sonar.css.checks.utils.Vendors;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
@@ -32,31 +32,28 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-/**
- * https://github.com/stubbornella/csslint/wiki/Require-use-of-known-properties
- * @author tkende
- *
- */
 @Rule(
-  key = "known-properties",
-  name = "Unknown CSS properties should be removed",
+  key = "unknown-functions",
+  name = "Unknown CSS functions should be removed",
   priority = Priority.MAJOR,
   tags = {Tags.PITFALL})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
-public class KnownProperties extends SquidCheck<LexerlessGrammar> {
+public class UnknownFunctionsCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.PROPERTY);
+    subscribeTo(CssGrammar.VALUE);
   }
 
   @Override
-  public void visitNode(AstNode astNode) {
-    String propertyName = CssProperties.getUnhackedPropertyName(astNode.getTokenValue());
-    if (!Vendors.isVendorPrefixed(propertyName) && CssProperties.getProperty(propertyName) == null) {
-      getContext().createLineViolation(this, "Remove the usage of this unknown property: " + propertyName, astNode);
+  public void leaveNode(AstNode astNode) {
+    if (astNode.getFirstChild(CssGrammar.FUNCTION) != null
+      && !Vendors.isVendorPrefixed(astNode.getFirstChild(CssGrammar.FUNCTION).getTokenValue())
+      && !CssFunctions.CSS_FUNCTIONS.contains(astNode.getFirstChild(CssGrammar.FUNCTION).getTokenValue().toLowerCase())
+      && !CssFunctions.IE_STATIC_FILTERS.contains(astNode.getFirstChild(CssGrammar.FUNCTION).getTokenValue().toLowerCase())) {
+      getContext().createLineViolation(this, "Remove this usage of the unknown \"{0}\" CSS function.", astNode, astNode.getTokenValue());
     }
   }
 

@@ -1,0 +1,82 @@
+<p>The list of supported CSS functions is growing quite large, and it's very easy to miss a typo in a single function when the function name isn't checked.</p>
+<p>This rule checks each function name to make sure that it is a known CSS function. All vendor-prefixed functions are ignored because vendors may add in their own functions at any point in time, and there are no canonical lists of these functions.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+.mybox {
+  color: rgb(255,0,51);
+  color: hello(100); /* Noncompliant: 'hello' isn't a known function */
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+.mybox {
+  color: rgb(255,0,51); /* Compliant: 'rgb' is a known function */
+  color: -moz-linear-gradient(top, hsl(0, 80%, 70%), #bada55); /* Compliant: '-moz-linear-gradient' is a vendor function */
+}
+</pre>
+<h2>List of Known Functions</h2>
+<ul>
+  <li>alpha</li>
+  <li>annotation</li>
+  <li>blur</li>
+  <li>brightness</li>
+  <li>calc</li>
+  <li>character-variant</li>
+  <li>circle</li>
+  <li>contrast</li>
+  <li>cubic-bezier</li>
+  <li>drop-shadow</li>
+  <li>element</li>
+  <li>ellipse</li>
+  <li>format</li>
+  <li>grayscale</li>
+  <li>hsl</li>
+  <li>hsla</li>
+  <li>hue-rotate</li>
+  <li>image</li>
+  <li>inset</li>
+  <li>invert</li>
+  <li>linear-gradient</li>
+  <li>local</li>
+  <li>matrix</li>
+  <li>matrix3d</li>
+  <li>minmax</li>
+  <li>opacity</li>
+  <li>ornaments</li>
+  <li>perspective</li>
+  <li>polygon</li>
+  <li>radial-gradient</li>
+  <li>rect</li>
+  <li>repeat</li>
+  <li>repeating-linear-gradient</li>
+  <li>repeating-radial-gradient</li>
+  <li>rgb</li>
+  <li>rgba</li>
+  <li>rotate</li>
+  <li>rotatex</li>
+  <li>rotatey</li>
+  <li>rotatez</li>
+  <li>rotate3d</li>
+  <li>saturate</li>
+  <li>scale</li>
+  <li>scalex</li>
+  <li>scaley</li>
+  <li>scalez</li>
+  <li>scale3d</li>
+  <li>sepia</li>
+  <li>skew</li>
+  <li>skewx</li>
+  <li>skewy</li>
+  <li>steps</li>
+  <li>styleset</li>
+  <li>stylistic</li>
+  <li>swash</li>
+  <li>symbols</li>
+  <li>translate</li>
+  <li>translatex</li>
+  <li>translatey</li>
+  <li>translatez</li>
+  <li>translate3d</li>
+  <li>url</li>
+  <li>var</li>
+</ul>

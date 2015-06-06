@@ -26,7 +26,7 @@ import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
-public class DeprecatedSystemColorsTest {
+public class DeprecatedSystemColorsCheckTest {
 
   private DeprecatedSystemColorsCheck check = new DeprecatedSystemColorsCheck();
 
