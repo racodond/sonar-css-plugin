@@ -24,36 +24,36 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 import static org.sonar.sslr.tests.Assertions.assertThat;
 
-public class NumberTest extends TestBase {
+public class PercentageTest extends TestBase {
 
   private LexerlessGrammar b = CssGrammar.createGrammar();
 
   @Test
-  public void should_be_numbers() {
-    assertThat(b.rule(CssGrammar.NUMBER))
-      .matches("0")
-      .matches("+0")
-      .matches("-0")
-      .matches("1")
-      .matches("+1")
-      .matches("-1")
-      .matches("1.1")
-      .matches("+1.1")
-      .matches("-1.1")
-      .matches("1.11")
-      .matches("+1.11")
-      .matches("-1.11")
-      .matches(".11")
-      .matches("-.11")
-      .matches("+.11")
-      .matches("0.11")
-      .matches("+0.11")
-      .matches("-0.11");
+  public void should_be_percentages() {
+    assertThat(b.rule(CssGrammar.PERCENTAGE))
+      .matches("0%")
+      .matches("+0%")
+      .matches("-0%")
+      .matches("1%")
+      .matches("+1%")
+      .matches("-1%")
+      .matches("1.1%")
+      .matches("+1.1%")
+      .matches("-1.1%")
+      .matches("1.11%")
+      .matches("+1.11%")
+      .matches("-1.11%")
+      .matches(".11%")
+      .matches("-.11%")
+      .matches("+.11%")
+      .matches("0.11%")
+      .matches("+0.11%")
+      .matches("-0.11%");
   }
 
   @Test
-  public void should_not_be_numbers() {
-    assertThat(b.rule(CssGrammar.NUMBER))
+  public void should_not_be_percentages() {
+    assertThat(b.rule(CssGrammar.PERCENTAGE))
       .notMatches("+")
       .notMatches("-")
       .notMatches("-.")
@@ -61,7 +61,7 @@ public class NumberTest extends TestBase {
       .notMatches("+a")
       .notMatches("-a")
       .notMatches("abc")
-      .notMatches("12%")
+      .notMatches("12")
       .notMatches("12px");
   }
 
