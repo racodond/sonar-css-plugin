@@ -34,6 +34,12 @@
       <id>kalidasya</id>
       <name>Kende Tamas</name>
     </developer>
+    <developer>
+      <id>racodond</id>
+      <name>David RACODON</name>
+      <email>david.racodon@gmail.com</email>
+      <url>https://www.linkedin.com/pub/david-racodon/11/62/283</url>
+    </developer>
   </developers>
 
   <modules>
