@@ -20,6 +20,7 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.GenericTokenType;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -52,7 +53,7 @@ public class DisallowUnitsForZeroValues extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    if ("0".equals(astNode.getFirstChild(CssGrammar.NUMBER).getTokenValue()) && !astNode.hasAncestor(CssGrammar.FUNCTION)) {
+    if ("0".equals(astNode.getFirstChild(GenericTokenType.LITERAL).getTokenValue()) && !astNode.hasAncestor(CssGrammar.FUNCTION)) {
       getContext().createLineViolation(this, "Remove the unit for this zero value", astNode);
     }
   }
