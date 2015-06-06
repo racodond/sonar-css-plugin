@@ -42,6 +42,7 @@ public final class CheckList {
       CompatibleVendorPrefixes.class,
       DeclarationFormatCheck.class,
       DeprecatedSystemColorsCheck.class,
+      DeprecatedIEStaticFiltersCheck.class,
       DisallowDuplicateBackgroundImages.class,
       DisallowEmptyRules.class,
       DisallowIdsInSelectors.class,
