@@ -1,0 +1,7 @@
+.mybox {
+  azimuth: 30deg; /* Noncompliant */
+  Azimuth: 30deg; /* Noncompliant */
+  clip: rect(0px, 175px, 113px, 0px); /* Noncompliant */
+  Clip: rect(0px, 175px, 113px, 0px); /* Noncompliant */
+  background-color: red;
+}
