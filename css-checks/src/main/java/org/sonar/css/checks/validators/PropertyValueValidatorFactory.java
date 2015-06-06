@@ -19,68 +19,125 @@
  */
 package org.sonar.css.checks.validators;
 
-import org.sonar.css.checks.validators.base.BasePropertyValueValidatorFactory;
-import org.sonar.css.checks.validators.base.ColorValidator;
-import org.sonar.css.checks.validators.property.BorderStyleValidator;
+import com.google.common.collect.ImmutableList;
 import org.sonar.css.checks.validators.property.BorderWidthValidator;
-import org.sonar.css.checks.validators.property.FontSizeValidator;
 import org.sonar.css.checks.validators.property.MarginWidthValidator;
-import org.sonar.css.checks.validators.property.OutlineStyleValidator;
 import org.sonar.css.checks.validators.property.PaddingWidthValidator;
-import org.sonar.css.checks.validators.property.PageBreakValidator;
 import org.sonar.css.checks.validators.property.PauseValidator;
-import org.sonar.css.checks.validators.property.PitchValidator;
+import org.sonar.css.checks.validators.valueelement.ColorValidator;
+import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
+import org.sonar.css.checks.validators.valueelement.UriValidator;
+import org.sonar.css.checks.validators.valueelement.dimension.AngleValidator;
+import org.sonar.css.checks.validators.valueelement.dimension.FrequencyValidator;
+import org.sonar.css.checks.validators.valueelement.dimension.LengthValidator;
+import org.sonar.css.checks.validators.valueelement.dimension.TimeValidator;
+import org.sonar.css.checks.validators.valueelement.numeric.IntegerValidator;
+import org.sonar.css.checks.validators.valueelement.numeric.NumberValidator;
+import org.sonar.css.checks.validators.valueelement.numeric.PercentageValidator;
 
-public class PropertyValueValidatorFactory extends BasePropertyValueValidatorFactory {
+public class PropertyValueValidatorFactory {
 
-  private static final PropertyValueValidator borderStyleValidator = new BorderStyleValidator();
-  private static final PropertyValueValidator borderWidthValidator = new BorderWidthValidator();
-  private static final PropertyValueValidator colorValidator = new ColorValidator();
-  private static final PropertyValueValidator fontSizeValidator = new FontSizeValidator();
-  private static final PropertyValueValidator marginWidthValidator = new MarginWidthValidator();
-  private static final PropertyValueValidator outlineStyleValidator = new OutlineStyleValidator();
-  private static final PropertyValueValidator paddingWidthValidator = new PaddingWidthValidator();
-  private static final PropertyValueValidator pitchValidator = new PitchValidator();
-  private static final PropertyValueValidator pageBreakValidator = new PageBreakValidator();
-  private static final PropertyValueValidator pauseValidator = new PauseValidator();
+  private static final Validator angleValidator = new AngleValidator();
+  private static final Validator autoValidator = new IdentifierValidator(ImmutableList.of("auto"));
+  private static final Validator colorValidator = new ColorValidator();
+  private static final Validator frequencyValidator = new FrequencyValidator();
+  private static final Validator integerValidator = new IntegerValidator();
+  private static final Validator lengthValidator = new LengthValidator(false);
+  private static final Validator positiveLengthValidator = new LengthValidator(true);
+  private static final Validator noneValidator = new IdentifierValidator(ImmutableList.of("none"));
+  private static final Validator numberValidator = new NumberValidator();
+  private static final Validator percentageValidator = new PercentageValidator(false);
+  private static final Validator positivePercentageValidator = new PercentageValidator(true);
+  private static final Validator timeValidator = new TimeValidator();
+  private static final Validator uriValidator = new UriValidator();
 
-  public static PropertyValueValidator getBorderStyleValidator() {
-    return borderStyleValidator;
+  private static final Validator borderStyleValidator = new IdentifierValidator(ImmutableList.of("none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge",
+    "inset", "outset"));
+  private static final Validator borderWidthValidator = new BorderWidthValidator();
+  private static final Validator marginWidthValidator = new MarginWidthValidator();
+  private static final Validator outlineStyleValidator = new IdentifierValidator(ImmutableList.of("none", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset",
+    "outset"));
+  private static final Validator paddingWidthValidator = new PaddingWidthValidator();
+  private static final Validator pageBreakValidator = new IdentifierValidator(ImmutableList.of("auto", "always", "avoid", "left", "right"));
+  private static final Validator pauseValidator = new PauseValidator();
+
+  public static Validator getAngleValidator() {
+    return angleValidator;
   }
 
-  public static PropertyValueValidator getColorValidator() {
+  public static Validator getAutoValidator() {
+    return autoValidator;
+  }
+
+  public static Validator getFrequencyValidator() {
+    return frequencyValidator;
+  }
+
+  public static Validator getColorValidator() {
     return colorValidator;
   }
 
-  public static PropertyValueValidator getBorderWidthValidator() {
+  public static Validator getIntegerValidator() {
+    return integerValidator;
+  }
+
+  public static Validator getLengthValidator() {
+    return lengthValidator;
+  }
+
+  public static Validator getPositiveLengthValidator() {
+    return positiveLengthValidator;
+  }
+
+  public static Validator getNoneValidator() {
+    return noneValidator;
+  }
+
+  public static Validator getNumberValidator() {
+    return numberValidator;
+  }
+
+  public static Validator getPercentageValidator() {
+    return percentageValidator;
+  }
+
+  public static Validator getPositivePercentageValidator() {
+    return positivePercentageValidator;
+  }
+
+  public static Validator getTimeValidator() {
+    return timeValidator;
+  }
+
+  public static Validator getUriValidator() {
+    return uriValidator;
+  }
+
+  public static Validator getBorderStyleValidator() {
+    return borderStyleValidator;
+  }
+
+  public static Validator getBorderWidthValidator() {
     return borderWidthValidator;
   }
 
-  public static PropertyValueValidator getFontSizeValidator() {
-    return fontSizeValidator;
-  }
-
-  public static PropertyValueValidator getMarginWidthValidator() {
+  public static Validator getMarginWidthValidator() {
     return marginWidthValidator;
   }
 
-  public static PropertyValueValidator getOutlineStyleValidator() {
+  public static Validator getOutlineStyleValidator() {
     return outlineStyleValidator;
   }
 
-  public static PropertyValueValidator getPaddingWidthValidator() {
+  public static Validator getPaddingWidthValidator() {
     return paddingWidthValidator;
   }
 
-  public static PropertyValueValidator getPitchValidator() {
-    return pitchValidator;
-  }
-
-  public static PropertyValueValidator getPageBreakValidator() {
+  public static Validator getPageBreakValidator() {
     return pageBreakValidator;
   }
 
-  public static PropertyValueValidator getPauseValidator() {
+  public static Validator getPauseValidator() {
     return pauseValidator;
   }
 

@@ -10,34 +10,10 @@
   color: #FF04033; /* Noncompliant */
   color: abc; /* Noncompliant */
   color: rgb(255, 0,51);
-  color: rgb(255,0,+51);
-  color: rgb(255,0,-51); /* Noncompliant */
-  color: rgb(100%, 0%, 51%);
-  color: rgb(100%,15,51%); /* Noncompliant */
-  color: rgb(100%,15%); /* Noncompliant */
   color: rgba(255, 0,51,0.5);
-  color: rgba(255,0,+51,0);
-  color: rgba(255,0,-51,0.5); /* Noncompliant */
-  color: rgba(100%, 0%, 51%, 1);
-  color: rgba(100%,15,51%,0.5); /* Noncompliant */
-  color: rgba(100%,15%,51%,-0.2); /* Noncompliant */
-  color: rgba(100%,15%,51%,+1.5); /* Noncompliant */
-  color: rgba(100%,15%); /* Noncompliant */
   color: hsl(0,100%,15%);
-  color: hsl(10.5,98.5%,15.5%);
-  color: hsl(10.5,98.5%); /* Noncompliant */
-  color: hsl(10%,10%,10%); /* Noncompliant */
-  color: hsl(10,105%,10%); /* Noncompliant */
-  color: hsl(10,10%,105%); /* Noncompliant */
   color: hsla(0,100%,15%,0.5);
-  color: hsla(10.5,98.5%,15.5%,1);
-  color: hsla(10.5,98.5%,0.5); /* Noncompliant */
-  color: hsla(10%,10%,10%,0.5); /* Noncompliant */
-  color: hsla(10,105%,10%,0.5); /* Noncompliant */
-  color: hsla(10,10%,105%,0.5); /* Noncompliant */
-  color: hsla(10%,10%,10%,-0.5); /* Noncompliant */
-  color: hsla(10%,10%,10%,1.5); /* Noncompliant */
-  color: hsla(10%,10%,10%,+1.5); /* Noncompliant */
+  color: hello(); /* Noncompliant */
   color: transparent;
   color: currentColor;
   color: Background;

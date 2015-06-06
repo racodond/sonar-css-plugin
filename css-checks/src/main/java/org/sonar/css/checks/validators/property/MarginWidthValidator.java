@@ -20,16 +20,15 @@
 package org.sonar.css.checks.validators.property;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.base.BasePropertyValueValidatorFactory;
-import org.sonar.css.checks.validators.base.EnumValidator;
-import org.sonar.css.checks.validators.PropertyValueMultiValidator;
+import org.sonar.css.checks.validators.MultiPropertyValueValidator;
+import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
 
-public class MarginWidthValidator extends PropertyValueMultiValidator {
+public class MarginWidthValidator extends MultiPropertyValueValidator {
 
   public MarginWidthValidator() {
     super(ImmutableList.of(
-      new EnumValidator(ImmutableList.of("auto")),
-      BasePropertyValueValidatorFactory.getLengthValidator(),
-      BasePropertyValueValidatorFactory.getPercentageValidator()));
+      PropertyValueValidatorFactory.getAutoValidator(),
+      PropertyValueValidatorFactory.getLengthValidator(),
+      PropertyValueValidatorFactory.getPercentageValidator()));
   }
 }

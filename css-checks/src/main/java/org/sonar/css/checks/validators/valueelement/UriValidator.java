@@ -17,22 +17,25 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.base.dimension;
+package org.sonar.css.checks.validators.valueelement;
 
-import org.sonar.css.checks.utils.CssUnits;
+import org.sonar.css.checks.utils.CssValueElement;
+import org.sonar.css.checks.utils.valueelements.Uri;
+import org.sonar.css.checks.validators.PropertyValueElementValidator;
 
 import javax.annotation.Nonnull;
 
-public class AngleValidator extends DimensionValidator {
+public class UriValidator implements PropertyValueElementValidator {
 
-  public AngleValidator() {
-    super(false, CssUnits.ANGLE_UNITS);
+  @Override
+  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+    return cssValueElement instanceof Uri;
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    return "<angle>";
+    return "<uri>";
   }
 
 }

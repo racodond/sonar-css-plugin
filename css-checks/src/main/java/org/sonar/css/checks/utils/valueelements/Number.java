@@ -17,18 +17,33 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.property;
+package org.sonar.css.checks.utils.valueelements;
 
-import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueValidator;
-import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
+import com.sonar.sslr.api.AstNode;
+import org.sonar.css.checks.utils.CssValueElement;
 
-public class PaddingWidthValidator extends MultiPropertyValueValidator {
+public class Number extends CssValueElement {
 
-  public PaddingWidthValidator() {
-    super(ImmutableList.of(
-      PropertyValueValidatorFactory.getPositiveLengthValidator(),
-      PropertyValueValidatorFactory.getPositivePercentageValidator()));
+  private final double value;
+  private final boolean isZero;
+  private final boolean isInteger;
+
+  public Number(AstNode numberNode) {
+    value = Double.valueOf(numberNode.getTokenValue());
+    isZero = numberNode.getTokenValue().matches("([\\-\\+])?[0]*(\\.[0]+)?");
+    isInteger = numberNode.getTokenValue().matches("[\\-\\+]{0,1}[0-9]+");
+  }
+
+  public boolean isZero() {
+    return isZero;
+  }
+
+  public boolean isPositive() {
+    return value >= 0;
+  }
+
+  public boolean isInteger() {
+    return isInteger;
   }
 
 }

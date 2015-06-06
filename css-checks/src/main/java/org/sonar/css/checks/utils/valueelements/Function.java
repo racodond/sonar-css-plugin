@@ -17,15 +17,21 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.property;
+package org.sonar.css.checks.utils.valueelements;
 
-import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.base.EnumValidator;
+import com.sonar.sslr.api.AstNode;
+import org.sonar.css.checks.utils.CssValueElement;
 
-public class PageBreakValidator extends EnumValidator {
+public class Function extends CssValueElement {
 
-  public PageBreakValidator() {
-    super(ImmutableList.of("auto", "always", "avoid", "left", "right"));
+  private final String name;
+
+  public Function(AstNode functionNode) {
+    name = functionNode.getTokenValue().toLowerCase();
+  }
+
+  public String getName() {
+    return name;
   }
 
 }

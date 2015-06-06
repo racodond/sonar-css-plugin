@@ -17,15 +17,8 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.property;
+package org.sonar.css.checks.utils;
 
-import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.base.EnumValidator;
-
-public class OutlineStyleValidator extends EnumValidator {
-
-  public OutlineStyleValidator() {
-    super(ImmutableList.of("none", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset"));
-  }
+public abstract class CssValueElement {
 
 }

@@ -1,0 +1,13 @@
+.mybox {
+  border-color: inherit;
+  border-color: red;
+  border-color: red blue;
+  border-color: red blue green;
+  border-color: red blue green white;
+  border-color: red blue green white black; /* Noncompliant */
+  border-color: #f03;
+  border-color: #f03 #f03;
+  border-color: #f03 #f03 #f03;
+  border-color: #f03 #f03 #f03 #f03;
+  border-color: #f03 #f03 #f03 #f03 #f03; /* Noncompliant */
+}

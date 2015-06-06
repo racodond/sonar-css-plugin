@@ -17,22 +17,41 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.base.dimension;
+package org.sonar.css.checks.validators.valueelement.numeric;
 
-import org.sonar.css.checks.utils.CssUnits;
+import org.sonar.css.checks.utils.CssValueElement;
+import org.sonar.css.checks.utils.valueelements.Percentage;
+import org.sonar.css.checks.validators.PropertyValueElementValidator;
 
 import javax.annotation.Nonnull;
 
-public class LengthValidator extends DimensionValidator {
+public class PercentageValidator implements PropertyValueElementValidator {
 
-  public LengthValidator(boolean positiveOnly) {
-    super(positiveOnly, CssUnits.LENGTH_UNITS);
+  private final boolean positiveOnly;
+
+  public PercentageValidator(boolean positiveOnly) {
+    this.positiveOnly = positiveOnly;
+  }
+
+  @Override
+  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+    if (cssValueElement instanceof Percentage) {
+      if (positiveOnly) {
+        return ((Percentage) cssValueElement).isPositive() ? true : false;
+      }
+      return true;
+    }
+    return false;
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    return isPositiveOnly() ? "<length> (>=0)" : "<length>";
+    if (positiveOnly) {
+      return "<percentage> (>=0)";
+    } else {
+      return "<percentage>";
+    }
   }
 
 }

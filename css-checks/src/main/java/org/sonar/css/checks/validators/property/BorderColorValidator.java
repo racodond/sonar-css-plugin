@@ -17,40 +17,37 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.base;
+package org.sonar.css.checks.validators.property;
 
-import com.google.common.collect.ImmutableList;
-import com.sonar.sslr.api.AstNode;
+import org.sonar.css.checks.utils.CssValue;
+import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.validators.PropertyValueValidator;
-import org.sonar.css.parser.CssGrammar;
+import org.sonar.css.checks.validators.valueelement.ColorValidator;
 
 import javax.annotation.Nonnull;
 
-public class FunctionValidator implements PropertyValueValidator {
+import java.util.List;
 
-  private final ImmutableList<String> allowedFunctions;
-
-  public FunctionValidator(ImmutableList<String> allowedFunctions) {
-    this.allowedFunctions = allowedFunctions;
-  }
+public class BorderColorValidator implements PropertyValueValidator {
 
   @Override
-  public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
-    return astNode.getFirstChild(CssGrammar.FUNCTION) != null
-      && allowedFunctions.contains(astNode.getFirstChild(CssGrammar.FUNCTION).getTokenValue());
-  }
-
-  @Override
-  @Nonnull
-  public String getValidatorFormat() {
-    StringBuilder format = new StringBuilder("<function>(");
-    for (String allowedValue : allowedFunctions) {
-      if (format.length() != 0) {
-        format.append(" | ");
-      }
-      format.append(allowedValue);
+  public boolean isValid(@Nonnull CssValue value) {
+    List<CssValueElement> valueElements = value.getValueElements();
+    if (value.getNumberOfValueElements() == 0 || value.getNumberOfValueElements() > 4) {
+      return false;
     }
-    format.append(")");
-    return format.toString();
+    for (CssValueElement valueElement : valueElements) {
+      if (!new ColorValidator().isValid(valueElement)) {
+        return false;
+      }
+    }
+    return true;
   }
+
+  @Nonnull
+  @Override
+  public String getValidatorFormat() {
+    return "[ <color> | transparent | currentColor ]{1,4}";
+  }
+
 }

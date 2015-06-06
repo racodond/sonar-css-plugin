@@ -17,20 +17,22 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.property;
+package org.sonar.css.checks.validators.valueelement.dimension;
 
-import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.base.BasePropertyValueValidatorFactory;
-import org.sonar.css.checks.validators.base.EnumValidator;
-import org.sonar.css.checks.validators.PropertyValueMultiValidator;
+import org.sonar.css.checks.utils.CssUnits;
 
-public class FontSizeValidator extends PropertyValueMultiValidator {
+import javax.annotation.Nonnull;
 
-  public FontSizeValidator() {
-    super(ImmutableList.of(
-      new EnumValidator(ImmutableList.of("xx-small", "x-small", "small", "medium", "large", "x-large", "xx-large")),
-      new EnumValidator(ImmutableList.of("larger", "smaller")),
-      BasePropertyValueValidatorFactory.getPositiveLengthValidator(),
-      BasePropertyValueValidatorFactory.getPositivePercentageValidator()));
+public class FrequencyValidator extends DimensionValidator {
+
+  public FrequencyValidator() {
+    super(true, CssUnits.FREQUENCY_UNITS);
   }
+
+  @Override
+  @Nonnull
+  public String getValidatorFormat() {
+    return "<frequency>";
+  }
+
 }

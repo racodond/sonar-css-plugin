@@ -20,22 +20,27 @@
 package org.sonar.css.checks.validators;
 
 import com.google.common.collect.ImmutableList;
-import com.sonar.sslr.api.AstNode;
+import org.sonar.css.checks.utils.CssValue;
 
 import javax.annotation.Nonnull;
 
-public class PropertyValueMultiValidator implements PropertyValueValidator {
+public class MultiPropertyValueValidator implements PropertyValueValidator {
 
-  private final ImmutableList<PropertyValueValidator> validators;
+  private final ImmutableList<Validator> validators;
 
-  public PropertyValueMultiValidator(@Nonnull ImmutableList<PropertyValueValidator> validators) {
+  public MultiPropertyValueValidator(@Nonnull ImmutableList<Validator> validators) {
     this.validators = validators;
   }
 
   @Override
-  public boolean isPropertyValueValid(@Nonnull AstNode valueAstNode) {
-    for (PropertyValueValidator validator : validators) {
-      if (validator.isPropertyValueValid(valueAstNode)) {
+  public boolean isValid(@Nonnull CssValue value) {
+    for (Validator validator : validators) {
+      if (validator instanceof PropertyValueElementValidator
+        && ((PropertyValueElementValidator) validator).isValid(value.getValueElements().get(0))) {
+        return true;
+      }
+      if (validator instanceof PropertyValueValidator
+        && ((PropertyValueValidator) validator).isValid(value)) {
         return true;
       }
     }
@@ -46,7 +51,7 @@ public class PropertyValueMultiValidator implements PropertyValueValidator {
   @Nonnull
   public String getValidatorFormat() {
     StringBuilder format = new StringBuilder();
-    for (PropertyValueValidator validator : validators) {
+    for (Validator validator : validators) {
       if (format.length() > 0) {
         format.append(" | ");
       }

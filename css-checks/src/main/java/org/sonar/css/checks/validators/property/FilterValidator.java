@@ -20,10 +20,13 @@
 package org.sonar.css.checks.validators.property;
 
 import com.google.common.collect.ImmutableList;
-import com.sonar.sslr.api.AstNode;
 import org.sonar.css.checks.utils.CssFunctions;
+import org.sonar.css.checks.utils.CssValue;
+import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.validators.PropertyValueValidator;
-import org.sonar.css.parser.CssGrammar;
+import org.sonar.css.checks.validators.valueelement.FunctionValidator;
+import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
+import org.sonar.css.checks.validators.valueelement.UriValidator;
 
 import javax.annotation.Nonnull;
 
@@ -35,21 +38,19 @@ public class FilterValidator implements PropertyValueValidator {
     .of("blur", "brightness", "contrast", "drop-shadow", "grayscale", "hue-rotate", "invert", "opacity", "saturate", "sepia");
 
   @Override
-  public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
-    List<AstNode> values = astNode.getChildren();
-    if (values == null || values.size() == 0) {
+  public boolean isValid(@Nonnull CssValue value) {
+    List<CssValueElement> valueElements = value.getValueElements();
+    int numberOfElements = value.getNumberOfValueElements();
+    if (numberOfElements == 0) {
       return false;
     }
-    if (values.get(0).is(CssGrammar.IDENT)) {
-      return "none".equals(values.get(0).getTokenValue()) && values.size() == 1;
+    if (new IdentifierValidator(ImmutableList.of("none")).isValid(valueElements.get(0)) && numberOfElements == 1) {
+      return true;
     }
-    for (AstNode value : values) {
-      if (!value.is(CssGrammar.FUNCTION) && !value.is(CssGrammar.URI) && !value.is(CssGrammar.IMPORTANT)) {
-        return false;
-      }
-      if (value.is(CssGrammar.FUNCTION)
-        && !allowedFunctions.contains(value.getTokenValue().toLowerCase())
-        && !CssFunctions.IE_STATIC_FILTERS.contains(value.getTokenValue().toLowerCase())) {
+    for (CssValueElement valueElement : valueElements) {
+      if (!new FunctionValidator(allowedFunctions).isValid(valueElement)
+        && !new FunctionValidator(CssFunctions.IE_STATIC_FILTERS).isValid(valueElement)
+        && !new UriValidator().isValid(valueElement)) {
         return false;
       }
     }
