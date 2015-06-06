@@ -223,7 +223,6 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(CLASS_SELECTOR).is(b.oneOrMore(".", identNoWS));
     b.rule(ID_SELECTOR).is("#", identNoWS);
     b.rule(PSEUDO).is(COLON, ANY);
-
     b.rule(SUP_DECLARATION).is(
       b.oneOrMore(b.firstOf(SEMICOLON, DECLARATION)));
 
@@ -251,8 +250,8 @@ public enum CssGrammar implements GrammarRuleKey {
           INCLUDES,
           DASH_MATCH,
           addSpacing(IDENT, b),
-          COLON,
           IMPORTANT,
+          COLON,
           addSpacing(DELIM, b))).skipIfOneChild();
     b.rule(eof).is(b.token(GenericTokenType.EOF, b.endOfInput())).skip();
 
@@ -312,8 +311,7 @@ public enum CssGrammar implements GrammarRuleKey {
 
     b.rule(from).is(addSpacing("from", b));
     b.rule(to).is(addSpacing("to", b));
-
-    b.rule(IMPORTANT).is(addSpacing("!important", b));
+    b.rule(IMPORTANT).is(addSpacing(b.sequence("!", b.optional(WHITESPACE), "important"), b));
     /**
      * TODO: How to cover this: any other character not matched by the above
      * rules, and neither a single nor a double quote
