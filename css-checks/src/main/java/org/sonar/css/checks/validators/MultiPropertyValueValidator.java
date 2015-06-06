@@ -20,16 +20,26 @@
 package org.sonar.css.checks.validators;
 
 import com.google.common.collect.ImmutableList;
+import java.util.ArrayList;
 import org.sonar.css.checks.utils.CssValue;
 
 import javax.annotation.Nonnull;
 
+import java.util.List;
+
 public class MultiPropertyValueValidator implements PropertyValueValidator {
 
-  private final ImmutableList<Validator> validators;
+  private List<Validator> validators = new ArrayList<>();
+
+  public MultiPropertyValueValidator() {
+  }
 
   public MultiPropertyValueValidator(@Nonnull ImmutableList<Validator> validators) {
     this.validators = validators;
+  }
+
+  public List<Validator> getValidators() {
+    return validators;
   }
 
   @Override

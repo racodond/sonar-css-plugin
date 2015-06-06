@@ -1,0 +1,61 @@
+/*
+ * SonarQube CSS Plugin
+ * Copyright (C) 2013 Tamas Kende
+ * kende.tamas@gmail.com
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
+ */
+package org.sonar.css.checks.validators.valueelement.numeric;
+
+import org.sonar.css.checks.utils.CssValueElement;
+import org.sonar.css.checks.utils.valueelements.Number;
+
+import javax.annotation.Nonnull;
+
+public class IntegerSetValidator extends IntegerValidator {
+
+  int[] set;
+
+  public IntegerSetValidator(int[] set) {
+    this.set = set;
+  }
+
+  @Override
+  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+    if (super.isValid(cssValueElement)) {
+      int value = ((Number) cssValueElement).getValue().intValue();
+      for (int i = 0; i < set.length; i++) {
+        if (value == set[i]) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  @Override
+  @Nonnull
+  public String getValidatorFormat() {
+    StringBuilder format = new StringBuilder();
+    for (int i = 0; i < set.length; i++) {
+      if (format.length() != 0) {
+        format.append(" | ");
+      }
+      format.append(set[i]);
+    }
+    return format.toString();
+  }
+
+}

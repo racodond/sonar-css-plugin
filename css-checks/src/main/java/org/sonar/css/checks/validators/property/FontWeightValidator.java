@@ -17,37 +17,18 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.utils.valueelements;
+package org.sonar.css.checks.validators.property;
 
-import com.sonar.sslr.api.AstNode;
-import org.sonar.css.checks.utils.CssValueElement;
+import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.validators.MultiPropertyValueValidator;
+import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
+import org.sonar.css.checks.validators.valueelement.numeric.IntegerSetValidator;
 
-public class Number extends CssValueElement {
+public class FontWeightValidator extends MultiPropertyValueValidator {
 
-  private final Double value;
-  private final boolean isZero;
-  private final boolean isInteger;
-
-  public Number(AstNode numberNode) {
-    value = Double.valueOf(numberNode.getTokenValue());
-    isZero = numberNode.getTokenValue().matches("([\\-\\+])?[0]*(\\.[0]+)?");
-    isInteger = numberNode.getTokenValue().matches("[\\-\\+]{0,1}[0-9]+");
-  }
-
-  public Double getValue() {
-    return value;
-  }
-
-  public boolean isZero() {
-    return isZero;
-  }
-
-  public boolean isPositive() {
-    return value >= 0;
-  }
-
-  public boolean isInteger() {
-    return isInteger;
+  public FontWeightValidator() {
+    getValidators().add(new IdentifierValidator(ImmutableList.of("normal", "bold", "bolder", "lighter")));
+    getValidators().add(new IntegerSetValidator(new int[] {100, 200, 300, 400, 500, 600, 700, 800, 900}));
   }
 
 }

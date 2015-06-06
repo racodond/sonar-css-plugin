@@ -193,6 +193,17 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void font_weight() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/font-weight.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(16).withMessage(
+        "Update the invalid value of property \"font-weight\". Expected format: normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900").next()
+      .atLine(17).withMessage(
+        "Update the invalid value of property \"font-weight\". Expected format: normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900").noMore();
+
+  }
+
+  @Test
   public void font_stretch() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/font-stretch.css"), check);
     CheckMessagesVerifier
