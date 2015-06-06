@@ -1,0 +1,10 @@
+.mybox {
+  color: red;
+  COLOR: red; /* Noncompliant */
+  Color: red; /* Noncompliant */
+  CoLor: red; /* Noncompliant */
+  *color: red;
+  *Color: red; /* Noncompliant */
+  background-color: red;
+  Background-color: red; /* Noncompliant */
+}

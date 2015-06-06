@@ -39,6 +39,7 @@ public final class CheckList {
       AlphabetizeDeclarationsCheck.class,
       BulletproofFontFace.class,
       BewareOfBoxModel.class,
+      CaseCheck.class,
       CompatibleVendorPrefixes.class,
       DeclarationFormatCheck.class,
       DeprecatedSystemColorsCheck.class,
