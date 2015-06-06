@@ -1,0 +1,10 @@
+.mybox {
+  text-transform: inherit;
+  text-transform: none;
+  text-transform: capitalize;
+  text-transform: uppercase;
+  text-transform: lowercase;
+  text-transform: full-width;
+  text-transform: abc; /* Noncompliant */
+  text-transform: 10; /* Noncompliant */
+}
