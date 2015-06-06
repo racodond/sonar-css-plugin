@@ -1,0 +1,20 @@
+.mybox {
+  vertical-align: inherit;
+  vertical-align: auto;
+  vertical-align: use-script;
+  vertical-align: baseline;
+  vertical-align: sub;
+  vertical-align: super;
+  vertical-align: top;
+  vertical-align: text-top;
+  vertical-align: central;
+  vertical-align: middle;
+  vertical-align: bottom;
+  vertical-align: text-bottom;
+  vertical-align: 10%;
+  vertical-align: -10%;
+  vertical-align: 10px;
+  vertical-align: -10px;
+  vertical-align: abc; /* Noncompliant */
+  vertical-align: 10; /* Noncompliant */
+}

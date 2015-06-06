@@ -22,10 +22,46 @@ package org.sonar.css.checks.utils;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
-import org.sonar.css.checks.validators.property.BorderColorValidator;
+import org.sonar.css.checks.validators.property.CuePropertyValidator;
 import org.sonar.css.checks.validators.property.FilterValidator;
 import org.sonar.css.checks.validators.property.FontWeightValidator;
+import org.sonar.css.checks.validators.property.MarginValidator;
+import org.sonar.css.checks.validators.property.OutlineValidator;
+import org.sonar.css.checks.validators.property.PaddingValidator;
+import org.sonar.css.checks.validators.property.PausePropertyValidator;
+import org.sonar.css.checks.validators.property.animation.AnimationDelayValidator;
+import org.sonar.css.checks.validators.property.animation.AnimationDirectionValidator;
+import org.sonar.css.checks.validators.property.animation.AnimationDurationValidator;
+import org.sonar.css.checks.validators.property.animation.AnimationFillModeValidator;
+import org.sonar.css.checks.validators.property.animation.AnimationIterationCountValidator;
+import org.sonar.css.checks.validators.property.animation.AnimationNameValidator;
+import org.sonar.css.checks.validators.property.animation.AnimationPlayStateValidator;
+import org.sonar.css.checks.validators.property.animation.AnimationTimingFunctionValidator;
+import org.sonar.css.checks.validators.property.animation.AnimationValidator;
+import org.sonar.css.checks.validators.property.background.BackgroundAttachmentValidator;
+import org.sonar.css.checks.validators.property.background.BackgroundClipValidator;
+import org.sonar.css.checks.validators.property.background.BackgroundOriginValidator;
+import org.sonar.css.checks.validators.property.border.BorderColorValidator;
+import org.sonar.css.checks.validators.property.border.BorderRadiusPropertyValidator;
+import org.sonar.css.checks.validators.property.border.BorderRadiusValidator;
+import org.sonar.css.checks.validators.property.border.BorderSpacingValidator;
+import org.sonar.css.checks.validators.property.border.BorderStylePropertyValidator;
+import org.sonar.css.checks.validators.property.border.BorderValidator;
+import org.sonar.css.checks.validators.property.border.BorderWidthPropertyValidator;
+import org.sonar.css.checks.validators.property.line.LineStackingRubyValidator;
+import org.sonar.css.checks.validators.property.line.LineStackingShiftValidator;
+import org.sonar.css.checks.validators.property.line.LineStackingStrategyValidator;
+import org.sonar.css.checks.validators.property.line.LineStackingValidator;
+import org.sonar.css.checks.validators.valueelement.BorderStyleValidator;
+import org.sonar.css.checks.validators.valueelement.BorderWidthValidator;
+import org.sonar.css.checks.validators.valueelement.CueValidator;
+import org.sonar.css.checks.validators.valueelement.FunctionValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
+import org.sonar.css.checks.validators.valueelement.ImageValidator;
+import org.sonar.css.checks.validators.valueelement.OutlineColorValidator;
+import org.sonar.css.checks.validators.valueelement.OutlineStyleValidator;
+import org.sonar.css.checks.validators.valueelement.OutlineWidthValidator;
+import org.sonar.css.checks.validators.valueelement.numeric.NumberRangeValidator;
 
 import java.util.Map;
 
@@ -40,10 +76,21 @@ public final class CssProperties {
   public static final Map<String, CssProperty> PROPERTIES = new ImmutableMap.Builder<String, CssProperty>()
 
     // A
-    .put("alignment-adjust", new CssProperty("alignment-adjust")
+    .put(
+      "alignment-adjust",
+      new CssProperty("alignment-adjust")
+        .addValidator(
+          new IdentifierValidator(ImmutableList
+            .of("auto", "baseline", "before-edge", "text-before-edge", "middle", "central", "after-edge", "text-after-edge",
+              "ideographic",
+              "alphabetic", "hanging", "mathematical")))
+        .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
+        .addValidator(PropertyValueValidatorFactory.getLengthValidator())
     )
 
     .put("alignment-baseline", new CssProperty("alignment-baseline")
+      .addValidator(new IdentifierValidator(ImmutableList.of("baseline", "use-script", "before-edge", "text-before-edge",
+        "after-edge", "text-after-edge", "central", "middle", "ideographic", "alphabetic", "hanging", "mathematical")))
     )
 
     .put("all", new CssProperty("all")
@@ -53,75 +100,86 @@ public final class CssProperties {
     .put("animation", new CssProperty("animation")
       .addVendor("-webkit-")
       .addVendor("-moz-")
+      .addValidator(new AnimationValidator())
     )
 
     .put("animation-delay", new CssProperty("animation-delay")
       .addVendor("-webkit-")
       .addVendor("-moz-")
+      .addValidator(new AnimationDelayValidator())
     )
 
     .put("animation-direction", new CssProperty("animation-direction")
       .addVendor("-webkit-")
       .addVendor("-moz-")
+      .addValidator(new AnimationDirectionValidator())
     )
 
     .put("animation-duration", new CssProperty("animation-duration")
       .addVendor("-webkit-")
       .addVendor("-moz-")
+      .addValidator(new AnimationDurationValidator())
     )
 
     .put("animation-fill-mode", new CssProperty("animation-fill-mode")
       .addVendor("-webkit-")
       .addVendor("-moz-")
+      .addValidator(new AnimationFillModeValidator())
     )
 
     .put("animation-iteration-count", new CssProperty("animation-iteration-count")
       .addVendor("-webkit-")
       .addVendor("-moz-")
+      .addValidator(new AnimationIterationCountValidator())
     )
 
     .put("animation-name", new CssProperty("animation-name")
       .addVendor("-webkit-")
       .addVendor("-moz-")
+      .addValidator(new AnimationNameValidator())
     )
 
     .put("animation-play-state", new CssProperty("animation-play-state")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-
+      .addValidator(new AnimationPlayStateValidator())
     )
 
     .put("animation-timing-function", new CssProperty("animation-timing-function")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-
+      .addValidator(new AnimationTimingFunctionValidator())
     )
 
     .put("appearance", new CssProperty("appearance")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-
+      .addValidator(
+        new IdentifierValidator(ImmutableList
+          .of("normal", "icon", "window", "desktop", "workspace", "document", "tooltip", "dialog", "button",
+            "push-button",
+            "hyperlink", "radio-button", "checkbox", "menu-item", "tab", "menu", "menubar", "pull-down-menu",
+            "pop-up-menu",
+            "list-menu", "radio-group", "checkbox-group", "outline-tree", "range", "field", "combo-box", "signature",
+            "password")))
     )
 
-    .put("azimuth", new CssProperty("azimuth")
-
-    )
+    .put("azimuth", new CssProperty("azimuth"))
 
     // B
     .put("backface-visibility", new CssProperty("backface-visibility")
-
+      .addValidator(new IdentifierValidator(ImmutableList.of("visible", "hidden")))
     )
 
     .put("background", new CssProperty("background")
-
     )
 
     .put("background-attachment", new CssProperty("background-attachment")
-      .addValidator(new IdentifierValidator(ImmutableList.of("scroll", "fixed")))
+      .addValidator(new BackgroundAttachmentValidator())
     )
 
     .put("background-clip", new CssProperty("background-clip")
-
+      .addValidator(new BackgroundClipValidator())
     )
 
     .put("background-color", new CssProperty("background-color")
@@ -129,28 +187,27 @@ public final class CssProperties {
     )
 
     .put("background-image", new CssProperty("background-image")
-      .addValidator(new IdentifierValidator(ImmutableList.of("none")))
-      .addValidator(PropertyValueValidatorFactory.getUriValidator())
+      .addValidator(PropertyValueValidatorFactory.getNoneValidator())
+      .addValidator(new ImageValidator())
     )
 
     .put("background-origin", new CssProperty("background-origin")
-
+      .addValidator(new BackgroundOriginValidator())
     )
 
     .put("background-position", new CssProperty("background-position")
-
     )
 
     .put("background-repeat", new CssProperty("background-repeat")
-      .addValidator(new IdentifierValidator(ImmutableList.of("repeat", "repeat-x", "repeat-y", "no-repeat")))
     )
 
     .put("background-size", new CssProperty("background-size")
-
     )
 
     .put("baseline-shift", new CssProperty("baseline-shift")
-
+      .addValidator(new IdentifierValidator(ImmutableList.of("baseline", "sub", "super")))
+      .addValidator(PropertyValueValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
     )
 
     .put("behavior", new CssProperty("behavior")
@@ -182,11 +239,11 @@ public final class CssProperties {
     )
 
     .put("border", new CssProperty("border")
-
+      .addValidator(new BorderValidator())
     )
 
     .put("border-bottom", new CssProperty("border-bottom")
-
+      .addValidator(new BorderValidator())
     )
 
     .put("border-bottom-color", new CssProperty("border-bottom-color")
@@ -194,19 +251,19 @@ public final class CssProperties {
     )
 
     .put("border-bottom-left-radius", new CssProperty("border-bottom-left-radius")
-
+      .addValidator(new BorderRadiusValidator())
     )
 
     .put("border-bottom-right-radius", new CssProperty("border-bottom-right-radius")
-
+      .addValidator(new BorderRadiusValidator())
     )
 
     .put("border-bottom-style", new CssProperty("border-bottom-style")
-      .addValidator(PropertyValueValidatorFactory.getBorderStyleValidator())
+      .addValidator(new BorderStyleValidator())
     )
 
     .put("border-bottom-width", new CssProperty("border-bottom-width")
-      .addValidator(PropertyValueValidatorFactory.getBorderWidthValidator())
+      .addValidator(new BorderWidthValidator())
     )
 
     .put("border-collapse", new CssProperty("border-collapse")
@@ -269,7 +326,7 @@ public final class CssProperties {
     )
 
     .put("border-left", new CssProperty("border-left")
-
+      .addValidator(new BorderValidator())
     )
 
     .put("border-left-color", new CssProperty("border-left-color")
@@ -277,20 +334,20 @@ public final class CssProperties {
     )
 
     .put("border-left-style", new CssProperty("border-left-style")
-      .addValidator(PropertyValueValidatorFactory.getBorderStyleValidator())
+      .addValidator(new BorderStyleValidator())
     )
 
     .put("border-left-width", new CssProperty("border-left-width")
-      .addValidator(PropertyValueValidatorFactory.getBorderWidthValidator())
+      .addValidator(new BorderWidthValidator())
     )
 
     .put("border-radius", new CssProperty("border-radius")
       .addVendor("-webkit-")
-
+      .addValidator(new BorderRadiusPropertyValidator())
     )
 
     .put("border-right", new CssProperty("border-right")
-
+      .addValidator(new BorderValidator())
     )
 
     .put("border-right-color", new CssProperty("border-right-color")
@@ -298,11 +355,11 @@ public final class CssProperties {
     )
 
     .put("border-right-style", new CssProperty("border-right-style")
-      .addValidator(PropertyValueValidatorFactory.getBorderStyleValidator())
+      .addValidator(new BorderStyleValidator())
     )
 
     .put("border-right-width", new CssProperty("border-right-width")
-      .addValidator(PropertyValueValidatorFactory.getBorderWidthValidator())
+      .addValidator(new BorderWidthValidator())
     )
 
     .put("border-start", new CssProperty("border-start")
@@ -330,15 +387,15 @@ public final class CssProperties {
     )
 
     .put("border-spacing", new CssProperty("border-spacing")
-
+      .addValidator(new BorderSpacingValidator())
     )
 
     .put("border-style", new CssProperty("border-style")
-
+      .addValidator(new BorderStylePropertyValidator())
     )
 
     .put("border-top", new CssProperty("border-top")
-
+      .addValidator(new BorderValidator())
     )
 
     .put("border-top-color", new CssProperty("border-top-color")
@@ -346,23 +403,23 @@ public final class CssProperties {
     )
 
     .put("border-top-left-radius", new CssProperty("border-top-left-radius")
-
+      .addValidator(new BorderRadiusValidator())
     )
 
     .put("border-top-right-radius", new CssProperty("border-top-right-radius")
-
+      .addValidator(new BorderRadiusValidator())
     )
 
     .put("border-top-style", new CssProperty("border-top-style")
-      .addValidator(PropertyValueValidatorFactory.getBorderStyleValidator())
+      .addValidator(new BorderStyleValidator())
     )
 
     .put("border-top-width", new CssProperty("border-top-width")
-      .addValidator(PropertyValueValidatorFactory.getBorderWidthValidator())
+      .addValidator(new BorderWidthValidator())
     )
 
     .put("border-width", new CssProperty("border-width")
-
+      .addValidator(new BorderWidthPropertyValidator())
     )
 
     .put("bottom", new CssProperty("bottom")
@@ -379,7 +436,7 @@ public final class CssProperties {
     )
 
     .put("box-decoration-break", new CssProperty("box-decoration-break")
-
+      .addValidator(new IdentifierValidator(ImmutableList.of("slice", "clone")))
     )
 
     .put("box-direction", new CssProperty("box-direction")
@@ -436,7 +493,7 @@ public final class CssProperties {
     .put("box-sizing", new CssProperty("box-sizing")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-
+      .addValidator(new IdentifierValidator(ImmutableList.of("content-box", "padding-box", "border-box")))
     )
 
     .put("break-after", new CssProperty("break-after")
@@ -456,18 +513,32 @@ public final class CssProperties {
       .addValidator(new IdentifierValidator(ImmutableList.of("top", "bottom")))
     )
 
+    .put("caret-color", new CssProperty("caret-color")
+      .addValidator(PropertyValueValidatorFactory.getAutoValidator())
+      .addValidator(PropertyValueValidatorFactory.getColorValidator())
+    )
+
     .put("clear", new CssProperty("clear")
       .addValidator(new IdentifierValidator(ImmutableList.of("none", "left", "right", "both")))
     )
 
     .put("clip", new CssProperty("clip")
-
+      .addValidator(new FunctionValidator(ImmutableList.of("rect")))
+      .addValidator(PropertyValueValidatorFactory.getAutoValidator())
     )
+
+    .put("clip-path", new CssProperty("clip-path")
+    )
+
     .put("color", new CssProperty("color")
       .addValidator(PropertyValueValidatorFactory.getColorValidator())
     )
+
     .put("color-profile", new CssProperty("color-profile")
 
+    )
+
+    .put("column", new CssProperty("column")
     )
 
     .put("column-count", new CssProperty("column-count")
@@ -544,29 +615,21 @@ public final class CssProperties {
     )
 
     .put("crop", new CssProperty("crop")
-
     )
 
     .put("cue", new CssProperty("cue")
-
+      .addValidator(new CuePropertyValidator())
     )
 
     .put("cue-after", new CssProperty("cue-after")
-      .addValidator(PropertyValueValidatorFactory.getNoneValidator())
-      .addValidator(PropertyValueValidatorFactory.getUriValidator())
-    )
-
-    .put("column", new CssProperty("column")
-
+      .addValidator(new CueValidator())
     )
 
     .put("cue-before", new CssProperty("cue-before")
-      .addValidator(PropertyValueValidatorFactory.getNoneValidator())
-      .addValidator(PropertyValueValidatorFactory.getUriValidator())
+      .addValidator(new CueValidator())
     )
 
     .put("cursor", new CssProperty("cursor")
-
     )
 
     // D
@@ -577,14 +640,15 @@ public final class CssProperties {
     .put("display", new CssProperty("display")
       .addValidator(new IdentifierValidator(
         ImmutableList.of("inline", "block", "list-item", "inline-block", "table", "inline-table", "table-row-group",
-          "table-header-group",
-          "table-footer-group", "table-row", "table-column-group", "table-column", "table-cell",
-          "table-caption",
-          "none")))
+          "table-header-group", "table-footer-group", "table-row", "table-column-group", "table-column", "table-cell",
+          "table-caption", "none", "flex", "inline-flex", "grid", "inline-grid")))
     )
 
     .put("dominant-baseline", new CssProperty("dominant-baseline")
-
+      .addValidator(new IdentifierValidator(ImmutableList
+        .of("auto", "use-script", "no-change", "reset-size", "alphabetic", "hanging", "ideographic", "mathematical",
+          "central",
+          "middle", "text-after-edge", "text-before-edge")))
     )
 
     .put("drop-initial-after-adjust", new CssProperty("drop-initial-after-adjust")
@@ -604,11 +668,11 @@ public final class CssProperties {
     )
 
     .put("drop-initial-size", new CssProperty("drop-initial-size")
-
     )
 
     .put("drop-initial-value", new CssProperty("drop-initial-value")
-
+      .addValidator(new IdentifierValidator(ImmutableList.of("initial")))
+      .addValidator(PropertyValueValidatorFactory.getPositiveIntegerValidator())
     )
 
     // E
@@ -651,7 +715,8 @@ public final class CssProperties {
     )
 
     .put("font-size", new CssProperty("font-size")
-      .addValidator(new IdentifierValidator(ImmutableList.of("xx-small", "x-small", "small", "medium", "large", "x-large", "xx-large")))
+      .addValidator(new IdentifierValidator(
+        ImmutableList.of("xx-small", "x-small", "small", "medium", "large", "x-large", "xx-large")))
       .addValidator(new IdentifierValidator(ImmutableList.of("larger", "smaller")))
       .addValidator(PropertyValueValidatorFactory.getPositiveLengthValidator())
       .addValidator(PropertyValueValidatorFactory.getPositivePercentageValidator())
@@ -784,7 +849,8 @@ public final class CssProperties {
     )
 
     .put("inline-box-align", new CssProperty("inline-box-align")
-
+      .addValidator(new IdentifierValidator(ImmutableList.of("initial", "last")))
+      .addValidator(PropertyValueValidatorFactory.getIntegerValidator())
     )
 
     // L
@@ -800,26 +866,26 @@ public final class CssProperties {
     )
 
     .put("line-height", new CssProperty("line-height")
-      .addValidator(new IdentifierValidator(ImmutableList.of("normal")))
-      .addValidator(PropertyValueValidatorFactory.getLengthValidator())
-      .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
-      .addValidator(PropertyValueValidatorFactory.getNumberValidator())
+      .addValidator(new IdentifierValidator(ImmutableList.of("normal", "none")))
+      .addValidator(PropertyValueValidatorFactory.getPositiveLengthValidator())
+      .addValidator(PropertyValueValidatorFactory.getPositivePercentageValidator())
+      .addValidator(PropertyValueValidatorFactory.getPositiveNumberValidator())
     )
 
     .put("line-stacking", new CssProperty("line-stacking")
-
+      .addValidator(new LineStackingValidator())
     )
 
     .put("line-stacking-ruby", new CssProperty("line-stacking-ruby")
-
+      .addValidator(new LineStackingRubyValidator())
     )
 
     .put("line-stacking-shift", new CssProperty("line-stacking-shift")
-
+      .addValidator(new LineStackingShiftValidator())
     )
 
     .put("line-stacking-strategy", new CssProperty("line-stacking-strategy")
-
+      .addValidator(new LineStackingStrategyValidator())
     )
 
     .put("list-style", new CssProperty("list-style")
@@ -838,13 +904,12 @@ public final class CssProperties {
     .put("list-style-type", new CssProperty("list-style-type")
       .addValidator(new IdentifierValidator(ImmutableList
         .of("disc", "circle", "square", "decimal", "decimal-leading-zero", "lower-roman", "upper-roman",
-          "lower-greek",
-          "lower-latin", "upper-latin", "armenian", "georgian", "lower-alpha", "upper-alpha", "none")))
+          "lower-greek", "lower-latin", "upper-latin", "armenian", "georgian", "lower-alpha", "upper-alpha", "none")))
     )
 
     // M
     .put("margin", new CssProperty("margin")
-
+      .addValidator(new MarginValidator())
     )
 
     .put("margin-bottom", new CssProperty("margin-bottom")
@@ -924,11 +989,13 @@ public final class CssProperties {
     )
 
     .put("min-height", new CssProperty("min-height")
+      .addValidator(PropertyValueValidatorFactory.getAutoValidator())
       .addValidator(PropertyValueValidatorFactory.getLengthValidator())
       .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
     )
 
     .put("min-width", new CssProperty("min-width")
+      .addValidator(PropertyValueValidatorFactory.getAutoValidator())
       .addValidator(PropertyValueValidatorFactory.getLengthValidator())
       .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
     )
@@ -960,7 +1027,7 @@ public final class CssProperties {
 
     // O
     .put("opacity", new CssProperty("opacity")
-
+      .addValidator(new NumberRangeValidator(0, 1))
     )
 
     .put("orphans", new CssProperty("orphans")
@@ -968,24 +1035,23 @@ public final class CssProperties {
     )
 
     .put("outline", new CssProperty("outline")
-
+      .addValidator(new OutlineValidator())
     )
 
     .put("outline-color", new CssProperty("outline-color")
-      .addValidator(PropertyValueValidatorFactory.getColorValidator())
-      .addValidator(new IdentifierValidator(ImmutableList.of("invert")))
+      .addValidator(new OutlineColorValidator())
     )
 
     .put("outline-offset", new CssProperty("outline-offset")
-
+      .addValidator(PropertyValueValidatorFactory.getLengthValidator())
     )
 
     .put("outline-style", new CssProperty("outline-style")
-      .addValidator(PropertyValueValidatorFactory.getOutlineStyleValidator())
+      .addValidator(new OutlineStyleValidator())
     )
 
     .put("outline-width", new CssProperty("outline-width")
-      .addValidator(PropertyValueValidatorFactory.getBorderWidthValidator())
+      .addValidator(new OutlineWidthValidator())
     )
 
     .put("overflow", new CssProperty("overflow")
@@ -997,16 +1063,16 @@ public final class CssProperties {
     )
 
     .put("overflow-x", new CssProperty("overflow-x")
-
+      .addValidator(new IdentifierValidator(ImmutableList.of("visible", "hidden", "scroll", "auto")))
     )
 
     .put("overflow-y", new CssProperty("overflow-y")
-
+      .addValidator(new IdentifierValidator(ImmutableList.of("visible", "hidden", "scroll", "auto")))
     )
 
     // P
     .put("padding", new CssProperty("padding")
-
+      .addValidator(new PaddingValidator())
     )
 
     .put("padding-bottom", new CssProperty("padding-bottom")
@@ -1058,7 +1124,7 @@ public final class CssProperties {
     )
 
     .put("pause", new CssProperty("pause")
-
+      .addValidator(new PausePropertyValidator())
     )
 
     .put("pause-after", new CssProperty("pause-after")
@@ -1121,7 +1187,7 @@ public final class CssProperties {
     )
 
     .put("resize", new CssProperty("resize")
-
+      .addValidator(new IdentifierValidator(ImmutableList.of("none", "both", "horizontal", "vertical")))
     )
 
     .put("rest", new CssProperty("rest")
@@ -1191,7 +1257,8 @@ public final class CssProperties {
 
     .put("speech-rate", new CssProperty("speech-rate")
       .addValidator(
-          new IdentifierValidator(ImmutableList.of("x-slow", "slow", "medium", "fast", "x-fast", "faster", "slower")))
+        new IdentifierValidator(
+          ImmutableList.of("x-slow", "slow", "medium", "fast", "x-fast", "faster", "slower")))
       .addValidator(PropertyValueValidatorFactory.getNumberValidator())
     )
 
@@ -1244,7 +1311,7 @@ public final class CssProperties {
 
     )
     .put("text-height", new CssProperty("text-height")
-
+      .addValidator(new IdentifierValidator(ImmutableList.of("auto", "font-size", "text-size", "max-size")))
     )
 
     .put("text-indent", new CssProperty("text-indent")
@@ -1365,7 +1432,9 @@ public final class CssProperties {
     // V
     .put("vertical-align", new CssProperty("vertical-align")
       .addValidator(new IdentifierValidator(
-          ImmutableList.of("baseline", "sub", "super", "top", "text-top", "middle", "bottom", "text-bottom")))
+        ImmutableList
+          .of("auto", "use-script", "baseline", "sub", "super", "top", "text-top", "central", "middle", "bottom",
+            "text-bottom")))
       .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
       .addValidator(PropertyValueValidatorFactory.getLengthValidator())
     )
@@ -1407,14 +1476,16 @@ public final class CssProperties {
     )
 
     .put("volume", new CssProperty("volume")
-      .addValidator(new IdentifierValidator(ImmutableList.of("silent", "x-soft", "soft", "medium", "loud", "x-loud")))
+      .addValidator(
+        new IdentifierValidator(ImmutableList.of("silent", "x-soft", "soft", "medium", "loud", "x-loud")))
       .addValidator(PropertyValueValidatorFactory.getNumberValidator())
       .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
     )
 
     // W
     .put("white-space", new CssProperty("white-space")
-      .addValidator(new IdentifierValidator(ImmutableList.of("normal", "pre", "nowrap", "pre-wrap", "pre-line")))
+      .addValidator(
+      new IdentifierValidator(ImmutableList.of("normal", "pre", "nowrap", "pre-wrap", "pre-line")))
     )
 
     .put("white-space-collapse", new CssProperty("white-space-collapse")

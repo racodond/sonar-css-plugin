@@ -1,0 +1,12 @@
+.mybox {
+  pause: inherit;
+  pause: 3s;
+  pause: -3s; /* Noncompliant */
+  pause: 50.5%;
+  pause: -50.5%; /* Noncompliant */
+  pause: abc; /* Noncompliant */
+  pause: 10px; /* Noncompliant */
+  pause: 3s 3s;
+  pause: 3s 3s 3s; /* Noncompliant */
+  pause: 3s 10px; /* Noncompliant */
+}

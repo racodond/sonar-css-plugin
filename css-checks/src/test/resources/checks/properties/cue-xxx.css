@@ -1,0 +1,15 @@
+.mybox {
+  cue-after: inherit;
+  cue-after: none;
+  cue-after: url(http://mybox.com);
+  cue-after: abc; /* Noncompliant */
+  cue-after: 10px; /* Noncompliant */
+}
+
+.mybox {
+  cue-before: inherit;
+  cue-before: none;
+  cue-before: url(http://mybox.com);
+  cue-before: abc; /* Noncompliant */
+  cue-before: 10px; /* Noncompliant */
+}

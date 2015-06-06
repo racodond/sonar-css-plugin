@@ -32,7 +32,7 @@ public class LengthValidator extends DimensionValidator {
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    return isPositiveOnly() ? "<length> (>=0)" : "<length>";
+    return isPositiveOnly() ? "<length>(>=0)" : "<length>";
   }
 
 }

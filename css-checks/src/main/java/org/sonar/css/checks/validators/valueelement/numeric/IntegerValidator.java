@@ -27,15 +27,31 @@ import javax.annotation.Nonnull;
 
 public class IntegerValidator implements PropertyValueElementValidator {
 
+  private final boolean positiveOnly;
+
+  public IntegerValidator(boolean positiveOnly) {
+    this.positiveOnly = positiveOnly;
+  }
+
+  public IntegerValidator() {
+    positiveOnly = false;
+  }
+
   @Override
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    return cssValueElement instanceof Number && ((Number) cssValueElement).isInteger();
+    if (cssValueElement instanceof Number && ((Number) cssValueElement).isInteger()) {
+      if (positiveOnly) {
+        return ((Number) cssValueElement).isPositive() ? true : false;
+      }
+      return true;
+    }
+    return false;
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    return "<integer>";
+    return positiveOnly ? "<integer>(>=0)" : "<integer>";
   }
 
 }

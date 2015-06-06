@@ -20,33 +20,48 @@
 package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
-import javax.annotation.Nonnull;
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.Identifier;
 import org.sonar.css.checks.validators.PropertyValueElementValidator;
 
+import javax.annotation.Nonnull;
+
 public class IdentifierValidator implements PropertyValueElementValidator {
 
   private final ImmutableList<String> allowedValues;
+
+  public IdentifierValidator() {
+    allowedValues = ImmutableList.of();
+  }
 
   public IdentifierValidator(ImmutableList<String> allowedValues) {
     this.allowedValues = allowedValues;
   }
 
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    return cssValueElement instanceof Identifier && allowedValues.contains(((Identifier) cssValueElement).getName());
+    if (cssValueElement instanceof Identifier) {
+      if (allowedValues.isEmpty()) {
+        return true;
+      }
+      return allowedValues.contains(((Identifier) cssValueElement).getName());
+    }
+    return false;
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    StringBuilder format = new StringBuilder();
-    for (String allowedValue : allowedValues) {
-      if (format.length() != 0) {
-        format.append(" | ");
+    if (allowedValues.isEmpty()) {
+      return "<custom-identifier>";
+    } else {
+      StringBuilder format = new StringBuilder();
+      for (String allowedValue : allowedValues) {
+        if (format.length() != 0) {
+          format.append(" | ");
+        }
+        format.append(allowedValue);
       }
-      format.append(allowedValue);
+      return format.toString();
     }
-    return format.toString();
   }
 }

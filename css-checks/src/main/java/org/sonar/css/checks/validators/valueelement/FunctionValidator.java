@@ -36,7 +36,7 @@ public class FunctionValidator implements PropertyValueElementValidator {
 
   @Override
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    return cssValueElement instanceof Function && allowedFunctions.contains(((Function) cssValueElement).getName());
+    return cssValueElement instanceof Function && allowedFunctions.contains(((Function) cssValueElement).getNameWithoutVendorPrefix());
   }
 
   @Override
@@ -44,7 +44,7 @@ public class FunctionValidator implements PropertyValueElementValidator {
   public String getValidatorFormat() {
     StringBuilder format = new StringBuilder("<function>(");
     for (String allowedValue : allowedFunctions) {
-      if (format.length() != 0) {
+      if (format.length() > 11) {
         format.append(" | ");
       }
       format.append(allowedValue);

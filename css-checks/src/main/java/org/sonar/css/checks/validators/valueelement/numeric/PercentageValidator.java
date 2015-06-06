@@ -47,11 +47,7 @@ public class PercentageValidator implements PropertyValueElementValidator {
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    if (positiveOnly) {
-      return "<percentage> (>=0)";
-    } else {
-      return "<percentage>";
-    }
+    return positiveOnly ? "<percentage>(>=0)" : "<percentage>";
   }
 
 }

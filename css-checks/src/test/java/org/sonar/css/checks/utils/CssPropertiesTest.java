@@ -32,7 +32,7 @@ public class CssPropertiesTest {
 
   @Test
   public void number_of_properties() {
-    assertThat(CssProperties.PROPERTIES.size()).isEqualTo(309);
+    assertThat(CssProperties.PROPERTIES.size()).isEqualTo(311);
   }
 
 }

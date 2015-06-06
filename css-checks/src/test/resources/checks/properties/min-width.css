@@ -1,0 +1,9 @@
+.mybox {
+  min-width: 10px;
+  min-width: 0.5em;
+  min-width: auto;
+  min-width: abc; /* Noncompliant */
+  min-width: 5.5%;
+  min-width: 10Hz; /* Noncompliant */
+  min-width: inherit;
+}

@@ -20,6 +20,7 @@
 package org.sonar.css.checks.utils;
 
 import com.sonar.sslr.api.AstNode;
+import org.sonar.css.checks.utils.valueelements.Delimiter;
 import org.sonar.css.checks.utils.valueelements.Dimension;
 import org.sonar.css.checks.utils.valueelements.Function;
 import org.sonar.css.checks.utils.valueelements.Hash;
@@ -75,6 +76,9 @@ public class CssValue {
     }
     if (valueElementNode.is(CssGrammar.HASH)) {
       return new Hash(valueElementNode);
+    }
+    if (valueElementNode.is(CssGrammar.DELIM)) {
+      return new Delimiter(valueElementNode);
     }
     return new NotSupported(valueElementNode);
   }

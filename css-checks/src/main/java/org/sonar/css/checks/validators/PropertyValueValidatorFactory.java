@@ -20,10 +20,9 @@
 package org.sonar.css.checks.validators;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.property.BorderWidthValidator;
-import org.sonar.css.checks.validators.property.MarginWidthValidator;
-import org.sonar.css.checks.validators.property.PaddingWidthValidator;
-import org.sonar.css.checks.validators.property.PauseValidator;
+import org.sonar.css.checks.validators.valueelement.MarginWidthValidator;
+import org.sonar.css.checks.validators.valueelement.PaddingWidthValidator;
+import org.sonar.css.checks.validators.valueelement.PauseValidator;
 import org.sonar.css.checks.validators.valueelement.ColorValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 import org.sonar.css.checks.validators.valueelement.UriValidator;
@@ -37,23 +36,23 @@ import org.sonar.css.checks.validators.valueelement.numeric.PercentageValidator;
 
 public class PropertyValueValidatorFactory {
 
-  private static final Validator angleValidator = new AngleValidator();
-  private static final Validator autoValidator = new IdentifierValidator(ImmutableList.of("auto"));
-  private static final Validator colorValidator = new ColorValidator();
-  private static final Validator frequencyValidator = new FrequencyValidator();
-  private static final Validator integerValidator = new IntegerValidator();
-  private static final Validator lengthValidator = new LengthValidator(false);
-  private static final Validator positiveLengthValidator = new LengthValidator(true);
-  private static final Validator noneValidator = new IdentifierValidator(ImmutableList.of("none"));
-  private static final Validator numberValidator = new NumberValidator();
-  private static final Validator percentageValidator = new PercentageValidator(false);
-  private static final Validator positivePercentageValidator = new PercentageValidator(true);
-  private static final Validator timeValidator = new TimeValidator();
-  private static final Validator uriValidator = new UriValidator();
+  private static final PropertyValueElementValidator angleValidator = new AngleValidator();
+  private static final PropertyValueElementValidator autoValidator = new IdentifierValidator(ImmutableList.of("auto"));
+  private static final PropertyValueElementValidator colorValidator = new ColorValidator();
+  private static final PropertyValueElementValidator frequencyValidator = new FrequencyValidator();
+  private static final PropertyValueElementValidator integerValidator = new IntegerValidator();
+  private static final PropertyValueElementValidator lengthValidator = new LengthValidator(false);
+  private static final PropertyValueElementValidator noneValidator = new IdentifierValidator(ImmutableList.of("none"));
+  private static final PropertyValueElementValidator numberValidator = new NumberValidator(false);
+  private static final PropertyValueElementValidator percentageValidator = new PercentageValidator(false);
+  private static final PropertyValueElementValidator positiveIntegerValidator = new IntegerValidator(true);
+  private static final PropertyValueElementValidator positiveLengthValidator = new LengthValidator(true);
+  private static final PropertyValueElementValidator positiveNumberValidator = new NumberValidator(true);
+  private static final PropertyValueElementValidator positivePercentageValidator = new PercentageValidator(true);
+  private static final PropertyValueElementValidator positiveTimeValidator = new TimeValidator(true);
+  private static final PropertyValueElementValidator timeValidator = new TimeValidator(false);
+  private static final PropertyValueElementValidator uriValidator = new UriValidator();
 
-  private static final Validator borderStyleValidator = new IdentifierValidator(ImmutableList.of("none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge",
-    "inset", "outset"));
-  private static final Validator borderWidthValidator = new BorderWidthValidator();
   private static final Validator marginWidthValidator = new MarginWidthValidator();
   private static final Validator outlineStyleValidator = new IdentifierValidator(ImmutableList.of("none", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset",
     "outset"));
@@ -61,64 +60,68 @@ public class PropertyValueValidatorFactory {
   private static final Validator pageBreakValidator = new IdentifierValidator(ImmutableList.of("auto", "always", "avoid", "left", "right"));
   private static final Validator pauseValidator = new PauseValidator();
 
-  public static Validator getAngleValidator() {
+  public static PropertyValueElementValidator getAngleValidator() {
     return angleValidator;
   }
 
-  public static Validator getAutoValidator() {
+  public static PropertyValueElementValidator getAutoValidator() {
     return autoValidator;
   }
 
-  public static Validator getFrequencyValidator() {
+  public static PropertyValueElementValidator getFrequencyValidator() {
     return frequencyValidator;
   }
 
-  public static Validator getColorValidator() {
+  public static PropertyValueElementValidator getColorValidator() {
     return colorValidator;
   }
 
-  public static Validator getIntegerValidator() {
+  public static PropertyValueElementValidator getIntegerValidator() {
     return integerValidator;
   }
 
-  public static Validator getLengthValidator() {
+  public static PropertyValueElementValidator getLengthValidator() {
     return lengthValidator;
   }
 
-  public static Validator getPositiveLengthValidator() {
+  public static PropertyValueElementValidator getPositiveLengthValidator() {
     return positiveLengthValidator;
   }
 
-  public static Validator getNoneValidator() {
+  public static PropertyValueElementValidator getNoneValidator() {
     return noneValidator;
   }
 
-  public static Validator getNumberValidator() {
+  public static PropertyValueElementValidator getNumberValidator() {
     return numberValidator;
   }
 
-  public static Validator getPercentageValidator() {
+  public static PropertyValueElementValidator getPercentageValidator() {
     return percentageValidator;
   }
 
-  public static Validator getPositivePercentageValidator() {
+  public static PropertyValueElementValidator getPositiveIntegerValidator() {
+    return positiveIntegerValidator;
+  }
+
+  public static PropertyValueElementValidator getPositiveNumberValidator() {
+    return positiveNumberValidator;
+  }
+
+  public static PropertyValueElementValidator getPositivePercentageValidator() {
     return positivePercentageValidator;
   }
 
-  public static Validator getTimeValidator() {
+  public static PropertyValueElementValidator getPositiveTimeValidator() {
+    return positiveTimeValidator;
+  }
+
+  public static PropertyValueElementValidator getTimeValidator() {
     return timeValidator;
   }
 
-  public static Validator getUriValidator() {
+  public static PropertyValueElementValidator getUriValidator() {
     return uriValidator;
-  }
-
-  public static Validator getBorderStyleValidator() {
-    return borderStyleValidator;
-  }
-
-  public static Validator getBorderWidthValidator() {
-    return borderWidthValidator;
   }
 
   public static Validator getMarginWidthValidator() {

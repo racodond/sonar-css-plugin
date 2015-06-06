@@ -150,4 +150,13 @@ public class CssFunctions {
     "xray"
     );
 
+  public static String getFunctionNameWithoutVendorPrefix(String functionName) {
+    for (String v : Vendors.VENDORS) {
+      if (functionName.startsWith(v)) {
+        return functionName.replaceAll("(" + v + ")(.*)", "$2");
+      }
+    }
+    return functionName;
+  }
+
 }

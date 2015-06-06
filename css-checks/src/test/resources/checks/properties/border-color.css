@@ -10,4 +10,5 @@
   border-color: #f03 #f03 #f03;
   border-color: #f03 #f03 #f03 #f03;
   border-color: #f03 #f03 #f03 #f03 #f03; /* Noncompliant */
+  border-color: transparent #f03 #f03 transparent;
 }
