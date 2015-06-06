@@ -17,16 +17,22 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyvalue;
+package org.sonar.css.checks.validators.base.dimension;
 
-import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.utils.CssUnits;
 
-public class PitchValidator extends PropertyValueMultiValidator {
+import javax.annotation.Nonnull;
 
-  public PitchValidator() {
-    super(ImmutableList.of(
-      BasePropertyValidatorFactory.getFrequencyValidator(),
-      new EnumValidator(ImmutableList.of("x-low", "low", "medium", "high", "x-high"))));
+public class LengthValidator extends DimensionValidator {
+
+  public LengthValidator(boolean positiveOnly) {
+    super(positiveOnly, CssUnits.LENGTH_UNITS);
+  }
+
+  @Override
+  @Nonnull
+  public String getValidatorFormat() {
+    return isPositiveOnly() ? "<length> (>=0)" : "<length>";
   }
 
 }

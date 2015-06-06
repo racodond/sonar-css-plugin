@@ -17,25 +17,26 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyvalue;
+package org.sonar.css.checks.validators.base.numeric;
 
 import com.sonar.sslr.api.AstNode;
+import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.parser.CssGrammar;
 
 import javax.annotation.Nonnull;
 
-/** 
- * Validator to be assigned to all checks whose validation is not yet implemented
- */
-public class NotYetImplementedValidator implements PropertyValueValidator {
+public class IntegerValidator implements PropertyValueValidator {
 
   @Override
   public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
-    return true;
+    return astNode.getFirstChild(CssGrammar.NUMBER) != null
+      && astNode.getFirstChild(CssGrammar.NUMBER).getTokenValue().matches("[\\-\\+]{0,1}[0-9]+");
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    return "<not yet implemented>";
+    return "<integer>";
   }
+
 }

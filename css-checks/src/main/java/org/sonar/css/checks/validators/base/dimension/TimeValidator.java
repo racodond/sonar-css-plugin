@@ -17,14 +17,22 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyvalue;
+package org.sonar.css.checks.validators.base.dimension;
 
-import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.utils.CssUnits;
 
-public class PageBreakValidator extends EnumValidator {
+import javax.annotation.Nonnull;
 
-  public PageBreakValidator() {
-    super(ImmutableList.of("auto", "always", "avoid", "left", "right"));
+public class TimeValidator extends DimensionValidator {
+
+  public TimeValidator() {
+    super(true, CssUnits.TIME_UNITS);
+  }
+
+  @Override
+  @Nonnull
+  public String getValidatorFormat() {
+    return "<time>";
   }
 
 }

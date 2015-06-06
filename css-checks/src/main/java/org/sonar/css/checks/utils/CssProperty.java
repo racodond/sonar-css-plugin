@@ -21,8 +21,8 @@ package org.sonar.css.checks.utils;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.sonar.sslr.api.AstNode;
-import org.sonar.css.checks.validators.propertyvalue.PropertyValidatorFactory;
-import org.sonar.css.checks.validators.propertyvalue.PropertyValueValidator;
+import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
+import org.sonar.css.checks.validators.PropertyValueValidator;
 import org.sonar.css.parser.CssGrammar;
 
 import javax.annotation.Nonnull;
@@ -92,7 +92,7 @@ public class CssProperty {
         return true;
       }
     }
-    return PropertyValidatorFactory.getAllowedValuesForAllPropertiesValidator().isPropertyValueValid(astNode);
+    return PropertyValueValidatorFactory.getAllowedValuesForAllPropertiesValidator().isPropertyValueValid(astNode);
   }
 
   @Override

@@ -17,26 +17,15 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyvalue;
+package org.sonar.css.checks.validators.property;
 
 import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.validators.base.EnumValidator;
 
-import javax.annotation.Nonnull;
+public class PageBreakValidator extends EnumValidator {
 
-public class LengthValidator extends DimensionValidator {
-
-  public LengthValidator(boolean positiveOnly) {
-    super(positiveOnly, ImmutableList.of("in", "cm", "mm", "pt", "pc", "px", "em", "ex"));
-  }
-
-  @Override
-  @Nonnull
-  public String getValidatorFormat() {
-    if (isPositiveOnly()) {
-      return "<length> (>=0)";
-    } else {
-      return "<length>";
-    }
+  public PageBreakValidator() {
+    super(ImmutableList.of("auto", "always", "avoid", "left", "right"));
   }
 
 }

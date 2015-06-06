@@ -17,25 +17,15 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyvalue;
+package org.sonar.css.checks.validators.property;
 
-import com.sonar.sslr.api.AstNode;
-import org.sonar.css.parser.CssGrammar;
+import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.validators.base.EnumValidator;
 
-import javax.annotation.Nonnull;
+public class OutlineStyleValidator extends EnumValidator {
 
-public class IntegerValidator implements PropertyValueValidator {
-
-  @Override
-  public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
-    return astNode.getFirstChild(CssGrammar.NUMBER) != null
-      && astNode.getFirstChild(CssGrammar.NUMBER).getTokenValue().matches("[\\-\\+]{0,1}[0-9]+");
-  }
-
-  @Override
-  @Nonnull
-  public String getValidatorFormat() {
-    return "<integer>";
+  public OutlineStyleValidator() {
+    super(ImmutableList.of("none", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset"));
   }
 
 }

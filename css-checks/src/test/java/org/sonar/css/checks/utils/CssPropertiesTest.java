@@ -20,8 +20,8 @@
 package org.sonar.css.checks.utils;
 
 import org.junit.Test;
-import org.sonar.css.checks.validators.propertyvalue.NotYetImplementedValidator;
-import org.sonar.css.checks.validators.propertyvalue.PropertyValueValidator;
+import org.sonar.css.checks.validators.base.NotYetImplementedValidator;
+import org.sonar.css.checks.validators.PropertyValueValidator;
 
 import static org.fest.assertions.Assertions.assertThat;
 

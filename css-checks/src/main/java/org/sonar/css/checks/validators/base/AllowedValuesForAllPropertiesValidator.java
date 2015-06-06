@@ -17,23 +17,15 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.propertyvalue;
+package org.sonar.css.checks.validators.base;
 
-import com.sonar.sslr.api.AstNode;
+import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.validators.base.EnumValidator;
 
-import javax.annotation.Nonnull;
+public class AllowedValuesForAllPropertiesValidator extends EnumValidator {
 
-public class ZeroNumberValidator implements PropertyValueValidator {
-
-  @Override
-  public boolean isPropertyValueValid(@Nonnull AstNode astNode) {
-    return astNode.getTokenValue().matches("([\\-\\+])?[0]*(\\.[0]+)?");
-  }
-
-  @Override
-  @Nonnull
-  public String getValidatorFormat() {
-    return "Not implemented";
+  public AllowedValuesForAllPropertiesValidator() {
+    super(ImmutableList.of("inherit", "initial", "unset"));
   }
 
 }

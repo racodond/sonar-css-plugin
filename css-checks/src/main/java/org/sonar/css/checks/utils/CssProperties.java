@@ -21,8 +21,8 @@ package org.sonar.css.checks.utils;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import org.sonar.css.checks.validators.propertyvalue.EnumValidator;
-import org.sonar.css.checks.validators.propertyvalue.PropertyValidatorFactory;
+import org.sonar.css.checks.validators.base.EnumValidator;
+import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
 
 import java.util.Map;
 
@@ -38,11 +38,11 @@ public final class CssProperties {
 
     // A
     .put("alignment-adjust", new CssProperty("alignment-adjust")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("alignment-baseline", new CssProperty("alignment-baseline")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("all", new CssProperty("all")
@@ -52,74 +52,74 @@ public final class CssProperties {
     .put("animation", new CssProperty("animation")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("animation-delay", new CssProperty("animation-delay")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("animation-direction", new CssProperty("animation-direction")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("animation-duration", new CssProperty("animation-duration")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("animation-fill-mode", new CssProperty("animation-fill-mode")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("animation-iteration-count", new CssProperty("animation-iteration-count")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("animation-name", new CssProperty("animation-name")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("animation-play-state", new CssProperty("animation-play-state")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("animation-timing-function", new CssProperty("animation-timing-function")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("appearance", new CssProperty("appearance")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("azimuth", new CssProperty("azimuth")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     // B
     .put("backface-visibility", new CssProperty("backface-visibility")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("background", new CssProperty("background")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("background-attachment", new CssProperty("background-attachment")
@@ -127,24 +127,24 @@ public final class CssProperties {
     )
 
     .put("background-clip", new CssProperty("background-clip")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("background-color", new CssProperty("background-color")
-      .addValidator(PropertyValidatorFactory.getColorValidator())
+      .addValidator(PropertyValueValidatorFactory.getColorValidator())
     )
 
     .put("background-image", new CssProperty("background-image")
       .addValidator(new EnumValidator(ImmutableList.of("none")))
-      .addValidator(PropertyValidatorFactory.getUriValidator())
+      .addValidator(PropertyValueValidatorFactory.getUriValidator())
     )
 
     .put("background-origin", new CssProperty("background-origin")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("background-position", new CssProperty("background-position")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("background-repeat", new CssProperty("background-repeat")
@@ -152,67 +152,67 @@ public final class CssProperties {
     )
 
     .put("background-size", new CssProperty("background-size")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("baseline-shift", new CssProperty("baseline-shift")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("behavior", new CssProperty("behavior")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("binding", new CssProperty("binding")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("bleed", new CssProperty("bleed")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("bookmark-label", new CssProperty("bookmark-label")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("bookmark-level", new CssProperty("bookmark-level")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("bookmark-state", new CssProperty("bookmark-state")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("bookmark-target", new CssProperty("bookmark-target")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border", new CssProperty("border")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-bottom", new CssProperty("border-bottom")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-bottom-color", new CssProperty("border-bottom-color")
-      .addValidator(PropertyValidatorFactory.getColorValidator())
+      .addValidator(PropertyValueValidatorFactory.getColorValidator())
     )
 
     .put("border-bottom-left-radius", new CssProperty("border-bottom-left-radius")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-bottom-right-radius", new CssProperty("border-bottom-right-radius")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-bottom-style", new CssProperty("border-bottom-style")
-      .addValidator(PropertyValidatorFactory.getBorderStyleValidator())
+      .addValidator(PropertyValueValidatorFactory.getBorderStyleValidator())
     )
 
     .put("border-bottom-width", new CssProperty("border-bottom-width")
-      .addValidator(PropertyValidatorFactory.getBorderWidthValidator())
+      .addValidator(PropertyValueValidatorFactory.getBorderWidthValidator())
     )
 
     .put("border-collapse", new CssProperty("border-collapse")
@@ -220,242 +220,242 @@ public final class CssProperties {
     )
 
     .put("border-color", new CssProperty("border-color")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-end", new CssProperty("border-end")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-end-color", new CssProperty("border-end-color")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-end-style", new CssProperty("border-end-style")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-end-width", new CssProperty("border-end-width")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-image", new CssProperty("border-image")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-o-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-image-outset", new CssProperty("border-image-outset")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-image-repeat", new CssProperty("border-image-repeat")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-image-slice", new CssProperty("border-image-slice")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-image-source", new CssProperty("border-image-source")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-image-width", new CssProperty("border-image-width")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-left", new CssProperty("border-left")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-left-color", new CssProperty("border-left-color")
-      .addValidator(PropertyValidatorFactory.getColorValidator())
+      .addValidator(PropertyValueValidatorFactory.getColorValidator())
     )
 
     .put("border-left-style", new CssProperty("border-left-style")
-      .addValidator(PropertyValidatorFactory.getBorderStyleValidator())
+      .addValidator(PropertyValueValidatorFactory.getBorderStyleValidator())
     )
 
     .put("border-left-width", new CssProperty("border-left-width")
-      .addValidator(PropertyValidatorFactory.getBorderWidthValidator())
+      .addValidator(PropertyValueValidatorFactory.getBorderWidthValidator())
     )
 
     .put("border-radius", new CssProperty("border-radius")
       .addVendor("-webkit-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-right", new CssProperty("border-right")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-right-color", new CssProperty("border-right-color")
-      .addValidator(PropertyValidatorFactory.getColorValidator())
+      .addValidator(PropertyValueValidatorFactory.getColorValidator())
     )
 
     .put("border-right-style", new CssProperty("border-right-style")
-      .addValidator(PropertyValidatorFactory.getBorderStyleValidator())
+      .addValidator(PropertyValueValidatorFactory.getBorderStyleValidator())
     )
 
     .put("border-right-width", new CssProperty("border-right-width")
-      .addValidator(PropertyValidatorFactory.getBorderWidthValidator())
+      .addValidator(PropertyValueValidatorFactory.getBorderWidthValidator())
     )
 
     .put("border-start", new CssProperty("border-start")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
 
     )
 
     .put("border-start-color", new CssProperty("border-start-color")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-start-style", new CssProperty("border-start-style")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-start-width", new CssProperty("border-start-width")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-spacing", new CssProperty("border-spacing")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-style", new CssProperty("border-style")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-top", new CssProperty("border-top")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-top-color", new CssProperty("border-top-color")
-      .addValidator(PropertyValidatorFactory.getColorValidator())
+      .addValidator(PropertyValueValidatorFactory.getColorValidator())
     )
 
     .put("border-top-left-radius", new CssProperty("border-top-left-radius")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-top-right-radius", new CssProperty("border-top-right-radius")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("border-top-style", new CssProperty("border-top-style")
-      .addValidator(PropertyValidatorFactory.getBorderStyleValidator())
+      .addValidator(PropertyValueValidatorFactory.getBorderStyleValidator())
     )
 
     .put("border-top-width", new CssProperty("border-top-width")
-      .addValidator(PropertyValidatorFactory.getBorderWidthValidator())
+      .addValidator(PropertyValueValidatorFactory.getBorderWidthValidator())
     )
 
     .put("border-width", new CssProperty("border-width")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("bottom", new CssProperty("bottom")
-      .addValidator(PropertyValidatorFactory.getAutoValueValidator())
-      .addValidator(PropertyValidatorFactory.getLengthValidator())
-      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+      .addValidator(PropertyValueValidatorFactory.getAutoValueValidator())
+      .addValidator(PropertyValueValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
     )
 
     .put("box-align", new CssProperty("box-align")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("box-decoration-break", new CssProperty("box-decoration-break")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("box-direction", new CssProperty("box-direction")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("box-flex", new CssProperty("box-flex")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("box-flex-group", new CssProperty("box-flex-group")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("box-lines", new CssProperty("box-lines")
       .addVendor("-webkit-")
       .addVendor("-ms-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("box-ordinal-group", new CssProperty("box-ordinal-group")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("box-orient", new CssProperty("box-orient")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("box-pack", new CssProperty("box-pack")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("box-shadow", new CssProperty("box-shadow")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("box-sizing", new CssProperty("box-sizing")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("break-after", new CssProperty("break-after")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("break-before", new CssProperty("break-before")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("break-inside", new CssProperty("break-inside")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     // C
@@ -468,112 +468,112 @@ public final class CssProperties {
     )
 
     .put("clip", new CssProperty("clip")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
     .put("color", new CssProperty("color")
-      .addValidator(PropertyValidatorFactory.getColorValidator())
+      .addValidator(PropertyValueValidatorFactory.getColorValidator())
     )
     .put("color-profile", new CssProperty("color-profile")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("column-count", new CssProperty("column-count")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("column-fill", new CssProperty("column-fill")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("column-gap", new CssProperty("column-gap")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("column-rule", new CssProperty("column-rule")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("column-rule-color", new CssProperty("column-rule-color")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("column-rule-style", new CssProperty("column-rule-style")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("column-rule-width", new CssProperty("column-rule-width")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("column-span", new CssProperty("column-span")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("column-width", new CssProperty("column-width")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("columns", new CssProperty("columns")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("content", new CssProperty("content")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("counter-increment", new CssProperty("counter-increment")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("counter-reset", new CssProperty("counter-reset")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("crop", new CssProperty("crop")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("cue", new CssProperty("cue")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("cue-after", new CssProperty("cue-after")
       .addValidator(new EnumValidator(ImmutableList.of("none")))
-      .addValidator(PropertyValidatorFactory.getUriValidator())
+      .addValidator(PropertyValueValidatorFactory.getUriValidator())
     )
 
     .put("column", new CssProperty("column")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("cue-before", new CssProperty("cue-before")
       .addValidator(new EnumValidator(ImmutableList.of("none")))
-      .addValidator(PropertyValidatorFactory.getUriValidator())
+      .addValidator(PropertyValueValidatorFactory.getUriValidator())
     )
 
     .put("cursor", new CssProperty("cursor")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     // D
@@ -591,36 +591,36 @@ public final class CssProperties {
     )
 
     .put("dominant-baseline", new CssProperty("dominant-baseline")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("drop-initial-after-adjust", new CssProperty("drop-initial-after-adjust")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("drop-initial-after-align", new CssProperty("drop-initial-after-align")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("drop-initial-before-adjust", new CssProperty("drop-initial-before-adjust")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("drop-initial-before-align", new CssProperty("drop-initial-before-align")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("drop-initial-size", new CssProperty("drop-initial-size")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("drop-initial-value", new CssProperty("drop-initial-value")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     // E
     .put("elevation", new CssProperty("elevation")
-      .addValidator(PropertyValidatorFactory.getAngleValidator())
+      .addValidator(PropertyValueValidatorFactory.getAngleValidator())
       .addValidator(new EnumValidator(ImmutableList.of("below", "level", "above", "higher", "lower")))
     )
 
@@ -630,15 +630,15 @@ public final class CssProperties {
 
     // F
     .put("filter", new CssProperty("filter")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("fit", new CssProperty("fit")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("fit-position", new CssProperty("fit-position")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("float", new CssProperty("float")
@@ -646,24 +646,24 @@ public final class CssProperties {
     )
 
     .put("float-offset", new CssProperty("float-offset")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("font", new CssProperty("font")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("font-family", new CssProperty("font-family")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("font-size", new CssProperty("font-size")
-      .addValidator(PropertyValidatorFactory.getFontSizeValidator())
+      .addValidator(PropertyValueValidatorFactory.getFontSizeValidator())
     )
 
     .put("font-size-adjust", new CssProperty("font-size-adjust")
       .addValidator(new EnumValidator(ImmutableList.of("none")))
-      .addValidator(PropertyValidatorFactory.getNumberValidator())
+      .addValidator(PropertyValueValidatorFactory.getNumberValidator())
     )
 
     .put("font-stretch", new CssProperty("font-stretch")
@@ -688,86 +688,86 @@ public final class CssProperties {
 
     // G
     .put("grid-cell-stacking", new CssProperty("grid-cell-stacking")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("grid-column", new CssProperty("grid-column")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("grid-columns", new CssProperty("grid-columns")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("grid-column-align", new CssProperty("grid-column-align")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("grid-column-sizing", new CssProperty("grid-column-sizing")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("grid-column-span", new CssProperty("grid-column-span")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("grid-flow", new CssProperty("grid-flow")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("grid-layer", new CssProperty("grid-layer")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("grid-row", new CssProperty("grid-row")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("grid-rows", new CssProperty("grid-rows")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("grid-row-align", new CssProperty("grid-row-align")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("grid-row-span", new CssProperty("grid-row-span")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("grid-row-sizing", new CssProperty("grid-row-sizing")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     // H
     .put("hanging-punctuation", new CssProperty("hanging-punctuation")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("height", new CssProperty("height")
-      .addValidator(PropertyValidatorFactory.getAutoValueValidator())
-      .addValidator(PropertyValidatorFactory.getLengthValidator())
-      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+      .addValidator(PropertyValueValidatorFactory.getAutoValueValidator())
+      .addValidator(PropertyValueValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
     )
 
     .put("hyphenate-after", new CssProperty("hyphenate-after")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("hyphenate-before", new CssProperty("hyphenate-before")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("hyphenate-character", new CssProperty("hyphenate-character")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("hyphenate-lines", new CssProperty("hyphenate-lines")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("hyphenate-resource", new CssProperty("hyphenate-resource")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("hyphens", new CssProperty("hyphens")
@@ -778,63 +778,63 @@ public final class CssProperties {
 
     // I
     .put("icon", new CssProperty("icon")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("image-orientation", new CssProperty("image-orientation")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("image-rendering", new CssProperty("image-rendering")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("inline-box-align", new CssProperty("inline-box-align")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     // L
     .put("left", new CssProperty("left")
-      .addValidator(PropertyValidatorFactory.getAutoValueValidator())
-      .addValidator(PropertyValidatorFactory.getLengthValidator())
-      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+      .addValidator(PropertyValueValidatorFactory.getAutoValueValidator())
+      .addValidator(PropertyValueValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
     )
 
     .put("letter-spacing", new CssProperty("letter-spacing").
       addValidator(new EnumValidator(ImmutableList.of("normal")))
-      .addValidator(PropertyValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValueValidatorFactory.getLengthValidator())
     )
 
     .put("line-height", new CssProperty("line-height")
       .addValidator(new EnumValidator(ImmutableList.of("normal")))
-      .addValidator(PropertyValidatorFactory.getLengthValidator())
-      .addValidator(PropertyValidatorFactory.getPercentageValidator())
-      .addValidator(PropertyValidatorFactory.getNumberValidator())
+      .addValidator(PropertyValueValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
+      .addValidator(PropertyValueValidatorFactory.getNumberValidator())
     )
 
     .put("line-stacking", new CssProperty("line-stacking")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("line-stacking-ruby", new CssProperty("line-stacking-ruby")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("line-stacking-shift", new CssProperty("line-stacking-shift")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("line-stacking-strategy", new CssProperty("line-stacking-strategy")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("list-style", new CssProperty("list-style")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("list-style-image", new CssProperty("list-style-image")
       .addValidator(new EnumValidator(ImmutableList.of("none")))
-      .addValidator(PropertyValidatorFactory.getUriValidator())
+      .addValidator(PropertyValueValidatorFactory.getUriValidator())
     )
 
     .put("list-style-position", new CssProperty("list-style-position")
@@ -850,148 +850,148 @@ public final class CssProperties {
 
     // M
     .put("margin", new CssProperty("margin")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("margin-bottom", new CssProperty("margin-bottom")
-      .addValidator(PropertyValidatorFactory.getMarginWidthValidator())
+      .addValidator(PropertyValueValidatorFactory.getMarginWidthValidator())
     )
 
     .put("margin-end", new CssProperty("margin-end")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("margin-left", new CssProperty("margin-left")
-      .addValidator(PropertyValidatorFactory.getMarginWidthValidator())
+      .addValidator(PropertyValueValidatorFactory.getMarginWidthValidator())
     )
 
     .put("margin-right", new CssProperty("margin-right")
-      .addValidator(PropertyValidatorFactory.getMarginWidthValidator())
+      .addValidator(PropertyValueValidatorFactory.getMarginWidthValidator())
     )
 
     .put("margin-start", new CssProperty("margin-start")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("margin-top", new CssProperty("margin-top")
-      .addValidator(PropertyValidatorFactory.getMarginWidthValidator())
+      .addValidator(PropertyValueValidatorFactory.getMarginWidthValidator())
     )
 
     .put("mark", new CssProperty("mark")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("mark-after", new CssProperty("mark-after")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("mark-before", new CssProperty("mark-before")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("marks", new CssProperty("marks")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("marquee-direction", new CssProperty("marquee-direction")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("marquee-play-count", new CssProperty("marquee-play-count")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("marquee-speed", new CssProperty("marquee-speed")
       .addVendor("-webkit-")
       .addVendor("-wap-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("marquee-style", new CssProperty("marquee-style")
       .addVendor("-webkit-")
       .addVendor("-wap-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("max-height", new CssProperty("max-height")
       .addValidator(new EnumValidator(ImmutableList.of("none")))
-      .addValidator(PropertyValidatorFactory.getLengthValidator())
-      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+      .addValidator(PropertyValueValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
     )
 
     .put("max-width", new CssProperty("max-width")
       .addValidator(new EnumValidator(ImmutableList.of("none")))
-      .addValidator(PropertyValidatorFactory.getLengthValidator())
-      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+      .addValidator(PropertyValueValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
     )
 
     .put("min-height", new CssProperty("min-height")
-      .addValidator(PropertyValidatorFactory.getLengthValidator())
-      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+      .addValidator(PropertyValueValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
     )
 
     .put("min-width", new CssProperty("min-width")
-      .addValidator(PropertyValidatorFactory.getLengthValidator())
-      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+      .addValidator(PropertyValueValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
     )
 
     .put("move-to", new CssProperty("move-to")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     // N
     .put("nav-down", new CssProperty("nav-down")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("nav-index", new CssProperty("nav-index")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("nav-left", new CssProperty("nav-left")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("nav-right", new CssProperty("nav-right")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("nav-up", new CssProperty("nav-up")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     // O
     .put("opacity", new CssProperty("opacity")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("orphans", new CssProperty("orphans")
-      .addValidator(PropertyValidatorFactory.getIntegerValidator())
+      .addValidator(PropertyValueValidatorFactory.getIntegerValidator())
     )
 
     .put("outline", new CssProperty("outline")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("outline-color", new CssProperty("outline-color")
-      .addValidator(PropertyValidatorFactory.getColorValidator())
+      .addValidator(PropertyValueValidatorFactory.getColorValidator())
       .addValidator(new EnumValidator(ImmutableList.of("invert")))
     )
 
     .put("outline-offset", new CssProperty("outline-offset")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("outline-style", new CssProperty("outline-style")
-      .addValidator(PropertyValidatorFactory.getOutlineStyleValidator())
+      .addValidator(PropertyValueValidatorFactory.getOutlineStyleValidator())
     )
 
     .put("outline-width", new CssProperty("outline-width")
-      .addValidator(PropertyValidatorFactory.getBorderWidthValidator())
+      .addValidator(PropertyValueValidatorFactory.getBorderWidthValidator())
     )
 
     .put("overflow", new CssProperty("overflow")
@@ -999,60 +999,60 @@ public final class CssProperties {
     )
 
     .put("overflow-style", new CssProperty("overflow-style")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("overflow-x", new CssProperty("overflow-x")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("overflow-y", new CssProperty("overflow-y")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     // P
     .put("padding", new CssProperty("padding")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("padding-bottom", new CssProperty("padding-bottom")
-      .addValidator(PropertyValidatorFactory.getPaddingWidthValidator())
+      .addValidator(PropertyValueValidatorFactory.getPaddingWidthValidator())
     )
 
     .put("padding-end", new CssProperty("padding-end")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("padding-left", new CssProperty("padding-left")
-      .addValidator(PropertyValidatorFactory.getPaddingWidthValidator())
+      .addValidator(PropertyValueValidatorFactory.getPaddingWidthValidator())
     )
 
     .put("padding-right", new CssProperty("padding-right")
-      .addValidator(PropertyValidatorFactory.getPaddingWidthValidator())
+      .addValidator(PropertyValueValidatorFactory.getPaddingWidthValidator())
     )
 
     .put("padding-start", new CssProperty("padding-start")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("padding-top", new CssProperty("padding-top")
-      .addValidator(PropertyValidatorFactory.getPaddingWidthValidator())
+      .addValidator(PropertyValueValidatorFactory.getPaddingWidthValidator())
     )
 
     .put("page", new CssProperty("page")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("page-break-after", new CssProperty("page-break-after")
-      .addValidator(PropertyValidatorFactory.getPageBreakValidator())
+      .addValidator(PropertyValueValidatorFactory.getPageBreakValidator())
     )
 
     .put("page-break-before", new CssProperty("page-break-before")
-      .addValidator(PropertyValidatorFactory.getPageBreakValidator())
+      .addValidator(PropertyValueValidatorFactory.getPageBreakValidator())
     )
 
     .put("page-break-inside", new CssProperty("page-break-inside")
@@ -1060,47 +1060,47 @@ public final class CssProperties {
     )
 
     .put("page-policy", new CssProperty("page-policy")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("pause", new CssProperty("pause")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("pause-after", new CssProperty("pause-after")
-      .addValidator(PropertyValidatorFactory.getPauseValidator())
+      .addValidator(PropertyValueValidatorFactory.getPauseValidator())
     )
 
     .put("pause-before", new CssProperty("pause-before")
-      .addValidator(PropertyValidatorFactory.getPauseValidator())
+      .addValidator(PropertyValueValidatorFactory.getPauseValidator())
     )
 
     .put("perspective", new CssProperty("perspective")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("perspective-origin", new CssProperty("perspective-origin")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("phonemes", new CssProperty("phonemes")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("pitch", new CssProperty("pitch")
-      .addValidator(PropertyValidatorFactory.getPitchValidator())
+      .addValidator(PropertyValueValidatorFactory.getPitchValidator())
     )
 
     .put("pitch-range", new CssProperty("pitch-range")
-      .addValidator(PropertyValidatorFactory.getNumberValidator())
+      .addValidator(PropertyValueValidatorFactory.getNumberValidator())
     )
 
     .put("play-during", new CssProperty("play-during")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("pointer-events", new CssProperty("pointer-events")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("position", new CssProperty("position")
@@ -1108,74 +1108,74 @@ public final class CssProperties {
     )
 
     .put("presentation-level", new CssProperty("presentation-level")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("punctuation-trim", new CssProperty("punctuation-trim")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     // Q
     .put("quotes", new CssProperty("quotes")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     // R
     .put("rendering-intent", new CssProperty("rendering-intent")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("resize", new CssProperty("resize")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("rest", new CssProperty("rest")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("rest-after", new CssProperty("rest-after")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("rest-before", new CssProperty("rest-before")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("richness", new CssProperty("richness")
-      .addValidator(PropertyValidatorFactory.getNumberValidator())
+      .addValidator(PropertyValueValidatorFactory.getNumberValidator())
     )
 
     .put("right", new CssProperty("right")
-      .addValidator(PropertyValidatorFactory.getAutoValueValidator())
-      .addValidator(PropertyValidatorFactory.getLengthValidator())
-      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+      .addValidator(PropertyValueValidatorFactory.getAutoValueValidator())
+      .addValidator(PropertyValueValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
     )
 
     .put("rotation", new CssProperty("rotation")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("rotation-point", new CssProperty("rotation-point")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("ruby-align", new CssProperty("ruby-align")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("ruby-overhang", new CssProperty("ruby-overhang")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
     .put("ruby-position", new CssProperty("ruby-position")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
     .put("ruby-span", new CssProperty("ruby-span")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     // S
     .put("size", new CssProperty("size")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("speak", new CssProperty("speak")
@@ -1197,18 +1197,18 @@ public final class CssProperties {
     .put("speech-rate", new CssProperty("speech-rate")
       .addValidator(
         new EnumValidator(ImmutableList.of("x-slow", "slow", "medium", "fast", "x-fast", "faster", "slower")))
-      .addValidator(PropertyValidatorFactory.getNumberValidator())
+      .addValidator(PropertyValueValidatorFactory.getNumberValidator())
     )
 
     .put("src", new CssProperty("src")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("stress", new CssProperty("stress")
-      .addValidator(PropertyValidatorFactory.getNumberValidator())
+      .addValidator(PropertyValueValidatorFactory.getNumberValidator())
     )
     .put("string-set", new CssProperty("string-set")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     // T
@@ -1219,20 +1219,20 @@ public final class CssProperties {
     .put("tab-size", new CssProperty("tab-size")
       .addVendor("-moz-")
       .addVendor("-o-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("target", new CssProperty("target")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
     .put("target-name", new CssProperty("target-name")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
     .put("target-new", new CssProperty("target-new")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
     .put("target-position", new CssProperty("target-position")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("text-align", new CssProperty("text-align")
@@ -1240,44 +1240,44 @@ public final class CssProperties {
     )
 
     .put("text-align-last", new CssProperty("text-align-last")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
     .put("text-decoration", new CssProperty("text-decoration")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
     .put("text-emphasis", new CssProperty("text-emphasis")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
     .put("text-height", new CssProperty("text-height")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("text-indent", new CssProperty("text-indent")
-      .addValidator(PropertyValidatorFactory.getLengthValidator())
-      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+      .addValidator(PropertyValueValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
     )
 
     .put("text-justify", new CssProperty("text-justify")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
     .put("text-outline", new CssProperty("text-outline")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
     .put("text-overflow", new CssProperty("text-overflow")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
     .put("text-rendering", new CssProperty("text-rendering")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("text-size-adjust", new CssProperty("text-size-adjust")
       .addVendor("-webkit-")
       .addVendor("-ms-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("text-shadow", new CssProperty("text-shadow")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("text-transform", new CssProperty("text-transform")
@@ -1285,13 +1285,13 @@ public final class CssProperties {
     )
 
     .put("text-wrap", new CssProperty("text-wrap")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("top", new CssProperty("top")
-      .addValidator(PropertyValidatorFactory.getAutoValueValidator())
-      .addValidator(PropertyValidatorFactory.getLengthValidator())
-      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+      .addValidator(PropertyValueValidatorFactory.getAutoValueValidator())
+      .addValidator(PropertyValueValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
     )
 
     .put("transform", new CssProperty("transform")
@@ -1299,7 +1299,7 @@ public final class CssProperties {
       .addVendor("-moz-")
       .addVendor("-ms-")
       .addVendor("-o-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("transform-origin", new CssProperty("transform-origin")
@@ -1307,46 +1307,46 @@ public final class CssProperties {
       .addVendor("-moz-")
       .addVendor("-ms-")
       .addVendor("-o-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("transform-style", new CssProperty("transform-style")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("transition", new CssProperty("transition")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-o-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("transition-delay", new CssProperty("transition-delay")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-o-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("transition-duration", new CssProperty("transition-duration")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-o-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("transition-property", new CssProperty("transition-property")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-o-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("transition-timing-function", new CssProperty("transition-timing-function")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-o-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     // U
@@ -1357,22 +1357,22 @@ public final class CssProperties {
     .put("user-modify", new CssProperty("user-modify")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("user-select", new CssProperty("user-select")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     // V
     .put("vertical-align", new CssProperty("vertical-align")
       .addValidator(new EnumValidator(
         ImmutableList.of("baseline", "sub", "super", "top", "text-top", "middle", "bottom", "text-bottom")))
-      .addValidator(PropertyValidatorFactory.getPercentageValidator())
-      .addValidator(PropertyValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
+      .addValidator(PropertyValueValidatorFactory.getLengthValidator())
     )
 
     .put("visibility", new CssProperty("visibility")
@@ -1380,41 +1380,41 @@ public final class CssProperties {
     )
 
     .put("voice-balance", new CssProperty("voice-balance")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("voice-duration", new CssProperty("voice-duration")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("voice-family", new CssProperty("voice-family")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("voice-pitch", new CssProperty("voice-pitch")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("voice-pitch-range", new CssProperty("voice-pitch-range")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("voice-rate", new CssProperty("voice-rate")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("voice-stress", new CssProperty("voice-stress")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("voice-volume", new CssProperty("voice-volume")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("volume", new CssProperty("volume")
       .addValidator(new EnumValidator(ImmutableList.of("silent", "x-soft", "soft", "medium", "loud", "x-loud")))
-      .addValidator(PropertyValidatorFactory.getNumberValidator())
-      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+      .addValidator(PropertyValueValidatorFactory.getNumberValidator())
+      .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
     )
 
     // W
@@ -1423,49 +1423,49 @@ public final class CssProperties {
     )
 
     .put("white-space-collapse", new CssProperty("white-space-collapse")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("widows", new CssProperty("widows")
-      .addValidator(PropertyValidatorFactory.getIntegerValidator())
+      .addValidator(PropertyValueValidatorFactory.getIntegerValidator())
     )
 
     .put("width", new CssProperty("width")
-      .addValidator(PropertyValidatorFactory.getAutoValueValidator())
-      .addValidator(PropertyValidatorFactory.getLengthValidator())
-      .addValidator(PropertyValidatorFactory.getPercentageValidator())
+      .addValidator(PropertyValueValidatorFactory.getAutoValueValidator())
+      .addValidator(PropertyValueValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
     )
 
     .put("word-break", new CssProperty("word-break")
       .addVendor("-epub-")
       .addVendor("-ms-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
 
     )
 
     .put("word-spacing", new CssProperty("word-spacing")
       .addValidator(new EnumValidator(ImmutableList.of("normal")))
-      .addValidator(PropertyValidatorFactory.getLengthValidator())
+      .addValidator(PropertyValueValidatorFactory.getLengthValidator())
     )
 
     .put("word-wrap", new CssProperty("word-wrap")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .put("writing-mode", new CssProperty("writing-mode")
       .addVendor("-epub-")
       .addVendor("-ms-")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     // Z
     .put("z-index", new CssProperty("z-index")
-      .addValidator(PropertyValidatorFactory.getAutoValueValidator())
-      .addValidator(PropertyValidatorFactory.getIntegerValidator())
+      .addValidator(PropertyValueValidatorFactory.getAutoValueValidator())
+      .addValidator(PropertyValueValidatorFactory.getIntegerValidator())
     )
 
     .put("zoom", new CssProperty("zoom")
-      .addValidator(PropertyValidatorFactory.getNotYetImplementedValidator())
+      .addValidator(PropertyValueValidatorFactory.getNotYetImplementedValidator())
     )
 
     .build();
