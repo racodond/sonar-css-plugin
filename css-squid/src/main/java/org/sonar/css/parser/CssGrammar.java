@@ -236,11 +236,8 @@ public enum CssGrammar implements GrammarRuleKey {
         b.firstOf(
           URI,
           FUNCTION,
-          b.sequence(OPEN_PARENTHESIS,
-            b.zeroOrMore(ANY),
-            CLOSE_PARENTHESIS),
-          b.sequence(OPEN_BRACKET,
-            b.zeroOrMore(ANY), CLOSE_BRACKET),
+          b.sequence(OPEN_PARENTHESIS, b.zeroOrMore(ANY), CLOSE_PARENTHESIS),
+          b.sequence(OPEN_BRACKET, b.zeroOrMore(ANY), CLOSE_BRACKET),
           PERCENTAGE,
           DIMENSION,
           NUMBER,
@@ -269,10 +266,36 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(NUMBER).is(addSpacing(_NUM, b));
     b.rule(PERCENTAGE).is(addSpacing(b.sequence(NUMBER, "%"), b));
     b.rule(DIMENSION).is(addSpacing(b.sequence(NUMBER, unit), b));
-    b.rule(unit).is(b.firstOf("em", "ex", "ch", "rem", "vw", "vh", "vmin", "vmax", "cm", "mm", "in", "px", "pt", "pc", "ms", "s", "Hz", "kHz", "deg", "grad", "rad", "turn", "dpi", "dpcm", "dppx"));
+    b.rule(unit).is(b.firstOf(
+      matchCaseInsensitive(b, "em"),
+      matchCaseInsensitive(b, "ex"),
+      matchCaseInsensitive(b, "ch"),
+      matchCaseInsensitive(b, "rem"),
+      matchCaseInsensitive(b, "vw"),
+      matchCaseInsensitive(b, "vh"),
+      matchCaseInsensitive(b, "vmin"),
+      matchCaseInsensitive(b, "vmax"),
+      matchCaseInsensitive(b, "cm"),
+      matchCaseInsensitive(b, "mm"),
+      matchCaseInsensitive(b, "in"),
+      matchCaseInsensitive(b, "px"),
+      matchCaseInsensitive(b, "pt"),
+      matchCaseInsensitive(b, "pc"),
+      matchCaseInsensitive(b, "ms"),
+      matchCaseInsensitive(b, "s"),
+      matchCaseInsensitive(b, "Hz"),
+      matchCaseInsensitive(b, "kHz"),
+      matchCaseInsensitive(b, "deg"),
+      matchCaseInsensitive(b, "grad"),
+      matchCaseInsensitive(b, "rad"),
+      matchCaseInsensitive(b, "turn"),
+      matchCaseInsensitive(b, "dpi"),
+      matchCaseInsensitive(b, "dpcm"),
+      matchCaseInsensitive(b, "dppx"))
+    );
     b.rule(URI).is(
       addSpacing(
-        b.sequence("url(", _URI_CONTENT, CLOSE_PARENTHESIS), b));
+        b.sequence(matchCaseInsensitive(b, "url\\("), _URI_CONTENT, CLOSE_PARENTHESIS), b));
     b.rule(_URI_CONTENT).is(
       b.sequence(_W, b.firstOf(
         STRING,
@@ -309,9 +332,9 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(STARTS_WITH).is(addSpacing("^=", b));
     b.rule(ENDS_WITH).is(addSpacing("$=", b));
 
-    b.rule(from).is(addSpacing("from", b));
-    b.rule(to).is(addSpacing("to", b));
-    b.rule(IMPORTANT).is(addSpacing(b.sequence("!", b.optional(WHITESPACE), "important"), b));
+    b.rule(from).is(addSpacing(matchCaseInsensitive(b, "from"), b));
+    b.rule(to).is(addSpacing(matchCaseInsensitive(b, "to"), b));
+    b.rule(IMPORTANT).is(addSpacing(b.sequence("!", b.optional(WHITESPACE), matchCaseInsensitive(b, "important")), b));
     /**
      * TODO: How to cover this: any other character not matched by the above
      * rules, and neither a single nor a double quote
@@ -357,18 +380,21 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(_BAD_COMMENT2).is(b.regexp("\\/\\*[^*]*(\\*+[^/*][^*]*)*")).skip();
     b.rule(_BADURI).is(b.firstOf(_BADURI1, _BADURI2, _BADURI3)).skip();
     b.rule(_BADURI1).is(
-      "url(",
+      matchCaseInsensitive(b, "url\\("),
       _W,
-      b.zeroOrMore(b.firstOf(b.regexp("[!#$%&*-~]"), _NONASCII,
-        _ESCAPE)), _W).skip();
-    b.rule(_BADURI2).is("url(", _W, _STRING, _W).skip();
-    b.rule(_BADURI3).is("url(", _W, _BAD_STRING).skip();
+       b.zeroOrMore(b.firstOf(b.regexp("[!#$%&*-~]"), _NONASCII, _ESCAPE)), _W).skip();
+    b.rule(_BADURI2).is(matchCaseInsensitive(b, "url\\("), _W, _STRING, _W).skip();
+    b.rule(_BADURI3).is(matchCaseInsensitive(b, "url\\("), _W, _BAD_STRING).skip();
     b.rule(_NL).is(b.firstOf("\n", "\r\n", "\r", "\f")).skip();
     b.rule(_W).is(b.regexp("[ \\t\\r\\n\\f]*")).skip();
   }
 
   static Object addSpacing(Object value, LexerlessGrammarBuilder b) {
     return b.sequence(value, WHITESPACES);
+  }
+
+  private static Object matchCaseInsensitive(LexerlessGrammarBuilder b, String value) {
+    return b.regexp("(?i)" + value);
   }
 
 }
