@@ -48,5 +48,6 @@
   border-bottom: dotted thin green green; /* Noncompliant */
   border-bottom: dotted abc green; /* Noncompliant */
   border-bottom: dotted -10px green; /* Noncompliant */
+  border-bottom: 2px groove threedface;
 }
 
