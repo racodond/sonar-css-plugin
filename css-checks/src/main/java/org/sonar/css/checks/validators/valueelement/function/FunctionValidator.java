@@ -21,7 +21,7 @@ package org.sonar.css.checks.validators.valueelement.function;
 
 import com.google.common.collect.ImmutableList;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.utils.valueelements.Function;
+import org.sonar.css.checks.utils.valueelements.FunctionValueElement;
 import org.sonar.css.checks.validators.PropertyValueElementValidator;
 
 import javax.annotation.Nonnull;
@@ -36,7 +36,7 @@ public class FunctionValidator implements PropertyValueElementValidator {
 
   @Override
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    return cssValueElement instanceof Function && allowedFunctions.contains(((Function) cssValueElement).getNameWithoutVendorPrefix());
+    return cssValueElement instanceof FunctionValueElement && allowedFunctions.contains(((FunctionValueElement) cssValueElement).getNameWithoutVendorPrefix());
   }
 
   @Override

@@ -20,7 +20,7 @@
 package org.sonar.css.checks.validators.valueelement.numeric;
 
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.utils.valueelements.Number;
+import org.sonar.css.checks.utils.valueelements.NumberValueElement;
 
 import javax.annotation.Nonnull;
 
@@ -38,7 +38,7 @@ public class NumberRangeValidator extends NumberValidator {
   @Override
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {
     if (super.isValid(cssValueElement)) {
-      double value = ((Number) cssValueElement).getValue();
+      double value = ((NumberValueElement) cssValueElement).getValue();
       return value >= min && value <= max;
     }
     return false;

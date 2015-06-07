@@ -17,25 +17,17 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.valueelement;
+package org.sonar.css.checks.validators.property.liststyle;
 
-import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.utils.valueelements.HashValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
+import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
+import org.sonar.css.checks.validators.valueelement.ImageValidator;
+import org.sonar.css.checks.validators.valueelement.NoneValidator;
 
-import javax.annotation.Nonnull;
+public class ListStyleImageValidator extends MultiPropertyValueElementValidator {
 
-public class HashValidator implements PropertyValueElementValidator {
-
-  @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    return cssValueElement instanceof HashValueElement && ((HashValueElement) cssValueElement).getValue().matches("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
-  }
-
-  @Override
-  @Nonnull
-  public String getValidatorFormat() {
-    return "";
+  public ListStyleImageValidator() {
+    super(ImmutableList.of(new NoneValidator(), new ImageValidator()));
   }
 
 }

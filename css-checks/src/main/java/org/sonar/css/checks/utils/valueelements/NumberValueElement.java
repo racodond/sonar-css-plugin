@@ -22,16 +22,32 @@ package org.sonar.css.checks.utils.valueelements;
 import com.sonar.sslr.api.AstNode;
 import org.sonar.css.checks.utils.CssValueElement;
 
-public class Identifier extends CssValueElement {
+public class NumberValueElement extends CssValueElement {
 
-  private final String name;
+  private final Double value;
+  private final boolean isZero;
+  private final boolean isInteger;
 
-  public Identifier(AstNode identifierNode) {
-    name = identifierNode.getTokenValue();
+  public NumberValueElement(AstNode numberNode) {
+    value = Double.valueOf(numberNode.getTokenValue());
+    isZero = numberNode.getTokenValue().matches("([\\-\\+])?[0]*(\\.[0]+)?");
+    isInteger = numberNode.getTokenValue().matches("[\\-\\+]{0,1}[0-9]+");
   }
 
-  public String getName() {
-    return name;
+  public Double getValue() {
+    return value;
+  }
+
+  public boolean isZero() {
+    return isZero;
+  }
+
+  public boolean isPositive() {
+    return value >= 0;
+  }
+
+  public boolean isInteger() {
+    return isInteger;
   }
 
 }

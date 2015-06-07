@@ -19,23 +19,12 @@
  */
 package org.sonar.css.checks.validators.valueelement;
 
-import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.utils.valueelements.HashValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
+import com.google.common.collect.ImmutableList;
 
-import javax.annotation.Nonnull;
+public class NoneValidator extends IdentifierValidator {
 
-public class HashValidator implements PropertyValueElementValidator {
-
-  @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    return cssValueElement instanceof HashValueElement && ((HashValueElement) cssValueElement).getValue().matches("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
-  }
-
-  @Override
-  @Nonnull
-  public String getValidatorFormat() {
-    return "";
+  public NoneValidator() {
+    super(ImmutableList.of("none"));
   }
 
 }

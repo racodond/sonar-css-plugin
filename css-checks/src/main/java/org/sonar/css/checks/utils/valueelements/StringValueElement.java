@@ -22,16 +22,8 @@ package org.sonar.css.checks.utils.valueelements;
 import com.sonar.sslr.api.AstNode;
 import org.sonar.css.checks.utils.CssValueElement;
 
-public class Delimiter extends CssValueElement {
+public class StringValueElement extends CssValueElement {
 
-  private final String type;
-
-  public Delimiter(AstNode delimiterNode) {
-    type = delimiterNode.getTokenValue();
+  public StringValueElement(AstNode stringNode) {
   }
-
-  public String getType() {
-    return type;
-  }
-
 }

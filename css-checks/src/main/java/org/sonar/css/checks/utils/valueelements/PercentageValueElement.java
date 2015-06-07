@@ -20,19 +20,18 @@
 package org.sonar.css.checks.utils.valueelements;
 
 import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.api.GenericTokenType;
 import org.sonar.css.checks.utils.CssValueElement;
 
-public class Hash extends CssValueElement {
+public class PercentageValueElement extends CssValueElement {
 
-  private final String value;
+  private final double value;
 
-  public Hash(AstNode hashNode) {
-    value = "#" + hashNode.getFirstChild(GenericTokenType.LITERAL).getTokenValue();
+  public PercentageValueElement(AstNode numberNode) {
+    value = Double.valueOf(numberNode.getTokenValue());
   }
 
-  public String getValue() {
-    return value;
+  public boolean isPositive() {
+    return value >= 0;
   }
 
 }

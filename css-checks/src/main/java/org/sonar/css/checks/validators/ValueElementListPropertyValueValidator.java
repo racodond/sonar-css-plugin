@@ -22,7 +22,7 @@ package org.sonar.css.checks.validators;
 import com.google.common.collect.ImmutableList;
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.utils.valueelements.Delimiter;
+import org.sonar.css.checks.utils.valueelements.DelimiterValueElement;
 
 import javax.annotation.Nonnull;
 
@@ -45,7 +45,7 @@ public class ValueElementListPropertyValueValidator implements PropertyValueVali
     boolean valid;
     for (CssValueElement valueElement : value.getValueElements()) {
       valid = false;
-      if (!(valueElement instanceof Delimiter)) {
+      if (!(valueElement instanceof DelimiterValueElement)) {
         for (PropertyValueElementValidator validator : validators) {
           if (validator.isValid(valueElement)) {
             valid = true;

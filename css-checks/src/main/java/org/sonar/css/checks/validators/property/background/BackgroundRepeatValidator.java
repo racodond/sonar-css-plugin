@@ -22,7 +22,7 @@ package org.sonar.css.checks.validators.property.background;
 import com.google.common.collect.ImmutableList;
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.utils.valueelements.Delimiter;
+import org.sonar.css.checks.utils.valueelements.DelimiterValueElement;
 import org.sonar.css.checks.validators.PropertyValueValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 
@@ -44,8 +44,8 @@ public class BackgroundRepeatValidator implements PropertyValueValidator {
       return false;
     }
     for (CssValueElement valueElement : valueElements) {
-      if (valueElement instanceof Delimiter) {
-        if (!",".equals(((Delimiter) valueElement).getType())) {
+      if (valueElement instanceof DelimiterValueElement) {
+        if (!",".equals(((DelimiterValueElement) valueElement).getType())) {
           return false;
         }
       } else if (!repeatXYValidator.isValid(valueElement) && !repeatOthersValidator.isValid(valueElement)) {
@@ -66,7 +66,7 @@ public class BackgroundRepeatValidator implements PropertyValueValidator {
     repeatStyleList.add(new ArrayList<CssValueElement>());
     int listIndex = 0;
     for (CssValueElement valueElement : cssValue.getValueElements()) {
-      if (valueElement instanceof Delimiter) {
+      if (valueElement instanceof DelimiterValueElement) {
         repeatStyleList.add(new ArrayList<CssValueElement>());
         listIndex++;
       } else {

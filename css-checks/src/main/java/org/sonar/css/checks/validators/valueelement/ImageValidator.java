@@ -20,13 +20,12 @@
 package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.ValueElementListPropertyValueValidator;
+import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
 import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
 
 import javax.annotation.Nonnull;
 
-public class ImageValidator extends ValueElementListPropertyValueValidator {
-
+public class ImageValidator extends MultiPropertyValueElementValidator {
   public ImageValidator() {
     super(ImmutableList.of(new UriValidator(), new FunctionValidator(ImmutableList
       .of("image", "image-set", "cross-fade", "element", "linear-gradient", "radial-gradient", "repeating-linear-gradient",
@@ -36,7 +35,7 @@ public class ImageValidator extends ValueElementListPropertyValueValidator {
   @Nonnull
   @Override
   public String getValidatorFormat() {
-    return "<image> [, <image>]*";
+    return "<image>";
   }
 
 }

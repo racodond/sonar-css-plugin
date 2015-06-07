@@ -43,22 +43,18 @@ public class ShapeOutsideValidator implements PropertyValueValidator {
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
     int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0) {
+    if (numberOfElements == 0 && numberOfElements > 2) {
       return false;
     }
     if (numberOfElements == 1) {
       return noneValidator.isValid(valueElements.get(0))
-        || imageValidator.isValid(value)
+        || imageValidator.isValid(valueElements.get(0))
         || shapeBoxValidator.isValid(valueElements.get(0))
         || basicShapeValidator.isValid(valueElements.get(0));
     }
     if (numberOfElements == 2) {
       return shapeBoxValidator.isValid(valueElements.get(0)) && basicShapeValidator.isValid(valueElements.get(1))
-        || shapeBoxValidator.isValid(valueElements.get(1)) && basicShapeValidator.isValid(valueElements.get(0))
-        || imageValidator.isValid(value);
-    }
-    if (numberOfElements > 2) {
-      return imageValidator.isValid(value);
+        || shapeBoxValidator.isValid(valueElements.get(1)) && basicShapeValidator.isValid(valueElements.get(0));
     }
     return false;
   }

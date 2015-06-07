@@ -660,6 +660,44 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void list_style() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/list-style.css"), check);
+    errorMessage = "Update the invalid value of property \"list-style\". Expected format: <list-style-type> || <list-style-position> || <list-style-image>";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(7).withMessage(errorMessage).next()
+      .atLine(8).withMessage(errorMessage).next()
+      .atLine(9).withMessage(errorMessage).next()
+      .atLine(10).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void list_style_position() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/list-style-position.css"), check);
+    errorMessage = "Update the invalid value of property \"list-style-position\". Expected format: inside | outside";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(5).withMessage(errorMessage).next()
+      .atLine(6).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void list_style_type() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/list-style-type.css"), check);
+    errorMessage = "Update the invalid value of property \"list-style-type\". Expected format: <counter-style> | <string> | none";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(6).withMessage(errorMessage).next()
+      .atLine(7).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void list_style_image() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/list-style-image.css"), check);
+    errorMessage = "Update the invalid value of property \"list-style-image\". Expected format: none | <image>";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(7).withMessage(errorMessage).next()
+      .atLine(8).withMessage(errorMessage).noMore();
+  }
+
+  @Test
   public void margin() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/margin.css"), check);
     errorMessage = "Update the invalid value of property \"margin\". Expected format: <margin-width>{1,4}";
@@ -893,12 +931,12 @@ public class ValidatePropertyValueCheckTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/shape-outside.css"), check);
     errorMessage = "Update the invalid value of property \"shape-outside\". Expected format: none | [<basic-shape> || <shape-box>] | <image>";
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(11).withMessage(errorMessage).next()
+      .atLine(12).withMessage(errorMessage).next()
+      .atLine(13).withMessage(errorMessage).next()
       .atLine(14).withMessage(errorMessage).next()
       .atLine(15).withMessage(errorMessage).next()
-      .atLine(16).withMessage(errorMessage).next()
-      .atLine(17).withMessage(errorMessage).next()
-      .atLine(18).withMessage(errorMessage).next()
-      .atLine(19).withMessage(errorMessage).noMore();
+      .atLine(16).withMessage(errorMessage).noMore();
   }
 
   @Test

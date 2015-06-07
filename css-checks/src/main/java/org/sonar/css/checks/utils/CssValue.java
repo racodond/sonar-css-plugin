@@ -20,15 +20,16 @@
 package org.sonar.css.checks.utils;
 
 import com.sonar.sslr.api.AstNode;
-import org.sonar.css.checks.utils.valueelements.Delimiter;
-import org.sonar.css.checks.utils.valueelements.Dimension;
-import org.sonar.css.checks.utils.valueelements.Function;
-import org.sonar.css.checks.utils.valueelements.Hash;
-import org.sonar.css.checks.utils.valueelements.Identifier;
-import org.sonar.css.checks.utils.valueelements.NotSupported;
-import org.sonar.css.checks.utils.valueelements.Number;
-import org.sonar.css.checks.utils.valueelements.Percentage;
-import org.sonar.css.checks.utils.valueelements.Uri;
+import org.sonar.css.checks.utils.valueelements.DelimiterValueElement;
+import org.sonar.css.checks.utils.valueelements.DimensionValueElement;
+import org.sonar.css.checks.utils.valueelements.FunctionValueElement;
+import org.sonar.css.checks.utils.valueelements.HashValueElement;
+import org.sonar.css.checks.utils.valueelements.IdentifierValueElement;
+import org.sonar.css.checks.utils.valueelements.NotSupportedValueElement;
+import org.sonar.css.checks.utils.valueelements.NumberValueElement;
+import org.sonar.css.checks.utils.valueelements.PercentageValueElement;
+import org.sonar.css.checks.utils.valueelements.StringValueElement;
+import org.sonar.css.checks.utils.valueelements.UriValueElement;
 import org.sonar.css.parser.CssGrammar;
 
 import javax.annotation.Nonnull;
@@ -57,30 +58,33 @@ public class CssValue {
 
   private CssValueElement convertAstNodeToCssValueElement(AstNode valueElementNode) {
     if (valueElementNode.is(CssGrammar.IDENT)) {
-      return new Identifier(valueElementNode);
+      return new IdentifierValueElement(valueElementNode);
     }
     if (valueElementNode.is(CssGrammar.FUNCTION)) {
-      return new Function(valueElementNode);
+      return new FunctionValueElement(valueElementNode);
     }
     if (valueElementNode.is(CssGrammar.NUMBER)) {
-      return new Number(valueElementNode);
+      return new NumberValueElement(valueElementNode);
     }
     if (valueElementNode.is(CssGrammar.PERCENTAGE)) {
-      return new Percentage(valueElementNode);
+      return new PercentageValueElement(valueElementNode);
     }
     if (valueElementNode.is(CssGrammar.URI)) {
-      return new Uri(valueElementNode);
+      return new UriValueElement(valueElementNode);
     }
     if (valueElementNode.is(CssGrammar.DIMENSION)) {
-      return new Dimension(valueElementNode);
+      return new DimensionValueElement(valueElementNode);
     }
     if (valueElementNode.is(CssGrammar.HASH)) {
-      return new Hash(valueElementNode);
+      return new HashValueElement(valueElementNode);
+    }
+    if (valueElementNode.is(CssGrammar.STRING)) {
+      return new StringValueElement(valueElementNode);
     }
     if (valueElementNode.is(CssGrammar.DELIM)) {
-      return new Delimiter(valueElementNode);
+      return new DelimiterValueElement(valueElementNode);
     }
-    return new NotSupported(valueElementNode);
+    return new NotSupportedValueElement(valueElementNode);
   }
 
   @Nonnull

@@ -17,37 +17,21 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.valueelement.numeric;
+package org.sonar.css.checks.utils.valueelements;
 
+import com.sonar.sslr.api.AstNode;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.utils.valueelements.PercentageValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
 
-import javax.annotation.Nonnull;
+public class DelimiterValueElement extends CssValueElement {
 
-public class PercentageValidator implements PropertyValueElementValidator {
+  private final String type;
 
-  private final boolean positiveOnly;
-
-  public PercentageValidator(boolean positiveOnly) {
-    this.positiveOnly = positiveOnly;
+  public DelimiterValueElement(AstNode delimiterNode) {
+    type = delimiterNode.getTokenValue();
   }
 
-  @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    if (cssValueElement instanceof PercentageValueElement) {
-      if (positiveOnly) {
-        return ((PercentageValueElement) cssValueElement).isPositive() ? true : false;
-      }
-      return true;
-    }
-    return false;
-  }
-
-  @Override
-  @Nonnull
-  public String getValidatorFormat() {
-    return positiveOnly ? "<percentage>(>=0)" : "<percentage>";
+  public String getType() {
+    return type;
   }
 
 }

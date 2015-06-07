@@ -20,11 +20,19 @@
 package org.sonar.css.checks.utils.valueelements;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.GenericTokenType;
 import org.sonar.css.checks.utils.CssValueElement;
 
-public class NotSupported extends CssValueElement {
+public class HashValueElement extends CssValueElement {
 
-  public NotSupported(AstNode notSupportedNode) {
+  private final String value;
+
+  public HashValueElement(AstNode hashNode) {
+    value = "#" + hashNode.getFirstChild(GenericTokenType.LITERAL).getTokenValue();
+  }
+
+  public String getValue() {
+    return value;
   }
 
 }

@@ -21,24 +21,17 @@ package org.sonar.css.checks.utils.valueelements;
 
 import com.sonar.sslr.api.AstNode;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.parser.CssGrammar;
 
-public class Dimension extends CssValueElement {
+public class IdentifierValueElement extends CssValueElement {
 
-  private final double value;
-  private final String unit;
+  private final String name;
 
-  public Dimension(AstNode dimensionNode) {
-    value = Double.valueOf(dimensionNode.getFirstChild(CssGrammar.NUMBER).getTokenValue());
-    unit = dimensionNode.getFirstChild(CssGrammar.unit).getTokenValue();
+  public IdentifierValueElement(AstNode identifierNode) {
+    name = identifierNode.getTokenValue();
   }
 
-  public String getUnit() {
-    return unit;
-  }
-
-  public boolean isPositive() {
-    return value >= 0;
+  public String getName() {
+    return name;
   }
 
 }

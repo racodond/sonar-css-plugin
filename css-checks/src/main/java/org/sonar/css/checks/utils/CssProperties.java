@@ -42,6 +42,7 @@ import org.sonar.css.checks.validators.property.animation.AnimationTimingFunctio
 import org.sonar.css.checks.validators.property.animation.AnimationValidator;
 import org.sonar.css.checks.validators.property.background.BackgroundAttachmentValidator;
 import org.sonar.css.checks.validators.property.background.BackgroundClipValidator;
+import org.sonar.css.checks.validators.property.background.BackgroundImageValidator;
 import org.sonar.css.checks.validators.property.background.BackgroundOriginValidator;
 import org.sonar.css.checks.validators.property.background.BackgroundRepeatValidator;
 import org.sonar.css.checks.validators.property.background.BackgroundSizeValidator;
@@ -56,12 +57,15 @@ import org.sonar.css.checks.validators.property.line.LineStackingRubyValidator;
 import org.sonar.css.checks.validators.property.line.LineStackingShiftValidator;
 import org.sonar.css.checks.validators.property.line.LineStackingStrategyValidator;
 import org.sonar.css.checks.validators.property.line.LineStackingValidator;
+import org.sonar.css.checks.validators.property.liststyle.ListStyleImageValidator;
+import org.sonar.css.checks.validators.property.liststyle.ListStylePositionValidator;
+import org.sonar.css.checks.validators.property.liststyle.ListStyleTypeValidator;
+import org.sonar.css.checks.validators.property.liststyle.ListStyleValidator;
 import org.sonar.css.checks.validators.valueelement.BorderStyleValidator;
 import org.sonar.css.checks.validators.valueelement.BorderWidthValidator;
 import org.sonar.css.checks.validators.valueelement.BoxValidator;
 import org.sonar.css.checks.validators.valueelement.CueValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
-import org.sonar.css.checks.validators.valueelement.ImageValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineColorValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineStyleValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineWidthValidator;
@@ -194,8 +198,7 @@ public final class CssProperties {
     )
 
     .put("background-image", new CssProperty("background-image")
-      .addValidator(PropertyValueValidatorFactory.getNoneValidator())
-      .addValidator(new ImageValidator())
+      .addValidator(new BackgroundImageValidator())
     )
 
     .put("background-origin", new CssProperty("background-origin")
@@ -898,22 +901,19 @@ public final class CssProperties {
     )
 
     .put("list-style", new CssProperty("list-style")
-
+      .addValidator(new ListStyleValidator())
     )
 
     .put("list-style-image", new CssProperty("list-style-image")
-      .addValidator(PropertyValueValidatorFactory.getNoneValidator())
-      .addValidator(PropertyValueValidatorFactory.getUriValidator())
+      .addValidator(new ListStyleImageValidator())
     )
 
     .put("list-style-position", new CssProperty("list-style-position")
-      .addValidator(new IdentifierValidator(ImmutableList.of("inside", "outside")))
+      .addValidator(new ListStylePositionValidator())
     )
 
     .put("list-style-type", new CssProperty("list-style-type")
-      .addValidator(new IdentifierValidator(ImmutableList
-        .of("disc", "circle", "square", "decimal", "decimal-leading-zero", "lower-roman", "upper-roman",
-          "lower-greek", "lower-latin", "upper-latin", "armenian", "georgian", "lower-alpha", "upper-alpha", "none")))
+      .addValidator(new ListStyleTypeValidator())
     )
 
     // M

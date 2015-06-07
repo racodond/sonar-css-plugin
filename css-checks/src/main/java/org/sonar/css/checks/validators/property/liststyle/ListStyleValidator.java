@@ -17,46 +17,34 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.property;
+package org.sonar.css.checks.validators.property.liststyle;
 
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.utils.valueelements.IdentifierValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
 import org.sonar.css.checks.validators.PropertyValueValidator;
-import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
 
 import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class CounterValidator implements PropertyValueValidator {
+public class ListStyleValidator implements PropertyValueValidator {
 
-  PropertyValueElementValidator integerValidator = PropertyValueValidatorFactory.getIntegerValidator();
-  PropertyValueElementValidator noneValidator = PropertyValueValidatorFactory.getNoneValidator();
+  ListStyleTypeValidator listStyleTypeValidator = new ListStyleTypeValidator();
+  ListStylePositionValidator listStylePositionValidator = new ListStylePositionValidator();
+  ListStyleImageValidator listStyleImageValidator = new ListStyleImageValidator();
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
     int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0) {
+    if (numberOfElements == 0 || numberOfElements > 3) {
       return false;
     }
-    for (int i = 0; i < valueElements.size(); i++) {
-      if (!(valueElements.get(i) instanceof IdentifierValueElement) && !(integerValidator.isValid(valueElements.get(i)))) {
+    for (CssValueElement valueElement : valueElements) {
+      if (!listStyleTypeValidator.isValid(valueElement)
+        && !listStylePositionValidator.isValid(valueElement)
+        && !listStyleImageValidator.isValid(valueElement)) {
         return false;
-      }
-      if (i == 0 && integerValidator.isValid(valueElements.get(i))) {
-        return false;
-      }
-      if (i > 0) {
-        if (noneValidator.isValid(valueElements.get(i))) {
-          return false;
-        }
-        if (integerValidator.isValid(valueElements.get(i)) &&
-          (!(valueElements.get(i - 1) instanceof IdentifierValueElement) || noneValidator.isValid(valueElements.get(i - 1)))) {
-          return false;
-        }
       }
     }
     return true;
@@ -65,7 +53,7 @@ public class CounterValidator implements PropertyValueValidator {
   @Nonnull
   @Override
   public String getValidatorFormat() {
-    return "[ <identifier> <integer>? ]+ | none";
+    return "<list-style-type> || <list-style-position> || <list-style-image>";
   }
 
 }

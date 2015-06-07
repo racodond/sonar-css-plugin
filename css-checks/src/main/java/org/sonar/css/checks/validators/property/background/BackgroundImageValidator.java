@@ -19,26 +19,23 @@
  */
 package org.sonar.css.checks.validators.property.background;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.DelimiterValueElement;
 import org.sonar.css.checks.validators.PropertyValueElementValidator;
 import org.sonar.css.checks.validators.PropertyValueValidator;
-import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
-import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
+import org.sonar.css.checks.validators.valueelement.ImageValidator;
+import org.sonar.css.checks.validators.valueelement.NoneValidator;
 
 import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BackgroundSizeValidator implements PropertyValueValidator {
+public class BackgroundImageValidator implements PropertyValueValidator {
 
-  PropertyValueElementValidator coverContainValidator = new IdentifierValidator(ImmutableList.of("cover", "contain"));
-  PropertyValueElementValidator autoValidator = PropertyValueValidatorFactory.getAutoValidator();
-  PropertyValueElementValidator positiveLengthValidator = PropertyValueValidatorFactory.getPositiveLengthValidator();
-  PropertyValueElementValidator positivePercentageValidator = PropertyValueValidatorFactory.getPositivePercentageValidator();
+  PropertyValueElementValidator noneValidator = new NoneValidator();
+  PropertyValueElementValidator imageValidator = new ImageValidator();
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
@@ -47,46 +44,46 @@ public class BackgroundSizeValidator implements PropertyValueValidator {
     if (numberOfElements == 0) {
       return false;
     }
-    for (CssValueElement valueElement : valueElements) {
-      if (valueElement instanceof DelimiterValueElement) {
-        if (!",".equals(((DelimiterValueElement) valueElement).getType())) {
+    for (int i = 0; i < valueElements.size(); i++) {
+      if (valueElements.get(i) instanceof DelimiterValueElement) {
+        if (!",".equals(((DelimiterValueElement) valueElements.get(i)).getType())) {
           return false;
         }
-      } else if (!coverContainValidator.isValid(valueElement)
-        && !autoValidator.isValid(valueElement)
-        && !positiveLengthValidator.isValid(valueElement)
-        && !positivePercentageValidator.isValid(valueElement)) {
+      } else if (noneValidator.isValid(valueElements.get(i)) && i != 0) {
+        return false;
+      }
+      else if (!imageValidator.isValid(valueElements.get(i)) && !noneValidator.isValid(valueElements.get(i))) {
         return false;
       }
     }
-    return checkRepeatStyleList(buildRepeatStyleList(value));
+    return checkRepeatStyleList(buildBackgroundImageList(value));
   }
 
   @Nonnull
   @Override
   public String getValidatorFormat() {
-    return "[ <length> | <percentage> | auto ]{1,2} | cover | contain [,  [ <length> | <percentage> | auto ]{1,2} | cover | contain ]*";
+    return "none | <image> [, <image>]*";
   }
 
-  private List<List<CssValueElement>> buildRepeatStyleList(CssValue cssValue) {
-    List<List<CssValueElement>> repeatStyleList = new ArrayList();
-    repeatStyleList.add(new ArrayList<CssValueElement>());
+  private List<List<CssValueElement>> buildBackgroundImageList(CssValue cssValue) {
+    List<List<CssValueElement>> backgroundImageList = new ArrayList();
+    backgroundImageList.add(new ArrayList<CssValueElement>());
     int listIndex = 0;
     for (CssValueElement valueElement : cssValue.getValueElements()) {
       if (valueElement instanceof DelimiterValueElement) {
-        repeatStyleList.add(new ArrayList<CssValueElement>());
+        backgroundImageList.add(new ArrayList<CssValueElement>());
         listIndex++;
       } else {
-        repeatStyleList.get(listIndex).add(valueElement);
+        backgroundImageList.get(listIndex).add(valueElement);
       }
+
     }
-    return repeatStyleList;
+    return backgroundImageList;
   }
 
   private boolean checkRepeatStyleList(List<List<CssValueElement>> repeatStyleList) {
     for (List<CssValueElement> elementList : repeatStyleList) {
-      if (elementList.size() == 0
-        || (elementList.size() == 2 && (coverContainValidator.isValid(elementList.get(0)) || coverContainValidator.isValid(elementList.get(1))))) {
+      if (elementList.size() != 1) {
         return false;
       }
     }

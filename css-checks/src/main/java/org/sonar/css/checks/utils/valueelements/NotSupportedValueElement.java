@@ -20,25 +20,11 @@
 package org.sonar.css.checks.utils.valueelements;
 
 import com.sonar.sslr.api.AstNode;
-import org.sonar.css.checks.utils.CssFunctions;
 import org.sonar.css.checks.utils.CssValueElement;
 
-public class Function extends CssValueElement {
+public class NotSupportedValueElement extends CssValueElement {
 
-  private final String name;
-  private final String nameWithoutVendorPrefix;
-
-  public Function(AstNode functionNode) {
-    name = functionNode.getTokenValue().toLowerCase();
-    nameWithoutVendorPrefix = CssFunctions.getFunctionNameWithoutVendorPrefix(name);
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public String getNameWithoutVendorPrefix() {
-    return nameWithoutVendorPrefix;
+  public NotSupportedValueElement(AstNode notSupportedNode) {
   }
 
 }

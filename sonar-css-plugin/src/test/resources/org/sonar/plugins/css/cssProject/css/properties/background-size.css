@@ -27,4 +27,7 @@
   background-size: abc abc; /* Noncompliant */
   background-size: abc abc, abc; /* Noncompliant */
   background-size: cover / contain; /* Noncompliant */
+  background-size: cover !important;
+  background-size: cover, 10px 12% !important;
+  background-size: !important cover, 10px 12%;
 }

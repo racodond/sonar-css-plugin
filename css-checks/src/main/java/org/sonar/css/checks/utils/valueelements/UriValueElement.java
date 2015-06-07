@@ -17,25 +17,14 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.valueelement;
+package org.sonar.css.checks.utils.valueelements;
 
+import com.sonar.sslr.api.AstNode;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.utils.valueelements.HashValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
 
-import javax.annotation.Nonnull;
+public class UriValueElement extends CssValueElement {
 
-public class HashValidator implements PropertyValueElementValidator {
-
-  @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    return cssValueElement instanceof HashValueElement && ((HashValueElement) cssValueElement).getValue().matches("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
-  }
-
-  @Override
-  @Nonnull
-  public String getValidatorFormat() {
-    return "";
+  public UriValueElement(AstNode numberNode) {
   }
 
 }

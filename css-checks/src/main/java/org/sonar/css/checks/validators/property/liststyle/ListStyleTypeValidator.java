@@ -17,21 +17,25 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.utils.valueelements;
+package org.sonar.css.checks.validators.property.liststyle;
 
-import com.sonar.sslr.api.AstNode;
-import org.sonar.css.checks.utils.CssValueElement;
+import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
+import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
+import org.sonar.css.checks.validators.valueelement.StringValidator;
 
-public class Percentage extends CssValueElement {
+import javax.annotation.Nonnull;
 
-  private final double value;
+public class ListStyleTypeValidator extends MultiPropertyValueElementValidator {
 
-  public Percentage(AstNode numberNode) {
-    value = Double.valueOf(numberNode.getTokenValue());
+  public ListStyleTypeValidator() {
+    super(ImmutableList.of(new StringValidator(), new IdentifierValidator()));
   }
 
-  public boolean isPositive() {
-    return value >= 0;
+  @Override
+  @Nonnull
+  public String getValidatorFormat() {
+    return "<counter-style> | <string> | none";
   }
 
 }
