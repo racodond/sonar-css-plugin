@@ -27,7 +27,7 @@ public class CssPropertiesTest {
 
   @Test
   public void number_of_vendors() {
-    assertThat(Vendors.VENDORS.size()).isEqualTo(17);
+    assertThat(Vendors.VENDORS.size()).isEqualTo(18);
   }
 
   @Test
