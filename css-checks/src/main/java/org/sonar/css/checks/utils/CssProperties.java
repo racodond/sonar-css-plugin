@@ -62,8 +62,10 @@ import org.sonar.css.checks.validators.valueelement.ImageValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineColorValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineStyleValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineWidthValidator;
+import org.sonar.css.checks.validators.valueelement.dimension.LengthValidator;
 import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
 import org.sonar.css.checks.validators.valueelement.numeric.NumberRangeValidator;
+import org.sonar.css.checks.validators.valueelement.numeric.PercentageValidator;
 
 import java.util.Map;
 
@@ -1239,6 +1241,11 @@ public final class CssProperties {
     // S
     .put("shape-image-threshold", new CssProperty("shape-image-threshold")
       .addValidator(new NumberRangeValidator(0.0, 1.0))
+    )
+
+    .put("shape-margin", new CssProperty("shape-margin")
+      .addValidator(new LengthValidator(false))
+      .addValidator(new PercentageValidator(false))
     )
 
     .put("shape-outside", new CssProperty("shape-outside")

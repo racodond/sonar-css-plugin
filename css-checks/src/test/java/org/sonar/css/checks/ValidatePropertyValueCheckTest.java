@@ -829,6 +829,15 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void shape_margin() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/shape-margin.css"), check);
+    errorMessage = "Update the invalid value of property \"shape-margin\". Expected format: <length> | <percentage>";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(5).withMessage(errorMessage).next()
+      .atLine(6).withMessage(errorMessage).noMore();
+  }
+
+  @Test
   public void shape_outside() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/shape-outside.css"), check);
     errorMessage = "Update the invalid value of property \"shape-outside\". Expected format: none | [<basic-shape> || <shape-box>] | <image>";
