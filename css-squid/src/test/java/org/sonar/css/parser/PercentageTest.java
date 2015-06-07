@@ -17,22 +17,42 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.utils;
+package org.sonar.css.parser;
 
 import org.junit.Test;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
-public class CssPropertiesTest {
+public class PercentageTest extends TestBase {
+
+  private LexerlessGrammar b = CssGrammar.createGrammar();
 
   @Test
-  public void number_of_vendors() {
-    assertThat(Vendors.VENDORS.size()).isEqualTo(18);
+  public void should_be_percentages() {
+    assertThat(b.rule(CssGrammar.PERCENTAGE))
+      .matches("10%")
+      .matches("-10%")
+      .matches("+10%")
+      .matches("10.5%")
+      .matches("-10.5%")
+      .matches("+10.5%")
+      .matches("0%")
+      .matches("0.0%")
+      .matches("-0.0%")
+      .matches("+0.0%")
+      .matches(".0%")
+      .matches(".5%")
+      .matches("-.5%")
+      .matches("+.5%");
   }
 
   @Test
-  public void number_of_properties() {
-    assertThat(CssProperties.PROPERTIES.size()).isEqualTo(311);
+  public void should_not_be_percentages() {
+    assertThat(b.rule(CssGrammar.DIMENSION))
+      .notMatches("10abc")
+      .notMatches("10 %")
+      .notMatches("10.5 %");
   }
 
 }

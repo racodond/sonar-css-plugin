@@ -50,3 +50,7 @@
   border-bottom: dotted -10px green; /* Noncompliant */
 }
 
+.mybox {
+  border-bottom: 0 solid #AAA;
+}
+

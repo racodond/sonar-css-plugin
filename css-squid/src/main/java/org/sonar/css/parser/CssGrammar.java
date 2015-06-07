@@ -248,8 +248,8 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(STRING).is(addSpacing(_STRING, b));
     b.rule(HASH).is(addSpacing(b.sequence("#", _NAME), b));
     b.rule(NUMBER).is(addSpacing(_NUM, b));
-    b.rule(PERCENTAGE).is(addSpacing(b.sequence(NUMBER, "%"), b));
-    b.rule(DIMENSION).is(addSpacing(b.sequence(NUMBER, unit), b));
+    b.rule(PERCENTAGE).is(addSpacing(b.sequence(_NUM, "%"), b));
+    b.rule(DIMENSION).is(addSpacing(b.sequence(_NUM, unit), b));
     b.rule(unit).is(b.firstOf(
       matchCaseInsensitive(b, "em"),
       matchCaseInsensitive(b, "ex"),
@@ -276,7 +276,7 @@ public enum CssGrammar implements GrammarRuleKey {
       matchCaseInsensitive(b, "dpi"),
       matchCaseInsensitive(b, "dpcm"),
       matchCaseInsensitive(b, "dppx"))
-    );
+      );
     b.rule(URI).is(
       addSpacing(
         b.sequence(matchCaseInsensitive(b, "url\\("), _URI_CONTENT, CLOSE_PARENTHESIS), b));
@@ -288,7 +288,7 @@ public enum CssGrammar implements GrammarRuleKey {
             b.regexp("[!#$%&*-\\[\\]-~]+"),
             _NONASCII,
             _ESCAPE))
-      ), _W));
+        ), _W));
     b.rule(UNICODE_RANGE)
       .is(addSpacing(b.regexp("u\\+[0-9a-f?]{1,6}(-[0-9a-f]{1,6})?"), b));
     b.rule(COLON).is(addSpacing(":", b));
