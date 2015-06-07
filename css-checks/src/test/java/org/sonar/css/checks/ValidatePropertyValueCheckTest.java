@@ -222,6 +222,23 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void background_size() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/background-size.css"), check);
+    errorMessage = "Update the invalid value of property \"background-size\". Expected format: [ <length> | <percentage> | auto ]{1,2} | cover | contain [,  [ <length> | <percentage> | auto ]{1,2} | cover | contain ]*";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(19).withMessage(errorMessage).next()
+      .atLine(20).withMessage(errorMessage).next()
+      .atLine(21).withMessage(errorMessage).next()
+      .atLine(22).withMessage(errorMessage).next()
+      .atLine(23).withMessage(errorMessage).next()
+      .atLine(24).withMessage(errorMessage).next()
+      .atLine(25).withMessage(errorMessage).next()
+      .atLine(26).withMessage(errorMessage).next()
+      .atLine(27).withMessage(errorMessage).next()
+      .atLine(28).withMessage(errorMessage).noMore();
+  }
+
+  @Test
   public void baseline_shift() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/baseline-shift.css"), check);
     errorMessage = "Update the invalid value of property \"baseline-shift\". Expected format: baseline | sub | super | <length> | <percentage>";

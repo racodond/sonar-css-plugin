@@ -23,7 +23,9 @@ import com.google.common.collect.ImmutableList;
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.Delimiter;
+import org.sonar.css.checks.validators.PropertyValueElementValidator;
 import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 
 import javax.annotation.Nonnull;
@@ -31,10 +33,12 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BackgroundRepeatValidator implements PropertyValueValidator {
+public class BackgroundSizeValidator implements PropertyValueValidator {
 
-  IdentifierValidator repeatXYValidator = new IdentifierValidator(ImmutableList.of("repeat-x", "repeat-y"));
-  IdentifierValidator repeatOthersValidator = new IdentifierValidator(ImmutableList.of("repeat", "space", "round", "no-repeat"));
+  PropertyValueElementValidator coverContainValidator = new IdentifierValidator(ImmutableList.of("cover", "contain"));
+  PropertyValueElementValidator autoValidator = PropertyValueValidatorFactory.getAutoValidator();
+  PropertyValueElementValidator positiveLengthValidator = PropertyValueValidatorFactory.getPositiveLengthValidator();
+  PropertyValueElementValidator positivePercentageValidator = PropertyValueValidatorFactory.getPositivePercentageValidator();
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
@@ -48,7 +52,10 @@ public class BackgroundRepeatValidator implements PropertyValueValidator {
         if (!",".equals(((Delimiter) valueElement).getType())) {
           return false;
         }
-      } else if (!repeatXYValidator.isValid(valueElement) && !repeatOthersValidator.isValid(valueElement)) {
+      } else if (!coverContainValidator.isValid(valueElement)
+        && !autoValidator.isValid(valueElement)
+        && !positiveLengthValidator.isValid(valueElement)
+        && !positivePercentageValidator.isValid(valueElement)) {
         return false;
       }
     }
@@ -58,7 +65,7 @@ public class BackgroundRepeatValidator implements PropertyValueValidator {
   @Nonnull
   @Override
   public String getValidatorFormat() {
-    return "repeat-x | repeat-y | [repeat | space | round | no-repeat]{1,2} [, repeat-x | repeat-y | [repeat | space | round | no-repeat]{1,2}]*";
+    return "[ <length> | <percentage> | auto ]{1,2} | cover | contain [,  [ <length> | <percentage> | auto ]{1,2} | cover | contain ]*";
   }
 
   private List<List<CssValueElement>> buildRepeatStyleList(CssValue cssValue) {
@@ -72,7 +79,6 @@ public class BackgroundRepeatValidator implements PropertyValueValidator {
       } else {
         repeatStyleList.get(listIndex).add(valueElement);
       }
-
     }
     return repeatStyleList;
   }
@@ -80,7 +86,7 @@ public class BackgroundRepeatValidator implements PropertyValueValidator {
   private boolean checkRepeatStyleList(List<List<CssValueElement>> repeatStyleList) {
     for (List<CssValueElement> elementList : repeatStyleList) {
       if (elementList.size() == 0
-        || (elementList.size() == 2 && (repeatXYValidator.isValid(elementList.get(0)) || repeatXYValidator.isValid(elementList.get(1))))) {
+        || (elementList.size() == 2 && (coverContainValidator.isValid(elementList.get(0)) || coverContainValidator.isValid(elementList.get(1))))) {
         return false;
       }
     }

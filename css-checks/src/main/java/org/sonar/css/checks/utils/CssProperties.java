@@ -43,6 +43,7 @@ import org.sonar.css.checks.validators.property.background.BackgroundAttachmentV
 import org.sonar.css.checks.validators.property.background.BackgroundClipValidator;
 import org.sonar.css.checks.validators.property.background.BackgroundOriginValidator;
 import org.sonar.css.checks.validators.property.background.BackgroundRepeatValidator;
+import org.sonar.css.checks.validators.property.background.BackgroundSizeValidator;
 import org.sonar.css.checks.validators.property.border.BorderColorValidator;
 import org.sonar.css.checks.validators.property.border.BorderRadiusPropertyValidator;
 import org.sonar.css.checks.validators.property.border.BorderRadiusValidator;
@@ -208,6 +209,7 @@ public final class CssProperties {
     )
 
     .put("background-size", new CssProperty("background-size")
+      .addValidator(new BackgroundSizeValidator())
     )
 
     .put("baseline-shift", new CssProperty("baseline-shift")
