@@ -28,6 +28,7 @@ public class Vendors {
     "-apple-",
     "-atsc-",
     "-epub-",
+    "-fx-",
     "-hp-",
     "-icab-",
     "-khtml-",
