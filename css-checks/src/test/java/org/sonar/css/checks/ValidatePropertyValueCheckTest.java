@@ -819,6 +819,16 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void tab_size() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/tab-size.css"), check);
+    errorMessage = "Update the invalid value of property \"tab-size\". Expected format: <length>(>=0) | <integer>(>=0)";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(7).withMessage(errorMessage).next()
+      .atLine(8).withMessage(errorMessage).next()
+      .atLine(9).withMessage(errorMessage).noMore();
+  }
+
+  @Test
   public void text_height() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/text-height.css"), check);
     errorMessage = "Update the invalid value of property \"text-height\". Expected format: auto | font-size | text-size | max-size";

@@ -1281,7 +1281,8 @@ public final class CssProperties {
     .put("tab-size", new CssProperty("tab-size")
       .addVendor("-moz-")
       .addVendor("-o-")
-
+      .addValidator(PropertyValueValidatorFactory.getPositiveLengthValidator())
+      .addValidator(PropertyValueValidatorFactory.getPositiveIntegerValidator())
     )
 
     .put("target", new CssProperty("target")
