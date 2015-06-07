@@ -1237,6 +1237,10 @@ public final class CssProperties {
     )
 
     // S
+    .put("shape-image-threshold", new CssProperty("shape-image-threshold")
+      .addValidator(new NumberRangeValidator(0.0, 1.0))
+    )
+
     .put("shape-outside", new CssProperty("shape-outside")
       .addValidator(new ShapeOutsideValidator())
     )

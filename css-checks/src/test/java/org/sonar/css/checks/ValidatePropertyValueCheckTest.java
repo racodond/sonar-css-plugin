@@ -819,6 +819,16 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void shape_image_threshold() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/shape-image-threshold.css"), check);
+    errorMessage = "Update the invalid value of property \"shape-image-threshold\". Expected format: <number>(0.0,1.0)";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(8).withMessage(errorMessage).next()
+      .atLine(9).withMessage(errorMessage).next()
+      .atLine(10).withMessage(errorMessage).noMore();
+  }
+
+  @Test
   public void shape_outside() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/shape-outside.css"), check);
     errorMessage = "Update the invalid value of property \"shape-outside\". Expected format: none | [<basic-shape> || <shape-box>] | <image>";
