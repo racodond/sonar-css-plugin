@@ -25,8 +25,8 @@ import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
 public class BorderStyleValidator extends MultiPropertyValueElementValidator {
 
   public BorderStyleValidator() {
-    getValidators().add(new IdentifierValidator(
-      ImmutableList.of("none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset")));
+    super(ImmutableList.of(new IdentifierValidator(
+      ImmutableList.of("none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset"))));
   }
 
 }

@@ -17,30 +17,40 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.property.animation;
+package org.sonar.css.checks.validators.valueelement.function;
 
 import com.google.common.collect.ImmutableList;
 import org.sonar.css.checks.utils.CssValueElement;
+import org.sonar.css.checks.utils.valueelements.Function;
 import org.sonar.css.checks.validators.PropertyValueElementValidator;
-import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
-import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 
 import javax.annotation.Nonnull;
 
-public class AnimationTimingFunctionValidator implements PropertyValueElementValidator {
+public class FunctionValidator implements PropertyValueElementValidator {
 
-  IdentifierValidator identifierValidator = new IdentifierValidator(ImmutableList.of("ease", "linear", "ease-in", "ease-out", "ease-in-out", "step-start", "step-end"));
-  FunctionValidator functionValidator = new FunctionValidator(ImmutableList.of("steps", "cubic-bezier"));
+  private final ImmutableList<String> allowedFunctions;
+
+  public FunctionValidator(ImmutableList<String> allowedFunctions) {
+    this.allowedFunctions = allowedFunctions;
+  }
 
   @Override
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    return identifierValidator.isValid(cssValueElement) || functionValidator.isValid(cssValueElement);
+    return cssValueElement instanceof Function && allowedFunctions.contains(((Function) cssValueElement).getNameWithoutVendorPrefix());
   }
 
-  @Nonnull
   @Override
+  @Nonnull
   public String getValidatorFormat() {
-    return identifierValidator.getValidatorFormat() + " | " + functionValidator.getValidatorFormat();
+    StringBuilder format = new StringBuilder("<function>(");
+    for (String allowedValue : allowedFunctions) {
+      if (format.length() > 11) {
+        format.append(" | ");
+      }
+      format.append(allowedValue);
+    }
+    format.append(")");
+    return format.toString();
   }
 
 }

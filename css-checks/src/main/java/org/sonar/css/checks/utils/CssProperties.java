@@ -29,6 +29,7 @@ import org.sonar.css.checks.validators.property.MarginValidator;
 import org.sonar.css.checks.validators.property.OutlineValidator;
 import org.sonar.css.checks.validators.property.PaddingValidator;
 import org.sonar.css.checks.validators.property.PausePropertyValidator;
+import org.sonar.css.checks.validators.property.ShapeOutsideValidator;
 import org.sonar.css.checks.validators.property.animation.AnimationDelayValidator;
 import org.sonar.css.checks.validators.property.animation.AnimationDirectionValidator;
 import org.sonar.css.checks.validators.property.animation.AnimationDurationValidator;
@@ -54,13 +55,14 @@ import org.sonar.css.checks.validators.property.line.LineStackingStrategyValidat
 import org.sonar.css.checks.validators.property.line.LineStackingValidator;
 import org.sonar.css.checks.validators.valueelement.BorderStyleValidator;
 import org.sonar.css.checks.validators.valueelement.BorderWidthValidator;
+import org.sonar.css.checks.validators.valueelement.BoxValidator;
 import org.sonar.css.checks.validators.valueelement.CueValidator;
-import org.sonar.css.checks.validators.valueelement.FunctionValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 import org.sonar.css.checks.validators.valueelement.ImageValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineColorValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineStyleValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineWidthValidator;
+import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
 import org.sonar.css.checks.validators.valueelement.numeric.NumberRangeValidator;
 
 import java.util.Map;
@@ -493,7 +495,7 @@ public final class CssProperties {
     .put("box-sizing", new CssProperty("box-sizing")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-      .addValidator(new IdentifierValidator(ImmutableList.of("content-box", "padding-box", "border-box")))
+      .addValidator(new BoxValidator())
     )
 
     .put("break-after", new CssProperty("break-after")
@@ -1235,6 +1237,10 @@ public final class CssProperties {
     )
 
     // S
+    .put("shape-outside", new CssProperty("shape-outside")
+      .addValidator(new ShapeOutsideValidator())
+    )
+
     .put("size", new CssProperty("size")
 
     )

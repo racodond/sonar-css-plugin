@@ -388,7 +388,7 @@ public class ValidatePropertyValueCheckTest {
   @Test
   public void box_sizing() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/box-sizing.css"), check);
-    errorMessage = "Update the invalid value of property \"box-sizing\". Expected format: content-box | padding-box | border-box";
+    errorMessage = "Update the invalid value of property \"box-sizing\". Expected format: <box>";
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(6).withMessage(errorMessage).next()
       .atLine(7).withMessage(errorMessage).noMore();
@@ -816,6 +816,19 @@ public class ValidatePropertyValueCheckTest {
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(7).withMessage(errorMessage).next()
       .atLine(8).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void shape_outside() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/shape-outside.css"), check);
+    errorMessage = "Update the invalid value of property \"shape-outside\". Expected format: none | [<basic-shape> || <shape-box>] | <image>";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(14).withMessage(errorMessage).next()
+      .atLine(15).withMessage(errorMessage).next()
+      .atLine(16).withMessage(errorMessage).next()
+      .atLine(17).withMessage(errorMessage).next()
+      .atLine(18).withMessage(errorMessage).next()
+      .atLine(19).withMessage(errorMessage).noMore();
   }
 
   @Test

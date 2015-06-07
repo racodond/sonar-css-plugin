@@ -24,7 +24,7 @@ import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.Dimension;
 import org.sonar.css.checks.utils.valueelements.Number;
 import org.sonar.css.checks.validators.PropertyValueElementValidator;
-import org.sonar.css.checks.validators.valueelement.FunctionValidator;
+import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
 
 import javax.annotation.Nonnull;
 

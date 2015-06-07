@@ -20,37 +20,19 @@
 package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.utils.valueelements.Function;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
-
 import javax.annotation.Nonnull;
+import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
 
-public class FunctionValidator implements PropertyValueElementValidator {
+public class ShapeBoxValidator extends MultiPropertyValueElementValidator {
 
-  private final ImmutableList<String> allowedFunctions;
-
-  public FunctionValidator(ImmutableList<String> allowedFunctions) {
-    this.allowedFunctions = allowedFunctions;
-  }
-
-  @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    return cssValueElement instanceof Function && allowedFunctions.contains(((Function) cssValueElement).getNameWithoutVendorPrefix());
+  public ShapeBoxValidator() {
+    super(ImmutableList.of(new BoxValidator(), new IdentifierValidator(ImmutableList.of("margin-box"))));
   }
 
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    StringBuilder format = new StringBuilder("<function>(");
-    for (String allowedValue : allowedFunctions) {
-      if (format.length() > 11) {
-        format.append(" | ");
-      }
-      format.append(allowedValue);
-    }
-    format.append(")");
-    return format.toString();
+    return "<shape-box>";
   }
 
 }

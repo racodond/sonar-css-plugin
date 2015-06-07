@@ -17,26 +17,14 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.valueelement;
+package org.sonar.css.checks.validators.valueelement.function;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.ValueElementListPropertyValueValidator;
-import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
 
-import javax.annotation.Nonnull;
+public class BasicShapeValidator extends FunctionValidator {
 
-public class ImageValidator extends ValueElementListPropertyValueValidator {
-
-  public ImageValidator() {
-    super(ImmutableList.of(new UriValidator(), new FunctionValidator(ImmutableList
-      .of("image", "image-set", "cross-fade", "element", "linear-gradient", "radial-gradient", "repeating-linear-gradient",
-        "repeating-radial-gradient"))));
-  }
-
-  @Nonnull
-  @Override
-  public String getValidatorFormat() {
-    return "<image> [, <image>]*";
+  public BasicShapeValidator() {
+    super(ImmutableList.of("inset", "circle", "ellipse", "polygon"));
   }
 
 }
