@@ -33,7 +33,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "validate-property-value",
-  name = "Property value should comply to CSS specifications",
+  name = "Property value should be valid",
   priority = Priority.CRITICAL,
   tags = {Tags.BUG})
 @ActivatedByDefault

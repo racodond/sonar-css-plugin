@@ -22,4 +22,5 @@
   background-repeat: abc; /* Noncompliant */
   background-repeat: abc abc; /* Noncompliant */
   background-repeat: abc abc, abc; /* Noncompliant */
+  background-repeat: repeat / size; /* Noncompliant */
 }

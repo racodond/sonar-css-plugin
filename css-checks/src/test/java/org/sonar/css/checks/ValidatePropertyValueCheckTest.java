@@ -218,7 +218,8 @@ public class ValidatePropertyValueCheckTest {
       .atLine(21).withMessage(errorMessage).next()
       .atLine(22).withMessage(errorMessage).next()
       .atLine(23).withMessage(errorMessage).next()
-      .atLine(24).withMessage(errorMessage).noMore();
+      .atLine(24).withMessage(errorMessage).next()
+      .atLine(25).withMessage(errorMessage).noMore();
   }
 
   @Test
@@ -235,7 +236,8 @@ public class ValidatePropertyValueCheckTest {
       .atLine(25).withMessage(errorMessage).next()
       .atLine(26).withMessage(errorMessage).next()
       .atLine(27).withMessage(errorMessage).next()
-      .atLine(28).withMessage(errorMessage).noMore();
+      .atLine(28).withMessage(errorMessage).next()
+      .atLine(29).withMessage(errorMessage).noMore();
   }
 
   @Test
