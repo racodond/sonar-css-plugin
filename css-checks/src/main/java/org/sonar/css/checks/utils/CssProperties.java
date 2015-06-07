@@ -1321,7 +1321,7 @@ public final class CssProperties {
     )
 
     .put("text-justify", new CssProperty("text-justify")
-
+      .addValidator(new IdentifierValidator(ImmutableList.of("auto", "none", "inter-word", "inter-character")))
     )
     .put("text-outline", new CssProperty("text-outline")
 
