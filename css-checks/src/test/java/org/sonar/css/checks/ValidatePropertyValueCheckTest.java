@@ -239,7 +239,7 @@ public class ValidatePropertyValueCheckTest {
   @Test
   public void border_color() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/border-color.css"), check);
-    errorMessage = "Update the invalid value of property \"border-color\". Expected format: [ <color> | transparent | currentColor ]{1,4}";
+    errorMessage = "Update the invalid value of property \"border-color\". Expected format: <color>{1,4}";
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(7).withMessage(errorMessage).next()
       .atLine(12).withMessage(errorMessage).noMore();
@@ -248,10 +248,10 @@ public class ValidatePropertyValueCheckTest {
   @Test
   public void border_xxx_color() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/border-xxx-color.css"), check);
-    String errorMessageTop = "Update the invalid value of property \"border-top-color\". Expected format: <color> | transparent | currentColor";
-    String errorMessageRight = "Update the invalid value of property \"border-right-color\". Expected format: <color> | transparent | currentColor";
-    String errorMessageLeft = "Update the invalid value of property \"border-left-color\". Expected format: <color> | transparent | currentColor";
-    String errorMessageBottom = "Update the invalid value of property \"border-bottom-color\". Expected format: <color> | transparent | currentColor";
+    String errorMessageTop = "Update the invalid value of property \"border-top-color\". Expected format: <color>";
+    String errorMessageRight = "Update the invalid value of property \"border-right-color\". Expected format: <color>";
+    String errorMessageLeft = "Update the invalid value of property \"border-left-color\". Expected format: <color>";
+    String errorMessageBottom = "Update the invalid value of property \"border-bottom-color\". Expected format: <color>";
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(5).withMessage(errorMessageTop).next()
       .atLine(6).withMessage(errorMessageTop).next()
@@ -397,7 +397,7 @@ public class ValidatePropertyValueCheckTest {
   @Test
   public void caret_color() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/caret-color.css"), check);
-    errorMessage = "Update the invalid value of property \"caret-color\". Expected format: auto | <color> | transparent | currentColor";
+    errorMessage = "Update the invalid value of property \"caret-color\". Expected format: auto | <color>";
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(9).withMessage(errorMessage).next()
       .atLine(10).withMessage(errorMessage).next()
@@ -417,7 +417,7 @@ public class ValidatePropertyValueCheckTest {
   @Test
   public void color() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/color.css"), check);
-    errorMessage = "Update the invalid value of property \"color\". Expected format: <color> | transparent | currentColor";
+    errorMessage = "Update the invalid value of property \"color\". Expected format: <color>";
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(9).withMessage(errorMessage).next()
       .atLine(10).withMessage(errorMessage).next()
@@ -697,7 +697,7 @@ public class ValidatePropertyValueCheckTest {
   @Test
   public void outline_color() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/outline-color.css"), check);
-    errorMessage = "Update the invalid value of property \"outline-color\". Expected format: <color> | transparent | currentColor | invert";
+    errorMessage = "Update the invalid value of property \"outline-color\". Expected format: <color> | invert";
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(5).withMessage(errorMessage).next()
       .atLine(6).withMessage(errorMessage).noMore();

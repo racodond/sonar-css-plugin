@@ -41,7 +41,7 @@ public class ColorValidator implements PropertyValueElementValidator {
   @Nonnull
   @Override
   public String getValidatorFormat() {
-    return "<color> | transparent | currentColor";
+    return "<color>";
   }
 
 }
