@@ -79,4 +79,12 @@ public class DimensionTest extends TestBase {
       .notMatches("12.4");
   }
 
+  @Test
+  public void should_not_be_dimensions() {
+    assertThat(b.rule(CssGrammar.DIMENSION))
+      .notMatches("10abc")
+      .notMatches("10 px")
+      .notMatches("10.5 px");
+  }
+
 }

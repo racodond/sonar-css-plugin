@@ -19,8 +19,8 @@
  */
 package org.sonar.css.checks;
 
+import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.api.GenericTokenType;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -31,30 +31,32 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-/**
- * https://github.com/stubbornella/csslint/wiki/Disallow-units-for-zero-values
- * @author tkende
- *
- */
 @Rule(
-  key = "zero-units",
-  name = "Units for zero values should be removed",
+  key = "obsolete-properties",
+  name = "Obsolete properties should not be used",
   priority = Priority.MAJOR,
-  tags = {Tags.CONVENTION, Tags.PERFORMANCE})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
-@SqaleConstantRemediation("2min")
+  tags = {Tags.BROWSER_COMPATIBILITY})
 @ActivatedByDefault
-public class DisallowUnitsForZeroValues extends SquidCheck<LexerlessGrammar> {
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LANGUAGE_RELATED_PORTABILITY)
+@SqaleConstantRemediation("10min")
+public class ObsoletePropertiesCheck extends SquidCheck<LexerlessGrammar> {
+
+  private final ImmutableList<String> obsoleteProperties = ImmutableList.of("azimuth", "clip");
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.DIMENSION, CssGrammar.PERCENTAGE);
+    subscribeTo(CssGrammar.PROPERTY);
   }
 
   @Override
-  public void visitNode(AstNode astNode) {
-    if ("0".equals(astNode.getFirstChild(GenericTokenType.LITERAL).getTokenValue()) && !astNode.hasAncestor(CssGrammar.FUNCTION)) {
-      getContext().createLineViolation(this, "Remove the unit for this zero value", astNode);
+  public void leaveNode(AstNode astNode) {
+    if (obsoleteProperties.contains(astNode.getTokenValue().toLowerCase())) {
+      getContext().createLineViolation(
+        this,
+        "Remove the obsolete \"{0}\" property.",
+        astNode,
+        astNode.getTokenValue()
+        );
     }
   }
 

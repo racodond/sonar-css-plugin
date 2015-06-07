@@ -267,8 +267,8 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(BAD_COMMENT).is(_BAD_COMMENT); // TODO: do we need this?
     b.rule(HASH).is(addSpacing(b.sequence("#", _NAME), b));
     b.rule(NUMBER).is(addSpacing(_NUM, b));
-    b.rule(PERCENTAGE).is(addSpacing(b.sequence(NUMBER, "%"), b));
-    b.rule(DIMENSION).is(addSpacing(b.sequence(NUMBER, unit), b));
+    b.rule(PERCENTAGE).is(addSpacing(b.sequence(_NUM, "%"), b));
+    b.rule(DIMENSION).is(addSpacing(b.sequence(_NUM, unit), b));
     b.rule(unit).is(b.firstOf("em", "ex", "ch", "rem", "vw", "vh", "vmin", "vmax", "cm", "mm", "in", "px", "pt", "pc", "ms", "s", "Hz", "kHz", "deg", "grad", "rad", "turn", "dpi", "dpcm", "dppx"));
     b.rule(URI).is(
       addSpacing(

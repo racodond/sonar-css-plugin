@@ -20,6 +20,7 @@
 package org.sonar.css.checks.utils.valueelements;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.GenericTokenType;
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.parser.CssGrammar;
 
@@ -29,7 +30,7 @@ public class Dimension extends CssValueElement {
   private final String unit;
 
   public Dimension(AstNode dimensionNode) {
-    value = Double.valueOf(dimensionNode.getFirstChild(CssGrammar.NUMBER).getTokenValue());
+    value = Double.valueOf(dimensionNode.getFirstChild(GenericTokenType.LITERAL).getTokenValue());
     unit = dimensionNode.getFirstChild(CssGrammar.unit).getTokenValue();
   }
 

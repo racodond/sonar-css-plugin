@@ -62,7 +62,10 @@ public class PercentageTest extends TestBase {
       .notMatches("-a")
       .notMatches("abc")
       .notMatches("12")
-      .notMatches("12px");
+      .notMatches("12px")
+      .notMatches("10abc")
+      .notMatches("10 %")
+      .notMatches("10.5 %");
   }
 
 }
