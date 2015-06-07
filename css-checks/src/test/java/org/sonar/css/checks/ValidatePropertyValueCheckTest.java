@@ -461,6 +461,22 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void counter_xxx() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/counter-xxx.css"), check);
+    String errorMessageIncrement = "Update the invalid value of property \"counter-increment\". Expected format: [ <identifier> <integer>? ]+ | none";
+    String errorMessageReset = "Update the invalid value of property \"counter-reset\". Expected format: [ <identifier> <integer>? ]+ | none";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(10).withMessage(errorMessageIncrement).next()
+      .atLine(11).withMessage(errorMessageIncrement).next()
+      .atLine(12).withMessage(errorMessageIncrement).next()
+      .atLine(13).withMessage(errorMessageIncrement).next()
+      .atLine(25).withMessage(errorMessageReset).next()
+      .atLine(26).withMessage(errorMessageReset).next()
+      .atLine(27).withMessage(errorMessageReset).next()
+      .atLine(28).withMessage(errorMessageReset).noMore();
+  }
+
+  @Test
   public void cue_xxx() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/cue-xxx.css"), check);
     String errorMessageAfter = "Update the invalid value of property \"cue-after\". Expected format: <uri> | none";

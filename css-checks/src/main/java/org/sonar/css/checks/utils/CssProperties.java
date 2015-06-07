@@ -22,6 +22,7 @@ package org.sonar.css.checks.utils;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
+import org.sonar.css.checks.validators.property.CounterValidator;
 import org.sonar.css.checks.validators.property.CuePropertyValidator;
 import org.sonar.css.checks.validators.property.FilterValidator;
 import org.sonar.css.checks.validators.property.FontWeightValidator;
@@ -615,11 +616,11 @@ public final class CssProperties {
     )
 
     .put("counter-increment", new CssProperty("counter-increment")
-
+      .addValidator(new CounterValidator())
     )
 
     .put("counter-reset", new CssProperty("counter-reset")
-
+      .addValidator(new CounterValidator())
     )
 
     .put("crop", new CssProperty("crop")
