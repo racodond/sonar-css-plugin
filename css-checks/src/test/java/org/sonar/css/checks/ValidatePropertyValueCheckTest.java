@@ -206,6 +206,22 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void background_repeat() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/background-repeat.css"), check);
+    errorMessage = "Update the invalid value of property \"background-repeat\". Expected format: repeat-x | repeat-y | [repeat | space | round | no-repeat]{1,2} [, repeat-x | repeat-y | [repeat | space | round | no-repeat]{1,2}]*";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(16).withMessage(errorMessage).next()
+      .atLine(17).withMessage(errorMessage).next()
+      .atLine(18).withMessage(errorMessage).next()
+      .atLine(19).withMessage(errorMessage).next()
+      .atLine(20).withMessage(errorMessage).next()
+      .atLine(21).withMessage(errorMessage).next()
+      .atLine(22).withMessage(errorMessage).next()
+      .atLine(23).withMessage(errorMessage).next()
+      .atLine(24).withMessage(errorMessage).noMore();
+  }
+
+  @Test
   public void baseline_shift() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/baseline-shift.css"), check);
     errorMessage = "Update the invalid value of property \"baseline-shift\". Expected format: baseline | sub | super | <length> | <percentage>";

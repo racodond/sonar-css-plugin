@@ -42,6 +42,7 @@ import org.sonar.css.checks.validators.property.animation.AnimationValidator;
 import org.sonar.css.checks.validators.property.background.BackgroundAttachmentValidator;
 import org.sonar.css.checks.validators.property.background.BackgroundClipValidator;
 import org.sonar.css.checks.validators.property.background.BackgroundOriginValidator;
+import org.sonar.css.checks.validators.property.background.BackgroundRepeatValidator;
 import org.sonar.css.checks.validators.property.border.BorderColorValidator;
 import org.sonar.css.checks.validators.property.border.BorderRadiusPropertyValidator;
 import org.sonar.css.checks.validators.property.border.BorderRadiusValidator;
@@ -203,6 +204,7 @@ public final class CssProperties {
     )
 
     .put("background-repeat", new CssProperty("background-repeat")
+      .addValidator(new BackgroundRepeatValidator())
     )
 
     .put("background-size", new CssProperty("background-size")
