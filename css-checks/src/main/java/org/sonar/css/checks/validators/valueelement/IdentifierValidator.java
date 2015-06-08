@@ -43,7 +43,7 @@ public class IdentifierValidator implements PropertyValueElementValidator {
       if (allowedValues.isEmpty()) {
         return true;
       }
-      return allowedValues.contains(((Identifier) cssValueElement).getName());
+      return allowedValues.contains(((Identifier) cssValueElement).getName().toLowerCase());
     }
     return false;
   }

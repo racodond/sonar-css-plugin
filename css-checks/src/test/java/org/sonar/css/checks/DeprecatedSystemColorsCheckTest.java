@@ -34,8 +34,10 @@ public class DeprecatedSystemColorsCheckTest {
   public void should_contain_deprecated_system_colors_and_raise_issues() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/color.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(19).withMessage("Remove this usage of the deprecated \"Background\" system color.").next()
-      .atLine(20).withMessage("Remove this usage of the deprecated \"ThreeDShadow\" system color.").noMore();
+      .atLine(20).withMessage("Remove this usage of the deprecated \"Background\" system color.").next()
+      .atLine(21).withMessage("Remove this usage of the deprecated \"background\" system color.").next()
+      .atLine(22).withMessage("Remove this usage of the deprecated \"ThreeDShadow\" system color.").next()
+      .atLine(23).withMessage("Remove this usage of the deprecated \"threedshadow\" system color.").noMore();
   }
 
   @Test

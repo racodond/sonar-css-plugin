@@ -48,7 +48,7 @@ public class DeprecatedSystemColorsCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (CssColors.CSS2_SYSTEM_COLORS.contains(astNode.getTokenValue())) {
+    if (CssColors.CSS2_SYSTEM_COLORS.contains(astNode.getTokenValue().toLowerCase())) {
       getContext().createLineViolation(this, "Remove this usage of the deprecated \"{0}\" system color.", astNode, astNode.getTokenValue());
     }
   }

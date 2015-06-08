@@ -16,6 +16,9 @@
   color: hello(); /* Noncompliant */
   color: transparent;
   color: currentColor;
+  color: currentcolor;
   color: Background;
+  color: background;
   color: ThreeDShadow;
+  color: threedshadow;
 }
