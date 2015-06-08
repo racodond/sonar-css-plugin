@@ -71,6 +71,7 @@ public final class CheckList {
       ObsoletePropertiesCheck.class,
       OneDeclarationPerLineCheck.class,
       ParsingErrorCheck.class,
+      PropertyRegularExpressionCheck.class,
       SelectorNumberThreshold.class,
       SelectorNamingConventionCheck.class,
       SemicolonDeclarationCheck.class,
