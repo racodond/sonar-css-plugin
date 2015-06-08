@@ -10,7 +10,7 @@
   border-top: dotted abc green; /* Noncompliant */
   border-top: dotted -10px green; /* Noncompliant */
 }
-  /* border-bottom: 0 solid #AAA; */
+
 .mybox {
   border-right: inherit;
   border-right: dotted;

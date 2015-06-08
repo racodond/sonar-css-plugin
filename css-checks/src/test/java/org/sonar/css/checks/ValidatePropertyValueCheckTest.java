@@ -39,6 +39,33 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void align_content() {
+    errorMessage = "Update the invalid value of property \"align-content\". Expected format: flex-start | flex-end | center | space-between | space-around | stretch";
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/align-content.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(9).withMessage(errorMessage).next()
+      .atLine(10).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void align_items() {
+    errorMessage = "Update the invalid value of property \"align-items\". Expected format: flex-start | flex-end | center | baseline | stretch";
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/align-items.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(8).withMessage(errorMessage).next()
+      .atLine(9).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void align_self() {
+    errorMessage = "Update the invalid value of property \"align-self\". Expected format: auto | flex-start | flex-end | center | baseline | stretch";
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/align-self.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(9).withMessage(errorMessage).next()
+      .atLine(10).withMessage(errorMessage).noMore();
+  }
+
+  @Test
   public void alignment_adjust() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/alignment-adjust.css"), check);
     errorMessage = "Update the invalid value of property \"alignment-adjust\". Expected format: auto | baseline | before-edge | text-before-edge | middle | central | after-edge | text-after-edge | ideographic | alphabetic | hanging | mathematical | <percentage> | <length>";
@@ -243,10 +270,10 @@ public class ValidatePropertyValueCheckTest {
   @Test
   public void baseline_shift() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/baseline-shift.css"), check);
-    errorMessage = "Update the invalid value of property \"baseline-shift\". Expected format: baseline | sub | super | <length> | <percentage>";
+    errorMessage = "Update the invalid value of property \"baseline-shift\". Expected format: sub | super | <length> | <percentage>";
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(10).withMessage(errorMessage).next()
-      .atLine(11).withMessage(errorMessage).noMore();
+      .atLine(9).withMessage(errorMessage).next()
+      .atLine(10).withMessage(errorMessage).noMore();
   }
 
   @Test
@@ -544,6 +571,64 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void flex_basis() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/flex-basis.css"), check);
+    errorMessage = "Update the invalid value of property \"flex-basis\". Expected format: content | <width>";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(9).withMessage(errorMessage).next()
+      .atLine(10).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void flex_direction() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/flex-direction.css"), check);
+    errorMessage = "Update the invalid value of property \"flex-direction\". Expected format: row | row-reverse | column | column-reverse";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(7).withMessage(errorMessage).next()
+      .atLine(8).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void flex_flow() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/flex-flow.css"), check);
+    errorMessage = "Update the invalid value of property \"flex-flow\". Expected format: <flex-direction> || <flex-wrap>";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(12).withMessage(errorMessage).next()
+      .atLine(13).withMessage(errorMessage).next()
+      .atLine(14).withMessage(errorMessage).next()
+      .atLine(15).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void flex_grow() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/flex-grow.css"), check);
+    errorMessage = "Update the invalid value of property \"flex-grow\". Expected format: <number>(>=0)";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(6).withMessage(errorMessage).next()
+      .atLine(7).withMessage(errorMessage).next()
+      .atLine(8).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void flex_shrink() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/flex-shrink.css"), check);
+    errorMessage = "Update the invalid value of property \"flex-shrink\". Expected format: <number>(>=0)";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(6).withMessage(errorMessage).next()
+      .atLine(7).withMessage(errorMessage).next()
+      .atLine(8).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void flex_wrap() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/flex-wrap.css"), check);
+    errorMessage = "Update the invalid value of property \"flex-wrap\". Expected format: nowrap | wrap | wrap-reverse";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(6).withMessage(errorMessage).next()
+      .atLine(7).withMessage(errorMessage).noMore();
+  }
+
+  @Test
   public void font_size() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/font-size.css"), check);
     errorMessage = "Update the invalid value of property \"font-size\". Expected format: xx-small | x-small | small | medium | large | x-large | xx-large | larger | smaller | <length>(>=0) | <percentage>(>=0)";
@@ -607,6 +692,15 @@ public class ValidatePropertyValueCheckTest {
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(7).withMessage(errorMessage).next()
       .atLine(8).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void justify_content() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/justify-content.css"), check);
+    errorMessage = "Update the invalid value of property \"justify-content\". Expected format: flex-start | flex-end | center | space-between | space-around";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(8).withMessage(errorMessage).next()
+      .atLine(9).withMessage(errorMessage).noMore();
   }
 
   @Test
@@ -752,6 +846,16 @@ public class ValidatePropertyValueCheckTest {
       .atLine(7).withMessage(errorMessage).next()
       .atLine(8).withMessage(errorMessage).next()
       .atLine(9).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void order() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/order.css"), check);
+    errorMessage = "Update the invalid value of property \"order\". Expected format: <integer>";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(5).withMessage(errorMessage).next()
+      .atLine(6).withMessage(errorMessage).next()
+      .atLine(7).withMessage(errorMessage).noMore();
   }
 
   @Test

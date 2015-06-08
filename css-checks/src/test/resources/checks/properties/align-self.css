@@ -1,0 +1,11 @@
+.mybox {
+  align-self: inherit;
+  align-self: auto;
+  align-self: flex-start;
+  align-self: flex-end;
+  align-self: center;
+  align-self: baseline;
+  align-self: stretch;
+  align-self: abc; /* Noncompliant */
+  align-self: 10; /* Noncompliant */
+}

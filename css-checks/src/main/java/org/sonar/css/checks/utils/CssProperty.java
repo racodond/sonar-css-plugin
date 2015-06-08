@@ -38,6 +38,7 @@ public class CssProperty {
 
   private final String name;
   private String url;
+  private boolean obsolete = false;
   private List<String> vendors = new ArrayList<>();
   private List<Validator> validators = new ArrayList<>();
 
@@ -49,6 +50,15 @@ public class CssProperty {
   @Nonnull
   public String getName() {
     return name;
+  }
+
+  public boolean isObsolete() {
+    return obsolete;
+  }
+
+  public CssProperty setObsolete(boolean obsolete) {
+    this.obsolete = obsolete;
+    return this;
   }
 
   public String getUrl() {

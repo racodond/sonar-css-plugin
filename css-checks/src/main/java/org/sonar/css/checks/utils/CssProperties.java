@@ -25,6 +25,7 @@ import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
 import org.sonar.css.checks.validators.property.CounterValidator;
 import org.sonar.css.checks.validators.property.CuePropertyValidator;
 import org.sonar.css.checks.validators.property.FilterValidator;
+import org.sonar.css.checks.validators.property.FlexFlowValidator;
 import org.sonar.css.checks.validators.property.FontWeightValidator;
 import org.sonar.css.checks.validators.property.MarginValidator;
 import org.sonar.css.checks.validators.property.OutlineValidator;
@@ -61,16 +62,28 @@ import org.sonar.css.checks.validators.property.liststyle.ListStyleImageValidato
 import org.sonar.css.checks.validators.property.liststyle.ListStylePositionValidator;
 import org.sonar.css.checks.validators.property.liststyle.ListStyleTypeValidator;
 import org.sonar.css.checks.validators.property.liststyle.ListStyleValidator;
+import org.sonar.css.checks.validators.valueelement.AutoValidator;
 import org.sonar.css.checks.validators.valueelement.BorderStyleValidator;
 import org.sonar.css.checks.validators.valueelement.BorderWidthValidator;
 import org.sonar.css.checks.validators.valueelement.BoxValidator;
+import org.sonar.css.checks.validators.valueelement.ColorValidator;
 import org.sonar.css.checks.validators.valueelement.CueValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
+import org.sonar.css.checks.validators.valueelement.ImageValidator;
+import org.sonar.css.checks.validators.valueelement.NoneValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineColorValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineStyleValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineWidthValidator;
+import org.sonar.css.checks.validators.valueelement.WidthValidator;
 import org.sonar.css.checks.validators.valueelement.dimension.LengthValidator;
+import org.sonar.css.checks.validators.valueelement.dimension.TimeValidator;
+import org.sonar.css.checks.validators.valueelement.flex.FlexBasisValidator;
+import org.sonar.css.checks.validators.valueelement.flex.FlexDirectionValidator;
+import org.sonar.css.checks.validators.valueelement.flex.FlexGrowValidator;
+import org.sonar.css.checks.validators.valueelement.flex.FlexShrinkValidator;
+import org.sonar.css.checks.validators.valueelement.flex.FlexWrapValidator;
 import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
+import org.sonar.css.checks.validators.valueelement.numeric.IntegerValidator;
 import org.sonar.css.checks.validators.valueelement.numeric.NumberRangeValidator;
 import org.sonar.css.checks.validators.valueelement.numeric.PercentageValidator;
 
@@ -87,19 +100,38 @@ public final class CssProperties {
   public static final Map<String, CssProperty> PROPERTIES = new ImmutableMap.Builder<String, CssProperty>()
 
     // A
+    .put("align-content", new CssProperty("align-content")
+      .setUrl("http://dev.w3.org/csswg/css-flexbox-1/#propdef-align-content")
+      .addValidator(new IdentifierValidator(
+        ImmutableList.of("flex-start", "flex-end", "center", "space-between", "space-around", "stretch")))
+    )
+
+    .put("align-items", new CssProperty("align-items")
+      .setUrl("http://dev.w3.org/csswg/css-flexbox-1/#propdef-align-items")
+      .addValidator(new IdentifierValidator(ImmutableList.of("flex-start", "flex-end", "center", "baseline", "stretch")))
+    )
+
+    .put("align-self", new CssProperty("align-self")
+      .setUrl("http://dev.w3.org/csswg/css-flexbox-1/#propdef-align-self")
+      .addValidator(
+        new IdentifierValidator(ImmutableList.of("auto", "flex-start", "flex-end", "center", "baseline", "stretch")))
+    )
+
     .put(
       "alignment-adjust",
       new CssProperty("alignment-adjust")
+        .setUrl("http://www.w3.org/TR/css3-linebox/#alignment-adjust")
         .addValidator(
           new IdentifierValidator(ImmutableList
-            .of("auto", "baseline", "before-edge", "text-before-edge", "middle", "central", "after-edge", "text-after-edge",
-              "ideographic",
-              "alphabetic", "hanging", "mathematical")))
+            .of("auto", "baseline", "before-edge", "text-before-edge", "middle", "central", "after-edge",
+              "text-after-edge",
+              "ideographic", "alphabetic", "hanging", "mathematical")))
         .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
         .addValidator(PropertyValueValidatorFactory.getLengthValidator())
     )
 
     .put("alignment-baseline", new CssProperty("alignment-baseline")
+      .setUrl("http://www.w3.org/TR/css3-linebox/#alignment-baseline")
       .addValidator(new IdentifierValidator(ImmutableList.of("baseline", "use-script", "before-edge", "text-before-edge",
         "after-edge", "text-after-edge", "central", "middle", "ideographic", "alphabetic", "hanging", "mathematical")))
     )
@@ -110,60 +142,71 @@ public final class CssProperties {
     )
 
     .put("animation", new CssProperty("animation")
+      .setUrl("http://www.w3.org/TR/css3-animations/#animation")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addValidator(new AnimationValidator())
     )
 
     .put("animation-delay", new CssProperty("animation-delay")
+      .setUrl("http://www.w3.org/TR/css3-animations/#animation-delay")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addValidator(new AnimationDelayValidator())
     )
 
     .put("animation-direction", new CssProperty("animation-direction")
+      .setUrl("http://www.w3.org/TR/css3-animations/#animation-direction")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addValidator(new AnimationDirectionValidator())
     )
 
     .put("animation-duration", new CssProperty("animation-duration")
+      .setUrl("http://www.w3.org/TR/css3-animations/#animation-duration-property")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addValidator(new AnimationDurationValidator())
     )
 
     .put("animation-fill-mode", new CssProperty("animation-fill-mode")
+      .setUrl("http://dev.w3.org/csswg/css-animations/#propdef-animation-fill-mode")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addValidator(new AnimationFillModeValidator())
     )
 
     .put("animation-iteration-count", new CssProperty("animation-iteration-count")
+      .setUrl("http://dev.w3.org/csswg/css-animations/#propdef-animation-iteration-count")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addValidator(new AnimationIterationCountValidator())
     )
 
     .put("animation-name", new CssProperty("animation-name")
+      .setUrl("http://dev.w3.org/csswg/css-animations/#propdef-animation-name")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addValidator(new AnimationNameValidator())
     )
 
     .put("animation-play-state", new CssProperty("animation-play-state")
+      .setUrl("http://dev.w3.org/csswg/css-animations/#propdef-animation-play-state")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addValidator(new AnimationPlayStateValidator())
     )
 
     .put("animation-timing-function", new CssProperty("animation-timing-function")
+      .setUrl("http://dev.w3.org/csswg/css-animations/#propdef-animation-timing-function")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addValidator(new AnimationTimingFunctionValidator())
     )
 
     .put("appearance", new CssProperty("appearance")
+      .setUrl("http://www.w3.org/TR/2004/CR-css3-ui-20040511/#appearance0")
+      .setObsolete(true)
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addValidator(
@@ -176,266 +219,311 @@ public final class CssProperties {
             "password")))
     )
 
-    .put("azimuth", new CssProperty("azimuth"))
+    .put("azimuth", new CssProperty("azimuth")
+      .setObsolete(true)
+    )
 
     // B
     .put("backface-visibility", new CssProperty("backface-visibility")
+      .setUrl("http://dev.w3.org/csswg/css-transforms/#propdef-backface-visibility")
       .addValidator(new IdentifierValidator(ImmutableList.of("visible", "hidden")))
     )
 
     .put("background", new CssProperty("background")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#background")
     )
 
     .put("background-attachment", new CssProperty("background-attachment")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#background-attachment")
       .addValidator(new BackgroundAttachmentValidator())
     )
 
     .put("background-clip", new CssProperty("background-clip")
+      .addVendor("http://dev.w3.org/csswg/css-backgrounds-3/#background-clip")
       .addValidator(new BackgroundClipValidator())
     )
 
     .put("background-color", new CssProperty("background-color")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#background-color")
       .addValidator(PropertyValueValidatorFactory.getColorValidator())
     )
 
     .put("background-image", new CssProperty("background-image")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#background-image")
       .addValidator(new BackgroundImageValidator())
     )
 
     .put("background-origin", new CssProperty("background-origin")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#background-origin")
       .addValidator(new BackgroundOriginValidator())
     )
 
     .put("background-position", new CssProperty("background-position")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#background-position")
     )
 
     .put("background-repeat", new CssProperty("background-repeat")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#background-repeat")
       .addValidator(new BackgroundRepeatValidator())
     )
 
     .put("background-size", new CssProperty("background-size")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#background-size")
       .addValidator(new BackgroundSizeValidator())
     )
 
     .put("baseline-shift", new CssProperty("baseline-shift")
-      .addValidator(new IdentifierValidator(ImmutableList.of("baseline", "sub", "super")))
+      .setUrl("http://dev.w3.org/csswg/css-inline/#propdef-baseline-shift")
+      .addValidator(new IdentifierValidator(ImmutableList.of("sub", "super")))
       .addValidator(PropertyValueValidatorFactory.getLengthValidator())
       .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
     )
 
     .put("behavior", new CssProperty("behavior")
-
+      .setUrl("http://www.w3.org/TR/1999/WD-becss-19990804#behavior")
+      .setObsolete(true)
     )
 
     .put("binding", new CssProperty("binding")
-
+      .setObsolete(true)
     )
 
     .put("bleed", new CssProperty("bleed")
-
+      .setUrl("http://dev.w3.org/csswg/css-page/#descdef-page-bleed")
+      .addValidator(new AutoValidator())
+      .addValidator(new LengthValidator(false))
     )
 
     .put("bookmark-label", new CssProperty("bookmark-label")
-
+      .setUrl("http://www.w3.org/TR/css3-gcpm/#propdef-bookmark-label")
     )
 
     .put("bookmark-level", new CssProperty("bookmark-level")
-
+      .setUrl("http://www.w3.org/TR/css-gcpm-3/#propdef-bookmark-level")
+      .addValidator(new NoneValidator())
+      .addValidator(new IntegerValidator(true)) // TODO: 0 is invalid
     )
 
     .put("bookmark-state", new CssProperty("bookmark-state")
-
-    )
-
-    .put("bookmark-target", new CssProperty("bookmark-target")
-
+      .setUrl("http://www.w3.org/TR/css-gcpm-3/#propdef-bookmark-state")
+      .addValidator(new IdentifierValidator(ImmutableList.of("open", "close")))
     )
 
     .put("border", new CssProperty("border")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-shorthands")
       .addValidator(new BorderValidator())
     )
 
     .put("border-bottom", new CssProperty("border-bottom")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-shorthands")
       .addValidator(new BorderValidator())
     )
 
     .put("border-bottom-color", new CssProperty("border-bottom-color")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-color")
       .addValidator(PropertyValueValidatorFactory.getColorValidator())
     )
 
     .put("border-bottom-left-radius", new CssProperty("border-bottom-left-radius")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-radius")
       .addValidator(new BorderRadiusValidator())
     )
 
     .put("border-bottom-right-radius", new CssProperty("border-bottom-right-radius")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-radius")
       .addValidator(new BorderRadiusValidator())
     )
 
     .put("border-bottom-style", new CssProperty("border-bottom-style")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-style")
       .addValidator(new BorderStyleValidator())
     )
 
     .put("border-bottom-width", new CssProperty("border-bottom-width")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#border-width")
       .addValidator(new BorderWidthValidator())
     )
 
     .put("border-collapse", new CssProperty("border-collapse")
+      .setUrl("http://www.w3.org/TR/CSS2/tables.html#borders")
       .addValidator(new IdentifierValidator(ImmutableList.of("collapse", "separate")))
     )
 
     .put("border-color", new CssProperty("border-color")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#border-color")
       .addValidator(new BorderColorValidator())
     )
 
     .put("border-end", new CssProperty("border-end")
+      .setObsolete(true)
       .addVendor("-webkit-")
       .addVendor("-moz-")
-
     )
 
     .put("border-end-color", new CssProperty("border-end-color")
+      .setObsolete(true)
       .addVendor("-webkit-")
       .addVendor("-moz-")
-
     )
 
     .put("border-end-style", new CssProperty("border-end-style")
+      .setObsolete(true)
       .addVendor("-webkit-")
       .addVendor("-moz-")
-
     )
 
     .put("border-end-width", new CssProperty("border-end-width")
+      .setObsolete(true)
       .addVendor("-webkit-")
       .addVendor("-moz-")
-
     )
 
     .put("border-image", new CssProperty("border-image")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#border-image")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-o-")
-
     )
 
     .put("border-image-outset", new CssProperty("border-image-outset")
-
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#border-image-outset")
     )
 
     .put("border-image-repeat", new CssProperty("border-image-repeat")
-
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#border-image-repeat")
     )
 
     .put("border-image-slice", new CssProperty("border-image-slice")
-
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#border-image-slice")
     )
 
     .put("border-image-source", new CssProperty("border-image-source")
-
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#border-image-source")
+      .addValidator(new NoneValidator())
+      .addValidator(new ImageValidator())
     )
 
     .put("border-image-width", new CssProperty("border-image-width")
-
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#border-image-width")
     )
 
     .put("border-left", new CssProperty("border-left")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-shorthands")
       .addValidator(new BorderValidator())
     )
 
     .put("border-left-color", new CssProperty("border-left-color")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-color")
       .addValidator(PropertyValueValidatorFactory.getColorValidator())
     )
 
     .put("border-left-style", new CssProperty("border-left-style")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-style")
       .addValidator(new BorderStyleValidator())
     )
 
     .put("border-left-width", new CssProperty("border-left-width")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#border-width")
       .addValidator(new BorderWidthValidator())
     )
 
     .put("border-radius", new CssProperty("border-radius")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#border-radius")
       .addVendor("-webkit-")
       .addValidator(new BorderRadiusPropertyValidator())
     )
 
     .put("border-right", new CssProperty("border-right")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-shorthands")
       .addValidator(new BorderValidator())
     )
 
     .put("border-right-color", new CssProperty("border-right-color")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-color")
       .addValidator(PropertyValueValidatorFactory.getColorValidator())
     )
 
     .put("border-right-style", new CssProperty("border-right-style")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-style")
       .addValidator(new BorderStyleValidator())
     )
 
     .put("border-right-width", new CssProperty("border-right-width")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#border-width")
       .addValidator(new BorderWidthValidator())
     )
 
     .put("border-start", new CssProperty("border-start")
+      .setObsolete(true)
       .addVendor("-webkit-")
       .addVendor("-moz-")
-
     )
 
     .put("border-start-color", new CssProperty("border-start-color")
+      .setObsolete(true)
       .addVendor("-webkit-")
       .addVendor("-moz-")
-
     )
 
     .put("border-start-style", new CssProperty("border-start-style")
+      .setObsolete(true)
       .addVendor("-webkit-")
       .addVendor("-moz-")
-
     )
 
     .put("border-start-width", new CssProperty("border-start-width")
+      .setObsolete(true)
       .addVendor("-webkit-")
       .addVendor("-moz-")
-
     )
 
     .put("border-spacing", new CssProperty("border-spacing")
+      .setUrl("http://www.w3.org/TR/CSS2/tables.html#separated-borders")
       .addValidator(new BorderSpacingValidator())
     )
 
     .put("border-style", new CssProperty("border-style")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#border-style")
       .addValidator(new BorderStylePropertyValidator())
     )
 
     .put("border-top", new CssProperty("border-top")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-shorthands")
       .addValidator(new BorderValidator())
     )
 
     .put("border-top-color", new CssProperty("border-top-color")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-color")
       .addValidator(PropertyValueValidatorFactory.getColorValidator())
     )
 
     .put("border-top-left-radius", new CssProperty("border-top-left-radius")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-radius")
       .addValidator(new BorderRadiusValidator())
     )
 
     .put("border-top-right-radius", new CssProperty("border-top-right-radius")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-radius")
       .addValidator(new BorderRadiusValidator())
     )
 
     .put("border-top-style", new CssProperty("border-top-style")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-style")
       .addValidator(new BorderStyleValidator())
     )
 
     .put("border-top-width", new CssProperty("border-top-width")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#border-width")
       .addValidator(new BorderWidthValidator())
     )
 
     .put("border-width", new CssProperty("border-width")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#border-width")
       .addValidator(new BorderWidthPropertyValidator())
     )
 
     .put("bottom", new CssProperty("bottom")
+      .setUrl("http://www.w3.org/TR/CSS2/visuren.html#choose-position")
       .addValidator(PropertyValueValidatorFactory.getAutoValidator())
       .addValidator(PropertyValueValidatorFactory.getLengthValidator())
       .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
@@ -445,10 +533,11 @@ public final class CssProperties {
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-
+      .setObsolete(true)
     )
 
     .put("box-decoration-break", new CssProperty("box-decoration-break")
+      .setUrl("http://dev.w3.org/csswg/css-break-3/#propdef-box-decoration-break")
       .addValidator(new IdentifierValidator(ImmutableList.of("slice", "clone")))
     )
 
@@ -456,193 +545,229 @@ public final class CssProperties {
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-
+      .setObsolete(true)
     )
 
     .put("box-flex", new CssProperty("box-flex")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-
+      .setObsolete(true)
     )
 
     .put("box-flex-group", new CssProperty("box-flex-group")
-
+      .setObsolete(true)
     )
 
     .put("box-lines", new CssProperty("box-lines")
       .addVendor("-webkit-")
       .addVendor("-ms-")
-
+      .setObsolete(true)
     )
 
     .put("box-ordinal-group", new CssProperty("box-ordinal-group")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-
+      .setObsolete(true)
     )
 
     .put("box-orient", new CssProperty("box-orient")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-
+      .setObsolete(true)
     )
 
     .put("box-pack", new CssProperty("box-pack")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-
+      .setObsolete(true)
     )
 
     .put("box-shadow", new CssProperty("box-shadow")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#box-shadow")
       .addVendor("-webkit-")
       .addVendor("-moz-")
-
     )
 
     .put("box-sizing", new CssProperty("box-sizing")
+      .setUrl("http://dev.w3.org/csswg/css-ui-3/#propdef-box-sizing")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addValidator(new BoxValidator())
     )
 
     .put("break-after", new CssProperty("break-after")
+      .setUrl("http://dev.w3.org/csswg/css-break-3/#propdef-break-after")
+      .addValidator(
+        new IdentifierValidator(ImmutableList
+          .of("auto", "avoid", "always", "any", "avoid-page", "page", "left", "right", "recto", "verso", "avoid-column",
+            "column",
+            "avoid-region", "region")))
 
     )
 
-    .put("break-before", new CssProperty("break-before")
-
+    .put(
+      "break-before",
+      new CssProperty("break-before")
+        .setUrl("http://dev.w3.org/csswg/css-break-3/#propdef-break-before")
+        .addValidator(
+          new IdentifierValidator(ImmutableList
+            .of("auto", "avoid", "always", "any", "avoid-page", "page", "left", "right", "recto", "verso", "avoid-column",
+              "column",
+              "avoid-region", "region")))
     )
 
     .put("break-inside", new CssProperty("break-inside")
-
+      .setUrl("http://dev.w3.org/csswg/css-break-3/#propdef-break-inside")
+      .addValidator(new IdentifierValidator(ImmutableList.of("auto", "avoid", "avoid-page", "avoid-column", "avoid-region")))
     )
 
     // C
     .put("caption-side", new CssProperty("caption-side")
-      .addValidator(new IdentifierValidator(ImmutableList.of("top", "bottom")))
+      .setUrl("http://dev.w3.org/csswg/css-logical-props/#caption-side")
+      .addValidator(new IdentifierValidator(
+        ImmutableList.of("top", "bottom", "block-start", "block-end", "inline-start", "inline-end")))
     )
 
     .put("caret-color", new CssProperty("caret-color")
+      .setUrl("http://www.w3.org/TR/2015/WD-css3-ui-20150519/#propdef-caret-color")
       .addValidator(PropertyValueValidatorFactory.getAutoValidator())
       .addValidator(PropertyValueValidatorFactory.getColorValidator())
     )
 
     .put("clear", new CssProperty("clear")
+      .setUrl("http://www.w3.org/TR/CSS2/visuren.html#flow-control")
       .addValidator(new IdentifierValidator(ImmutableList.of("none", "left", "right", "both")))
     )
 
     .put("clip", new CssProperty("clip")
+      .setObsolete(true)
       .addValidator(new FunctionValidator(ImmutableList.of("rect")))
       .addValidator(PropertyValueValidatorFactory.getAutoValidator())
     )
 
     .put("clip-path", new CssProperty("clip-path")
+      .setUrl("http://www.w3.org/TR/SVG11/masking.html#ClipPathProperty")
+    )
+
+    .put("clip-rule", new CssProperty("clip-rule")
+      .setUrl("http://www.w3.org/TR/SVG11/masking.html#ClipRuleProperty")
     )
 
     .put("color", new CssProperty("color")
+      .setUrl("http://dev.w3.org/csswg/css-color-3/#color0")
       .addValidator(PropertyValueValidatorFactory.getColorValidator())
     )
 
-    .put("color-profile", new CssProperty("color-profile")
-
-    )
-
-    .put("column", new CssProperty("column")
-    )
-
     .put("column-count", new CssProperty("column-count")
+      .setUrl("http://dev.w3.org/csswg/css-multicol-1/#propdef-column-count")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-
+      .addValidator(new IntegerValidator(true))
     )
 
     .put("column-fill", new CssProperty("column-fill")
-
+      .setUrl("http://dev.w3.org/csswg/css-multicol-1/#propdef-column-fill")
+      .addValidator(new IdentifierValidator(ImmutableList.<String>of("auto", "balance", "balance-all")))
     )
 
     .put("column-gap", new CssProperty("column-gap")
+      .setUrl("http://dev.w3.org/csswg/css-multicol-1/#propdef-column-gap")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-
+      .addValidator(new LengthValidator(true))
     )
 
     .put("column-rule", new CssProperty("column-rule")
+      .setUrl("http://dev.w3.org/csswg/css-multicol-1/#propdef-column-rule")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-
     )
 
     .put("column-rule-color", new CssProperty("column-rule-color")
+      .setUrl("http://dev.w3.org/csswg/css-multicol-1/#propdef-column-rule-color")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-
+      .addValidator(new ColorValidator())
     )
 
     .put("column-rule-style", new CssProperty("column-rule-style")
+      .setUrl("http://dev.w3.org/csswg/css-multicol-1/#propdef-column-rule-style")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-
+      .addValidator(new BorderStyleValidator())
     )
 
     .put("column-rule-width", new CssProperty("column-rule-width")
+      .setUrl("http://dev.w3.org/csswg/css-multicol-1/#propdef-column-rule-width")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-
+      .addValidator(new BorderWidthValidator())
     )
 
     .put("column-span", new CssProperty("column-span")
-
+      .setUrl("http://dev.w3.org/csswg/css-multicol-1/#propdef-column-span")
+      .addValidator(new IdentifierValidator(ImmutableList.<String>of("all", "none")))
     )
 
     .put("column-width", new CssProperty("column-width")
+      .setUrl("http://dev.w3.org/csswg/css-multicol-1/#propdef-column-width")
       .addVendor("-webkit-")
       .addVendor("-moz-")
       .addVendor("-ms-")
-
+      .addValidator(new AutoValidator())
+      .addValidator(new LengthValidator(true))
     )
 
     .put("columns", new CssProperty("columns")
-
+      .setUrl("http://dev.w3.org/csswg/css-multicol-1/#propdef-columns")
     )
 
     .put("content", new CssProperty("content")
-
+      .setUrl("http://www.w3.org/TR/CSS2/generate.html#content")
     )
 
     .put("counter-increment", new CssProperty("counter-increment")
+      .setUrl("http://dev.w3.org/csswg/css-lists-3/#propdef-counter-increment")
       .addValidator(new CounterValidator())
     )
 
     .put("counter-reset", new CssProperty("counter-reset")
+      .setUrl("http://dev.w3.org/csswg/css-lists-3/#propdef-counter-reset")
       .addValidator(new CounterValidator())
     )
 
-    .put("crop", new CssProperty("crop")
+    .put("counter-set", new CssProperty("counter-set")
+      .setUrl("http://dev.w3.org/csswg/css-lists-3/#propdef-counter-set")
+      .addValidator(new CounterValidator())
     )
 
     .put("cue", new CssProperty("cue")
+      .setUrl("http://www.w3.org/TR/css3-speech/#cue")
       .addValidator(new CuePropertyValidator())
     )
 
     .put("cue-after", new CssProperty("cue-after")
+      .setUrl("http://www.w3.org/TR/css3-speech/#cue-after")
       .addValidator(new CueValidator())
     )
 
     .put("cue-before", new CssProperty("cue-before")
+      .setUrl("http://www.w3.org/TR/css3-speech/#cue-before")
       .addValidator(new CueValidator())
     )
 
     .put("cursor", new CssProperty("cursor")
+      .setUrl("http://dev.w3.org/csswg/css-ui-3/#propdef-cursor")
     )
 
     // D
@@ -699,6 +824,36 @@ public final class CssProperties {
     )
 
     // F
+    .put("flex-basis", new CssProperty("flex-basis")
+      .setUrl("http://dev.w3.org/csswg/css-flexbox-1/#propdef-flex-basis")
+      .addValidator(new FlexBasisValidator())
+    )
+
+    .put("flex-direction", new CssProperty("flex-direction")
+      .setUrl("http://dev.w3.org/csswg/css-flexbox-1/#propdef-flex-direction")
+      .addValidator(new FlexDirectionValidator())
+    )
+
+    .put("flex-flow", new CssProperty("flex-flow")
+      .setUrl("http://dev.w3.org/csswg/css-flexbox-1/#propdef-flex-flow")
+      .addValidator(new FlexFlowValidator())
+    )
+
+    .put("flex-grow", new CssProperty("flex-grow")
+      .setUrl("http://dev.w3.org/csswg/css-flexbox-1/#propdef-flex-grow")
+      .addValidator(new FlexGrowValidator())
+    )
+
+    .put("flex-shrink", new CssProperty("flex-shrink")
+      .setUrl("http://dev.w3.org/csswg/css-flexbox-1/#propdef-flex-shrink")
+      .addValidator(new FlexShrinkValidator())
+    )
+
+    .put("flex-wrap", new CssProperty("flex-wrap")
+      .setUrl("http://dev.w3.org/csswg/css-flexbox-1/#propdef-flex-wrap")
+      .addValidator(new FlexWrapValidator())
+    )
+
     .put("filter", new CssProperty("filter")
       .addValidator(new FilterValidator())
     )
@@ -866,6 +1021,13 @@ public final class CssProperties {
       .addValidator(PropertyValueValidatorFactory.getIntegerValidator())
     )
 
+    // I
+    .put("justify-content", new CssProperty("justify-content")
+      .setUrl("http://dev.w3.org/csswg/css-flexbox-1/#propdef-justify-content")
+      .addValidator(
+        new IdentifierValidator(ImmutableList.of("flex-start", "flex-end", "center", "space-between", "space-around")))
+    )
+
     // L
     .put("left", new CssProperty("left")
       .addValidator(PropertyValueValidatorFactory.getAutoValidator())
@@ -1016,60 +1178,73 @@ public final class CssProperties {
 
     // N
     .put("nav-down", new CssProperty("nav-down")
-
+      .setUrl("http://dev.w3.org/csswg/css-ui-3/#propdef-nav-down")
     )
 
     .put("nav-index", new CssProperty("nav-index")
-
+      .setObsolete(true)
     )
 
     .put("nav-left", new CssProperty("nav-left")
-
+      .setUrl("http://dev.w3.org/csswg/css-ui-3/#propdef-nav-left")
     )
 
     .put("nav-right", new CssProperty("nav-right")
-
+      .setUrl("http://dev.w3.org/csswg/css-ui-3/#propdef-nav-right")
     )
 
     .put("nav-up", new CssProperty("nav-up")
-
+      .setUrl("http://dev.w3.org/csswg/css-ui-3/#propdef-nav-up")
     )
 
     // O
     .put("opacity", new CssProperty("opacity")
+      .setUrl("http://dev.w3.org/csswg/css-color-3/#opacity")
       .addValidator(new NumberRangeValidator(0, 1))
     )
 
+    .put("order", new CssProperty("order")
+      .setUrl("http://dev.w3.org/csswg/css-flexbox-1/#propdef-order")
+      .addValidator(PropertyValueValidatorFactory.getIntegerValidator())
+    )
+
     .put("orphans", new CssProperty("orphans")
+      .setUrl("http://dev.w3.org/csswg/css-break-3/#propdef-orphans")
       .addValidator(PropertyValueValidatorFactory.getIntegerValidator())
     )
 
     .put("outline", new CssProperty("outline")
+      .setUrl("http://dev.w3.org/csswg/css-ui-3/#propdef-outline")
       .addValidator(new OutlineValidator())
     )
 
     .put("outline-color", new CssProperty("outline-color")
+      .setUrl("http://dev.w3.org/csswg/css-ui-3/#propdef-outline-color")
       .addValidator(new OutlineColorValidator())
     )
 
     .put("outline-offset", new CssProperty("outline-offset")
+      .setUrl("http://dev.w3.org/csswg/css-ui-3/#propdef-outline-offset")
       .addValidator(PropertyValueValidatorFactory.getLengthValidator())
     )
 
     .put("outline-style", new CssProperty("outline-style")
+      .setUrl("http://dev.w3.org/csswg/css-ui-3/#propdef-outline-style")
       .addValidator(new OutlineStyleValidator())
     )
 
     .put("outline-width", new CssProperty("outline-width")
+      .setUrl("http://dev.w3.org/csswg/css-ui-3/#propdef-outline-width")
       .addValidator(new OutlineWidthValidator())
     )
 
     .put("overflow", new CssProperty("overflow")
+      .setUrl("http://dev.w3.org/csswg/css-box-3/#overflow1")
       .addValidator(new IdentifierValidator(ImmutableList.of("visible", "hidden", "scroll", "auto")))
     )
 
     .put("overflow-style", new CssProperty("overflow-style")
-
+      .setObsolete(true)
     )
 
     .put("overflow-x", new CssProperty("overflow-x")
@@ -1134,14 +1309,17 @@ public final class CssProperties {
     )
 
     .put("pause", new CssProperty("pause")
+      .setUrl("http://www.w3.org/TR/css3-speech/#pause")
       .addValidator(new PausePropertyValidator())
     )
 
     .put("pause-after", new CssProperty("pause-after")
+      .setUrl("http://www.w3.org/TR/css3-speech/#pause-after")
       .addValidator(PropertyValueValidatorFactory.getPauseValidator())
     )
 
     .put("pause-before", new CssProperty("pause-before")
+      .setUrl("http://www.w3.org/TR/css3-speech/#pause-before")
       .addValidator(PropertyValueValidatorFactory.getPauseValidator())
     )
 
@@ -1197,19 +1375,20 @@ public final class CssProperties {
     )
 
     .put("resize", new CssProperty("resize")
+      .setUrl("http://dev.w3.org/csswg/css-ui-3/#propdef-resize")
       .addValidator(new IdentifierValidator(ImmutableList.of("none", "both", "horizontal", "vertical")))
     )
 
     .put("rest", new CssProperty("rest")
-
+      .setUrl("http://www.w3.org/TR/css3-speech/#rest")
     )
 
     .put("rest-after", new CssProperty("rest-after")
-
+      .setUrl("http://www.w3.org/TR/css3-speech/#rest-after")
     )
 
     .put("rest-before", new CssProperty("rest-before")
-
+      .setUrl("http://www.w3.org/TR/css3-speech/#rest-before")
     )
 
     .put("richness", new CssProperty("richness")
@@ -1263,7 +1442,12 @@ public final class CssProperties {
     )
 
     .put("speak", new CssProperty("speak")
-      .addValidator(new IdentifierValidator(ImmutableList.of("normal", "none", "spell-out")))
+      .setUrl("http://www.w3.org/TR/css3-speech/#speak")
+      .addValidator(new IdentifierValidator(ImmutableList.of("auto", "normal", "none", "spell-out")))
+    )
+
+    .put("speak-as", new CssProperty("speak-as")
+      .setUrl("http://www.w3.org/TR/css3-speech/#speak-as")
     )
 
     .put("speak-header", new CssProperty("speak-header")
@@ -1322,7 +1506,8 @@ public final class CssProperties {
     )
 
     .put("text-align", new CssProperty("text-align")
-      .addValidator(new IdentifierValidator(ImmutableList.of("start", "end", "left", "right", "center", "justify", "match-parent", "justify-all")))
+      .addValidator(new IdentifierValidator(
+        ImmutableList.of("start", "end", "left", "right", "center", "justify", "match-parent", "justify-all")))
     )
 
     .put("text-align-last", new CssProperty("text-align-last")
@@ -1350,8 +1535,9 @@ public final class CssProperties {
 
     )
     .put("text-overflow", new CssProperty("text-overflow")
-
+      .setUrl("http://dev.w3.org/csswg/css-ui-3/#propdef-text-overflow")
     )
+
     .put("text-rendering", new CssProperty("text-rendering")
 
     )
@@ -1367,7 +1553,8 @@ public final class CssProperties {
     )
 
     .put("text-transform", new CssProperty("text-transform")
-      .addValidator(new IdentifierValidator(ImmutableList.of("capitalize", "uppercase", "lowercase", "full-width", "none")))
+      .addValidator(
+      new IdentifierValidator(ImmutableList.of("capitalize", "uppercase", "lowercase", "full-width", "none")))
     )
 
     .put("text-wrap", new CssProperty("text-wrap")
@@ -1377,180 +1564,348 @@ public final class CssProperties {
     .put("top", new CssProperty("top")
       .addValidator(PropertyValueValidatorFactory.getAutoValidator())
       .addValidator(PropertyValueValidatorFactory.getLengthValidator())
-      .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
+      .addValidator(PropertyValueValidatorFactory.getPercentageValidator()
+
+      )
     )
 
-    .put("transform", new CssProperty("transform")
-      .addVendor("-webkit-")
-      .addVendor("-moz-")
-      .addVendor("-ms-")
-      .addVendor("-o-")
+    .
 
-    )
+    put("transform", new CssProperty("transform")
 
-    .put("transform-origin", new CssProperty("transform-origin")
-      .addVendor("-webkit-")
-      .addVendor("-moz-")
-      .addVendor("-ms-")
-      .addVendor("-o-")
+      .
 
-    )
+      addVendor("-webkit-")
 
-    .put("transform-style", new CssProperty("transform-style")
+      .
 
-    )
+      addVendor("-moz-")
 
-    .put("transition", new CssProperty("transition")
-      .addVendor("-webkit-")
-      .addVendor("-moz-")
-      .addVendor("-o-")
+      .
+
+      addVendor("-ms-")
+
+      .
+
+      addVendor("-o-")
 
     )
 
-    .put("transition-delay", new CssProperty("transition-delay")
-      .addVendor("-webkit-")
-      .addVendor("-moz-")
-      .addVendor("-o-")
+    .
+
+    put("transform-origin", new CssProperty("transform-origin")
+
+      .
+
+      addVendor("-webkit-")
+
+      .
+
+      addVendor("-moz-")
+
+      .
+
+      addVendor("-ms-")
+
+      .
+
+      addVendor("-o-")
 
     )
 
-    .put("transition-duration", new CssProperty("transition-duration")
-      .addVendor("-webkit-")
-      .addVendor("-moz-")
-      .addVendor("-o-")
+    .
+
+    put("transform-style", new CssProperty("transform-style")
 
     )
 
-    .put("transition-property", new CssProperty("transition-property")
-      .addVendor("-webkit-")
-      .addVendor("-moz-")
-      .addVendor("-o-")
+    .
+
+    put("transition", new CssProperty("transition")
+
+      .
+
+      addVendor("-webkit-")
+
+      .
+
+      addVendor("-moz-")
+
+      .
+
+      addVendor("-o-")
 
     )
 
-    .put("transition-timing-function", new CssProperty("transition-timing-function")
-      .addVendor("-webkit-")
-      .addVendor("-moz-")
+    .
+
+    put("transition-delay", new CssProperty("transition-delay")
+
+      .
+
+      addVendor("-webkit-")
+
+      .
+
+      addVendor("-moz-")
+
+      .
+
+      addVendor("-o-")
+
+    )
+
+    .
+
+    put("transition-duration", new CssProperty("transition-duration")
+
+      .
+
+      addVendor("-webkit-")
+
+      .
+
+      addVendor("-moz-")
+
+      .
+
+      addVendor("-o-")
+
+    )
+
+    .
+
+    put("transition-property", new CssProperty("transition-property")
+
+      .
+
+      addVendor("-webkit-")
+
+      .
+
+      addVendor("-moz-")
+
+      .
+
+      addVendor("-o-")
+
+    )
+
+    .
+
+    put("transition-timing-function", new CssProperty("transition-timing-function")
+
+      .
+
+      addVendor("-webkit-")
+
+      .
+
+      addVendor("-moz-")
       .addVendor("-o-")
 
     )
 
     // U
-    .put("unicode-bidi", new CssProperty("unicode-bidi")
-      .addValidator(new IdentifierValidator(ImmutableList.of("normal", "embed", "bidi-override")))
+    .
+
+    put("unicode-bidi", new CssProperty("unicode-bidi")
+
+      .
+
+      addValidator(new IdentifierValidator(ImmutableList.of("normal", "embed", "bidi-override")
+
+      ))
     )
 
-    .put("user-modify", new CssProperty("user-modify")
-      .addVendor("-webkit-")
-      .addVendor("-moz-")
+    .
+
+    put("user-modify", new CssProperty("user-modify")
+
+      .
+
+      addVendor("-webkit-")
+
+      .
+
+      addVendor("-moz-")
 
     )
 
-    .put("user-select", new CssProperty("user-select")
-      .addVendor("-webkit-")
-      .addVendor("-moz-")
+    .
+
+    put("user-select", new CssProperty("user-select")
+
+      .
+
+      addVendor("-webkit-")
+
+      .
+
+      addVendor("-moz-")
       .addVendor("-ms-")
 
     )
 
     // V
-    .put("vertical-align", new CssProperty("vertical-align")
-      .addValidator(new IdentifierValidator(
+    .
+
+    put("vertical-align", new CssProperty("vertical-align")
+
+      .
+
+      addValidator(new IdentifierValidator(
         ImmutableList
-          .of("auto", "use-script", "baseline", "sub", "super", "top", "text-top", "central", "middle", "bottom",
-            "text-bottom")))
-      .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
-      .addValidator(PropertyValueValidatorFactory.getLengthValidator())
+          .of("auto", "use-script", "baseline", "sub", "super", "top", "text-top", "central", "middle",
+            "bottom",
+            "text-bottom")
+
+        ))
+      .
+
+      addValidator(PropertyValueValidatorFactory.getPercentageValidator()
+
+      )
+      .
+
+      addValidator(PropertyValueValidatorFactory.getLengthValidator()
+
+      )
     )
 
-    .put("visibility", new CssProperty("visibility")
-      .addValidator(new IdentifierValidator(ImmutableList.of("visible", "hidden", "collapse")))
+    .
+
+    put("visibility", new CssProperty("visibility")
+
+      .
+
+      addValidator(new IdentifierValidator(ImmutableList.of("visible", "hidden", "collapse")
+
+      ))
     )
 
-    .put("voice-balance", new CssProperty("voice-balance")
+    .
 
+    put("voice-balance", new CssProperty("voice-balance")
+      .setUrl("http://www.w3.org/TR/css3-speech/#voice-balance")
     )
 
     .put("voice-duration", new CssProperty("voice-duration")
-
+      .setUrl("http://www.w3.org/TR/css3-speech/#mixing-props-voice-duration")
+      .addValidator(new AutoValidator())
+      .addValidator(new TimeValidator(true))
     )
 
     .put("voice-family", new CssProperty("voice-family")
-
+      .setUrl("http://www.w3.org/TR/css3-speech/#voice-family")
     )
 
     .put("voice-pitch", new CssProperty("voice-pitch")
-
+      .setUrl("http://www.w3.org/TR/css3-speech/#voice-pitch")
     )
 
-    .put("voice-pitch-range", new CssProperty("voice-pitch-range")
-
+    .put("voice-range", new CssProperty("voice-range")
+      .setUrl("http://www.w3.org/TR/css3-speech/#voice-range")
     )
 
     .put("voice-rate", new CssProperty("voice-rate")
-
+      .setUrl("http://www.w3.org/TR/css3-speech/#voice-rate")
     )
 
     .put("voice-stress", new CssProperty("voice-stress")
-
+      .setUrl("http://www.w3.org/TR/css3-speech/#voice-stress")
     )
 
     .put("voice-volume", new CssProperty("voice-volume")
-
+      .setUrl("http://www.w3.org/TR/css3-speech/#voice-volume")
     )
 
     .put("volume", new CssProperty("volume")
-      .addValidator(
-        new IdentifierValidator(ImmutableList.of("silent", "x-soft", "soft", "medium", "loud", "x-loud")))
+      .addValidator(new IdentifierValidator(ImmutableList.of("silent", "x-soft", "soft", "medium", "loud", "x-loud")))
       .addValidator(PropertyValueValidatorFactory.getNumberValidator())
       .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
     )
 
     // W
     .put("white-space", new CssProperty("white-space")
-      .addValidator(
-      new IdentifierValidator(ImmutableList.of("normal", "pre", "nowrap", "pre-wrap", "pre-line")))
+      .addValidator(new IdentifierValidator(ImmutableList.of("normal", "pre", "nowrap", "pre-wrap", "pre-line")))
     )
 
     .put("white-space-collapse", new CssProperty("white-space-collapse")
-
     )
 
     .put("widows", new CssProperty("widows")
+      .setUrl("http://dev.w3.org/csswg/css-break-3/#propdef-widows")
       .addValidator(PropertyValueValidatorFactory.getIntegerValidator())
     )
 
     .put("width", new CssProperty("width")
-      .addValidator(PropertyValueValidatorFactory.getAutoValidator())
-      .addValidator(PropertyValueValidatorFactory.getLengthValidator())
-      .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
+      .setUrl("http://dev.w3.org/csswg/css2/visudet.html#propdef-width")
+      .addValidator(new WidthValidator())
     )
 
-    .put("word-break", new CssProperty("word-break")
-      .addVendor("-epub-")
+    .
+
+    put("word-break", new CssProperty("word-break")
+
+      .
+
+      addVendor("-epub-")
+
+      .
+
+      addVendor("-ms-")
+
+    )
+
+    .
+
+    put("word-spacing", new CssProperty("word-spacing")
+
+      .
+
+      addValidator(new IdentifierValidator(ImmutableList.of("normal")
+
+        ))
+      .
+
+      addValidator(PropertyValueValidatorFactory.getLengthValidator()
+
+      )
+    )
+
+    .
+
+    put("word-wrap", new CssProperty("word-wrap")
+
+    )
+
+    .
+
+    put("writing-mode", new CssProperty("writing-mode")
+
+      .
+
+      addVendor("-epub-")
       .addVendor("-ms-")
 
     )
 
-    .put("word-spacing", new CssProperty("word-spacing")
-      .addValidator(new IdentifierValidator(ImmutableList.of("normal")))
-      .addValidator(PropertyValueValidatorFactory.getLengthValidator())
-    )
+    // Z
+    .
 
-    .put("word-wrap", new CssProperty("word-wrap")
+    put("z-index", new CssProperty("z-index")
 
-    )
+      .
 
-    .put("writing-mode", new CssProperty("writing-mode")
-      .addVendor("-epub-")
-      .addVendor("-ms-")
+      addValidator(PropertyValueValidatorFactory.getAutoValidator()
 
-    )
+      )
+      .
 
-        // Z
-      .put("z-index", new CssProperty("z-index")
-              .addValidator(PropertyValueValidatorFactory.getAutoValidator())
-              .addValidator(PropertyValueValidatorFactory.getIntegerValidator())
+      addValidator(PropertyValueValidatorFactory.getIntegerValidator()
+
+      )
     )
 
     .put("zoom", new CssProperty("zoom")

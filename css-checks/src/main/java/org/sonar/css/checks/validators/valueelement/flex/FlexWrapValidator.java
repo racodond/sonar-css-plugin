@@ -17,22 +17,15 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.utils;
+package org.sonar.css.checks.validators.valueelement.flex;
 
-import org.junit.Test;
+import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 
-import static org.fest.assertions.Assertions.assertThat;
+public class FlexWrapValidator extends IdentifierValidator {
 
-public class CssPropertiesTest {
-
-  @Test
-  public void number_of_vendors() {
-    assertThat(Vendors.VENDORS.size()).isEqualTo(18);
-  }
-
-  @Test
-  public void number_of_properties() {
-    assertThat(CssProperties.PROPERTIES.size()).isEqualTo(324);
+  public FlexWrapValidator() {
+    super(ImmutableList.of("nowrap", "wrap", "wrap-reverse"));
   }
 
 }

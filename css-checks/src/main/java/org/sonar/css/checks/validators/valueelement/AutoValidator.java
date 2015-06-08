@@ -17,22 +17,14 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.utils;
+package org.sonar.css.checks.validators.valueelement;
 
-import org.junit.Test;
+import com.google.common.collect.ImmutableList;
 
-import static org.fest.assertions.Assertions.assertThat;
+public class AutoValidator extends IdentifierValidator {
 
-public class CssPropertiesTest {
-
-  @Test
-  public void number_of_vendors() {
-    assertThat(Vendors.VENDORS.size()).isEqualTo(18);
-  }
-
-  @Test
-  public void number_of_properties() {
-    assertThat(CssProperties.PROPERTIES.size()).isEqualTo(324);
+  public AutoValidator() {
+    super(ImmutableList.of("auto"));
   }
 
 }
