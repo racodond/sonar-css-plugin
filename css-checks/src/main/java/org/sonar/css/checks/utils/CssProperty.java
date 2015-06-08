@@ -26,6 +26,7 @@ import org.sonar.css.checks.validators.PropertyValueElementValidator;
 import org.sonar.css.checks.validators.PropertyValueValidator;
 import org.sonar.css.checks.validators.Validator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
+import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
 import org.sonar.css.parser.CssGrammar;
 
 import javax.annotation.Nonnull;
@@ -112,7 +113,8 @@ public class CssProperty {
       }
     }
 
-    return new IdentifierValidator(ImmutableList.of("inherit", "initial", "unset")).isValid(value.getValueElements().get(0));
+    return new IdentifierValidator(ImmutableList.of("inherit", "initial", "unset")).isValid(value.getValueElements().get(0))
+      || new FunctionValidator(ImmutableList.of("var")).isValid(value.getValueElements().get(0));
   }
 
   @Override

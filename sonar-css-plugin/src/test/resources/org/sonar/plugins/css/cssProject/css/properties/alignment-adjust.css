@@ -18,4 +18,5 @@
   alignment-adjust: -10px;
   alignment-adjust: abc; /* Noncompliant */
   alignment-adjust: 10; /* Noncompliant */
+  alignment-adjust: var (--my-property);
 }
