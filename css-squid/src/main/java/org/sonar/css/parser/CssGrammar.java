@@ -64,9 +64,6 @@ public enum CssGrammar implements GrammarRuleKey {
   IDENT,
   AT_KEYWORD,
   STRING,
-  BAD_STRING,
-  BAD_URI,
-  BAD_COMMENT,
   HASH,
   NUMBER,
   PERCENTAGE,
@@ -123,16 +120,6 @@ public enum CssGrammar implements GrammarRuleKey {
   _STRING,
   _STRING1,
   _STRING2,
-  _BAD_STRING,
-  _BAD_STRING1,
-  _BAD_STRING2,
-  _BAD_COMMENT,
-  _BAD_COMMENT1,
-  _BAD_COMMENT2,
-  _BADURI,
-  _BADURI1,
-  _BADURI2,
-  _BADURI3,
   _NL,
   _W,
 
@@ -236,11 +223,8 @@ public enum CssGrammar implements GrammarRuleKey {
         b.firstOf(
           URI,
           FUNCTION,
-          b.sequence(OPEN_PARENTHESIS,
-            b.zeroOrMore(ANY),
-            CLOSE_PARENTHESIS),
-          b.sequence(OPEN_BRACKET,
-            b.zeroOrMore(ANY), CLOSE_BRACKET),
+          b.sequence(OPEN_PARENTHESIS, b.zeroOrMore(ANY), CLOSE_PARENTHESIS),
+          b.sequence(OPEN_BRACKET, b.zeroOrMore(ANY), CLOSE_BRACKET),
           PERCENTAGE,
           DIMENSION,
           NUMBER,
@@ -262,17 +246,40 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(identNoWS).is(_IDENT);
     b.rule(AT_KEYWORD).is(addSpacing(b.sequence("@", IDENT), b));
     b.rule(STRING).is(addSpacing(_STRING, b));
-    b.rule(BAD_STRING).is(_BAD_STRING); // TODO: do we need this?
-    b.rule(BAD_URI).is(_BADURI); // TODO: do we need this?
-    b.rule(BAD_COMMENT).is(_BAD_COMMENT); // TODO: do we need this?
     b.rule(HASH).is(addSpacing(b.sequence("#", _NAME), b));
     b.rule(NUMBER).is(addSpacing(_NUM, b));
     b.rule(PERCENTAGE).is(addSpacing(b.sequence(_NUM, "%"), b));
     b.rule(DIMENSION).is(addSpacing(b.sequence(_NUM, unit), b));
-    b.rule(unit).is(b.firstOf("em", "ex", "ch", "rem", "vw", "vh", "vmin", "vmax", "cm", "mm", "in", "px", "pt", "pc", "ms", "s", "Hz", "kHz", "deg", "grad", "rad", "turn", "dpi", "dpcm", "dppx"));
+    b.rule(unit).is(b.firstOf(
+      matchCaseInsensitive(b, "em"),
+      matchCaseInsensitive(b, "ex"),
+      matchCaseInsensitive(b, "ch"),
+      matchCaseInsensitive(b, "rem"),
+      matchCaseInsensitive(b, "vw"),
+      matchCaseInsensitive(b, "vh"),
+      matchCaseInsensitive(b, "vmin"),
+      matchCaseInsensitive(b, "vmax"),
+      matchCaseInsensitive(b, "cm"),
+      matchCaseInsensitive(b, "mm"),
+      matchCaseInsensitive(b, "in"),
+      matchCaseInsensitive(b, "px"),
+      matchCaseInsensitive(b, "pt"),
+      matchCaseInsensitive(b, "pc"),
+      matchCaseInsensitive(b, "ms"),
+      matchCaseInsensitive(b, "s"),
+      matchCaseInsensitive(b, "Hz"),
+      matchCaseInsensitive(b, "kHz"),
+      matchCaseInsensitive(b, "deg"),
+      matchCaseInsensitive(b, "grad"),
+      matchCaseInsensitive(b, "rad"),
+      matchCaseInsensitive(b, "turn"),
+      matchCaseInsensitive(b, "dpi"),
+      matchCaseInsensitive(b, "dpcm"),
+      matchCaseInsensitive(b, "dppx"))
+      );
     b.rule(URI).is(
       addSpacing(
-        b.sequence("url(", _URI_CONTENT, CLOSE_PARENTHESIS), b));
+        b.sequence(matchCaseInsensitive(b, "url\\("), _URI_CONTENT, CLOSE_PARENTHESIS), b));
     b.rule(_URI_CONTENT).is(
       b.sequence(_W, b.firstOf(
         STRING,
@@ -281,7 +288,7 @@ public enum CssGrammar implements GrammarRuleKey {
             b.regexp("[!#$%&*-\\[\\]-~]+"),
             _NONASCII,
             _ESCAPE))
-      ), _W));
+        ), _W));
     b.rule(UNICODE_RANGE)
       .is(addSpacing(b.regexp("u\\+[0-9a-f?]{1,6}(-[0-9a-f]{1,6})?"), b));
     b.rule(COLON).is(addSpacing(":", b));
@@ -309,9 +316,9 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(STARTS_WITH).is(addSpacing("^=", b));
     b.rule(ENDS_WITH).is(addSpacing("$=", b));
 
-    b.rule(from).is(addSpacing("from", b));
-    b.rule(to).is(addSpacing("to", b));
-    b.rule(IMPORTANT).is(addSpacing(b.sequence("!", b.optional(WHITESPACE), "important"), b));
+    b.rule(from).is(addSpacing(matchCaseInsensitive(b, "from"), b));
+    b.rule(to).is(addSpacing(matchCaseInsensitive(b, "to"), b));
+    b.rule(IMPORTANT).is(addSpacing(b.sequence("!", b.optional(WHITESPACE), matchCaseInsensitive(b, "important")), b));
     /**
      * TODO: How to cover this: any other character not matched by the above
      * rules, and neither a single nor a double quote
@@ -343,32 +350,16 @@ public enum CssGrammar implements GrammarRuleKey {
       "'",
       b.zeroOrMore(b.firstOf(b.regexp("[^\\n\\r\\f\\\\']"),
         b.sequence("\\", _NL), _ESCAPE)), "'").skip();
-    b.rule(_BAD_STRING).is(b.firstOf(_BAD_STRING1, _BAD_STRING2)).skip();
-    b.rule(_BAD_STRING1).is(
-      "\"",
-      b.zeroOrMore(b.regexp("[^\\n\\r\\f\\\\\"]"),
-        b.sequence("\\", _NL), _ESCAPE), "\"").skip();
-    b.rule(_BAD_STRING2).is(
-      "'",
-      b.zeroOrMore(b.regexp("[^\\n\\r\\f\\\\\']"),
-        b.sequence("\\", _NL), _ESCAPE), "'").skip();
-    b.rule(_BAD_COMMENT).is(b.firstOf(_BAD_COMMENT1, _BAD_COMMENT2)).skip();
-    b.rule(_BAD_COMMENT1).is(b.regexp("\\/\\*[^*]*\\*+([^/*][^*]*\\*+)*")).skip();
-    b.rule(_BAD_COMMENT2).is(b.regexp("\\/\\*[^*]*(\\*+[^/*][^*]*)*")).skip();
-    b.rule(_BADURI).is(b.firstOf(_BADURI1, _BADURI2, _BADURI3)).skip();
-    b.rule(_BADURI1).is(
-      "url(",
-      _W,
-      b.zeroOrMore(b.firstOf(b.regexp("[!#$%&*-~]"), _NONASCII,
-        _ESCAPE)), _W).skip();
-    b.rule(_BADURI2).is("url(", _W, _STRING, _W).skip();
-    b.rule(_BADURI3).is("url(", _W, _BAD_STRING).skip();
     b.rule(_NL).is(b.firstOf("\n", "\r\n", "\r", "\f")).skip();
     b.rule(_W).is(b.regexp("[ \\t\\r\\n\\f]*")).skip();
   }
 
   static Object addSpacing(Object value, LexerlessGrammarBuilder b) {
     return b.sequence(value, WHITESPACES);
+  }
+
+  private static Object matchCaseInsensitive(LexerlessGrammarBuilder b, String value) {
+    return b.regexp("(?i)" + value);
   }
 
 }

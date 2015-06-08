@@ -92,7 +92,9 @@ public class LowLevelTest extends TestBase {
   public void uri() {
     assertThat(b.rule(CssGrammar.URI))
       .matches("url(\"http://www.example.com/pinkish.png\")")
-      .matches("url(\"yellow\")");
+      .matches("url(\"yellow\")")
+      .matches("URL(\"yellow\")")
+      .matches("Url(\"yellow\")");
   }
 
   @Test
