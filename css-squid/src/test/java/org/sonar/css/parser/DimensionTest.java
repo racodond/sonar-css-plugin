@@ -73,7 +73,10 @@ public class DimensionTest extends TestBase {
       .matches("10kHz")
       .matches("10dpi")
       .matches("10dpcm")
-      .matches("10dppx");
+      .matches("10dppx")
+      .notMatches("-12.23wookie")
+      .notMatches("12.4%")
+      .notMatches("12.4");
   }
 
   @Test

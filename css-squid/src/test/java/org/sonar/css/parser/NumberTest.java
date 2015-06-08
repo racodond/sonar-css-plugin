@@ -60,7 +60,9 @@ public class NumberTest extends TestBase {
       .notMatches("+.")
       .notMatches("+a")
       .notMatches("-a")
-      .notMatches("abc");
+      .notMatches("abc")
+      .notMatches("12%")
+      .notMatches("12px");
   }
 
 }
