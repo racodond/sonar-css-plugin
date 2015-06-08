@@ -79,6 +79,7 @@ public final class CheckList {
       TodoTagPresenceCheck.class,
       TooManyWebFonts.class,
       UnknownFunctionsCheck.class,
+      UnknownAtRulesCheck.class,
       ValidatePropertyValueCheck.class,
       VendorPrefixWithStandard.class,
       WhitespacesInImportantAnnotationCheck.class

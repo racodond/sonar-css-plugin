@@ -33,7 +33,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "unknown-at-rules",
-  name = "Unknown @-rules should be removed",
+  name = "Unknown CSS @-rules should be removed",
   priority = Priority.MAJOR,
   tags = {Tags.PITFALL})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
