@@ -26,23 +26,27 @@ import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
-public class DeprecatedSystemColorsCheckTest {
+public class CommentRegularExpressionCheckTest {
 
-  private DeprecatedSystemColorsCheck check = new DeprecatedSystemColorsCheck();
+  private CommentRegularExpressionCheck check = new CommentRegularExpressionCheck();
 
   @Test
-  public void should_contain_deprecated_system_colors_and_raise_issues() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/color.css"), check);
+  public void should_match_some_comments_and_raise_issues() {
+    String message = "Stop annotating lines with WTF! Detail what is wrong instead.";
+    check.regularExpression = "(?i).*WTF.*";
+    check.message = message;
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/commentRegularExpression.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(20).withMessage("Remove this usage of the deprecated \"Background\" system color.").next()
-      .atLine(21).withMessage("Remove this usage of the deprecated \"background\" system color.").next()
-      .atLine(22).withMessage("Remove this usage of the deprecated \"ThreeDShadow\" system color.").next()
-      .atLine(23).withMessage("Remove this usage of the deprecated \"threedshadow\" system color.").noMore();
+      .atLine(1).withMessage(message).next()
+      .atLine(3).withMessage(message).next()
+      .atLine(4).withMessage(message).noMore();
   }
 
   @Test
-  public void should_not_contain_deprecated_system_color_properties_and_not_raise_issues() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/emptyRule.css"), check);
+  public void should_not_match_any_comments_and_not_raise_any_issues() {
+    check.regularExpression = "blabla";
+    check.message = "blabla";
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/commentRegularExpression.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
   }
 

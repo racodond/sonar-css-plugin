@@ -33,7 +33,7 @@ public class ColorValidator implements PropertyValueElementValidator {
     return new IdentifierValidator(CssColors.SVG_COLORS).isValid(cssValueElement)
       || new IdentifierValidator(CssColors.CSS4_COLORS).isValid(cssValueElement)
       || new IdentifierValidator(CssColors.CSS2_SYSTEM_COLORS).isValid(cssValueElement)
-      || new IdentifierValidator(ImmutableList.of("transparent", "currentColor")).isValid(cssValueElement)
+      || new IdentifierValidator(ImmutableList.of("transparent", "currentcolor")).isValid(cssValueElement)
       || new FunctionValidator(ImmutableList.of("rgb", "rgba", "hsl", "hsla")).isValid(cssValueElement)
       || new HashValidator().isValid(cssValueElement);
   }

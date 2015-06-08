@@ -1915,7 +1915,7 @@ public final class CssProperties {
     .build();
 
   public static CssProperty getProperty(String propertyName) {
-    return PROPERTIES.get(propertyName);
+    return PROPERTIES.get(propertyName.toLowerCase());
   }
 
   public static String getUnhackedPropertyName(String propertyName) {
