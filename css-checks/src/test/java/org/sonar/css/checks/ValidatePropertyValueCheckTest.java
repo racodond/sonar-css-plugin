@@ -959,6 +959,15 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void text_align() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/text-align.css"), check);
+    errorMessage = "Update the invalid value of property \"text-align\". Expected format: start | end | left | right | center | justify | match-parent | justify-all";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(11).withMessage(errorMessage).next()
+      .atLine(12).withMessage(errorMessage).noMore();
+  }
+
+  @Test
   public void text_justify() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/text-justify.css"), check);
     errorMessage = "Update the invalid value of property \"text-justify\". Expected format: auto | none | inter-word | inter-character";

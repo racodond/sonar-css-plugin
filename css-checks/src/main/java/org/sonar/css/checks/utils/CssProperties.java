@@ -1321,7 +1321,7 @@ public final class CssProperties {
     )
 
     .put("text-align", new CssProperty("text-align")
-      .addValidator(new IdentifierValidator(ImmutableList.of("left", "right", "center", "justify")))
+      .addValidator(new IdentifierValidator(ImmutableList.of("start", "end", "left", "right", "center", "justify", "match-parent", "justify-all")))
     )
 
     .put("text-align-last", new CssProperty("text-align-last")
