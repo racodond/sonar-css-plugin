@@ -105,6 +105,7 @@ public final class CssProperties {
     )
 
     .put("all", new CssProperty("all")
+      .setUrl("http://www.w3.org/TR/css3-cascade/#propdef-all")
       .addValidator(new IdentifierValidator(ImmutableList.of("inherit", "initial", "unset")))
     )
 
@@ -1546,10 +1547,10 @@ public final class CssProperties {
 
     )
 
-    // Z
-    .put("z-index", new CssProperty("z-index")
-      .addValidator(PropertyValueValidatorFactory.getAutoValidator())
-      .addValidator(PropertyValueValidatorFactory.getIntegerValidator())
+        // Z
+      .put("z-index", new CssProperty("z-index")
+              .addValidator(PropertyValueValidatorFactory.getAutoValidator())
+              .addValidator(PropertyValueValidatorFactory.getIntegerValidator())
     )
 
     .put("zoom", new CssProperty("zoom")

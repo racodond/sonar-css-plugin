@@ -37,6 +37,7 @@ import java.util.List;
 public class CssProperty {
 
   private final String name;
+  private String url;
   private List<String> vendors = new ArrayList<>();
   private List<Validator> validators = new ArrayList<>();
 
@@ -48,6 +49,15 @@ public class CssProperty {
   @Nonnull
   public String getName() {
     return name;
+  }
+
+  public String getUrl() {
+    return url;
+  }
+
+  public CssProperty setUrl(String url) {
+    this.url = url;
+    return this;
   }
 
   @Nonnull
