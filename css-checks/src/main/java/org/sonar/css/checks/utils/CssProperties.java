@@ -1366,7 +1366,7 @@ public final class CssProperties {
     )
 
     .put("text-transform", new CssProperty("text-transform")
-      .addValidator(new IdentifierValidator(ImmutableList.of("capitalize", "uppercase", "lowercase", "none")))
+      .addValidator(new IdentifierValidator(ImmutableList.of("capitalize", "uppercase", "lowercase", "full-width", "none")))
     )
 
     .put("text-wrap", new CssProperty("text-wrap")
