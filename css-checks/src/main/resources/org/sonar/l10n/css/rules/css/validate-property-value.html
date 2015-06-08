@@ -1,6 +1,7 @@
 <p>Browsers ignore invalid property values.</p>
 <h2>Noncompliant Code Example</h2>
 <pre>
+/* 'word-spacing' validator is 'normal | &lt;length&gt;' */
 .mybox {
   word-spacing: 10px;
   word-spacing: normal;
@@ -10,12 +11,12 @@
   word-spacing: abc;      /* Noncompliant: 'abc' value is not allowed */
 }
 </pre><h2>Implemented Checks</h2>
-<p>Based on <a target="_blank" href="http://www.w3.org/Style/CSS/current-work">W3C CSS specifications</a>Level 1 or 2 or 3 which status is either Completed or Testing or Refining.</p>
+<p>Based on <a target="_blank" href="http://www.w3.org/Style/CSS/current-work">W3C CSS specifications</a> Level 1 or 2 or 3 which status is either Completed or Testing or Refining.</p>
 <table border=1>
   <thead>
   <tr align=center>
     <th>Name
-    <th>Values
+    <th>Validator
     <th>Checked
   </thead>
 
@@ -106,7 +107,7 @@
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-background/#background-color">background-color</a>
-    <td>&lt;color&gt; | transparent | currentColor
+    <td>&lt;color&gt;
     <td>Yes
 
   <tr>
@@ -127,16 +128,16 @@
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-background/#background-repeat">background-repeat</a>
     <td>repeat-x | repeat-y | [repeat | space | round | no-repeat]{1,2} [, repeat-x | repeat-y | [repeat | space | round | no-repeat]{1,2}]*
-    <td>No
+    <td>Yes
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-background/#background-size">background-size</a>
-    <td> [ &lt;length&gt; | &lt;percentage&gt; | auto ]{1,2} | cover | contain [,  [ &lt;length&gt; | &lt;percentage&gt; | auto ]{1,2} | cover | contain ]*
-    <td>No
+    <td>[ &lt;length&gt; | &lt;percentage&gt; | auto ]{1,2} | cover | contain [,  [ &lt;length&gt; | &lt;percentage&gt; | auto ]{1,2} | cover | contain ]*
+    <td>Yes
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-background/#background">background</a>
-    <td>[background-color || background-image || background-repeat || background-attachment || background-position]
+    <td>background-color || background-image || background-repeat || background-attachment || background-position
     <td>No
 
   <tr>
@@ -151,7 +152,7 @@
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-color">border-color</a>
-    <td>[ &lt;color&gt; | transparent | currentColor ]{1,4}
+    <td>&lt;color&gt;{1,4}
     <td>Yes
 
   <tr>
@@ -182,7 +183,7 @@
       <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-right-color">border-right-color</a><br>
       <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-bottom-color">border-bottom-color</a><br>
       <a target="_blank" href="http://www.w3.org/TR/CSS21/box.html#propdef-border-left-color">border-left-color</a>
-    <td>&lt;color&gt; | transparent | currentColor
+    <td>&lt;color&gt;
     <td>Yes
 
   <tr>
@@ -256,7 +257,7 @@
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/colors.html#propdef-color">color</a>
-    <td>&lt;color&gt; | transparent | currentColor
+    <td>&lt;color&gt;
     <td>Yes
 
   <tr>
@@ -267,12 +268,12 @@
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/generate.html#propdef-counter-increment">counter-increment</a>
     <td>[ &lt;identifier&gt; &lt;integer&gt;? ]+ | none
-    <td>No
+    <td>Yes
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/generate.html#propdef-counter-reset">counter-reset</a>
     <td>[ &lt;identifier&gt; &lt;integer&gt;? ]+ | none
-    <td>No
+    <td>Yes
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-cue-after">cue-after</a>
@@ -441,13 +442,13 @@
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/generate.html#propdef-list-style-type">list-style-type</a>
-    <td>disc | circle | square | decimal | decimal-leading-zero | lower-roman | upper-roman | lower-greek | lower-latin | upper-latin | armenian | georgian | lower-alpha | upper-alpha | none
+    <td>&lt;string&gt; | &lt;custom-identifier&gt;
     <td>Yes
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/generate.html#propdef-list-style">list-style</a>
-    <td>[ &lt;list-style-type&gt; || &lt;list-style-position&gt; || &lt;list-style-image&gt; ]
-    <td>No
+    <td>&lt;list-style-type&gt; || &lt;list-style-position&gt; || &lt;list-style-image&gt;
+    <td>Yes
 
   <tr>
     <td nowrap="nowrap">
@@ -597,6 +598,21 @@
     <td>Yes
 
   <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css-shapes-1/#propdef-shape-image-threshold">shape-image-threshold</a>
+    <td>&lt;number&gt;(0.0,1.0)
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css-shapes-1/#propdef-shape-margin">shape-margin</a>
+    <td>&lt;length&gt; | &lt;percentage&gt;
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css-shapes-1/#propdef-shape-outside">shape-outside</a>
+    <td>none | [ &lt;basic-shape&gt; || &lt;shape-box&gt; ] | &lt;image&gt;
+    <td>Yes
+
+  <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-speak-header">speak-header</a>
     <td>once | always
     <td>Yes
@@ -627,13 +643,23 @@
     <td>Yes
 
   <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-text-3/#propdef-tab-size">table-size</a>
+    <td>&lt;length&gt;(&gt;=0) | &lt;integer&gt;(&gt;=0)
+    <td>Yes
+
+  <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/tables.html#propdef-table-layout">table-layout</a>
     <td>auto | fixed
     <td>Yes
 
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/text.html#propdef-text-align">text-align</a>
-    <td>left | right | center | justify
+    <td>start | end | left | right | center | justify | match-parent | justify-all
+    <td>Yes
+
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/text.html#propdef-text-justify">text-justify</a>
+    <td>auto | none | inter-word | inter-character
     <td>Yes
 
   <tr>
@@ -696,7 +722,6 @@
     <td>&lt;integer&gt;
     <td>Yes
 
-
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visudet.html#propdef-width">width</a>
     <td>&lt;length&gt; | &lt;percentage&gt; | auto
@@ -713,3 +738,4 @@
     <td>Yes
 
 </table>
+

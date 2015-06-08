@@ -17,28 +17,17 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.utils.valueelements;
+package org.sonar.css.checks.validators.valueelement;
 
-import com.sonar.sslr.api.AstNode;
-import org.sonar.css.checks.utils.CssFunctions;
-import org.sonar.css.checks.utils.CssValueElement;
+import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
+import org.sonar.css.checks.validators.valueelement.dimension.LengthValidator;
+import org.sonar.css.checks.validators.valueelement.numeric.PercentageValidator;
 
-public class Function extends CssValueElement {
+public class WidthValidator extends MultiPropertyValueElementValidator {
 
-  private final String name;
-  private final String nameWithoutVendorPrefix;
-
-  public Function(AstNode functionNode) {
-    name = functionNode.getTokenValue().toLowerCase();
-    nameWithoutVendorPrefix = CssFunctions.getFunctionNameWithoutVendorPrefix(name);
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public String getNameWithoutVendorPrefix() {
-    return nameWithoutVendorPrefix;
+  public WidthValidator() {
+    super(ImmutableList.of(new AutoValidator(), new LengthValidator(false), new PercentageValidator(false)));
   }
 
 }

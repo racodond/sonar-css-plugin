@@ -21,10 +21,10 @@ package org.sonar.css.checks.validators.valueelement.dimension;
 
 import com.google.common.collect.ImmutableList;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.utils.valueelements.Dimension;
-import org.sonar.css.checks.utils.valueelements.Number;
+import org.sonar.css.checks.utils.valueelements.DimensionValueElement;
+import org.sonar.css.checks.utils.valueelements.NumberValueElement;
 import org.sonar.css.checks.validators.PropertyValueElementValidator;
-import org.sonar.css.checks.validators.valueelement.FunctionValidator;
+import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
 
 import javax.annotation.Nonnull;
 
@@ -45,19 +45,19 @@ public abstract class DimensionValidator implements PropertyValueElementValidato
   @Override
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {
 
-    if (cssValueElement instanceof Dimension) {
-      if (!units.contains(((Dimension) cssValueElement).getUnit())) {
+    if (cssValueElement instanceof DimensionValueElement) {
+      if (!units.contains(((DimensionValueElement) cssValueElement).getUnit())) {
         return false;
       }
-      return isPositiveOnly() ? ((Dimension) cssValueElement).isPositive() : true;
+      return isPositiveOnly() ? ((DimensionValueElement) cssValueElement).isPositive() : true;
     }
 
     if (new FunctionValidator(ImmutableList.of("calc")).isValid(cssValueElement)) {
       return true;
     }
 
-    if (cssValueElement instanceof Number) {
-      return ((Number) cssValueElement).isZero();
+    if (cssValueElement instanceof NumberValueElement) {
+      return ((NumberValueElement) cssValueElement).isZero();
     }
 
     return false;

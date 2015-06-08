@@ -22,7 +22,7 @@ package org.sonar.css.checks.validators;
 import com.google.common.collect.ImmutableList;
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.utils.valueelements.Delimiter;
+import org.sonar.css.checks.utils.valueelements.DelimiterValueElement;
 
 import javax.annotation.Nonnull;
 
@@ -31,31 +31,32 @@ import java.util.List;
 
 public class ValueElementListPropertyValueValidator implements PropertyValueValidator {
 
-  private List<PropertyValueElementValidator> validators = new ArrayList<>();
+  private List<? extends PropertyValueElementValidator> validators = new ArrayList<>();
 
   public ValueElementListPropertyValueValidator() {
   }
 
-  public ValueElementListPropertyValueValidator(@Nonnull ImmutableList<PropertyValueElementValidator> validators) {
+  public ValueElementListPropertyValueValidator(@Nonnull ImmutableList<? extends PropertyValueElementValidator> validators) {
     this.validators = validators;
-  }
-
-  public List<PropertyValueElementValidator> getValidators() {
-    return validators;
   }
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
+    boolean valid;
     for (CssValueElement valueElement : value.getValueElements()) {
-      if (!(valueElement instanceof Delimiter)) {
+      valid = false;
+      if (!(valueElement instanceof DelimiterValueElement)) {
         for (PropertyValueElementValidator validator : validators) {
           if (validator.isValid(valueElement)) {
-            return true;
+            valid = true;
           }
+        }
+        if (!valid) {
+          return false;
         }
       }
     }
-    return false;
+    return true;
   }
 
   @Override

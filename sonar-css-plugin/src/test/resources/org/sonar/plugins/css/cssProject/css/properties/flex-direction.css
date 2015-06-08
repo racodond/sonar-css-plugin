@@ -1,0 +1,9 @@
+.mybox {
+  flex-direction: inherit;
+  flex-direction: row;
+  flex-direction: row-reverse;
+  flex-direction: column;
+  flex-direction: column-reverse;
+  flex-direction: abc; /* Noncompliant */
+  flex-direction: 10; /* Noncompliant */
+}

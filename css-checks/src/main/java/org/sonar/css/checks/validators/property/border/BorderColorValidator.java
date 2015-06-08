@@ -47,7 +47,7 @@ public class BorderColorValidator implements PropertyValueValidator {
   @Nonnull
   @Override
   public String getValidatorFormat() {
-    return "[ <color> | transparent | currentColor ]{1,4}";
+    return "<color>{1,4}";
   }
 
 }

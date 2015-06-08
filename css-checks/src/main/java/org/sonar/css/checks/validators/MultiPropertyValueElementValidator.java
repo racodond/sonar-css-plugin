@@ -29,17 +29,13 @@ import java.util.List;
 
 public class MultiPropertyValueElementValidator implements PropertyValueElementValidator {
 
-  private List<PropertyValueElementValidator> validators = new ArrayList<>();
+  private List<? extends PropertyValueElementValidator> validators = new ArrayList<>();
 
   public MultiPropertyValueElementValidator() {
   }
 
-  public MultiPropertyValueElementValidator(@Nonnull ImmutableList<PropertyValueElementValidator> validators) {
+  public MultiPropertyValueElementValidator(@Nonnull ImmutableList<? extends PropertyValueElementValidator> validators) {
     this.validators = validators;
-  }
-
-  public List<PropertyValueElementValidator> getValidators() {
-    return validators;
   }
 
   @Override

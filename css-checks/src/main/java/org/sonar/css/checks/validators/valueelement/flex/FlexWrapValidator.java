@@ -17,22 +17,15 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.utils.valueelements;
+package org.sonar.css.checks.validators.valueelement.flex;
 
-import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.api.GenericTokenType;
-import org.sonar.css.checks.utils.CssValueElement;
+import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 
-public class Percentage extends CssValueElement {
+public class FlexWrapValidator extends IdentifierValidator {
 
-  private final double value;
-
-  public Percentage(AstNode astNode) {
-    value = Double.valueOf(astNode.getFirstChild(GenericTokenType.LITERAL).getTokenValue());
-  }
-
-  public boolean isPositive() {
-    return value >= 0;
+  public FlexWrapValidator() {
+    super(ImmutableList.of("nowrap", "wrap", "wrap-reverse"));
   }
 
 }

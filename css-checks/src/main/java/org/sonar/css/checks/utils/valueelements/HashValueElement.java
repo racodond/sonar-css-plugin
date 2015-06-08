@@ -20,18 +20,19 @@
 package org.sonar.css.checks.utils.valueelements;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.GenericTokenType;
 import org.sonar.css.checks.utils.CssValueElement;
 
-public class Delimiter extends CssValueElement {
+public class HashValueElement extends CssValueElement {
 
-  private final String type;
+  private final String value;
 
-  public Delimiter(AstNode delimiterNode) {
-    type = delimiterNode.getTokenValue();
+  public HashValueElement(AstNode hashNode) {
+    value = "#" + hashNode.getFirstChild(GenericTokenType.LITERAL).getTokenValue();
   }
 
-  public String getType() {
-    return type;
+  public String getValue() {
+    return value;
   }
 
 }

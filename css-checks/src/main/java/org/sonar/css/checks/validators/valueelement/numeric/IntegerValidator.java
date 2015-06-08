@@ -20,7 +20,7 @@
 package org.sonar.css.checks.validators.valueelement.numeric;
 
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.utils.valueelements.Number;
+import org.sonar.css.checks.utils.valueelements.NumberValueElement;
 import org.sonar.css.checks.validators.PropertyValueElementValidator;
 
 import javax.annotation.Nonnull;
@@ -39,9 +39,9 @@ public class IntegerValidator implements PropertyValueElementValidator {
 
   @Override
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    if (cssValueElement instanceof Number && ((Number) cssValueElement).isInteger()) {
+    if (cssValueElement instanceof NumberValueElement && ((NumberValueElement) cssValueElement).isInteger()) {
       if (positiveOnly) {
-        return ((Number) cssValueElement).isPositive() ? true : false;
+        return ((NumberValueElement) cssValueElement).isPositive() ? true : false;
       }
       return true;
     }

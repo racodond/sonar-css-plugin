@@ -19,11 +19,12 @@
  */
 package org.sonar.css.checks;
 
-import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.checks.utils.CssProperties;
+import org.sonar.css.checks.utils.CssProperty;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -41,8 +42,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleConstantRemediation("10min")
 public class ObsoletePropertiesCheck extends SquidCheck<LexerlessGrammar> {
 
-  private final ImmutableList<String> obsoleteProperties = ImmutableList.of("azimuth", "clip");
-
   @Override
   public void init() {
     subscribeTo(CssGrammar.PROPERTY);
@@ -50,7 +49,8 @@ public class ObsoletePropertiesCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (obsoleteProperties.contains(astNode.getTokenValue().toLowerCase())) {
+    CssProperty property = CssProperties.getProperty(astNode.getTokenValue().toLowerCase());
+    if (property != null && property.isObsolete()) {
       getContext().createLineViolation(
         this,
         "Remove the obsolete \"{0}\" property.",

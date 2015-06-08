@@ -20,11 +20,19 @@
 package org.sonar.css.checks.utils.valueelements;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.GenericTokenType;
 import org.sonar.css.checks.utils.CssValueElement;
 
-public class Uri extends CssValueElement {
+public class PercentageValueElement extends CssValueElement {
 
-  public Uri(AstNode numberNode) {
+  private final double value;
+
+  public PercentageValueElement(AstNode astNode) {
+    value = Double.valueOf(astNode.getFirstChild(GenericTokenType.LITERAL).getTokenValue());
+  }
+
+  public boolean isPositive() {
+    return value >= 0;
   }
 
 }

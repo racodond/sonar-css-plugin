@@ -26,7 +26,7 @@ import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 public class BackgroundAttachmentValidator extends ValueElementListPropertyValueValidator {
 
   public BackgroundAttachmentValidator() {
-    getValidators().add(new IdentifierValidator(ImmutableList.of("scroll", "fixed", "local")));
+    super(ImmutableList.of(new IdentifierValidator(ImmutableList.of("scroll", "fixed", "local"))));
   }
 
 }

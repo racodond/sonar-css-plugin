@@ -22,7 +22,7 @@ package org.sonar.css.checks.validators.property.animation;
 import com.google.common.collect.ImmutableList;
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.validators.PropertyValueElementValidator;
-import org.sonar.css.checks.validators.valueelement.FunctionValidator;
+import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 
 import javax.annotation.Nonnull;

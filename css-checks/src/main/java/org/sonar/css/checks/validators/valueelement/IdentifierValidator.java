@@ -21,7 +21,7 @@ package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.utils.valueelements.Identifier;
+import org.sonar.css.checks.utils.valueelements.IdentifierValueElement;
 import org.sonar.css.checks.validators.PropertyValueElementValidator;
 
 import javax.annotation.Nonnull;
@@ -39,11 +39,11 @@ public class IdentifierValidator implements PropertyValueElementValidator {
   }
 
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    if (cssValueElement instanceof Identifier) {
+    if (cssValueElement instanceof IdentifierValueElement) {
       if (allowedValues.isEmpty()) {
         return true;
       }
-      return allowedValues.contains(((Identifier) cssValueElement).getName().toLowerCase());
+      return allowedValues.contains(((IdentifierValueElement) cssValueElement).getName().toLowerCase());
     }
     return false;
   }

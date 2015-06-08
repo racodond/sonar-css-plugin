@@ -20,7 +20,7 @@
 package org.sonar.css.checks.validators.valueelement;
 
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.utils.valueelements.Uri;
+import org.sonar.css.checks.utils.valueelements.UriValueElement;
 import org.sonar.css.checks.validators.PropertyValueElementValidator;
 
 import javax.annotation.Nonnull;
@@ -29,7 +29,7 @@ public class UriValidator implements PropertyValueElementValidator {
 
   @Override
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    return cssValueElement instanceof Uri;
+    return cssValueElement instanceof UriValueElement;
   }
 
   @Override

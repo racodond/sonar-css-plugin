@@ -22,9 +22,9 @@ package org.sonar.css.checks.utils.valueelements;
 import com.sonar.sslr.api.AstNode;
 import org.sonar.css.checks.utils.CssValueElement;
 
-public class NotSupported extends CssValueElement {
+public class NotSupportedValueElement extends CssValueElement {
 
-  public NotSupported(AstNode notSupportedNode) {
+  public NotSupportedValueElement(AstNode notSupportedNode) {
   }
 
 }

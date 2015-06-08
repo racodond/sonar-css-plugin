@@ -20,7 +20,7 @@
 package org.sonar.css.checks.validators.valueelement.numeric;
 
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.utils.valueelements.Number;
+import org.sonar.css.checks.utils.valueelements.NumberValueElement;
 
 import javax.annotation.Nonnull;
 
@@ -35,7 +35,7 @@ public class IntegerSetValidator extends IntegerValidator {
   @Override
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {
     if (super.isValid(cssValueElement)) {
-      int value = ((Number) cssValueElement).getValue().intValue();
+      int value = ((NumberValueElement) cssValueElement).getValue().intValue();
       for (int i = 0; i < set.length; i++) {
         if (value == set[i]) {
           return true;

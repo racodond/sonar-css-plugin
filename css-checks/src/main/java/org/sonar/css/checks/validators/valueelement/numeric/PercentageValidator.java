@@ -20,7 +20,7 @@
 package org.sonar.css.checks.validators.valueelement.numeric;
 
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.utils.valueelements.Percentage;
+import org.sonar.css.checks.utils.valueelements.PercentageValueElement;
 import org.sonar.css.checks.validators.PropertyValueElementValidator;
 
 import javax.annotation.Nonnull;
@@ -35,9 +35,9 @@ public class PercentageValidator implements PropertyValueElementValidator {
 
   @Override
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    if (cssValueElement instanceof Percentage) {
+    if (cssValueElement instanceof PercentageValueElement) {
       if (positiveOnly) {
-        return ((Percentage) cssValueElement).isPositive() ? true : false;
+        return ((PercentageValueElement) cssValueElement).isPositive() ? true : false;
       }
       return true;
     }

@@ -1,0 +1,7 @@
+.mybox {
+  shape-margin: inherit;
+  shape-margin: 10px;
+  shape-margin: 10%;
+  shape-margin: 10; /* Noncompliant */
+  shape-margin: abc; /* Noncompliant */
+}

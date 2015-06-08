@@ -1,0 +1,26 @@
+.mybox {
+  background-repeat: inherit;
+  background-repeat: repeat-x;
+  background-repeat: repeat-y;
+  background-repeat: repeat;
+  background-repeat: space;
+  background-repeat: round;
+  background-repeat: no-repeat;
+  background-repeat: repeat space;
+  background-repeat: round no-repeat;
+  background-repeat: repeat-x, repeat-y;
+  background-repeat: repeat-x, repeat-y, repeat-x;
+  background-repeat: repeat-x, round, space round;
+  background-repeat: repeat-x, space round, space round;
+  background-repeat: space round, space round, space round;
+  background-repeat: repeat-x repeat-y; /* Noncompliant */
+  background-repeat: repeat-x round; /* Noncompliant */
+  background-repeat: round repeat-y; /* Noncompliant */
+  background-repeat: repeat-x, round repeat-y; /* Noncompliant */
+  background-repeat: 10; /* Noncompliant */
+  background-repeat: 10px; /* Noncompliant */
+  background-repeat: abc; /* Noncompliant */
+  background-repeat: abc abc; /* Noncompliant */
+  background-repeat: abc abc, abc; /* Noncompliant */
+  background-repeat: repeat / size; /* Noncompliant */
+}

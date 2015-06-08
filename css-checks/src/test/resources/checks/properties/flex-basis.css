@@ -1,0 +1,11 @@
+.mybox {
+  flex-basis: inherit;
+  flex-basis: auto;
+  flex-basis: content;
+  flex-basis: 10px;
+  flex-basis: 0;
+  flex-basis: -10px;
+  flex-basis: -10%;
+  flex-basis: -10.5; /* Noncompliant */
+  flex-basis: abc; /* Noncompliant */
+}

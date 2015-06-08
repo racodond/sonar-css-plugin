@@ -26,8 +26,7 @@ import org.sonar.css.checks.validators.valueelement.dimension.LengthValidator;
 public class BorderWidthValidator extends MultiPropertyValueElementValidator {
 
   public BorderWidthValidator() {
-    getValidators().add(new IdentifierValidator(ImmutableList.of("thin", "medium", "thick")));
-    getValidators().add(new LengthValidator(true));
+    super(ImmutableList.of(new IdentifierValidator(ImmutableList.of("thin", "medium", "thick")), new LengthValidator(true)));
   }
 
 }

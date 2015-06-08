@@ -17,29 +17,16 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.utils.valueelements;
+package org.sonar.css.checks.validators.property.liststyle;
 
-import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.api.GenericTokenType;
-import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.parser.CssGrammar;
+import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
+import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 
-public class Dimension extends CssValueElement {
+public class ListStylePositionValidator extends MultiPropertyValueElementValidator {
 
-  private final double value;
-  private final String unit;
-
-  public Dimension(AstNode dimensionNode) {
-    value = Double.valueOf(dimensionNode.getFirstChild(GenericTokenType.LITERAL).getTokenValue());
-    unit = dimensionNode.getFirstChild(CssGrammar.unit).getTokenValue();
-  }
-
-  public String getUnit() {
-    return unit;
-  }
-
-  public boolean isPositive() {
-    return value >= 0;
+  public ListStylePositionValidator() {
+    super(ImmutableList.of(new IdentifierValidator(ImmutableList.of("inside", "outside"))));
   }
 
 }

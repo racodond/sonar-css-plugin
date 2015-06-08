@@ -24,7 +24,7 @@ import org.sonar.css.checks.utils.CssFunctions;
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.validators.PropertyValueValidator;
-import org.sonar.css.checks.validators.valueelement.FunctionValidator;
+import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 import org.sonar.css.checks.validators.valueelement.UriValidator;
 

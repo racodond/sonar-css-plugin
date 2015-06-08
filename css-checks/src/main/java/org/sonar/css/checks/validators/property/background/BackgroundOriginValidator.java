@@ -19,13 +19,14 @@
  */
 package org.sonar.css.checks.validators.property.background;
 
+import com.google.common.collect.ImmutableList;
 import org.sonar.css.checks.validators.ValueElementListPropertyValueValidator;
 import org.sonar.css.checks.validators.valueelement.BoxValidator;
 
 public class BackgroundOriginValidator extends ValueElementListPropertyValueValidator {
 
   public BackgroundOriginValidator() {
-    getValidators().add(new BoxValidator());
+    super(ImmutableList.of(new BoxValidator()));
   }
 
 }
