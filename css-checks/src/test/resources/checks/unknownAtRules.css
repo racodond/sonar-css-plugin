@@ -1,0 +1,35 @@
+@namespace url(http://www.w3.org/1999/xhtml);
+
+@charset "UTF-8";
+@CHARSET "UTF-8";
+
+@font-face {
+  font-family: MyHelvetica;
+  src: local("Helvetica Neue Bold"),
+       local("HelveticaNeue-Bold"),
+       url(MgOpenModernaBold.ttf);
+  font-weight: bold;
+}
+
+@abc {
+  property: red;
+}
+
+@import 'custom.css';
+
+@media screen, print {
+  body { line-height: 1.2 }
+}
+
+@page :pseudo-class {
+  margin:2in;
+}
+
+@supports ( (perspective: 10px) or (-moz-perspective: 10px) or (-webkit-perspective: 10px) or
+            (-ms-perspective: 10px) or (-o-perspective: 10px) ) {
+  /* specific CSS applied when 3D transforms, eventually prefixed, are supported */
+}
+
+@DEF {
+  property: red;
+}
