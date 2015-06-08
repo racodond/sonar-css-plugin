@@ -31,25 +31,38 @@ public class PercentageTest extends TestBase {
   @Test
   public void should_be_percentages() {
     assertThat(b.rule(CssGrammar.PERCENTAGE))
-      .matches("10%")
-      .matches("-10%")
-      .matches("+10%")
-      .matches("10.5%")
-      .matches("-10.5%")
-      .matches("+10.5%")
       .matches("0%")
-      .matches("0.0%")
-      .matches("-0.0%")
-      .matches("+0.0%")
-      .matches(".0%")
-      .matches(".5%")
-      .matches("-.5%")
-      .matches("+.5%");
+      .matches("+0%")
+      .matches("-0%")
+      .matches("1%")
+      .matches("+1%")
+      .matches("-1%")
+      .matches("1.1%")
+      .matches("+1.1%")
+      .matches("-1.1%")
+      .matches("1.11%")
+      .matches("+1.11%")
+      .matches("-1.11%")
+      .matches(".11%")
+      .matches("-.11%")
+      .matches("+.11%")
+      .matches("0.11%")
+      .matches("+0.11%")
+      .matches("-0.11%");
   }
 
   @Test
   public void should_not_be_percentages() {
-    assertThat(b.rule(CssGrammar.DIMENSION))
+    assertThat(b.rule(CssGrammar.PERCENTAGE))
+      .notMatches("+")
+      .notMatches("-")
+      .notMatches("-.")
+      .notMatches("+.")
+      .notMatches("+a")
+      .notMatches("-a")
+      .notMatches("abc")
+      .notMatches("12")
+      .notMatches("12px")
       .notMatches("10abc")
       .notMatches("10 %")
       .notMatches("10.5 %");

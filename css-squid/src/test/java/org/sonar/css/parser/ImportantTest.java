@@ -33,7 +33,12 @@ public class ImportantTest extends TestBase {
     assertThat(b.rule(CssGrammar.IMPORTANT))
       .matches("!important")
       .matches("! important")
-      .matches("!  important");
+      .matches("!  important")
+      .matches("!IMPORTANT")
+      .matches("! IMPORTANT")
+      .matches("!  IMPORTANT")
+      .matches("!Important")
+      .matches("!ImporTant");
   }
 
   @Test
