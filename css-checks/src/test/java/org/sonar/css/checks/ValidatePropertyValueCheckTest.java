@@ -828,6 +828,15 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void text_transform() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/text-transform.css"), check);
+    errorMessage = "Update the invalid value of property \"text-transform\". Expected format: capitalize | uppercase | lowercase | full-width | none";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(8).withMessage(errorMessage).next()
+      .atLine(9).withMessage(errorMessage).noMore();
+  }
+
+  @Test
   public void vertical_align() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/vertical-align.css"), check);
     errorMessage = "Update the invalid value of property \"vertical-align\". Expected format: auto | use-script | baseline | sub | super | top | text-top | central | middle | bottom | text-bottom | <percentage> | <length>";
