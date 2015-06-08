@@ -1,0 +1,28 @@
+<p>The list of supported CSS @-rules is growing and it's very easy to miss a typo in a single @-rule when the name isn't checked.</p>
+<p>This rule checks each @-rule to make sure that it is a known CSS @-rule.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+@abc {
+  property: red;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+@import url("styles.css");
+
+@font-face {
+  font-family: 'MyFontFamily';
+  src: url('myfont-webfont.eot?#iefix') format('embedded-opentype');
+}
+</pre>
+<h2>List of Known @-rules </h2>
+<ul>
+  <li>charset</li>
+  <li>font-face</li>
+  <li>import</li>
+  <li>keyframes</li>
+  <li>media</li>
+  <li>namespace</li>
+  <li>page</li>
+  <li>supports</li>
+</ul>

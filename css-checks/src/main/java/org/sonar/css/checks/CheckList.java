@@ -71,6 +71,7 @@ public final class CheckList {
       ObsoletePropertiesCheck.class,
       OneDeclarationPerLineCheck.class,
       ParsingErrorCheck.class,
+      PropertyRegularExpressionCheck.class,
       SelectorNumberThreshold.class,
       SelectorNamingConventionCheck.class,
       SemicolonDeclarationCheck.class,
@@ -80,6 +81,7 @@ public final class CheckList {
       TodoTagPresenceCheck.class,
       TooManyWebFonts.class,
       UnknownFunctionsCheck.class,
+      UnknownAtRulesCheck.class,
       ValidatePropertyValueCheck.class,
       VendorPrefixWithStandard.class,
       WhitespacesInImportantAnnotationCheck.class
