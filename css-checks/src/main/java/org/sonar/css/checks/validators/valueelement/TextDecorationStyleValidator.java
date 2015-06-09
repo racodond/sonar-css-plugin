@@ -21,13 +21,11 @@ package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
 import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
-import org.sonar.css.checks.validators.valueelement.dimension.LengthValidator;
-import org.sonar.css.checks.validators.valueelement.numeric.PercentageValidator;
 
-public class WidthValidator extends MultiPropertyValueElementValidator {
+public class TextDecorationStyleValidator extends MultiPropertyValueElementValidator {
 
-  public WidthValidator() {
-    super(ImmutableList.of(new AutoValidator(), new LengthValidator(false), new PercentageValidator(false)));
+  public TextDecorationStyleValidator() {
+    super(ImmutableList.of(new IdentifierValidator(ImmutableList.of("solid", "double", "dotted", "dashed", "wavy"))));
   }
 
 }

@@ -61,7 +61,7 @@ public class CursorValidator implements PropertyValueValidator {
     } else {
       for (int i = 0; i < cursorList.size() - 1; i++) {
         if (cursorList.get(i).size() == 1 && uriValidator.isValid(cursorList.get(i).get(0))) {
-          break;
+            break;
         } else if (cursorList.get(i).size() == 3 && uriValidator.isValid(cursorList.get(i).get(0))
           && positiveIntegerValidator.isValid(cursorList.get(i).get(1)) && positiveIntegerValidator.isValid(
             cursorList.get(i).get(2))) {

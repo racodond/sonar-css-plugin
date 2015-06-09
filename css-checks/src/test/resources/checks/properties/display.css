@@ -17,6 +17,12 @@
   display: table-row-group;
   display: flex;
   display: inline-flex;
+  display: ruby;
+  display: ruby-base;
+  display: ruby-text;
+  display: ruby-base-container;
+  display: ruby-text-container;
+  display: ruby-base;
   display: abc; /* Noncompliant */
   display: 0; /* Noncompliant */
 }

@@ -1,0 +1,18 @@
+.mybox {
+  text-decoration-line: inherit;
+  text-decoration-line: none;
+  text-decoration-line: underline;
+  text-decoration-line: overline;
+  text-decoration-line: line-through;
+  text-decoration-line: blink;
+  text-decoration-line: blink overline;
+  text-decoration-line: blink overline underline;
+  text-decoration-line: blink overline underline line-through;
+  text-decoration-line: blink overline underline blink overline; /* Noncompliant */
+  text-decoration-line: blink blink; /* Noncompliant */
+  text-decoration-line: none blink; /* Noncompliant */
+  text-decoration-line: blink none; /* Noncompliant */
+  text-decoration-line: abc; /* Noncompliant */
+  text-decoration-line: 0; /* Noncompliant */
+  text-decoration-line: 10px; /* Noncompliant */
+}

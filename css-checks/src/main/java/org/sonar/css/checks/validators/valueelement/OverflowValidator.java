@@ -17,24 +17,14 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.valueelement.flex;
+package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
-import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
-import org.sonar.css.checks.validators.valueelement.WidthHeightValidator;
 
-import javax.annotation.Nonnull;
+public class OverflowValidator extends IdentifierValidator {
 
-public class FlexBasisValidator extends MultiPropertyValueElementValidator {
-
-  public FlexBasisValidator() {
-    super(ImmutableList.of(new IdentifierValidator(ImmutableList.of("content")), new WidthHeightValidator()));
+  public OverflowValidator() {
+    super(ImmutableList.of("visible", "hidden", "scroll", "auto", "no-display", "no-content"));
   }
 
-  @Nonnull
-  @Override
-  public String getValidatorFormat() {
-    return "content | <width>";
-  }
 }
