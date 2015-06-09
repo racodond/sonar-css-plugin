@@ -10,7 +10,7 @@
   border-top: dotted abc green; /* Noncompliant */
   border-top: dotted -10px green; /* Noncompliant */
 }
-  /* border-bottom: 0 solid #AAA; */
+
 .mybox {
   border-right: inherit;
   border-right: dotted;
@@ -53,5 +53,19 @@
 
 .mybox {
   border-bottom: 0 solid #AAA;
+}
+
+.mybox {
+  border: inherit;
+  border: dotted;
+  border: dotted thin;
+  border: dotted thin green;
+  border: thin green;
+  border: 10px green;
+  border: rgb(25,25,25) 10px;
+  border: dotted thin green green; /* Noncompliant */
+  border: dotted abc green; /* Noncompliant */
+  border: dotted -10px green; /* Noncompliant */
+  border: 2px groove threedface;
 }
 

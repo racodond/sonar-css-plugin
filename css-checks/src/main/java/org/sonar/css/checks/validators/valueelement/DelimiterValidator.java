@@ -19,16 +19,30 @@
  */
 package org.sonar.css.checks.validators.valueelement;
 
-import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
-import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
+import org.sonar.css.checks.utils.CssValueElement;
+import org.sonar.css.checks.utils.valueelements.DelimiterValueElement;
+import org.sonar.css.checks.validators.PropertyValueElementValidator;
 
-public class MarginWidthValidator extends MultiPropertyValueElementValidator {
+import javax.annotation.Nonnull;
 
-  public MarginWidthValidator() {
-    super(ImmutableList.of(
-      new IdentifierValidator(ImmutableList.of("auto", "fill")),
-      PropertyValueValidatorFactory.getLengthValidator(),
-      PropertyValueValidatorFactory.getPercentageValidator()));
+public class DelimiterValidator implements PropertyValueElementValidator {
+
+  private final String separator;
+
+  public DelimiterValidator(String separator) {
+    this.separator = separator;
   }
+
+  @Override
+  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+    return cssValueElement instanceof DelimiterValueElement
+      && separator.equals(((DelimiterValueElement) cssValueElement).getType());
+  }
+
+  @Override
+  @Nonnull
+  public String getValidatorFormat() {
+    return "<uri>";
+  }
+
 }

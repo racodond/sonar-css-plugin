@@ -12,4 +12,5 @@
   margin: 50% 50% 50% 50%;
   margin: 50% 50% 50% 50% 50%; /* Noncompliant */
   margin: 50% 50% abc 50%; /* Noncompliant */
+  margin: fill;
 }

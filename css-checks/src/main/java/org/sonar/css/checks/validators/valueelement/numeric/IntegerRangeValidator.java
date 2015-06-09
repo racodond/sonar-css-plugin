@@ -17,43 +17,38 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.utils.valueelements;
+package org.sonar.css.checks.validators.valueelement.numeric;
 
-import com.sonar.sslr.api.AstNode;
 import org.sonar.css.checks.utils.CssValueElement;
+import org.sonar.css.checks.utils.valueelements.NumberValueElement;
 
-public class NumberValueElement extends CssValueElement {
+import javax.annotation.Nonnull;
 
-  private final Double value;
-  private final long integerValue;
-  private final boolean isZero;
-  private final boolean isInteger;
+public class IntegerRangeValidator extends IntegerValidator {
 
-  public NumberValueElement(AstNode numberNode) {
-    value = Double.valueOf(numberNode.getTokenValue());
-    isZero = numberNode.getTokenValue().matches("([\\-\\+])?[0]*(\\.[0]+)?");
-    isInteger = numberNode.getTokenValue().matches("[\\-\\+]{0,1}[0-9]+");
-    integerValue = Math.round(Double.valueOf(numberNode.getTokenValue()));
+  private final int min;
+  private final int max;
+
+  public IntegerRangeValidator(int min, int max) {
+    super(true);
+    this.min = min;
+    this.max = max;
   }
 
-  public Double getValue() {
-    return value;
+  @Override
+  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+    if (super.isValid(cssValueElement)
+      && ((NumberValueElement) cssValueElement).getIntegerValue() >= min
+      && ((NumberValueElement) cssValueElement).getIntegerValue() <= max) {
+      return true;
+    }
+    return false;
   }
 
-  public boolean isZero() {
-    return isZero;
-  }
-
-  public boolean isPositive() {
-    return value >= 0;
-  }
-
-  public boolean isInteger() {
-    return isInteger;
-  }
-
-  public long getIntegerValue() {
-    return integerValue;
+  @Override
+  @Nonnull
+  public String getValidatorFormat() {
+    return "<number>(" + min + "," + max + ")";
   }
 
 }

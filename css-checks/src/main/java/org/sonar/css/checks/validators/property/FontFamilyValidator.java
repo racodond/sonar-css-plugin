@@ -17,18 +17,24 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.validators.valueelement;
+package org.sonar.css.checks.validators.property;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
-import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementListPropertyValueValidator;
+import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
+import org.sonar.css.checks.validators.valueelement.StringValidator;
 
-public class MarginWidthValidator extends MultiPropertyValueElementValidator {
+import javax.annotation.Nonnull;
 
-  public MarginWidthValidator() {
-    super(ImmutableList.of(
-      new IdentifierValidator(ImmutableList.of("auto", "fill")),
-      PropertyValueValidatorFactory.getLengthValidator(),
-      PropertyValueValidatorFactory.getPercentageValidator()));
+public class FontFamilyValidator extends ValueElementListPropertyValueValidator {
+
+  public FontFamilyValidator() {
+    super(ImmutableList.of(new IdentifierValidator(), new StringValidator()));
+  }
+
+  @Nonnull
+  @Override
+  public String getValidatorFormat() {
+    return "[<family-name> | <generic-family>] [, <family-name>| <generic-family>]*";
   }
 }

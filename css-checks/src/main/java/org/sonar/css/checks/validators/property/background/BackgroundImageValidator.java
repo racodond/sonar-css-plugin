@@ -21,9 +21,9 @@ package org.sonar.css.checks.validators.property.background;
 
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.utils.valueelements.DelimiterValueElement;
 import org.sonar.css.checks.validators.PropertyValueElementValidator;
 import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.valueelement.DelimiterValidator;
 import org.sonar.css.checks.validators.valueelement.ImageValidator;
 import org.sonar.css.checks.validators.valueelement.NoneValidator;
 
@@ -36,6 +36,7 @@ public class BackgroundImageValidator implements PropertyValueValidator {
 
   PropertyValueElementValidator noneValidator = new NoneValidator();
   PropertyValueElementValidator imageValidator = new ImageValidator();
+  PropertyValueElementValidator delimiterValidator = new DelimiterValidator(",");
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
@@ -45,14 +46,10 @@ public class BackgroundImageValidator implements PropertyValueValidator {
       return false;
     }
     for (int i = 0; i < valueElements.size(); i++) {
-      if (valueElements.get(i) instanceof DelimiterValueElement) {
-        if (!",".equals(((DelimiterValueElement) valueElements.get(i)).getType())) {
-          return false;
-        }
-      } else if (noneValidator.isValid(valueElements.get(i)) && i != 0) {
+      if (noneValidator.isValid(valueElements.get(i)) && i != 0) {
         return false;
       }
-      else if (!imageValidator.isValid(valueElements.get(i)) && !noneValidator.isValid(valueElements.get(i))) {
+      else if (!imageValidator.isValid(valueElements.get(i)) && !noneValidator.isValid(valueElements.get(i)) && !delimiterValidator.isValid(valueElements.get(i))) {
         return false;
       }
     }
@@ -70,7 +67,7 @@ public class BackgroundImageValidator implements PropertyValueValidator {
     backgroundImageList.add(new ArrayList<CssValueElement>());
     int listIndex = 0;
     for (CssValueElement valueElement : cssValue.getValueElements()) {
-      if (valueElement instanceof DelimiterValueElement) {
+      if (delimiterValidator.isValid(valueElement)) {
         backgroundImageList.add(new ArrayList<CssValueElement>());
         listIndex++;
       } else {
