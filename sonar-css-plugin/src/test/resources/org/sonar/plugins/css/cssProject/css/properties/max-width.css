@@ -1,0 +1,14 @@
+.mybox {
+  max-width: inherit;
+  max-width: auto;
+  max-width: 100%;
+  max-width: -100%;
+  max-width: 10px;
+  max-width: -10px;
+  max-width: 10; /* Noncompliant */
+  max-width: abc; /* Noncompliant */
+  max-width: fill;
+  max-width: max-content;
+  max-width: min-content;
+  max-width: fit-content;
+}

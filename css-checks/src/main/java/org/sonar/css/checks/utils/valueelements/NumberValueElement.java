@@ -25,6 +25,7 @@ import org.sonar.css.checks.utils.CssValueElement;
 public class NumberValueElement extends CssValueElement {
 
   private final Double value;
+  private final long integerValue;
   private final boolean isZero;
   private final boolean isInteger;
 
@@ -32,6 +33,7 @@ public class NumberValueElement extends CssValueElement {
     value = Double.valueOf(numberNode.getTokenValue());
     isZero = numberNode.getTokenValue().matches("([\\-\\+])?[0]*(\\.[0]+)?");
     isInteger = numberNode.getTokenValue().matches("[\\-\\+]{0,1}[0-9]+");
+    integerValue = Math.round(Double.valueOf(numberNode.getTokenValue()));
   }
 
   public Double getValue() {
@@ -48,6 +50,10 @@ public class NumberValueElement extends CssValueElement {
 
   public boolean isInteger() {
     return isInteger;
+  }
+
+  public long getIntegerValue() {
+    return integerValue;
   }
 
 }

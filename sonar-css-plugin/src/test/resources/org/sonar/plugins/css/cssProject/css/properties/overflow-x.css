@@ -7,4 +7,6 @@
   overflow-x: 0; /* Noncompliant */
   overflow-x: 0px; /* Noncompliant */
   overflow-x: abc; /* Noncompliant */
+  overflow-x: no-content;
+  overflow-x: no-display;
 }

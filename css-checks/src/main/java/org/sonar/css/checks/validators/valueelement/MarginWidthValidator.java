@@ -27,7 +27,7 @@ public class MarginWidthValidator extends MultiPropertyValueElementValidator {
 
   public MarginWidthValidator() {
     super(ImmutableList.of(
-      PropertyValueValidatorFactory.getAutoValidator(),
+      new IdentifierValidator(ImmutableList.of("auto", "fill")),
       PropertyValueValidatorFactory.getLengthValidator(),
       PropertyValueValidatorFactory.getPercentageValidator()));
   }

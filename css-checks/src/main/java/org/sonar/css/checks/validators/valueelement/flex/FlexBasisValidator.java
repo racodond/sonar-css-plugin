@@ -22,14 +22,14 @@ package org.sonar.css.checks.validators.valueelement.flex;
 import com.google.common.collect.ImmutableList;
 import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
-import org.sonar.css.checks.validators.valueelement.WidthValidator;
+import org.sonar.css.checks.validators.valueelement.WidthHeightValidator;
 
 import javax.annotation.Nonnull;
 
 public class FlexBasisValidator extends MultiPropertyValueElementValidator {
 
   public FlexBasisValidator() {
-    super(ImmutableList.of(new IdentifierValidator(ImmutableList.of("content")), new WidthValidator()));
+    super(ImmutableList.of(new IdentifierValidator(ImmutableList.of("content")), new WidthHeightValidator()));
   }
 
   @Nonnull

@@ -1,0 +1,10 @@
+.mybox {
+  right: inherit;
+  right: auto;
+  right: 10px;
+  right: -10px;
+  right: 10%;
+  right: -10%;
+  right: abc; /* Noncompliant */
+  right: 12; /* Noncompliant */
+}

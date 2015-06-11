@@ -1,0 +1,10 @@
+.mybox {
+  text-decoration-style: inherit;
+  text-decoration-style: solid;
+  text-decoration-style: double;
+  text-decoration-style: dotted;
+  text-decoration-style: dashed;
+  text-decoration-style: wavy;
+  text-decoration-style: abc; /* Noncompliant */
+  text-decoration-style: 10; /* Noncompliant */
+}

@@ -1,9 +1,14 @@
 .mybox {
-  min-width: 10px;
-  min-width: 0.5em;
-  min-width: auto;
-  min-width: abc; /* Noncompliant */
-  min-width: 5.5%;
-  min-width: 10Hz; /* Noncompliant */
   min-width: inherit;
+  min-width: auto;
+  min-width: 100%;
+  min-width: -100%;
+  min-width: 10px;
+  min-width: -10px;
+  min-width: 10; /* Noncompliant */
+  min-width: abc; /* Noncompliant */
+  min-width: fill;
+  min-width: max-content;
+  min-width: min-content;
+  min-width: fit-content;
 }
