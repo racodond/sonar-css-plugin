@@ -80,6 +80,7 @@ import org.sonar.css.checks.validators.valueelement.OutlineColorValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineStyleValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineWidthValidator;
 import org.sonar.css.checks.validators.valueelement.OverflowValidator;
+import org.sonar.css.checks.validators.valueelement.StringValidator;
 import org.sonar.css.checks.validators.valueelement.TextDecorationStyleValidator;
 import org.sonar.css.checks.validators.valueelement.WidthHeightValidator;
 import org.sonar.css.checks.validators.valueelement.dimension.LengthValidator;
@@ -249,7 +250,7 @@ public final class CssProperties {
     )
 
     .put("background-clip", new CssProperty("background-clip")
-      .addVendor("http://dev.w3.org/csswg/css-backgrounds-3/#background-clip")
+      .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#background-clip")
       .addValidator(new BackgroundClipValidator())
     )
 
@@ -734,7 +735,7 @@ public final class CssProperties {
     )
 
     .put("clip", new CssProperty("clip")
-      .setObsolete(true)
+      .setUrl("http://www.w3.org/TR/CSS2/visufx.html#propdef-clip")
       .addValidator(new FunctionValidator(ImmutableList.of("rect")))
       .addValidator(PropertyValueValidatorFactory.getAutoValidator())
     )
@@ -863,6 +864,7 @@ public final class CssProperties {
 
     // D
     .put("direction", new CssProperty("direction")
+      .setUrl("http://dev.w3.org/csswg/css-writing-modes-3/#propdef-direction")
       .addValidator(new IdentifierValidator(ImmutableList.of("ltr", "rtl")))
     )
 
@@ -879,10 +881,10 @@ public final class CssProperties {
     )
 
     .put("dominant-baseline", new CssProperty("dominant-baseline")
+      .setUrl("http://dev.w3.org/csswg/css-inline/#propdef-dominant-baseline")
       .addValidator(new IdentifierValidator(ImmutableList
         .of("auto", "use-script", "no-change", "reset-size", "alphabetic", "hanging", "ideographic", "mathematical",
-          "central",
-          "middle", "text-after-edge", "text-before-edge")))
+          "central", "middle", "text-after-edge", "text-before-edge")))
     )
 
     .put("drop-initial-after-adjust", new CssProperty("drop-initial-after-adjust")
@@ -911,11 +913,13 @@ public final class CssProperties {
 
     // E
     .put("elevation", new CssProperty("elevation")
+      .setUrl("http://www.w3.org/TR/CSS21/aural.html#propdef-elevation")
       .addValidator(PropertyValueValidatorFactory.getAngleValidator())
       .addValidator(new IdentifierValidator(ImmutableList.of("below", "level", "above", "higher", "lower")))
     )
 
     .put("empty-cells", new CssProperty("empty-cells")
+      .setUrl("http://www.w3.org/TR/CSS2/tables.html#propdef-empty-cells")
       .addValidator(new IdentifierValidator(ImmutableList.of("show", "hide")))
     )
 
@@ -951,6 +955,7 @@ public final class CssProperties {
     )
 
     .put("filter", new CssProperty("filter")
+      .setUrl("http://dev.w3.org/fxtf/filters/#propdef-filter")
       .addValidator(new FilterValidator())
     )
 
@@ -967,8 +972,12 @@ public final class CssProperties {
       .addValidator(new IdentifierValidator(ImmutableList.of("left", "right", "none")))
     )
 
-    .put("float-offset", new CssProperty("float-offset")
+    .put("float-defer", new CssProperty("float-defer")
+      .setUrl("http://dev.w3.org/csswg/css-page-floats/#propdef-float-defer")
+    )
 
+    .put("float-offset", new CssProperty("float-offset")
+      .setUrl("http://dev.w3.org/csswg/css-page-floats/#propdef-float-offset")
     )
 
     .put("font", new CssProperty("font")
@@ -978,6 +987,12 @@ public final class CssProperties {
     .put("font-family", new CssProperty("font-family")
       .setUrl("http://dev.w3.org/csswg/css3-fonts/#font-family-prop")
       .addValidator(new FontFamilyValidator())
+    )
+
+    .put("font-language-override", new CssProperty("font-language-override")
+      .setUrl("http://dev.w3.org/csswg/css-fonts-3/#propdef-font-language-override")
+      .addValidator(new IdentifierValidator(ImmutableList.of("normal")))
+      .addValidator(new StringValidator())
     )
 
     .put("font-size", new CssProperty("font-size")
@@ -990,11 +1005,13 @@ public final class CssProperties {
     )
 
     .put("font-size-adjust", new CssProperty("font-size-adjust")
+      .setUrl("http://dev.w3.org/csswg/css-fonts-3/#propdef-font-size-adjust")
       .addValidator(PropertyValueValidatorFactory.getNoneValidator())
       .addValidator(PropertyValueValidatorFactory.getNumberValidator())
     )
 
     .put("font-stretch", new CssProperty("font-stretch")
+      .setUrl("http://dev.w3.org/csswg/css-fonts-3/#propdef-font-stretch")
       .addValidator(new IdentifierValidator(
         ImmutableList.of("normal", "ultra-condensed", "extra-condensed", "condensed", "semi-condensed",
           "semi-expanded", "expanded", "extra-expanded", "ultra-expanded")))
@@ -1005,8 +1022,9 @@ public final class CssProperties {
       .addValidator(new IdentifierValidator(ImmutableList.of("normal", "italic", "oblique")))
     )
 
-    .put("font-variant", new CssProperty("font-variant").
-      addValidator(new IdentifierValidator(ImmutableList.of("normal", "small-caps")))
+    .put("font-variant", new CssProperty("font-variant")
+      .setUrl("http://dev.w3.org/csswg/css-fonts-3/#descdef-font-face-font-variant")
+      .addValidator(new IdentifierValidator(ImmutableList.of("normal", "small-caps")))
     )
 
     .put("font-weight", new CssProperty("font-weight")
@@ -1109,14 +1127,19 @@ public final class CssProperties {
     )
 
     .put("image-orientation", new CssProperty("image-orientation")
-
+      .setUrl("http://dev.w3.org/csswg/css-images-3/#propdef-image-orientation")
     )
 
     .put("image-rendering", new CssProperty("image-rendering")
+      .setUrl("http://dev.w3.org/csswg/css-images-3/#propdef-image-rendering")
+    )
 
+    .put("image-resolution", new CssProperty("image-resolution")
+      .setUrl("http://dev.w3.org/csswg/css-images-3/#propdef-image-resolution")
     )
 
     .put("inline-box-align", new CssProperty("inline-box-align")
+      .setUrl("http://www.w3.org/TR/css3-linebox/#inline-box-align")
       .addValidator(new IdentifierValidator(ImmutableList.of("initial", "last")))
       .addValidator(PropertyValueValidatorFactory.getIntegerValidator())
     )
@@ -1136,8 +1159,9 @@ public final class CssProperties {
       .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
     )
 
-    .put("letter-spacing", new CssProperty("letter-spacing").
-      addValidator(new IdentifierValidator(ImmutableList.of("normal")))
+    .put("letter-spacing", new CssProperty("letter-spacing")
+      .setUrl("http://dev.w3.org/csswg/css-text-3/#propdef-letter-spacing")
+      .addValidator(new IdentifierValidator(ImmutableList.of("normal")))
       .addValidator(PropertyValueValidatorFactory.getLengthValidator())
     )
 
@@ -1150,18 +1174,22 @@ public final class CssProperties {
     )
 
     .put("line-stacking", new CssProperty("line-stacking")
+      .setUrl("http://www.w3.org/TR/css3-linebox/#line-stacking")
       .addValidator(new LineStackingValidator())
     )
 
     .put("line-stacking-ruby", new CssProperty("line-stacking-ruby")
+      .setUrl("http://www.w3.org/TR/css3-linebox/#line-stacking-ruby")
       .addValidator(new LineStackingRubyValidator())
     )
 
     .put("line-stacking-shift", new CssProperty("line-stacking-shift")
+      .setUrl("http://www.w3.org/TR/css3-linebox/#line-stacking-shift")
       .addValidator(new LineStackingShiftValidator())
     )
 
     .put("line-stacking-strategy", new CssProperty("line-stacking-strategy")
+      .setUrl("http://www.w3.org/TR/css3-linebox/#line-stacking-strategy")
       .addValidator(new LineStackingStrategyValidator())
     )
 
@@ -1197,6 +1225,7 @@ public final class CssProperties {
     )
 
     .put("margin-end", new CssProperty("margin-end")
+      .setObsolete(true)
       .addVendor("-webkit-")
       .addVendor("-moz-")
 
@@ -1213,9 +1242,9 @@ public final class CssProperties {
     )
 
     .put("margin-start", new CssProperty("margin-start")
+      .setObsolete(true)
       .addVendor("-webkit-")
       .addVendor("-moz-")
-
     )
 
     .put("margin-top", new CssProperty("margin-top")
@@ -1223,34 +1252,44 @@ public final class CssProperties {
       .addValidator(PropertyValueValidatorFactory.getMarginWidthValidator())
     )
 
-    .put("mark", new CssProperty("mark")
-
-    )
-
-    .put("mark-after", new CssProperty("mark-after")
-
-    )
-
-    .put("mark-before", new CssProperty("mark-before")
-    )
-
     .put("marks", new CssProperty("marks")
+      .setUrl("http://dev.w3.org/csswg/css-page-3/#descdef-page-marks")
+    )
+
+    .put("marquee", new CssProperty("marquee")
+      .setObsolete(true)
+    )
+
+    .put("marquee-dir", new CssProperty("marquee-dir")
+      .setObsolete(true)
     )
 
     .put("marquee-direction", new CssProperty("marquee-direction")
+      .setObsolete(true)
+    )
+
+    .put("marquee-increment", new CssProperty("marquee-increment")
+      .setObsolete(true)
+    )
+
+    .put("marquee-loop", new CssProperty("marquee-loop")
+      .setObsolete(true)
     )
 
     .put("marquee-play-count", new CssProperty("marquee-play-count")
+      .setObsolete(true)
+    )
+
+    .put("marquee-repetition", new CssProperty("marquee-repetition")
+      .setObsolete(true)
     )
 
     .put("marquee-speed", new CssProperty("marquee-speed")
-      .addVendor("-webkit-")
-      .addVendor("-wap-")
+      .setObsolete(true)
     )
 
     .put("marquee-style", new CssProperty("marquee-style")
-      .addVendor("-webkit-")
-      .addVendor("-wap-")
+      .setObsolete(true)
     )
 
     .put("max-height", new CssProperty("max-height")
@@ -1274,6 +1313,7 @@ public final class CssProperties {
     )
 
     .put("move-to", new CssProperty("move-to")
+      .setObsolete(true)
     )
 
     // N
@@ -1298,6 +1338,15 @@ public final class CssProperties {
     )
 
     // O
+    .put("object-fit", new CssProperty("object-fit")
+      .setUrl("http://dev.w3.org/csswg/css-images-3/#propdef-object-fit")
+      .addValidator(new IdentifierValidator(ImmutableList.of("fill", "contain", "cover", "none", "scale-down")))
+    )
+
+    .put("object-position", new CssProperty("object-position")
+      .setUrl("http://dev.w3.org/csswg/css-images-3/#propdef-object-position")
+    )
+
     .put("opacity", new CssProperty("opacity")
       .setUrl("http://dev.w3.org/csswg/css-color-3/#opacity")
       .addValidator(new NumberRangeValidator(0, 1))
@@ -1347,6 +1396,11 @@ public final class CssProperties {
       .setObsolete(true)
     )
 
+    .put("overflow-wrap", new CssProperty("overflow-wrap")
+      .setUrl("http://dev.w3.org/csswg/css-text-3/#propdef-overflow-wrap")
+      .addValidator(new IdentifierValidator(ImmutableList.of("normal", "break-word")))
+    )
+
     .put("overflow-x", new CssProperty("overflow-x")
       .setUrl("http://dev.w3.org/csswg/css-box-3/#overflow-x")
       .addValidator(new OverflowValidator())
@@ -1389,6 +1443,7 @@ public final class CssProperties {
     )
 
     .put("padding-end", new CssProperty("padding-end")
+      .setObsolete(true)
       .addVendor("-webkit-")
       .addVendor("-moz-")
     )
@@ -1404,6 +1459,7 @@ public final class CssProperties {
     )
 
     .put("padding-start", new CssProperty("padding-start")
+      .setObsolete(true)
       .addVendor("-webkit-")
       .addVendor("-moz-")
     )
@@ -1414,18 +1470,23 @@ public final class CssProperties {
     )
 
     .put("page", new CssProperty("page")
-
+      .setUrl("http://dev.w3.org/csswg/css-page-3/#propdef-page")
+      .addValidator(new AutoValidator())
+      .addValidator(new IdentifierValidator())
     )
 
     .put("page-break-after", new CssProperty("page-break-after")
+      .setUrl("http://dev.w3.org/csswg/css2/page.html#propdef-page-break-after")
       .addValidator(PropertyValueValidatorFactory.getPageBreakValidator())
     )
 
     .put("page-break-before", new CssProperty("page-break-before")
+      .setUrl("http://dev.w3.org/csswg/css2/page.html#propdef-page-break-before")
       .addValidator(PropertyValueValidatorFactory.getPageBreakValidator())
     )
 
     .put("page-break-inside", new CssProperty("page-break-inside")
+      .setUrl("http://dev.w3.org/csswg/css2/page.html#propdef-page-break-inside   ")
       .addValidator(new IdentifierValidator(ImmutableList.of("avoid", "auto")))
     )
 
@@ -1461,11 +1522,13 @@ public final class CssProperties {
     )
 
     .put("pitch", new CssProperty("pitch")
+      .setUrl("http://www.w3.org/TR/CSS21/aural.html#propdef-pitch")
       .addValidator(PropertyValueValidatorFactory.getFrequencyValidator())
       .addValidator(new IdentifierValidator(ImmutableList.of("x-low", "low", "medium", "high", "x-high")))
     )
 
     .put("pitch-range", new CssProperty("pitch-range")
+      .setUrl("http://www.w3.org/TR/CSS21/aural.html#propdef-pitch-range")
       .addValidator(PropertyValueValidatorFactory.getNumberValidator())
     )
 
@@ -1638,8 +1701,14 @@ public final class CssProperties {
         ImmutableList.of("start", "end", "left", "right", "center", "justify", "match-parent", "justify-all")))
     )
 
-    .put("text-align-last", new CssProperty("text-align-last")
+    .put("text-align-all", new CssProperty("text-align-all")
+      .setUrl("http://dev.w3.org/csswg/css-text-3/#propdef-text-align-all")
+      .addValidator(new IdentifierValidator(ImmutableList.of("start", "end", "left", "right", "center", "justify", "match-parent")))
+    )
 
+    .put("text-align-last", new CssProperty("text-align-last")
+      .setUrl("http://dev.w3.org/csswg/css-text-3/#propdef-text-align-last")
+      .addValidator(new IdentifierValidator(ImmutableList.of("auto", "start", "end", "left", "right", "center", "justify")))
     )
 
     .put("text-decoration", new CssProperty("text-decoration")
@@ -1678,8 +1747,16 @@ public final class CssProperties {
     )
 
     .put("text-justify", new CssProperty("text-justify")
+      .setUrl("http://dev.w3.org/csswg/css-text-3/#propdef-text-justify")
       .addValidator(new IdentifierValidator(ImmutableList.of("auto", "none", "inter-word", "inter-character")))
     )
+
+    .put("text-orientation", new CssProperty("text-orientation")
+      .setUrl("http://dev.w3.org/csswg/css-writing-modes-3/#propdef-text-orientation")
+      .addValidator(new IdentifierValidator(
+        ImmutableList.of("mixed", "upright", "sideways-right", "sideways-left", "sideways", "use-glyph-orientation")))
+    )
+
     .put("text-outline", new CssProperty("text-outline")
 
     )
@@ -1768,6 +1845,7 @@ public final class CssProperties {
 
     // U
     .put("unicode-bidi", new CssProperty("unicode-bidi")
+      .setUrl("http://dev.w3.org/csswg/css-writing-modes-3/#propdef-unicode-bidi")
       .addValidator(new IdentifierValidator(ImmutableList.of("normal", "embed", "bidi-override")))
     )
 
@@ -1863,16 +1941,21 @@ public final class CssProperties {
     )
 
     .put("word-spacing", new CssProperty("word-spacing")
+      .setUrl("http://www.w3.org/TR/CSS2/text.html#propdef-word-spacing")
       .addValidator(new IdentifierValidator(ImmutableList.of("normal")))
       .addValidator(PropertyValueValidatorFactory.getLengthValidator())
     )
 
     .put("word-wrap", new CssProperty("word-wrap")
+      .setUrl("http://dev.w3.org/csswg/css-text-3/#propdef-word-wrap")
+      .addValidator(new IdentifierValidator(ImmutableList.<String>of("normal", "break-word")))
     )
 
     .put("writing-mode", new CssProperty("writing-mode")
+      .setUrl("http://dev.w3.org/csswg/css-writing-modes-3/#propdef-writing-mode")
       .addVendor("-epub-")
       .addVendor("-ms-")
+      .addValidator(new IdentifierValidator(ImmutableList.of("horizontal-tb", "vertical-rl", "vertical-lr")))
     )
 
     // Z

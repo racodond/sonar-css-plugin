@@ -148,7 +148,7 @@ public class ValidatePropertyValueCheckTest {
   @Test
   public void animation_name() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/animation-name.css"), check);
-    errorMessage = "Update the invalid value of property \"animation-name\". Expected format: none | <custom-identifier>";
+    errorMessage = "Update the invalid value of property \"animation-name\". Expected format: none | <identifier>";
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(4).withMessage(errorMessage).next()
       .atLine(5).withMessage(errorMessage).noMore();

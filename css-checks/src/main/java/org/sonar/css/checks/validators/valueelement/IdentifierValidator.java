@@ -20,11 +20,10 @@
 package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
+import javax.annotation.Nonnull;
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.IdentifierValueElement;
 import org.sonar.css.checks.validators.PropertyValueElementValidator;
-
-import javax.annotation.Nonnull;
 
 public class IdentifierValidator implements PropertyValueElementValidator {
 
@@ -52,7 +51,7 @@ public class IdentifierValidator implements PropertyValueElementValidator {
   @Nonnull
   public String getValidatorFormat() {
     if (allowedValues.isEmpty()) {
-      return "<custom-identifier>";
+      return "<identifier>";
     } else {
       StringBuilder format = new StringBuilder();
       for (String allowedValue : allowedValues) {
