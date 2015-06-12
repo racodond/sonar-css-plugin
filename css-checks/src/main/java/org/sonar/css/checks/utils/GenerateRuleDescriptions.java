@@ -81,7 +81,7 @@ public class GenerateRuleDescriptions {
         "<p>Browsers ignore invalid property values. Review those invalid property values and either remove them if they are useless or update them.</p>\n")
       .append("<h2>Noncompliant Code Example</h2>\n")
       .append("<pre>\n")
-      .append("/* 'word-spacing' validator is 'normal | &ltlength&gt' */\n")
+      .append("/* 'word-spacing' validator is 'normal | &lt;length&gt;' */\n")
       .append(".mybox {\n")
       .append("  word-spacing: 10px\n")
       .append("  word-spacing: normal\n")
@@ -96,7 +96,7 @@ public class GenerateRuleDescriptions {
     if (sizeLimit) {
       htmlPage
         .append(
-        "<p>Full list of implemented validators is available at <a target=\"_blank\" href=\"https://github.com/SonarCommunity/sonar-css/doc/validators.html\">https://github.com/SonarCommunity/sonar-css/doc/validators.html</a></p>");
+        "<p>Full list of implemented validators is available at <a target=\"_blank\" href=\"https://github.com/SonarCommunity/sonar-css/blob/master/doc/validators.html\">https://github.com/SonarCommunity/sonar-css/doc/validators.html</a></p>");
     } else {
       htmlPage.append("<table border=1>\n")
         .append("  <thead>\n")
