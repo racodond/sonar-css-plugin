@@ -36,8 +36,8 @@ public class ObsoletePropertiesCheckTest {
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(2).withMessage("Remove the obsolete \"azimuth\" property.").next()
       .atLine(3).withMessage("Remove the obsolete \"Azimuth\" property.").next()
-      .atLine(4).withMessage("Remove the obsolete \"clip\" property.").next()
-      .atLine(5).withMessage("Remove the obsolete \"Clip\" property.").noMore();
+      .atLine(4).withMessage("Remove the obsolete \"appearance\" property.").next()
+      .atLine(5).withMessage("Remove the obsolete \"Appearance\" property.").noMore();
   }
 
 }

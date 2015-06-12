@@ -35,7 +35,7 @@ public class AnimationNameValidator implements PropertyValueElementValidator {
   @Nonnull
   @Override
   public String getValidatorFormat() {
-    return "none | <custom-identifier>";
+    return "none | <identifier>";
   }
 
 }
