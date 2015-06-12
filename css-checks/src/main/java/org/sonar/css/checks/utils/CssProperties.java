@@ -1581,6 +1581,7 @@ public final class CssProperties {
     )
 
     .put("richness", new CssProperty("richness")
+      .setUrl("http://www.w3.org/TR/CSS21/aural.html#propdef-richness")
       .addValidator(PropertyValueValidatorFactory.getNumberValidator())
     )
 
@@ -1641,18 +1642,22 @@ public final class CssProperties {
     )
 
     .put("speak-header", new CssProperty("speak-header")
+      .setUrl("http://www.w3.org/TR/CSS21/aural.html#propdef-speak-header")
       .addValidator(new IdentifierValidator(ImmutableList.of("once", "always")))
     )
 
     .put("speak-numeral", new CssProperty("speak-numeral")
+      .setUrl("http://www.w3.org/TR/CSS21/aural.html#propdef-speak-numeral")
       .addValidator(new IdentifierValidator(ImmutableList.of("digits", "continuous")))
     )
 
     .put("speak-punctuation", new CssProperty("speak-punctuation")
+      .setUrl("http://www.w3.org/TR/CSS21/aural.html#propdef-speak-punctuation")
       .addValidator(new IdentifierValidator(ImmutableList.of("code", "none")))
     )
 
     .put("speech-rate", new CssProperty("speech-rate")
+      .setUrl("http://www.w3.org/TR/CSS21/aural.html#propdef-speech-rate")
       .addValidator(
         new IdentifierValidator(
           ImmutableList.of("x-slow", "slow", "medium", "fast", "x-fast", "faster", "slower")))
@@ -1911,6 +1916,7 @@ public final class CssProperties {
     )
 
     .put("volume", new CssProperty("volume")
+      .setUrl("http://www.w3.org/TR/CSS21/aural.html#propdef-volume")
       .addValidator(new IdentifierValidator(ImmutableList.of("silent", "x-soft", "soft", "medium", "loud", "x-loud")))
       .addValidator(PropertyValueValidatorFactory.getNumberValidator())
       .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
