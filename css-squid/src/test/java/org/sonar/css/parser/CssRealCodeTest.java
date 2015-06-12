@@ -34,7 +34,6 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 public class CssRealCodeTest {
   private LexerlessGrammar b = CssGrammar.createGrammar();
 
-
   @Test
   public void realLife1() throws IOException, URISyntaxException {
     assertThat(b.getRootRule()).matches((readFromFile("normalize.css")));
@@ -65,10 +64,15 @@ public class CssRealCodeTest {
     assertThat(b.getRootRule()).matches((readFromFile("form-elements.css")));
   }
 
+  @Test
+  public void should_parse_starting_with_BOM() throws IOException, URISyntaxException {
+    assertThat(b.getRootRule()).matches((readFromFile("starting-with-bom.css")));
+  }
+
   private String readFromFile(String fileName) throws IOException, URISyntaxException {
     StringBuilder text = new StringBuilder();
     File file = new File(CssRealCodeTest.class.getClassLoader().getResource(fileName)
-        .toURI());
+      .toURI());
     BufferedReader reader = Files.newReader(file, Charsets.UTF_8);
     String line = null;
     while ((line = reader.readLine()) != null) {

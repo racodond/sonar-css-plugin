@@ -32,14 +32,8 @@ public class CssConfigurationTest {
   @Test
   public void charset() {
     Charset charset = mock(Charset.class);
-    Charset charset2 = mock(Charset.class);
-
     CssConfiguration conf = new CssConfiguration(charset);
-
-    assertThat(conf.charset()).isSameAs(charset);
-
-    conf.charset(charset2);
-    assertThat(conf.charset()).isSameAs(charset2);
+    assertThat(conf.getCharset()).isSameAs(charset);
   }
 
   @Test
