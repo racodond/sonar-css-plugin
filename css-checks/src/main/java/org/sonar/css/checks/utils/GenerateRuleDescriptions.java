@@ -96,7 +96,7 @@ public class GenerateRuleDescriptions {
     if (sizeLimit) {
       htmlPage
         .append(
-        "<p>Full list of implemented validators is available at <a target=\"_blank\" href=\"https://github.com/SonarCommunity/sonar-css/blob/master/doc/validators.html\">https://github.com/SonarCommunity/sonar-css/doc/validators.html</a></p>");
+        "<p>See the <a target=\"_blank\" href=\"http://htmlpreview.github.io/?https://github.com/SonarCommunity/sonar-css/blob/master/doc/validators.html\">full list of implemented validators</a>.</p>");
     } else {
       htmlPage.append("<table border=1>\n")
         .append("  <thead>\n")
