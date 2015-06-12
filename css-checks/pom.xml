@@ -28,7 +28,11 @@
           </execution>
         </executions>
         <configuration>
-          <mainClass>org.sonar.css.checks.utils.GenerateValidatePropertyValueRuleDescription</mainClass>
+          <mainClass>org.sonar.css.checks.utils.GenerateRuleDescriptions</mainClass>
+          <!-- TODO: Hack to be removed when http://jira.sonarsource.com/browse/SONAR-6632 is fixed -->
+          <arguments>
+            <argument>sizeLimit</argument>
+          </arguments>
         </configuration>
       </plugin>
     </plugins>
