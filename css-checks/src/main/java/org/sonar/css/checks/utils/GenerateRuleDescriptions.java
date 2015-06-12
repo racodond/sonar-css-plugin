@@ -81,7 +81,7 @@ public class GenerateRuleDescriptions {
         "<p>Browsers ignore invalid property values. Review those invalid property values and either remove them if they are useless or update them.</p>\n")
       .append("<h2>Noncompliant Code Example</h2>\n")
       .append("<pre>\n")
-      .append("/* 'word-spacing' validator is 'normal | &ltlength&gt' */\n")
+      .append("/* 'word-spacing' validator is 'normal | &lt;length&gt;' */\n")
       .append(".mybox {\n")
       .append("  word-spacing: 10px\n")
       .append("  word-spacing: normal\n")
