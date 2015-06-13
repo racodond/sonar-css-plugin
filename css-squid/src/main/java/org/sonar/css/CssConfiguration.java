@@ -20,22 +20,14 @@
 package org.sonar.css;
 
 import java.nio.charset.Charset;
+import org.sonar.squidbridge.api.SquidConfiguration;
 
-public class CssConfiguration {
+public class CssConfiguration extends SquidConfiguration {
 
-  private Charset charset;
   private boolean ignoreHeaderComments;
 
   public CssConfiguration(Charset charset) {
-    this.charset = charset;
-  }
-
-  public void charset(Charset charset) {
-    this.charset = charset;
-  }
-
-  public Charset charset() {
-    return charset;
+    super(charset);
   }
 
   public void ignoreHeaderComments(boolean ignoreHeaderComments) {

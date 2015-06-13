@@ -70,6 +70,7 @@ public enum CssGrammar implements GrammarRuleKey {
   DIMENSION,
   URI,
   UNICODE_RANGE,
+  BOM,
 
   COLON,
   SEMICOLON,
@@ -149,7 +150,7 @@ public enum CssGrammar implements GrammarRuleKey {
   }
 
   private static void syntax(LexerlessGrammarBuilder b) {
-    b.rule(STYLESHEET).is(WHITESPACES, b.zeroOrMore(STATEMENT), eof);
+    b.rule(STYLESHEET).is(b.optional(BOM), WHITESPACES, b.zeroOrMore(STATEMENT), eof);
     b.rule(STATEMENT).is(b.firstOf(AT_RULE, RULESET));
     b.rule(AT_RULE).is(AT_KEYWORD,
       addSpacing(b.zeroOrMore(ANY), b),
@@ -242,6 +243,7 @@ public enum CssGrammar implements GrammarRuleKey {
   }
 
   private static void tokens(LexerlessGrammarBuilder b) {
+    b.rule(BOM).is("\ufeff");
     b.rule(IDENT).is(addSpacing(_IDENT, b));
     b.rule(identNoWS).is(_IDENT);
     b.rule(AT_KEYWORD).is(addSpacing(b.sequence("@", IDENT), b));
