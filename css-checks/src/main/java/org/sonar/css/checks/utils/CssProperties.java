@@ -197,6 +197,11 @@ public final class CssProperties {
       .addValidator(new BackgroundAttachmentValidator())
     )
 
+    .put("background-blend-mode", new CssProperty("background-blend-mode")
+      .setUrl("http://dev.w3.org/fxtf/compositing-1/#propdef-background-blend-mode")
+      .addValidator(new BlendModeValidator())
+    )
+
     .put("background-clip", new CssProperty("background-clip")
       .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#background-clip")
       .addValidator(new BackgroundClipValidator())
@@ -253,6 +258,11 @@ public final class CssProperties {
       .addValidator(new LengthValidator(false))
     )
 
+    .put("block-size", new CssProperty("block-size")
+      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-block-size")
+      .addValidator(new SizeValidator())
+    )
+
     .put("bookmark-label", new CssProperty("bookmark-label")
       .setUrl("http://www.w3.org/TR/css3-gcpm/#propdef-bookmark-label")
     )
@@ -278,59 +288,9 @@ public final class CssProperties {
       .addValidator(new BorderValidator())
     )
 
-    .put("border-inline-end", new CssProperty("border-inline-end")
-      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-inline-end-style")
-      .addValidator(new BorderValidator())
-    )
-
-    .put("border-inline-start", new CssProperty("border-inline-start")
-      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-inline-start")
-      .addValidator(new BorderValidator())
-    )
-
-    .put("border-block-start", new CssProperty("border-block-start")
-      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-block-start")
-      .addValidator(new BorderValidator())
-    )
-
     .put("border-block-end-color", new CssProperty("border-block-end-color")
       .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-block-end-color")
       .addValidator(new ColorValidator())
-    )
-
-    .put("border-inline-end-color", new CssProperty("border-inline-end-color")
-      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-inline-end-style")
-      .addValidator(new ColorValidator())
-    )
-
-    .put("border-inline-start-color", new CssProperty("border-inline-start-color")
-      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-inline-start-color")
-      .addValidator(new ColorValidator())
-    )
-
-    .put("border-block-start-color", new CssProperty("border-block-start-color")
-      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-block-start-color")
-      .addValidator(new ColorValidator())
-    )
-
-    .put("border-block-end-width", new CssProperty("border-block-end-width")
-      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-block-end-width")
-      .addValidator(new BorderWidthValidator())
-    )
-
-    .put("border-inline-end-width", new CssProperty("border-inline-end-width")
-      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-inline-end-width")
-      .addValidator(new BorderWidthValidator())
-    )
-
-    .put("border-inline-start-width", new CssProperty("border-inline-start-width")
-      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-inline-start-width")
-      .addValidator(new BorderWidthValidator())
-    )
-
-    .put("border-block-start-width", new CssProperty("border-block-start-width")
-      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-block-start-width")
-      .addValidator(new BorderWidthValidator())
     )
 
     .put("border-block-end-style", new CssProperty("border-block-end-style")
@@ -338,19 +298,29 @@ public final class CssProperties {
       .addValidator(new BorderStyleValidator())
     )
 
-    .put("border-inline-end-style", new CssProperty("border-inline-end-style")
-      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-inline-end-style")
-      .addValidator(new BorderStyleValidator())
+    .put("border-block-end-width", new CssProperty("border-block-end-width")
+      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-block-end-width")
+      .addValidator(new BorderWidthValidator())
     )
 
-    .put("border-inline-start-style", new CssProperty("border-inline-start-style")
-      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-inline-start-style")
-      .addValidator(new BorderStyleValidator())
+    .put("border-block-start", new CssProperty("border-block-start")
+      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-block-start")
+      .addValidator(new BorderValidator())
+    )
+
+    .put("border-block-start-color", new CssProperty("border-block-start-color")
+      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-block-start-color")
+      .addValidator(new ColorValidator())
     )
 
     .put("border-block-start-style", new CssProperty("border-block-start-style")
       .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-block-start-style")
       .addValidator(new BorderStyleValidator())
+    )
+
+    .put("border-block-start-width", new CssProperty("border-block-start-width")
+      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-block-start-width")
+      .addValidator(new BorderWidthValidator())
     )
 
     .put("border-bottom", new CssProperty("border-bottom")
@@ -444,6 +414,46 @@ public final class CssProperties {
 
     .put("border-image-width", new CssProperty("border-image-width")
       .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#border-image-width")
+    )
+
+    .put("border-inline-end", new CssProperty("border-inline-end")
+      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-inline-end-style")
+      .addValidator(new BorderValidator())
+    )
+
+    .put("border-inline-end-color", new CssProperty("border-inline-end-color")
+      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-inline-end-style")
+      .addValidator(new ColorValidator())
+    )
+
+    .put("border-inline-end-style", new CssProperty("border-inline-end-style")
+      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-inline-end-style")
+      .addValidator(new BorderStyleValidator())
+    )
+
+    .put("border-inline-end-width", new CssProperty("border-inline-end-width")
+      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-inline-end-width")
+      .addValidator(new BorderWidthValidator())
+    )
+
+    .put("border-inline-start", new CssProperty("border-inline-start")
+      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-inline-start")
+      .addValidator(new BorderValidator())
+    )
+
+    .put("border-inline-start-color", new CssProperty("border-inline-start-color")
+      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-inline-start-color")
+      .addValidator(new ColorValidator())
+    )
+
+    .put("border-inline-start-style", new CssProperty("border-inline-start-style")
+      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-inline-start-style")
+      .addValidator(new BorderStyleValidator())
+    )
+
+    .put("border-inline-start-width", new CssProperty("border-inline-start-width")
+      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-border-inline-start-width")
+      .addValidator(new BorderWidthValidator())
     )
 
     .put("border-left", new CssProperty("border-left")
@@ -878,6 +888,19 @@ public final class CssProperties {
     )
 
     // F
+    .put("filter", new CssProperty("filter")
+      .setUrl("http://dev.w3.org/fxtf/filters/#propdef-filter")
+      .addValidator(new FilterValidator())
+    )
+
+    .put("fit", new CssProperty("fit")
+      .setObsolete(true)
+    )
+
+    .put("fit-position", new CssProperty("fit-position")
+      .setObsolete(true)
+    )
+
     .put("flex-basis", new CssProperty("flex-basis")
       .setUrl("http://dev.w3.org/csswg/css-flexbox-1/#propdef-flex-basis")
       .addValidator(new FlexBasisValidator())
@@ -908,19 +931,6 @@ public final class CssProperties {
       .addValidator(new FlexWrapValidator())
     )
 
-    .put("filter", new CssProperty("filter")
-      .setUrl("http://dev.w3.org/fxtf/filters/#propdef-filter")
-      .addValidator(new FilterValidator())
-    )
-
-    .put("fit", new CssProperty("fit")
-      .setObsolete(true)
-    )
-
-    .put("fit-position", new CssProperty("fit-position")
-      .setObsolete(true)
-    )
-
     .put("float", new CssProperty("float")
       .setUrl("http://www.w3.org/TR/CSS2/visuren.html#propdef-float")
       .addValidator(new IdentifierValidator(ImmutableList.of("left", "right", "none")))
@@ -941,6 +951,15 @@ public final class CssProperties {
     .put("font-family", new CssProperty("font-family")
       .setUrl("http://dev.w3.org/csswg/css3-fonts/#font-family-prop")
       .addValidator(new FontFamilyValidator())
+    )
+
+    .put("font-feature-settings", new CssProperty("font-feature-settings")
+      .setUrl("http://dev.w3.org/csswg/css-fonts-3/#descdef-font-face-font-feature-settings")
+    )
+
+    .put("font-kerning", new CssProperty("font-kerning")
+      .setUrl("http://dev.w3.org/csswg/css-fonts-3/#propdef-font-kerning")
+      .addValidator(new IdentifierValidator(ImmutableList.of("auto", "normal", "none")))
     )
 
     .put("font-language-override", new CssProperty("font-language-override")
@@ -974,6 +993,10 @@ public final class CssProperties {
     .put("font-style", new CssProperty("font-style")
       .setUrl("http://dev.w3.org/csswg/css3-fonts/#font-style-prop")
       .addValidator(new IdentifierValidator(ImmutableList.of("normal", "italic", "oblique")))
+    )
+
+    .put("font-synthesis", new CssProperty("font-synthesis")
+      .setUrl("http://dev.w3.org/csswg/css-fonts-3/#propdef-font-synthesis")
     )
 
     .put("font-variant", new CssProperty("font-variant")
@@ -1146,13 +1169,28 @@ public final class CssProperties {
       .setUrl("http://dev.w3.org/csswg/css-images-3/#propdef-image-resolution")
     )
 
+    .put("ime-mode", new CssProperty("ime-mode")
+      .setUrl("http://dev.w3.org/csswg/css-ui-3/#input-method-editor")
+      .setObsolete(true)
+    )
+
     .put("inline-box-align", new CssProperty("inline-box-align")
       .setUrl("http://www.w3.org/TR/css3-linebox/#inline-box-align")
       .addValidator(new IdentifierValidator(ImmutableList.of("initial", "last")))
       .addValidator(PropertyValueValidatorFactory.getIntegerValidator())
     )
 
-    // I
+    .put("inline-size", new CssProperty("inline-size")
+      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-inline-size")
+      .addValidator(new SizeValidator())
+    )
+
+    .put("isolation", new CssProperty("isolation")
+      .setUrl("http://dev.w3.org/fxtf/compositing-1/#propdef-isolation")
+      .addValidator(new IdentifierValidator(ImmutableList.of("auto", "isolate")))
+    )
+
+    // J
     .put("justify-content", new CssProperty("justify-content")
       .setUrl("http://dev.w3.org/csswg/css-flexbox-1/#propdef-justify-content")
       .addValidator(
@@ -1241,7 +1279,6 @@ public final class CssProperties {
       .setObsolete(true)
       .addVendor("-webkit-")
       .addVendor("-moz-")
-
     )
 
     .put("margin-left", new CssProperty("margin-left")
@@ -1267,6 +1304,15 @@ public final class CssProperties {
 
     .put("marks", new CssProperty("marks")
       .setUrl("http://dev.w3.org/csswg/css-page-3/#descdef-page-marks")
+    )
+
+    .put("mask", new CssProperty("mask")
+      .setUrl("http://dev.w3.org/fxtf/css-masking-1/#propdef-mask")
+    )
+
+    .put("mask-type", new CssProperty("mask-type")
+      .setUrl("http://dev.w3.org/fxtf/css-masking-1/#propdef-mask-type")
+      .addValidator(new IdentifierValidator(ImmutableList.of("luminance | alpha")))
     )
 
     .put("marquee", new CssProperty("marquee")
@@ -1305,9 +1351,19 @@ public final class CssProperties {
       .setObsolete(true)
     )
 
+    .put("max-block-size", new CssProperty("max-block-size")
+      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-max-block-size")
+      .addValidator(new SizeValidator())
+    )
+
     .put("max-height", new CssProperty("max-height")
       .setUrl("http://dev.w3.org/csswg/css-sizing-3/#width-height-keywords")
       .addValidator(new WidthHeightValidator())
+    )
+
+    .put("max-inline-size", new CssProperty("max-inline-size")
+      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-max-inline-size")
+      .addValidator(new SizeValidator())
     )
 
     .put("max-width", new CssProperty("max-width")
@@ -1319,9 +1375,19 @@ public final class CssProperties {
       .addValidator(new ZoomValidator())
     )
 
+    .put("min-block-size", new CssProperty("min-block-size")
+      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-min-block-size")
+      .addValidator(new SizeValidator())
+    )
+
     .put("min-height", new CssProperty("min-height")
       .setUrl("http://dev.w3.org/csswg/css-sizing-3/#width-height-keywords")
       .addValidator(new WidthHeightValidator())
+    )
+
+    .put("min-inline-size", new CssProperty("min-inline-size")
+      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-min-inline-size")
+      .addValidator(new SizeValidator())
     )
 
     .put("min-width", new CssProperty("min-width")
@@ -1332,6 +1398,11 @@ public final class CssProperties {
     .put("min-zoom", new CssProperty("min-zoom")
       .setUrl("http://dev.w3.org/csswg/css-device-adapt/#descdef-viewport-min-zoom")
       .addValidator(new ZoomValidator())
+    )
+
+    .put("mix-blend-mode", new CssProperty("mix-blend-mode")
+      .setUrl("http://dev.w3.org/fxtf/compositing-1/#propdef-mix-blend-mode")
+      .addValidator(new BlendModeValidator())
     )
 
     .put("move-to", new CssProperty("move-to")
@@ -1449,16 +1520,6 @@ public final class CssProperties {
       .addValidator(PropertyValueValidatorFactory.getPaddingWidthValidator())
     )
 
-    .put("padding-inline-end", new CssProperty("padding-inline-end")
-      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-padding-inline-end")
-      .addValidator(PropertyValueValidatorFactory.getPaddingWidthValidator())
-    )
-
-    .put("padding-inline-start", new CssProperty("padding-inline-start")
-      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-padding-inline-start")
-      .addValidator(PropertyValueValidatorFactory.getPaddingWidthValidator())
-    )
-
     .put("padding-block-start", new CssProperty("padding-block-start")
       .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-padding-block-start")
       .addValidator(PropertyValueValidatorFactory.getPaddingWidthValidator())
@@ -1473,6 +1534,16 @@ public final class CssProperties {
       .setObsolete(true)
       .addVendor("-webkit-")
       .addVendor("-moz-")
+    )
+
+    .put("padding-inline-end", new CssProperty("padding-inline-end")
+      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-padding-inline-end")
+      .addValidator(PropertyValueValidatorFactory.getPaddingWidthValidator())
+    )
+
+    .put("padding-inline-start", new CssProperty("padding-inline-start")
+      .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-padding-inline-start")
+      .addValidator(PropertyValueValidatorFactory.getPaddingWidthValidator())
     )
 
     .put("padding-left", new CssProperty("padding-left")
@@ -1834,14 +1905,14 @@ public final class CssProperties {
       .addValidator(new IdentifierValidator(ImmutableList.of("auto", "optimizeSpeed", "optimizeLegibility")))
     )
 
+    .put("text-shadow", new CssProperty("text-shadow")
+      .setUrl("http://dev.w3.org/csswg/css-text-decor-3/#propdef-text-shadow")
+    )
+
     .put("text-size-adjust", new CssProperty("text-size-adjust")
       .setUrl("http://dev.w3.org/csswg/css-size-adjust/#text-size-adjust")
       .addVendor("-webkit-")
       .addVendor("-ms-")
-    )
-
-    .put("text-shadow", new CssProperty("text-shadow")
-      .setUrl("http://dev.w3.org/csswg/css-text-decor-3/#propdef-text-shadow")
     )
 
     .put("text-stroke", new CssProperty("text-stroke")
@@ -1867,6 +1938,10 @@ public final class CssProperties {
       .addValidator(PropertyValueValidatorFactory.getAutoValidator())
       .addValidator(PropertyValueValidatorFactory.getLengthValidator())
       .addValidator(PropertyValueValidatorFactory.getPercentageValidator())
+    )
+
+    .put("touch-action", new CssProperty("touch-action")
+      .setUrl("https://w3c.github.io/pointerevents/#the-touch-action-css-property")
     )
 
     .put("transform", new CssProperty("transform")
@@ -1935,6 +2010,10 @@ public final class CssProperties {
     .put("unicode-bidi", new CssProperty("unicode-bidi")
       .setUrl("http://dev.w3.org/csswg/css-writing-modes-3/#propdef-unicode-bidi")
       .addValidator(new IdentifierValidator(ImmutableList.of("normal", "embed", "bidi-override")))
+    )
+
+    .put("unicode-range", new CssProperty("unicode-range")
+      .setUrl("http://dev.w3.org/csswg/css-fonts-3/#descdef-font-face-unicode-range")
     )
 
     .put("user-modify", new CssProperty("user-modify")
