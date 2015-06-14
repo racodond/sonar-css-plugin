@@ -270,6 +270,7 @@ public enum CssGrammar implements GrammarRuleKey {
       matchCaseInsensitive(b, "ms"),
       matchCaseInsensitive(b, "s"),
       matchCaseInsensitive(b, "Hz"),
+      matchCaseInsensitive(b, "dB"),
       matchCaseInsensitive(b, "kHz"),
       matchCaseInsensitive(b, "deg"),
       matchCaseInsensitive(b, "grad"),

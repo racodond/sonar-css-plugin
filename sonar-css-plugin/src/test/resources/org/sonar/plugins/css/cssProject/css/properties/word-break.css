@@ -1,0 +1,8 @@
+.mybox {
+  word-break: inherit;
+  word-break: normal;
+  word-break: keep-all;
+  word-break: break-all;
+  word-break: abc; /* Noncompliant */
+  word-break: 10; /* Noncompliant */
+}

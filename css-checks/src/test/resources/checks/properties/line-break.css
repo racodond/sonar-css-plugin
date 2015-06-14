@@ -1,0 +1,9 @@
+.mybox {
+  line-break: inherit;
+  line-break: auto;
+  line-break: loose;
+  line-break: normal;
+  line-break: strict;
+  line-break: abc; /* Noncompliant */
+  line-break: 10; /* Noncompliant */
+}
