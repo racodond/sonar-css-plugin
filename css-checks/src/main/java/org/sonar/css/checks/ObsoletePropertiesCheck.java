@@ -34,7 +34,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "obsolete-properties",
-  name = "Obsolete properties should not be used",
+  name = "Obsolete properties and properties not on W3C Standards track should not be used",
   priority = Priority.MAJOR,
   tags = {Tags.BROWSER_COMPATIBILITY})
 @ActivatedByDefault
@@ -53,7 +53,7 @@ public class ObsoletePropertiesCheck extends SquidCheck<LexerlessGrammar> {
     if (property != null && property.isObsolete()) {
       getContext().createLineViolation(
         this,
-        "Remove the obsolete \"{0}\" property.",
+        "Remove the obsolete / not on W3C Standards track \"{0}\" property.",
         astNode,
         astNode.getTokenValue()
         );
