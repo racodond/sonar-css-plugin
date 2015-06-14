@@ -33,7 +33,7 @@ public class BorderColorValidator implements PropertyValueValidator {
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    if (value.getNumberOfValueElements() == 0 || value.getNumberOfValueElements() > 4) {
+    if (value.getNumberOfValueElements() > 4) {
       return false;
     }
     for (CssValueElement valueElement : valueElements) {

@@ -49,9 +49,6 @@ public class CursorValidator implements PropertyValueValidator {
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
-    if (value.getNumberOfValueElements() == 0) {
-      return false;
-    }
     List<List<CssValueElement>> cursorList = buildCursorList(value);
     if (cursorList.size() == 1) {
       if (cursorList.get(0).size() != 1
