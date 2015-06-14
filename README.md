@@ -1,7 +1,7 @@
 SonarQube CSS Plugin
 ====================
 
-This is the SonarQube CSS Plugin
+This is the SonarQube CSS Plugin.
 
 Project homepage:
 https://github.com/SonarCommunity/sonar-css
@@ -12,8 +12,8 @@ https://github.com/SonarCommunity/sonar-css/issues
 CI builds:
 http://sonarplugins.ci.cloudbees.com/job/css
 
-Download and Version and information:
-http://update.sonarsource.org/plugins/css-confluence.html
+Download:
+http://downloads.sonarsource.com/plugins/org/codehaus/sonar-plugins/css/sonar-css-plugin/
 
 ## Description / Features
 The plugin enables analysis of CSS within SonarQube.
