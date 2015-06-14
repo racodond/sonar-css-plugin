@@ -171,7 +171,8 @@ public class ValidatePropertyValueCheckTest {
       .atLine(12).withMessage(errorMessage).next()
       .atLine(13).withMessage(errorMessage).next()
       .atLine(14).withMessage(errorMessage).next()
-      .atLine(15).withMessage(errorMessage).noMore();
+      .atLine(15).withMessage(errorMessage).next()
+      .atLine(16).withMessage(errorMessage).noMore();
   }
 
   @Test

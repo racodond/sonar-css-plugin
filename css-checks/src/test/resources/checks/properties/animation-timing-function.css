@@ -7,10 +7,11 @@
   animation-timing-function: ease-in-out;
   animation-timing-function: step-start;
   animation-timing-function: step-end;
-  animation-timing-function: steps(1, start)
+  animation-timing-function: steps(1, start);
   animation-timing-function: cubic-bezier(0.25,0.1,0.25,1);
   animation-timing-function: abc; /* Noncompliant */
   animation-timing-function: hello(); /* Noncompliant */
   animation-timing-function: 0; /* Noncompliant */
   animation-timing-function: 10px; /* Noncompliant */
+  animation-timing-function: ease-in-out linear; /* Noncompliant */
 }

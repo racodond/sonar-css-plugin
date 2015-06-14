@@ -30,9 +30,9 @@ public class CssPropertiesTest {
     assertThat(Vendors.VENDORS.size()).isEqualTo(18);
   }
 
-  //@Test
-  //public void number_of_properties() {
-  //  assertThat(CssProperties.PROPERTIES.size()).isEqualTo(361);
-  //}
+  @Test
+  public void number_of_properties() {
+    assertThat(CssProperties.PROPERTIES.size()).isEqualTo(377);
+  }
 
 }
