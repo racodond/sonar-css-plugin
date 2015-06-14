@@ -4,10 +4,10 @@ SonarQube CSS Plugin
 This is the SonarQube CSS Plugin
 
 Project homepage:
-http://docs.codehaus.org/x/EYFMDg
+https://github.com/SonarCommunity/sonar-css
 
 Issue tracking:
-http://jira.codehaus.org/browse/SONARCSS
+https://github.com/SonarCommunity/sonar-css/issues
 
 CI builds:
 http://sonarplugins.ci.cloudbees.com/job/css
