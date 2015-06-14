@@ -13,7 +13,7 @@
 
   <name>CSS :: SonarQube Plugin</name>
   <description>Enables analysis of CSS files.</description>
-  <url>http://docs.codehaus.org/x/EYFMDg</url>
+  <url>https://github.com/SonarCommunity/sonar-css</url>
 
   <properties>
     <sonar.pluginKey>css</sonar.pluginKey>

@@ -56,8 +56,8 @@
     <tag>HEAD</tag>
   </scm>
   <issueManagement>
-    <system>JIRA</system>
-    <url>http://jira.codehaus.org/browse/SONARCSS</url>
+    <system>GitHub Issues</system>
+    <url>https://github.com/SonarCommunity/sonar-css/issues</url>
   </issueManagement>
 
   <properties>
