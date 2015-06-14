@@ -19,12 +19,12 @@
  */
 package org.sonar.css.checks;
 
+import java.io.File;
+
 import org.junit.Test;
 import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
-import java.io.File;
 
 public class ValidatePropertyValueCheckTest {
 
@@ -608,16 +608,6 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
-  public void drop_initial_value() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/drop-initial-value.css"), check);
-    errorMessage = "Update the invalid value of property \"drop-initial-value\". Expected format: initial | <integer>(>=0)";
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(5).withMessage(errorMessage).next()
-      .atLine(6).withMessage(errorMessage).next()
-      .atLine(7).withMessage(errorMessage).noMore();
-  }
-
-  @Test
   public void filter() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/filter.css"), check);
     errorMessage = "Update the invalid value of property \"filter\". Expected format: none | [<uri> | <filter-function>]+";
@@ -800,6 +790,15 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void line_break() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/line-break.css"), check);
+    errorMessage = "Update the invalid value of property \"line-break\". Expected format: auto | loose | normal | strict";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(7).withMessage(errorMessage).next()
+      .atLine(8).withMessage(errorMessage).noMore();
+  }
+
+  @Test
   public void line_height() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/line-height.css"), check);
     errorMessage = "Update the invalid value of property \"line-height\". Expected format: normal | none | <length>(>=0) | <percentage>(>=0) | <number>(>=0)";
@@ -935,6 +934,17 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void max_zoom() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/max-zoom.css"), check);
+    errorMessage = "Update the invalid value of property \"max-zoom\". Expected format: auto | <percentage>(>=0) | <number>(>=0)";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(6).withMessage(errorMessage).next()
+      .atLine(7).withMessage(errorMessage).next()
+      .atLine(8).withMessage(errorMessage).next()
+      .atLine(9).withMessage(errorMessage).noMore();
+  }
+
+  @Test
   public void min_height() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/min-height.css"), check);
     errorMessage = "Update the invalid value of property \"min-height\". Expected format: auto | <length> | <percentage> | fill | max-content | min-content | fit-content";
@@ -948,6 +958,17 @@ public class ValidatePropertyValueCheckTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/min-width.css"), check);
     errorMessage = "Update the invalid value of property \"min-width\". Expected format: auto | <length> | <percentage> | fill | max-content | min-content | fit-content";
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(8).withMessage(errorMessage).next()
+      .atLine(9).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void min_zoom() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/min-zoom.css"), check);
+    errorMessage = "Update the invalid value of property \"min-zoom\". Expected format: auto | <percentage>(>=0) | <number>(>=0)";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(6).withMessage(errorMessage).next()
+      .atLine(7).withMessage(errorMessage).next()
       .atLine(8).withMessage(errorMessage).next()
       .atLine(9).withMessage(errorMessage).noMore();
   }
@@ -968,6 +989,15 @@ public class ValidatePropertyValueCheckTest {
     errorMessage = "Update the invalid value of property \"order\". Expected format: <integer>";
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(5).withMessage(errorMessage).next()
+      .atLine(6).withMessage(errorMessage).next()
+      .atLine(7).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void orientation() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/orientation.css"), check);
+    errorMessage = "Update the invalid value of property \"orientation\". Expected format: auto | portrait | landscape";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(6).withMessage(errorMessage).next()
       .atLine(7).withMessage(errorMessage).noMore();
   }
@@ -1116,6 +1146,16 @@ public class ValidatePropertyValueCheckTest {
       .atLine(8).withMessage(errorMessage).next()
       .atLine(10).withMessage(errorMessage).next()
       .atLine(11).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void perspective() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/perspective.css"), check);
+    errorMessage = "Update the invalid value of property \"perspective\". Expected format: none | <length>(>=0)";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(5).withMessage(errorMessage).next()
+      .atLine(6).withMessage(errorMessage).next()
+      .atLine(7).withMessage(errorMessage).noMore();
   }
 
   @Test
@@ -1288,6 +1328,43 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void transform() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/transform.css"), check);
+    errorMessage = "Update the invalid value of property \"transform\". Expected format: none | <transform-function>+";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(8).withMessage(errorMessage).next()
+      .atLine(9).withMessage(errorMessage).next()
+      .atLine(10).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void transform_box() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/transform-box.css"), check);
+    errorMessage = "Update the invalid value of property \"transform-box\". Expected format: border-box | fill-box | view-box";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(6).withMessage(errorMessage).next()
+      .atLine(7).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void transform_style() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/transform-style.css"), check);
+    errorMessage = "Update the invalid value of property \"transform-style\". Expected format: auto | flat | preserve-3d";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(6).withMessage(errorMessage).next()
+      .atLine(7).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void user_zoom() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/user-zoom.css"), check);
+    errorMessage = "Update the invalid value of property \"user-zoom\". Expected format: zoom | fixed";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(5).withMessage(errorMessage).next()
+      .atLine(6).withMessage(errorMessage).noMore();
+  }
+
+  @Test
   public void vertical_align() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/vertical-align.css"), check);
     errorMessage = "Update the invalid value of property \"vertical-align\". Expected format: auto | use-script | baseline | sub | super | top | text-top | central | middle | bottom | text-bottom | <percentage> | <length>";
@@ -1315,6 +1392,15 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void word_break() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/word-break.css"), check);
+    errorMessage = "Update the invalid value of property \"word-break\". Expected format: normal | keep-all | break-all";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(6).withMessage(errorMessage).next()
+      .atLine(7).withMessage(errorMessage).noMore();
+  }
+
+  @Test
   public void z_index() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/z-index.css"), check);
     errorMessage = "Update the invalid value of property \"z-index\". Expected format: auto | <integer>";
@@ -1326,10 +1412,12 @@ public class ValidatePropertyValueCheckTest {
   @Test
   public void zoom() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/zoom.css"), check);
-    errorMessage = "Update the invalid value of property \"zoom\". Expected format: normal | <percentage> | <number>";
+    errorMessage = "Update the invalid value of property \"zoom\". Expected format: auto | <percentage>(>=0) | <number>(>=0)";
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(6).withMessage(errorMessage).next()
-      .atLine(7).withMessage(errorMessage).noMore();
+      .atLine(7).withMessage(errorMessage).next()
+      .atLine(8).withMessage(errorMessage).next()
+      .atLine(9).withMessage(errorMessage).noMore();
   }
 
 }

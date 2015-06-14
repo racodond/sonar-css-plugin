@@ -17,22 +17,19 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.utils;
+package org.sonar.css.checks.validators.valueelement;
 
-import org.junit.Test;
+import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
+import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
 
-import static org.fest.assertions.Assertions.assertThat;
+public class ZoomValidator extends MultiPropertyValueElementValidator {
 
-public class CssPropertiesTest {
-
-  @Test
-  public void number_of_vendors() {
-    assertThat(Vendors.VENDORS.size()).isEqualTo(18);
+  public ZoomValidator() {
+    super(ImmutableList.of(
+      new AutoValidator(),
+      PropertyValueValidatorFactory.getPositivePercentageValidator(),
+      PropertyValueValidatorFactory.getPositiveNumberValidator()));
   }
-
-  //@Test
-  //public void number_of_properties() {
-  //  assertThat(CssProperties.PROPERTIES.size()).isEqualTo(361);
-  //}
 
 }

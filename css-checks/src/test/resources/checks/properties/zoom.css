@@ -1,8 +1,10 @@
 .mybox {
   zoom: inherit;
-  zoom: normal;
+  zoom: auto;
   zoom: 10%;
   zoom: 10;
+  zoom: -10; /* Noncompliant */
+  zoom: -10%; /* Noncompliant */
   zoom: abc; /* Noncompliant */
   zoom: 10px; /* Noncompliant */
 }

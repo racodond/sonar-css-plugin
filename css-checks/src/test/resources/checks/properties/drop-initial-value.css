@@ -1,8 +1,0 @@
-.mybox {
-  drop-initial-value: inherit;
-  drop-initial-value: initial;
-  drop-initial-value: 10;
-  drop-initial-value: abc; /* Noncompliant */
-  drop-initial-value: -10; /* Noncompliant */
-  drop-initial-value: 10.5; /* Noncompliant */
-}
