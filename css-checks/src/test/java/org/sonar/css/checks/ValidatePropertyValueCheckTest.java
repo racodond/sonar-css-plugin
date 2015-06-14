@@ -205,6 +205,16 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void background_blend_mode() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/background-blend-mode.css"), check);
+    errorMessage = "Update the invalid value of property \"background-blend-mode\". Expected format: normal | multiply | screen | overlay | darken | lighten | color-dodge | color-burn | hard-light | soft-light | difference | exclusion | hue | saturation | color | luminosity";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(19).withMessage(errorMessage).next()
+      .atLine(20).withMessage(errorMessage).next()
+      .atLine(21).withMessage(errorMessage).noMore();
+  }
+
+  @Test
   public void background_clip() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/background-clip.css"), check);
     errorMessage = "Update the invalid value of property \"background-clip\". Expected format: <box> [, <box>]*";
@@ -764,6 +774,16 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void isolation() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/isolation.css"), check);
+    errorMessage = "Update the invalid value of property \"isolation\". Expected format: auto | isolate";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(5).withMessage(errorMessage).next()
+      .atLine(6).withMessage(errorMessage).next()
+      .atLine(7).withMessage(errorMessage).noMore();
+  }
+
+  @Test
   public void inline_box_align() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/inline-box-align.css"), check);
     errorMessage = "Update the invalid value of property \"inline-box-align\". Expected format: initial | last | <integer>";
@@ -972,6 +992,16 @@ public class ValidatePropertyValueCheckTest {
       .atLine(7).withMessage(errorMessage).next()
       .atLine(8).withMessage(errorMessage).next()
       .atLine(9).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void mix_blend_mode() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/mix-blend-mode.css"), check);
+    errorMessage = "Update the invalid value of property \"mix-blend-mode\". Expected format: normal | multiply | screen | overlay | darken | lighten | color-dodge | color-burn | hard-light | soft-light | difference | exclusion | hue | saturation | color | luminosity";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(19).withMessage(errorMessage).next()
+      .atLine(20).withMessage(errorMessage).next()
+      .atLine(21).withMessage(errorMessage).noMore();
   }
 
   @Test
