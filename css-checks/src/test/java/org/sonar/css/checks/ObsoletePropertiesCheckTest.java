@@ -34,10 +34,10 @@ public class ObsoletePropertiesCheckTest {
   public void should_find_some_obsolete_properties_and_raise_issues() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/obsoleteProperties.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(2).withMessage("Remove the obsolete \"azimuth\" property.").next()
-      .atLine(3).withMessage("Remove the obsolete \"Azimuth\" property.").next()
-      .atLine(4).withMessage("Remove the obsolete \"appearance\" property.").next()
-      .atLine(5).withMessage("Remove the obsolete \"Appearance\" property.").noMore();
+      .atLine(2).withMessage("Remove the obsolete / not on W3C Standards track \"azimuth\" property.").next()
+      .atLine(3).withMessage("Remove the obsolete / not on W3C Standards track \"Azimuth\" property.").next()
+      .atLine(4).withMessage("Remove the obsolete / not on W3C Standards track \"appearance\" property.").next()
+      .atLine(5).withMessage("Remove the obsolete / not on W3C Standards track \"Appearance\" property.").noMore();
   }
 
 }
