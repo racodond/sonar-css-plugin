@@ -23,12 +23,12 @@ import com.google.common.collect.ImmutableList;
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.DimensionValueElement;
 import org.sonar.css.checks.utils.valueelements.NumberValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
+import org.sonar.css.checks.validators.ValueElementValidator;
 import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
 
 import javax.annotation.Nonnull;
 
-public abstract class DimensionValidator implements PropertyValueElementValidator {
+public abstract class DimensionValidator implements ValueElementValidator {
 
   private final boolean positiveOnly;
   private final ImmutableList<String> units;

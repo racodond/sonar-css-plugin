@@ -20,11 +20,11 @@
 package org.sonar.css.checks.validators.property;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueValidator;
+import org.sonar.css.checks.validators.ValueMultiValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 import org.sonar.css.checks.validators.valueelement.numeric.IntegerSetValidator;
 
-public class FontWeightValidator extends MultiPropertyValueValidator {
+public class FontWeightValidator extends ValueMultiValidator {
 
   public FontWeightValidator() {
     getValidators().add(new IdentifierValidator(ImmutableList.of("normal", "bold", "bolder", "lighter")));

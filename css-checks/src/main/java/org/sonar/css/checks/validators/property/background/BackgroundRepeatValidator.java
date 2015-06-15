@@ -23,7 +23,7 @@ import com.google.common.collect.ImmutableList;
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.DelimiterValueElement;
-import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.ValueValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 
 import javax.annotation.Nonnull;
@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BackgroundRepeatValidator implements PropertyValueValidator {
+public class BackgroundRepeatValidator implements ValueValidator {
 
   IdentifierValidator repeatXYValidator = new IdentifierValidator(ImmutableList.of("repeat-x", "repeat-y"));
   IdentifierValidator repeatOthersValidator = new IdentifierValidator(ImmutableList.of("repeat", "space", "round", "no-repeat"));
@@ -39,10 +39,6 @@ public class BackgroundRepeatValidator implements PropertyValueValidator {
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0) {
-      return false;
-    }
     for (CssValueElement valueElement : valueElements) {
       if (valueElement instanceof DelimiterValueElement) {
         if (!",".equals(((DelimiterValueElement) valueElement).getType())) {

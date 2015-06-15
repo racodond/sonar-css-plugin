@@ -22,8 +22,9 @@ package org.sonar.css.checks.validators.property;
 import com.google.common.collect.ImmutableList;
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
-import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementValidator;
+import org.sonar.css.checks.validators.ValueValidator;
 import org.sonar.css.checks.validators.valueelement.DelimiterValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 import org.sonar.css.checks.validators.valueelement.UriValidator;
@@ -34,18 +35,16 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CursorValidator implements PropertyValueValidator {
+public class CursorValidator implements ValueValidator {
 
-  private final PropertyValueElementValidator cursorValidator = new IdentifierValidator(
+  private final ValueElementValidator cursorValidator = new IdentifierValidator(
     ImmutableList
       .of("auto", "default", "none", "context-menu", "help", "pointer", "progress", "wait", "cell", "crosshair", "text",
         "vertical-text", "alias", "copy", "move", "no-drop",
         "not-allowed", "e-resize", "n-resize", "ne-resize", "nw-resize", "s-resize", "se-resize", "sw-resize", "w-resize",
         "ew-resize", "ns-resize", "nesw-resize", "nwse-resize",
         "col-resize", "row-resize", "all-scroll", "zoom-in", "zoom-out", "grab", "grabbing"));
-  private final PropertyValueElementValidator uriValidator = new UriValidator();
-  private final PropertyValueElementValidator positiveIntegerValidator = new IntegerRangeValidator(0, 32);
-  private final PropertyValueElementValidator delimiterValidator = new DelimiterValidator(",");
+  private final ValueElementValidator positiveIntegerValidator = new IntegerRangeValidator(0, 32);
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
@@ -57,9 +56,9 @@ public class CursorValidator implements PropertyValueValidator {
       }
     } else {
       for (int i = 0; i < cursorList.size() - 1; i++) {
-        if (cursorList.get(i).size() == 1 && uriValidator.isValid(cursorList.get(i).get(0))) {
+        if (cursorList.get(i).size() == 1 && ValidatorFactory.getUriValidator().isValid(cursorList.get(i).get(0))) {
             break;
-        } else if (cursorList.get(i).size() == 3 && uriValidator.isValid(cursorList.get(i).get(0))
+        } else if (cursorList.get(i).size() == 3 && ValidatorFactory.getUriValidator().isValid(cursorList.get(i).get(0))
           && positiveIntegerValidator.isValid(cursorList.get(i).get(1)) && positiveIntegerValidator.isValid(
             cursorList.get(i).get(2))) {
           break;
@@ -82,7 +81,7 @@ public class CursorValidator implements PropertyValueValidator {
     cursorList.add(new ArrayList<CssValueElement>());
     int listIndex = 0;
     for (CssValueElement valueElement : cssValue.getValueElements()) {
-      if (delimiterValidator.isValid(valueElement)) {
+      if (ValidatorFactory.getCommaDelimiterValidator().isValid(valueElement)) {
         cursorList.add(new ArrayList<CssValueElement>());
         listIndex++;
       } else {

@@ -21,26 +21,24 @@ package org.sonar.css.checks.validators.property;
 
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueValidator;
 
 import javax.annotation.Nonnull;
 
 import java.util.List;
 import org.sonar.css.checks.validators.valueelement.PaddingWidthValidator;
 
-public class PaddingValidator implements PropertyValueValidator {
-
-  PaddingWidthValidator paddingWidthValidator = new PaddingWidthValidator();
+public class PaddingValidator implements ValueValidator {
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0 || numberOfElements > 4) {
+    if (value.getNumberOfValueElements() > 4) {
       return false;
     }
     for (CssValueElement valueElement : valueElements) {
-      if (!paddingWidthValidator.isValid(valueElement)) {
+      if (!ValidatorFactory.getPaddingWidthValidator().isValid(valueElement)) {
         return false;
       }
     }

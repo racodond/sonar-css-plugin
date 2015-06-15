@@ -21,13 +21,13 @@ package org.sonar.css.checks.validators.property.animation;
 
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.ValueValidator;
 
 import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class AnimationValidator implements PropertyValueValidator {
+public class AnimationValidator implements ValueValidator {
 
   private final AnimationDelayValidator animationDelayValidator = new AnimationDelayValidator();
   private final AnimationDirectionValidator animationDirectionValidator = new AnimationDirectionValidator();
@@ -41,8 +41,7 @@ public class AnimationValidator implements PropertyValueValidator {
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0 || numberOfElements > 8) {
+    if (value.getNumberOfValueElements() > 8) {
       return false;
     }
     for (CssValueElement valueElement : valueElements) {

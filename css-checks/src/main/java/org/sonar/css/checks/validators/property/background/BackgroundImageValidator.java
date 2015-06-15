@@ -19,37 +19,28 @@
  */
 package org.sonar.css.checks.validators.property.background;
 
-import org.sonar.css.checks.utils.CssValue;
-import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
-import org.sonar.css.checks.validators.PropertyValueValidator;
-import org.sonar.css.checks.validators.valueelement.DelimiterValidator;
-import org.sonar.css.checks.validators.valueelement.ImageValidator;
-import org.sonar.css.checks.validators.valueelement.NoneValidator;
-
-import javax.annotation.Nonnull;
-
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Nonnull;
 
-public class BackgroundImageValidator implements PropertyValueValidator {
+import org.sonar.css.checks.utils.CssValue;
+import org.sonar.css.checks.utils.CssValueElement;
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementValidator;
+import org.sonar.css.checks.validators.ValueValidator;
+import org.sonar.css.checks.validators.valueelement.DelimiterValidator;
 
-  PropertyValueElementValidator noneValidator = new NoneValidator();
-  PropertyValueElementValidator imageValidator = new ImageValidator();
-  PropertyValueElementValidator delimiterValidator = new DelimiterValidator(",");
+public class BackgroundImageValidator implements ValueValidator {
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0) {
-      return false;
-    }
     for (int i = 0; i < valueElements.size(); i++) {
-      if (noneValidator.isValid(valueElements.get(i)) && i != 0) {
+      if (ValidatorFactory.getNoneValidator().isValid(valueElements.get(i)) && i != 0) {
         return false;
       }
-      else if (!imageValidator.isValid(valueElements.get(i)) && !noneValidator.isValid(valueElements.get(i)) && !delimiterValidator.isValid(valueElements.get(i))) {
+      else if (!ValidatorFactory.getImageValidator().isValid(valueElements.get(i)) && !ValidatorFactory.getNoneValidator().isValid(valueElements.get(i))
+        && !ValidatorFactory.getCommaDelimiterValidator().isValid(valueElements.get(i))) {
         return false;
       }
     }
@@ -67,7 +58,7 @@ public class BackgroundImageValidator implements PropertyValueValidator {
     backgroundImageList.add(new ArrayList<CssValueElement>());
     int listIndex = 0;
     for (CssValueElement valueElement : cssValue.getValueElements()) {
-      if (delimiterValidator.isValid(valueElement)) {
+      if (ValidatorFactory.getCommaDelimiterValidator().isValid(valueElement)) {
         backgroundImageList.add(new ArrayList<CssValueElement>());
         listIndex++;
       } else {

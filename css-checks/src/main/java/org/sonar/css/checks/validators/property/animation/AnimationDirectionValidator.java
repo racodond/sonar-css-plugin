@@ -20,25 +20,12 @@
 package org.sonar.css.checks.validators.property.animation;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 
-import javax.annotation.Nonnull;
+public class AnimationDirectionValidator extends IdentifierValidator {
 
-public class AnimationDirectionValidator implements PropertyValueElementValidator {
-
-  IdentifierValidator identifierValidator = new IdentifierValidator(ImmutableList.of("normal", "reverse", "alternate", "alternate-reverse"));
-
-  @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    return identifierValidator.isValid(cssValueElement);
-  }
-
-  @Nonnull
-  @Override
-  public String getValidatorFormat() {
-    return identifierValidator.getValidatorFormat();
+  public AnimationDirectionValidator() {
+    super(ImmutableList.of("normal", "reverse", "alternate", "alternate-reverse"));
   }
 
 }

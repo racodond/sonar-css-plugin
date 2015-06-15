@@ -21,23 +21,22 @@ package org.sonar.css.checks.validators.property;
 
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
-import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.ValueElementValidator;
+import org.sonar.css.checks.validators.ValueValidator;
 import org.sonar.css.checks.validators.valueelement.OverflowValidator;
 
 import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class OverflowPropertyValidator implements PropertyValueValidator {
+public class OverflowPropertyValidator implements ValueValidator {
 
-  PropertyValueElementValidator overflowValidator = new OverflowValidator();
+  ValueElementValidator overflowValidator = new OverflowValidator();
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0 || numberOfElements > 2) {
+    if (value.getNumberOfValueElements() > 2) {
       return false;
     }
     for (CssValueElement valueElement : valueElements) {

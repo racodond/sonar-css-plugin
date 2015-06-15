@@ -20,12 +20,11 @@
 package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
 
-public class TextDecorationStyleValidator extends MultiPropertyValueElementValidator {
+public class TextDecorationStyleValidator extends IdentifierValidator {
 
   public TextDecorationStyleValidator() {
-    super(ImmutableList.of(new IdentifierValidator(ImmutableList.of("solid", "double", "dotted", "dashed", "wavy"))));
+    super(ImmutableList.of("solid", "double", "dotted", "dashed", "wavy"));
   }
 
 }

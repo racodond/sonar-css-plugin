@@ -22,7 +22,7 @@ package org.sonar.css.checks.validators;
 import javax.annotation.Nonnull;
 import org.sonar.css.checks.utils.CssValue;
 
-public interface PropertyValueValidator extends Validator {
+public interface ValueValidator extends Validator {
 
   boolean isValid(@Nonnull CssValue cssValue);
 

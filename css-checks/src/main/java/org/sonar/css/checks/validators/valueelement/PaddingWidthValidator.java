@@ -20,15 +20,15 @@
 package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
-import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementMultiValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
 
-public class PaddingWidthValidator extends MultiPropertyValueElementValidator {
+public class PaddingWidthValidator extends ValueElementMultiValidator {
 
   public PaddingWidthValidator() {
     super(ImmutableList.of(
-      PropertyValueValidatorFactory.getPositiveLengthValidator(),
-      PropertyValueValidatorFactory.getPositivePercentageValidator()));
+      ValidatorFactory.getPositiveLengthValidator(),
+      ValidatorFactory.getPositivePercentageValidator()));
   }
 
 }

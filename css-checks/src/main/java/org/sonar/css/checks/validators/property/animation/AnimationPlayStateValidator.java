@@ -20,25 +20,12 @@
 package org.sonar.css.checks.validators.property.animation;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 
-import javax.annotation.Nonnull;
+public class AnimationPlayStateValidator extends IdentifierValidator {
 
-public class AnimationPlayStateValidator implements PropertyValueElementValidator {
-
-  IdentifierValidator identifierValidator = new IdentifierValidator(ImmutableList.of("running", "paused"));
-
-  @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    return identifierValidator.isValid(cssValueElement);
-  }
-
-  @Nonnull
-  @Override
-  public String getValidatorFormat() {
-    return identifierValidator.getValidatorFormat();
+  public AnimationPlayStateValidator() {
+    super(ImmutableList.of("running", "paused"));
   }
 
 }

@@ -23,7 +23,7 @@ import org.sonar.css.checks.utils.CssValueElement;
 
 import javax.annotation.Nonnull;
 
-public interface PropertyValueElementValidator extends Validator {
+public interface ValueElementValidator extends Validator {
 
   boolean isValid(@Nonnull CssValueElement cssValueElement);
 

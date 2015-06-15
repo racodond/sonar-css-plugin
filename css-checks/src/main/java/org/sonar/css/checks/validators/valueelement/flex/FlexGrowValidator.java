@@ -19,14 +19,12 @@
  */
 package org.sonar.css.checks.validators.valueelement.flex;
 
-import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
 import org.sonar.css.checks.validators.valueelement.numeric.NumberValidator;
 
-public class FlexGrowValidator extends MultiPropertyValueElementValidator {
+public class FlexGrowValidator extends NumberValidator {
 
   public FlexGrowValidator() {
-    super(ImmutableList.of(new NumberValidator(true)));
+    super(true);
   }
 
 }

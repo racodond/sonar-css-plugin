@@ -22,8 +22,9 @@ package org.sonar.css.checks.validators.property;
 import com.google.common.collect.ImmutableList;
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
-import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementValidator;
+import org.sonar.css.checks.validators.ValueValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 import org.sonar.css.checks.validators.valueelement.StringValidator;
 
@@ -31,21 +32,19 @@ import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class TextOverflowValidator implements PropertyValueValidator {
+public class TextOverflowValidator implements ValueValidator {
 
-  PropertyValueElementValidator identifierValidator = new IdentifierValidator(ImmutableList.of("clip", "ellipsis"));
-  PropertyValueElementValidator stringValidator = new StringValidator();
+  ValueElementValidator identifierValidator = new IdentifierValidator(ImmutableList.of("clip", "ellipsis"));
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0 || numberOfElements > 2) {
+    if (value.getNumberOfValueElements() > 2) {
       return false;
     }
     for (CssValueElement valueElement : valueElements) {
       if (!identifierValidator.isValid(valueElement)
-        && !stringValidator.isValid(valueElement)) {
+        && !ValidatorFactory.getStringValidator().isValid(valueElement)) {
         return false;
       }
     }

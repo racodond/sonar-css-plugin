@@ -27,20 +27,20 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MultiPropertyValueElementValidator implements PropertyValueElementValidator {
+public class ValueElementMultiValidator implements ValueElementValidator {
 
-  private List<? extends PropertyValueElementValidator> validators = new ArrayList<>();
+  private List<? extends ValueElementValidator> validators = new ArrayList<>();
 
-  public MultiPropertyValueElementValidator() {
+  public ValueElementMultiValidator() {
   }
 
-  public MultiPropertyValueElementValidator(@Nonnull ImmutableList<? extends PropertyValueElementValidator> validators) {
+  public ValueElementMultiValidator(@Nonnull ImmutableList<? extends ValueElementValidator> validators) {
     this.validators = validators;
   }
 
   @Override
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    for (PropertyValueElementValidator validator : validators) {
+    for (ValueElementValidator validator : validators) {
       if (validator.isValid(cssValueElement)) {
         return true;
       }

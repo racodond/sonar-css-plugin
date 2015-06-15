@@ -20,27 +20,15 @@
 package org.sonar.css.checks.validators.property.animation;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementMultiValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
-import org.sonar.css.checks.validators.valueelement.numeric.NumberValidator;
 
-import javax.annotation.Nonnull;
+public class AnimationIterationCountValidator extends ValueElementMultiValidator {
 
-public class AnimationIterationCountValidator implements PropertyValueElementValidator {
-
-  IdentifierValidator identifierValidator = new IdentifierValidator(ImmutableList.of("infinite"));
-  NumberValidator numberValidator = new NumberValidator(true);
-
-  @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    return identifierValidator.isValid(cssValueElement) || numberValidator.isValid(cssValueElement);
+  public AnimationIterationCountValidator() {
+    super(ImmutableList.of(
+      new IdentifierValidator(ImmutableList.of("infinite")),
+      ValidatorFactory.getPositiveNumberValidator()));
   }
-
-  @Nonnull
-  @Override
-  public String getValidatorFormat() {
-    return identifierValidator.getValidatorFormat() + " | " + numberValidator.getValidatorFormat();
-  }
-
 }

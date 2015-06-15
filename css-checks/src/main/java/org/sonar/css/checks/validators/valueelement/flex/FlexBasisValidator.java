@@ -20,16 +20,17 @@
 package org.sonar.css.checks.validators.valueelement.flex;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementMultiValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 import org.sonar.css.checks.validators.valueelement.WidthHeightValidator;
 
 import javax.annotation.Nonnull;
 
-public class FlexBasisValidator extends MultiPropertyValueElementValidator {
+public class FlexBasisValidator extends ValueElementMultiValidator {
 
   public FlexBasisValidator() {
-    super(ImmutableList.of(new IdentifierValidator(ImmutableList.of("content")), new WidthHeightValidator()));
+    super(ImmutableList.of(new IdentifierValidator(ImmutableList.of("content")), ValidatorFactory.getWidthHeightValidator()));
   }
 
   @Nonnull

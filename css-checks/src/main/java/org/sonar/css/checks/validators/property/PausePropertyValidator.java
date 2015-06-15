@@ -21,26 +21,24 @@ package org.sonar.css.checks.validators.property;
 
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueValidator;
 import org.sonar.css.checks.validators.valueelement.PauseValidator;
 
 import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class PausePropertyValidator implements PropertyValueValidator {
-
-  PauseValidator pauseValidator = new PauseValidator();
+public class PausePropertyValidator implements ValueValidator {
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0 || numberOfElements > 2) {
+    if (value.getNumberOfValueElements() > 2) {
       return false;
     }
     for (CssValueElement valueElement : valueElements) {
-      if (!pauseValidator.isValid(valueElement)) {
+      if (!ValidatorFactory.getPauseValidator().isValid(valueElement)) {
         return false;
       }
     }

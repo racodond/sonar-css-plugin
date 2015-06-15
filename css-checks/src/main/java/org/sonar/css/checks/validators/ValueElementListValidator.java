@@ -29,14 +29,14 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ValueElementListPropertyValueValidator implements PropertyValueValidator {
+public class ValueElementListValidator implements ValueValidator {
 
-  private List<? extends PropertyValueElementValidator> validators = new ArrayList<>();
+  private List<? extends ValueElementValidator> validators = new ArrayList<>();
 
-  public ValueElementListPropertyValueValidator() {
+  public ValueElementListValidator() {
   }
 
-  public ValueElementListPropertyValueValidator(@Nonnull ImmutableList<? extends PropertyValueElementValidator> validators) {
+  public ValueElementListValidator(@Nonnull ImmutableList<? extends ValueElementValidator> validators) {
     this.validators = validators;
   }
 
@@ -46,7 +46,7 @@ public class ValueElementListPropertyValueValidator implements PropertyValueVali
     for (CssValueElement valueElement : value.getValueElements()) {
       valid = false;
       if (!(valueElement instanceof DelimiterValueElement)) {
-        for (PropertyValueElementValidator validator : validators) {
+        for (ValueElementValidator validator : validators) {
           if (validator.isValid(valueElement)) {
             valid = true;
           }

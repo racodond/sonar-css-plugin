@@ -20,14 +20,15 @@
 package org.sonar.css.checks.validators.property.liststyle;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementMultiValidator;
 import org.sonar.css.checks.validators.valueelement.ImageValidator;
 import org.sonar.css.checks.validators.valueelement.NoneValidator;
 
-public class ListStyleImageValidator extends MultiPropertyValueElementValidator {
+public class ListStyleImageValidator extends ValueElementMultiValidator {
 
   public ListStyleImageValidator() {
-    super(ImmutableList.of(new NoneValidator(), new ImageValidator()));
+    super(ImmutableList.of(ValidatorFactory.getNoneValidator(), ValidatorFactory.getImageValidator()));
   }
 
 }

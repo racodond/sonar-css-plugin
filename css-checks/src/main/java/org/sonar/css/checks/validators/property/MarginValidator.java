@@ -21,26 +21,24 @@ package org.sonar.css.checks.validators.property;
 
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueValidator;
 
 import javax.annotation.Nonnull;
 
 import java.util.List;
 import org.sonar.css.checks.validators.valueelement.MarginWidthValidator;
 
-public class MarginValidator implements PropertyValueValidator {
-
-  MarginWidthValidator marginWidthValidator = new MarginWidthValidator();
+public class MarginValidator implements ValueValidator {
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0 || numberOfElements > 4) {
+    if (value.getNumberOfValueElements() > 4) {
       return false;
     }
     for (CssValueElement valueElement : valueElements) {
-      if (!marginWidthValidator.isValid(valueElement)) {
+      if (!ValidatorFactory.getMarginWidthValidator().isValid(valueElement)) {
         return false;
       }
     }

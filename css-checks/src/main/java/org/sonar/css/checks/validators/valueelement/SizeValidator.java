@@ -20,14 +20,16 @@
 package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
-import org.sonar.css.checks.validators.valueelement.dimension.LengthValidator;
-import org.sonar.css.checks.validators.valueelement.numeric.PercentageValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementMultiValidator;
 
-public class SizeValidator extends MultiPropertyValueElementValidator {
+public class SizeValidator extends ValueElementMultiValidator {
 
   public SizeValidator() {
-    super(ImmutableList.of(new AutoValidator(), new LengthValidator(false), new PercentageValidator(false)));
+    super(ImmutableList.of(
+      ValidatorFactory.getAutoValidator(),
+      ValidatorFactory.getLengthValidator(),
+      ValidatorFactory.getPercentageValidator()));
   }
 
 }

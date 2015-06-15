@@ -21,9 +21,9 @@ package org.sonar.css.checks.validators.property;
 
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
-import org.sonar.css.checks.validators.PropertyValueValidator;
-import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementValidator;
+import org.sonar.css.checks.validators.ValueValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
 import org.sonar.css.checks.validators.valueelement.ImageValidator;
 import org.sonar.css.checks.validators.valueelement.ShapeBoxValidator;
 import org.sonar.css.checks.validators.valueelement.function.BasicShapeValidator;
@@ -32,27 +32,24 @@ import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class ShapeOutsideValidator implements PropertyValueValidator {
+public class ShapeOutsideValidator implements ValueValidator {
 
   BasicShapeValidator basicShapeValidator = new BasicShapeValidator();
-  ImageValidator imageValidator = new ImageValidator();
-  PropertyValueElementValidator noneValidator = PropertyValueValidatorFactory.getNoneValidator();
   ShapeBoxValidator shapeBoxValidator = new ShapeBoxValidator();
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0 && numberOfElements > 2) {
+    if (value.getNumberOfValueElements() > 2) {
       return false;
     }
-    if (numberOfElements == 1) {
-      return noneValidator.isValid(valueElements.get(0))
-        || imageValidator.isValid(valueElements.get(0))
+    if (value.getNumberOfValueElements() == 1) {
+      return ValidatorFactory.getNoneValidator().isValid(valueElements.get(0))
+        ||  ValidatorFactory.getImageValidator().isValid(valueElements.get(0))
         || shapeBoxValidator.isValid(valueElements.get(0))
         || basicShapeValidator.isValid(valueElements.get(0));
     }
-    if (numberOfElements == 2) {
+    if (value.getNumberOfValueElements() == 2) {
       return shapeBoxValidator.isValid(valueElements.get(0)) && basicShapeValidator.isValid(valueElements.get(1))
         || shapeBoxValidator.isValid(valueElements.get(1)) && basicShapeValidator.isValid(valueElements.get(0));
     }

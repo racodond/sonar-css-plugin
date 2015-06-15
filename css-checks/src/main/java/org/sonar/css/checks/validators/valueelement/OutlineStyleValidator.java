@@ -20,12 +20,13 @@
 package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementMultiValidator;
 
-public class OutlineStyleValidator extends MultiPropertyValueElementValidator {
+public class OutlineStyleValidator extends ValueElementMultiValidator {
 
   public OutlineStyleValidator() {
-    super(ImmutableList.of(new BorderStyleValidator(), new IdentifierValidator(ImmutableList.of("auto"))));
+    super(ImmutableList.of(ValidatorFactory.getBorderStyleValidator(), ValidatorFactory.getAutoValidator()));
   }
 
 }

@@ -19,16 +19,15 @@
  */
 package org.sonar.css.checks.validators.property.border;
 
-import org.sonar.css.checks.utils.CssValue;
-import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueValidator;
-import org.sonar.css.checks.validators.valueelement.ColorValidator;
-
+import java.util.List;
 import javax.annotation.Nonnull;
 
-import java.util.List;
+import org.sonar.css.checks.utils.CssValue;
+import org.sonar.css.checks.utils.CssValueElement;
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueValidator;
 
-public class BorderColorValidator implements PropertyValueValidator {
+public class BorderColorValidator implements ValueValidator {
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
@@ -37,7 +36,7 @@ public class BorderColorValidator implements PropertyValueValidator {
       return false;
     }
     for (CssValueElement valueElement : valueElements) {
-      if (!new ColorValidator().isValid(valueElement)) {
+      if (!ValidatorFactory.getColorValidator().isValid(valueElement)) {
         return false;
       }
     }

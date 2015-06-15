@@ -27,14 +27,14 @@ import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class MultiPropertyValueValidator implements PropertyValueValidator {
+public class ValueMultiValidator implements ValueValidator {
 
   private List<Validator> validators = new ArrayList<>();
 
-  public MultiPropertyValueValidator() {
+  public ValueMultiValidator() {
   }
 
-  public MultiPropertyValueValidator(@Nonnull ImmutableList<Validator> validators) {
+  public ValueMultiValidator(@Nonnull ImmutableList<Validator> validators) {
     this.validators = validators;
   }
 
@@ -45,12 +45,12 @@ public class MultiPropertyValueValidator implements PropertyValueValidator {
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     for (Validator validator : validators) {
-      if (validator instanceof PropertyValueElementValidator
-        && ((PropertyValueElementValidator) validator).isValid(value.getValueElements().get(0))) {
+      if (validator instanceof ValueElementValidator
+        && ((ValueElementValidator) validator).isValid(value.getValueElements().get(0))) {
         return true;
       }
-      if (validator instanceof PropertyValueValidator
-        && ((PropertyValueValidator) validator).isValid(value)) {
+      if (validator instanceof ValueValidator
+        && ((ValueValidator) validator).isValid(value)) {
         return true;
       }
     }

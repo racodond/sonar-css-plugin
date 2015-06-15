@@ -20,19 +20,19 @@
 package org.sonar.css.checks.validators.property;
 
 import com.google.common.collect.ImmutableList;
+
+import java.util.List;
+import javax.annotation.Nonnull;
+
 import org.sonar.css.checks.utils.CssFunctions;
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueValidator;
-import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
-import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueValidator;
 import org.sonar.css.checks.validators.valueelement.UriValidator;
+import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
 
-import javax.annotation.Nonnull;
-
-import java.util.List;
-
-public class FilterValidator implements PropertyValueValidator {
+public class FilterValidator implements ValueValidator {
 
   private final ImmutableList<String> allowedFunctions = ImmutableList
     .of("blur", "brightness", "contrast", "drop-shadow", "grayscale", "hue-rotate", "invert", "opacity", "saturate", "sepia");
@@ -40,17 +40,13 @@ public class FilterValidator implements PropertyValueValidator {
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0) {
-      return false;
-    }
-    if (new IdentifierValidator(ImmutableList.of("none")).isValid(valueElements.get(0)) && numberOfElements == 1) {
+    if (ValidatorFactory.getNoneValidator().isValid(valueElements.get(0)) && value.getNumberOfValueElements() == 1) {
       return true;
     }
     for (CssValueElement valueElement : valueElements) {
       if (!new FunctionValidator(allowedFunctions).isValid(valueElement)
         && !new FunctionValidator(CssFunctions.IE_STATIC_FILTERS).isValid(valueElement)
-        && !new UriValidator().isValid(valueElement)) {
+        && !ValidatorFactory.getUriValidator().isValid(valueElement)) {
         return false;
       }
     }

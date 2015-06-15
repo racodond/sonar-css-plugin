@@ -21,22 +21,21 @@ package org.sonar.css.checks.validators.property.border;
 
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.ValueValidator;
 import org.sonar.css.checks.validators.valueelement.RadiusValidator;
 
 import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class BorderRadiusValidator implements PropertyValueValidator {
+public class BorderRadiusValidator implements ValueValidator {
 
   private final RadiusValidator radiusValidator = new RadiusValidator();
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0 || numberOfElements > 2) {
+    if (value.getNumberOfValueElements() > 2) {
       return false;
     }
     for (CssValueElement valueElement : valueElements) {
