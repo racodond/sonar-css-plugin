@@ -20,13 +20,11 @@
 package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
 
-public class BorderStyleValidator extends MultiPropertyValueElementValidator {
+public class BorderStyleValidator extends IdentifierValidator {
 
   public BorderStyleValidator() {
-    super(ImmutableList.of(new IdentifierValidator(
-      ImmutableList.of("none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset"))));
+    super(ImmutableList.of("none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset"));
   }
 
 }

@@ -21,26 +21,24 @@ package org.sonar.css.checks.validators.property.border;
 
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueValidator;
 import org.sonar.css.checks.validators.valueelement.BorderStyleValidator;
 
 import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class BorderStylePropertyValidator implements PropertyValueValidator {
-
-  BorderStyleValidator borderStyleValidator = new BorderStyleValidator();
+public class BorderStylePropertyValidator implements ValueValidator {
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0 || numberOfElements > 4) {
+    if (value.getNumberOfValueElements() > 4) {
       return false;
     }
     for (CssValueElement valueElement : valueElements) {
-      if (!borderStyleValidator.isValid(valueElement)) {
+      if (!ValidatorFactory.getBorderStyleValidator().isValid(valueElement)) {
         return false;
       }
     }

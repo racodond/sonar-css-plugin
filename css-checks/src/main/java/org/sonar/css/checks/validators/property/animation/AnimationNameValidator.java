@@ -19,23 +19,15 @@
  */
 package org.sonar.css.checks.validators.property.animation;
 
-import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
-import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
+import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementMultiValidator;
 
-import javax.annotation.Nonnull;
+public class AnimationNameValidator extends ValueElementMultiValidator {
 
-public class AnimationNameValidator implements PropertyValueElementValidator {
-
-  @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    return new IdentifierValidator().isValid(cssValueElement);
+  public AnimationNameValidator() {
+    super(ImmutableList.of(
+      ValidatorFactory.getNoneValidator(),
+      ValidatorFactory.getAnyIdentifierValidator()));
   }
-
-  @Nonnull
-  @Override
-  public String getValidatorFormat() {
-    return "none | <identifier>";
-  }
-
 }

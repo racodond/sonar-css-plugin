@@ -23,10 +23,10 @@ import com.google.common.collect.ImmutableList;
 import javax.annotation.Nonnull;
 import org.sonar.css.checks.utils.CssColors;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
+import org.sonar.css.checks.validators.ValueElementValidator;
 import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
 
-public class ColorValidator implements PropertyValueElementValidator {
+public class ColorValidator implements ValueElementValidator {
 
   @Override
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {

@@ -26,14 +26,15 @@ import javax.annotation.Nonnull;
 
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
-import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementValidator;
+import org.sonar.css.checks.validators.ValueValidator;
 import org.sonar.css.checks.validators.valueelement.NoneValidator;
 import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
 
-public class TransformValidator implements PropertyValueValidator {
+public class TransformValidator implements ValueValidator {
 
-  private final PropertyValueElementValidator functionValidator = new FunctionValidator(
+  private final ValueElementValidator functionValidator = new FunctionValidator(
     ImmutableList
       .of("matrix", "translate", "translatex", "translatey", "scale", "scalex", "scaley", "rotate", "skew", "skewx", "skewy", "matrix3d",
         "translate3d", "translatez", "scale3d", "scalez", "rotate3d", "rotatex", "rotatey", "rotatez", "perspective"));
@@ -41,11 +42,7 @@ public class TransformValidator implements PropertyValueValidator {
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0) {
-      return false;
-    }
-    if (new NoneValidator().isValid(valueElements.get(0)) && numberOfElements == 1) {
+    if (ValidatorFactory.getNoneValidator().isValid(valueElements.get(0)) && value.getNumberOfValueElements() == 1) {
       return true;
     }
     for (CssValueElement valueElement : valueElements) {

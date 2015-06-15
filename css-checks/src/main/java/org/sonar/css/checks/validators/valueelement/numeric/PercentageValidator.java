@@ -21,11 +21,11 @@ package org.sonar.css.checks.validators.valueelement.numeric;
 
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.PercentageValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
+import org.sonar.css.checks.validators.ValueElementValidator;
 
 import javax.annotation.Nonnull;
 
-public class PercentageValidator implements PropertyValueElementValidator {
+public class PercentageValidator implements ValueElementValidator {
 
   private final boolean positiveOnly;
 

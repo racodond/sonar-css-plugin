@@ -21,11 +21,11 @@ package org.sonar.css.checks.validators.valueelement;
 
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.StringValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
+import org.sonar.css.checks.validators.ValueElementValidator;
 
 import javax.annotation.Nonnull;
 
-public class StringValidator implements PropertyValueElementValidator {
+public class StringValidator implements ValueElementValidator {
 
   @Override
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {

@@ -20,13 +20,15 @@
 package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
-import org.sonar.css.checks.validators.valueelement.dimension.LengthValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementMultiValidator;
 
-public class BorderWidthValidator extends MultiPropertyValueElementValidator {
+public class BorderWidthValidator extends ValueElementMultiValidator {
 
   public BorderWidthValidator() {
-    super(ImmutableList.of(new IdentifierValidator(ImmutableList.of("thin", "medium", "thick")), new LengthValidator(true)));
+    super(ImmutableList.of(
+      new IdentifierValidator(ImmutableList.of("thin", "medium", "thick")),
+      ValidatorFactory.getPositiveLengthValidator()));
   }
 
 }

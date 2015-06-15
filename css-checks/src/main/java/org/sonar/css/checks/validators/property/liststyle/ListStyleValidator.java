@@ -21,13 +21,13 @@ package org.sonar.css.checks.validators.property.liststyle;
 
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.ValueValidator;
 
 import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class ListStyleValidator implements PropertyValueValidator {
+public class ListStyleValidator implements ValueValidator {
 
   ListStyleTypeValidator listStyleTypeValidator = new ListStyleTypeValidator();
   ListStylePositionValidator listStylePositionValidator = new ListStylePositionValidator();
@@ -36,8 +36,7 @@ public class ListStyleValidator implements PropertyValueValidator {
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0 || numberOfElements > 3) {
+    if (value.getNumberOfValueElements() > 3) {
       return false;
     }
     for (CssValueElement valueElement : valueElements) {

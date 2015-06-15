@@ -20,25 +20,12 @@
 package org.sonar.css.checks.validators.property.line;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 
-import javax.annotation.Nonnull;
+public class LineStackingShiftValidator extends IdentifierValidator {
 
-public class LineStackingShiftValidator implements PropertyValueElementValidator {
-
-  IdentifierValidator identifierValidator = new IdentifierValidator(ImmutableList.of("consider-shifts", "disregard-shifts"));
-
-  @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    return identifierValidator.isValid(cssValueElement);
-  }
-
-  @Nonnull
-  @Override
-  public String getValidatorFormat() {
-    return identifierValidator.getValidatorFormat();
+  public LineStackingShiftValidator() {
+    super(ImmutableList.of("consider-shifts", "disregard-shifts"));
   }
 
 }

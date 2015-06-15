@@ -20,17 +20,17 @@
 package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
-import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementMultiValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
 
-public class PauseValidator extends MultiPropertyValueElementValidator {
+public class PauseValidator extends ValueElementMultiValidator {
 
   public PauseValidator() {
     super(ImmutableList.of(
-      PropertyValueValidatorFactory.getPositiveTimeValidator(),
+      ValidatorFactory.getPositiveTimeValidator(),
       // positiveOnly = true even if it is not properly stated that percentage may not be negative
       // http://www.w3.org/TR/CSS21/aural.html#propdef-pause-after
-        PropertyValueValidatorFactory.getPositivePercentageValidator()));
+        ValidatorFactory.getPositivePercentageValidator()));
   }
 
 }

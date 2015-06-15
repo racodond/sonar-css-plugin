@@ -20,10 +20,10 @@
 package org.sonar.css.checks.validators.property.background;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.ValueElementListPropertyValueValidator;
+import org.sonar.css.checks.validators.ValueElementListValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 
-public class BackgroundAttachmentValidator extends ValueElementListPropertyValueValidator {
+public class BackgroundAttachmentValidator extends ValueElementListValidator {
 
   public BackgroundAttachmentValidator() {
     super(ImmutableList.of(new IdentifierValidator(ImmutableList.of("scroll", "fixed", "local"))));

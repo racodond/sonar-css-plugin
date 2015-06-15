@@ -27,8 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
 
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
-import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.ValueElementValidator;
+import org.sonar.css.checks.validators.ValueValidator;
 import org.sonar.css.checks.validators.Validator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
@@ -127,12 +127,12 @@ public class CssProperty {
     }
 
     for (Validator validator : validators) {
-      if (validator instanceof PropertyValueElementValidator
-        && ((PropertyValueElementValidator) validator).isValid(value.getValueElements().get(0))) {
+      if (validator instanceof ValueElementValidator
+        && ((ValueElementValidator) validator).isValid(value.getValueElements().get(0))) {
         return true;
       }
-      if (validator instanceof PropertyValueValidator
-        && ((PropertyValueValidator) validator).isValid(value)) {
+      if (validator instanceof ValueValidator
+        && ((ValueValidator) validator).isValid(value)) {
         return true;
       }
     }
@@ -164,7 +164,7 @@ public class CssProperty {
 
   private boolean hasOnlyPropertyValueElementValidators() {
     for (Validator validator : validators) {
-      if (!(validator instanceof PropertyValueElementValidator)) {
+      if (!(validator instanceof ValueElementValidator)) {
         return false;
       }
     }

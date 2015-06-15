@@ -19,34 +19,26 @@
  */
 package org.sonar.css.checks.validators.property.border;
 
-import org.sonar.css.checks.utils.CssValue;
-import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueValidator;
-import org.sonar.css.checks.validators.valueelement.BorderStyleValidator;
-import org.sonar.css.checks.validators.valueelement.BorderWidthValidator;
-import org.sonar.css.checks.validators.valueelement.ColorValidator;
-
+import java.util.List;
 import javax.annotation.Nonnull;
 
-import java.util.List;
+import org.sonar.css.checks.utils.CssValue;
+import org.sonar.css.checks.utils.CssValueElement;
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueValidator;
 
-public class BorderValidator implements PropertyValueValidator {
-
-  ColorValidator colorValidator = new ColorValidator();
-  BorderWidthValidator borderWidthValidator = new BorderWidthValidator();
-  BorderStyleValidator borderStyleValidator = new BorderStyleValidator();
+public class BorderValidator implements ValueValidator {
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0 || numberOfElements > 3) {
+    if (value.getNumberOfValueElements() > 3) {
       return false;
     }
     for (CssValueElement valueElement : valueElements) {
-      if (!colorValidator.isValid(valueElement)
-        && !borderWidthValidator.isValid(valueElement)
-        && !borderStyleValidator.isValid(valueElement)) {
+      if (!ValidatorFactory.getColorValidator().isValid(valueElement)
+        && !ValidatorFactory.getBorderStyleValidator().isValid(valueElement)
+        && !ValidatorFactory.getBorderWidthValidator().isValid(valueElement)) {
         return false;
       }
     }

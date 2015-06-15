@@ -21,7 +21,7 @@ package org.sonar.css.checks.validators.property;
 
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.ValueValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineColorValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineStyleValidator;
 import org.sonar.css.checks.validators.valueelement.OutlineWidthValidator;
@@ -30,7 +30,7 @@ import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class OutlineValidator implements PropertyValueValidator {
+public class OutlineValidator implements ValueValidator {
 
   OutlineColorValidator outlineColorValidator = new OutlineColorValidator();
   OutlineWidthValidator outlineWidthValidator = new OutlineWidthValidator();
@@ -39,8 +39,7 @@ public class OutlineValidator implements PropertyValueValidator {
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0 || numberOfElements > 3) {
+    if (value.getNumberOfValueElements() > 3) {
       return false;
     }
     for (CssValueElement valueElement : valueElements) {

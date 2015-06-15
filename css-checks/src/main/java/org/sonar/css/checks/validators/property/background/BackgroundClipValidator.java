@@ -20,13 +20,11 @@
 package org.sonar.css.checks.validators.property.background;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.ValueElementListPropertyValueValidator;
-import org.sonar.css.checks.validators.valueelement.BoxValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementListValidator;
 
-public class BackgroundClipValidator extends ValueElementListPropertyValueValidator {
-
+public class BackgroundClipValidator extends ValueElementListValidator {
   public BackgroundClipValidator() {
-    super(ImmutableList.of(new BoxValidator()));
+    super(ImmutableList.of(ValidatorFactory.getBoxValidator()));
   }
-
 }

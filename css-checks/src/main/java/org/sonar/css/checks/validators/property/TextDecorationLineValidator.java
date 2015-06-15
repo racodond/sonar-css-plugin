@@ -23,8 +23,9 @@ import com.google.common.collect.ImmutableList;
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.IdentifierValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
-import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementValidator;
+import org.sonar.css.checks.validators.ValueValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 import org.sonar.css.checks.validators.valueelement.NoneValidator;
 
@@ -33,22 +34,20 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TextDecorationLineValidator implements PropertyValueValidator {
+public class TextDecorationLineValidator implements ValueValidator {
 
-  private final PropertyValueElementValidator noneValiator = new NoneValidator();
-  private final PropertyValueElementValidator identifierValidator = new IdentifierValidator(
+  private final ValueElementValidator identifierValidator = new IdentifierValidator(
     ImmutableList.of("underline", "overline", "line-through", "blink"));
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0 || numberOfElements > 4) {
+    if (value.getNumberOfValueElements() > 4) {
       return false;
     }
     List<String> listTextDecorationLine = new ArrayList<>();
     for (int i = 0; i < valueElements.size(); i++) {
-      if (i == 0 && (noneValiator.isValid(valueElements.get(i)) && valueElements.size() == 1 || identifierValidator.isValid(valueElements.get(i)))) {
+      if (i == 0 && (ValidatorFactory.getNoneValidator().isValid(valueElements.get(i)) && valueElements.size() == 1 || identifierValidator.isValid(valueElements.get(i)))) {
         listTextDecorationLine.add(((IdentifierValueElement) valueElements.get(i)).getName());
         continue;
       }

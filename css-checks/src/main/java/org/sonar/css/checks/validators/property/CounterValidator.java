@@ -22,39 +22,32 @@ package org.sonar.css.checks.validators.property;
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.IdentifierValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
-import org.sonar.css.checks.validators.PropertyValueValidator;
-import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementValidator;
+import org.sonar.css.checks.validators.ValueValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
 
 import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class CounterValidator implements PropertyValueValidator {
-
-  PropertyValueElementValidator integerValidator = PropertyValueValidatorFactory.getIntegerValidator();
-  PropertyValueElementValidator noneValidator = PropertyValueValidatorFactory.getNoneValidator();
+public class CounterValidator implements ValueValidator {
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0) {
-      return false;
-    }
     for (int i = 0; i < valueElements.size(); i++) {
-      if (!(valueElements.get(i) instanceof IdentifierValueElement) && !(integerValidator.isValid(valueElements.get(i)))) {
+      if (!(valueElements.get(i) instanceof IdentifierValueElement) && !(ValidatorFactory.getIntegerValidator().isValid(valueElements.get(i)))) {
         return false;
       }
-      if (i == 0 && integerValidator.isValid(valueElements.get(i))) {
+      if (i == 0 && ValidatorFactory.getIntegerValidator().isValid(valueElements.get(i))) {
         return false;
       }
       if (i > 0) {
-        if (noneValidator.isValid(valueElements.get(i))) {
+        if (ValidatorFactory.getNoneValidator().isValid(valueElements.get(i))) {
           return false;
         }
-        if (integerValidator.isValid(valueElements.get(i)) &&
-          (!(valueElements.get(i - 1) instanceof IdentifierValueElement) || noneValidator.isValid(valueElements.get(i - 1)))) {
+        if (ValidatorFactory.getIntegerValidator().isValid(valueElements.get(i)) &&
+          (!(valueElements.get(i - 1) instanceof IdentifierValueElement) || ValidatorFactory.getNoneValidator().isValid(valueElements.get(i - 1)))) {
           return false;
         }
       }

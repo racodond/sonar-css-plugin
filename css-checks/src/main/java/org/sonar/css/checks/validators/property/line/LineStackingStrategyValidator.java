@@ -20,25 +20,12 @@
 package org.sonar.css.checks.validators.property.line;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 
-import javax.annotation.Nonnull;
+public class LineStackingStrategyValidator extends IdentifierValidator {
 
-public class LineStackingStrategyValidator implements PropertyValueElementValidator {
-
-  IdentifierValidator identifierValidator = new IdentifierValidator(ImmutableList.of("inline-line-height", "block-line-height", "max-height", "grid-height"));
-
-  @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    return identifierValidator.isValid(cssValueElement);
-  }
-
-  @Nonnull
-  @Override
-  public String getValidatorFormat() {
-    return identifierValidator.getValidatorFormat();
+  public LineStackingStrategyValidator() {
+    super(ImmutableList.of("inline-line-height", "block-line-height", "max-height", "grid-height"));
   }
 
 }

@@ -20,13 +20,16 @@
 package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
-import javax.annotation.Nonnull;
-import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
 
-public class ShapeBoxValidator extends MultiPropertyValueElementValidator {
+import javax.annotation.Nonnull;
+
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementMultiValidator;
+
+public class ShapeBoxValidator extends ValueElementMultiValidator {
 
   public ShapeBoxValidator() {
-    super(ImmutableList.of(new BoxValidator(), new IdentifierValidator(ImmutableList.of("margin-box"))));
+    super(ImmutableList.of(ValidatorFactory.getBoxValidator(), new IdentifierValidator(ImmutableList.of("margin-box"))));
   }
 
   @Override

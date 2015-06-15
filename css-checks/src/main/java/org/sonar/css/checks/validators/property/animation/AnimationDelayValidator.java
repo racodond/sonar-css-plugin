@@ -19,25 +19,12 @@
  */
 package org.sonar.css.checks.validators.property.animation;
 
-import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
 import org.sonar.css.checks.validators.valueelement.dimension.TimeValidator;
 
-import javax.annotation.Nonnull;
+public class AnimationDelayValidator extends TimeValidator {
 
-public class AnimationDelayValidator implements PropertyValueElementValidator {
-
-  TimeValidator timeValidator = new TimeValidator(false);
-
-  @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    return timeValidator.isValid(cssValueElement);
-  }
-
-  @Nonnull
-  @Override
-  public String getValidatorFormat() {
-    return timeValidator.getValidatorFormat();
+  public AnimationDelayValidator() {
+    super(false);
   }
 
 }

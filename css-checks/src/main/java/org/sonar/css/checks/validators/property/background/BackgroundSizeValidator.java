@@ -23,9 +23,9 @@ import com.google.common.collect.ImmutableList;
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.DelimiterValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
-import org.sonar.css.checks.validators.PropertyValueValidator;
-import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementValidator;
+import org.sonar.css.checks.validators.ValueValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 
 import javax.annotation.Nonnull;
@@ -33,29 +33,22 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BackgroundSizeValidator implements PropertyValueValidator {
+public class BackgroundSizeValidator implements ValueValidator {
 
-  PropertyValueElementValidator coverContainValidator = new IdentifierValidator(ImmutableList.of("cover", "contain"));
-  PropertyValueElementValidator autoValidator = PropertyValueValidatorFactory.getAutoValidator();
-  PropertyValueElementValidator positiveLengthValidator = PropertyValueValidatorFactory.getPositiveLengthValidator();
-  PropertyValueElementValidator positivePercentageValidator = PropertyValueValidatorFactory.getPositivePercentageValidator();
+  ValueElementValidator coverContainValidator = new IdentifierValidator(ImmutableList.of("cover", "contain"));
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0) {
-      return false;
-    }
     for (CssValueElement valueElement : valueElements) {
       if (valueElement instanceof DelimiterValueElement) {
         if (!",".equals(((DelimiterValueElement) valueElement).getType())) {
           return false;
         }
       } else if (!coverContainValidator.isValid(valueElement)
-        && !autoValidator.isValid(valueElement)
-        && !positiveLengthValidator.isValid(valueElement)
-        && !positivePercentageValidator.isValid(valueElement)) {
+        && !ValidatorFactory.getAutoValidator().isValid(valueElement)
+        && !ValidatorFactory.getPositiveLengthValidator().isValid(valueElement)
+        && !ValidatorFactory.getPositivePercentageValidator().isValid(valueElement)) {
         return false;
       }
     }

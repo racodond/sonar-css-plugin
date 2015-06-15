@@ -21,11 +21,11 @@ package org.sonar.css.checks.validators.valueelement;
 
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.DelimiterValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
+import org.sonar.css.checks.validators.ValueElementValidator;
 
 import javax.annotation.Nonnull;
 
-public class DelimiterValidator implements PropertyValueElementValidator {
+public class DelimiterValidator implements ValueElementValidator {
 
   private final String separator;
 

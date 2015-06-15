@@ -20,13 +20,13 @@
 package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
-import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementMultiValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
 
-public class CueValidator extends MultiPropertyValueElementValidator {
+public class CueValidator extends ValueElementMultiValidator {
 
   public CueValidator() {
-    super(ImmutableList.of(PropertyValueValidatorFactory.getUriValidator(), PropertyValueValidatorFactory.getNoneValidator()));
+    super(ImmutableList.of(ValidatorFactory.getUriValidator(), ValidatorFactory.getNoneValidator()));
   }
 
 }

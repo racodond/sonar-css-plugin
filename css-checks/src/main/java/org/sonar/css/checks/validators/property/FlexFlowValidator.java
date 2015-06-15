@@ -21,8 +21,8 @@ package org.sonar.css.checks.validators.property;
 
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
-import org.sonar.css.checks.validators.PropertyValueValidator;
+import org.sonar.css.checks.validators.ValueElementValidator;
+import org.sonar.css.checks.validators.ValueValidator;
 import org.sonar.css.checks.validators.valueelement.flex.FlexDirectionValidator;
 import org.sonar.css.checks.validators.valueelement.flex.FlexWrapValidator;
 
@@ -30,16 +30,15 @@ import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class FlexFlowValidator implements PropertyValueValidator {
+public class FlexFlowValidator implements ValueValidator {
 
-  private final PropertyValueElementValidator flexDirectionValidator = new FlexDirectionValidator();
-  private final PropertyValueElementValidator flexWrapValidator = new FlexWrapValidator();
+  private final ValueElementValidator flexDirectionValidator = new FlexDirectionValidator();
+  private final ValueElementValidator flexWrapValidator = new FlexWrapValidator();
 
   @Override
   public boolean isValid(@Nonnull CssValue value) {
     List<CssValueElement> valueElements = value.getValueElements();
-    int numberOfElements = value.getNumberOfValueElements();
-    if (numberOfElements == 0 || numberOfElements > 2) {
+    if (value.getNumberOfValueElements() > 2) {
       return false;
     }
     int countFlexWrap = 0;

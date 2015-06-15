@@ -20,27 +20,16 @@
 package org.sonar.css.checks.validators.property.animation;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
-import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
+import org.sonar.css.checks.validators.ValueElementMultiValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
+import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
 
-import javax.annotation.Nonnull;
+public class AnimationTimingFunctionValidator extends ValueElementMultiValidator {
 
-public class AnimationTimingFunctionValidator implements PropertyValueElementValidator {
-
-  IdentifierValidator identifierValidator = new IdentifierValidator(ImmutableList.of("ease", "linear", "ease-in", "ease-out", "ease-in-out", "step-start", "step-end"));
-  FunctionValidator functionValidator = new FunctionValidator(ImmutableList.of("steps", "cubic-bezier"));
-
-  @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
-    return identifierValidator.isValid(cssValueElement) || functionValidator.isValid(cssValueElement);
-  }
-
-  @Nonnull
-  @Override
-  public String getValidatorFormat() {
-    return identifierValidator.getValidatorFormat() + " | " + functionValidator.getValidatorFormat();
+  public AnimationTimingFunctionValidator() {
+    super(ImmutableList.of(
+      new IdentifierValidator(ImmutableList.of("ease", "linear", "ease-in", "ease-out", "ease-in-out", "step-start", "step-end")),
+      new FunctionValidator(ImmutableList.of("steps", "cubic-bezier"))));
   }
 
 }

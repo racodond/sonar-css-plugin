@@ -20,13 +20,12 @@
 package org.sonar.css.checks.validators.property.liststyle;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 
-public class ListStylePositionValidator extends MultiPropertyValueElementValidator {
+public class ListStylePositionValidator extends IdentifierValidator {
 
   public ListStylePositionValidator() {
-    super(ImmutableList.of(new IdentifierValidator(ImmutableList.of("inside", "outside"))));
+    super(ImmutableList.of("inside", "outside"));
   }
 
 }

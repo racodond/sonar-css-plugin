@@ -21,11 +21,11 @@ package org.sonar.css.checks.validators.valueelement.numeric;
 
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.NumberValueElement;
-import org.sonar.css.checks.validators.PropertyValueElementValidator;
+import org.sonar.css.checks.validators.ValueElementValidator;
 
 import javax.annotation.Nonnull;
 
-public class NumberValidator implements PropertyValueElementValidator {
+public class NumberValidator implements ValueElementValidator {
 
   private final boolean positiveOnly;
 

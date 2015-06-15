@@ -20,13 +20,13 @@
 package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.MultiPropertyValueElementValidator;
-import org.sonar.css.checks.validators.PropertyValueValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementMultiValidator;
+import org.sonar.css.checks.validators.ValidatorFactory;
 
-public class OutlineColorValidator extends MultiPropertyValueElementValidator {
+public class OutlineColorValidator extends ValueElementMultiValidator {
 
   public OutlineColorValidator() {
-    super(ImmutableList.of(PropertyValueValidatorFactory.getColorValidator(), new IdentifierValidator(ImmutableList.of("invert"))));
+    super(ImmutableList.of(ValidatorFactory.getColorValidator(), new IdentifierValidator(ImmutableList.of("invert"))));
   }
 
 }
