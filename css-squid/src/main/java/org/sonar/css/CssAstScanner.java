@@ -21,6 +21,11 @@ package org.sonar.css;
 
 import com.google.common.base.Charsets;
 import com.sonar.sslr.impl.Parser;
+
+import java.io.File;
+import java.util.Collection;
+import javax.annotation.Nullable;
+
 import org.sonar.css.api.CssMetric;
 import org.sonar.css.ast.visitors.SonarComponents;
 import org.sonar.css.ast.visitors.SyntaxHighlighterVisitor;
@@ -38,11 +43,6 @@ import org.sonar.squidbridge.metrics.LinesOfCodeVisitor;
 import org.sonar.squidbridge.metrics.LinesVisitor;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.parser.ParserAdapter;
-
-import javax.annotation.Nullable;
-
-import java.io.File;
-import java.util.Collection;
 
 public final class CssAstScanner {
 
@@ -104,6 +104,16 @@ public final class CssAstScanner {
     builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
       .setMetricDef(CssMetric.AT_RULES)
       .subscribeTo(CssGrammar.AT_RULE)
+      .build());
+
+    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
+      .setMetricDef(CssMetric.COMPLEXITY)
+      .subscribeTo(CssGrammar.CLASS_SELECTOR, CssGrammar.ATTRIBUTE_SELECTOR, CssGrammar.TYPE_SELECTOR, CssGrammar.ID_SELECTOR, CssGrammar.PSEUDO, CssGrammar.AT_RULE)
+      .build());
+
+    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
+      .setMetricDef(CssMetric.FUNCTIONS)
+      .subscribeTo(CssGrammar.SELECTOR, CssGrammar.AT_RULE)
       .build());
 
     /* Metrics */

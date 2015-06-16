@@ -19,11 +19,11 @@
  */
 package org.sonar.css;
 
+import java.io.File;
+
 import org.junit.Test;
 import org.sonar.css.api.CssMetric;
 import org.sonar.squidbridge.api.SourceFile;
-
-import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -76,6 +76,18 @@ public class CssAstScannerTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/metrics/metric.css"));
     assertThat(file.getInt(CssMetric.AT_RULES)).isEqualTo(1);
+  }
+
+  @Test
+  public void functions() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/metrics/metric.css"));
+    assertThat(file.getInt(CssMetric.FUNCTIONS)).isEqualTo(6);
+  }
+
+  @Test
+  public void complexity() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/metrics/complexity.css"));
+    assertThat(file.getInt(CssMetric.COMPLEXITY)).isEqualTo(21);
   }
 
 }

@@ -113,6 +113,9 @@ public class CssSquidSensor implements Sensor {
     context.saveMeasure(sonarFile, CoreMetrics.NCLOC, squidFile.getDouble(CssMetric.LINES_OF_CODE));
     context.saveMeasure(sonarFile, CoreMetrics.STATEMENTS, squidFile.getDouble(CssMetric.STATEMENTS));
     context.saveMeasure(sonarFile, CoreMetrics.COMMENT_LINES, squidFile.getDouble(CssMetric.COMMENT_LINES));
+    context.saveMeasure(sonarFile, CoreMetrics.FUNCTIONS, squidFile.getDouble(CssMetric.FUNCTIONS));
+    context.saveMeasure(sonarFile, CoreMetrics.COMPLEXITY, squidFile.getDouble(CssMetric.COMPLEXITY));
+    context.saveMeasure(sonarFile, CoreMetrics.FUNCTION_COMPLEXITY, squidFile.getDouble(CssMetric.FUNCTIONS) != 0 ? squidFile.getDouble(CssMetric.COMPLEXITY)/squidFile.getDouble(CssMetric.FUNCTIONS) : 0);
   }
 
   private void saveViolations(InputFile sonarFile, SourceFile squidFile, Checks<SquidAstVisitor> checks) {
