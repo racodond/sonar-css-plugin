@@ -104,7 +104,7 @@ public class CssSquidSensor implements Sensor {
       }
 
       saveMeasures(sonarFile, squidFile);
-      saveViolations(sonarFile, squidFile, checks);
+      saveIssues(sonarFile, squidFile, checks);
     }
   }
 
@@ -115,7 +115,7 @@ public class CssSquidSensor implements Sensor {
     context.saveMeasure(sonarFile, CoreMetrics.COMMENT_LINES, squidFile.getDouble(CssMetric.COMMENT_LINES));
   }
 
-  private void saveViolations(InputFile sonarFile, SourceFile squidFile, Checks<SquidAstVisitor> checks) {
+  private void saveIssues(InputFile sonarFile, SourceFile squidFile, Checks<SquidAstVisitor> checks) {
     Collection<CheckMessage> messages = squidFile.getCheckMessages();
     if (messages != null) {
       for (CheckMessage message : messages) {
