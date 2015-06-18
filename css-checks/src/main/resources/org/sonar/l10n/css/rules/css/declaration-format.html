@@ -1,32 +1,65 @@
-<p>For readability reasons, a declaration should comply to the following format:
+<p>Shared coding conventions make it possible for a team to collaborate efficiently. This rule allows to check compliance with declaration formatting standards.</p>
+<h1>Block formatting</h1>
 <ul>
-  <li>The property and the value should be defined on the same line</li>
-  <li>There should not be any whitespace between the property and the colon</li>
-  <li>There should be one single whitespace between the colon and the value</li>
+  <li>Opening curly brace should be placed on the same line as the block declaration</li>
+  <li>Closing curly brace should be placed on its own line</li>
 </ul>
-</p>
 <h2>Noncompliant Code Example</h2>
 <pre>
-h1 {
-  color:red;        /* Noncompliant: missing whitespace between colon and value */
+.mybox
+{                        /* Noncompliant: the opening curly brace should be moved to the previous line */
+  color: red;
 }
 
-h1 {
-  color:    red;    /* Noncompliant: too many whitespaces between colon and value */
+.mybox { color : red; } /* Noncompliant: the code following the opening curly brace should be moved to the next line */
+
+.mybox {
+  color: red;
+} .mybox {              /* Noncompliant: the code following the closing curly brace should be moved to the next line */
+  color: blue;
 }
 
-h1 {
-  color : red;      /* Noncompliant: unexpected whitespace between property and value */
+.mybox { color : red; }  /* Noncompliant: the closing curly brace should be moved to the next line */
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+.mybox {
+  color: red;
+}
+.mybox {
+  color: blue;
+}
+</pre>
+<h1>Declaration formatting</h1>
+<ul>
+  <li>Property, colon and value should be placed on the same line</li>
+  <li>No whitespace between the property and the colon</li>
+  <li>One single whitespace between the colon and the value</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+.mybox {
+  color:          /* Noncompliant: value should be on the same line as property and colon */
+    red;
 }
 
-h1 {
-  color:
-    red;            /* Noncompliant: property and value not defined on the same line */
+.mybox {
+color : red;      /* Noncompliant: there shouldn't be any whitespace between the property and the colon */
+}
+
+.mybox {
+  color:    red;  /* Noncompliant: there should be one single whitespace between the colon and the value */
+}
+
+.mybox {
+  color:red;      /* Noncompliant: there should be one single whitespace between the colon and the value */
 }
 </pre>
 <h2>Compliant Solution</h2>
 <pre>
-h1 {
+.mybox {
   color: red;
 }
 </pre>
+
+

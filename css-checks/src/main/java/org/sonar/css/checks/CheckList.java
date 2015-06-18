@@ -42,7 +42,7 @@ public final class CheckList {
       CaseCheck.class,
       CommentRegularExpressionCheck.class,
       CompatibleVendorPrefixes.class,
-      DeclarationFormatCheck.class,
+      DeclarationFormattingCheck.class,
       DeprecatedSystemColorsCheck.class,
       DeprecatedIEStaticFiltersCheck.class,
       DisallowDuplicateBackgroundImages.class,
