@@ -7,19 +7,21 @@
 <h2>Noncompliant Code Example</h2>
 <pre>
 .mybox
-{                        /* Noncompliant: the opening curly brace should be moved to the previous line */
+{                      /* Noncompliant: the opening curly brace should be moved to the previous line */
   color: red;
 }
 
-.mybox { color : red; } /* Noncompliant: the code following the opening curly brace should be moved to the next line */
+.mybox { color : red;  /* Noncompliant: the code following the opening curly brace should be moved to the next line */
+}
 
 .mybox {
   color: red;
-} .mybox {              /* Noncompliant: the code following the closing curly brace should be moved to the next line */
+} .mybox {             /* Noncompliant: the code following the closing curly brace should be moved to the next line */
   color: blue;
 }
 
-.mybox { color : red; }  /* Noncompliant: the closing curly brace should be moved to the next line */
+.mybox {
+  color : red; }       /* Noncompliant: the closing curly brace should be moved to the next line */
 </pre>
 <h2>Compliant Solution</h2>
 <pre>
