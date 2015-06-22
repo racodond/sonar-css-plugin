@@ -20,6 +20,7 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.GenericTokenType;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -33,7 +34,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "case",
-  name = "Properties and functions should be lower case",
+  name = "Properties, functions and variables should be lower case",
   priority = Priority.MINOR,
   tags = {Tags.CONVENTION})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
@@ -43,19 +44,28 @@ public class CaseCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.PROPERTY, CssGrammar.FUNCTION);
+    subscribeTo(CssGrammar.PROPERTY, CssGrammar.FUNCTION, CssGrammar.VARIABLE);
   }
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (CssProperties.getUnhackedPropertyName(astNode.getTokenValue()) != null
+    if ((astNode.is(CssGrammar.PROPERTY) || astNode.is(CssGrammar.FUNCTION))
+      && CssProperties.getUnhackedPropertyName(astNode.getTokenValue()) != null
       && CssProperties.getUnhackedPropertyName(astNode.getTokenValue()).matches("^.*[A-Z]+.*$")) {
       getContext().createLineViolation(
-          this,
-          "Write {0} \"{1}\" in lowercase.",
-          astNode,
-          astNode.is(CssGrammar.FUNCTION) ? "function" : "property",
-          astNode.is(CssGrammar.FUNCTION) ? astNode.getTokenValue() : CssProperties.getUnhackedPropertyName(astNode.getTokenValue()));
+        this,
+        "Write {0} \"{1}\" in lowercase.",
+        astNode,
+        astNode.is(CssGrammar.FUNCTION) ? "function" : "property",
+        CssProperties.getUnhackedPropertyName(astNode.getTokenValue()));
+    }
+    if (astNode.is(CssGrammar.VARIABLE) && astNode.getFirstChild(GenericTokenType.IDENTIFIER).getTokenValue().matches("^.*[A-Z]+.*$")) {
+      getContext().createLineViolation(
+        this,
+        "Write {0} \"{1}\" in lowercase.",
+        astNode,
+        "variable",
+        astNode.getFirstChild(GenericTokenType.IDENTIFIER).getTokenValue());
     }
   }
 
