@@ -32,13 +32,13 @@ import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
-  key = "declaration-format",
-  name = "Declarations should comply with formatting standards",
+  key = "formatting",
+  name = "Source code should comply with formatting standards",
   priority = Priority.MINOR,
   tags = {Tags.FORMAT})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("2min")
-public class DeclarationFormattingCheck extends SquidCheck<LexerlessGrammar> {
+public class FormattingCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {

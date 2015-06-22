@@ -26,9 +26,9 @@ import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
-public class DeclarationFormattingCheckTest {
+public class FormattingCheckTest {
 
-  private DeclarationFormattingCheck check = new DeclarationFormattingCheck();
+  private FormattingCheck check = new FormattingCheck();
 
   @Test
   public void block() {

@@ -1,5 +1,5 @@
-<p>Shared coding conventions make it possible for a team to collaborate efficiently. This rule allows to check compliance with declaration formatting standards.</p>
-<h1>Block formatting</h1>
+<p>Shared coding conventions make it possible for a team to collaborate efficiently. This rule allows to check compliance with formatting standards.</p>
+<h1>Block</h1>
 <ul>
   <li>Opening curly brace should be placed on the same line as the block declaration</li>
   <li>Closing curly brace should be placed on its own line</li>
@@ -30,7 +30,7 @@
   color: blue;
 }
 </pre>
-<h1>Declaration formatting</h1>
+<h1>Declaration</h1>
 <ul>
   <li>Property, colon and value should be placed on the same line</li>
   <li>No whitespace between the property and the colon</li>
@@ -59,6 +59,20 @@ color : red;      /* Noncompliant: there shouldn't be any whitespace between the
 <pre>
 .mybox {
   color: red;
+}
+</pre>
+<h1>Important annotation</h1>
+<p>There should not be any whitespaces between <code>!</code> and <code>important.</code></p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+.mybox {
+  color: red ! important; /* Noncompliant */
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+.mybox {
+  color: red !important;
 }
 </pre>
 
