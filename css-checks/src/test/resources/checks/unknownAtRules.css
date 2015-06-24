@@ -39,3 +39,5 @@
 }
 
 @custom-media --narrow-window (max-width: 30em);
+
+@-moz-keyframes fade {}
