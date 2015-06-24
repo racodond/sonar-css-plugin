@@ -28,7 +28,7 @@ import java.io.File;
 
 public class AlphabetizeDeclarationsCheckTest {
 
-  private final static String MESSAGE = "Alphabetically order this rule's properties";
+  private final static String MESSAGE = "Alphabetically order these rule's properties";
   private AlphabetizeDeclarationsCheck check = new AlphabetizeDeclarationsCheck();
 
   @Test
