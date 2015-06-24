@@ -25,13 +25,15 @@ public class CssAtRules {
 
   public static ImmutableList<String> CSS_AT_RULES = ImmutableList.of(
     "charset",
+    "custom-media",
     "font-face",
     "import",
     "keyframes",
     "media",
     "namespace",
     "page",
-    "supports"
+    "supports",
+    "viewport"
     );
 
 }
