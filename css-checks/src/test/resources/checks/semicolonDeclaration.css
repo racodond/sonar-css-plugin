@@ -48,3 +48,8 @@ h1 {
        url('myfont-webfont.ttf')  format('truetype'),
        url('myfont-webfont.svg#svgFontName') format('svg')
 }
+
+/* Noncompliant */
+:root {
+  --abc: red
+}
