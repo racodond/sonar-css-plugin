@@ -45,6 +45,7 @@ public class FormattingCheck extends SquidCheck<LexerlessGrammar> {
     subscribeTo(
       CssGrammar.IMPORTANT,
       CssGrammar.DECLARATION,
+      CssGrammar.VARIABLE_DECLARATION,
       CssGrammar.OPEN_CURLY_BRACE,
       CssGrammar.CLOSE_CURLY_BRACE);
   }
@@ -62,7 +63,7 @@ public class FormattingCheck extends SquidCheck<LexerlessGrammar> {
   }
 
   private void checkDeclaration(AstNode node) {
-    if (node.is(CssGrammar.DECLARATION)) {
+    if (node.is(CssGrammar.DECLARATION) || node.is(CssGrammar.VARIABLE_DECLARATION)) {
       checkPropertyAndValueOnSameLine(node);
       checkWhitespacesInDeclaration(node);
     }
@@ -80,15 +81,23 @@ public class FormattingCheck extends SquidCheck<LexerlessGrammar> {
   }
 
   private void checkPropertyAndValueOnSameLine(AstNode node) {
-    if (!isOnSameLine(node.getFirstChild(CssGrammar.PROPERTY), node.getFirstChild(CssGrammar.COLON), node.getFirstChild(CssGrammar.VALUE))) {
+    if (node.is(CssGrammar.DECLARATION) && !isOnSameLine(node.getFirstChild(CssGrammar.PROPERTY), node.getFirstChild(CssGrammar.COLON), node.getFirstChild(CssGrammar.VALUE))) {
       getContext().createLineViolation(this, "Move the property, colon and value to the same line.", node);
+    }
+    if (node.is(CssGrammar.VARIABLE_DECLARATION)
+      && !isOnSameLine(node.getFirstChild(CssGrammar.VARIABLE), node.getFirstChild(CssGrammar.COLON), node.getFirstChild(CssGrammar.VALUE))) {
+      getContext().createLineViolation(this, "Move the variable, colon and value to the same line.", node);
     }
   }
 
   private void checkWhitespacesInDeclaration(AstNode node) {
-    if (isOnSameLine(node.getFirstChild(CssGrammar.PROPERTY), node.getFirstChild(CssGrammar.COLON))
+    if (node.is(CssGrammar.DECLARATION) && isOnSameLine(node.getFirstChild(CssGrammar.PROPERTY), node.getFirstChild(CssGrammar.COLON))
       && getNbWhitespacesBetween(node.getFirstChild(CssGrammar.PROPERTY), node.getFirstChild(CssGrammar.COLON)) > 0) {
       getContext().createLineViolation(this, "Remove the whitespaces between the property and the colon.", node);
+    }
+    if (node.is(CssGrammar.VARIABLE_DECLARATION) && isOnSameLine(node.getFirstChild(CssGrammar.VARIABLE), node.getFirstChild(CssGrammar.COLON))
+      && getNbWhitespacesBetween(node.getFirstChild(CssGrammar.VARIABLE).getFirstChild(GenericTokenType.IDENTIFIER), node.getFirstChild(CssGrammar.COLON)) > 0) {
+      getContext().createLineViolation(this, "Remove the whitespaces between the variable and the colon.", node);
     }
     if (isOnSameLine(node.getFirstChild(CssGrammar.COLON), node.getFirstChild(CssGrammar.VALUE))
       && getNbWhitespacesBetween(node.getFirstChild(CssGrammar.COLON), node.getFirstChild(CssGrammar.VALUE)) == 0) {
