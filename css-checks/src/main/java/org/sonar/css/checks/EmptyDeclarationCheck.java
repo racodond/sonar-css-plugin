@@ -20,6 +20,9 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
+
+import java.util.List;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -29,8 +32,6 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.util.List;
 
 @Rule(
   key = "empty-declaration",
@@ -58,7 +59,8 @@ public class EmptyDeclarationCheck extends SquidCheck<LexerlessGrammar> {
       }
       for (int i = 1; i < astNode.getChildren().size(); i++) {
         if (CssGrammar.SEMICOLON.equals(node.get(i).getType())
-          && !CssGrammar.DECLARATION.equals(node.get(i - 1).getType())) {
+          && !CssGrammar.DECLARATION.equals(node.get(i - 1).getType())
+          && !CssGrammar.VARIABLE_DECLARATION.equals(node.get(i - 1).getType())) {
           getContext().createLineViolation(this, MESSAGE, node.get(i));
         }
       }

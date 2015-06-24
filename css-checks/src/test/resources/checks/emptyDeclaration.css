@@ -38,3 +38,7 @@ h1 {
   color: blue;;
 }
 
+:root {
+  --abc: red;
+}
+
