@@ -1004,6 +1004,30 @@ public final class CssProperties {
       .addValidator(new IdentifierValidator(ImmutableList.of("normal", "small-caps")))
     )
 
+    .put("font-variant-alternates", new CssProperty("font-variant-alternates")
+      .setUrl("http://dev.w3.org/csswg/css-fonts-3/#propdef-font-variant-alternates")
+    )
+
+    .put("font-variant-caps", new CssProperty("font-variant-caps")
+      .setUrl("http://dev.w3.org/csswg/css-fonts-3/#propdef-font-variant-caps")
+    )
+
+    .put("font-variant-east-asian", new CssProperty("font-variant-east-asian")
+      .setUrl("http://dev.w3.org/csswg/css-fonts-3/#propdef-font-variant-east-asian")
+    )
+
+    .put("font-variant-ligatures", new CssProperty("font-variant-ligatures")
+      .setUrl("http://dev.w3.org/csswg/css-fonts-3/#propdef-font-variant-ligatures")
+    )
+
+    .put("font-variant-numeric", new CssProperty("font-variant-numeric")
+      .setUrl("http://dev.w3.org/csswg/css-fonts-3/#propdef-font-variant-numeric")
+    )
+
+    .put("font-variant-position", new CssProperty("font-variant-position")
+      .setUrl("http://dev.w3.org/csswg/css-fonts-3/#propdef-font-variant-position")
+    )
+
     .put("font-weight", new CssProperty("font-weight")
       .setUrl("http://dev.w3.org/csswg/css3-fonts/#font-weight-prop")
       .addValidator(new FontWeightValidator())

@@ -24,15 +24,23 @@ import com.google.common.collect.ImmutableList;
 public class CssAtRules {
 
   public static ImmutableList<String> CSS_AT_RULES = ImmutableList.of(
+    "annotation",
+    "character-variant",
     "charset",
     "custom-media",
+    "document",
     "font-face",
+    "font-feature-values",
     "import",
     "keyframes",
     "media",
     "namespace",
+    "ornaments",
     "page",
+    "styleset",
+    "stylistic",
     "supports",
+    "swash",
     "viewport"
     );
 
