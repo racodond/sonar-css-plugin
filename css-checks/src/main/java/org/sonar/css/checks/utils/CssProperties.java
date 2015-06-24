@@ -38,13 +38,9 @@ import org.sonar.css.checks.validators.property.liststyle.ListStylePositionValid
 import org.sonar.css.checks.validators.property.liststyle.ListStyleTypeValidator;
 import org.sonar.css.checks.validators.property.liststyle.ListStyleValidator;
 import org.sonar.css.checks.validators.valueelement.*;
-import org.sonar.css.checks.validators.valueelement.dimension.LengthValidator;
-import org.sonar.css.checks.validators.valueelement.dimension.TimeValidator;
 import org.sonar.css.checks.validators.valueelement.flex.*;
 import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
-import org.sonar.css.checks.validators.valueelement.numeric.IntegerValidator;
 import org.sonar.css.checks.validators.valueelement.numeric.NumberRangeValidator;
-import org.sonar.css.checks.validators.valueelement.numeric.PercentageValidator;
 
 /**
  * Properties from https://github.com/stubbornella/csslint/blob/c31f1b9c89fa102eb89e96807be9d290110887e5/lib/parserlib.js
@@ -899,6 +895,10 @@ public final class CssProperties {
 
     .put("fit-position", new CssProperty("fit-position")
       .setObsolete(true)
+    )
+
+    .put("flex", new CssProperty("flex")
+      .setUrl("http://www.w3.org/TR/css-flexbox-1/#propdef-flex")
     )
 
     .put("flex-basis", new CssProperty("flex-basis")
