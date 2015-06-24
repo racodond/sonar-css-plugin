@@ -34,6 +34,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   key = "whitespaces-in-important-annotation",
   name = "There should not be any whitespaces between \"!\" and the \"important\" annotation",
   priority = Priority.MINOR,
+  status = org.sonar.api.rules.Rule.STATUS_DEPRECATED,
   tags = {Tags.FORMAT})
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)

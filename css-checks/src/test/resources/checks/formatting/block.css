@@ -1,0 +1,16 @@
+.mybox {  /* Compliant */
+  color: red;
+} /* Compliant */
+
+.mybox
+{ /* Noncompliant */
+  color: red;
+}
+
+.mybox {  color: red; /* Noncompliant */
+} .mybox { /* Noncompliant */
+  color: blue;
+}
+
+.mybox {
+  color: red;} /* Noncompliant */
