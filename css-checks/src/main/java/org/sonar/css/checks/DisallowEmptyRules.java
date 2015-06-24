@@ -48,8 +48,10 @@ public class DisallowEmptyRules extends SquidCheck<LexerlessGrammar> {
 
   private static final ImmutableList<String> AT_RULES_NOT_REQUIRING_DECLARATION_BLOCK = ImmutableList.of(
     "charset",
+    "custom-media",
     "import",
-    "namespace"
+    "namespace",
+    "viewport"
     );
 
   int counter = 0;
