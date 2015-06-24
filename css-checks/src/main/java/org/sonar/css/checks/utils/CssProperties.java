@@ -38,13 +38,9 @@ import org.sonar.css.checks.validators.property.liststyle.ListStylePositionValid
 import org.sonar.css.checks.validators.property.liststyle.ListStyleTypeValidator;
 import org.sonar.css.checks.validators.property.liststyle.ListStyleValidator;
 import org.sonar.css.checks.validators.valueelement.*;
-import org.sonar.css.checks.validators.valueelement.dimension.LengthValidator;
-import org.sonar.css.checks.validators.valueelement.dimension.TimeValidator;
 import org.sonar.css.checks.validators.valueelement.flex.*;
 import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
-import org.sonar.css.checks.validators.valueelement.numeric.IntegerValidator;
 import org.sonar.css.checks.validators.valueelement.numeric.NumberRangeValidator;
-import org.sonar.css.checks.validators.valueelement.numeric.PercentageValidator;
 
 /**
  * Properties from https://github.com/stubbornella/csslint/blob/c31f1b9c89fa102eb89e96807be9d290110887e5/lib/parserlib.js
@@ -901,6 +897,10 @@ public final class CssProperties {
       .setObsolete(true)
     )
 
+    .put("flex", new CssProperty("flex")
+      .setUrl("http://www.w3.org/TR/css-flexbox-1/#propdef-flex")
+    )
+
     .put("flex-basis", new CssProperty("flex-basis")
       .setUrl("http://dev.w3.org/csswg/css-flexbox-1/#propdef-flex-basis")
       .addValidator(new FlexBasisValidator())
@@ -1002,6 +1002,30 @@ public final class CssProperties {
     .put("font-variant", new CssProperty("font-variant")
       .setUrl("http://dev.w3.org/csswg/css-fonts-3/#descdef-font-face-font-variant")
       .addValidator(new IdentifierValidator(ImmutableList.of("normal", "small-caps")))
+    )
+
+    .put("font-variant-alternates", new CssProperty("font-variant-alternates")
+      .setUrl("http://dev.w3.org/csswg/css-fonts-3/#propdef-font-variant-alternates")
+    )
+
+    .put("font-variant-caps", new CssProperty("font-variant-caps")
+      .setUrl("http://dev.w3.org/csswg/css-fonts-3/#propdef-font-variant-caps")
+    )
+
+    .put("font-variant-east-asian", new CssProperty("font-variant-east-asian")
+      .setUrl("http://dev.w3.org/csswg/css-fonts-3/#propdef-font-variant-east-asian")
+    )
+
+    .put("font-variant-ligatures", new CssProperty("font-variant-ligatures")
+      .setUrl("http://dev.w3.org/csswg/css-fonts-3/#propdef-font-variant-ligatures")
+    )
+
+    .put("font-variant-numeric", new CssProperty("font-variant-numeric")
+      .setUrl("http://dev.w3.org/csswg/css-fonts-3/#propdef-font-variant-numeric")
+    )
+
+    .put("font-variant-position", new CssProperty("font-variant-position")
+      .setUrl("http://dev.w3.org/csswg/css-fonts-3/#propdef-font-variant-position")
     )
 
     .put("font-weight", new CssProperty("font-weight")
