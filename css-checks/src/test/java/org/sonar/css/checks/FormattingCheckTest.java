@@ -57,7 +57,9 @@ public class FormattingCheckTest {
       .atLine(48).withMessage("Remove the whitespaces between the variable and the colon.").next()
       .atLine(52).withMessage("Move the variable, colon and value to the same line.").next()
       .atLine(54).withMessage("Move the variable, colon and value to the same line.").next()
-      .atLine(56).withMessage("Move the variable, colon and value to the same line.").noMore();
+      .atLine(56).withMessage("Move the variable, colon and value to the same line.").next()
+      .atLine(62).withMessage("Add one whitespace between the colon and the value.").next()
+      .atLine(66).withMessage("Add one whitespace between the colon and the value.").noMore();
   }
 
   @Test

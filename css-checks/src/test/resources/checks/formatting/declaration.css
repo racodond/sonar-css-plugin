@@ -58,6 +58,14 @@
     green;
 }
 
+.mybox {
+  abc:red; /* Noncompliant */
+}
+
+.mybox {
+  --abc:red; /* Noncompliant */
+}
+
 
 
 
