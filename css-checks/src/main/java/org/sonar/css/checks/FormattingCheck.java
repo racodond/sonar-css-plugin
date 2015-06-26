@@ -114,7 +114,7 @@ public class FormattingCheck extends SquidCheck<LexerlessGrammar> {
       if (isOnSameLine(node, node.getNextAstNode())) {
         getContext().createLineViolation(this, "Move the code following the opening curly brace to the next line.", node);
       }
-      if (!isOnSameLine(node, node.getPreviousAstNode())) {
+      if (!isOnSameLine(node, node.getPreviousAstNode().getLastChild())) {
         getContext().createLineViolation(this, "Move the opening curly brace to the previous line.", node);
       }
     }
@@ -123,7 +123,7 @@ public class FormattingCheck extends SquidCheck<LexerlessGrammar> {
   private void checkClosingCurlyBraceOnlyTokenOnTheLine(AstNode node) {
     if (node.is(CssGrammar.CLOSE_CURLY_BRACE)) {
       if (isOnSameLine(node, node.getPreviousAstNode())) {
-        getContext().createLineViolation(this, "Move this closing curly brace to the next line.", node);
+        getContext().createLineViolation(this, "Move the closing curly brace to the next line.", node);
       }
       if (!node.getNextAstNode().is(GenericTokenType.EOF) && isOnSameLine(node, node.getNextAstNode())) {
         getContext().createLineViolation(this, "Move the code following the closing curly brace to the next line.", node);

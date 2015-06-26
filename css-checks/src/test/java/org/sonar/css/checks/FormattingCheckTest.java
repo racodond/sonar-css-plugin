@@ -37,7 +37,8 @@ public class FormattingCheckTest {
       .atLine(6).withMessage("Move the opening curly brace to the previous line.").next()
       .atLine(10).withMessage("Move the code following the opening curly brace to the next line.").next()
       .atLine(11).withMessage("Move the code following the closing curly brace to the next line.").next()
-      .atLine(16).withMessage("Move this closing curly brace to the next line.").noMore();
+      .atLine(16).withMessage("Move the closing curly brace to the next line.").next()
+      .atLine(26).withMessage("Move the opening curly brace to the previous line.").noMore();
   }
 
   @Test

@@ -14,3 +14,15 @@
 
 .mybox {
   color: red;} /* Noncompliant */
+
+.mybox,
+.mybox2 { /* Compliant */
+  color: red;
+}
+
+
+.mybox,
+.mybox2
+{ /* Noncompliant */
+  color: red;
+}
