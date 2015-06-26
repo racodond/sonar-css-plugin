@@ -57,12 +57,14 @@ public enum CssGrammar implements GrammarRuleKey {
 
   SUP_DECLARATION,
   DECLARATION,
+  VARIABLE_DECLARATION,
   PROPERTY,
   VALUE,
   ANY,
 
   IDENT,
   AT_KEYWORD,
+  VARIABLE,
   STRING,
   HASH,
   NUMBER,
@@ -212,10 +214,9 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(ID_SELECTOR).is("#", identNoWS);
     b.rule(PSEUDO).is(COLON, ANY);
     b.rule(SUP_DECLARATION).is(
-      b.oneOrMore(b.firstOf(SEMICOLON, DECLARATION)));
-
-    b.rule(DECLARATION)
-      .is(PROPERTY, COLON, VALUE);
+      b.oneOrMore(b.firstOf(SEMICOLON, b.firstOf(VARIABLE_DECLARATION, DECLARATION))));
+    b.rule(DECLARATION).is(PROPERTY, COLON, VALUE);
+    b.rule(VARIABLE_DECLARATION).is(VARIABLE, COLON, VALUE);
     b.rule(PROPERTY).is(addSpacing(IDENT, b));
     b.rule(VALUE).is(
       b.oneOrMore(b.firstOf(ANY, BLOCK, AT_KEYWORD)));
@@ -245,6 +246,7 @@ public enum CssGrammar implements GrammarRuleKey {
   private static void tokens(LexerlessGrammarBuilder b) {
     b.rule(BOM).is("\ufeff");
     b.rule(IDENT).is(addSpacing(_IDENT, b));
+    b.rule(VARIABLE).is(addSpacing(b.sequence("--", _IDENT), b));
     b.rule(identNoWS).is(_IDENT);
     b.rule(AT_KEYWORD).is(addSpacing(b.sequence("@", IDENT), b));
     b.rule(STRING).is(addSpacing(_STRING, b));

@@ -17,27 +17,30 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks;
-
-import java.io.File;
+package org.sonar.css.parser;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
-public class OneDeclarationPerLineCheckTest {
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
-  private final static String MESSAGE = "Define each declaration on a separate line";
-  private OneDeclarationPerLineCheck check = new OneDeclarationPerLineCheck();
+public class VariableTest extends TestBase {
+
+  private LexerlessGrammar b = CssGrammar.createGrammar();
 
   @Test
-  public void should_find_some_declarations_on_the_same_line_and_raise_issues() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/oneDeclarationPerLine.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(8).withMessage(MESSAGE).next()
-      .atLine(13).withMessage(MESSAGE).next()
-      .atLine(19).withMessage(MESSAGE).noMore();
+  public void should_be_variables() {
+    assertThat(b.rule(CssGrammar.VARIABLE))
+      .matches("--abc")
+      .matches("--abc-def")
+      .matches("--abc--def")
+      .matches("--ABC");
   }
 
+  @Test
+  public void should_not_be_variables() {
+    assertThat(b.rule(CssGrammar.VARIABLE))
+      .notMatches("abc")
+      .notMatches("-abc");
+  }
 }

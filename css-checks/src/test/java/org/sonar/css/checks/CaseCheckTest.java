@@ -19,26 +19,29 @@
  */
 package org.sonar.css.checks;
 
+import java.io.File;
+
 import org.junit.Test;
 import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
-import java.io.File;
 
 public class CaseCheckTest {
 
   private CaseCheck check = new CaseCheck();
 
   @Test
-  public void should_contain_unknown_functions_and_raise_issues() {
+  public void should_contain_uppercase_properties_function_and_variables() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/case.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(3).withMessage("Write property \"COLOR\" in lowercase.").next()
       .atLine(4).withMessage("Write property \"Color\" in lowercase.").next()
       .atLine(5).withMessage("Write property \"CoLor\" in lowercase.").next()
       .atLine(7).withMessage("Write property \"Color\" in lowercase.").next()
-      .atLine(9).withMessage("Write property \"Background-color\" in lowercase.").noMore();
+      .atLine(9).withMessage("Write property \"Background-color\" in lowercase.").next()
+      .atLine(11).withMessage("Write function \"RGB\" in lowercase.").next()
+      .atLine(12).withMessage("Write variable \"ABC\" in lowercase.").next()
+      .atLine(13).withMessage("Write variable \"abc-DEF\" in lowercase.").noMore();
   }
 
 }

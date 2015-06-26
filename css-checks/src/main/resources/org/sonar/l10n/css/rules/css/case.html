@@ -1,17 +1,17 @@
-<p>Even though CSS syntax is case-insensitive, sharing some style conventions is a key point to make it possible for a team to efficiently collaborate.</p>
-<p>This rule allows to check that all properties and functions are written in lowercase.</p>
+<p>Even though CSS syntax is case-insensitive (except for variables), sharing some style conventions is a key point to make it possible for a team to efficiently collaborate.</p>
+<p>This rule allows to check that all properties, functions and variables are written in lowercase.</p>
 <h2>Noncompliant Code Example</h2>
 <pre>
 .mybox {
-  color: blue;
   COLOR: blue; /* Noncompliant */
-  Color: blue; /* Noncompliant */;
 }
 
 .mybox {
-  color: rgb(255,255,255;
-  color: RGB(255,255,255; /* Noncompliant */
-  color: Rgb(255,255,255; /* Noncompliant */;
+  color: RGB(255,255,255); /* Noncompliant */
+}
+
+:root {
+  --MyVar: red; /* Noncompliant */;
 }
 </pre>
 <h2>Compliant Solution</h2>
@@ -21,6 +21,10 @@
 }
 
 .mybox {
-  color: rgb(255,255,255;
+  color: rgb(255,255,255);
+}
+
+:root {
+  --myvar: red;
 }
 </pre>

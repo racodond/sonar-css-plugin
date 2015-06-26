@@ -21,6 +21,10 @@ package org.sonar.css.ast.visitors;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
+
+import java.io.File;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -29,9 +33,6 @@ import org.mockito.Mockito;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.source.Highlightable;
 import org.sonar.css.CssAstScanner;
-
-import java.io.File;
-import java.util.List;
 
 import static org.mockito.Mockito.mock;
 
@@ -80,6 +81,8 @@ public class SyntaxHighlighterVisitorTest {
     Mockito.verify(highlighting).highlight(offset(1, 1), offset(1, 7), "h");
     Mockito.verify(highlighting).highlight(offset(2, 5), offset(2, 10), "c");
     Mockito.verify(highlighting).highlight(offset(5, 1), offset(7, 3), "cppd");
+    Mockito.verify(highlighting).highlight(offset(9, 1), offset(9, 7), "h");
+    Mockito.verify(highlighting).highlight(offset(10, 3), offset(10, 8), "c");
     Mockito.verify(highlighting).done();
     Mockito.verifyNoMoreInteractions(highlighting);
   }
@@ -96,6 +99,8 @@ public class SyntaxHighlighterVisitorTest {
     Mockito.verify(highlighting).highlight(offset(1, 1), offset(1, 7), "h");
     Mockito.verify(highlighting).highlight(offset(2, 5), offset(2, 10), "c");
     Mockito.verify(highlighting).highlight(offset(5, 1), offset(7, 3), "cppd");
+    Mockito.verify(highlighting).highlight(offset(9, 1), offset(9, 7), "h");
+    Mockito.verify(highlighting).highlight(offset(10, 3), offset(10, 8), "c");
     Mockito.verify(highlighting).done();
     Mockito.verifyNoMoreInteractions(highlighting);
   }
@@ -112,6 +117,8 @@ public class SyntaxHighlighterVisitorTest {
     Mockito.verify(highlighting).highlight(offset(1, 1), offset(1, 7), "h");
     Mockito.verify(highlighting).highlight(offset(2, 5), offset(2, 10), "c");
     Mockito.verify(highlighting).highlight(offset(5, 1), offset(7, 3), "cppd");
+    Mockito.verify(highlighting).highlight(offset(9, 1), offset(9, 7), "h");
+    Mockito.verify(highlighting).highlight(offset(10, 3), offset(10, 8), "c");
     Mockito.verify(highlighting).done();
     Mockito.verifyNoMoreInteractions(highlighting);
   }

@@ -58,12 +58,12 @@ public class DisallowEmptyRules extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.RULESET, CssGrammar.AT_RULE, CssGrammar.DECLARATION);
+    subscribeTo(CssGrammar.RULESET, CssGrammar.AT_RULE, CssGrammar.DECLARATION, CssGrammar.VARIABLE_DECLARATION);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.is(CssGrammar.DECLARATION)) {
+    if (astNode.is(CssGrammar.DECLARATION) || astNode.is(CssGrammar.VARIABLE_DECLARATION)) {
       counter++;
     } else {
       counter = 0;

@@ -34,7 +34,7 @@
 </pre>
 <h1>Declaration</h1>
 <ul>
-  <li>Property, colon and value should be placed on the same line</li>
+  <li>Property/variable, colon and value should be placed on the same line</li>
   <li>No whitespace between the property and the colon</li>
   <li>One single whitespace between the colon and the value</li>
 </ul>
@@ -46,7 +46,16 @@
 }
 
 .mybox {
-color : red;      /* Noncompliant: there shouldn't be any whitespace between the property and the colon */
+  --abc:          /* Noncompliant: value should be on the same line as variable and colon */
+    red;
+}
+
+.mybox {
+  color : red;    /* Noncompliant: there shouldn't be any whitespace between the property and the colon */
+}
+
+.mybox {
+  --abc : red;    /* Noncompliant: there shouldn't be any whitespace between the variable and the colon */
 }
 
 .mybox {
@@ -61,6 +70,10 @@ color : red;      /* Noncompliant: there shouldn't be any whitespace between the
 <pre>
 .mybox {
   color: red;
+}
+
+.mybox {
+  --abc: red;
 }
 </pre>
 <h1>Important annotation</h1>

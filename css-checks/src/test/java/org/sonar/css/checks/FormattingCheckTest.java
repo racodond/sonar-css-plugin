@@ -50,7 +50,16 @@ public class FormattingCheckTest {
       .atLine(18).withMessage("Remove the whitespaces between the property and the colon.").next()
       .atLine(22).withMessage("Move the property, colon and value to the same line.").next()
       .atLine(24).withMessage("Move the property, colon and value to the same line.").next()
-      .atLine(26).withMessage("Move the property, colon and value to the same line.").noMore();
+      .atLine(26).withMessage("Move the property, colon and value to the same line.").next()
+      .atLine(36).withMessage("Leave only one whitespace between the colon and the value.").next()
+      .atLine(40).withMessage("Leave only one whitespace between the colon and the value.").next()
+      .atLine(44).withMessage("Remove the whitespaces between the variable and the colon.").next()
+      .atLine(48).withMessage("Remove the whitespaces between the variable and the colon.").next()
+      .atLine(52).withMessage("Move the variable, colon and value to the same line.").next()
+      .atLine(54).withMessage("Move the variable, colon and value to the same line.").next()
+      .atLine(56).withMessage("Move the variable, colon and value to the same line.").next()
+      .atLine(62).withMessage("Add one whitespace between the colon and the value.").next()
+      .atLine(66).withMessage("Add one whitespace between the colon and the value.").noMore();
   }
 
   @Test

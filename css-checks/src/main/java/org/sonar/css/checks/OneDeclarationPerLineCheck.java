@@ -49,7 +49,7 @@ public class OneDeclarationPerLineCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (!isThereOneSingleDeclarationPerLine(astNode.getChildren(CssGrammar.DECLARATION))) {
+    if (!isThereOneSingleDeclarationPerLine(astNode.getChildren(CssGrammar.DECLARATION, CssGrammar.VARIABLE_DECLARATION))) {
       getContext().createLineViolation(this, "Define each declaration on a separate line", astNode.getParent());
     }
   }

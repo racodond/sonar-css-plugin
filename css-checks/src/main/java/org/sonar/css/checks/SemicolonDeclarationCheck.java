@@ -49,7 +49,7 @@ public class SemicolonDeclarationCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    List<AstNode> declarations = astNode.getChildren(CssGrammar.DECLARATION);
+    List<AstNode> declarations = astNode.getChildren(CssGrammar.DECLARATION, CssGrammar.VARIABLE_DECLARATION);
     for (AstNode declaration : declarations) {
       if (declaration.getNextSibling() == null) {
         getContext().createLineViolation(this, "Add a semicolon at the end of this declaration", declaration);
