@@ -106,10 +106,12 @@ public final class CssAstScanner {
       .subscribeTo(CssGrammar.AT_RULE)
       .build());
 
-    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
-      .setMetricDef(CssMetric.COMPLEXITY)
-      .subscribeTo(CssGrammar.CLASS_SELECTOR, CssGrammar.ATTRIBUTE_SELECTOR, CssGrammar.TYPE_SELECTOR, CssGrammar.ID_SELECTOR, CssGrammar.PSEUDO, CssGrammar.AT_RULE)
-      .build());
+    if (conf.getComputeComplexity()) {
+      builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
+        .setMetricDef(CssMetric.COMPLEXITY)
+        .subscribeTo(CssGrammar.CLASS_SELECTOR, CssGrammar.ATTRIBUTE_SELECTOR, CssGrammar.TYPE_SELECTOR, CssGrammar.ID_SELECTOR, CssGrammar.PSEUDO, CssGrammar.AT_RULE)
+        .build());
+    }
 
     builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
       .setMetricDef(CssMetric.FUNCTIONS)

@@ -20,6 +20,10 @@
 package org.sonar.plugins.css;
 
 import com.google.common.collect.Lists;
+
+import java.io.File;
+import java.util.Collection;
+
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.FileSystem;
@@ -28,6 +32,7 @@ import org.sonar.api.batch.fs.InputFile.Type;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.batch.rule.CheckFactory;
 import org.sonar.api.batch.rule.Checks;
+import org.sonar.api.config.Settings;
 import org.sonar.api.issue.Issuable;
 import org.sonar.api.issue.Issue;
 import org.sonar.api.issue.NoSonarFilter;
@@ -49,9 +54,6 @@ import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.indexer.QueryByType;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-import java.io.File;
-import java.util.Collection;
-
 public class CssSquidSensor implements Sensor {
 
   private final CheckFactory checkFactory;
@@ -61,12 +63,16 @@ public class CssSquidSensor implements Sensor {
   private AstScanner<LexerlessGrammar> scanner;
   private final SonarComponents sonarComponents;
   private final FileSystem fs;
+  private final Settings settings;
+  private final CssConfiguration configuration;
 
-  public CssSquidSensor(RulesProfile profile, SonarComponents sonarComponents, FileSystem fs, CheckFactory checkFactory, NoSonarFilter noSonarFilter) {
+  public CssSquidSensor(RulesProfile profile, SonarComponents sonarComponents, FileSystem fs, CheckFactory checkFactory, NoSonarFilter noSonarFilter, Settings settings) {
     this.checkFactory = checkFactory;
     this.sonarComponents = sonarComponents;
     this.fs = fs;
     this.noSonarFilter = noSonarFilter;
+    this.settings = settings;
+    this.configuration = createConfiguration();
   }
 
   @Override
@@ -80,7 +86,7 @@ public class CssSquidSensor implements Sensor {
 
     Checks<SquidAstVisitor> checks = checkFactory.<SquidAstVisitor>create(CheckList.REPOSITORY_KEY).addAnnotatedChecks(CheckList.getChecks());
     Collection<SquidAstVisitor> checkList = checks.all();
-    CssConfiguration conf = new CssConfiguration(fs.encoding());
+    CssConfiguration conf = createConfiguration();
     this.scanner = CssAstScanner.create(conf, sonarComponents, checkList.toArray(new SquidAstVisitor[checkList.size()]));
     scanner.scanFiles(Lists.newArrayList(filesToAnalyze()));
 
@@ -113,9 +119,12 @@ public class CssSquidSensor implements Sensor {
     context.saveMeasure(sonarFile, CoreMetrics.NCLOC, squidFile.getDouble(CssMetric.LINES_OF_CODE));
     context.saveMeasure(sonarFile, CoreMetrics.STATEMENTS, squidFile.getDouble(CssMetric.STATEMENTS));
     context.saveMeasure(sonarFile, CoreMetrics.COMMENT_LINES, squidFile.getDouble(CssMetric.COMMENT_LINES));
-    context.saveMeasure(sonarFile, CoreMetrics.FUNCTIONS, squidFile.getDouble(CssMetric.FUNCTIONS));
-    context.saveMeasure(sonarFile, CoreMetrics.COMPLEXITY, squidFile.getDouble(CssMetric.COMPLEXITY));
-    context.saveMeasure(sonarFile, CoreMetrics.FUNCTION_COMPLEXITY, squidFile.getDouble(CssMetric.FUNCTIONS) != 0 ? squidFile.getDouble(CssMetric.COMPLEXITY)/squidFile.getDouble(CssMetric.FUNCTIONS) : 0);
+    if (configuration.getComputeComplexity()) {
+      context.saveMeasure(sonarFile, CoreMetrics.FUNCTIONS, squidFile.getDouble(CssMetric.FUNCTIONS));
+      context.saveMeasure(sonarFile, CoreMetrics.COMPLEXITY, squidFile.getDouble(CssMetric.COMPLEXITY));
+      context.saveMeasure(sonarFile, CoreMetrics.FUNCTION_COMPLEXITY,
+        squidFile.getDouble(CssMetric.FUNCTIONS) != 0 ? squidFile.getDouble(CssMetric.COMPLEXITY) / squidFile.getDouble(CssMetric.FUNCTIONS) : 0);
+    }
   }
 
   private void saveViolations(InputFile sonarFile, SourceFile squidFile, Checks<SquidAstVisitor> checks) {
@@ -133,6 +142,12 @@ public class CssSquidSensor implements Sensor {
         issuable.addIssue(issue);
       }
     }
+  }
+
+  private CssConfiguration createConfiguration() {
+    CssConfiguration cssConfiguration = new CssConfiguration(fs.encoding());
+    cssConfiguration.setComputeComplexity(settings.getBoolean(CssPlugin.COMPUTE_COMPLEXITY));
+    return cssConfiguration;
   }
 
   @Override

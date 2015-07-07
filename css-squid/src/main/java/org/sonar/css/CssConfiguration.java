@@ -25,6 +25,7 @@ import org.sonar.squidbridge.api.SquidConfiguration;
 public class CssConfiguration extends SquidConfiguration {
 
   private boolean ignoreHeaderComments;
+  private boolean computeComplexity = true;
 
   public CssConfiguration(Charset charset) {
     super(charset);
@@ -36,6 +37,14 @@ public class CssConfiguration extends SquidConfiguration {
 
   public boolean ignoreHeaderComments() {
     return ignoreHeaderComments;
+  }
+
+  public boolean getComputeComplexity() {
+    return computeComplexity;
+  }
+
+  public void setComputeComplexity(boolean computeComplexity) {
+    this.computeComplexity = computeComplexity;
   }
 
 }
