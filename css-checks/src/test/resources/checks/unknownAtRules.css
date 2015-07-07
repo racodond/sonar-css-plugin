@@ -33,3 +33,11 @@
 @DEF {
   property: red;
 }
+
+@viewport {
+  max-width: 10px;
+}
+
+@custom-media --narrow-window (max-width: 30em);
+
+@-moz-keyframes fade {}

@@ -15,3 +15,7 @@ h1 {
   color: blue; color: green;
   color: red; color: green;
 }
+
+h1 {
+  background-color: blue; --abc: red;
+}

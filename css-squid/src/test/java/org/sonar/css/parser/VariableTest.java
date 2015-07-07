@@ -17,22 +17,30 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks.utils;
+package org.sonar.css.parser;
 
 import org.junit.Test;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
-public class CssPropertiesTest {
+public class VariableTest extends TestBase {
+
+  private LexerlessGrammar b = CssGrammar.createGrammar();
 
   @Test
-  public void number_of_vendors() {
-    assertThat(Vendors.VENDORS.size()).isEqualTo(18);
+  public void should_be_variables() {
+    assertThat(b.rule(CssGrammar.VARIABLE))
+      .matches("--abc")
+      .matches("--abc-def")
+      .matches("--abc--def")
+      .matches("--ABC");
   }
 
   @Test
-  public void number_of_properties() {
-    assertThat(CssProperties.PROPERTIES.size()).isEqualTo(401);
+  public void should_not_be_variables() {
+    assertThat(b.rule(CssGrammar.VARIABLE))
+      .notMatches("abc")
+      .notMatches("-abc");
   }
-
 }

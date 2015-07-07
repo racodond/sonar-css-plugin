@@ -1,0 +1,94 @@
+<p>Shared coding conventions make it possible for a team to collaborate efficiently. This rule allows to check compliance with formatting standards.</p>
+<h1>Block</h1>
+<ul>
+  <li>Opening curly brace should be placed on the same line as the block declaration</li>
+  <li>Closing curly brace should be placed on its own line</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+.mybox
+{                      /* Noncompliant: the opening curly brace should be moved to the previous line */
+  color: red;
+}
+
+.mybox { color : red;  /* Noncompliant: the code following the opening curly brace should be moved to the next line */
+}
+
+.mybox {
+  color: red;
+} .mybox {             /* Noncompliant: the code following the closing curly brace should be moved to the next line */
+  color: blue;
+}
+
+.mybox {
+  color : red; }       /* Noncompliant: the closing curly brace should be moved to the next line */
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+.mybox {
+  color: red;
+}
+.mybox {
+  color: blue;
+}
+</pre>
+<h1>Declaration</h1>
+<ul>
+  <li>Property/variable, colon and value should be placed on the same line</li>
+  <li>No whitespace between the property and the colon</li>
+  <li>One single whitespace between the colon and the value</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+.mybox {
+  color:          /* Noncompliant: value should be on the same line as property and colon */
+    red;
+}
+
+.mybox {
+  --abc:          /* Noncompliant: value should be on the same line as variable and colon */
+    red;
+}
+
+.mybox {
+  color : red;    /* Noncompliant: there shouldn't be any whitespace between the property and the colon */
+}
+
+.mybox {
+  --abc : red;    /* Noncompliant: there shouldn't be any whitespace between the variable and the colon */
+}
+
+.mybox {
+  color:    red;  /* Noncompliant: there should be one single whitespace between the colon and the value */
+}
+
+.mybox {
+  color:red;      /* Noncompliant: there should be one single whitespace between the colon and the value */
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+.mybox {
+  color: red;
+}
+
+.mybox {
+  --abc: red;
+}
+</pre>
+<h1>Important annotation</h1>
+<p>There should not be any whitespaces between <code>!</code> and <code>important.</code></p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+.mybox {
+  color: red ! important; /* Noncompliant */
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+.mybox {
+  color: red !important;
+}
+</pre>
+
+

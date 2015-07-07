@@ -1,0 +1,73 @@
+.mybox {
+  color: red; /* Compliant */
+}
+
+.mybox {
+  color:  red; /* Noncompliant */
+}
+
+.mybox {
+  color:    red; /* Noncompliant */
+}
+
+.mybox {
+  color : red; /* Noncompliant */
+}
+
+.mybox {
+  color     : red; /* Noncompliant */
+}
+
+.mybox {
+  color: /* Noncompliant */
+   red;
+  color /* Noncompliant */
+  : blue;
+    color /* Noncompliant */
+    :
+    green;
+}
+
+.mybox {
+  --abc: red; /* Compliant */
+}
+
+.mybox {
+  --abc:  red; /* Noncompliant */
+}
+
+.mybox {
+  --abc:    red; /* Noncompliant */
+}
+
+.mybox {
+  --abc : red; /* Noncompliant */
+}
+
+.mybox {
+  --abc     : red; /* Noncompliant */
+}
+
+.mybox {
+  --abc: /* Noncompliant */
+   red;
+  --abc /* Noncompliant */
+  : blue;
+    --abc /* Noncompliant */
+    :
+    green;
+}
+
+.mybox {
+  abc:red; /* Noncompliant */
+}
+
+.mybox {
+  --abc:red; /* Noncompliant */
+}
+
+
+
+
+
+

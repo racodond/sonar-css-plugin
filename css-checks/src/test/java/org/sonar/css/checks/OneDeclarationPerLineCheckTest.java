@@ -19,12 +19,12 @@
  */
 package org.sonar.css.checks;
 
+import java.io.File;
+
 import org.junit.Test;
 import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
-import java.io.File;
 
 public class OneDeclarationPerLineCheckTest {
 
@@ -36,7 +36,8 @@ public class OneDeclarationPerLineCheckTest {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/oneDeclarationPerLine.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(8).withMessage(MESSAGE).next()
-      .atLine(13).withMessage(MESSAGE).noMore();
+      .atLine(13).withMessage(MESSAGE).next()
+      .atLine(19).withMessage(MESSAGE).noMore();
   }
 
 }

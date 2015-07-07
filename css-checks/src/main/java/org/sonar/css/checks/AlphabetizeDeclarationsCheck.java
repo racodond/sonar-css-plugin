@@ -57,7 +57,7 @@ public class AlphabetizeDeclarationsCheck extends SquidCheck<LexerlessGrammar> {
       declarations.add(CssProperties.getUnhackedPropertyName(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue()));
     } else if (astNode.is(CssGrammar.RULESET) || astNode.is(CssGrammar.AT_RULE)) {
       if (!arePropertiesAlphabeticallyOrdered(declarations)) {
-        getContext().createLineViolation(this, "Alphabetically order this rule's properties", astNode);
+        getContext().createLineViolation(this, "Alphabetically order these rule's properties", astNode);
       }
       declarations = new ArrayList<String>();
     }

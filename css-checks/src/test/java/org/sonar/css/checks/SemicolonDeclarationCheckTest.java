@@ -38,7 +38,8 @@ public class SemicolonDeclarationCheckTest {
       .atLine(18).withMessage(MESSAGE).next()
       .atLine(24).withMessage(MESSAGE).next()
       .atLine(31).withMessage(MESSAGE).next()
-      .atLine(46).withMessage(MESSAGE).noMore();
+      .atLine(46).withMessage(MESSAGE).next()
+      .atLine(54).withMessage(MESSAGE).noMore();
   }
 
 }
