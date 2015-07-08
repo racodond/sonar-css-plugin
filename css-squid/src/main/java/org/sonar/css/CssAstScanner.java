@@ -19,8 +19,14 @@
  */
 package org.sonar.css;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Charsets;
 import com.sonar.sslr.impl.Parser;
+
+import java.io.File;
+import java.util.Collection;
+import javax.annotation.Nullable;
+
 import org.sonar.css.api.CssMetric;
 import org.sonar.css.ast.visitors.SonarComponents;
 import org.sonar.css.ast.visitors.SyntaxHighlighterVisitor;
@@ -39,11 +45,6 @@ import org.sonar.squidbridge.metrics.LinesVisitor;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.parser.ParserAdapter;
 
-import javax.annotation.Nullable;
-
-import java.io.File;
-import java.util.Collection;
-
 public final class CssAstScanner {
 
   private CssAstScanner() {
@@ -52,11 +53,26 @@ public final class CssAstScanner {
   /**
    * Helper method for testing checks without having to deploy them on a Sonar instance.
    */
+  @VisibleForTesting
   public static SourceFile scanSingleFile(File file, SquidAstVisitor<LexerlessGrammar>... visitors) {
     if (!file.isFile()) {
       throw new IllegalArgumentException("File '" + file + "' not found.");
     }
     AstScanner scanner = create(new CssConfiguration(Charsets.UTF_8), null, visitors);
+    scanner.scanFile(file);
+    Collection<SourceCode> sources = scanner.getIndex().search(new QueryByType(SourceFile.class));
+    if (sources.size() != 1) {
+      throw new IllegalStateException("Only one SourceFile was expected whereas " + sources.size() + " has been returned.");
+    }
+    return (SourceFile) sources.iterator().next();
+  }
+
+  @VisibleForTesting
+  public static SourceFile scanSingleFileWithSpecificConfiguration(File file, CssConfiguration configuration, SquidAstVisitor<LexerlessGrammar>... visitors) {
+    if (!file.isFile()) {
+      throw new IllegalArgumentException("File '" + file + "' not found.");
+    }
+    AstScanner scanner = create(configuration, null, visitors);
     scanner.scanFile(file);
     Collection<SourceCode> sources = scanner.getIndex().search(new QueryByType(SourceFile.class));
     if (sources.size() != 1) {
@@ -105,6 +121,18 @@ public final class CssAstScanner {
       .setMetricDef(CssMetric.AT_RULES)
       .subscribeTo(CssGrammar.AT_RULE)
       .build());
+
+    if (conf.getComputeComplexity()) {
+      builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
+        .setMetricDef(CssMetric.COMPLEXITY)
+        .subscribeTo(CssGrammar.CLASS_SELECTOR, CssGrammar.ATTRIBUTE_SELECTOR, CssGrammar.TYPE_SELECTOR, CssGrammar.ID_SELECTOR, CssGrammar.PSEUDO, CssGrammar.AT_RULE)
+        .build());
+
+      builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
+        .setMetricDef(CssMetric.FUNCTIONS)
+        .subscribeTo(CssGrammar.SELECTOR, CssGrammar.AT_RULE)
+        .build());
+    }
 
     /* Metrics */
     builder.withSquidAstVisitor(new LinesVisitor<LexerlessGrammar>(CssMetric.LINES));

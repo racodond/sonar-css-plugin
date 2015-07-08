@@ -30,7 +30,9 @@ public enum CssMetric implements MetricDef {
   COMMENT_LINES,
   STATEMENTS,
   AT_RULES,
-  RULE_SETS;
+  RULE_SETS,
+  COMPLEXITY,
+  FUNCTIONS;
 
   @Override
   public String getName() {
