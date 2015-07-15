@@ -1,0 +1,11 @@
+<profile>
+    <name>it-profile</name>
+    <language>css</language>
+    <rules>
+        <rule>
+            <repositoryKey>css</repositoryKey>
+            <key>zero-units</key>
+            <priority>MAJOR</priority>
+        </rule>
+    </rules>
+</profile>
