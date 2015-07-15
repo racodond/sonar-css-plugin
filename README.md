@@ -1,6 +1,8 @@
 SonarQube CSS Plugin
 ====================
 
+[![Build Status](https://api.travis-ci.org/SonarCommunity/sonar-css.png)](https://travis-ci.org/SonarCommunity/sonar-css)
+
 This is the SonarQube CSS Plugin.
 
 Project homepage:
