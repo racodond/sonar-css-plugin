@@ -12,7 +12,7 @@ Issue tracking:
 https://github.com/SonarCommunity/sonar-css/issues
 
 CI builds:
-http://sonarplugins.ci.cloudbees.com/job/css
+https://travis-ci.org/SonarCommunity/sonar-css
 
 Download:
 http://downloads.sonarsource.com/plugins/org/codehaus/sonar-plugins/css/sonar-css-plugin/
