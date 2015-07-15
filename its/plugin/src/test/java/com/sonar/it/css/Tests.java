@@ -45,22 +45,7 @@ public class Tests {
 
   public static SonarRunner createSonarRunner() {
     SonarRunner build = SonarRunner.create();
-    if (!is_multi_language()) {
-      build.setProperty("sonar.language", "css");
-    }
     return build;
-  }
-
-  private static boolean is_multi_language() {
-    return is_after_sonar_4_2();
-  }
-
-  public static boolean is_after_sonar_4_2() {
-    return ORCHESTRATOR.getConfiguration().getSonarVersion().isGreaterThanOrEquals("4.2");
-  }
-
-  public static boolean is_at_least_plugin_1_2() {
-    return ORCHESTRATOR.getConfiguration().getPluginVersion(PLUGIN_KEY).isGreaterThanOrEquals("1.2");
   }
 
 }

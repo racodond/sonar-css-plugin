@@ -66,9 +66,7 @@ public class MetricsTest {
     assertThat(getProjectMeasure("lines").getIntValue()).isEqualTo(23);
     assertThat(getProjectMeasure("files").getIntValue()).isEqualTo(2);
     assertThat(getProjectMeasure("directories").getIntValue()).isEqualTo(1);
-    if (Tests.is_at_least_plugin_1_2()) {
-      assertThat(getProjectMeasure("functions")).isNull();
-    }
+    assertThat(getProjectMeasure("functions").getIntValue()).isEqualTo(6);
     assertThat(getProjectMeasure("statements").getIntValue()).isEqualTo(12);
     // Documentation
     assertThat(getProjectMeasure("comment_lines").getIntValue()).isEqualTo(0);
@@ -76,10 +74,10 @@ public class MetricsTest {
     assertThat(getProjectMeasure("comment_lines_density").getValue()).isEqualTo(0.0);
     assertThat(getProjectMeasure("public_documented_api_density")).isNull();
     // Complexity
-    assertThat(getProjectMeasure("complexity")).isNull();
-    assertThat(getProjectMeasure("function_complexity")).isNull();
+    assertThat(getProjectMeasure("complexity").getIntValue()).isEqualTo(3);
+    assertThat(getProjectMeasure("function_complexity").getValue()).isEqualTo(0.5);
     assertThat(getProjectMeasure("function_complexity_distribution")).isNull();
-    assertThat(getProjectMeasure("file_complexity")).isNull();
+    assertThat(getProjectMeasure("file_complexity").getIntValue()).isEqualTo(1);
     assertThat(getProjectMeasure("file_complexity_distribution")).isNull();
     // Duplication
     assertThat(getProjectMeasure("duplicated_lines").getValue()).isEqualTo(0.0);
@@ -98,19 +96,17 @@ public class MetricsTest {
     // Size
     assertThat(getFileMeasure("ncloc").getIntValue()).isEqualTo(14);
     assertThat(getFileMeasure("lines").getIntValue()).isEqualTo(18);
-    if (Tests.is_at_least_plugin_1_2()) {
-      assertThat(getFileMeasure("functions")).isNull();
-    }
+    assertThat(getFileMeasure("functions").getIntValue()).isEqualTo(5);
     assertThat(getFileMeasure("statements").getIntValue()).isEqualTo(9);
     // Documentation
     assertThat(getFileMeasure("comment_lines").getIntValue()).isEqualTo(0);
     assertThat(getFileMeasure("commented_out_code_lines")).isNull();
     assertThat(getFileMeasure("comment_lines_density").getValue()).isEqualTo(0.0);
     // Complexity
-    assertThat(getFileMeasure("complexity")).isNull();
-    assertThat(getFileMeasure("function_complexity")).isNull();
+    assertThat(getFileMeasure("complexity").getIntValue()).isEqualTo(2);
+    assertThat(getFileMeasure("function_complexity").getValue()).isEqualTo(0.4);
     assertThat(getFileMeasure("function_complexity_distribution")).isNull();
-    assertThat(getFileMeasure("file_complexity")).isNull();
+    assertThat(getFileMeasure("file_complexity").getIntValue()).isEqualTo(2);
 
     // Duplication
     assertThat(getFileMeasure("duplicated_lines")).isNull();
