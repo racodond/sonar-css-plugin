@@ -1,0 +1,22 @@
+<p>Having to scroll horizontally makes it harder to get a quick overview and understanding of any piece of code.</p>
+<h2>Noncompliant Code Example</h2>
+With maximum length set to 50:
+<pre>
+/* Noncompliant: split this comment into several lines blabla blabla blabla blabla blabla blabla */
+.mybox {
+  color: red; background-color: red; color: red; background-color: red; /* Noncompliant */
+}
+</pre>
+<h2>Compliant Solution</h2>
+With maximum length set to 50:
+<pre>
+/* blabla blabla blabla blabla blabla blabla */
+/* blabla blabla blabla blabla blabla blabla */
+.mybox {
+  color: red;
+  background-color: red;
+  color: red;
+  background-color: red;
+}
+</pre>
+

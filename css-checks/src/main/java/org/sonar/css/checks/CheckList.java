@@ -66,6 +66,7 @@ public final class CheckList {
       ImportNumberThreshold.class,
       KnownProperties.class,
       LeadingZerosCheck.class,
+      LineLengthCheck.class,
       MaximumNumberOfRulesPerSheetCheck.class,
       NosonarTagPresenceCheck.class,
       ObsoletePropertiesCheck.class,
