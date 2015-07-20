@@ -84,8 +84,7 @@ public final class CheckList {
       UnknownFunctionsCheck.class,
       UnknownAtRulesCheck.class,
       ValidatePropertyValueCheck.class,
-      VendorPrefixWithStandard.class,
-      WhitespacesInImportantAnnotationCheck.class
+      VendorPrefixWithStandard.class
       );
   }
 }

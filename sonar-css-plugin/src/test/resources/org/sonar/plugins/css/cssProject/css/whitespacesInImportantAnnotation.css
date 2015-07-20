@@ -1,5 +1,0 @@
-.mybox {
-  width: 100px !important;
-  width: 100px ! important; /* Noncompliant */
-  width: 100px !  important ; /* Noncompliant */
-}
