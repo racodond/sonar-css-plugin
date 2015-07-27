@@ -47,6 +47,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   tags = {Tags.CONVENTION})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("1min")
+@ActivatedByDefault
 public class LineLengthCheck extends SquidCheck<LexerlessGrammar> implements CharsetAwareVisitor {
 
   private static final int DEFAULT_MAXIMUM_LINE_LENGTH = 120;

@@ -26,6 +26,7 @@ import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.parser.CssGrammar;
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
@@ -38,6 +39,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   tags = {Tags.FORMAT})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("2min")
+@ActivatedByDefault
 public class FormattingCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override

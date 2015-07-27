@@ -25,6 +25,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.css.parser.CssGrammar;
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleLinearRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
@@ -37,6 +38,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   tags = {Tags.DESIGN, Tags.PERFORMANCE})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_CHANGEABILITY)
 @SqaleLinearRemediation(coeff = "5min", effortToFixDescription = "number of rules beyond the limit")
+@ActivatedByDefault
 public class MaximumNumberOfRulesPerSheetCheck extends SquidCheck<LexerlessGrammar> {
 
   private static final int DEFAULT_MAX_RULES = 500;
