@@ -3,8 +3,6 @@ SonarQube CSS Plugin
 
 [![Build Status](https://api.travis-ci.org/SonarCommunity/sonar-css.svg)](https://travis-ci.org/SonarCommunity/sonar-css)
 
-This is the SonarQube CSS Plugin.
-
 Project homepage:
 https://github.com/SonarCommunity/sonar-css
 
@@ -17,17 +15,22 @@ https://travis-ci.org/SonarCommunity/sonar-css
 Download:
 http://downloads.sonarsource.com/plugins/org/codehaus/sonar-plugins/css/sonar-css-plugin/
 
-## Description / Features
-The plugin enables analysis of CSS within SonarQube.
+## Description
+This plugin enables code QA analysis of CSS source code within [SonarQube](http://www.sonarqube.org):
+
+ * Computes metrics: lines of code, number of CSS rules, complexity, etc.
+ * Validates your CSS code
+ * Performs more than 50 checks such as: Stylesheets should not contain too many selectors, Empty declarations should be removed, Box model size should be carefully reviewed, etc.
 
 ## Usage
-### Run an Analysis with the SonarQube Runner (recommended method)
-To run an analysis of your project with CSS files, use the SonarQube Runner.
+### Getting started in two minutes
+Download the [package](https://github.com/racodond/package-test-sonarqube-css/archive/master.zip) and follow the instructions of the [README file](https://github.com/racodond/package-test-sonarqube-css/blob/master/README.md).
+This package contains the SonarQube server with the CSS plugin, the analyzer (SonarQube Runner) and a sample project.
 
-A sample project is available on GitHub: https://github.com/SonarSource/sonar-examples/tree/master/projects/languages/css/css-sonar-runner
-
-### Run an Analysis with the other Analyzers
-Maven and Ant can also be used to launch analysis on CSS projects.
+### Installing and configuring your SonarQube platform from scratch
+1. [Install](http://docs.sonarqube.org/display/SONAR/Setup+and+Upgrade) SonarQube
+2. Install the CSS plugin either by a [direct download](https://github.com/SonarCommunity/sonar-css/releases) or through the [update center](http://docs.sonarqube.org/display/SONAR/Update+Center).
+3. Install your [favorite analyzer](http://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code#AnalyzingSourceCode-RunningAnalysis) (SonarQube Runner, Maven, etc.) and analyze your code.
 
 ## Metrics
 ### Functions
