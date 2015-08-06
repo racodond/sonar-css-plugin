@@ -26,3 +26,8 @@
          url('myfont-webfont.svg#svgFontName') format('svg');
 }
 
+/* Do not log any issue on @font-face with "src" property but without "url" property */
+@font-face {
+  font-family: GDS-Logo;
+  src: local("HelveticaNeue"), local("Helvetica Neue"), local("Arial"), local("Helvetica");
+}
