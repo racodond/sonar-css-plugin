@@ -41,7 +41,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @ActivatedByDefault
 public class SelectorNamingConventionCheck extends SquidCheck<LexerlessGrammar> {
 
-  private static final String DEFAULT_FORMAT = "^[a-z][a-z\\-]*$";
+  private static final String DEFAULT_FORMAT = "^[a-z][-a-z0-9]*$";
   @RuleProperty(
     key = "Format",
     description = "Regular expression used to check the selector names against",

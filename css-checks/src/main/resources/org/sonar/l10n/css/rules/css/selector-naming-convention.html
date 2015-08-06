@@ -1,15 +1,21 @@
-<p>Shared coding conventions allow teams to collaborate efficiently. This rule checks that all selector names match a provided regular expression.</p>
+<p>Shared coding conventions allow teams to collaborate efficiently. This rule checks that all selector names match a
+    provided regular expression.</p>
+<p>The default regular expression only allows lowercase letters, digits and hyphens. Uppercase letters are not allowed
+    because CSS selectors are used in HTML. As HTML is case-insensitive, it is usually written in lowercase and it may
+    be confusing and even error-prone to add CSS selectors with uppercase letters to the HTML code.</p>
+
 <h2>Noncompliant Code Example</h2>
-With format "^[a-z][a-z\\-]*$":
+With format "^[a-z][-a-z0-9]*$":
 <pre>
 .myBox {  /* Noncompliant: Should be 'mybox' or 'my-box' instead for example */
 }
 
-#my_box {  /* Noncompliant: Should be 'mybox' or 'my-box' instead for example */
+.my_box {  /* Noncompliant: Should be 'mybox' or 'my-box' instead for example */
 }
 </pre>
+
 <h2>Compliant Solution</h2>
-With format "^[a-z][a-z\\-]*$":
+With format "^[a-z][-a-z0-9]*$":
 <pre>
 .mybox {
 }
