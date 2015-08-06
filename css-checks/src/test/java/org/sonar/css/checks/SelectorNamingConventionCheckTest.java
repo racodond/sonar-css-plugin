@@ -30,7 +30,7 @@ import java.text.MessageFormat;
 public class SelectorNamingConventionCheckTest {
 
   private static final String MESSAGE = "Rename selector {0} to match the regular expression: {1}";
-  private static final String FORMAT = "^[a-z][a-z\\-]*$";
+  private static final String FORMAT = "^[a-z][-a-z0-9]*$";
   private SelectorNamingConventionCheck check = new SelectorNamingConventionCheck();
 
   @Test
@@ -40,7 +40,6 @@ public class SelectorNamingConventionCheckTest {
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(10).withMessage(MessageFormat.format(MESSAGE, "MYbOx", FORMAT)).next()
       .atLine(13).withMessage(MessageFormat.format(MESSAGE, "ab_cd", FORMAT)).next()
-      .atLine(19).withMessage(MessageFormat.format(MESSAGE, "r8rr", FORMAT)).next()
       .atLine(22).withMessage(MessageFormat.format(MESSAGE, "-rrr", FORMAT)).noMore();
   }
 }
