@@ -20,6 +20,9 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
+
+import java.util.List;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -29,8 +32,6 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.util.List;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Bulletproof-font-face
@@ -60,12 +61,12 @@ public class BulletproofFontFace extends SquidCheck<LexerlessGrammar> {
     if ("font-face".equals(astNode.getFirstChild(CssGrammar.AT_KEYWORD).getFirstChild(CssGrammar.IDENT).getTokenValue()) && !isEmptyFontFace(astNode)) {
       List<AstNode> declarations = astNode.getFirstDescendant(CssGrammar.atRuleBlock).getFirstChild(CssGrammar.SUP_DECLARATION).getChildren(CssGrammar.DECLARATION);
       for (AstNode declaration : declarations) {
-        if ("src".equals(declaration.getFirstChild(CssGrammar.PROPERTY).getTokenValue())) {
+        if ("src".equals(declaration.getFirstChild(CssGrammar.PROPERTY).getTokenValue())
+          && declaration.getFirstChild(CssGrammar.VALUE).getFirstChild(CssGrammar.URI) != null) {
           String firstAnyFunctionValue = CssChecksUtil.getStringValue(
             declaration.getFirstChild(CssGrammar.VALUE)
               .getFirstChild(CssGrammar.URI)
               .getFirstChild(CssGrammar._URI_CONTENT));
-          // http://blog.fontspring.com/2011/02/the-new-bulletproof-font-face-syntax/ eot can be in a previous font-face
           if (!firstAnyFunctionValue.matches(".*\\.eot\\?.*?['\"]?$") && !foundEot) {
             getContext().createLineViolation(this,
               "Check that the first file is the .eot file and that the workaround for IE is set", astNode);
