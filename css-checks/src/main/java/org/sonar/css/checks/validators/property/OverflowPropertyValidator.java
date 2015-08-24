@@ -1,6 +1,6 @@
 /*
  * SonarQube CSS Plugin
- * Copyright (C) 2013 Tamas Kende
+ * Copyright (C) 2013 Tamas Kende and David RACODON
  * kende.tamas@gmail.com
  *
  * This program is free software; you can redistribute it and/or
