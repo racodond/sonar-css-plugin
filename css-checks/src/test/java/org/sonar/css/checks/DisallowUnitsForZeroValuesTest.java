@@ -19,25 +19,35 @@
  */
 package org.sonar.css.checks;
 
+import java.io.File;
+
 import org.junit.Test;
 import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
-import java.io.File;
-
 public class DisallowUnitsForZeroValuesTest {
+
+  private final static String MESSAGE = "Remove the unit for this zero length.";
 
   @Test
   public void test() {
-    DisallowUnitsForZeroValues check = new DisallowUnitsForZeroValues();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/zerounits.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(2).withMessage("Remove the unit for this zero value").next()
-      .atLine(6).withMessage("Remove the unit for this zero value").next()
-      .atLine(10).withMessage("Remove the unit for this zero value")
+    SourceFile file = CssAstScanner.scanSingleFile(
+      new File("src/test/resources/checks/zerounits.css"),
+      new DisallowUnitsForZeroValues());
+
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(3).withMessage(MESSAGE)
+      .next().atLine(4).withMessage(MESSAGE)
+      .next().atLine(5).withMessage(MESSAGE)
+      .next().atLine(6).withMessage(MESSAGE)
+      .next().atLine(7).withMessage(MESSAGE)
+      .next().atLine(8).withMessage(MESSAGE)
+      .next().atLine(9).withMessage(MESSAGE)
+      .next().atLine(10).withMessage(MESSAGE)
+      .next().atLine(11).withMessage(MESSAGE)
+      .next().atLine(12).withMessage(MESSAGE)
+      .next().atLine(13).withMessage(MESSAGE)
       .noMore();
   }
-
 }
