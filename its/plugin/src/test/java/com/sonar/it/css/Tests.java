@@ -33,12 +33,9 @@ import org.junit.runners.Suite;
 })
 public class Tests {
 
-  private static final String PLUGIN_KEY = "css";
-
   @ClassRule
   public static final Orchestrator ORCHESTRATOR = Orchestrator.builderEnv()
-    .addPlugin(PLUGIN_KEY)
-    .setMainPluginKey(PLUGIN_KEY)
+    .addPlugin(FileLocation.of("../../sonar-css-plugin/target/sonar-css-plugin.jar"))
     .restoreProfileAtStartup(FileLocation.ofClasspath("/com/sonar/it/css/it-profile.xml"))
     .restoreProfileAtStartup(FileLocation.ofClasspath("/com/sonar/it/css/empty-profile.xml"))
     .build();
