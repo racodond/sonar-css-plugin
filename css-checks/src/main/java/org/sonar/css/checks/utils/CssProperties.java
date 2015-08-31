@@ -1336,7 +1336,7 @@ public final class CssProperties {
 
     .put("mask-type", new CssProperty("mask-type")
       .setUrl("http://dev.w3.org/fxtf/css-masking-1/#propdef-mask-type")
-      .addValidator(new IdentifierValidator(ImmutableList.of("luminance | alpha")))
+      .addValidator(new IdentifierValidator(ImmutableList.of("luminance", "alpha")))
     )
 
     .put("marquee", new CssProperty("marquee")
@@ -1926,7 +1926,7 @@ public final class CssProperties {
 
     .put("text-rendering", new CssProperty("text-rendering")
       .setUrl("http://www.w3.org/TR/SVG11/painting.html#TextRenderingProperty")
-      .addValidator(new IdentifierValidator(ImmutableList.of("auto", "optimizeSpeed", "optimizeLegibility")))
+      .addValidator(new IdentifierValidator(ImmutableList.of("auto", "optimizespeed", "optimizelegibility", "geometricprecision")))
     )
 
     .put("text-shadow", new CssProperty("text-shadow")

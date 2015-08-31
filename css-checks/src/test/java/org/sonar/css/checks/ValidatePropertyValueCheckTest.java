@@ -937,6 +937,16 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void mask_type() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/mask-type.css"), check);
+    errorMessage = "Update the invalid value of property \"mask-type\". Expected format: luminance | alpha";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(5).withMessage(errorMessage).next()
+      .atLine(6).withMessage(errorMessage).next()
+      .atLine(7).withMessage(errorMessage).noMore();
+  }
+
+  @Test
   public void max_height() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/max-height.css"), check);
     errorMessage = "Update the invalid value of property \"max-height\". Expected format: auto | <length> | <percentage> | fill | max-content | min-content | fit-content";
@@ -1338,6 +1348,16 @@ public class ValidatePropertyValueCheckTest {
       .atLine(9).withMessage(errorMessage).next()
       .atLine(10).withMessage(errorMessage).next()
       .atLine(11).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void text_rendering() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/text-rendering.css"), check);
+    errorMessage = "Update the invalid value of property \"text-rendering\". Expected format: auto | optimizespeed | optimizelegibility | geometricprecision";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(7).withMessage(errorMessage).next()
+      .atLine(8).withMessage(errorMessage).next()
+      .atLine(9).withMessage(errorMessage).noMore();
   }
 
   @Test
