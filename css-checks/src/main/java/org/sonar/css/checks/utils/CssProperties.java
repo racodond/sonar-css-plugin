@@ -1406,7 +1406,7 @@ public final class CssProperties {
 
     .put("min-height", new CssProperty("min-height")
       .setUrl("http://dev.w3.org/csswg/css-sizing-3/#width-height-keywords")
-      .addValidator(ValidatorFactory.getWidthHeightValidator())
+      .addValidator(ValidatorFactory.getMaxWidthHeightValidator())
     )
 
     .put("min-inline-size", new CssProperty("min-inline-size")
@@ -1416,7 +1416,7 @@ public final class CssProperties {
 
     .put("min-width", new CssProperty("min-width")
       .setUrl("http://dev.w3.org/csswg/css-sizing-3/#width-height-keywords")
-      .addValidator(ValidatorFactory.getWidthHeightValidator())
+      .addValidator(ValidatorFactory.getMaxWidthHeightValidator())
     )
 
     .put("min-zoom", new CssProperty("min-zoom")

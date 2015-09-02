@@ -1,6 +1,6 @@
 .mybox {
   min-height: inherit;
-  min-height: auto;
+  min-height: none;
   min-height: 100%;
   min-height: -100%;
   min-height: 10px;
