@@ -54,7 +54,6 @@ public class ValidatorFactory {
   private static final ValueElementValidator positiveTimeValidator = new TimeValidator(true);
   private static final ValueElementValidator sizeValidator = new SizeValidator();
   private static final ValueElementValidator stringValidator = new StringValidator();
-  private static final ValueElementValidator timeValidator = new TimeValidator(false);
   private static final ValueElementValidator uriValidator = new UriValidator();
 
   private static final ValueElementValidator borderStyleValidator = new BorderStyleValidator();
@@ -65,6 +64,7 @@ public class ValidatorFactory {
   private static final ValueElementValidator paddingWidthValidator = new PaddingWidthValidator();
   private static final ValueElementValidator pauseValidator = new PauseValidator();
   private static final ValueElementValidator widthHeightValidator = new WidthHeightValidator();
+  private static final ValueElementValidator maxWidthHeightValidator = new MaxWidthHeightValidator();
 
   private static final ValueValidator borderRadiusValidator = new BorderRadiusValidator();
   private static final ValueValidator borderValidator = new BorderValidator();
@@ -85,7 +85,6 @@ public class ValidatorFactory {
   public static ValueElementValidator getBoxValidator() {
     return boxValidator;
   }
-
 
   public static ValueElementValidator getColorValidator() {
     return colorValidator;
@@ -151,10 +150,6 @@ public class ValidatorFactory {
     return stringValidator;
   }
 
-  public static ValueElementValidator getTimeValidator() {
-    return timeValidator;
-  }
-
   public static ValueElementValidator getUriValidator() {
     return uriValidator;
   }
@@ -189,6 +184,10 @@ public class ValidatorFactory {
 
   public static ValueElementValidator getWidthHeightValidator() {
     return widthHeightValidator;
+  }
+
+  public static ValueElementValidator getMaxWidthHeightValidator() {
+    return maxWidthHeightValidator;
   }
 
   public static ValueValidator getBorderRadiusValidator() {

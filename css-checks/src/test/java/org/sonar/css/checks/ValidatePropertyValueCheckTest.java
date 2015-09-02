@@ -949,7 +949,7 @@ public class ValidatePropertyValueCheckTest {
   @Test
   public void max_height() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/max-height.css"), check);
-    errorMessage = "Update the invalid value of property \"max-height\". Expected format: auto | <length> | <percentage> | fill | max-content | min-content | fit-content";
+    errorMessage = "Update the invalid value of property \"max-height\". Expected format: none | <length> | <percentage> | fill | max-content | min-content | fit-content";
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(8).withMessage(errorMessage).next()
       .atLine(9).withMessage(errorMessage).noMore();
@@ -958,7 +958,7 @@ public class ValidatePropertyValueCheckTest {
   @Test
   public void max_width() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/max-width.css"), check);
-    errorMessage = "Update the invalid value of property \"max-width\". Expected format: auto | <length> | <percentage> | fill | max-content | min-content | fit-content";
+    errorMessage = "Update the invalid value of property \"max-width\". Expected format: none | <length> | <percentage> | fill | max-content | min-content | fit-content";
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(8).withMessage(errorMessage).next()
       .atLine(9).withMessage(errorMessage).noMore();

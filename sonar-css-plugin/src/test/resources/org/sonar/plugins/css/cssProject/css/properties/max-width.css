@@ -1,6 +1,6 @@
 .mybox {
   max-width: inherit;
-  max-width: auto;
+  max-width: none;
   max-width: 100%;
   max-width: -100%;
   max-width: 10px;

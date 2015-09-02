@@ -1382,7 +1382,7 @@ public final class CssProperties {
 
     .put("max-height", new CssProperty("max-height")
       .setUrl("http://dev.w3.org/csswg/css-sizing-3/#width-height-keywords")
-      .addValidator(ValidatorFactory.getWidthHeightValidator())
+      .addValidator(ValidatorFactory.getMaxWidthHeightValidator())
     )
 
     .put("max-inline-size", new CssProperty("max-inline-size")
@@ -1392,7 +1392,7 @@ public final class CssProperties {
 
     .put("max-width", new CssProperty("max-width")
       .setUrl("http://dev.w3.org/csswg/css-sizing-3/#width-height-keywords")
-      .addValidator(ValidatorFactory.getWidthHeightValidator())
+      .addValidator(ValidatorFactory.getMaxWidthHeightValidator())
     )
     .put("max-zoom", new CssProperty("max-zoom")
       .setUrl("http://dev.w3.org/csswg/css-device-adapt/#descdef-viewport-max-zoom")
