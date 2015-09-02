@@ -23,6 +23,7 @@ import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.NumberValueElement;
 
 import javax.annotation.Nonnull;
+import java.util.Locale;
 
 public class NumberRangeValidator extends NumberValidator {
 
@@ -47,7 +48,7 @@ public class NumberRangeValidator extends NumberValidator {
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    return "<number>(" + String.format("%.1f", min) + "," + String.format("%.1f", max) + ")";
+    return "<number>(" + String.format(Locale.ENGLISH, "%.1f", min) + "," + String.format(Locale.ENGLISH, "%.1f", max) + ")";
   }
 
 }
