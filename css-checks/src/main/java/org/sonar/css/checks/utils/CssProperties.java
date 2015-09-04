@@ -1966,6 +1966,7 @@ public final class CssProperties {
 
     .put("touch-action", new CssProperty("touch-action")
       .setUrl("https://w3c.github.io/pointerevents/#the-touch-action-css-property")
+      .addValidator(new TouchActionValidator())
     )
 
     .put("transform", new CssProperty("transform")
