@@ -1379,6 +1379,18 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void touch_action() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/touch-action.css"), check);
+    errorMessage = "Update the invalid value of property \"touch-action\". Expected format: auto | none | [pan-x || pan-y] | manipulation";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(10).withMessage(errorMessage)
+      .next().atLine(11).withMessage(errorMessage)
+      .next().atLine(12).withMessage(errorMessage)
+      .next().atLine(13).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
   public void transform() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/transform.css"), check);
     errorMessage = "Update the invalid value of property \"transform\". Expected format: none | <transform-function>+";
