@@ -27,7 +27,6 @@ import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.parser.CssGrammar;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
@@ -42,10 +41,10 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   key = "bulletproof-font-face",
   name = "Font face should be made compatible with IE 6, 7 and 8",
   priority = Priority.MAJOR,
-  tags = {Tags.BROWSER_COMPATIBILITY})
+  tags = {Tags.BROWSER_COMPATIBILITY},
+  status = org.sonar.api.rules.Rule.STATUS_DEPRECATED)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("10min")
-@ActivatedByDefault
 public class BulletproofFontFace extends SquidCheck<LexerlessGrammar> {
 
   boolean foundEot;

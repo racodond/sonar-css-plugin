@@ -61,6 +61,7 @@ public final class CheckList {
       DuplicateProperties.class,
       EmptyDeclarationCheck.class,
       ExperimentalPropertyUsageCheck.class,
+      FontFaceBrowserCompatibility.class,
       FixmeTagPresenceCheck.class,
       ImportantPositionCheck.class,
       ImportNumberThreshold.class,

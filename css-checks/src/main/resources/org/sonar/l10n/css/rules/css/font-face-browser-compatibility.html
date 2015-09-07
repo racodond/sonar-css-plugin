@@ -1,0 +1,115 @@
+<p>
+    While using the <code>@font-face</code> rule, lots of browser compatibility issues arise. This rules performs some
+    checks regarding browser compatibility. The browser support level can be set to either:
+<ul>
+    <li>Practical Level of Browser Support (basic)</li>
+    <li>Slightly Deeper Browser Support (deep)</li>
+    <li>Deepest Possible Browser Support (deepest)</li>
+</ul>
+
+<h3>Deepest Browser Support (basic)</h3>
+The following definition supports most of the browsers still in use:
+<pre>
+@font-face {
+  font-family: 'MyWebFont';
+  src: url('myfont.eot');                                     /* IE9 Compatibility Modes */
+  src: url('myfont.eot?#iefix') format('embedded-opentype'),  /* IE6-IE8 */
+       url('myfont.woff2') format('woff2'),                   /* Super Modern Browsers */
+       url('myfont.woff') format('woff'),                     /* Pretty Modern Browsers */
+       url('myfont.ttf') format('truetype'),                  /* Safari, Android, iOS */
+       url('myfont.svg#svgFontName') format('svg');           /* Legacy iOS */
+}
+</pre>
+The rule checks the following:
+<ul>
+    <li>At least two <code>src</code> properties.</li>
+    <li>The second to last <code>src</code> property only defines an <code>.eot</code> file with no format.</li>
+    <li>The last <code>src</code> property defines the <code>.eot</code> file first with the IE6-IE8
+        <code>?#iefix</code> hack. All the other formats are then defined in the following order: <code>woff2</code>,
+        <code>woff2</code>, <code>ttf</code>, <code>svg</code>.
+    </li>
+</ul>
+
+<h3>Slightly Deeper Browser Support (deep)</h3>
+The following definition is compatible with:
+<table>
+    <tr>
+        <th>Chrome</th>
+        <th>Safari</th>
+        <th>Firefox</th>
+        <th>Opera</th>
+        <th>IE</th>
+        <th>Android</th>
+        <th>iOS</th>
+    </tr>
+    <tr>
+        <td>3.5+</td>
+        <td>3+</td>
+        <td>3.5+</td>
+        <td>10.1+</td>
+        <td>9+</td>
+        <td>2.2+</td>
+        <td>4.3+</td>
+    </tr>
+</table>
+<pre>
+@font-face {
+  font-family: 'MyWebFont';
+  src: url('myfont.woff2') format('woff2'),
+       url('myfont.woff') format('woff'),
+       url('myfont.ttf') format('truetype');
+}
+</pre>
+The rule checks the last <code>src</code> property as follows:
+<ul>
+    <li>Defines at least <code>woff2</code>, <code>woff</code> and <code>truetype</code> formats in this order.</li>
+    <li>Additional formats can be defined but only after the <code>truetype</code> format. An exception though, an
+        <code>.eot</code> file can be defined before the <code>woff2</code> format. Basically, if
+        a Deepest Browser Support syntax is found, it should not raise any issue.
+    </li>
+</ul>
+.
+<h3>Practical Level of Browser Support</h3>
+The following definition is compatible with:
+<table>
+    <tr>
+        <th>Chrome</th>
+        <th>Safari</th>
+        <th>Firefox</th>
+        <th>Opera</th>
+        <th>IE</th>
+        <th>Android</th>
+        <th>iOS</th>
+    </tr>
+    <tr>
+        <td>5+</td>
+        <td>5.1+</td>
+        <td>3.6+</td>
+        <td>11.50+</td>
+        <td>9+</td>
+        <td>4.4+</td>
+        <td>5.1+</td>
+    </tr>
+</table>
+<pre>
+@font-face {
+  font-family: 'MyWebFont';
+  src: url('myfont.woff2') format('woff2'),
+       url('myfont.woff') format('woff');
+}
+</pre>
+The rule checks the last <code>src</code> property as follows:
+<ul>
+    <li>Defines at least <code>woff2</code> and <code>woff</code> formats in this order.</li>
+    <li>Additional formats can be defined but only after the <code>woff</code> format. An exception though, an
+        <code>.eot</code> file can be defined before the <code>woff2</code> format.Basically, if
+        a Deeper or Deepest Browser Support syntax is found, it should not raise any issue.
+    </li>
+</ul>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://css-tricks.com/snippets/css/using-font-face/">CSS-TRICKS, Using @font-face</a></li>
+    <li><a href="http://blog.fontspring.com/2011/02/further-hardening-of-the-bulletproof-syntax/">FONTSPRING, Further
+        Hardening Of The Bulletproof Syntax</a></li>
+</ul>
