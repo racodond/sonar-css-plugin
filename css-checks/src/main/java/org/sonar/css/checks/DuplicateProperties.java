@@ -22,6 +22,11 @@ package org.sonar.css.checks;
 import com.google.common.collect.Lists;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.Token;
+
+import java.util.Iterator;
+import java.util.List;
+import javax.annotation.Nonnull;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -32,13 +37,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-import java.util.List;
-
-/**
- * https://github.com/stubbornella/csslint/wiki/Disallow-duplicate-properties
- *
- * @author tkende
- */
 @Rule(
   key = "duplicate-properties",
   name = "Duplicated properties should be removed",
@@ -51,72 +49,76 @@ public class DuplicateProperties extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.SUP_DECLARATION, CssGrammar.DECLARATION);
+    subscribeTo(CssGrammar.SUP_DECLARATION);
   }
 
-  List<Declarations> declarations = Lists.newArrayList();
+  List<Declaration> declarations = Lists.newArrayList();
 
   @Override
-  public void visitNode(AstNode astNode) {
-    if (astNode.getType().equals(CssGrammar.SUP_DECLARATION)) {
-      declarations.clear();
-    } else {
-      String property = astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue();
-      String value = getTokensAsString(astNode.getFirstChild(CssGrammar.VALUE).getTokens());
-      List<Declarations> storedDeclarations = findStoredDeclarations(property);
-      if (!storedDeclarations.isEmpty() && (hasSameValue(storedDeclarations, value)
-        || notAfter(storedDeclarations, astNode.getPreviousSibling().getPreviousSibling()))) {
-        getContext().createLineViolation(this, "Remove this duplicated property", astNode);
+  public void visitNode(AstNode supDeclarationNode) {
+    declarations = getAllDeclarations(supDeclarationNode);
+    Iterator<Declaration> iterator = declarations.iterator();
+    while (iterator.hasNext()) {
+      Declaration currentDeclaration = iterator.next();
+      iterator.remove();
+      if (existSamePropertyWithSameValue(currentDeclaration)
+        || existSamePropertyWithDifferentValue(currentDeclaration)) {
+        getContext().createLineViolation(this, "Remove this duplicated property: \"" + currentDeclaration.getProperty() + "\".", currentDeclaration.getDeclarationNode());
       }
-      declarations.add(new Declarations(property, value, astNode));
     }
   }
 
-  private boolean notAfter(List<Declarations> storedDeclarations, AstNode astNode) {
-    for (Declarations declaration : storedDeclarations) {
-      if (declaration.getNode().equals(astNode)) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  private boolean hasSameValue(List<Declarations> storedDeclarations, String value) {
-    for (Declarations declaration : storedDeclarations) {
-      if (declaration.getValue().equals(value)) {
+  private boolean existSamePropertyWithSameValue(@Nonnull Declaration currentDeclaration) {
+    for (Declaration declaration : declarations) {
+      if (declaration.getProperty().equals(currentDeclaration.getProperty())
+        && declaration.getValue().equals(currentDeclaration.getValue())) {
         return true;
       }
     }
     return false;
   }
 
-  private String getTokensAsString(List<Token> tokens) {
-    StringBuilder b = new StringBuilder();
-    for (Token token : tokens) {
-      b.append(token.getValue());
-    }
-    return b.toString();
-  }
-
-  private List<Declarations> findStoredDeclarations(String property) {
-    List<Declarations> ret = Lists.newArrayList();
-    for (Declarations decl : declarations) {
-      if (decl.getProperty().equals(property)) {
-        ret.add(decl);
+  private boolean existSamePropertyWithDifferentValue(@Nonnull Declaration currentDeclaration) {
+    for (Declaration declaration : declarations) {
+      if (declaration.getProperty().equals(currentDeclaration.getProperty())
+        && !declaration.getValue().equals(currentDeclaration.getValue())
+        && !beforeSameProperty(currentDeclaration)) {
+        return true;
       }
     }
-    return ret;
+    return false;
   }
 
-  private static class Declarations {
-    String property;
-    String value;
-    private AstNode node;
+  private boolean beforeSameProperty(@Nonnull Declaration currentDeclaration) {
+    if (!declarations.isEmpty()) {
+      return currentDeclaration.getProperty().equals(declarations.get(0).getProperty());
+    } else {
+      return false;
+    }
+  }
 
-    public Declarations(String property, String value, AstNode node) {
-      this.property = property.trim();
-      this.value = value.trim();
-      this.node = node;
+  private List<Declaration> getAllDeclarations(AstNode supDeclarationNode) {
+    List<AstNode> declarationNodes = supDeclarationNode.getChildren(CssGrammar.DECLARATION);
+    List<Declaration> declarations = Lists.newArrayList();
+    for (AstNode declarationNode : declarationNodes) {
+      declarations.add(new Declaration(declarationNode));
+    }
+    return declarations;
+  }
+
+  private static class Declaration {
+    private AstNode declarationNode;
+    private String property;
+    private String value;
+
+    public Declaration(AstNode declarationNode) {
+      this.declarationNode = declarationNode;
+      property = declarationNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue().toLowerCase();
+      StringBuilder b = new StringBuilder();
+      for (Token token : declarationNode.getFirstChild(CssGrammar.VALUE).getTokens()) {
+        b.append(token.getValue());
+      }
+      value = b.toString().toLowerCase();
     }
 
     public String getProperty() {
@@ -127,8 +129,8 @@ public class DuplicateProperties extends SquidCheck<LexerlessGrammar> {
       return value;
     }
 
-    public AstNode getNode() {
-      return node;
+    public AstNode getDeclarationNode() {
+      return declarationNode;
     }
   }
 
