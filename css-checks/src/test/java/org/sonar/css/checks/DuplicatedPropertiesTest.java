@@ -19,38 +19,37 @@
  */
 package org.sonar.css.checks;
 
+import java.io.File;
+
 import org.junit.Test;
 import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
-import java.io.File;
-
 public class DuplicatedPropertiesTest {
 
   @Test
-  public void test() {
-    DuplicateProperties check = new DuplicateProperties();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/duplicatedProperties.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(7).withMessage("Remove this duplicated property").next()
-      .atLine(20).withMessage("Remove this duplicated property").noMore();
+  public void should_find_some_duplicated_properties_and_raise_some_issues() {
+    SourceFile file = CssAstScanner.scanSingleFile(
+      new File("src/test/resources/checks/duplicatedProperties.css"),
+      new DuplicateProperties());
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(9).withMessage("Remove this duplicated property: \"border\".")
+      .next().atLine(14).withMessage("Remove this duplicated property: \"border\".")
+      .next().atLine(15).withMessage("Remove this duplicated property: \"border\".")
+      .next().atLine(20).withMessage("Remove this duplicated property: \"color\".")
+      .next().atLine(22).withMessage("Remove this duplicated property: \"border\".")
+      .next().atLine(23).withMessage("Remove this duplicated property: \"border\".")
+      .next().atLine(29).withMessage("Remove this duplicated property: \"border\".")
+      .next().atLine(48).withMessage("Remove this duplicated property: \"border\".")
+      .noMore();
   }
 
   @Test
-  public void testBug() {
+  public void should_not_fin_any_duplicated_properties_and_not_raise_any_issues() {
     DuplicateProperties check = new DuplicateProperties();
     SourceFile file = CssAstScanner.scanSingleFile(new File(
       "src/test/resources/checks/noDuplication.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
-  }
-
-  @Test
-  public void test2() {
-    DuplicateProperties check = new DuplicateProperties();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/fontface.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
   }
 
