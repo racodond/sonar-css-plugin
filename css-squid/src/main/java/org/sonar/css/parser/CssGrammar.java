@@ -196,7 +196,7 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(SIMPLE_SELECTOR).is(
       b.firstOf(UNIVERSAL_SELECTOR, TYPE_SELECTOR, animationEvent),
       b.optional(WHITESPACES, b.next(COMBINATORS)));
-    b.rule(TYPE_SELECTOR).is(IDENT, b.zeroOrMore(SUB_S));
+    b.rule(TYPE_SELECTOR).is(identNoWS, b.zeroOrMore(SUB_S));
     b.rule(UNIVERSAL_SELECTOR).is(
       b.firstOf(
         b.sequence(addSpacing("*", b), b.nextNot(IDENT), b.zeroOrMore(SUB_S)),
@@ -209,10 +209,10 @@ public enum CssGrammar implements GrammarRuleKey {
         b.optional(
           b.firstOf(DASH_MATCH, INCLUDES, EQ, CONTAINS, STARTS_WITH, ENDS_WITH),
           ANY),
-        CLOSE_BRACKET));
+        "]"));
     b.rule(CLASS_SELECTOR).is(b.oneOrMore(".", identNoWS));
     b.rule(ID_SELECTOR).is("#", identNoWS);
-    b.rule(PSEUDO).is(COLON, ANY);
+    b.rule(PSEUDO).is(":", ANY);
     b.rule(SUP_DECLARATION).is(
       b.oneOrMore(b.firstOf(SEMICOLON, b.firstOf(VARIABLE_DECLARATION, DECLARATION))));
     b.rule(DECLARATION).is(PROPERTY, COLON, VALUE);

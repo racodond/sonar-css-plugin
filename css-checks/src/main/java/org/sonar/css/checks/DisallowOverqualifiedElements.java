@@ -65,7 +65,7 @@ public class DisallowOverqualifiedElements extends SquidCheck<LexerlessGrammar> 
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.getPreviousSibling() != null && astNode.getPreviousSibling().isNot(CssGrammar.DELIM)) {
+    if (astNode.getPreviousSibling() != null && astNode.getPreviousSibling().is(CssGrammar.identNoWS)) {
       Selectors newSelector = new Selectors(CssChecksUtil.getStringValue(astNode),
         astNode.getPreviousSibling().getTokenValue(), astNode.getTokenLine());
       int pos = selectors.indexOf(newSelector);
@@ -81,7 +81,7 @@ public class DisallowOverqualifiedElements extends SquidCheck<LexerlessGrammar> 
   public void leaveFile(AstNode astNode) {
     for (Selectors key : selectors) {
       if (key.getElements().size() == 1) {
-        getContext().createLineViolation(this, "Remove the name of this overqualified element",
+        getContext().createLineViolation(this, "Remove the name of this overqualified element.",
           key.getElements().entrySet().iterator().next().getValue());
       }
     }

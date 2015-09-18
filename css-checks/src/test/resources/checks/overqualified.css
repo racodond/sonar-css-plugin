@@ -20,3 +20,13 @@ p.active2 {
 
 .a-we,.z-b>a,.a-c>a{
 }
+
+p .test {}
+div.test {}  /* Noncompliant */
+
+p.test2 {}
+div.test2 {}
+
+#abc .test3 {}
+[target=_blank] .test4 {}
+li:hover .test5 {}
