@@ -65,7 +65,7 @@ public class CssSquidSensorTest {
 
     fs = mock(FileSystem.class);
     when(fs.predicates()).thenReturn(mock(FilePredicates.class));
-    when(fs.files(Mockito.any(FilePredicate.class))).thenReturn(Arrays.asList(new File("src/test/resources/org/sonar/plugins/css/cssProject/css/boxSizing.css")));
+    when(fs.files(Mockito.any(FilePredicate.class))).thenReturn(Arrays.asList(new File("src/test/resources/org/sonar/plugins/css/cssProject/css/metrics.css")));
     when(fs.encoding()).thenReturn(Charset.forName("UTF-8"));
 
     Checks<SquidAstVisitor> checks = mock(Checks.class);

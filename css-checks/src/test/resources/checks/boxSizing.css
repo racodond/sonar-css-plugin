@@ -40,3 +40,69 @@ h1 {
     border-top: none;
     height: 100px;
 }
+
+/* Noncompliant: 'border' and 'height' */
+.mybox {
+  border: 10px;
+  height: 100px;
+}
+
+/* Noncompliant: 'border' and 'width' */
+.mybox {
+  border: 10px;
+  width: 100px;
+}
+
+/* Compliant: 'border' and 'width' but 'border' is zero*/
+.mybox {
+  border: 0px;
+  width: 100px;
+}
+
+/* Compliant: 'border' and 'width' but 'border' is zero*/
+.mybox {
+  border: 0px;
+  width: 100px;
+}
+
+/* Compliant: 'border' and 'width' but 'border' is zero*/
+.mybox {
+  border: 0%;
+  width: 100px;
+}
+
+/* Compliant: 'border' and 'width' but 'border' is zero*/
+.mybox {
+  border: 0;
+  width: 100px;
+}
+
+/* Compliant: 'border' and 'width' but 'border' is zero*/
+.mybox {
+  border: 0.0;
+  width: 100px;
+}
+
+/* Compliant: 'padding' and 'width' but 'padding' is zero*/
+.mybox {
+  padding: 0;
+  width: 100px;
+}
+
+/* Compliant: 'padding' and 'width' but 'padding' is zero*/
+.mybox {
+  padding: 0px 0px;
+  width: 100px;
+}
+
+/* Noncompliant: 'padding' and 'width'*/
+.mybox {
+  padding: 0px 10px;
+  width: 100px;
+}
+
+/* Noncompliant: 'border' and 'width'*/
+.mybox {
+  border: 0px medium;
+  width: 100px;
+}

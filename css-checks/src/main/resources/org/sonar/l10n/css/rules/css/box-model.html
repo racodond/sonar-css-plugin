@@ -19,8 +19,8 @@
 <p>Now an element with a class of <code>mybox</code> will have an actual width of 100 pixels, and the padding and borders will exist inside of that area, leaving 88 pixels for content instead of 100 pixels.</p>
 <p>This rule is aimed at eliminating unwanted box model sizing issues. As such, the rule raises an issue when it finds:
 <ul>
-  <li><code>width</code> being used with <code>border</code>, <code>border-left</code>, <code>border-right</code>, <code>padding</code>, <code>padding-left</code>, or <code>padding-right</code></li>
-  <li><code>height</code> being used with <code>border</code>, <code>border-top</code>, <code>border-bottom</code>, <code>padding</code>, <code>padding-top</code>, or <code>padding-bottom</code></li>
+  <li><code>width</code> being used with <code>border</code>, <code>border-left</code>, <code>border-right</code>, <code>border-width</code>, <code>border-left-width</code>, <code>border-right-width</code>, <code>padding</code>, <code>padding-left</code>, or <code>padding-right</code></li>
+  <li><code>height</code> being used with <code>border</code>, <code>border-top</code>, <code>border-bottom</code>, <code>border-width</code>, <code>border-top-width</code>, <code>border-bottom-width</code>, <code>padding</code>, <code>padding-top</code>, or <code>padding-bottom</code></li>
 </ul>
 If the <code>box-sizing</code> property is specified, then the rule does not raise any issues for the above conditions as it assumes you know what you're doing.
 </p>
@@ -39,6 +39,12 @@ If the <code>box-sizing</code> property is specified, then the rule does not rai
 .mybox {
   box-sizing: border-box;
   border: 1px solid black;
+  width: 100px;
+}
+
+/* Compliant: 'width' defined along with 'border-width' but 'border-width' is equals to zero */
+.mybox {
+  border-width: 0;
   width: 100px;
 }
 </pre>
