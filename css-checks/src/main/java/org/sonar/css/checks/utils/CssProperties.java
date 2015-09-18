@@ -276,7 +276,7 @@ public final class CssProperties {
 
     .put("border", new CssProperty("border")
       .setUrl("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-shorthands")
-      .addValidator(ValidatorFactory.getBorderValidator())
+      .addValidator(new BorderPropertyValidator())
     )
 
     .put("border-block-end", new CssProperty("border-block-end")

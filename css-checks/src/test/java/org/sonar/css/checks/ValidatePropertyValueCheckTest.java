@@ -301,7 +301,7 @@ public class ValidatePropertyValueCheckTest {
   @Test
   public void border_xxx() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/border-xxx.css"), check);
-    errorMessage = "Update the invalid value of property \"border\". Expected format: <border-width> || <border-style> || <color>";
+    errorMessage = "Update the invalid value of property \"border\". Expected format: <border-width>{1,4} || <border-style>{1,4} || <color>";
     String errorMessageTop = "Update the invalid value of property \"border-top\". Expected format: <border-width> || <border-style> || <color>";
     String errorMessageRight = "Update the invalid value of property \"border-right\". Expected format: <border-width> || <border-style> || <color>";
     String errorMessageLeft = "Update the invalid value of property \"border-left\". Expected format: <border-width> || <border-style> || <color>";
@@ -321,7 +321,7 @@ public class ValidatePropertyValueCheckTest {
       .atLine(50).withMessage(errorMessageBottom).next()
       .atLine(66).withMessage(errorMessage).next()
       .atLine(67).withMessage(errorMessage).next()
-      .atLine(68).withMessage(errorMessage).noMore();
+      .atLine(70).withMessage(errorMessage).noMore();
   }
 
   @Test
