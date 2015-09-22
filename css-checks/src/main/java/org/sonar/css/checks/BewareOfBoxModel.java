@@ -21,20 +21,27 @@ package org.sonar.css.checks;
 
 import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
+
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.checks.utils.CssValue;
+import org.sonar.css.checks.utils.CssValueElement;
+import org.sonar.css.checks.utils.valueelements.DimensionValueElement;
+import org.sonar.css.checks.utils.valueelements.NumberValueElement;
+import org.sonar.css.checks.utils.valueelements.PercentageValueElement;
+import org.sonar.css.checks.validators.ValidatorFactory;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Beware-of-box-model-size
@@ -51,13 +58,21 @@ import java.util.Set;
 @ActivatedByDefault
 public class BewareOfBoxModel extends SquidCheck<LexerlessGrammar> {
 
-  private List<String> widthSizing = ImmutableList.<String>of(
-    "border", "border-left", "border-right", "padding", "padding-left", "padding-right"
-  );
+  private static final List<String> WIDTH_SIZING = ImmutableList.<String>of(
+    "border", "border-left", "border-right", "border-width", "border-left-width", "border-right-width", "padding", "padding-left", "padding-right"
+    );
 
-  private List<String> heightSizing = ImmutableList.<String>of(
-    "border", "border-top", "border-bottom", "padding", "padding-top", "padding-bottom"
-  );
+  private static final List<String> HEIGHT_SIZING = ImmutableList.<String>of(
+    "border", "border-top", "border-bottom", "border-width", "border-top-width", "border-bottom-width", "padding", "padding-top", "padding-bottom"
+    );
+
+  private static final List<String> PADDING_WIDTH = ImmutableList.<String>of(
+    "padding", "padding-top", "padding-bottom", "padding-right", "padding-left"
+    );
+
+  private static final List<String> BORDER_WIDTH = ImmutableList.<String>of(
+    "border", "border-left", "border-right", "border-top", "border-bottom", "border-top-width", "border-bottom-width", "border-left-width", "border-right-width"
+    );
 
   private Set<Combinations> combinations;
 
@@ -96,32 +111,70 @@ public class BewareOfBoxModel extends SquidCheck<LexerlessGrammar> {
     if (astNode.is(CssGrammar.RULESET)
       && (combinations.containsAll(Arrays.asList(Combinations.WIDTH_FOUND, Combinations.WIDTH_SIZING))
       || combinations.containsAll(Arrays.asList(Combinations.HEIGHT_FOUND, Combinations.HEIGHT_SIZING)))) {
-      getContext().createLineViolation(this, "Check this potential box model size issue", astNode);
+      getContext().createLineViolation(this, "Check this potential box model size issue.", astNode);
     }
   }
 
   private boolean isWidthSizing(AstNode astNode) {
-    return isOtherUsed(widthSizing, astNode);
+    return isOtherUsed(WIDTH_SIZING, astNode);
   }
 
   private boolean isHeightSizing(AstNode astNode) {
-    return isOtherUsed(heightSizing, astNode);
+    return isOtherUsed(HEIGHT_SIZING, astNode);
   }
 
   private boolean isOtherUsed(List<String> props, AstNode declaration) {
-    String property = declaration.getFirstChild(CssGrammar.PROPERTY).getTokenValue();
-    String value = declaration.getFirstChild(CssGrammar.VALUE).getTokenValue();
-    return props.contains(property) && !"none".equalsIgnoreCase(value);
+    String property = declaration.getFirstChild(CssGrammar.PROPERTY).getTokenValue().toLowerCase();
+    AstNode valueNode = declaration.getFirstChild(CssGrammar.VALUE);
+    return props.contains(property) && !isZeroValue(property, valueNode);
+  }
+
+  private boolean isZeroValue(String property, AstNode valueNode) {
+    return PADDING_WIDTH.contains(property) && isZeroValuePaddingWidth(valueNode)
+      || BORDER_WIDTH.contains(property) && isZeroValueBorderWidth(valueNode);
+  }
+
+  private boolean isZeroValueBorderWidth(AstNode valueNode) {
+    CssValue cssValue = new CssValue(valueNode);
+    List<CssValueElement> valueElements = cssValue.getValueElements();
+    for (CssValueElement valueElement : valueElements) {
+      if (ValidatorFactory.getBorderWidthValidator().isValid(valueElement)) {
+        if (valueElement instanceof DimensionValueElement && !((DimensionValueElement) valueElement).isZero()
+          || valueElement instanceof PercentageValueElement && !((PercentageValueElement) valueElement).isZero()
+          || valueElement instanceof NumberValueElement && !((NumberValueElement) valueElement).isZero()) {
+          return false;
+        } else if (!(valueElement instanceof DimensionValueElement)
+          && !(valueElement instanceof PercentageValueElement)
+          && !(valueElement instanceof NumberValueElement)) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  private boolean isZeroValuePaddingWidth(AstNode valueNode) {
+    CssValue cssValue = new CssValue(valueNode);
+    List<CssValueElement> valueElements = cssValue.getValueElements();
+    for (CssValueElement valueElement : valueElements) {
+      if (ValidatorFactory.getPaddingWidthValidator().isValid(valueElement)) {
+        if (valueElement instanceof DimensionValueElement && !((DimensionValueElement) valueElement).isZero()
+          || valueElement instanceof PercentageValueElement && !((PercentageValueElement) valueElement).isZero()
+          || valueElement instanceof NumberValueElement && !((NumberValueElement) valueElement).isZero()) {
+          return false;
+        } else if (!(valueElement instanceof DimensionValueElement)
+          && !(valueElement instanceof PercentageValueElement)
+          && !(valueElement instanceof NumberValueElement)) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   private boolean isBoxSizing(AstNode declaration) {
     String property = declaration.getFirstChild(CssGrammar.PROPERTY).getTokenValue();
     return "box-sizing".equalsIgnoreCase(property);
-    /*
-     * if ("box-sizing".equalsIgnoreCase(property)) {
-     * return "border-box".equalsIgnoreCase(declaration.getFirstChild(CssGrammar.value).getTokenValue());
-     * }
-     */
   }
 
   private boolean isWidth(AstNode astNode) {

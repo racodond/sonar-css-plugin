@@ -26,13 +26,19 @@ import org.sonar.css.checks.utils.CssValueElement;
 public class PercentageValueElement extends CssValueElement {
 
   private final double value;
+  private final boolean isZero;
 
   public PercentageValueElement(AstNode astNode) {
     value = Double.valueOf(astNode.getFirstChild(GenericTokenType.LITERAL).getTokenValue());
+    isZero = astNode.getFirstChild(GenericTokenType.LITERAL).getTokenValue().matches("([\\-\\+])?[0]*(\\.[0]+)?");
   }
 
   public boolean isPositive() {
     return value >= 0;
+  }
+
+  public boolean isZero() {
+    return isZero;
   }
 
 }

@@ -28,10 +28,12 @@ public class DimensionValueElement extends CssValueElement {
 
   private final double value;
   private final String unit;
+  private final boolean isZero;
 
   public DimensionValueElement(AstNode dimensionNode) {
     value = Double.valueOf(dimensionNode.getFirstChild(GenericTokenType.LITERAL).getTokenValue());
     unit = dimensionNode.getFirstChild(CssGrammar.unit).getTokenValue();
+    isZero = dimensionNode.getFirstChild(GenericTokenType.LITERAL).getTokenValue().matches("([\\-\\+])?[0]*(\\.[0]+)?");
   }
 
   public String getUnit() {
@@ -40,6 +42,10 @@ public class DimensionValueElement extends CssValueElement {
 
   public boolean isPositive() {
     return value >= 0;
+  }
+
+  public boolean isZero() {
+    return isZero;
   }
 
 }
