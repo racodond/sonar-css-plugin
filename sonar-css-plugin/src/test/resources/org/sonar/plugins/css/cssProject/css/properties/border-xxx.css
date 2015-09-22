@@ -63,9 +63,9 @@
   border: thin green;
   border: 10px green;
   border: rgb(25,25,25) 10px;
-  border: dotted thin green green; /* Noncompliant */
   border: dotted abc green; /* Noncompliant */
   border: dotted -10px green; /* Noncompliant */
   border: 2px groove threedface;
+  border: 2px 2px groove threedface;
+  border: 2px 2px 2px 2px 2px groove groove groove groove green; /* Noncompliant */
 }
-
