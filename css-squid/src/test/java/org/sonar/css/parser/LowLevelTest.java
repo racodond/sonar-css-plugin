@@ -64,31 +64,6 @@ public class LowLevelTest extends TestBase {
   }
 
   @Test
-  public void selector() {
-    assertThat(b.rule(CssGrammar.SELECTOR))
-      .matches("h6")
-      .matches("h1, h2")
-      .matches("h4 + h5")
-      .matches("h3, h4 + h5")
-      .notMatches("h3{")
-      .matches(code("p[example=\"public class foo\\",
-        "{\\",
-        "    private int x;\\",
-        "\\",
-        "    foo(int x) {\\",
-        "        this.x = x;\\",
-        "    }\\",
-        "\\",
-        "}\"]"))
-      .matches("h1,\nh2")
-      .matches("h2\n,h3")
-      .matches("h2 /* comment*/")
-      .matches("h2\n /* comment*/")
-      .matches("* ");
-
-  }
-
-  @Test
   public void uri() {
     assertThat(b.rule(CssGrammar.URI))
       .matches("url(\"http://www.example.com/pinkish.png\")")

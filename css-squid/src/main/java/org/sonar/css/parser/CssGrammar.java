@@ -86,6 +86,7 @@ public enum CssGrammar implements GrammarRuleKey {
   WHITESPACE,
   WHITESPACES,
   FUNCTION,
+  FUNCTION_PSEUDO,
   INCLUDES,
   DASH_MATCH,
   EQ,
@@ -196,7 +197,7 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(SIMPLE_SELECTOR).is(
       b.firstOf(UNIVERSAL_SELECTOR, TYPE_SELECTOR, animationEvent),
       b.optional(WHITESPACES, b.next(COMBINATORS)));
-    b.rule(TYPE_SELECTOR).is(IDENT, b.zeroOrMore(SUB_S));
+    b.rule(TYPE_SELECTOR).is(identNoWS, b.zeroOrMore(SUB_S));
     b.rule(UNIVERSAL_SELECTOR).is(
       b.firstOf(
         b.sequence(addSpacing("*", b), b.nextNot(IDENT), b.zeroOrMore(SUB_S)),
@@ -209,10 +210,13 @@ public enum CssGrammar implements GrammarRuleKey {
         b.optional(
           b.firstOf(DASH_MATCH, INCLUDES, EQ, CONTAINS, STARTS_WITH, ENDS_WITH),
           ANY),
-        CLOSE_BRACKET));
+        "]"));
     b.rule(CLASS_SELECTOR).is(b.oneOrMore(".", identNoWS));
     b.rule(ID_SELECTOR).is("#", identNoWS);
-    b.rule(PSEUDO).is(COLON, ANY);
+    b.rule(PSEUDO).is(
+      b.firstOf("::", ":"),
+      b.firstOf(FUNCTION_PSEUDO, identNoWS)
+      );
     b.rule(SUP_DECLARATION).is(
       b.oneOrMore(b.firstOf(SEMICOLON, b.firstOf(VARIABLE_DECLARATION, DECLARATION))));
     b.rule(DECLARATION).is(PROPERTY, COLON, VALUE);
@@ -310,8 +314,8 @@ public enum CssGrammar implements GrammarRuleKey {
       b.firstOf(
         b.skippedTrivia(WHITESPACE),
         b.commentTrivia(b.regexp("(?:" + COMMENT_REGEX + "|" + COMMENT2_REGEX + ")"))))).skip();
-    b.rule(FUNCTION).is(addSpacing(b.sequence(IDENT, OPEN_PARENTHESIS), b), b.zeroOrMore(parameters),
-      CLOSE_PARENTHESIS);
+    b.rule(FUNCTION).is(addSpacing(b.sequence(IDENT, OPEN_PARENTHESIS), b), b.zeroOrMore(parameters), CLOSE_PARENTHESIS);
+    b.rule(FUNCTION_PSEUDO).is(addSpacing(b.sequence(IDENT, OPEN_PARENTHESIS), b), b.zeroOrMore(parameters), ")");
     b.rule(parameters).is(parameter, b.zeroOrMore(comma, parameter));
     b.rule(parameter).is(addSpacing(b.oneOrMore(ANY), b));
     b.rule(INCLUDES).is(addSpacing("~=", b));
