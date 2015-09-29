@@ -13,7 +13,7 @@ CI builds:
 https://travis-ci.org/SonarCommunity/sonar-css
 
 Download:
-http://downloads.sonarsource.com/plugins/org/codehaus/sonar-plugins/css/sonar-css-plugin/
+https://github.com/SonarCommunity/sonar-css/releases
 
 ## Description
 This plugin enables code QA analysis of CSS source code within [SonarQube](http://www.sonarqube.org):
