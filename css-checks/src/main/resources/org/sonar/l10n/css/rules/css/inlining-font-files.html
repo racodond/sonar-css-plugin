@@ -1,0 +1,19 @@
+<p>
+    Inlining fonts avoids the overhead of an HTTP request, but that advantage may not outweigh the many downsides. It’ll
+    affect your actual and perceived performance, thereby making your site load slower. It also disables font
+    format negotiation, progressive rendering, parallel downloading, and lazy loading.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+@font-face {
+  font-family: MyFontFamily;
+  src: url(data:application/x-font-woff;charset=utf-8;base64,d09GRgABAAAAAFhIABAAAAAAm0wAAQAAAAA...):
+}
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="http://bramstein.com/writing/web-font-anti-patterns-inlining.html">Web Font Anti-Patterns: Inlining</a>
+    </li>
+</ul>
