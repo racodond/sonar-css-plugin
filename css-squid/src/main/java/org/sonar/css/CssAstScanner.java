@@ -51,14 +51,19 @@ public final class CssAstScanner {
   }
 
   /**
-   * Helper method for testing checks without having to deploy them on a Sonar instance.
+   * Helper methods for testing checks without having to deploy them on a SonarQube instance.
    */
   @VisibleForTesting
   public static SourceFile scanSingleFile(File file, SquidAstVisitor<LexerlessGrammar>... visitors) {
+    return scanSingleFileWithCustomConfiguration(file, new CssConfiguration(Charsets.UTF_8), visitors);
+  }
+
+  @VisibleForTesting
+  public static SourceFile scanSingleFileWithCustomConfiguration(File file, CssConfiguration conf, SquidAstVisitor<LexerlessGrammar>... visitors) {
     if (!file.isFile()) {
       throw new IllegalArgumentException("File '" + file + "' not found.");
     }
-    AstScanner scanner = create(new CssConfiguration(Charsets.UTF_8), null, visitors);
+    AstScanner scanner = create(conf, null, visitors);
     scanner.scanFile(file);
     Collection<SourceCode> sources = scanner.getIndex().search(new QueryByType(SourceFile.class));
     if (sources.size() != 1) {

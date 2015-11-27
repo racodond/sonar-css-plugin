@@ -37,6 +37,7 @@ public final class CheckList {
     return ImmutableList.<Class>of(
       AllGradientDefinitions.class,
       AlphabetizeDeclarationsCheck.class,
+      BOMCheck.class,
       BulletproofFontFace.class,
       BewareOfBoxModel.class,
       CaseCheck.class,
