@@ -1,7 +1,7 @@
 SonarQube CSS Plugin
 ====================
 
-[![Build Status](https://api.travis-ci.org/SonarCommunity/sonar-css.svg)](https://travis-ci.org/SonarCommunity/sonar-css)
+[![Build Status](https://api.travis-ci.org/SonarQubeCommunity/sonar-css.svg)](https://travis-ci.org/SonarQubeCommunity/sonar-css)
 
 Project homepage:
 https://github.com/SonarCommunity/sonar-css
