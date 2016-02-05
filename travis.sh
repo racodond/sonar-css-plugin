@@ -2,11 +2,12 @@
 
 set -euo pipefail
 
-function installTravisTools {
+function configureTravis {
   mkdir ~/.local
-  curl -sSL https://github.com/SonarSource/travis-utils/tarball/v21 | tar zx --strip-components 1 -C ~/.local
+  curl -sSL https://github.com/SonarSource/travis-utils/tarball/v25 | tar zx --strip-components 1 -C ~/.local
   source ~/.local/bin/install
 }
+configureTravis
 
 case "$TESTS" in
 
@@ -15,23 +16,17 @@ CI)
   ;;
 
 IT-DEV)
-  installTravisTools
-
-  mvn package -Dsource.skip=true -Denforcer.skip=true -Danimal.sniffer.skip=true -Dmaven.test.skip=true
-
-  build_snapshot "SonarSource/sonarqube"
+  mvn package -Dsource.skip=true -Denforcer.skip=true -Danimal.sniffer.skip=true -Dmaven.test.skip=true -e -B
 
   cd its/plugin
-  mvn -Dsonar.runtimeVersion="DEV" -Dmaven.test.redirectTestOutputToFile=false install
+  mvn -Dsonar.runtimeVersion="DEV" -Dmaven.test.redirectTestOutputToFile=false verify -e -B -V
   ;;
 
 IT-LTS)
-  installTravisTools
-
-  mvn package -Dsource.skip=true -Denforcer.skip=true -Danimal.sniffer.skip=true -Dmaven.test.skip=true
+  mvn package -Dsource.skip=true -Denforcer.skip=true -Danimal.sniffer.skip=true -Dmaven.test.skip=true -e -B
 
   cd its/plugin
-  mvn -Dsonar.runtimeVersion="LTS" -Dmaven.test.redirectTestOutputToFile=false install
+  mvn -Dsonar.runtimeVersion="LTS" -Dmaven.test.redirectTestOutputToFile=false verify -e -B
   ;;
 
 esac
