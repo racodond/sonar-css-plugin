@@ -75,7 +75,11 @@ public class MetricsTest {
     assertThat(getProjectMeasure("public_documented_api_density")).isNull();
     // Complexity
     assertThat(getProjectMeasure("complexity").getIntValue()).isEqualTo(3);
-    assertThat(getProjectMeasure("function_complexity").getValue()).isEqualTo(0.5);
+    if (!orchestrator.getDistribution().version().isGreaterThanOrEquals("5.4")) {
+      // Since SonarQube 5.4, complexity per function doesn't rely anymore on complexity but on complexity_in_functions (https://jira.sonarsource.com/browse/SONAR-7169)
+      // Waiting for https://jira.sonarsource.com/browse/MMF-151, the check is disabled
+      assertThat(getProjectMeasure("function_complexity").getValue()).isEqualTo(0.5);
+    }
     assertThat(getProjectMeasure("function_complexity_distribution")).isNull();
     assertThat(getProjectMeasure("file_complexity").getIntValue()).isEqualTo(1);
     assertThat(getProjectMeasure("file_complexity_distribution")).isNull();
@@ -104,7 +108,11 @@ public class MetricsTest {
     assertThat(getFileMeasure("comment_lines_density").getValue()).isEqualTo(0.0);
     // Complexity
     assertThat(getFileMeasure("complexity").getIntValue()).isEqualTo(2);
-    assertThat(getFileMeasure("function_complexity").getValue()).isEqualTo(0.4);
+    if (!orchestrator.getDistribution().version().isGreaterThanOrEquals("5.4")) {
+      // Since SonarQube 5.4, complexity per function doesn't rely anymore on complexity but on complexity_in_functions (https://jira.sonarsource.com/browse/SONAR-7169)
+      // Waiting for https://jira.sonarsource.com/browse/MMF-151, the check is disabled
+      assertThat(getFileMeasure("function_complexity").getValue()).isEqualTo(0.4);
+    }
     assertThat(getFileMeasure("function_complexity_distribution")).isNull();
     assertThat(getFileMeasure("file_complexity").getIntValue()).isEqualTo(2);
 
