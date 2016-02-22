@@ -15,6 +15,9 @@ https://travis-ci.org/SonarCommunity/sonar-css
 Download:
 https://github.com/SonarCommunity/sonar-css/releases
 
+Plugin versions and compatibility with SonarQube versions:
+http://docs.sonarqube.org/display/PLUG/Plugin+Version+Matrix
+
 ## Description
 This plugin enables code QA analysis of CSS source code within [SonarQube](http://www.sonarqube.org):
 
