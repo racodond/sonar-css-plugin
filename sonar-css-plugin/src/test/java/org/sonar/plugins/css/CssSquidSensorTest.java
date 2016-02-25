@@ -31,7 +31,6 @@ import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.rule.CheckFactory;
 import org.sonar.api.batch.rule.Checks;
-import org.sonar.api.config.Settings;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
@@ -73,7 +72,7 @@ public class CssSquidSensorTest {
     checkFactory = mock(CheckFactory.class);
     when(checkFactory.<SquidAstVisitor>create(Mockito.anyString())).thenReturn(checks);
 
-    sensor = new CssSquidSensor(mock(RulesProfile.class), null, fs, checkFactory, mock(NoSonarFilter.class), mock(Settings.class));
+    sensor = new CssSquidSensor(mock(RulesProfile.class), null, fs, checkFactory, mock(NoSonarFilter.class));
   }
 
   @Test
@@ -81,7 +80,7 @@ public class CssSquidSensorTest {
     Project project = new Project("key");
     FileSystem fs = mock(FileSystem.class);
     when(fs.predicates()).thenReturn(mock(FilePredicates.class));
-    CssSquidSensor cssSensor = new CssSquidSensor(mock(RulesProfile.class), mock(SonarComponents.class), fs, mock(CheckFactory.class), mock(NoSonarFilter.class), mock(Settings.class));
+    CssSquidSensor cssSensor = new CssSquidSensor(mock(RulesProfile.class), mock(SonarComponents.class), fs, mock(CheckFactory.class), mock(NoSonarFilter.class));
 
     when(fs.files(Mockito.any(FilePredicate.class))).thenReturn(ListUtils.EMPTY_LIST);
     assertThat(cssSensor.shouldExecuteOnProject(project)).isFalse();

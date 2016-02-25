@@ -91,24 +91,4 @@ public class CssAstScannerTest {
     assertThat(file.getInt(CssMetric.COMPLEXITY)).isEqualTo(21);
   }
 
-  @Test
-  public void complexity_should_not_be_computed_when_complexity_computation_is_switched_off() {
-    CssConfiguration cssConfiguration = new CssConfiguration(Charsets.UTF_8);
-    cssConfiguration.setComputeComplexity(false);
-    SourceFile file = CssAstScanner.scanSingleFileWithSpecificConfiguration(new File("src/test/resources/metrics/complexity.css"), cssConfiguration);
-    // No way to assert that the metric is not computed (no getter for SourceFile.measures).
-    // As a workaround, assert that the measure is 0.
-    assertThat(file.getInt(CssMetric.COMPLEXITY)).isEqualTo(0);
-  }
-
-  @Test
-  public void functions_should_not_be_computed_when_complexity_computation_is_switched_off() {
-    CssConfiguration cssConfiguration = new CssConfiguration(Charsets.UTF_8);
-    cssConfiguration.setComputeComplexity(false);
-    SourceFile file = CssAstScanner.scanSingleFileWithSpecificConfiguration(new File("src/test/resources/metrics/metric.css"), cssConfiguration);
-    // No way to assert that the metric is not computed (no getter for SourceFile.measures).
-    // As a workaround, assert that the measure is 0.
-    assertThat(file.getInt(CssMetric.FUNCTIONS)).isEqualTo(0);
-  }
-
 }

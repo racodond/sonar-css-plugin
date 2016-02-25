@@ -25,7 +25,6 @@ public class CssConfiguration {
 
   private Charset charset;
   private boolean ignoreHeaderComments;
-  private boolean computeComplexity = true;
 
   public CssConfiguration(Charset charset) {
     this.charset = charset;
@@ -41,14 +40,6 @@ public class CssConfiguration {
 
   public boolean ignoreHeaderComments() {
     return ignoreHeaderComments;
-  }
-
-  public boolean getComputeComplexity() {
-    return computeComplexity;
-  }
-
-  public void setComputeComplexity(boolean computeComplexity) {
-    this.computeComplexity = computeComplexity;
   }
 
 }
