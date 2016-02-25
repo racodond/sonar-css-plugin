@@ -119,6 +119,11 @@ public final class CssAstScanner {
       .build());
 
     builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
+      .setMetricDef(CssMetric.COMPLEXITY_IN_FUNCTIONS)
+      .subscribeTo(CssGrammar.CLASS_SELECTOR, CssGrammar.ATTRIBUTE_SELECTOR, CssGrammar.TYPE_SELECTOR, CssGrammar.ID_SELECTOR, CssGrammar.PSEUDO, CssGrammar.AT_RULE)
+      .build());
+
+    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
       .setMetricDef(CssMetric.FUNCTIONS)
       .subscribeTo(CssGrammar.SELECTOR, CssGrammar.AT_RULE)
       .build());

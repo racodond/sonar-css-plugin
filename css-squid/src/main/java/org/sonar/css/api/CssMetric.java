@@ -32,6 +32,7 @@ public enum CssMetric implements MetricDef {
   AT_RULES,
   RULE_SETS,
   COMPLEXITY,
+  COMPLEXITY_IN_FUNCTIONS,
   FUNCTIONS;
 
   @Override
