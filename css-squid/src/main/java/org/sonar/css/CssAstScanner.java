@@ -72,20 +72,6 @@ public final class CssAstScanner {
     return (SourceFile) sources.iterator().next();
   }
 
-  @VisibleForTesting
-  public static SourceFile scanSingleFileWithSpecificConfiguration(File file, CssConfiguration configuration, SquidAstVisitor<LexerlessGrammar>... visitors) {
-    if (!file.isFile()) {
-      throw new IllegalArgumentException("File '" + file + "' not found.");
-    }
-    AstScanner scanner = create(configuration, null, visitors);
-    scanner.scanFile(file);
-    Collection<SourceCode> sources = scanner.getIndex().search(new QueryByType(SourceFile.class));
-    if (sources.size() != 1) {
-      throw new IllegalStateException("Only one SourceFile was expected whereas " + sources.size() + " has been returned.");
-    }
-    return (SourceFile) sources.iterator().next();
-  }
-
   public static AstScanner<LexerlessGrammar> create(CssConfiguration conf, @Nullable SonarComponents sonarComponents, SquidAstVisitor<LexerlessGrammar>... visitors) {
     final SquidAstVisitorContextImpl<LexerlessGrammar> context = new SquidAstVisitorContextImpl<LexerlessGrammar>(new SourceProject("Css Project"));
     final Parser<LexerlessGrammar> parser = new ParserAdapter<LexerlessGrammar>(conf.getCharset(), CssGrammar.createGrammar());
@@ -127,17 +113,15 @@ public final class CssAstScanner {
       .subscribeTo(CssGrammar.AT_RULE)
       .build());
 
-    if (conf.getComputeComplexity()) {
-      builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
-        .setMetricDef(CssMetric.COMPLEXITY)
-        .subscribeTo(CssGrammar.CLASS_SELECTOR, CssGrammar.ATTRIBUTE_SELECTOR, CssGrammar.TYPE_SELECTOR, CssGrammar.ID_SELECTOR, CssGrammar.PSEUDO, CssGrammar.AT_RULE)
-        .build());
+    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
+      .setMetricDef(CssMetric.COMPLEXITY)
+      .subscribeTo(CssGrammar.CLASS_SELECTOR, CssGrammar.ATTRIBUTE_SELECTOR, CssGrammar.TYPE_SELECTOR, CssGrammar.ID_SELECTOR, CssGrammar.PSEUDO, CssGrammar.AT_RULE)
+      .build());
 
-      builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
-        .setMetricDef(CssMetric.FUNCTIONS)
-        .subscribeTo(CssGrammar.SELECTOR, CssGrammar.AT_RULE)
-        .build());
-    }
+    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
+      .setMetricDef(CssMetric.FUNCTIONS)
+      .subscribeTo(CssGrammar.SELECTOR, CssGrammar.AT_RULE)
+      .build());
 
     /* Metrics */
     builder.withSquidAstVisitor(new LinesVisitor<LexerlessGrammar>(CssMetric.LINES));
