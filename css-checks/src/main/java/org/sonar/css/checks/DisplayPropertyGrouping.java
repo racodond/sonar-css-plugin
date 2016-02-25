@@ -60,7 +60,7 @@ public class DisplayPropertyGrouping extends SquidCheck<LexerlessGrammar> {
           "width", "height", "margin", "margin-top", "margin-bottom", "float"));
       put("inline-block", ImmutableList.<String>of("float"));
       put("block", ImmutableList.<String>of("vertical-align"));
-      put("table*", ImmutableList.<String>of("margin", "margin-top", "margin-bottom", "margin-left", "margin-right", "float"));
+      put("table-*", ImmutableList.<String>of("margin", "margin-top", "margin-bottom", "margin-left", "margin-right", "float"));
     }
   };
 
@@ -75,7 +75,7 @@ public class DisplayPropertyGrouping extends SquidCheck<LexerlessGrammar> {
     List<AstNode> declarations = astNode.getDescendants(CssGrammar.DECLARATION);
     List<String> avoidProps = isDisplay(declarations);
     if (avoidProps != null && !avoidProps.isEmpty() && isOtherUsed(declarations, avoidProps)) {
-      getContext().createLineViolation(this, "Remove this property that does not work with the \"display\" property", astNode);
+      getContext().createLineViolation(this, "Remove this property that does not work with the \"display\" property.", astNode);
     }
   }
 
@@ -84,8 +84,8 @@ public class DisplayPropertyGrouping extends SquidCheck<LexerlessGrammar> {
       String property = astNode.getFirstChild(CssGrammar.PROPERTY).getToken().getValue();
       String value = astNode.getFirstChild(CssGrammar.VALUE).getTokenValue();
       if ("display".equalsIgnoreCase(property)) {
-        if (value.startsWith("table")) {
-          return rules.get("table*");
+        if (value.startsWith("table-")) {
+          return rules.get("table-*");
         } else {
           return rules.get(value);
         }
