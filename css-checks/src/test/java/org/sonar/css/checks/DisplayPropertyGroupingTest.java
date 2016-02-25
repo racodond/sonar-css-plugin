@@ -28,22 +28,23 @@ import java.io.File;
 
 public class DisplayPropertyGroupingTest {
 
+  private static final String MESSAGE = "Remove this property that does not work with the \"display\" property.";
+
   @Test
   public void test() {
-    DisplayPropertyGrouping check = new DisplayPropertyGrouping();
     SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/displayProperty.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(5).withMessage("Remove this property that does not work with the \"display\" property").next()
-      .atLine(11).withMessage("Remove this property that does not work with the \"display\" property").next()
-      .atLine(23).withMessage("Remove this property that does not work with the \"display\" property").noMore();
+      "src/test/resources/checks/displayProperty.css"), new DisplayPropertyGrouping());
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(2).withMessage(MESSAGE)
+      .next().atLine(8).withMessage(MESSAGE)
+      .next().atLine(14).withMessage(MESSAGE)
+      .noMore();
   }
 
   @Test
   public void test2() {
-    DisplayPropertyGrouping check = new DisplayPropertyGrouping();
     SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/fontface.css"), check);
+      "src/test/resources/checks/fontface.css"), new DisplayPropertyGrouping());
     CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
   }
 
