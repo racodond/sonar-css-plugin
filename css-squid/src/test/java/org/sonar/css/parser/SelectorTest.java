@@ -67,13 +67,73 @@ public class SelectorTest extends TestBase {
       .matches("[lang|=en]")
       .matches("[href^=\"https\"]")
       .matches("[href$=\".pdf\"]")
-      .matches("[href*=\"w3schools\"]");
+      .matches("[href*=\"w3schools\"]")
+      .matches("[|target]")
+      .matches("[|target=_blank]")
+      .matches("[|title~=flower]")
+      .matches("[|lang|=en]")
+      .matches("[|href^=\"https\"]")
+      .matches("[|href$=\".pdf\"]")
+      .matches("[|href*=\"w3schools\"]")
+      .matches("[*|target]")
+      .matches("[*|target=_blank]")
+      .matches("[*|title~=flower]")
+      .matches("[*|lang|=en]")
+      .matches("[*|href^=\"https\"]")
+      .matches("[*|href$=\".pdf\"]")
+      .matches("[*|href*=\"w3schools\"]")
+      .matches("[ns|target]")
+      .matches("[ns|target=_blank]")
+      .matches("[ns|title~=flower]")
+      .matches("[ns|lang|=en]")
+      .matches("[ns|href^=\"https\"]")
+      .matches("[ns|href$=\".pdf\"]")
+      .matches("[ns|href*=\"w3schools\"]");
   }
 
   @Test
   public void should_not_match_attribute_selector() {
     assertThat(b.rule(CssGrammar.ATTRIBUTE_SELECTOR))
-      .notMatches("[target] ");
+      .notMatches("[target] ")
+      .notMatches("[* |target]")
+      .notMatches("[*| target]");
+  }
+
+  @Test
+  public void should_match_universal_selector() {
+    assertThat(b.rule(CssGrammar.UNIVERSAL_SELECTOR))
+      .matches("*")
+      .matches("ns|*")
+      .matches("*|*")
+      .matches("|*");
+  }
+
+  @Test
+  public void should_not_match_universal_selector() {
+    assertThat(b.rule(CssGrammar.UNIVERSAL_SELECTOR))
+      .notMatches("ns| *")
+      .notMatches("ns |*")
+      .notMatches("[*| *")
+      .notMatches("[* |*");
+  }
+
+
+  @Test
+  public void should_match_type_selector() {
+    assertThat(b.rule(CssGrammar.TYPE_SELECTOR))
+      .matches("h1")
+      .matches("ns|h1")
+      .matches("*|h1")
+      .matches("|h1");
+  }
+
+  @Test
+  public void should_not_match_type_selector() {
+    assertThat(b.rule(CssGrammar.TYPE_SELECTOR))
+      .notMatches("ns| h1")
+      .notMatches("ns |h1")
+      .notMatches("[*| h1")
+      .notMatches("[* |h1");
   }
 
   @Test

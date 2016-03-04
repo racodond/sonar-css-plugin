@@ -113,6 +113,8 @@ public enum CssGrammar implements GrammarRuleKey {
   ADJACENT_COMB,
   PRECEDED_COMB,
 
+  NAMESPACE,
+
   _IDENT,
   _NAME,
   _NMSTART,
@@ -194,23 +196,28 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(CHILD_COMB).is(addSpacing(">", b));
     b.rule(ADJACENT_COMB).is(addSpacing("+", b));
     b.rule(PRECEDED_COMB).is(addSpacing("~", b));
+
+    b.rule(NAMESPACE).is(b.optional(identNoWS), "|");
+
     b.rule(SIMPLE_SELECTOR).is(
       b.firstOf(UNIVERSAL_SELECTOR, TYPE_SELECTOR, animationEvent),
       b.optional(WHITESPACES, b.next(COMBINATORS)));
-    b.rule(TYPE_SELECTOR).is(identNoWS, b.zeroOrMore(SUB_S));
+    b.rule(TYPE_SELECTOR).is(b.optional(NAMESPACE), identNoWS, b.zeroOrMore(SUB_S));
     b.rule(UNIVERSAL_SELECTOR).is(
       b.firstOf(
-        b.sequence(addSpacing("*", b), b.nextNot(IDENT), b.zeroOrMore(SUB_S)),
+        b.sequence(b.optional(NAMESPACE), addSpacing("*", b), b.nextNot(IDENT), b.zeroOrMore(SUB_S)),
         b.oneOrMore(SUB_S)));
     b.rule(animationEvent).is(b.firstOf(from, to, PERCENTAGE));
 
     b.rule(SUB_S).is(b.firstOf(ATTRIBUTE_SELECTOR, ID_SELECTOR, CLASS_SELECTOR, PSEUDO)).skip();
-    b.rule(ATTRIBUTE_SELECTOR).is(
+    b.rule(ATTRIBUTE_SELECTOR).is(b.firstOf(
       b.oneOrMore(OPEN_BRACKET, IDENT,
-        b.optional(
-          b.firstOf(DASH_MATCH, INCLUDES, EQ, CONTAINS, STARTS_WITH, ENDS_WITH),
-          ANY),
-        "]"));
+        b.optional(b.firstOf(DASH_MATCH, INCLUDES, EQ, CONTAINS, STARTS_WITH, ENDS_WITH), ANY),
+      "]"),
+      b.oneOrMore(OPEN_BRACKET, b.optional(NAMESPACE), IDENT,
+        b.optional(b.firstOf(DASH_MATCH, INCLUDES, EQ, CONTAINS, STARTS_WITH, ENDS_WITH), ANY),
+      "]")
+    ));
     b.rule(CLASS_SELECTOR).is(b.oneOrMore(".", identNoWS));
     b.rule(ID_SELECTOR).is("#", identNoWS);
     b.rule(PSEUDO).is(
