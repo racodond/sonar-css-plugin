@@ -4,16 +4,16 @@ SonarQube CSS Plugin
 [![Build Status](https://api.travis-ci.org/SonarQubeCommunity/sonar-css.svg)](https://travis-ci.org/SonarQubeCommunity/sonar-css)
 
 Project homepage:
-https://github.com/SonarCommunity/sonar-css
+https://github.com/SonarQubeCommunity/sonar-css
 
 Issue tracking:
-https://github.com/SonarCommunity/sonar-css/issues
+https://github.com/SonarQubeCommunity/sonar-css/issues
 
 CI builds:
-https://travis-ci.org/SonarCommunity/sonar-css
+https://travis-ci.org/SonarQubeCommunity/sonar-css
 
 Download:
-https://github.com/SonarCommunity/sonar-css/releases
+https://github.com/SonarQubeCommunity/sonar-css/releases
 
 Plugin versions and compatibility with SonarQube versions:
 http://docs.sonarqube.org/display/PLUG/Plugin+Version+Matrix
@@ -32,7 +32,7 @@ This package contains the SonarQube server with the CSS plugin, the analyzer (So
 
 ### Installing and configuring your SonarQube platform from scratch
 1. [Install](http://docs.sonarqube.org/display/SONAR/Setup+and+Upgrade) SonarQube
-2. Install the CSS plugin either by a [direct download](https://github.com/SonarCommunity/sonar-css/releases) or through the [update center](http://docs.sonarqube.org/display/SONAR/Update+Center).
+2. Install the CSS plugin either by a [direct download](https://github.com/SonarQubeCommunity/sonar-css/releases) or through the [update center](http://docs.sonarqube.org/display/SONAR/Update+Center).
 3. Install your [favorite analyzer](http://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code#AnalyzingSourceCode-RunningAnalysis) (SonarQube Runner, Maven, etc.) and analyze your code.
 
 ## Metrics
