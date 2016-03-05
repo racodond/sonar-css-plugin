@@ -47,7 +47,6 @@ public class SyntaxHighlighterVisitorTest {
 
   private final SyntaxHighlighterVisitor syntaxHighlighterVisitor = new SyntaxHighlighterVisitor(sonarComponents, Charsets.UTF_8);
 
-  private List<String> lines;
   private String eol;
 
   @Before
@@ -77,12 +76,28 @@ public class SyntaxHighlighterVisitorTest {
 
     CssAstScanner.scanSingleFile(file, syntaxHighlighterVisitor);
 
-    lines = Files.readLines(file, Charsets.UTF_8);
-    Mockito.verify(highlighting).highlight(offset(1, 1), offset(1, 7), "h");
-    Mockito.verify(highlighting).highlight(offset(2, 5), offset(2, 10), "c");
-    Mockito.verify(highlighting).highlight(offset(5, 1), offset(7, 3), "cppd");
-    Mockito.verify(highlighting).highlight(offset(9, 1), offset(9, 7), "h");
-    Mockito.verify(highlighting).highlight(offset(10, 3), offset(10, 8), "c");
+    Mockito.verify(highlighting).highlight(0, 6, "h");
+    Mockito.verify(highlighting).highlight(24, 29, "c");
+    Mockito.verify(highlighting).highlight(39, 48, "cppd");
+    Mockito.verify(highlighting).highlight(50, 56, "h");
+    Mockito.verify(highlighting).highlight(61, 66, "c");
+    Mockito.verify(highlighting).highlight(75, 84, "cppd");
+  }
+
+  @Test
+  public void test_CR() throws Exception {
+    this.eol = "\r";
+    File file = temp.newFile();
+    Files.write(Files.toString(new File("src/test/resources/syntax_highlight.css"), Charsets.UTF_8).replaceAll("\\r\\n", "\n").replaceAll("\\n", eol), file, Charsets.UTF_8);
+
+    CssAstScanner.scanSingleFile(file, syntaxHighlighterVisitor);
+
+    Mockito.verify(highlighting).highlight(0, 6, "h");
+    Mockito.verify(highlighting).highlight(24, 29, "c");
+    Mockito.verify(highlighting).highlight(39, 48, "cppd");
+    Mockito.verify(highlighting).highlight(50, 56, "h");
+    Mockito.verify(highlighting).highlight(61, 66, "c");
+    Mockito.verify(highlighting).highlight(75, 84, "cppd");
     Mockito.verify(highlighting).done();
     Mockito.verifyNoMoreInteractions(highlighting);
   }
@@ -95,41 +110,32 @@ public class SyntaxHighlighterVisitorTest {
 
     CssAstScanner.scanSingleFile(file, syntaxHighlighterVisitor);
 
-    lines = Files.readLines(file, Charsets.UTF_8);
-    Mockito.verify(highlighting).highlight(offset(1, 1), offset(1, 7), "h");
-    Mockito.verify(highlighting).highlight(offset(2, 5), offset(2, 10), "c");
-    Mockito.verify(highlighting).highlight(offset(5, 1), offset(7, 3), "cppd");
-    Mockito.verify(highlighting).highlight(offset(9, 1), offset(9, 7), "h");
-    Mockito.verify(highlighting).highlight(offset(10, 3), offset(10, 8), "c");
+    Mockito.verify(highlighting).highlight(0, 6, "h");
+    Mockito.verify(highlighting).highlight(25, 30, "c");
+    Mockito.verify(highlighting).highlight(43, 54, "cppd");
+    Mockito.verify(highlighting).highlight(58, 64, "h");
+    Mockito.verify(highlighting).highlight(70, 75, "c");
+    Mockito.verify(highlighting).highlight(86, 95, "cppd");
     Mockito.verify(highlighting).done();
     Mockito.verifyNoMoreInteractions(highlighting);
   }
 
   @Test
-  public void test_CR() throws Exception {
-    this.eol = "\r";
+  public void test_BOM_LF() throws Exception {
+    this.eol = "\n";
     File file = temp.newFile();
-    Files.write(Files.toString(new File("src/test/resources/syntax_highlight.css"), Charsets.UTF_8).replaceAll("\\r\\n", "\n").replaceAll("\\n", eol), file, Charsets.UTF_8);
+    Files.write(Files.toString(new File("src/test/resources/syntax_highlight_bom.css"), Charsets.UTF_8).replaceAll("\\r\\n", "\n").replaceAll("\\n", eol), file, Charsets.UTF_8);
 
     CssAstScanner.scanSingleFile(file, syntaxHighlighterVisitor);
 
-    lines = Files.readLines(file, Charsets.UTF_8);
-    Mockito.verify(highlighting).highlight(offset(1, 1), offset(1, 7), "h");
-    Mockito.verify(highlighting).highlight(offset(2, 5), offset(2, 10), "c");
-    Mockito.verify(highlighting).highlight(offset(5, 1), offset(7, 3), "cppd");
-    Mockito.verify(highlighting).highlight(offset(9, 1), offset(9, 7), "h");
-    Mockito.verify(highlighting).highlight(offset(10, 3), offset(10, 8), "c");
+    Mockito.verify(highlighting).highlight(1, 7, "h"); /* First character is BOM */
+    Mockito.verify(highlighting).highlight(24, 29, "c");
+    Mockito.verify(highlighting).highlight(39, 48, "cppd");
+    Mockito.verify(highlighting).highlight(50, 56, "h");
+    Mockito.verify(highlighting).highlight(61, 66, "c");
+    Mockito.verify(highlighting).highlight(75, 84, "cppd");
     Mockito.verify(highlighting).done();
     Mockito.verifyNoMoreInteractions(highlighting);
-  }
-
-  private int offset(int line, int column) {
-    int result = 0;
-    for (int i = 0; i < line - 1; i++) {
-      result += lines.get(i).length() + eol.length();
-    }
-    result += column - 1;
-    return result;
   }
 
 }

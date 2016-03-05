@@ -20,10 +20,7 @@
 package org.sonar.css.ast.visitors;
 
 import com.google.common.base.Preconditions;
-import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
-import com.google.common.io.Files;
 import com.sonar.sslr.api.AstAndTokenVisitor;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
@@ -35,9 +32,7 @@ import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.SquidAstVisitor;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.List;
 import java.util.Map;
 
 public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> implements AstAndTokenVisitor {
@@ -55,7 +50,7 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
   private final Charset charset;
 
   private Highlightable.HighlightingBuilder highlighting;
-  private List<Integer> lineStart;
+  private SourceFileOffsets offsets;
 
   public SyntaxHighlighterVisitor(SonarComponents sonarComponents, Charset charset) {
     this.sonarComponents = Preconditions.checkNotNull(sonarComponents);
@@ -75,48 +70,32 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
       // parse error
       return;
     }
-
     InputFile inputFile = sonarComponents.inputFileFor(getContext().getFile());
     Preconditions.checkNotNull(inputFile);
     highlighting = sonarComponents.highlightableFor(inputFile).newHighlighting();
-
-    lineStart = Lists.newArrayList();
-    final String content;
-    try {
-      content = Files.toString(getContext().getFile(), charset);
-    } catch (IOException e) {
-      throw Throwables.propagate(e);
-    }
-    lineStart.add(0);
-    for (int i = 0; i < content.length(); i++) {
-      if (content.charAt(i) == '\n' || (content.charAt(i) == '\r' && i + 1 < content.length() && content.charAt(i + 1) != '\n')) {
-        lineStart.add(i + 1);
-      }
-    }
+    offsets = new SourceFileOffsets(getContext().getFile(), charset);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    highlighting.highlight(astNode.getFromIndex(), astNode.getToIndex(), TYPES.get(astNode.getType()));
+    highlighting.highlight(
+        offsets.startOffset(astNode),
+        offsets.endOffset(astNode),
+        TYPES.get(astNode.getType())
+    );
   }
 
   @Override
   public void visitToken(Token token) {
     for (Trivia trivia : token.getTrivia()) {
       if (trivia.isComment()) {
-        Token triviaToken = trivia.getToken();
-        int offset = getOffset(triviaToken.getLine(), triviaToken.getColumn());
-        highlighting.highlight(offset, offset + triviaToken.getValue().length(), "cppd");
+        highlighting.highlight(
+            offsets.startOffset(trivia.getToken()),
+            offsets.endOffset(trivia.getToken()),
+            "cppd"
+        );
       }
     }
-  }
-
-  /**
-   * @param line starts from 1
-   * @param column starts from 0
-   */
-  private int getOffset(int line, int column) {
-    return lineStart.get(line - 1) + column;
   }
 
   @Override
@@ -125,7 +104,6 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
       // parse error
       return;
     }
-
     highlighting.done();
   }
 
