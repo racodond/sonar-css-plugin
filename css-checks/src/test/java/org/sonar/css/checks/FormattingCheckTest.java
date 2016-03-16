@@ -34,11 +34,14 @@ public class FormattingCheckTest {
   public void block() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/formatting/block.css"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(6).withMessage("Move the opening curly brace to the previous line.").next()
-      .atLine(10).withMessage("Move the code following the opening curly brace to the next line.").next()
-      .atLine(11).withMessage("Move the code following the closing curly brace to the next line.").next()
-      .atLine(16).withMessage("Move the closing curly brace to the next line.").next()
-      .atLine(26).withMessage("Move the opening curly brace to the previous line.").noMore();
+      .atLine(10).withMessage("Move the opening curly brace to the previous line.").next()
+      .atLine(14).withMessage("Move the code following the opening curly brace to the next line.").next()
+      .atLine(15).withMessage("Move the code following the closing curly brace to the next line.").next()
+      .atLine(20).withMessage("Move the closing curly brace to the next line.").next()
+      .atLine(30).withMessage("Move the opening curly brace to the previous line.").next()
+      .atLine(34).withMessage("Move the code following the opening curly brace to the next line.").next()
+      .atLine(35).withMessage("Move the code following the closing curly brace to the next line.").next()
+      .atLine(40).withMessage("Move the closing curly brace to the next line.").noMore();
   }
 
   @Test
