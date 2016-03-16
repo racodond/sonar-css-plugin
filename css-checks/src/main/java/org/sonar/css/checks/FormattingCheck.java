@@ -116,7 +116,7 @@ public class FormattingCheck extends SquidCheck<LexerlessGrammar> {
       if (isOnSameLine(node, node.getNextAstNode())) {
         getContext().createLineViolation(this, "Move the code following the opening curly brace to the next line.", node);
       }
-      if (!isOnSameLine(node, node.getPreviousAstNode().getLastChild())) {
+      if (!isRuleSetWithoutSelector(node) && !isOnSameLine(node, node.getPreviousAstNode().getLastChild())) {
         getContext().createLineViolation(this, "Move the opening curly brace to the previous line.", node);
       }
     }
@@ -146,6 +146,13 @@ public class FormattingCheck extends SquidCheck<LexerlessGrammar> {
 
   private int getNbWhitespacesBetween(AstNode node1, AstNode node2) {
     return node2.getToken().getColumn() - node1.getToken().getColumn() - node1.getTokenValue().length();
+  }
+
+  private boolean isRuleSetWithoutSelector(AstNode openCurlyBraceNode) {
+    return openCurlyBraceNode.getParent().getType().equals(CssGrammar.BLOCK)
+      && openCurlyBraceNode.getParent().getParent() != null
+      && openCurlyBraceNode.getParent().getParent().getType().equals(CssGrammar.RULESET)
+      && openCurlyBraceNode.getParent().getParent().getFirstChild(CssGrammar.SELECTOR) == null;
   }
 
 }
