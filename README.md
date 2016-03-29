@@ -1,5 +1,6 @@
 SonarQube CSS Plugin
 ====================
+[![Nemo Quality Gate status](https://nemo.sonarqube.org/api/badges/gate?key=org.codehaus.sonar-plugins.css%3Acss)](https://nemo.sonarqube.org/overview?id=org.codehaus.sonar-plugins.css%3Acss)
 
 [![Build Status](https://api.travis-ci.org/SonarQubeCommunity/sonar-css.svg)](https://travis-ci.org/SonarQubeCommunity/sonar-css)
 
