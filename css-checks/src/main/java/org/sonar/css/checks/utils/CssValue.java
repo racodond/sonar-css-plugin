@@ -20,37 +20,24 @@
 package org.sonar.css.checks.utils;
 
 import com.sonar.sslr.api.AstNode;
-import org.sonar.css.checks.utils.valueelements.DelimiterValueElement;
-import org.sonar.css.checks.utils.valueelements.DimensionValueElement;
-import org.sonar.css.checks.utils.valueelements.FunctionValueElement;
-import org.sonar.css.checks.utils.valueelements.HashValueElement;
-import org.sonar.css.checks.utils.valueelements.IdentifierValueElement;
-import org.sonar.css.checks.utils.valueelements.NotSupportedValueElement;
-import org.sonar.css.checks.utils.valueelements.NumberValueElement;
-import org.sonar.css.checks.utils.valueelements.PercentageValueElement;
-import org.sonar.css.checks.utils.valueelements.StringValueElement;
-import org.sonar.css.checks.utils.valueelements.UriValueElement;
-import org.sonar.css.parser.CssGrammar;
-
-import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Nonnull;
+
+import org.sonar.css.checks.utils.valueelements.*;
+import org.sonar.css.parser.CssGrammar;
 
 public class CssValue {
 
-  @Nonnull
-  private List<CssValueElement> valueElements = new ArrayList<>();
-
-  private boolean hasImportantAnnotation = false;
+  private List<CssValueElement> valueElements;
 
   public CssValue(@Nonnull AstNode valueAstNode) {
+    valueElements = new ArrayList<>();
     if (valueAstNode.getChildren() != null) {
       for (AstNode valueElementNode : valueAstNode.getChildren()) {
         if (!valueElementNode.is(CssGrammar.IMPORTANT)) {
           valueElements.add(convertAstNodeToCssValueElement(valueElementNode));
-        } else {
-          hasImportantAnnotation = true;
         }
       }
     }
