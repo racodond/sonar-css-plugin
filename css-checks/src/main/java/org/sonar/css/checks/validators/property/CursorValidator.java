@@ -25,9 +25,7 @@ import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.validators.ValidatorFactory;
 import org.sonar.css.checks.validators.ValueElementValidator;
 import org.sonar.css.checks.validators.ValueValidator;
-import org.sonar.css.checks.validators.valueelement.DelimiterValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
-import org.sonar.css.checks.validators.valueelement.UriValidator;
 import org.sonar.css.checks.validators.valueelement.numeric.IntegerRangeValidator;
 
 import javax.annotation.Nonnull;
@@ -37,7 +35,7 @@ import java.util.List;
 
 public class CursorValidator implements ValueValidator {
 
-  private final ValueElementValidator cursorValidator = new IdentifierValidator(
+  private final ValueElementValidator identifierValidator = new IdentifierValidator(
     ImmutableList
       .of("auto", "default", "none", "context-menu", "help", "pointer", "progress", "wait", "cell", "crosshair", "text",
         "vertical-text", "alias", "copy", "move", "no-drop",
@@ -51,7 +49,7 @@ public class CursorValidator implements ValueValidator {
     List<List<CssValueElement>> cursorList = buildCursorList(value);
     if (cursorList.size() == 1) {
       if (cursorList.get(0).size() != 1
-        || cursorList.get(0).size() == 1 && !cursorValidator.isValid(cursorList.get(0).get(0))) {
+        || cursorList.get(0).size() == 1 && !identifierValidator.isValid(cursorList.get(0).get(0))) {
         return false;
       }
     } else {
@@ -65,7 +63,7 @@ public class CursorValidator implements ValueValidator {
         }
         return false;
       }
-      return cursorValidator.isValid(cursorList.get(cursorList.size() - 1).get(0));
+      return identifierValidator.isValid(cursorList.get(cursorList.size() - 1).get(0));
     }
     return true;
   }
@@ -73,7 +71,7 @@ public class CursorValidator implements ValueValidator {
   @Nonnull
   @Override
   public String getValidatorFormat() {
-    return "[[ <uri> [<x> <y>]?,]* [" + cursorValidator.getValidatorFormat() + "]";
+    return "[[ <uri> [<x> <y>]?,]* [" + identifierValidator.getValidatorFormat() + "]";
   }
 
   private List<List<CssValueElement>> buildCursorList(CssValue cssValue) {
