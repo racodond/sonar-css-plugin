@@ -1,0 +1,10 @@
+.mybox {
+  color-interpolation: inherit;
+  color-interpolation: auto;
+  color-interpolation: sRGB;
+  color-interpolation: linearRGB;
+  color-interpolation: srgb;
+  color-interpolation: linearrgb;
+  color-interpolation: blabla; /* Noncompliant */
+  color-interpolation: 10px;  /* Noncompliant */
+}

@@ -19,16 +19,16 @@
  */
 package org.sonar.css.checks.validators.valueelement.numeric;
 
+import java.util.Locale;
+import javax.annotation.Nonnull;
+
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.NumberValueElement;
 
-import javax.annotation.Nonnull;
-import java.util.Locale;
-
 public class NumberRangeValidator extends NumberValidator {
 
-  private final double min;
-  private final double max;
+  private final Double min;
+  private final Double max;
 
   public NumberRangeValidator(double min, double max) {
     super(false);
@@ -36,11 +36,21 @@ public class NumberRangeValidator extends NumberValidator {
     this.max = max;
   }
 
+  public NumberRangeValidator(double min) {
+    super(false);
+    this.min = min;
+    this.max = null;
+  }
+
   @Override
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {
     if (super.isValid(cssValueElement)) {
       double value = ((NumberValueElement) cssValueElement).getValue();
-      return value >= min && value <= max;
+      if (max != null) {
+        return value >= min && value <= max;
+      } else {
+        return value >= min;
+      }
     }
     return false;
   }
@@ -48,7 +58,13 @@ public class NumberRangeValidator extends NumberValidator {
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    return "<number>(" + String.format(Locale.ENGLISH, "%.1f", min) + "," + String.format(Locale.ENGLISH, "%.1f", max) + ")";
+    String format = "<number>(" + String.format(Locale.ENGLISH, "%.1f", min) + ",";
+    if (max != null) {
+      format += String.format(Locale.ENGLISH, "%.1f", max);
+    } else {
+      format += "infinite";
+    }
+    return format + ")";
   }
 
 }

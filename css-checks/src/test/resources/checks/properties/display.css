@@ -23,6 +23,8 @@
   display: ruby-base-container;
   display: ruby-text-container;
   display: ruby-base;
+  display: compact;
+  display: marker;
   display: abc; /* Noncompliant */
   display: 0; /* Noncompliant */
 }

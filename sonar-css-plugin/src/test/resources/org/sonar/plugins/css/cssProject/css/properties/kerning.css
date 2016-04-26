@@ -1,0 +1,8 @@
+.mybox {
+  kerning: inherit;
+  kerning: auto;
+  kerning: 10px;
+  kerning: -10px;
+  kerning: 10; /* Noncompliant */
+  kerning: abc; /* Noncompliant */
+}

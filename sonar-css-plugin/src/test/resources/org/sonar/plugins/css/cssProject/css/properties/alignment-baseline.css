@@ -12,6 +12,7 @@
   alignment-baseline: hanging;
   alignment-baseline: ideographic;
   alignment-baseline: mathematical;
+  alignment-baseline: auto;
   alignment-baseline: 10%; /* Noncompliant */
   alignment-baseline: -10%; /* Noncompliant */
   alignment-baseline: 10px; /* Noncompliant */

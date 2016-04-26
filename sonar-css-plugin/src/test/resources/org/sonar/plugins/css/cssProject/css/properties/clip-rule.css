@@ -1,0 +1,7 @@
+.mybox {
+  clip-rule: inherit;
+  clip-rule: nonzero;
+  clip-rule: evenodd;
+  clip-rule: blabla; /* Noncompliant */
+  clip-rule: 10px;  /* Noncompliant */
+}

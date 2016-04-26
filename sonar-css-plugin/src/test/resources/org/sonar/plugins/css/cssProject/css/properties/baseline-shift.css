@@ -1,5 +1,6 @@
 .mybox {
   baseline-shift: inherit;
+  baseline-shift: baseline;
   baseline-shift: sub;
   baseline-shift: super;
   baseline-shift: 10%;

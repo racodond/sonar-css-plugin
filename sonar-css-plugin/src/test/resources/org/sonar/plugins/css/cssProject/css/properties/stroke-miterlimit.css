@@ -1,0 +1,11 @@
+.mybox {
+  stroke-miterlimit: inherit;
+  stroke-miterlimit: 1;
+  stroke-miterlimit: 1.0;
+  stroke-miterlimit: 1000.4;
+  stroke-miterlimit: 100%; /* Noncompliant */
+  stroke-miterlimit: 10px; /* Noncompliant */
+  stroke-miterlimit: abc; /* Noncompliant */
+  stroke-miterlimit: 0.5; /* Noncompliant */
+  stroke-miterlimit: -0.5; /* Noncompliant */
+}

@@ -4,6 +4,7 @@
   text-decoration: underline;
   text-decoration: overline;
   text-decoration: line-through;
+  text-decoration: blink;
   text-decoration: abc; /* Noncompliant */
   text-decoration: 10; /* Noncompliant */
 }

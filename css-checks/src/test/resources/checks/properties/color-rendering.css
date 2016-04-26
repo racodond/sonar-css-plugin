@@ -1,0 +1,10 @@
+.mybox {
+  color-rendering: inherit;
+  color-rendering: auto;
+  color-rendering: optimizeSpeed;
+  color-rendering: optimizeQuality;
+  color-rendering: optimizespeed;
+  color-rendering: optimizequality;
+  color-rendering: blabla; /* Noncompliant */
+  color-rendering: 10px;  /* Noncompliant */
+}
