@@ -20,12 +20,11 @@
 package org.sonar.css.checks.validators.property;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.ValidatorFactory;
-import org.sonar.css.checks.validators.ValueElementListValidator;
-import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
-import org.sonar.css.checks.validators.valueelement.StringValidator;
 
 import javax.annotation.Nonnull;
+
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementListValidator;
 
 public class FontFamilyValidator extends ValueElementListValidator {
 

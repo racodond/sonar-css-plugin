@@ -19,9 +19,9 @@
  */
 package org.sonar.css.checks.validators;
 
-import org.sonar.css.checks.utils.CssValueElement;
-
 import javax.annotation.Nonnull;
+
+import org.sonar.css.checks.utils.CssValueElement;
 
 public interface ValueElementValidator extends Validator {
 

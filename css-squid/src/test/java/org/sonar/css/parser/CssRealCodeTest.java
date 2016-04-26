@@ -21,13 +21,14 @@ package org.sonar.css.parser;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
-import org.junit.Test;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+
+import org.junit.Test;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 import static org.sonar.sslr.tests.Assertions.assertThat;
 

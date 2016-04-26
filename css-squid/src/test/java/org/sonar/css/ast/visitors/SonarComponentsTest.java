@@ -19,6 +19,8 @@
  */
 package org.sonar.css.ast.visitors;
 
+import java.io.File;
+
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.sonar.api.batch.fs.FilePredicate;
@@ -28,12 +30,8 @@ import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.component.ResourcePerspectives;
 import org.sonar.api.source.Highlightable;
 
-import java.io.File;
-
 import static org.fest.assertions.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class SonarComponentsTest {
 

@@ -20,12 +20,12 @@
 package org.sonar.css.checks.validators.valueelement.flex;
 
 import com.google.common.collect.ImmutableList;
+
+import javax.annotation.Nonnull;
+
 import org.sonar.css.checks.validators.ValidatorFactory;
 import org.sonar.css.checks.validators.ValueElementMultiValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
-import org.sonar.css.checks.validators.valueelement.WidthHeightValidator;
-
-import javax.annotation.Nonnull;
 
 public class FlexBasisValidator extends ValueElementMultiValidator {
 

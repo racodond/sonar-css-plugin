@@ -24,6 +24,10 @@ import com.sonar.sslr.api.GenericTokenType;
 import com.sonar.sslr.api.RecognitionException;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.impl.Parser;
+
+import java.io.File;
+import java.nio.charset.Charset;
+
 import net.sourceforge.pmd.cpd.SourceCode;
 import net.sourceforge.pmd.cpd.TokenEntry;
 import net.sourceforge.pmd.cpd.Tokenizer;
@@ -31,9 +35,6 @@ import net.sourceforge.pmd.cpd.Tokens;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.parser.ParserAdapter;
-
-import java.io.File;
-import java.nio.charset.Charset;
 
 public class CssTokenizer implements Tokenizer {
 

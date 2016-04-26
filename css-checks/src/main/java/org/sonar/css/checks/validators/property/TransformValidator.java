@@ -29,7 +29,6 @@ import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.validators.ValidatorFactory;
 import org.sonar.css.checks.validators.ValueElementValidator;
 import org.sonar.css.checks.validators.ValueValidator;
-import org.sonar.css.checks.validators.valueelement.NoneValidator;
 import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
 
 public class TransformValidator implements ValueValidator {

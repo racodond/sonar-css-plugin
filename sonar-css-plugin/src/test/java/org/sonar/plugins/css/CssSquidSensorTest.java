@@ -20,6 +20,11 @@
 package org.sonar.plugins.css;
 
 import com.google.common.collect.ImmutableList;
+
+import java.io.File;
+import java.nio.charset.Charset;
+import java.util.Arrays;
+
 import org.apache.commons.collections.ListUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,14 +45,8 @@ import org.sonar.api.resources.Project;
 import org.sonar.css.ast.visitors.SonarComponents;
 import org.sonar.squidbridge.SquidAstVisitor;
 
-import java.io.File;
-import java.nio.charset.Charset;
-import java.util.Arrays;
-
 import static org.fest.assertions.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class CssSquidSensorTest {
 

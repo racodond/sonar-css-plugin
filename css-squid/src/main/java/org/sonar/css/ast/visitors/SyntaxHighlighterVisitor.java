@@ -21,19 +21,16 @@ package org.sonar.css.ast.visitors;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
-import com.sonar.sslr.api.AstAndTokenVisitor;
-import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.api.AstNodeType;
-import com.sonar.sslr.api.Token;
-import com.sonar.sslr.api.Trivia;
+import com.sonar.sslr.api.*;
+
+import java.nio.charset.Charset;
+import java.util.Map;
+
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.source.Highlightable;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.SquidAstVisitor;
 import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.nio.charset.Charset;
-import java.util.Map;
 
 public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> implements AstAndTokenVisitor {
 

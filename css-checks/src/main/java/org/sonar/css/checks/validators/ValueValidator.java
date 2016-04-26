@@ -20,6 +20,7 @@
 package org.sonar.css.checks.validators;
 
 import javax.annotation.Nonnull;
+
 import org.sonar.css.checks.utils.CssValue;
 
 public interface ValueValidator extends Validator {

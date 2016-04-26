@@ -19,9 +19,9 @@
  */
 package org.sonar.css.checks.validators.valueelement.dimension;
 
-import org.sonar.css.checks.utils.CssUnits;
-
 import javax.annotation.Nonnull;
+
+import org.sonar.css.checks.utils.CssUnits;
 
 public class LengthValidator extends DimensionValidator {
 

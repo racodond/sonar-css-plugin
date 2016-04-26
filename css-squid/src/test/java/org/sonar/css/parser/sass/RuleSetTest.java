@@ -19,12 +19,12 @@
  */
 package org.sonar.css.parser.sass;
 
-import org.sonar.css.parser.CssGrammar;
-
 import org.junit.Test;
+import org.sonar.css.parser.CssGrammar;
 import org.sonar.css.parser.SassGrammar;
 import org.sonar.css.parser.TestBase;
 import org.sonar.sslr.parser.LexerlessGrammar;
+
 import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class RuleSetTest extends TestBase {

@@ -19,10 +19,10 @@
  */
 package org.sonar.css.parser;
 
-import static org.sonar.sslr.tests.Assertions.assertThat;
-
 import org.junit.Test;
 import org.sonar.sslr.parser.LexerlessGrammar;
+
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class CssStylesheetTest extends TestBase {
 

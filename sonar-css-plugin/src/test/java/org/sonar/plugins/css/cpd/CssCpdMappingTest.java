@@ -20,6 +20,10 @@
 package org.sonar.plugins.css.cpd;
 
 import com.google.common.base.Charsets;
+
+import java.io.File;
+import java.util.Arrays;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -27,9 +31,6 @@ import org.sonar.api.config.Settings;
 import org.sonar.api.scan.filesystem.FileQuery;
 import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.plugins.css.core.Css;
-
-import java.io.File;
-import java.util.Arrays;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;

@@ -23,7 +23,6 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 
 import java.io.File;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Rule;
