@@ -25,6 +25,9 @@ import java.util.Map;
 
 public class GenerateRuleDescriptions {
 
+  private GenerateRuleDescriptions() {
+  }
+
   public static void main(String... args) throws Exception {
     boolean sizeLimit = false;
     if ("sizeLimit".equals(args[0])) {

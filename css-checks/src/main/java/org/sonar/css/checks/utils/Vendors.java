@@ -41,8 +41,10 @@ public class Vendors {
     "-ro-",
     "-tc-",
     "-webkit-",
-    "-wap-"
-    );
+    "-wap-");
+
+  private Vendors() {
+  }
 
   public static boolean isVendorPrefixed(String name) {
     for (String v : VENDORS) {

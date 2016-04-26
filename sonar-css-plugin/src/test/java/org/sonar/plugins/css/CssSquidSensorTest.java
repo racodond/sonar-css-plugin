@@ -71,7 +71,7 @@ public class CssSquidSensorTest {
     checkFactory = mock(CheckFactory.class);
     when(checkFactory.<SquidAstVisitor>create(Mockito.anyString())).thenReturn(checks);
 
-    sensor = new CssSquidSensor(mock(RulesProfile.class), null, fs, checkFactory, mock(NoSonarFilter.class));
+    sensor = new CssSquidSensor(null, fs, checkFactory, mock(NoSonarFilter.class));
   }
 
   @Test
@@ -79,7 +79,7 @@ public class CssSquidSensorTest {
     Project project = new Project("key");
     FileSystem fs = mock(FileSystem.class);
     when(fs.predicates()).thenReturn(mock(FilePredicates.class));
-    CssSquidSensor cssSensor = new CssSquidSensor(mock(RulesProfile.class), mock(SonarComponents.class), fs, mock(CheckFactory.class), mock(NoSonarFilter.class));
+    CssSquidSensor cssSensor = new CssSquidSensor(mock(SonarComponents.class), fs, mock(CheckFactory.class), mock(NoSonarFilter.class));
 
     when(fs.files(Mockito.any(FilePredicate.class))).thenReturn(ListUtils.EMPTY_LIST);
     assertThat(cssSensor.shouldExecuteOnProject(project)).isFalse();

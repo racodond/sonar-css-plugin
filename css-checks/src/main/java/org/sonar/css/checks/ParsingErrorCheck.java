@@ -47,7 +47,7 @@ public class ParsingErrorCheck extends SquidCheck<LexerlessGrammar> implements A
   @Override
   public void processException(Exception e) {
     StringWriter exception = new StringWriter();
-    e.printStackTrace(new PrintWriter(exception));
+    e.printStackTrace(new PrintWriter(exception)); // NOSONAR
     getContext().createFileViolation(this, exception.toString());
   }
 

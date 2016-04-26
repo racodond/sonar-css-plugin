@@ -41,7 +41,7 @@ public class CssTokenizer implements Tokenizer {
   private final Parser<LexerlessGrammar> parser;
 
   public CssTokenizer(Charset charset) {
-    this.parser = new ParserAdapter<LexerlessGrammar>(charset, CssGrammar.createGrammar());
+    this.parser = new ParserAdapter<>(charset, CssGrammar.createGrammar());
   }
 
   @Override

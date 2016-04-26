@@ -44,7 +44,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleConstantRemediation("2min")
 public class AlphabetizeDeclarationsCheck extends SquidCheck<LexerlessGrammar> {
 
-  private List<String> declarations = new ArrayList<String>();
+  private List<String> declarations = new ArrayList<>();
 
   @Override
   public void init() {
@@ -61,7 +61,7 @@ public class AlphabetizeDeclarationsCheck extends SquidCheck<LexerlessGrammar> {
       if (!arePropertiesAlphabeticallyOrdered(declarations)) {
         getContext().createLineViolation(this, "Alphabetically order these rule's properties", astNode);
       }
-      declarations = new ArrayList<String>();
+      declarations = new ArrayList<>();
     }
   }
 

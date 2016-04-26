@@ -69,7 +69,7 @@ public class AllGradientDefinitions extends SquidCheck<LexerlessGrammar> {
   @Override
   public void visitNode(AstNode astNode) {
     if (astNode.is(CssGrammar.RULESET) || astNode.is(CssGrammar.AT_RULE)) {
-      gradientsFound = new ArrayList<String>(gradients);
+      gradientsFound = new ArrayList<>(gradients);
     } else if (astNode.is(CssGrammar.DECLARATION)) {
       String value = astNode.getFirstChild(CssGrammar.VALUE).getTokenValue();
       if (value.matches(gradientMatcher)) {

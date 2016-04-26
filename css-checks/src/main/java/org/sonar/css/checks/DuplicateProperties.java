@@ -47,12 +47,12 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @ActivatedByDefault
 public class DuplicateProperties extends SquidCheck<LexerlessGrammar> {
 
+  List<Declaration> declarations = Lists.newArrayList();
+
   @Override
   public void init() {
     subscribeTo(CssGrammar.SUP_DECLARATION);
   }
-
-  List<Declaration> declarations = Lists.newArrayList();
 
   @Override
   public void visitNode(AstNode supDeclarationNode) {
@@ -99,11 +99,11 @@ public class DuplicateProperties extends SquidCheck<LexerlessGrammar> {
 
   private List<Declaration> getAllDeclarations(AstNode supDeclarationNode) {
     List<AstNode> declarationNodes = supDeclarationNode.getChildren(CssGrammar.DECLARATION);
-    List<Declaration> declarations = Lists.newArrayList();
+    List<Declaration> allDeclarations = Lists.newArrayList();
     for (AstNode declarationNode : declarationNodes) {
-      declarations.add(new Declaration(declarationNode));
+      allDeclarations.add(new Declaration(declarationNode));
     }
-    return declarations;
+    return allDeclarations;
   }
 
   private static class Declaration {

@@ -55,7 +55,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @ActivatedByDefault
 public class CompatibleVendorPrefixes extends SquidCheck<LexerlessGrammar> {
 
-  Map<String, Set<String>> properties = new HashMap<String, Set<String>>();
+  Map<String, Set<String>> properties = new HashMap<>();
 
   @Override
   public void init() {

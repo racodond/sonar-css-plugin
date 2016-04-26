@@ -75,7 +75,7 @@ public class BackgroundRepeatValidator implements ValueValidator {
 
   private boolean checkRepeatStyleList(List<List<CssValueElement>> repeatStyleList) {
     for (List<CssValueElement> elementList : repeatStyleList) {
-      if (elementList.size() == 0
+      if (elementList.isEmpty()
         || (elementList.size() == 2 && (repeatXYValidator.isValid(elementList.get(0)) || repeatXYValidator.isValid(elementList.get(1))))) {
         return false;
       }

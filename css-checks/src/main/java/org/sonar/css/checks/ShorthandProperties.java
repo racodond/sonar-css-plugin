@@ -53,7 +53,7 @@ public class ShorthandProperties extends SquidCheck<LexerlessGrammar> {
   private static List<String> margin = ImmutableList.<String>of("margin-left", "margin-right", "margin-top", "margin-bottom");
   private static List<String> padding = ImmutableList.<String>of("padding-left", "padding-right", "padding-top", "padding-bottom");
 
-  List<String> properties = new ArrayList<String>();
+  List<String> properties = new ArrayList<>();
 
   @Override
   public void init() {

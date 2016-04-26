@@ -554,8 +554,8 @@ public final class CssProperties {
         .addValidator(
           new IdentifierValidator(ImmutableList
             .of("auto", "avoid", "always", "any", "avoid-page", "page", "left", "right", "recto", "verso", "avoid-column",
-                "column",
-                "avoid-region", "region"))))
+              "column",
+              "avoid-region", "region"))))
 
     .put("break-inside", new CssProperty("break-inside")
       .setUrl("http://dev.w3.org/csswg/css-break-3/#propdef-break-inside")
@@ -565,7 +565,7 @@ public final class CssProperties {
     .put("caption-side", new CssProperty("caption-side")
       .setUrl("http://dev.w3.org/csswg/css-logical-props/#caption-side")
       .addValidator(new IdentifierValidator(
-          ImmutableList.of("top", "bottom", "block-start", "block-end", "inline-start", "inline-end"))))
+        ImmutableList.of("top", "bottom", "block-start", "block-end", "inline-start", "inline-end"))))
 
     .put("caret-color", new CssProperty("caret-color")
       .setUrl("http://www.w3.org/TR/2015/WD-css3-ui-20150519/#propdef-caret-color")
@@ -705,16 +705,16 @@ public final class CssProperties {
     .put("display", new CssProperty("display")
       .setUrl("http://dev.w3.org/csswg/css-display/#propdef-display")
       .addValidator(new IdentifierValidator(ImmutableList.of("inline", "block", "list-item", "inline-block", "table",
-          "inline-table", "table-row-group", "table-header-group", "table-footer-group", "table-row",
-          "table-column-group", "table-column", "table-cell", "table-caption", "none", "flex", "inline-flex", "grid",
-          "inline-grid", "run-in", "contents", "ruby", "ruby-base", "ruby-text", "ruby-base-container",
-          "ruby-text-container", "compact", "marker"))))
+        "inline-table", "table-row-group", "table-header-group", "table-footer-group", "table-row",
+        "table-column-group", "table-column", "table-cell", "table-caption", "none", "flex", "inline-flex", "grid",
+        "inline-grid", "run-in", "contents", "ruby", "ruby-base", "ruby-text", "ruby-base-container",
+        "ruby-text-container", "compact", "marker"))))
 
     .put("dominant-baseline", new CssProperty("dominant-baseline")
       .setUrl("http://dev.w3.org/csswg/css-inline/#propdef-dominant-baseline")
       .addValidator(new IdentifierValidator(ImmutableList
         .of("auto", "use-script", "no-change", "reset-size", "alphabetic", "hanging", "ideographic", "mathematical",
-            "central", "middle", "text-after-edge", "text-before-edge"))))
+          "central", "middle", "text-after-edge", "text-before-edge"))))
 
     .put("drop-initial-after-adjust", new CssProperty("drop-initial-after-adjust")
       .setUrl("http://www.w3.org/TR/css3-linebox/#drop-initial-after-adjust")
@@ -1050,7 +1050,7 @@ public final class CssProperties {
     .put("justify-content", new CssProperty("justify-content")
       .setUrl("http://dev.w3.org/csswg/css-flexbox-1/#propdef-justify-content")
       .addValidator(
-          new IdentifierValidator(ImmutableList.of("flex-start", "flex-end", "center", "space-between", "space-around"))))
+        new IdentifierValidator(ImmutableList.of("flex-start", "flex-end", "center", "space-between", "space-around"))))
 
     // K
     .put("kerning", new CssProperty("kerning")
@@ -1571,15 +1571,15 @@ public final class CssProperties {
       .addValidator(ValidatorFactory.getColorValidator()))
 
     .put("stop-opacity", new CssProperty("stop-opacity")
-        .setUrl("https://www.w3.org/TR/SVG/pservers.html#StopOpacityProperty")
-        .addValidator(new NumberRangeValidator(0, 1)))
+      .setUrl("https://www.w3.org/TR/SVG/pservers.html#StopOpacityProperty")
+      .addValidator(new NumberRangeValidator(0, 1)))
 
     .put("stress", new CssProperty("stress")
-        .setUrl("http://www.w3.org/TR/CSS21/aural.html#propdef-stress")
-        .addValidator(ValidatorFactory.getNumberValidator()))
+      .setUrl("http://www.w3.org/TR/CSS21/aural.html#propdef-stress")
+      .addValidator(ValidatorFactory.getNumberValidator()))
 
     .put("string-set", new CssProperty("string-set")
-        .setUrl("http://www.w3.org/TR/css-gcpm-3/#propdef-string-set"))
+      .setUrl("http://www.w3.org/TR/css-gcpm-3/#propdef-string-set"))
 
     .put("stroke", new CssProperty("stroke")
       .setUrl("https://www.w3.org/TR/SVG/painting.html#StrokeProperty"))
@@ -1629,13 +1629,13 @@ public final class CssProperties {
       .setObsolete(true))
 
     .put("target-name", new CssProperty("target-name")
-        .setObsolete(true))
+      .setObsolete(true))
 
     .put("target-new", new CssProperty("target-new")
-        .setObsolete(true))
+      .setObsolete(true))
 
     .put("target-position", new CssProperty("target-position")
-        .setObsolete(true))
+      .setObsolete(true))
 
     .put("text-align", new CssProperty("text-align")
       .setUrl("http://dev.w3.org/csswg/css3-text/#text-align-property")
@@ -1916,6 +1916,9 @@ public final class CssProperties {
       .addValidator(new ZoomValidator()))
 
     .build();
+
+  private CssProperties() {
+  }
 
   public static CssProperty getProperty(String propertyName) {
     return PROPERTIES.get(propertyName.toLowerCase());

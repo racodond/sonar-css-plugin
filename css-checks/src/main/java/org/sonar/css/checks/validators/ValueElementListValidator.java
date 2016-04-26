@@ -33,9 +33,6 @@ public class ValueElementListValidator implements ValueValidator {
 
   private List<? extends ValueElementValidator> validators = new ArrayList<>();
 
-  public ValueElementListValidator() {
-  }
-
   public ValueElementListValidator(@Nonnull ImmutableList<? extends ValueElementValidator> validators) {
     this.validators = validators;
   }

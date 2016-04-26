@@ -52,7 +52,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @ActivatedByDefault
 public class DisallowOverqualifiedElements extends SquidCheck<LexerlessGrammar> {
 
-  List<Selectors> selectors = new ArrayList<DisallowOverqualifiedElements.Selectors>();
+  List<Selectors> selectors = new ArrayList<>();
 
   @Override
   public void init() {
@@ -90,16 +90,16 @@ public class DisallowOverqualifiedElements extends SquidCheck<LexerlessGrammar> 
 
   private static class Selectors {
     String className;
-    Map<String, Integer> elements = new HashMap<String, Integer>();
-
-    public void addElement(Selectors newSelector) {
-      Entry<String, Integer> elementEntry = newSelector.getElements().entrySet().iterator().next();
-      addElement(elementEntry.getKey(), elementEntry.getValue());
-    }
+    Map<String, Integer> elements = new HashMap<>();
 
     public Selectors(String className, String element, int line) {
       this.className = className;
       elements.put(element, line);
+    }
+
+    public void addElement(Selectors newSelector) {
+      Entry<String, Integer> elementEntry = newSelector.getElements().entrySet().iterator().next();
+      addElement(elementEntry.getKey(), elementEntry.getValue());
     }
 
     public String getClassName() {

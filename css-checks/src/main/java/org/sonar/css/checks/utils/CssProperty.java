@@ -113,7 +113,7 @@ public class CssProperty {
       throw new IllegalArgumentException("Node is not of type VALUE: " + astNode.getType().toString());
     }
 
-    if (validators.size() == 0) {
+    if (validators.isEmpty()) {
       return true;
     }
 

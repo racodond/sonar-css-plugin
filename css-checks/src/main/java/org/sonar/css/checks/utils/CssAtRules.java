@@ -23,7 +23,7 @@ import com.google.common.collect.ImmutableList;
 
 public class CssAtRules {
 
-  public static ImmutableList<String> CSS_AT_RULES = ImmutableList.of(
+  public static final ImmutableList<String> CSS_AT_RULES = ImmutableList.of(
     "annotation",
     "character-variant",
     "charset",
@@ -41,7 +41,9 @@ public class CssAtRules {
     "stylistic",
     "supports",
     "swash",
-    "viewport"
-    );
+    "viewport");
+
+  private CssAtRules() {
+  }
 
 }

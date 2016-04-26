@@ -49,7 +49,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @ActivatedByDefault
 public class DisallowDuplicateBackgroundImages extends SquidCheck<LexerlessGrammar> {
 
-  Set<String> urls = new HashSet<String>();
+  Set<String> urls = new HashSet<>();
 
   @Override
   public void init() {
