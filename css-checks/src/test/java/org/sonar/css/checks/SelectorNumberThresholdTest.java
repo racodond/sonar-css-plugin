@@ -19,13 +19,13 @@
  */
 package org.sonar.css.checks;
 
+import java.io.File;
+import java.text.MessageFormat;
+
 import org.junit.Test;
 import org.sonar.css.CssAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
-import java.io.File;
-import java.text.MessageFormat;
 
 public class SelectorNumberThresholdTest {
 

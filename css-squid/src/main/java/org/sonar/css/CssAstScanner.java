@@ -73,10 +73,10 @@ public final class CssAstScanner {
   }
 
   public static AstScanner<LexerlessGrammar> create(CssConfiguration conf, @Nullable SonarComponents sonarComponents, SquidAstVisitor<LexerlessGrammar>... visitors) {
-    final SquidAstVisitorContextImpl<LexerlessGrammar> context = new SquidAstVisitorContextImpl<LexerlessGrammar>(new SourceProject("Css Project"));
-    final Parser<LexerlessGrammar> parser = new ParserAdapter<LexerlessGrammar>(conf.getCharset(), CssGrammar.createGrammar());
+    final SquidAstVisitorContextImpl<LexerlessGrammar> context = new SquidAstVisitorContextImpl<>(new SourceProject("Css Project"));
+    final Parser<LexerlessGrammar> parser = new ParserAdapter<>(conf.getCharset(), CssGrammar.createGrammar());
 
-    AstScanner.Builder<LexerlessGrammar> builder = AstScanner.<LexerlessGrammar>builder(context).setBaseParser(parser);
+    AstScanner.Builder<LexerlessGrammar> builder = AstScanner.builder(context).setBaseParser(parser);
 
     /* Metrics */
     builder.withMetrics(CssMetric.values());

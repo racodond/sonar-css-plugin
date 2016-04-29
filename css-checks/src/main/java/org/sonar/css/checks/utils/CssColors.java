@@ -23,7 +23,7 @@ import com.google.common.collect.ImmutableList;
 
 public class CssColors {
 
-  public static ImmutableList<String> SVG_COLORS = ImmutableList.of(
+  public static final ImmutableList<String> SVG_COLORS = ImmutableList.of(
     "aliceblue",
     "antiquewhite",
     "aqua",
@@ -170,12 +170,11 @@ public class CssColors {
     "white",
     "whitesmoke",
     "yellow",
-    "yellowgreen"
-    );
+    "yellowgreen");
 
-  public static ImmutableList<String> CSS4_COLORS = ImmutableList.of("rebeccapurple");
+  public static final ImmutableList<String> CSS4_COLORS = ImmutableList.of("rebeccapurple");
 
-  public static ImmutableList<String> CSS2_SYSTEM_COLORS = ImmutableList.of(
+  public static final ImmutableList<String> CSS2_SYSTEM_COLORS = ImmutableList.of(
     "activeborder",
     "activecaption",
     "appworkspace",
@@ -203,7 +202,9 @@ public class CssColors {
     "threedshadow",
     "window",
     "windowframe",
-    "windowtext"
-    );
+    "windowtext");
+
+  private CssColors() {
+  }
 
 }

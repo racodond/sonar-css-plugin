@@ -9,7 +9,9 @@
   font-stretch: expanded;
   font-stretch: extra-expanded;
   font-stretch: ultra-expanded;
+  font-stretch: wider;
+  font-stretch: narrower;
   font-stretch: abc; /* Noncompliant */
-  font-stretch: 1Opx; /* Noncompliant */
-  font-stretch: O; /* Noncompliant */
+  font-stretch: 10px; /* Noncompliant */
+  font-stretch: 0; /* Noncompliant */
 }

@@ -20,11 +20,12 @@
 package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
+
+import javax.annotation.Nonnull;
+
 import org.sonar.css.checks.validators.ValidatorFactory;
 import org.sonar.css.checks.validators.ValueElementMultiValidator;
 import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
-
-import javax.annotation.Nonnull;
 
 public class ImageValidator extends ValueElementMultiValidator {
   public ImageValidator() {

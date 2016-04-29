@@ -23,7 +23,7 @@ import com.google.common.collect.ImmutableList;
 
 public class CssFunctions {
 
-  public static ImmutableList<String> CSS_FUNCTIONS = ImmutableList.of(
+  public static final ImmutableList<String> CSS_FUNCTIONS = ImmutableList.of(
     "annotation",
     "attr",
     "blur",
@@ -87,13 +87,12 @@ public class CssFunctions {
     "translatez",
     "translate3d",
     "url",
-    "var"
-    );
+    "var");
 
   /**
    * See https://msdn.microsoft.com/en-us/library/ms673539(v=vs.85).aspx
    */
-  public static ImmutableList<String> IE_STATIC_FILTERS = ImmutableList.of(
+  public static final ImmutableList<String> IE_STATIC_FILTERS = ImmutableList.of(
     "alpha",
     "basicimage",
     "blendtrans",
@@ -117,13 +116,12 @@ public class CssFunctions {
     "revealTrans",
     "shadow",
     "wave",
-    "xray"
-    );
+    "xray");
 
   /**
    * See https://msdn.microsoft.com/en-us/library/ms673539(v=vs.85).aspx
    */
-  public static ImmutableList<String> IE_STATIC_FILTERS_NOT_IN_CSS_FUNCTIONS = ImmutableList.of(
+  public static final ImmutableList<String> IE_STATIC_FILTERS_NOT_IN_CSS_FUNCTIONS = ImmutableList.of(
     "alpha",
     "basicimage",
     "blendtrans",
@@ -147,8 +145,10 @@ public class CssFunctions {
     "revealTrans",
     "shadow",
     "wave",
-    "xray"
-    );
+    "xray");
+
+  private CssFunctions() {
+  }
 
   public static String getFunctionNameWithoutVendorPrefix(String functionName) {
     for (String v : Vendors.VENDORS) {

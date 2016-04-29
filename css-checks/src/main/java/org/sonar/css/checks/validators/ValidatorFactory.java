@@ -70,6 +70,9 @@ public class ValidatorFactory {
   private static final ValueValidator borderValidator = new BorderValidator();
   private static final ValueValidator counterValidator = new CounterValidator();
 
+  private ValidatorFactory() {
+  }
+
   public static ValueElementValidator getAngleValidator() {
     return angleValidator;
   }

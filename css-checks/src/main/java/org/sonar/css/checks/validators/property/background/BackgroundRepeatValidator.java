@@ -20,16 +20,16 @@
 package org.sonar.css.checks.validators.property.background;
 
 import com.google.common.collect.ImmutableList;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.Nonnull;
+
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.DelimiterValueElement;
 import org.sonar.css.checks.validators.ValueValidator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
-
-import javax.annotation.Nonnull;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BackgroundRepeatValidator implements ValueValidator {
 
@@ -75,7 +75,7 @@ public class BackgroundRepeatValidator implements ValueValidator {
 
   private boolean checkRepeatStyleList(List<List<CssValueElement>> repeatStyleList) {
     for (List<CssValueElement> elementList : repeatStyleList) {
-      if (elementList.size() == 0
+      if (elementList.isEmpty()
         || (elementList.size() == 2 && (repeatXYValidator.isValid(elementList.get(0)) || repeatXYValidator.isValid(elementList.get(1))))) {
         return false;
       }

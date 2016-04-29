@@ -19,13 +19,12 @@
  */
 package org.sonar.css.checks.validators.property.liststyle;
 
+import java.util.List;
+import javax.annotation.Nonnull;
+
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.validators.ValueValidator;
-
-import javax.annotation.Nonnull;
-
-import java.util.List;
 
 public class ListStyleValidator implements ValueValidator {
 

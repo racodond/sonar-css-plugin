@@ -52,7 +52,7 @@ public class EmptyDeclarationCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (astNode.getChildren() != null && astNode.getChildren().size() > 0) {
+    if (astNode.getChildren() != null && !astNode.getChildren().isEmpty()) {
       List<AstNode> node = astNode.getChildren();
       if (CssGrammar.SEMICOLON.equals(node.get(0).getType())) {
         getContext().createLineViolation(this, MESSAGE, node.get(0));

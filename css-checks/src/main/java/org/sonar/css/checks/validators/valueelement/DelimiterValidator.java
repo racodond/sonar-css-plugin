@@ -19,11 +19,11 @@
  */
 package org.sonar.css.checks.validators.valueelement;
 
+import javax.annotation.Nonnull;
+
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.DelimiterValueElement;
 import org.sonar.css.checks.validators.ValueElementValidator;
-
-import javax.annotation.Nonnull;
 
 public class DelimiterValidator implements ValueElementValidator {
 

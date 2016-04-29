@@ -20,6 +20,10 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.RecognitionException;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -29,9 +33,6 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
 @Rule(
   key = "S2260",
@@ -46,7 +47,7 @@ public class ParsingErrorCheck extends SquidCheck<LexerlessGrammar> implements A
   @Override
   public void processException(Exception e) {
     StringWriter exception = new StringWriter();
-    e.printStackTrace(new PrintWriter(exception));
+    e.printStackTrace(new PrintWriter(exception)); // NOSONAR
     getContext().createFileViolation(this, exception.toString());
   }
 

@@ -21,11 +21,11 @@ package org.sonar.css.metrics;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
-import com.sonar.sslr.api.AstAndTokenVisitor;
-import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.api.GenericTokenType;
-import com.sonar.sslr.api.Token;
-import com.sonar.sslr.api.Trivia;
+import com.sonar.sslr.api.*;
+
+import java.util.List;
+import java.util.Set;
+
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
@@ -34,9 +34,6 @@ import org.sonar.css.api.CssMetric;
 import org.sonar.css.ast.visitors.SonarComponents;
 import org.sonar.squidbridge.SquidAstVisitor;
 import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.util.List;
-import java.util.Set;
 
 public class FileLinesVisitor extends SquidAstVisitor<LexerlessGrammar> implements AstAndTokenVisitor {
 

@@ -20,8 +20,8 @@
 package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.css.checks.validators.ValueElementMultiValidator;
 import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueElementMultiValidator;
 
 public class RadiusValidator extends ValueElementMultiValidator {
 

@@ -1,0 +1,17 @@
+.mybox {
+  marker-end: inherit;
+  marker-mid: inherit;
+  marker-start: inherit;
+  marker-end: none;
+  marker-mid: none;
+  marker-start: none;
+  marker-end: url("abc");
+  marker-mid: url("abc");
+  marker-start: url("abc");
+  marker-end: url; /* Noncompliant */
+  marker-mid: url; /* Noncompliant */
+  marker-start: url; /* Noncompliant */
+  marker-end: 10px; /* Noncompliant */
+  marker-mid: 10px; /* Noncompliant */
+  marker-start: 10px; /* Noncompliant */
+}

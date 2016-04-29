@@ -19,16 +19,14 @@
  */
 package org.sonar.css.checks.validators.property;
 
+import java.util.List;
+import javax.annotation.Nonnull;
+
 import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.IdentifierValueElement;
-import org.sonar.css.checks.validators.ValueElementValidator;
-import org.sonar.css.checks.validators.ValueValidator;
 import org.sonar.css.checks.validators.ValidatorFactory;
-
-import javax.annotation.Nonnull;
-
-import java.util.List;
+import org.sonar.css.checks.validators.ValueValidator;
 
 public class CounterValidator implements ValueValidator {
 

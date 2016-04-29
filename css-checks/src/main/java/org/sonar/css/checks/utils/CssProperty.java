@@ -27,9 +27,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
 
+import org.sonar.css.checks.validators.Validator;
 import org.sonar.css.checks.validators.ValueElementValidator;
 import org.sonar.css.checks.validators.ValueValidator;
-import org.sonar.css.checks.validators.Validator;
 import org.sonar.css.checks.validators.valueelement.IdentifierValidator;
 import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
 import org.sonar.css.parser.CssGrammar;
@@ -113,7 +113,7 @@ public class CssProperty {
       throw new IllegalArgumentException("Node is not of type VALUE: " + astNode.getType().toString());
     }
 
-    if (validators.size() == 0) {
+    if (validators.isEmpty()) {
       return true;
     }
 

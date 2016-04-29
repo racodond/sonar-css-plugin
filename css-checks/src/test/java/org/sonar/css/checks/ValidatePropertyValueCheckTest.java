@@ -77,14 +77,15 @@ public class ValidatePropertyValueCheckTest {
   @Test
   public void alignment_baseline() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/alignment-baseline.css"), check);
-    errorMessage = "Update the invalid value of property \"alignment-baseline\". Expected format: baseline | use-script | before-edge | text-before-edge | after-edge | text-after-edge | central | middle | ideographic | alphabetic | hanging | mathematical";
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(15).withMessage(errorMessage).next()
-      .atLine(16).withMessage(errorMessage).next()
-      .atLine(17).withMessage(errorMessage).next()
-      .atLine(18).withMessage(errorMessage).next()
-      .atLine(19).withMessage(errorMessage).next()
-      .atLine(20).withMessage(errorMessage).noMore();
+    errorMessage = "Update the invalid value of property \"alignment-baseline\". Expected format: auto | baseline | use-script | before-edge | text-before-edge | after-edge | text-after-edge | central | middle | ideographic | alphabetic | hanging | mathematical";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(16).withMessage(errorMessage)
+      .next().atLine(17).withMessage(errorMessage)
+      .next().atLine(18).withMessage(errorMessage)
+      .next().atLine(19).withMessage(errorMessage)
+      .next().atLine(20).withMessage(errorMessage)
+      .next().atLine(21).withMessage(errorMessage)
+      .noMore();
   }
 
   @Test
@@ -292,10 +293,11 @@ public class ValidatePropertyValueCheckTest {
   @Test
   public void baseline_shift() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/baseline-shift.css"), check);
-    errorMessage = "Update the invalid value of property \"baseline-shift\". Expected format: sub | super | <length> | <percentage>";
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(9).withMessage(errorMessage).next()
-      .atLine(10).withMessage(errorMessage).noMore();
+    errorMessage = "Update the invalid value of property \"baseline-shift\". Expected format: baseline | sub | super | <length> | <percentage>";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(10).withMessage(errorMessage)
+      .next().atLine(11).withMessage(errorMessage)
+      .noMore();
   }
 
   @Test
@@ -524,20 +526,73 @@ public class ValidatePropertyValueCheckTest {
   public void clip() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/clip.css"), check);
     errorMessage = "Update the invalid value of property \"clip\". Expected format: <function>(rect) | auto";
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(5).withMessage(errorMessage).next()
-      .atLine(6).withMessage(errorMessage).noMore();
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(5).withMessage(errorMessage)
+      .next().atLine(6).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
+  public void clip_path() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/clip-path.css"), check);
+    errorMessage = "Update the invalid value of property \"clip-path\". Expected format: none | <uri>";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(5).withMessage(errorMessage)
+      .next().atLine(6).withMessage(errorMessage)
+      .next().atLine(7).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
+  public void clip_rule() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/clip-rule.css"), check);
+    errorMessage = "Update the invalid value of property \"clip-rule\". Expected format: nonzero | evenodd";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(5).withMessage(errorMessage)
+      .next().atLine(6).withMessage(errorMessage)
+      .noMore();
   }
 
   @Test
   public void color() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/color.css"), check);
     errorMessage = "Update the invalid value of property \"color\". Expected format: <color>";
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(9).withMessage(errorMessage).next()
-      .atLine(10).withMessage(errorMessage).next()
-      .atLine(11).withMessage(errorMessage).next()
-      .atLine(16).withMessage(errorMessage).noMore();
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(9).withMessage(errorMessage)
+      .next().atLine(10).withMessage(errorMessage)
+      .next().atLine(11).withMessage(errorMessage)
+      .next().atLine(16).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
+  public void color_interpolation() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/color-interpolation.css"), check);
+    errorMessage = "Update the invalid value of property \"color-interpolation\". Expected format: auto | srgb | linearrgb";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(8).withMessage(errorMessage)
+      .next().atLine(9).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
+  public void color_interpolation_filters() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/color-interpolation-filters.css"), check);
+    errorMessage = "Update the invalid value of property \"color-interpolation-filters\". Expected format: auto | srgb | linearrgb";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(8).withMessage(errorMessage)
+      .next().atLine(9).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
+  public void color_rendering() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/color-rendering.css"), check);
+    errorMessage = "Update the invalid value of property \"color-rendering\". Expected format: auto | optimizespeed | optimizequality";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(8).withMessage(errorMessage)
+      .next().atLine(9).withMessage(errorMessage)
+      .noMore();
   }
 
   @Test
@@ -598,24 +653,57 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void direction() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/direction.css"), check);
+    errorMessage = "Update the invalid value of property \"direction\". Expected format: ltr | rtl";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(5).withMessage(errorMessage)
+      .next().atLine(6).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
   public void display() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/display.css"), check);
     errorMessage = "Update the invalid value of property \"display\". Expected format: inline | block | list-item | inline-block | table | inline-table |"
       + " table-row-group | table-header-group | table-footer-group | table-row | table-column-group | table-column | table-cell |"
-      + " table-caption | none | flex | inline-flex | grid | inline-grid | run-in | contents | ruby | ruby-base | ruby-text | ruby-base-container | ruby-text-container";
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(26).withMessage(errorMessage).next()
-      .atLine(27).withMessage(errorMessage).noMore();
+      + " table-caption | none | flex | inline-flex | grid | inline-grid | run-in | contents | ruby | ruby-base | ruby-text | ruby-base-container | ruby-text-container | compact | marker";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(28).withMessage(errorMessage)
+      .next().atLine(29).withMessage(errorMessage)
+      .noMore();
   }
 
   @Test
   public void dominant_baseline() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/dominant-baseline.css"), check);
     errorMessage = "Update the invalid value of property \"dominant-baseline\". Expected format: auto | use-script | no-change | reset-size | alphabetic | hanging | ideographic | mathematical | central | middle | text-after-edge | text-before-edge";
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(15).withMessage(errorMessage).next()
-      .atLine(16).withMessage(errorMessage).next()
-      .atLine(17).withMessage(errorMessage).noMore();
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(15).withMessage(errorMessage)
+      .next().atLine(16).withMessage(errorMessage)
+      .next().atLine(17).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
+  public void fill_opacity() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/fill-opacity.css"), check);
+    errorMessage = "Update the invalid value of property \"fill-opacity\". Expected format: <number>(0.0,1.0)";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(7).withMessage(errorMessage)
+      .next().atLine(8).withMessage(errorMessage)
+      .next().atLine(9).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
+  public void fill_rule() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/fill-rule.css"), check);
+    errorMessage = "Update the invalid value of property \"fill-rule\". Expected format: nonzero | evenodd";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(5).withMessage(errorMessage)
+      .next().atLine(6).withMessage(errorMessage)
+      .noMore();
   }
 
   @Test
@@ -699,6 +787,29 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void flood_color() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/flood-color.css"), check);
+    errorMessage = "Update the invalid value of property \"flood-color\". Expected format: <color>";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(9).withMessage(errorMessage)
+      .next().atLine(10).withMessage(errorMessage)
+      .next().atLine(11).withMessage(errorMessage)
+      .next().atLine(16).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
+  public void flood_opacity() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/flood-opacity.css"), check);
+    errorMessage = "Update the invalid value of property \"flood-opacity\". Expected format: <number>(0.0,1.0)";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(7).withMessage(errorMessage)
+      .next().atLine(8).withMessage(errorMessage)
+      .next().atLine(9).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
   public void font_family() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/font-family.css"), check);
     errorMessage = "Update the invalid value of property \"font-family\". Expected format: [<family-name> | <generic-family>] [, <family-name>| <generic-family>]*";
@@ -728,22 +839,14 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
-  public void font_weight() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/font-weight.css"), check);
-    errorMessage = "Update the invalid value of property \"font-weight\". Expected format: normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900";
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(16).withMessage(errorMessage).next()
-      .atLine(17).withMessage(errorMessage).noMore();
-  }
-
-  @Test
   public void font_stretch() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/font-stretch.css"), check);
-    errorMessage = "Update the invalid value of property \"font-stretch\". Expected format: normal | ultra-condensed | extra-condensed | condensed | semi-condensed | semi-expanded | expanded | extra-expanded | ultra-expanded";
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(12).withMessage(errorMessage).next()
-      .atLine(13).withMessage(errorMessage).next()
-      .atLine(14).withMessage(errorMessage).noMore();
+    errorMessage = "Update the invalid value of property \"font-stretch\". Expected format: normal | ultra-condensed | extra-condensed | condensed | semi-condensed | semi-expanded | expanded | extra-expanded | ultra-expanded | wider | narrower";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(14).withMessage(errorMessage)
+      .next().atLine(15).withMessage(errorMessage)
+      .next().atLine(16).withMessage(errorMessage)
+      .noMore();
   }
 
   @Test
@@ -753,6 +856,35 @@ public class ValidatePropertyValueCheckTest {
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(6).withMessage(errorMessage).next()
       .atLine(7).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void font_weight() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/font-weight.css"), check);
+    errorMessage = "Update the invalid value of property \"font-weight\". Expected format: normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900";
+    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
+      .atLine(16).withMessage(errorMessage).next()
+      .atLine(17).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void glyph_orientation_horizontal() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/glyph-orientation-horizontal.css"), check);
+    errorMessage = "Update the invalid value of property \"glyph-orientation-horizontal\". Expected format: <angle>";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(4).withMessage(errorMessage)
+      .next().atLine(5).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
+  public void glyph_orientation_vertical() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/glyph-orientation-vertical.css"), check);
+    errorMessage = "Update the invalid value of property \"glyph-orientation-vertical\". Expected format: auto | <angle>";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(5).withMessage(errorMessage)
+      .next().atLine(6).withMessage(errorMessage)
+      .noMore();
   }
 
   @Test
@@ -771,6 +903,17 @@ public class ValidatePropertyValueCheckTest {
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(6).withMessage(errorMessage).next()
       .atLine(7).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void image_rendering() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/image-rendering.css"), check);
+    errorMessage = "Update the invalid value of property \"image-rendering\". Expected format: auto | optimizespeed | optimizequality";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(8).withMessage(errorMessage)
+      .next().atLine(9).withMessage(errorMessage)
+      .next().atLine(10).withMessage(errorMessage)
+      .noMore();
   }
 
   @Test
@@ -802,12 +945,44 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void kerning() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/kerning.css"), check);
+    errorMessage = "Update the invalid value of property \"kerning\". Expected format: auto | <length>";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(6).withMessage(errorMessage)
+      .next().atLine(7).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
   public void left() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/left.css"), check);
     errorMessage = "Update the invalid value of property \"left\". Expected format: auto | <length> | <percentage>";
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(8).withMessage(errorMessage).next()
       .atLine(9).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void letter_spacing() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/letter-spacing.css"), check);
+    errorMessage = "Update the invalid value of property \"letter-spacing\". Expected format: normal | <length>";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(6).withMessage(errorMessage)
+      .next().atLine(7).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
+  public void lighting_color() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/lighting-color.css"), check);
+    errorMessage = "Update the invalid value of property \"lighting-color\". Expected format: <color>";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(9).withMessage(errorMessage)
+      .next().atLine(10).withMessage(errorMessage)
+      .next().atLine(11).withMessage(errorMessage)
+      .next().atLine(16).withMessage(errorMessage)
+      .noMore();
   }
 
   @Test
@@ -934,6 +1109,22 @@ public class ValidatePropertyValueCheckTest {
       .atLine(31).withMessage(errorMessageLeft).next()
       .atLine(41).withMessage(errorMessageBottom).next()
       .atLine(42).withMessage(errorMessageBottom).noMore();
+  }
+
+  @Test
+  public void marker_xxx() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/marker-xxx.css"), check);
+    String errorMessageEnd = "Update the invalid value of property \"marker-end\". Expected format: none | <uri>";
+    String errorMessageMid = "Update the invalid value of property \"marker-mid\". Expected format: none | <uri>";
+    String errorMessageStart = "Update the invalid value of property \"marker-start\". Expected format: none | <uri>";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(11).withMessage(errorMessageEnd)
+      .next().atLine(12).withMessage(errorMessageMid)
+      .next().atLine(13).withMessage(errorMessageStart)
+      .next().atLine(14).withMessage(errorMessageEnd)
+      .next().atLine(15).withMessage(errorMessageMid)
+      .next().atLine(16).withMessage(errorMessageStart)
+      .noMore();
   }
 
   @Test
@@ -1200,6 +1391,16 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void pointer_events() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/pointer-events.css"), check);
+    errorMessage = "Update the invalid value of property \"pointer-events\". Expected format: visiblepainted | visiblefill | visiblestroke | visible | painted | fill | stroke | all | none";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(15).withMessage(errorMessage)
+      .next().atLine(16).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
   public void position() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/position.css"), check);
     errorMessage = "Update the invalid value of property \"position\". Expected format: static | relative | absolute | fixed | sticky";
@@ -1259,6 +1460,110 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void shape_rendering() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/shape-rendering.css"), check);
+    errorMessage = "Update the invalid value of property \"shape-rendering\". Expected format: auto | optimizespeed | crispedges | geometricprecision";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(10).withMessage(errorMessage)
+      .next().atLine(11).withMessage(errorMessage)
+      .next().atLine(12).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
+  public void stop_color() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/stop-color.css"), check);
+    errorMessage = "Update the invalid value of property \"stop-color\". Expected format: <color>";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(9).withMessage(errorMessage)
+      .next().atLine(10).withMessage(errorMessage)
+      .next().atLine(11).withMessage(errorMessage)
+      .next().atLine(16).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
+  public void stop_opacity() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/stop-opacity.css"), check);
+    errorMessage = "Update the invalid value of property \"stop-opacity\". Expected format: <number>(0.0,1.0)";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(7).withMessage(errorMessage)
+      .next().atLine(8).withMessage(errorMessage)
+      .next().atLine(9).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
+  public void stroke_linecap() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/stroke-linecap.css"), check);
+    errorMessage = "Update the invalid value of property \"stroke-linecap\". Expected format: butt | round | square";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(6).withMessage(errorMessage)
+      .next().atLine(7).withMessage(errorMessage)
+      .next().atLine(8).withMessage(errorMessage)
+      .next().atLine(9).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
+  public void stroke_dashoffset() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/stroke-dashoffset.css"), check);
+    errorMessage = "Update the invalid value of property \"stroke-dashoffset\". Expected format: <percentage> | <length>";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(7).withMessage(errorMessage)
+      .next().atLine(8).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
+  public void stroke_linejoin() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/stroke-linejoin.css"), check);
+    errorMessage = "Update the invalid value of property \"stroke-linejoin\". Expected format: miter | round | bevel";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(6).withMessage(errorMessage)
+      .next().atLine(7).withMessage(errorMessage)
+      .next().atLine(8).withMessage(errorMessage)
+      .next().atLine(9).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
+  public void stroke_miterlimit() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/stroke-miterlimit.css"), check);
+    errorMessage = "Update the invalid value of property \"stroke-miterlimit\". Expected format: <number>(1.0,infinite)";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(6).withMessage(errorMessage)
+      .next().atLine(7).withMessage(errorMessage)
+      .next().atLine(8).withMessage(errorMessage)
+      .next().atLine(9).withMessage(errorMessage)
+      .next().atLine(10).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
+  public void stroke_opacity() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/stroke-opacity.css"), check);
+    errorMessage = "Update the invalid value of property \"stroke-opacity\". Expected format: <number>(0.0,1.0)";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(7).withMessage(errorMessage)
+      .next().atLine(8).withMessage(errorMessage)
+      .next().atLine(9).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
+  public void stroke_width() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/stroke-width.css"), check);
+    errorMessage = "Update the invalid value of property \"stroke-width\". Expected format: <length>(>=0) | <percentage>(>=0)";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(5).withMessage(errorMessage)
+      .next().atLine(6).withMessage(errorMessage)
+      .next().atLine(7).withMessage(errorMessage)
+      .next().atLine(8).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
   public void tab_size() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/tab-size.css"), check);
     errorMessage = "Update the invalid value of property \"tab-size\". Expected format: <length>(>=0) | <integer>(>=0)";
@@ -1278,12 +1583,23 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void text_anchor() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/text-anchor.css"), check);
+    errorMessage = "Update the invalid value of property \"text-anchor\". Expected format: start | middle | end";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(6).withMessage(errorMessage)
+      .next().atLine(7).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
   public void text_decoration() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/text-decoration.css"), check);
-    errorMessage = "Update the invalid value of property \"text-decoration\". Expected format: none | underline | overline | line-through";
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(7).withMessage(errorMessage).next()
-      .atLine(8).withMessage(errorMessage).noMore();
+    errorMessage = "Update the invalid value of property \"text-decoration\". Expected format: none | underline | overline | line-through | blink";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(8).withMessage(errorMessage)
+      .next().atLine(9).withMessage(errorMessage)
+      .noMore();
   }
 
   @Test
@@ -1419,6 +1735,16 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
+  public void unicode_bidi() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/unicode-bidi.css"), check);
+    errorMessage = "Update the invalid value of property \"unicode-bidi\". Expected format: normal | embed | bidi-override";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(6).withMessage(errorMessage)
+      .next().atLine(7).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
   public void user_zoom() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/user-zoom.css"), check);
     errorMessage = "Update the invalid value of property \"user-zoom\". Expected format: zoom | fixed";
@@ -1434,6 +1760,16 @@ public class ValidatePropertyValueCheckTest {
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(18).withMessage(errorMessage).next()
       .atLine(19).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void visibility() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/visibility.css"), check);
+    errorMessage = "Update the invalid value of property \"visibility\". Expected format: visible | hidden | collapse";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(6).withMessage(errorMessage)
+      .next().atLine(7).withMessage(errorMessage)
+      .noMore();
   }
 
   @Test
@@ -1461,6 +1797,26 @@ public class ValidatePropertyValueCheckTest {
     CheckMessagesVerifier.verify(file.getCheckMessages()).next()
       .atLine(6).withMessage(errorMessage).next()
       .atLine(7).withMessage(errorMessage).noMore();
+  }
+
+  @Test
+  public void word_spacing() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/word-spacing.css"), check);
+    errorMessage = "Update the invalid value of property \"word-spacing\". Expected format: normal | <length>";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(6).withMessage(errorMessage)
+      .next().atLine(7).withMessage(errorMessage)
+      .noMore();
+  }
+
+  @Test
+  public void writing_mode() {
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/writing-mode.css"), check);
+    errorMessage = "Update the invalid value of property \"writing-mode\". Expected format: horizontal-tb | vertical-rl | vertical-lr | lr-tb | rl-tb | tb-rl | lr | rl | tb";
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(12).withMessage(errorMessage)
+      .next().atLine(13).withMessage(errorMessage)
+      .noMore();
   }
 
   @Test

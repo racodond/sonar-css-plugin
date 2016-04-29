@@ -1,0 +1,8 @@
+.mybox {
+  unicode-bidi: inherit;
+  unicode-bidi: embed;
+  unicode-bidi: normal;
+  unicode-bidi: bidi-override;
+  unicode-bidi: abc; /* Noncompliant */
+  unicode-bidi: 0.5; /* Noncompliant */
+}

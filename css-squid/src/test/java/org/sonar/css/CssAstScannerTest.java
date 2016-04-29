@@ -21,7 +21,6 @@ package org.sonar.css;
 
 import java.io.File;
 
-import com.google.common.base.Charsets;
 import org.junit.Test;
 import org.sonar.css.api.CssMetric;
 import org.sonar.squidbridge.api.SourceFile;

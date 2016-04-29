@@ -19,11 +19,11 @@
  */
 package org.sonar.css.checks.validators.valueelement.numeric;
 
+import javax.annotation.Nonnull;
+
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.NumberValueElement;
 import org.sonar.css.checks.validators.ValueElementValidator;
-
-import javax.annotation.Nonnull;
 
 public class IntegerValidator implements ValueElementValidator {
 

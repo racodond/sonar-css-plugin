@@ -19,13 +19,13 @@
  */
 package org.sonar.plugins.css.cpd;
 
+import java.nio.charset.Charset;
+
 import net.sourceforge.pmd.cpd.Tokenizer;
 import org.sonar.api.batch.AbstractCpdMapping;
 import org.sonar.api.resources.Language;
 import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.plugins.css.core.Css;
-
-import java.nio.charset.Charset;
 
 public class CssCpdMapping extends AbstractCpdMapping {
 

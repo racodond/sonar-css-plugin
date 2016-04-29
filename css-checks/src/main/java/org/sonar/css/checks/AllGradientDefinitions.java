@@ -21,6 +21,11 @@ package org.sonar.css.checks;
 
 import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -30,10 +35,6 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-all-gradient-definitions
@@ -68,7 +69,7 @@ public class AllGradientDefinitions extends SquidCheck<LexerlessGrammar> {
   @Override
   public void visitNode(AstNode astNode) {
     if (astNode.is(CssGrammar.RULESET) || astNode.is(CssGrammar.AT_RULE)) {
-      gradientsFound = new ArrayList<String>(gradients);
+      gradientsFound = new ArrayList<>(gradients);
     } else if (astNode.is(CssGrammar.DECLARATION)) {
       String value = astNode.getFirstChild(CssGrammar.VALUE).getTokenValue();
       if (value.matches(gradientMatcher)) {

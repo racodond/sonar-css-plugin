@@ -20,6 +20,13 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -29,12 +36,6 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Disallow-overqualified-elements
@@ -51,7 +52,7 @@ import java.util.Map.Entry;
 @ActivatedByDefault
 public class DisallowOverqualifiedElements extends SquidCheck<LexerlessGrammar> {
 
-  List<Selectors> selectors = new ArrayList<DisallowOverqualifiedElements.Selectors>();
+  List<Selectors> selectors = new ArrayList<>();
 
   @Override
   public void init() {
@@ -89,16 +90,16 @@ public class DisallowOverqualifiedElements extends SquidCheck<LexerlessGrammar> 
 
   private static class Selectors {
     String className;
-    Map<String, Integer> elements = new HashMap<String, Integer>();
-
-    public void addElement(Selectors newSelector) {
-      Entry<String, Integer> elementEntry = newSelector.getElements().entrySet().iterator().next();
-      addElement(elementEntry.getKey(), elementEntry.getValue());
-    }
+    Map<String, Integer> elements = new HashMap<>();
 
     public Selectors(String className, String element, int line) {
       this.className = className;
       elements.put(element, line);
+    }
+
+    public void addElement(Selectors newSelector) {
+      Entry<String, Integer> elementEntry = newSelector.getElements().entrySet().iterator().next();
+      addElement(elementEntry.getKey(), elementEntry.getValue());
     }
 
     public String getClassName() {

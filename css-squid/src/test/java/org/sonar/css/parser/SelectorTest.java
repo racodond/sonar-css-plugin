@@ -20,7 +20,6 @@
 package org.sonar.css.parser;
 
 import org.junit.Test;
-import org.sonar.css.CssConfiguration;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import static org.sonar.sslr.tests.Assertions.assertThat;

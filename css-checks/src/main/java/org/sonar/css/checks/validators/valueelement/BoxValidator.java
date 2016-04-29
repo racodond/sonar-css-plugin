@@ -20,6 +20,7 @@
 package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
+
 import javax.annotation.Nonnull;
 
 public class BoxValidator extends IdentifierValidator{

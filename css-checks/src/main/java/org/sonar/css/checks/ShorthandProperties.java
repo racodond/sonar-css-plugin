@@ -21,6 +21,10 @@ package org.sonar.css.checks;
 
 import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -30,9 +34,6 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-shorthand-properties
@@ -52,7 +53,7 @@ public class ShorthandProperties extends SquidCheck<LexerlessGrammar> {
   private static List<String> margin = ImmutableList.<String>of("margin-left", "margin-right", "margin-top", "margin-bottom");
   private static List<String> padding = ImmutableList.<String>of("padding-left", "padding-right", "padding-top", "padding-bottom");
 
-  List<String> properties = new ArrayList<String>();
+  List<String> properties = new ArrayList<>();
 
   @Override
   public void init() {

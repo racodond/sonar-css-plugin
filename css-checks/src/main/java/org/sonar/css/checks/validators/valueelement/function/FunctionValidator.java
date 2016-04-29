@@ -20,11 +20,12 @@
 package org.sonar.css.checks.validators.valueelement.function;
 
 import com.google.common.collect.ImmutableList;
+
+import javax.annotation.Nonnull;
+
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.FunctionValueElement;
 import org.sonar.css.checks.validators.ValueElementValidator;
-
-import javax.annotation.Nonnull;
 
 public class FunctionValidator implements ValueElementValidator {
 

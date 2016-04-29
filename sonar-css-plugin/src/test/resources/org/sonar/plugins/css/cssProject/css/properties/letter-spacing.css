@@ -1,0 +1,8 @@
+.mybox {
+  letter-spacing: inherit;
+  letter-spacing: normal;
+  letter-spacing: 10px;
+  letter-spacing: -10px;
+  letter-spacing: 10; /* Noncompliant */
+  letter-spacing: abc; /* Noncompliant */
+}

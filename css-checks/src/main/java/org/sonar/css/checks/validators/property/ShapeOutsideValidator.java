@@ -19,18 +19,15 @@
  */
 package org.sonar.css.checks.validators.property;
 
-import org.sonar.css.checks.utils.CssValue;
-import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.validators.ValueElementValidator;
-import org.sonar.css.checks.validators.ValueValidator;
-import org.sonar.css.checks.validators.ValidatorFactory;
-import org.sonar.css.checks.validators.valueelement.ImageValidator;
-import org.sonar.css.checks.validators.valueelement.ShapeBoxValidator;
-import org.sonar.css.checks.validators.valueelement.function.BasicShapeValidator;
-
+import java.util.List;
 import javax.annotation.Nonnull;
 
-import java.util.List;
+import org.sonar.css.checks.utils.CssValue;
+import org.sonar.css.checks.utils.CssValueElement;
+import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.checks.validators.ValueValidator;
+import org.sonar.css.checks.validators.valueelement.ShapeBoxValidator;
+import org.sonar.css.checks.validators.valueelement.function.BasicShapeValidator;
 
 public class ShapeOutsideValidator implements ValueValidator {
 

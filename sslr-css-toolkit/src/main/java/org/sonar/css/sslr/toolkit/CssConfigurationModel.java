@@ -22,13 +22,13 @@ package org.sonar.css.sslr.toolkit;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.impl.Parser;
+
+import java.nio.charset.Charset;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonar.colorizer.CDocTokenizer;
-import org.sonar.colorizer.CppDocTokenizer;
-import org.sonar.colorizer.JavadocTokenizer;
-import org.sonar.colorizer.StringTokenizer;
-import org.sonar.colorizer.Tokenizer;
+import org.sonar.colorizer.*;
 import org.sonar.css.CssConfiguration;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
@@ -36,9 +36,6 @@ import org.sonar.sslr.parser.ParserAdapter;
 import org.sonar.sslr.toolkit.AbstractConfigurationModel;
 import org.sonar.sslr.toolkit.ConfigurationProperty;
 import org.sonar.sslr.toolkit.Validators;
-
-import java.nio.charset.Charset;
-import java.util.List;
 
 public class CssConfigurationModel extends AbstractConfigurationModel {
 

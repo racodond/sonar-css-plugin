@@ -1,0 +1,7 @@
+.mybox {
+  fill-rule: inherit;
+  fill-rule: nonzero;
+  fill-rule: evenodd;
+  fill-rule: blabla; /* Noncompliant */
+  fill-rule: 10px;  /* Noncompliant */
+}

@@ -1,0 +1,10 @@
+.mybox {
+  stroke-linejoin: inherit;
+  stroke-linejoin: miter;
+  stroke-linejoin: round;
+  stroke-linejoin: bevel;
+  stroke-linejoin: 100%; /* Noncompliant */
+  stroke-linejoin: 10px; /* Noncompliant */
+  stroke-linejoin: 10; /* Noncompliant */
+  stroke-linejoin: abc; /* Noncompliant */
+}

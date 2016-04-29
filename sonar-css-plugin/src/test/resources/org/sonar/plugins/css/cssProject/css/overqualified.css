@@ -22,7 +22,7 @@ p.active2 {
 }
 
 p .test {}
-div.test {}
+div.test {}  /* Noncompliant */
 
 p.test2 {}
 div.test2 {}

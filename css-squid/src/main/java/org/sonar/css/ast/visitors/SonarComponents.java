@@ -19,15 +19,14 @@
  */
 package org.sonar.css.ast.visitors;
 
+import java.io.File;
+import javax.annotation.CheckForNull;
+
 import org.sonar.api.BatchExtension;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.component.ResourcePerspectives;
 import org.sonar.api.source.Highlightable;
-
-import javax.annotation.CheckForNull;
-
-import java.io.File;
 
 public class SonarComponents implements BatchExtension {
 

@@ -29,7 +29,6 @@ import org.sonar.css.checks.utils.CssValue;
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.validators.ValidatorFactory;
 import org.sonar.css.checks.validators.ValueValidator;
-import org.sonar.css.checks.validators.valueelement.UriValidator;
 import org.sonar.css.checks.validators.valueelement.function.FunctionValidator;
 
 public class FilterValidator implements ValueValidator {

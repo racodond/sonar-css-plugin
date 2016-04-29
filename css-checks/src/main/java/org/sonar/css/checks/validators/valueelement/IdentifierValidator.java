@@ -20,7 +20,9 @@
 package org.sonar.css.checks.validators.valueelement;
 
 import com.google.common.collect.ImmutableList;
+
 import javax.annotation.Nonnull;
+
 import org.sonar.css.checks.utils.CssValueElement;
 import org.sonar.css.checks.utils.valueelements.IdentifierValueElement;
 import org.sonar.css.checks.validators.ValueElementValidator;
@@ -37,6 +39,7 @@ public class IdentifierValidator implements ValueElementValidator {
     this.allowedValues = allowedValues;
   }
 
+  @Override
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {
     if (cssValueElement instanceof IdentifierValueElement) {
       if (allowedValues.isEmpty()) {

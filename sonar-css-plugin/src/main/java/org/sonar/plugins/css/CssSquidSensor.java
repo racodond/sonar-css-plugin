@@ -36,7 +36,6 @@ import org.sonar.api.issue.Issuable;
 import org.sonar.api.issue.Issue;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
-import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.css.CssAstScanner;
@@ -63,7 +62,7 @@ public class CssSquidSensor implements Sensor {
   private final SonarComponents sonarComponents;
   private final FileSystem fs;
 
-  public CssSquidSensor(RulesProfile profile, SonarComponents sonarComponents, FileSystem fs, CheckFactory checkFactory, NoSonarFilter noSonarFilter) {
+  public CssSquidSensor(SonarComponents sonarComponents, FileSystem fs, CheckFactory checkFactory, NoSonarFilter noSonarFilter) {
     this.checkFactory = checkFactory;
     this.sonarComponents = sonarComponents;
     this.fs = fs;

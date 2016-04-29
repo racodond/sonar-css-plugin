@@ -21,6 +21,11 @@ package org.sonar.css.checks;
 
 import com.google.common.io.Files;
 import com.sonar.sslr.api.AstNode;
+
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.utils.SonarException;
 import org.sonar.check.Priority;
@@ -31,10 +36,6 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.List;
 
 @Rule(
   key = "tab-character",

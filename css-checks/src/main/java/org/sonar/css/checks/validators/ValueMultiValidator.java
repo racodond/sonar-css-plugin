@@ -19,23 +19,18 @@
  */
 package org.sonar.css.checks.validators;
 
-import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
-import org.sonar.css.checks.utils.CssValue;
-
+import java.util.List;
 import javax.annotation.Nonnull;
 
-import java.util.List;
+import org.sonar.css.checks.utils.CssValue;
 
 public class ValueMultiValidator implements ValueValidator {
 
-  private List<Validator> validators = new ArrayList<>();
+  private List<Validator> validators;
 
   public ValueMultiValidator() {
-  }
-
-  public ValueMultiValidator(@Nonnull ImmutableList<Validator> validators) {
-    this.validators = validators;
+    validators = new ArrayList<>();
   }
 
   public List<Validator> getValidators() {

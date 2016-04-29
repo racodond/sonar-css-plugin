@@ -1,0 +1,13 @@
+.mybox {
+  shape-rendering: inherit;
+  shape-rendering: auto;
+  shape-rendering: optimizeSpeed;
+  shape-rendering: optimizespeed;
+  shape-rendering: crispEdges;
+  shape-rendering: crispedges;
+  shape-rendering: geometricPrecision;
+  shape-rendering: geometricprecision;
+  shape-rendering: abc; /* Noncompliant */
+  shape-rendering: 10px; /* Noncompliant */
+  shape-rendering: 10; /* Noncompliant */
+}
