@@ -6,7 +6,7 @@
   max-width: 10px;
   max-width: -10px;
   max-width: 10; /* Noncompliant */
-  max-width: abc; /* Noncompliant */
+  max-width: auto; /* Noncompliant */
   max-width: fill;
   max-width: max-content;
   max-width: min-content;

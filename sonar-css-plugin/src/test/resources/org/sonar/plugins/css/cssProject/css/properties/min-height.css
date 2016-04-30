@@ -1,12 +1,12 @@
 .mybox {
   min-height: inherit;
-  min-height: none;
+  min-height: auto;
   min-height: 100%;
   min-height: -100%;
   min-height: 10px;
   min-height: -10px;
   min-height: 10; /* Noncompliant */
-  min-height: abc; /* Noncompliant */
+  min-height: none; /* Noncompliant */
   min-height: fill;
   min-height: max-content;
   min-height: min-content;

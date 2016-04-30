@@ -1218,6 +1218,7 @@ public final class CssProperties {
     .put("max-width", new CssProperty("max-width")
       .setUrl("http://dev.w3.org/csswg/css-sizing-3/#width-height-keywords")
       .addValidator(ValidatorFactory.getMaxWidthHeightValidator()))
+
     .put("max-zoom", new CssProperty("max-zoom")
       .setUrl("http://dev.w3.org/csswg/css-device-adapt/#descdef-viewport-max-zoom")
       .addValidator(new ZoomValidator()))
@@ -1228,7 +1229,7 @@ public final class CssProperties {
 
     .put("min-height", new CssProperty("min-height")
       .setUrl("http://dev.w3.org/csswg/css-sizing-3/#width-height-keywords")
-      .addValidator(ValidatorFactory.getMaxWidthHeightValidator()))
+      .addValidator(ValidatorFactory.getMinWidthHeightValidator()))
 
     .put("min-inline-size", new CssProperty("min-inline-size")
       .setUrl("http://dev.w3.org/csswg/css-logical-props/#propdef-min-inline-size")
@@ -1236,7 +1237,7 @@ public final class CssProperties {
 
     .put("min-width", new CssProperty("min-width")
       .setUrl("http://dev.w3.org/csswg/css-sizing-3/#width-height-keywords")
-      .addValidator(ValidatorFactory.getMaxWidthHeightValidator()))
+      .addValidator(ValidatorFactory.getMinWidthHeightValidator()))
 
     .put("min-zoom", new CssProperty("min-zoom")
       .setUrl("http://dev.w3.org/csswg/css-device-adapt/#descdef-viewport-min-zoom")

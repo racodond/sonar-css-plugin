@@ -1,12 +1,12 @@
 .mybox {
   min-width: inherit;
-  min-width: none;
+  min-width: auto;
   min-width: 100%;
   min-width: -100%;
   min-width: 10px;
   min-width: -10px;
   min-width: 10; /* Noncompliant */
-  min-width: abc; /* Noncompliant */
+  min-width: none; /* Noncompliant */
   min-width: fill;
   min-width: max-content;
   min-width: min-content;
