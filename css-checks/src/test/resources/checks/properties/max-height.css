@@ -6,7 +6,7 @@
   max-height: 10px;
   max-height: -10px;
   max-height: 10; /* Noncompliant */
-  max-height: abc; /* Noncompliant */
+  max-height: auto; /* Noncompliant */
   max-height: fill;
   max-height: max-content;
   max-height: min-content;
