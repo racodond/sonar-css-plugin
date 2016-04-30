@@ -9,7 +9,7 @@ http://docs.sonarqube.org/display/PLUG/Plugin+Version+Matrix
 This plugin enables code QA analysis of CSS source code within [SonarQube](http://www.sonarqube.org):
 
  * Computes metrics: lines of code, number of CSS rules, complexity, etc.
- * Validates your CSS code, [browse the list of implemented validators](](http://htmlpreview.github.io/?https://github.com/SonarCommunity/sonar-css/blob/master/doc/validators.html) 
+ * Validates your CSS code, [browse the list of implemented validators](http://htmlpreview.github.io/?https://github.com/SonarCommunity/sonar-css/blob/master/doc/validators.html) 
  * Performs more than 50 checks such as: Box model size should be carefully reviewed, Source code should comply to formatting standards, Stylesheets should not contain too many selectors, Empty declarations should be removed, etc. [Browse the full list of checks](https://nemo.sonarqube.org/coding_rules#languages=css).
 
 ## Usage
