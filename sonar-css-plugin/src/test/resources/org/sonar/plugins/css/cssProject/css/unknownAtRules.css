@@ -1,7 +1,36 @@
-@namespace url(http://www.w3.org/1999/xhtml);
+@abc {  /* Noncompliant */
+  property: red;
+}
+
+@DEF {  /* Noncompliant */
+  property: red;
+}
+
+@-moz-blabla fade {} /* Noncompliant */
+
+@-moz-keyframes fade {}
 
 @charset "UTF-8";
 @CHARSET "UTF-8";
+
+@counter-style winners-list {
+  system: fixed;
+  symbols: url(gold-medal.svg) url(silver-medal.svg) url(bronze-medal.svg);
+  suffix: " ";
+}
+
+@custom-media --narrow-window (max-width: 30em);
+
+@document url(http://www.w3.org/),
+          url-prefix(http://www.w3.org/Style/),
+          domain(mozilla.org),
+          regexp("https:.*")
+{
+  body {
+    color: purple;
+    background: yellow;
+  }
+}
 
 @font-face {
   font-family: MyHelvetica;
@@ -11,15 +40,36 @@
   font-weight: bold;
 }
 
-@abc {
-  property: red;
+@font-feature-values Font One {
+  @swash {
+    nice-style: 12;
+  }
+  @ornaments {
+    nice-style: 12;
+  }
+  @annotation {
+    nice-style: 12;
+  }
+  @stylistic {
+    nice-style: 12;
+  }
+  @styleset {
+    nice-style: 12;
+  }
+  @character-variant {
+    nice-style: 12;
+  }
 }
 
 @import 'custom.css';
 
+@keyframes fade {}
+
 @media screen, print {
   body { line-height: 1.2 }
 }
+
+@namespace url(http://www.w3.org/1999/xhtml);
 
 @page :pseudo-class {
   margin:2in;
@@ -30,14 +80,7 @@
   /* specific CSS applied when 3D transforms, eventually prefixed, are supported */
 }
 
-@DEF {
-  property: red;
-}
 
 @viewport {
   max-width: 10px;
 }
-
-@custom-media --narrow-window (max-width: 30em);
-
-@-moz-keyframes fade {}

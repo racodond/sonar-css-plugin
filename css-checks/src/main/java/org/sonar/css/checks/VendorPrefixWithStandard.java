@@ -23,8 +23,8 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.checks.utils.CssProperties;
-import org.sonar.css.checks.utils.Vendors;
+import org.sonar.css.model.Property;
+import org.sonar.css.model.property.UnknownProperty;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -54,26 +54,25 @@ public class VendorPrefixWithStandard extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    String property = astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue();
-    if (Vendors.isVendorPrefixed(property) && CssProperties.getProperty(CssProperties.getPropertyNameWithoutVendorPrefix(
-        property)) != null) {
-      if (!isNextExists(astNode, CssProperties.getPropertyNameWithoutVendorPrefix(property))) {
-        getContext().createLineViolation(this, "Define the standard property after this vendor-prefixed property", astNode);
+    Property property = new Property(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue());
+    if (!(property.getStandardProperty() instanceof UnknownProperty) && property.isVendorPrefixed()) {
+      if (!isNonPrefixedPropertyDefined(astNode, property)) {
+        getContext().createLineViolation(this, "Define the standard property after this vendor-prefixed property.", astNode);
       }
     }
   }
 
-  private boolean isNextExists(AstNode actual, String propertyName) {
-    AstNode next = actual.getNextSibling();
-    while (next != null) {
-      AstNode property = next.getFirstChild(CssGrammar.PROPERTY);
-      if (property != null) {
-        String nextProperty = property.getTokenValue();
-        if (propertyName.equalsIgnoreCase(nextProperty)) {
+  private boolean isNonPrefixedPropertyDefined(AstNode currentDeclarationNode, Property currentProperty) {
+    AstNode nextDeclarationNode = currentDeclarationNode.getNextSibling();
+    while (nextDeclarationNode != null) {
+      if (nextDeclarationNode.getFirstChild(CssGrammar.PROPERTY) != null) {
+        Property nextProperty = new Property(nextDeclarationNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue());
+        if (!nextProperty.isVendorPrefixed()
+          && nextProperty.getStandardProperty().getName().equals(currentProperty.getStandardProperty().getName())) {
           return true;
         }
       }
-      next = next.getNextSibling();
+      nextDeclarationNode = nextDeclarationNode.getNextSibling();
     }
     return false;
   }

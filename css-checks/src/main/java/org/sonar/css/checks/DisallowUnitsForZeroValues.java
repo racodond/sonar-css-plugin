@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.checks.utils.CssUnits;
+import org.sonar.css.model.Unit;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -65,7 +65,7 @@ public class DisallowUnitsForZeroValues extends SquidCheck<LexerlessGrammar> {
   }
 
   private boolean isLength(AstNode node) {
-    return node.is(CssGrammar.DIMENSION) && CssUnits.LENGTH_UNITS.contains(node.getFirstChild(CssGrammar.unit).getFirstChild().getTokenValue());
+    return node.is(CssGrammar.DIMENSION) && Unit.LENGTH_UNITS.contains(node.getFirstChild(CssGrammar.unit).getFirstChild().getTokenValue());
   }
 
   private boolean isZeroValue(AstNode node) {

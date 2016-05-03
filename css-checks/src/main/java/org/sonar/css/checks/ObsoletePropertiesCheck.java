@@ -23,8 +23,7 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.checks.utils.CssProperties;
-import org.sonar.css.checks.utils.CssProperty;
+import org.sonar.css.model.property.StandardPropertyFactory;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -49,14 +48,12 @@ public class ObsoletePropertiesCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    CssProperty property = CssProperties.getProperty(astNode.getTokenValue().toLowerCase());
-    if (property != null && property.isObsolete()) {
+    if (StandardPropertyFactory.createStandardProperty(astNode.getTokenValue()).isObsolete()) {
       getContext().createLineViolation(
         this,
         "Remove the obsolete / not on W3C Standards track \"{0}\" property.",
         astNode,
-        astNode.getTokenValue()
-        );
+        astNode.getTokenValue());
     }
   }
 

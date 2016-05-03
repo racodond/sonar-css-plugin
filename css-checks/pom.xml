@@ -27,7 +27,7 @@
           </execution>
         </executions>
         <configuration>
-          <mainClass>org.sonar.css.checks.utils.GenerateRuleDescriptions</mainClass>
+          <mainClass>org.sonar.css.checks.GenerateRuleDescriptions</mainClass>
           <!-- TODO: Hack to be removed when http://jira.sonarsource.com/browse/SONAR-6632 is fixed -->
           <arguments>
             <argument>sizeLimit</argument>
@@ -42,7 +42,11 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>css-squid</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>19.0</version>
+    </dependency>
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-all</artifactId>

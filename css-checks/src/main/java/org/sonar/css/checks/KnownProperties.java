@@ -23,8 +23,8 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.checks.utils.CssProperties;
-import org.sonar.css.checks.utils.Vendors;
+import org.sonar.css.model.Property;
+import org.sonar.css.model.property.UnknownProperty;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -54,9 +54,10 @@ public class KnownProperties extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    String propertyName = CssProperties.getUnhackedPropertyName(astNode.getTokenValue());
-    if (!Vendors.isVendorPrefixed(propertyName) && CssProperties.getProperty(propertyName) == null) {
-      getContext().createLineViolation(this, "Remove the usage of this unknown property: " + propertyName, astNode);
+    Property property = new Property(astNode.getTokenValue());
+    if (property.getStandardProperty() instanceof UnknownProperty
+      && !property.isVendorPrefixed()) {
+      getContext().createLineViolation(this, "Remove the usage of this unknown property: \"" + property.getStandardProperty().getName() + "\".", astNode);
     }
   }
 

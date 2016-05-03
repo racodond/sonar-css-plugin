@@ -23,7 +23,7 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.checks.utils.CssProperties;
+import org.sonar.css.model.Declaration;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -48,16 +48,15 @@ public class ValidatePropertyValueCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (CssProperties.getProperty(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue()) != null
-      && !CssProperties.getProperty(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue()).isPropertyValueValid(
-        astNode.getFirstChild(CssGrammar.VALUE))) {
+    Declaration declaration = new Declaration(astNode);
+    if (!declaration.isValid()) {
       getContext().createLineViolation(
         this,
         "Update the invalid value of property \"{0}\". Expected format: {1}",
         astNode,
-        CssProperties.getProperty(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue()),
-        CssProperties.getProperty(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue()).getValidatorFormat()
-        );
+        declaration.getProperty().getStandardProperty().getName(),
+        declaration.getProperty().getStandardProperty().getValidatorFormat());
     }
   }
+
 }

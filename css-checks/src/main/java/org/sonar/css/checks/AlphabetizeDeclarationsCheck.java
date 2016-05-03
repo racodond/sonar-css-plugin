@@ -27,8 +27,7 @@ import java.util.List;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.checks.utils.CssProperties;
-import org.sonar.css.checks.utils.Vendors;
+import org.sonar.css.model.Property;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
@@ -44,7 +43,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleConstantRemediation("2min")
 public class AlphabetizeDeclarationsCheck extends SquidCheck<LexerlessGrammar> {
 
-  private List<String> declarations = new ArrayList<>();
+  private List<Property> properties = new ArrayList<>();
 
   @Override
   public void init() {
@@ -53,21 +52,22 @@ public class AlphabetizeDeclarationsCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (astNode.is(CssGrammar.DECLARATION)
-      && astNode.getFirstChild(CssGrammar.PROPERTY) != null
-      && !Vendors.isVendorPrefixed(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue())) {
-      declarations.add(CssProperties.getUnhackedPropertyName(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue()));
+    if (astNode.is(CssGrammar.DECLARATION)) {
+      Property property = new Property(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue());
+      if (!property.isVendorPrefixed()) {
+        properties.add(property);
+      }
     } else if (astNode.is(CssGrammar.RULESET) || astNode.is(CssGrammar.AT_RULE)) {
-      if (!arePropertiesAlphabeticallyOrdered(declarations)) {
+      if (!arePropertiesAlphabeticallyOrdered(properties)) {
         getContext().createLineViolation(this, "Alphabetically order these rule's properties", astNode);
       }
-      declarations = new ArrayList<>();
+      properties = new ArrayList<>();
     }
   }
 
-  private boolean arePropertiesAlphabeticallyOrdered(List<String> declarations) {
-    for (int i = 0; i < declarations.size() - 1; i++) {
-      if (declarations.get(i).compareToIgnoreCase(declarations.get(i + 1)) > 0) {
+  private boolean arePropertiesAlphabeticallyOrdered(List<Property> cssProperties) {
+    for (int i = 0; i < cssProperties.size() - 1; i++) {
+      if (cssProperties.get(i).getStandardProperty().getName().compareTo(cssProperties.get(i + 1).getStandardProperty().getName()) > 0) {
         return false;
       }
     }

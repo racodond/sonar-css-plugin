@@ -28,25 +28,26 @@ import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class VendorPrefixWithStandardTest {
 
+  private static final String MESSAGE = "Define the standard property after this vendor-prefixed property.";
+
   @Test
   public void test() {
     VendorPrefixWithStandard check = new VendorPrefixWithStandard();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/vendorprefixwithstandard.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(3).withMessage("Define the standard property after this vendor-prefixed property").next()
-      .atLine(15).withMessage("Define the standard property after this vendor-prefixed property")
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/vendorprefixwithstandard.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(3).withMessage(MESSAGE)
+      .next().atLine(15).withMessage(MESSAGE)
       .noMore();
   }
 
   @Test
   public void test_n() {
     VendorPrefixWithStandard check = new VendorPrefixWithStandard();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/vendorprefixes.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(12).withMessage("Define the standard property after this vendor-prefixed property").next()
-      .atLine(17).withMessage("Define the standard property after this vendor-prefixed property").noMore();
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/vendorprefixes.css"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(12).withMessage(MESSAGE)
+      .next().atLine(17).withMessage(MESSAGE)
+      .noMore();
   }
 
 }

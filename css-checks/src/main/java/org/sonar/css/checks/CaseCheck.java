@@ -24,7 +24,6 @@ import com.sonar.sslr.api.GenericTokenType;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.checks.utils.CssProperties;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -49,24 +48,29 @@ public class CaseCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if ((astNode.is(CssGrammar.PROPERTY) || astNode.is(CssGrammar.FUNCTION))
-      && CssProperties.getUnhackedPropertyName(astNode.getTokenValue()) != null
-      && CssProperties.getUnhackedPropertyName(astNode.getTokenValue()).matches("^.*[A-Z]+.*$")) {
-      getContext().createLineViolation(
-        this,
-        "Write {0} \"{1}\" in lowercase.",
-        astNode,
-        astNode.is(CssGrammar.FUNCTION) ? "function" : "property",
-        CssProperties.getUnhackedPropertyName(astNode.getTokenValue()));
+    if (astNode.is(CssGrammar.PROPERTY)
+      && containsUpperCaseCharacter(astNode.getTokenValue())) {
+      createIssue(astNode, "property", astNode.getTokenValue());
+    } else if (astNode.is(CssGrammar.FUNCTION)
+      && containsUpperCaseCharacter(astNode.getTokenValue())) {
+      createIssue(astNode, "function", astNode.getTokenValue());
+    } else if (astNode.is(CssGrammar.VARIABLE)
+      && containsUpperCaseCharacter(astNode.getFirstChild(GenericTokenType.IDENTIFIER).getTokenValue())) {
+      createIssue(astNode, "variable", astNode.getFirstChild(GenericTokenType.IDENTIFIER).getTokenValue());
     }
-    if (astNode.is(CssGrammar.VARIABLE) && astNode.getFirstChild(GenericTokenType.IDENTIFIER).getTokenValue().matches("^.*[A-Z]+.*$")) {
-      getContext().createLineViolation(
-        this,
-        "Write {0} \"{1}\" in lowercase.",
-        astNode,
-        "variable",
-        astNode.getFirstChild(GenericTokenType.IDENTIFIER).getTokenValue());
-    }
+  }
+
+  private void createIssue(AstNode astNode, String nodeType, String value) {
+    getContext().createLineViolation(
+      this,
+      "Write {0} \"{1}\" in lowercase.",
+      astNode,
+      nodeType,
+      value);
+  }
+
+  private boolean containsUpperCaseCharacter(String value) {
+    return value.matches("^.*[A-Z]+.*$");
   }
 
 }

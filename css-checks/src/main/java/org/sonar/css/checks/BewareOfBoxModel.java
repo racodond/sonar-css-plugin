@@ -30,12 +30,12 @@ import java.util.Set;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.checks.utils.CssValue;
-import org.sonar.css.checks.utils.CssValueElement;
-import org.sonar.css.checks.utils.valueelements.DimensionValueElement;
-import org.sonar.css.checks.utils.valueelements.NumberValueElement;
-import org.sonar.css.checks.utils.valueelements.PercentageValueElement;
-import org.sonar.css.checks.validators.ValidatorFactory;
+import org.sonar.css.model.Value;
+import org.sonar.css.model.value.CssValueElement;
+import org.sonar.css.model.value.valueelement.DimensionValueElement;
+import org.sonar.css.model.value.valueelement.NumberValueElement;
+import org.sonar.css.model.value.valueelement.PercentageValueElement;
+import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -135,8 +135,8 @@ public class BewareOfBoxModel extends SquidCheck<LexerlessGrammar> {
   }
 
   private boolean isZeroValueBorderWidth(AstNode valueNode) {
-    CssValue cssValue = new CssValue(valueNode);
-    List<CssValueElement> valueElements = cssValue.getValueElements();
+    Value value = new Value(valueNode);
+    List<CssValueElement> valueElements = value.getValueElements();
     for (CssValueElement valueElement : valueElements) {
       if (ValidatorFactory.getBorderWidthValidator().isValid(valueElement)) {
         if (valueElement instanceof DimensionValueElement && !((DimensionValueElement) valueElement).isZero()
@@ -154,8 +154,8 @@ public class BewareOfBoxModel extends SquidCheck<LexerlessGrammar> {
   }
 
   private boolean isZeroValuePaddingWidth(AstNode valueNode) {
-    CssValue cssValue = new CssValue(valueNode);
-    List<CssValueElement> valueElements = cssValue.getValueElements();
+    Value value = new Value(valueNode);
+    List<CssValueElement> valueElements = value.getValueElements();
     for (CssValueElement valueElement : valueElements) {
       if (ValidatorFactory.getPaddingWidthValidator().isValid(valueElement)) {
         if (valueElement instanceof DimensionValueElement && !((DimensionValueElement) valueElement).isZero()
