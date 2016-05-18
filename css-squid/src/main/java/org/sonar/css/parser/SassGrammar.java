@@ -25,9 +25,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * SASS grammar based on http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html
- *
- * @author tkende
- *
  */
 public enum SassGrammar implements GrammarRuleKey {
 

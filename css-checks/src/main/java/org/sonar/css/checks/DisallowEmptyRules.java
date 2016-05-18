@@ -33,8 +33,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Disallow-empty-rules
- *
- * @author tkende
  */
 @Rule(
   key = "empty-rules",

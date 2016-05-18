@@ -37,8 +37,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-shorthand-properties
- * @author tkende
- *
  */
 @Rule(
   key = "shorthand",

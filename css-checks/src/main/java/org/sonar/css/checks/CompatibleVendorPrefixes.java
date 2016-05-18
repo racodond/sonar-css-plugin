@@ -43,8 +43,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-compatible-vendor-prefixes
- *
- * @author tkende
  */
 @Rule(
   key = "compatible-vendor-prefixes",

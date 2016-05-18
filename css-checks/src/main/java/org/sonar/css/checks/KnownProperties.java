@@ -32,11 +32,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-/**
- * https://github.com/stubbornella/csslint/wiki/Require-use-of-known-properties
- * @author tkende
- *
- */
 @Rule(
   key = "known-properties",
   name = "Unknown CSS properties should be removed",

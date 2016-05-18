@@ -32,8 +32,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Disallow-IDs-in-selectors
- * @author tkende
- *
  */
 @Rule(
   key = "ids",

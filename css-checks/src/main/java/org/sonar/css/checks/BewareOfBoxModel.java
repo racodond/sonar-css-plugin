@@ -45,8 +45,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Beware-of-box-model-size
- *
- * @author tkende
  */
 @Rule(
   key = "box-model",

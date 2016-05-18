@@ -36,8 +36,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Disallow-duplicate-background-images
- * @author tkende
- *
  */
 @Rule(
   key = "duplicate-background-images",

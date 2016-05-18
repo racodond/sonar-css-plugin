@@ -39,8 +39,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-properties-appropriate-for-display
- *
- * @author tkende
  */
 @Rule(
   key = "display-property-grouping",

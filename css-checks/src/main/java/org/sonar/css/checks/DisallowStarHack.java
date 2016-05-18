@@ -32,8 +32,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Disallow-star-hack
- * @author tkende
- *
  */
 @Rule(
   key = "star-property-hack",

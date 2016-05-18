@@ -34,8 +34,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-standard-property-with-vendor-prefix
- * @author tkende
- *
  */
 @Rule(
   key = "vendor-prefix",
