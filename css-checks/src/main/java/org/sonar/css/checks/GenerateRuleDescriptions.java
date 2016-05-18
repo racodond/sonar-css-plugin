@@ -28,6 +28,7 @@ import java.util.TreeMap;
 
 import org.sonar.css.model.atrule.StandardAtRule;
 import org.sonar.css.model.atrule.standard.Annotation;
+import org.sonar.css.model.function.StandardFunction;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.standard.Border;
 
@@ -45,6 +46,7 @@ public class GenerateRuleDescriptions {
     generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/validate-property-value.html", generateValidatePropertyRuleDescription(sizeLimit));
     generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/obsolete-properties.html", generateObsoletePropertiesRuleDescription());
     generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/unknown-at-rules.html", generateUnknownAtRulesRuleDescription());
+    generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/unknown-functions.html", generateUnknownFunctionsRuleDescription());
   }
 
   private static StringBuilder generateObsoletePropertiesRuleDescription() {
@@ -114,6 +116,45 @@ public class GenerateRuleDescriptions {
       }
       htmlPage.append(atRule.getName());
       if (!atRule.getLinks().isEmpty()) {
+        htmlPage.append("</a>");
+      }
+      htmlPage.append("  </li>\n");
+    }
+    htmlPage.append("</ul>\n");
+    return htmlPage;
+  }
+
+  private static StringBuilder generateUnknownFunctionsRuleDescription() {
+    StringBuilder htmlPage = new StringBuilder()
+      .append("<p>The list of supported CSS functions is growing quite large, and it's very easy to miss a typo in a single function when the function name isn't checked.</p>\n")
+      .append(
+        "<p>This rule checks each function name to make sure that it is a known CSS function. All vendor-prefixed functions are ignored because vendors may add in their own functions at any point in time, and there are no canonical lists of these functions.</p>\n")
+      .append("<h2>Noncompliant Code Example</h2>\n")
+      .append("<pre>\n")
+      .append(".mybox {\n")
+      .append("  color: rgb(255,0,51);\n")
+      .append("  color: hello(100); /* Noncompliant: 'hello' isn't a known function */\n")
+      .append("}\n")
+      .append("</pre>\n")
+      .append("<h2>Compliant Solution</h2>\n")
+      .append("<pre>\n")
+      .append(".mybox {\n")
+      .append("  color: rgb(255,0,51); /* Compliant: 'rgb' is a known function */\n")
+      .append("  color: -moz-linear-gradient(top, hsl(0, 80%, 70%), #bada55); /* Compliant: '-moz-linear-gradient' is a vendor function */\n")
+      .append("}\n")
+      .append("</pre>\n")
+      .append("<h2>List of Known Functions</h2>\n")
+      .append("<ul>\n");
+
+    StandardFunction function;
+    for (Map.Entry<String, StandardFunction> entry : getAllStandardFunctions().entrySet()) {
+      function = entry.getValue();
+      htmlPage.append("  <li>");
+      if (!function.getLinks().isEmpty()) {
+        htmlPage.append("<a target=\"_blank\" href=\"").append(function.getLinks().get(0)).append("\">");
+      }
+      htmlPage.append(function.getName());
+      if (!function.getLinks().isEmpty()) {
         htmlPage.append("</a>");
       }
       htmlPage.append("  </li>\n");
@@ -317,6 +358,21 @@ public class GenerateRuleDescriptions {
       return atRules;
     } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
       throw new IllegalStateException("Could not retrieve the list of standard CSS at rule classes.", e);
+    }
+  }
+
+  private static Map<String, StandardFunction> getAllStandardFunctions() {
+    try {
+      Map<String, StandardFunction> functions = new TreeMap<>();
+      StandardFunction function;
+      ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(Annotation.class.getClassLoader()).getTopLevelClasses("org.sonar.css.model.function.standard");
+      for (ClassPath.ClassInfo classInfo : classInfos) {
+        function = (StandardFunction) Class.forName(classInfo.getName()).newInstance();
+        functions.put(function.getName(), function);
+      }
+      return functions;
+    } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+      throw new IllegalStateException("Could not retrieve the list of standard CSS function classes.", e);
     }
   }
 
