@@ -6,7 +6,7 @@
   property: red;
 }
 
-@-moz-blabla fade {} /* Noncompliant */
+@-moz-vendoratrule {}
 
 @-moz-keyframes fade {}
 

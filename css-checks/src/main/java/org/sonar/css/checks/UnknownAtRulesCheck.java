@@ -50,7 +50,7 @@ public class UnknownAtRulesCheck extends SquidCheck<LexerlessGrammar> {
   @Override
   public void leaveNode(AstNode astNode) {
     AtRule atRule = new AtRule(astNode.getFirstChild(CssGrammar.IDENT).getTokenValue());
-    if (atRule.getStandardAtRule() instanceof UnknownAtRule) {
+    if (atRule.getStandardAtRule() instanceof UnknownAtRule && !atRule.isVendorPrefixed()) {
       getContext().createLineViolation(
         this,
         "Remove this usage of the unknown \"{0}\" CSS @-rule.",

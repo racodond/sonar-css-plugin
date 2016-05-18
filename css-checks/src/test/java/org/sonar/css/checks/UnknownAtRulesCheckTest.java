@@ -28,15 +28,12 @@ import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class UnknownAtRulesCheckTest {
 
-  private UnknownAtRulesCheck check = new UnknownAtRulesCheck();
-
   @Test
   public void should_contain_some_unknown_at_rules_and_raise_some_issues() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/unknownAtRules.css"), check);
+    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/unknownAtRules.css"), new UnknownAtRulesCheck());
     CheckMessagesVerifier.verify(file.getCheckMessages())
       .next().atLine(1).withMessage("Remove this usage of the unknown \"abc\" CSS @-rule.")
       .next().atLine(5).withMessage("Remove this usage of the unknown \"def\" CSS @-rule.")
-      .next().atLine(9).withMessage("Remove this usage of the unknown \"blabla\" CSS @-rule.")
       .noMore();
   }
 
