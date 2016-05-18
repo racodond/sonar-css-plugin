@@ -26,6 +26,8 @@ import java.io.*;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.sonar.css.model.atrule.StandardAtRule;
+import org.sonar.css.model.atrule.standard.Annotation;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.standard.Border;
 
@@ -39,12 +41,13 @@ public class GenerateRuleDescriptions {
     if ("sizeLimit".equals(args[0])) {
       sizeLimit = true;
     }
-    generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/validate-property-value.html", getValidatePropertyValueDescription(sizeLimit));
-    generateHtmlDescriptionFile("doc/validators.html", getValidatePropertyValueDescription(false));
-    generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/obsolete-properties.html", getObsoletePropertiesDescription());
+    generateHtmlDescriptionFile("doc/validators.html", generateValidatePropertyRuleDescription(false));
+    generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/validate-property-value.html", generateValidatePropertyRuleDescription(sizeLimit));
+    generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/obsolete-properties.html", generateObsoletePropertiesRuleDescription());
+    generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/unknown-at-rules.html", generateUnknownAtRulesRuleDescription());
   }
 
-  private static StringBuilder getObsoletePropertiesDescription() {
+  private static StringBuilder generateObsoletePropertiesRuleDescription() {
     StringBuilder htmlPage = new StringBuilder()
       .append(
         "<p>To make sure that your code will keep working as expected in the future, do not use: <ul><li>Obsolete properties (no longer supported by main vendors or support to be removed by main vendors)</li><li>Properties not on W3C Standards track</li></ul></p>\n")
@@ -59,7 +62,7 @@ public class GenerateRuleDescriptions {
       .append("<ul>\n");
 
     StandardProperty property;
-    for (Map.Entry<String, StandardProperty> entry : getAllStandardCssProperties().entrySet()) {
+    for (Map.Entry<String, StandardProperty> entry : getAllStandardProperties().entrySet()) {
       property = entry.getValue();
       if (property.isObsolete()) {
         htmlPage.append("  <li>");
@@ -77,10 +80,52 @@ public class GenerateRuleDescriptions {
     return htmlPage;
   }
 
+  private static StringBuilder generateUnknownAtRulesRuleDescription() {
+    StringBuilder htmlPage = new StringBuilder()
+      .append("<p>The list of supported CSS @-rules is growing and it's very easy to miss a typo in a single @-rule when the name isn't checked.</p>\n")
+      .append("<p>This rule checks each @-rule to make sure that it is a known CSS @-rule.</p>\n")
+      .append("<h2>Noncompliant Code Example</h2>\n")
+      .append("<pre>\n")
+      .append("@abc {\n")
+      .append("  property: red;\n")
+      .append("}\n")
+      .append("</pre>\n")
+      .append("<h2>Compliant Solution</h2>\n")
+      .append("<pre>\n")
+      .append("@import url(\"styles.css\");\n")
+      .append("\n")
+      .append("@font-face {\n")
+      .append("  font-family: 'MyFontFamily';\n")
+      .append("  src: url('myfont-webfont.eot?#iefix') format('embedded-opentype');\n")
+      .append("}\n")
+      .append("\n")
+      .append("@-moz-vendoratrule { /* Compliant: the vendor-prefixed rules are not checked against the list of known at rules */\n")
+      .append("}\n")
+      .append("</pre>\n")
+      .append("<h2>List of Known @-rules </h2>\n")
+      .append("<ul>\n");
+
+    StandardAtRule atRule;
+    for (Map.Entry<String, StandardAtRule> entry : getAllStandardAtRules().entrySet()) {
+      atRule = entry.getValue();
+      htmlPage.append("  <li>");
+      if (!atRule.getLinks().isEmpty()) {
+        htmlPage.append("<a target=\"_blank\" href=\"").append(atRule.getLinks().get(0)).append("\">");
+      }
+      htmlPage.append(atRule.getName());
+      if (!atRule.getLinks().isEmpty()) {
+        htmlPage.append("</a>");
+      }
+      htmlPage.append("  </li>\n");
+    }
+    htmlPage.append("</ul>\n");
+    return htmlPage;
+  }
+
   /**
    * @param sizeLimit TODO: Hack to be removed when http://jira.sonarsource.com/browse/SONAR-6632 is fixed
    */
-  private static StringBuilder getValidatePropertyValueDescription(boolean sizeLimit) {
+  private static StringBuilder generateValidatePropertyRuleDescription(boolean sizeLimit) {
     StringBuilder htmlPage = new StringBuilder()
       .append(
         "<p>Browsers ignore invalid property values. Review those invalid property values and either remove them if they are useless or update them.</p>\n")
@@ -112,7 +157,7 @@ public class GenerateRuleDescriptions {
         .append("  </thead>\n");
 
       StandardProperty property;
-      for (Map.Entry<String, StandardProperty> entry : getAllStandardCssProperties().entrySet()) {
+      for (Map.Entry<String, StandardProperty> entry : getAllStandardProperties().entrySet()) {
         property = entry.getValue();
         if (!property.isObsolete()) {
           htmlPage.append("  <tr>\n").append("    <td nowrap=\"nowrap\">");
@@ -245,7 +290,7 @@ public class GenerateRuleDescriptions {
     }
   }
 
-  private static Map<String, StandardProperty> getAllStandardCssProperties() {
+  private static Map<String, StandardProperty> getAllStandardProperties() {
     try {
       Map<String, StandardProperty> properties = new TreeMap<>();
       StandardProperty property;
@@ -257,6 +302,21 @@ public class GenerateRuleDescriptions {
       return properties;
     } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
       throw new IllegalStateException("Could not retrieve the list of standard CSS property classes.", e);
+    }
+  }
+
+  private static Map<String, StandardAtRule> getAllStandardAtRules() {
+    try {
+      Map<String, StandardAtRule> atRules = new TreeMap<>();
+      StandardAtRule atRule;
+      ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(Annotation.class.getClassLoader()).getTopLevelClasses("org.sonar.css.model.atrule.standard");
+      for (ClassPath.ClassInfo classInfo : classInfos) {
+        atRule = (StandardAtRule) Class.forName(classInfo.getName()).newInstance();
+        atRules.put(atRule.getName(), atRule);
+      }
+      return atRules;
+    } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+      throw new IllegalStateException("Could not retrieve the list of standard CSS at rule classes.", e);
     }
   }
 
