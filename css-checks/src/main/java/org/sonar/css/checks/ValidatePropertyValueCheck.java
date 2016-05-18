@@ -49,7 +49,7 @@ public class ValidatePropertyValueCheck extends SquidCheck<LexerlessGrammar> {
   @Override
   public void leaveNode(AstNode astNode) {
     Declaration declaration = new Declaration(astNode);
-    if (!declaration.isValid()) {
+    if (!declaration.getProperty().isVendorPrefixed() && !declaration.isValid()) {
       getContext().createLineViolation(
         this,
         "Update the invalid value of property \"{0}\". Expected format: {1}",

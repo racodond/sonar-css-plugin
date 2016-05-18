@@ -39,7 +39,6 @@ public class ValidatePropertyValueCheckTest {
       .next().atLine(5).withMessage(errorMessage)
       .next().atLine(6).withMessage(errorMessage)
       .next().atLine(7).withMessage(errorMessage)
-      .next().atLine(8).withMessage(errorMessage)
       .noMore();
   }
 
