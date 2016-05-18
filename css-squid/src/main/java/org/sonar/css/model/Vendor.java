@@ -26,33 +26,38 @@ package org.sonar.css.model;
  */
 public enum Vendor {
 
-  ANTENNA_HOUSE("-ah-"),
-  APPLE("-apple-"),
-  ADVANCED_TELEVISION_STANDARDS_COMMITTEE("-atsc-"),
-  EPUB("-epub-"),
-  JAVA_FX("-fx-"),
-  HP("-hp-"),
-  KDE("-khtml-"),
-  MOZILLA("-moz-"),
-  MICROSOFT("-ms-"),
-  MICROSOFT_OFFICE("mso-"),
-  OPERA("-o-"),
-  YES_LOGIC("prince-"),
-  RESEARCH_IN_MOTION("-rim-"),
-  REAL_OBJECTS("-ro-"),
-  TALL_COMPONENTS("-tc-"),
-  WAP("-wap-"),
-  WEBKIT("-webkit-"),
-  OPERA2("-xv-");
+  ANTENNA_HOUSE("-ah-", "Antenna House"),
+  APPLE("-apple-", "Webkit supports properties using the -apple- prefixes as well"),
+  ADVANCED_TELEVISION_STANDARDS_COMMITTEE("-atsc-", "Advanced Television Standards Committee"),
+  EPUB("-epub-", "EPUB"),
+  JAVA_FX("-fx-", "JavaFX"),
+  HP("-hp-", "Hewlett Packard"),
+  KDE("-khtml-", "Konqueror browser"),
+  MOZILLA("-moz-", "Mozilla Foundation (Gecko-based browsers)"),
+  MICROSOFT("-ms-", "Microsoft"),
+  MICROSOFT_OFFICE("mso-", "Microsoft Office"),
+  OPERA("-o-", "Opera Software"),
+  YES_LOGIC("prince-", "YesLogic"),
+  RESEARCH_IN_MOTION("-rim-", "Research In Motion"),
+  REAL_OBJECTS("-ro-", "Real Objects"),
+  TALL_COMPONENTS("-tc-", "Tall Components"),
+  WAP("-wap-", "The WAP Forum"),
+  WEBKIT("-webkit-", "Safari, Chrome (and other WebKit-based browsers)"),
+  OPERA2("-xv-", "Opera Software");
 
   private String prefix;
+  private String description;
 
-  Vendor(String prefix) {
+  Vendor(String prefix, String description) {
     this.prefix = prefix;
+    this.description = description;
   }
 
   public String getPrefix() {
     return prefix;
   }
 
+  public String getDescription() {
+    return description;
+  }
 }

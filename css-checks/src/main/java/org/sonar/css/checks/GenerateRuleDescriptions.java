@@ -26,6 +26,7 @@ import java.io.*;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.sonar.css.model.Vendor;
 import org.sonar.css.model.atrule.StandardAtRule;
 import org.sonar.css.model.atrule.standard.Annotation;
 import org.sonar.css.model.function.StandardFunction;
@@ -47,6 +48,7 @@ public class GenerateRuleDescriptions {
     generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/obsolete-properties.html", generateObsoletePropertiesRuleDescription());
     generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/unknown-at-rules.html", generateUnknownAtRulesRuleDescription());
     generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/unknown-functions.html", generateUnknownFunctionsRuleDescription());
+    generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/experimental-property-usage.html", generateExperimentalPropertiesRuleDescription());
   }
 
   private static StringBuilder generateObsoletePropertiesRuleDescription() {
@@ -85,7 +87,8 @@ public class GenerateRuleDescriptions {
   private static StringBuilder generateUnknownAtRulesRuleDescription() {
     StringBuilder htmlPage = new StringBuilder()
       .append("<p>The list of supported CSS @-rules is growing and it's very easy to miss a typo in a single @-rule when the name isn't checked.</p>\n")
-      .append("<p>This rule checks each @-rule to make sure that it is a known CSS @-rule. All vendor-prefixed @-rules are ignored because vendors may add in their own @-rules at any point in time, and there are no canonical lists of these @-rules.</p>\n")
+      .append(
+        "<p>This rule checks each @-rule to make sure that it is a known CSS @-rule. All vendor-prefixed @-rules are ignored because vendors may add in their own @-rules at any point in time, and there are no canonical lists of these @-rules.</p>\n")
       .append("<h2>Noncompliant Code Example</h2>\n")
       .append("<pre>\n")
       .append("@abc {\n")
@@ -161,6 +164,22 @@ public class GenerateRuleDescriptions {
     }
     htmlPage.append("</ul>\n");
     return htmlPage;
+  }
+
+  private static StringBuilder generateExperimentalPropertiesRuleDescription() {
+    return new StringBuilder()
+      .append(
+        "<p>Even though vendor-specific properties are guaranteed not to cause conflicts, it should be recognized that these extensions may also be subject to change at the vendor’s whim, as they don’t form part of the CSS specifications, even though they often mimic the proposed behavior of existing or forthcoming CSS properties. Thus, it is not recommended to use them in production code.</p>\n")
+      .append("<p>The rule raises an issue when one of the following prefixes is found:\n")
+      .append(generateListOfVendors())
+      .append("</p>\n")
+      .append("<h2>Noncompliant Code Example</h2>\n")
+      .append("<pre>\n")
+      .append(".mybox {\n")
+      .append("  -moz-border-radius: 5px;  /* Noncompliant */\n")
+      .append("  color: green;\n")
+      .append("}\n")
+      .append("</pre>\n");
   }
 
   /**
@@ -374,6 +393,20 @@ public class GenerateRuleDescriptions {
     } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
       throw new IllegalStateException("Could not retrieve the list of standard CSS function classes.", e);
     }
+  }
+
+  private static String generateListOfVendors() {
+    StringBuilder html = new StringBuilder("<ul>\n");
+    for (Vendor vendor : Vendor.values()) {
+      html.append("<li>")
+        .append("<code>")
+        .append(vendor.getPrefix())
+        .append("</code> ")
+        .append(vendor.getDescription())
+        .append("</li>\n");
+    }
+    html.append("</ul>\n");
+    return html.toString();
   }
 
 }
