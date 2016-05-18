@@ -85,7 +85,7 @@ public class GenerateRuleDescriptions {
   private static StringBuilder generateUnknownAtRulesRuleDescription() {
     StringBuilder htmlPage = new StringBuilder()
       .append("<p>The list of supported CSS @-rules is growing and it's very easy to miss a typo in a single @-rule when the name isn't checked.</p>\n")
-      .append("<p>This rule checks each @-rule to make sure that it is a known CSS @-rule.</p>\n")
+      .append("<p>This rule checks each @-rule to make sure that it is a known CSS @-rule. All vendor-prefixed @-rules are ignored because vendors may add in their own @-rules at any point in time, and there are no canonical lists of these @-rules.</p>\n")
       .append("<h2>Noncompliant Code Example</h2>\n")
       .append("<pre>\n")
       .append("@abc {\n")
