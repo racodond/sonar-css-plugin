@@ -1,7 +1,0 @@
-.mybox {
-  user-zoom: inherit;
-  user-zoom: zoom;
-  user-zoom: fixed;
-  user-zoom: abc; /* Noncompliant */
-  user-zoom: 10; /* Noncompliant */
-}

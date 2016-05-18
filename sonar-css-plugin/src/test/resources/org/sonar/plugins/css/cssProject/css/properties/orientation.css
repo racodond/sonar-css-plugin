@@ -1,8 +1,0 @@
-.mybox {
-  orientation: inherit;
-  orientation: auto;
-  orientation: portrait;
-  orientation: landscape;
-  orientation: 10; /* Noncompliant */
-  orientation: abc; /* Noncompliant */
-}

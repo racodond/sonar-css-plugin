@@ -1,6 +1,0 @@
-.mybox {
-  animation-name: inherit;
-  animation-name: abc;
-  animation-name: 0; /* Noncompliant */
-  animation-name: 10px; /* Noncompliant */
-}

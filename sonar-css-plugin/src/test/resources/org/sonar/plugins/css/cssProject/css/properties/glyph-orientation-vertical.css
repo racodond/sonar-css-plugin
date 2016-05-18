@@ -1,7 +1,0 @@
-.mybox {
-  glyph-orientation-vertical: inherit;
-  glyph-orientation-vertical: auto;
-  glyph-orientation-vertical: 90deg;
-  glyph-orientation-vertical: abc; /* Noncompliant */
-  glyph-orientation-vertical: 0.5; /* Noncompliant */
-}

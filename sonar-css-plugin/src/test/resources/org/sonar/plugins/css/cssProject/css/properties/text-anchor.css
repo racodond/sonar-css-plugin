@@ -1,8 +1,0 @@
-.mybox {
-  text-anchor: inherit;
-  text-anchor: start;
-  text-anchor: middle;
-  text-anchor: end;
-  text-anchor: abc; /* Noncompliant */
-  text-anchor: 0.5; /* Noncompliant */
-}

@@ -1,8 +1,0 @@
-.mybox {
-  outline-color: inherit;
-  outline-color: red;
-  outline-color: rgb(25,25,25);
-  outline-color: 10px; /* Noncompliant */
-  outline-color: abc; /* Noncompliant */
-  outline-color: invert;
-}

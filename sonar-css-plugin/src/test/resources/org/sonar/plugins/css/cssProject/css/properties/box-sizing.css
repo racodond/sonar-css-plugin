@@ -1,8 +1,0 @@
-.mybox {
-  box-sizing: inherit;
-  box-sizing: content-box;
-  box-sizing: padding-box;
-  box-sizing: border-box;
-  box-sizing: abc; /* Noncompliant */
-  box-sizing: 10%; /* Noncompliant */
-}

@@ -1,8 +1,0 @@
-.mybox {
-  isolation: inherit;
-  isolation: auto;
-  isolation: isolate;
-  isolation: auto isolate; /* Noncompliant */
-  isolation: abc; /* Noncompliant */
-  isolation: 10; /* Noncompliant */
-}

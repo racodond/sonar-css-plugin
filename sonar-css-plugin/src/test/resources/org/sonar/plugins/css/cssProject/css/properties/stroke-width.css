@@ -1,9 +1,0 @@
-.mybox {
-  stroke-width: inherit;
-  stroke-width: 100%;
-  stroke-width: 10px;
-  stroke-width: -100%; /* Noncompliant */
-  stroke-width: -10px; /* Noncompliant */
-  stroke-width: 10; /* Noncompliant */
-  stroke-width: abc; /* Noncompliant */
-}

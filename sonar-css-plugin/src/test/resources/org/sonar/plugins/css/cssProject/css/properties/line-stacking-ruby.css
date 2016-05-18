@@ -1,7 +1,0 @@
-.mybox {
-  line-stacking-ruby: inherit;
-  line-stacking-ruby: exclude-ruby;
-  line-stacking-ruby: include-ruby;
-  line-stacking-ruby: 10; /* Noncompliant */
-  line-stacking-ruby: abc; /* Noncompliant */
-}
