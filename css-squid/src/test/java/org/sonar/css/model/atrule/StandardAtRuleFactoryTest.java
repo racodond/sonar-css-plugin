@@ -59,7 +59,7 @@ public class StandardAtRuleFactoryTest {
     assertEquals(atRule.getLinks().get(0), "https://drafts.csswg.org/css-fonts-3/#font-feature-values");
     assertEquals(atRule.getLinks().get(1), "https://developer.mozilla.org/en-US/docs/Web/CSS/@font-feature-values");
     assertEquals(atRule.isObsolete(), false);
-    assertEquals(atRule.isExperimental(), false);
+    assertEquals(atRule.isExperimental(), true);
   }
 
   @Test

@@ -1,0 +1,76 @@
+@-moz-vendoratrule {} /* Noncompliant */
+
+@-ms-keyframes fade {} /* Noncompliant */
+
+@counter-style winners-list { /* Noncompliant */
+  system: fixed;
+  symbols: url(gold-medal.svg) url(silver-medal.svg) url(bronze-medal.svg);
+  suffix: " ";
+}
+
+@custom-media --narrow-window (max-width: 30em); /* Noncompliant */
+
+@document url(http://www.w3.org/), /* Noncompliant */
+          url-prefix(http://www.w3.org/Style/),
+          domain(mozilla.org),
+          regexp("https:.*")
+{
+  body {
+    color: purple;
+    background: yellow;
+  }
+}
+
+@font-feature-values Font One { /* Noncompliant */
+  @swash { /* Noncompliant */
+    nice-style: 12;
+  }
+  @ornaments { /* Noncompliant */
+    nice-style: 12;
+  }
+  @annotation { /* Noncompliant */
+    nice-style: 12;
+  }
+  @stylistic { /* Noncompliant */
+    nice-style: 12;
+  }
+  @styleset { /* Noncompliant */
+    nice-style: 12;
+  }
+  @character-variant { /* Noncompliant */
+    nice-style: 12;
+  }
+}
+
+@keyframes fade {} /* Noncompliant */
+
+@viewport { /* Noncompliant */
+  max-width: 10px;
+}
+
+@charset "UTF-8";
+
+@font-face {
+  font-family: MyHelvetica;
+  src: local("Helvetica Neue Bold"),
+       local("HelveticaNeue-Bold"),
+       url(MgOpenModernaBold.ttf);
+  font-weight: bold;
+}
+
+@import 'custom.css';
+
+@media screen, print {
+  body { line-height: 1.2 }
+}
+
+@namespace url(http://www.w3.org/1999/xhtml);
+
+@page :pseudo-class {
+  margin:2in;
+}
+
+@supports ( (perspective: 10px) or (-moz-perspective: 10px) or (-webkit-perspective: 10px) or
+            (-ms-perspective: 10px) or (-o-perspective: 10px) ) {
+  /* specific CSS applied when 3D transforms, eventually prefixed, are supported */
+}

@@ -24,6 +24,7 @@ import org.sonar.css.model.atrule.StandardAtRule;
 public class CounterStyle extends StandardAtRule {
 
   public CounterStyle() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-counter-styles-3/#the-counter-style-rule");
   }
 

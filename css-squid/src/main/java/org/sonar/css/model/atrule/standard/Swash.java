@@ -24,6 +24,7 @@ import org.sonar.css.model.atrule.StandardAtRule;
 public class Swash extends StandardAtRule {
 
   public Swash() {
+    setExperimental(true);
     addLinks(
       "https://drafts.csswg.org/css-fonts-3/#font-feature-values",
       "https://developer.mozilla.org/en-US/docs/Web/CSS/@font-feature-values");

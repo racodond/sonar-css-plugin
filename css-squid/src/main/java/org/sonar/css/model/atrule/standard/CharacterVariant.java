@@ -24,6 +24,7 @@ import org.sonar.css.model.atrule.StandardAtRule;
 public class CharacterVariant extends StandardAtRule {
 
   public CharacterVariant() {
+    setExperimental(true);
     addLinks(
       "https://drafts.csswg.org/css-fonts-3/#font-feature-values",
       "https://developer.mozilla.org/en-US/docs/Web/CSS/@font-feature-values");

@@ -49,6 +49,7 @@ public class GenerateRuleDescriptions {
     generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/unknown-at-rules.html", generateUnknownAtRulesRuleDescription());
     generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/unknown-functions.html", generateUnknownFunctionsRuleDescription());
     generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/experimental-property-usage.html", generateExperimentalPropertiesRuleDescription());
+    generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/experimental-atrule-usage.html", generateExperimentalAtRulesRuleDescription());
   }
 
   private static StringBuilder generateObsoletePropertiesRuleDescription() {
@@ -180,6 +181,44 @@ public class GenerateRuleDescriptions {
       .append("  color: green;\n")
       .append("}\n")
       .append("</pre>\n");
+  }
+
+  private static StringBuilder generateExperimentalAtRulesRuleDescription() {
+    StringBuilder htmlPage = new StringBuilder()
+      .append(
+        "<p>Even though vendor-specific @-rules are guaranteed not to cause conflicts, it should be recognized that these extensions may also be subject to change at the vendor’s whim, as they don’t form part of the CSS specifications, even though they often mimic the proposed behavior of existing or forthcoming CSS @-rules. Thus, it is not recommended to use them in production code.</p>\n")
+      .append("<p>The rule raises an issue when one of the following prefixes is found:\n")
+      .append(generateListOfVendors())
+      .append("</p>\n")
+      .append("<p>This rule also raises an issue each time one of the following experimental @-rules is used:\n")
+      .append("<ul>\n");
+
+    StandardAtRule atRule;
+    for (Map.Entry<String, StandardAtRule> entry : getAllStandardAtRules().entrySet()) {
+      atRule = entry.getValue();
+      if (atRule.isExperimental()) {
+        htmlPage.append("  <li>");
+        if (!atRule.getLinks().isEmpty()) {
+          htmlPage.append("<a target=\"_blank\" href=\"").append(atRule.getLinks().get(0)).append("\">");
+        }
+        htmlPage.append(atRule.getName());
+        if (!atRule.getLinks().isEmpty()) {
+          htmlPage.append("</a>");
+        }
+        htmlPage.append("  </li>\n");
+      }
+    }
+
+    htmlPage.append("</ul>\n")
+      .append("</p>\n")
+      .append("<h2>Noncompliant Code Example</h2>\n")
+      .append("<pre>\n")
+      .append("@-moz-vendoratrule {} /* Noncompliant: vendor-prefixed @-rule */\n")
+      .append("\n")
+      .append("@custom-media --narrow-window (max-width: 30em); /* Noncompliant: experimental @-rule */\n")
+      .append("</pre>\n");
+
+    return htmlPage;
   }
 
   /**

@@ -61,6 +61,7 @@ public final class CheckList {
       DisplayPropertyGrouping.class,
       DuplicateProperties.class,
       EmptyDeclarationCheck.class,
+      ExperimentalAtRuleUsageCheck.class,
       ExperimentalPropertyUsageCheck.class,
       FontFaceBrowserCompatibility.class,
       FixmeTagPresenceCheck.class,
@@ -87,7 +88,6 @@ public final class CheckList {
       UnknownFunctionsCheck.class,
       UnknownAtRulesCheck.class,
       ValidatePropertyValueCheck.class,
-      VendorPrefixWithStandard.class
-      );
+      VendorPrefixWithStandard.class);
   }
 }
