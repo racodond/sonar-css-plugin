@@ -59,6 +59,10 @@
     <system>GitHub Issues</system>
     <url>https://github.com/SonarCommunity/sonar-css/issues</url>
   </issueManagement>
+  <ciManagement>
+    <system>Travis CI</system>
+    <url>https://travis-ci.org/SonarQubeCommunity/sonar-css</url>
+  </ciManagement>
 
   <properties>
     <license.title>SonarQube CSS Plugin</license.title>
