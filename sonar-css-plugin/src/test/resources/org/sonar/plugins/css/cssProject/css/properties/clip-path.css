@@ -1,8 +1,0 @@
-.mybox {
-  clip-path: inherit;
-  clip-path: none;
-  clip-path: url("abc");
-  clip-path: url; /* Noncompliant */
-  clip-path: 10%; /* Noncompliant */
-  clip-path: 10px; /* Noncompliant */
-}

@@ -23,8 +23,8 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.checks.utils.CssAtRules;
-import org.sonar.css.checks.utils.CssProperties;
+import org.sonar.css.model.AtRule;
+import org.sonar.css.model.atrule.UnknownAtRule;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -49,8 +49,13 @@ public class UnknownAtRulesCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (!CssAtRules.CSS_AT_RULES.contains(CssProperties.getPropertyNameWithoutVendorPrefix(astNode.getFirstChild(CssGrammar.IDENT).getTokenValue().toLowerCase()))) {
-      getContext().createLineViolation(this, "Remove this usage of the unknown \"{0}\" CSS @-rule.", astNode, astNode.getFirstChild(CssGrammar.IDENT).getTokenValue());
+    AtRule atRule = new AtRule(astNode.getFirstChild(CssGrammar.IDENT).getTokenValue());
+    if (atRule.getStandardAtRule() instanceof UnknownAtRule && !atRule.isVendorPrefixed()) {
+      getContext().createLineViolation(
+        this,
+        "Remove this usage of the unknown \"{0}\" CSS @-rule.",
+        astNode,
+        atRule.getStandardAtRule().getName());
     }
   }
 

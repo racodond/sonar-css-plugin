@@ -32,8 +32,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Disallow-selectors-that-look-like-regular-expressions
- * @author tkende
- *
  */
 @Rule(
   key = "regex-selectors",

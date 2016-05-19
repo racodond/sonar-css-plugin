@@ -38,8 +38,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-all-gradient-definitions
- *
- * @author tkende
  */
 @Rule(
   key = "gradients",

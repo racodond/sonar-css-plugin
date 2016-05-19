@@ -1,8 +1,0 @@
-.mybox {
-  float: inherit;
-  float: none;
-  float: left;
-  float: right;
-  float: abc; /* Noncompliant */
-  float: 10px; /* Noncompliant */
-}

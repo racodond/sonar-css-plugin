@@ -33,8 +33,9 @@ public class UnknownFunctionsCheckTest {
   @Test
   public void should_contain_unknown_functions_and_raise_issues() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/unknownFunctions.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(2).withMessage("Remove this usage of the unknown \"hello\" CSS function.").noMore();
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(2).withMessage("Remove this usage of the unknown \"hello\" CSS function.")
+      .noMore();
   }
 
   @Test

@@ -45,8 +45,8 @@ h1 {
 
 /* Compliant */
 h1 {
+  all: unset;
   background-color: blue;
-  -moz-width: 10px;
   color: red;
 }
 
@@ -78,4 +78,33 @@ h1 {
        url('myfont-webfont.ttf')  format('truetype'),
        url('myfont-webfont.svg#svgFontName') format('svg');
   font-family: 'MyFontFamily';
+}
+
+/* Compliant */
+h1 {
+  -moz-background-color: blue;
+  -ms-background-color: blue;
+  background-color: blue;
+  color: red;
+}
+
+/* Noncompliant */
+h1 {
+  -moz-background-color: blue;
+  -ms-background-color: blue;
+  all: unset;
+  background-color: blue;
+  color: red;
+}
+
+/* Compliant */
+h1 {
+  abc: red;
+  color: red;
+}
+
+/* Noncompliant */
+h1 {
+  color: red;
+  abc: red;
 }

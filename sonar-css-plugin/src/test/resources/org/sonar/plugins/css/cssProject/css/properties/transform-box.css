@@ -1,8 +1,0 @@
-.mybox {
-  transform-box: inherit;
-  transform-box: border-box;
-  transform-box: fill-box;
-  transform-box: view-box;
-  transform-box: abc; /* Noncompliant */
-  transform-box: 10; /* Noncompliant */
-}

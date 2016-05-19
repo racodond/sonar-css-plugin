@@ -28,31 +28,31 @@ import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class ExperimentalPropertyUsageCheckTest {
 
-  private final static String MESSAGE = "Remove the usage of this experimental property";
+  private final static String MESSAGE = "Remove the usage of this experimental property.";
   private ExperimentalPropertyUsageCheck check = new ExperimentalPropertyUsageCheck();
 
   @Test
   public void should_contain_experimental_properties_and_raise_issues() {
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/experimentalPropertyUsage.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(2).withMessage(MESSAGE).next()
-      .atLine(7).withMessage(MESSAGE).next()
-      .atLine(11).withMessage(MESSAGE).next()
-      .atLine(12).withMessage(MESSAGE).next()
-      .atLine(13).withMessage(MESSAGE).next()
-      .atLine(14).withMessage(MESSAGE).next()
-      .atLine(15).withMessage(MESSAGE).next()
-      .atLine(16).withMessage(MESSAGE).next()
-      .atLine(17).withMessage(MESSAGE).next()
-      .atLine(18).withMessage(MESSAGE).next()
-      .atLine(19).withMessage(MESSAGE).next()
-      .atLine(20).withMessage(MESSAGE).next()
-      .atLine(21).withMessage(MESSAGE).next()
-      .atLine(22).withMessage(MESSAGE).next()
-      .atLine(23).withMessage(MESSAGE).next()
-      .atLine(24).withMessage(MESSAGE).next()
-      .atLine(25).withMessage(MESSAGE).next()
-      .atLine(26).withMessage(MESSAGE).noMore();
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(2).withMessage(MESSAGE)
+      .next().atLine(7).withMessage(MESSAGE)
+      .next().atLine(11).withMessage(MESSAGE)
+      .next().atLine(12).withMessage(MESSAGE)
+      .next().atLine(13).withMessage(MESSAGE)
+      .next().atLine(14).withMessage(MESSAGE)
+      .next().atLine(15).withMessage(MESSAGE)
+      .next().atLine(16).withMessage(MESSAGE)
+      .next().atLine(17).withMessage(MESSAGE)
+      .next().atLine(18).withMessage(MESSAGE)
+      .next().atLine(19).withMessage(MESSAGE)
+      .next().atLine(20).withMessage(MESSAGE)
+      .next().atLine(21).withMessage(MESSAGE)
+      .next().atLine(22).withMessage(MESSAGE)
+      .next().atLine(23).withMessage(MESSAGE)
+      .next().atLine(24).withMessage(MESSAGE)
+      .next().atLine(25).withMessage(MESSAGE)
+      .noMore();
   }
 
   @Test

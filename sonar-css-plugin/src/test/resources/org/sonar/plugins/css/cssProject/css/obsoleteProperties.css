@@ -1,7 +1,0 @@
-.mybox {
-  azimuth: 30deg; /* Noncompliant */
-  Azimuth: 30deg; /* Noncompliant */
-  appearance: normal; /* Noncompliant */
-  Appearance: normal; /* Noncompliant */
-  background-color: red;
-}

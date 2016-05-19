@@ -33,9 +33,13 @@ public class ValidatePropertyValueCheckTest {
 
   @Test
   public void all() {
+    errorMessage = "Update the invalid value of property \"all\". Expected format: inherit | initial | unset";
     SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/all.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(5).withMessage("Update the invalid value of property \"all\". Expected format: inherit | initial | unset").noMore();
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(5).withMessage(errorMessage)
+      .next().atLine(6).withMessage(errorMessage)
+      .next().atLine(7).withMessage(errorMessage)
+      .noMore();
   }
 
   @Test

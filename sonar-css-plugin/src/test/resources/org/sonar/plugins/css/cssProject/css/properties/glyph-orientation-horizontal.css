@@ -1,6 +1,0 @@
-.mybox {
-  glyph-orientation-horizontal: inherit;
-  glyph-orientation-horizontal: 90deg;
-  glyph-orientation-horizontal: abc; /* Noncompliant */
-  glyph-orientation-horizontal: 0.5; /* Noncompliant */
-}

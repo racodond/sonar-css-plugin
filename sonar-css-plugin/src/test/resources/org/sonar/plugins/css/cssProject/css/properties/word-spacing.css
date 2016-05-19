@@ -1,8 +1,0 @@
-.mybox {
-  word-spacing: inherit;
-  word-spacing: normal;
-  word-spacing: 10px;
-  word-spacing: 10cm;
-  word-spacing: abc; /* Noncompliant */
-  word-spacing: 10; /* Noncompliant */
-}

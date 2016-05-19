@@ -1,7 +1,0 @@
-.mybox {
-  border-collapse: inherit;
-  border-collapse: collapse;
-  border-collapse: separate;
-  border-collapse: abc; /* Noncompliant */
-  border-collapse: 10; /* Noncompliant */
-}

@@ -1,9 +1,0 @@
-.mybox {
-  stroke-dashoffset: inherit;
-  stroke-dashoffset: 100%;
-  stroke-dashoffset: -100%;
-  stroke-dashoffset: 10px;
-  stroke-dashoffset: -10px;
-  stroke-dashoffset: 10; /* Noncompliant */
-  stroke-dashoffset: abc; /* Noncompliant */
-}

@@ -1,8 +1,0 @@
-h1 { /* NOSONAR: blabla */
-  color: green;
-}
-
-h1 {
-  color: green; /* [NOSONAR] blabla */
-}
-

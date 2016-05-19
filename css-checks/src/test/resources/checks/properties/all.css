@@ -3,4 +3,7 @@
   all: initial;
   all: unset;
   all: abc; /* Noncompliant */
+  *all: abc; /* Noncompliant */
+  _all: abc; /* Noncompliant */
+  -moz-all: abc; /* Compliant: vendor-prefix properties are not checked */
 }

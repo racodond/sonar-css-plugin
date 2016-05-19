@@ -1,8 +1,0 @@
-.mybox {
-  font-size-adjust: inherit;
-  font-size-adjust: none;
-  font-size-adjust: 0.5;
-  font-size-adjust: -0.5;
-  font-size-adjust: 10px; /* Noncompliant */
-  font-size-adjust: abc; /* Noncompliant */
-}

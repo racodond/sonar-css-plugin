@@ -28,17 +28,22 @@ import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class AlphabetizeDeclarationsCheckTest {
 
-  private final static String MESSAGE = "Alphabetically order these rule's properties";
-  private AlphabetizeDeclarationsCheck check = new AlphabetizeDeclarationsCheck();
+  private final static String MESSAGE = "Alphabetically order these rule's properties.";
 
   @Test
   public void properties_should_not_be_properly_ordered() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/alphabetizeDeclarations.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(54).withMessage(MESSAGE).next()
-      .atLine(61).withMessage(MESSAGE).next()
-      .atLine(68).withMessage(MESSAGE).next()
-      .atLine(75).withMessage(MESSAGE).noMore();
+    SourceFile file = CssAstScanner.scanSingleFile(
+      new File("src/test/resources/checks/alphabetizeDeclarations.css"),
+      new AlphabetizeDeclarationsCheck());
+
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(54).withMessage(MESSAGE)
+      .next().atLine(61).withMessage(MESSAGE)
+      .next().atLine(68).withMessage(MESSAGE)
+      .next().atLine(75).withMessage(MESSAGE)
+      .next().atLine(92).withMessage(MESSAGE)
+      .next().atLine(107).withMessage(MESSAGE)
+      .noMore();
   }
 
 }

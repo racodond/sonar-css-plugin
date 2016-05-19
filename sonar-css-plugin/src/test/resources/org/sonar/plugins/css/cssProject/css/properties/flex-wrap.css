@@ -1,8 +1,0 @@
-.mybox {
-  flex-wrap: inherit;
-  flex-wrap: nowrap;
-  flex-wrap: wrap;
-  flex-wrap: wrap-reverse;
-  flex-wrap: abc; /* Noncompliant */
-  flex-wrap: 10; /* Noncompliant */
-}

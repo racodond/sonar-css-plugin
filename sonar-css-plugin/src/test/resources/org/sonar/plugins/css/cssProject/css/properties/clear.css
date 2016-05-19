@@ -1,9 +1,0 @@
-.mybox {
-  clear: inherit;
-  clear: none;
-  clear: left;
-  clear: right;
-  clear: both;
-  clear: abc; /* Noncompliant */
-  clear: 10; /* Noncompliant */
-}

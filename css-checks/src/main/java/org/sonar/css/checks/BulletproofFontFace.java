@@ -34,8 +34,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Bulletproof-font-face
- *
- * @author tkende
  */
 @Rule(
   key = "bulletproof-font-face",

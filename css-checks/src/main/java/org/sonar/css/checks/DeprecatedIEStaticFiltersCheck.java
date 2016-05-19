@@ -23,7 +23,7 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.checks.utils.CssFunctions;
+import org.sonar.css.model.Function;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -43,14 +43,18 @@ public class DeprecatedIEStaticFiltersCheck extends SquidCheck<LexerlessGrammar>
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.VALUE);
+    subscribeTo(CssGrammar.FUNCTION);
   }
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (astNode.getFirstChild(CssGrammar.FUNCTION) != null
-      && CssFunctions.IE_STATIC_FILTERS_NOT_IN_CSS_FUNCTIONS.contains(astNode.getFirstChild(CssGrammar.FUNCTION).getTokenValue().toLowerCase())) {
-      getContext().createLineViolation(this, "Remove this usage of the \"{0}\" Internet Explorer static filter.", astNode, astNode.getTokenValue());
+    Function function = new Function(astNode.getTokenValue());
+    if (function.getStandardFunction().isIeStaticFilter()) {
+      getContext().createLineViolation(
+        this,
+        "Remove this usage of the \"{0}\" Internet Explorer static filter.",
+        astNode,
+        function.getStandardFunction().getName());
     }
   }
 

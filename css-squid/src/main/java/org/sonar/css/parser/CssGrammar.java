@@ -32,9 +32,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  * be handled as declaration block
  *
  * There are problems with comments+whitespaces...
- *
- * @author tkende
- *
  */
 
 /***

@@ -32,8 +32,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Disallow-underscore-hack
- * @author tkende
- *
  */
 @Rule(
   key = "underscore-property-hack",

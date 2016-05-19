@@ -1,8 +1,0 @@
-.mybox {
-  list-style-type: inherit;
-  list-style-type: none;
-  list-style-type: abc;
-  list-style-type: "def";
-  list-style-type: 10; /* Noncompliant */
-  list-style-type: 10px; /* Noncompliant */
-}

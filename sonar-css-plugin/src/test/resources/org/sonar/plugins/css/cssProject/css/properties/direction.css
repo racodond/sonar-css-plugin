@@ -1,7 +1,0 @@
-.mybox {
-  direction: inherit;
-  direction: rtl;
-  direction: ltr;
-  direction: abc; /* Noncompliant */
-  direction: 0.5; /* Noncompliant */
-}

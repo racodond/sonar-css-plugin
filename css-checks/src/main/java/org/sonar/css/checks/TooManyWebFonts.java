@@ -33,8 +33,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Don%27t-use-too-many-web-fonts
- * @author tkende
- *
  */
 @Rule(
   key = "font-faces",

@@ -30,9 +30,10 @@ import java.util.Set;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.checks.utils.CssProperties;
-import org.sonar.css.checks.utils.CssProperty;
-import org.sonar.css.checks.utils.Vendors;
+import org.sonar.css.model.Property;
+import org.sonar.css.model.Vendor;
+import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.StandardPropertyFactory;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -42,8 +43,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-compatible-vendor-prefixes
- *
- * @author tkende
  */
 @Rule(
   key = "compatible-vendor-prefixes",
@@ -55,7 +54,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @ActivatedByDefault
 public class CompatibleVendorPrefixes extends SquidCheck<LexerlessGrammar> {
 
-  Map<String, Set<String>> properties = new HashMap<>();
+  Map<String, Set<Vendor>> properties = new HashMap<>();
 
   @Override
   public void init() {
@@ -67,15 +66,15 @@ public class CompatibleVendorPrefixes extends SquidCheck<LexerlessGrammar> {
     if (astNode.is(CssGrammar.RULESET) || astNode.is(CssGrammar.AT_RULE)) {
       properties.clear();
     } else if (astNode.is(CssGrammar.DECLARATION)) {
-      String property = astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue();
-      if (Vendors.isVendorPrefixed(property)) {
-        String cssProperty = CssProperties.getPropertyNameWithoutVendorPrefix(property);
-        String cssVendorPrefix = CssProperties.getVendorPrefix(property);
-        if (properties.containsKey(cssProperty)) {
-          properties.get(cssProperty).add(cssVendorPrefix);
+      Property property = new Property(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue());
+      if (property.isVendorPrefixed()) {
+        String cssPropertyName = property.getStandardProperty().getName();
+        Vendor vendorPrefix = property.getVendorPrefix();
+        if (properties.containsKey(cssPropertyName)) {
+          properties.get(cssPropertyName).add(vendorPrefix);
         } else {
-          properties.put(cssProperty, new HashSet<String>());
-          properties.get(cssProperty).add(cssVendorPrefix);
+          properties.put(cssPropertyName, new HashSet<Vendor>());
+          properties.get(cssPropertyName).add(vendorPrefix);
         }
       }
     }
@@ -83,20 +82,16 @@ public class CompatibleVendorPrefixes extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (astNode != null && astNode.is(CssGrammar.RULESET)) {
-      for (Entry<String, Set<String>> props : properties.entrySet()) {
-        CssProperty p = CssProperties.getProperty(props.getKey());
-        // If p is null it is an unknown vendor property
-        if (p != null) {
-          for (String vendor : p.getVendors()) {
-            if (!props.getValue().contains(vendor)) {
-              getContext().createLineViolation(this, "Add the missing vendor prefix: " + vendor + " to the property: " + props.getKey(), astNode);
-            }
+    if (astNode.is(CssGrammar.RULESET)) {
+      for (Entry<String, Set<Vendor>> props : properties.entrySet()) {
+        StandardProperty p = StandardPropertyFactory.createStandardProperty(props.getKey());
+        for (Vendor vendor : p.getVendors()) {
+          if (!props.getValue().contains(vendor)) {
+            getContext().createLineViolation(this, "Add the missing vendor prefix: " + vendor.getPrefix() + " to the property: " + props.getKey(), astNode);
           }
         }
       }
     }
-
   }
 
 }

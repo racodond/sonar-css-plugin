@@ -1,7 +1,0 @@
-.mybox {
-  box-decoration-break: inherit;
-  box-decoration-break: clone;
-  box-decoration-break: slice;
-  box-decoration-break: abc; /* Noncompliant */
-  box-decoration-break: 10; /* Noncompliant */
-}

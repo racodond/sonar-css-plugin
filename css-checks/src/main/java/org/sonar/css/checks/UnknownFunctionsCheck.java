@@ -23,8 +23,8 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.checks.utils.CssFunctions;
-import org.sonar.css.checks.utils.Vendors;
+import org.sonar.css.model.Function;
+import org.sonar.css.model.function.UnknownFunction;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -44,16 +44,18 @@ public class UnknownFunctionsCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.VALUE);
+    subscribeTo(CssGrammar.FUNCTION);
   }
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (astNode.getFirstChild(CssGrammar.FUNCTION) != null
-      && !Vendors.isVendorPrefixed(astNode.getFirstChild(CssGrammar.FUNCTION).getTokenValue())
-      && !CssFunctions.CSS_FUNCTIONS.contains(astNode.getFirstChild(CssGrammar.FUNCTION).getTokenValue().toLowerCase())
-      && !CssFunctions.IE_STATIC_FILTERS.contains(astNode.getFirstChild(CssGrammar.FUNCTION).getTokenValue().toLowerCase())) {
-      getContext().createLineViolation(this, "Remove this usage of the unknown \"{0}\" CSS function.", astNode, astNode.getTokenValue());
+    Function function = new Function(astNode.getTokenValue());
+    if (function.getStandardFunction() instanceof UnknownFunction && !function.isVendorPrefixed()) {
+      getContext().createLineViolation(
+        this,
+        "Remove this usage of the unknown \"{0}\" CSS function.",
+        astNode,
+        function.getStandardFunction().getName());
     }
   }
 

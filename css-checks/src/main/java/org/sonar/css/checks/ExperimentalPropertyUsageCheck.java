@@ -23,7 +23,7 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.checks.utils.Vendors;
+import org.sonar.css.model.Property;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -43,13 +43,14 @@ public class ExperimentalPropertyUsageCheck extends SquidCheck<LexerlessGrammar>
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.DECLARATION);
+    subscribeTo(CssGrammar.PROPERTY);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (Vendors.isVendorPrefixed(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue())) {
-      getContext().createLineViolation(this, "Remove the usage of this experimental property", astNode);
+    Property property = new Property(astNode.getTokenValue());
+    if (property.isVendorPrefixed()) {
+      getContext().createLineViolation(this, "Remove the usage of this experimental property.", astNode);
     }
   }
 

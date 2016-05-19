@@ -30,10 +30,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-/**
- * @author tkende
- *
- */
 @Rule(
   key = "S2732",
   name = "Stylesheets should not contain too many selectors",

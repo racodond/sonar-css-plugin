@@ -39,8 +39,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Disallow-overqualified-elements
- *
- * @author tkende
  */
 @Rule(
   key = "overqualified-elements",

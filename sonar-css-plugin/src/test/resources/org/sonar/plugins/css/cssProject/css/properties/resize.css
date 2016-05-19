@@ -1,9 +1,0 @@
-.mybox {
-  resize: inherit;
-  resize: none;
-  resize: both;
-  resize: horizontal;
-  resize: vertical;
-  resize: abc; /* Noncompliant */
-  resize: 10px; /* Noncompliant */
-}

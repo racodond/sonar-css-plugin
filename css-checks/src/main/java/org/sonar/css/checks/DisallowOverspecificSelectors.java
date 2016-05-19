@@ -31,9 +31,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-/**
- * @author tkende
- */
 @Rule(
   key = "overspecific-selectors",
   name = "Over-specified selectors should be simplified",

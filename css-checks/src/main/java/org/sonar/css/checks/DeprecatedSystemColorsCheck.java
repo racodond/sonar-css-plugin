@@ -23,7 +23,7 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.checks.utils.CssColors;
+import org.sonar.css.model.Color;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -48,7 +48,7 @@ public class DeprecatedSystemColorsCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (CssColors.CSS2_SYSTEM_COLORS.contains(astNode.getTokenValue().toLowerCase())) {
+    if (Color.CSS2_SYSTEM_COLORS.contains(astNode.getTokenValue().toLowerCase())) {
       getContext().createLineViolation(this, "Remove this usage of the deprecated \"{0}\" system color.", astNode, astNode.getTokenValue());
     }
   }
