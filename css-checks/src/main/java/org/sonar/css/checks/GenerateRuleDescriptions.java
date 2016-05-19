@@ -395,8 +395,10 @@ public class GenerateRuleDescriptions {
       StandardProperty property;
       ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(Border.class.getClassLoader()).getTopLevelClasses("org.sonar.css.model.property.standard");
       for (ClassPath.ClassInfo classInfo : classInfos) {
-        property = (StandardProperty) Class.forName(classInfo.getName()).newInstance();
-        properties.put(property.getName(), property);
+        if (!classInfo.getName().equals("org.sonar.css.model.property.standard.package-info")) {
+          property = (StandardProperty) Class.forName(classInfo.getName()).newInstance();
+          properties.put(property.getName(), property);
+        }
       }
       return properties;
     } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
@@ -410,8 +412,10 @@ public class GenerateRuleDescriptions {
       StandardAtRule atRule;
       ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(Annotation.class.getClassLoader()).getTopLevelClasses("org.sonar.css.model.atrule.standard");
       for (ClassPath.ClassInfo classInfo : classInfos) {
-        atRule = (StandardAtRule) Class.forName(classInfo.getName()).newInstance();
-        atRules.put(atRule.getName(), atRule);
+        if (!classInfo.getName().equals("org.sonar.css.model.atrule.standard.package-info")) {
+          atRule = (StandardAtRule) Class.forName(classInfo.getName()).newInstance();
+          atRules.put(atRule.getName(), atRule);
+        }
       }
       return atRules;
     } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
@@ -425,8 +429,10 @@ public class GenerateRuleDescriptions {
       StandardFunction function;
       ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(Annotation.class.getClassLoader()).getTopLevelClasses("org.sonar.css.model.function.standard");
       for (ClassPath.ClassInfo classInfo : classInfos) {
-        function = (StandardFunction) Class.forName(classInfo.getName()).newInstance();
-        functions.put(function.getName(), function);
+        if (!classInfo.getName().equals("org.sonar.css.model.function.standard.package-info")) {
+          function = (StandardFunction) Class.forName(classInfo.getName()).newInstance();
+          functions.put(function.getName(), function);
+        }
       }
       return functions;
     } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
