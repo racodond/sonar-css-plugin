@@ -16,7 +16,7 @@
   alignment-adjust: -10%;
   alignment-adjust: 10px;
   alignment-adjust: -10px;
-  alignment-adjust: abc; /* Noncompliant */
+  alignment-adjust: abc; /* Noncompliant !{Update the invalid value of property "alignment-adjust". Expected format: auto | baseline | before-edge | text-before-edge | middle | central | after-edge | text-after-edge | ideographic | alphabetic | hanging | mathematical | <percentage> | <length>}! */
   alignment-adjust: 10; /* Noncompliant */
   alignment-adjust: var (--my-property);
 }

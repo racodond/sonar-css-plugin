@@ -26,12 +26,11 @@ import java.util.List;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "empty-declaration",
@@ -41,9 +40,9 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("2min")
 @ActivatedByDefault
-public class EmptyDeclarationCheck extends SquidCheck<LexerlessGrammar> {
+public class EmptyDeclarationCheck extends CssCheck {
 
-  private static final String MESSAGE = "Remove this empty declaration";
+  private static final String MESSAGE = "Remove this empty declaration.";
 
   @Override
   public void init() {
@@ -55,13 +54,13 @@ public class EmptyDeclarationCheck extends SquidCheck<LexerlessGrammar> {
     if (astNode.getChildren() != null && !astNode.getChildren().isEmpty()) {
       List<AstNode> node = astNode.getChildren();
       if (CssGrammar.SEMICOLON.equals(node.get(0).getType())) {
-        getContext().createLineViolation(this, MESSAGE, node.get(0));
+        addIssue(this, MESSAGE, node.get(0));
       }
       for (int i = 1; i < astNode.getChildren().size(); i++) {
         if (CssGrammar.SEMICOLON.equals(node.get(i).getType())
           && !CssGrammar.DECLARATION.equals(node.get(i - 1).getType())
           && !CssGrammar.VARIABLE_DECLARATION.equals(node.get(i - 1).getType())) {
-          getContext().createLineViolation(this, MESSAGE, node.get(i));
+          addIssue(this, MESSAGE, node.get(i));
         }
       }
     }

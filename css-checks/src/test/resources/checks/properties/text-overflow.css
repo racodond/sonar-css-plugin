@@ -5,7 +5,7 @@
   text-overflow: "abc";
   text-overflow: clip clip;
   text-overflow: "abc" "def";
-  text-overflow: clip clip clip; /* Noncompliant */
+  text-overflow: clip clip clip; /* Noncompliant !{Update the invalid value of property "text-overflow". Expected format: [clip | ellipsis | <string>]{1,2}}! */
   text-overflow: 10; /* Noncompliant */
   text-overflow: abc; /* Noncompliant */
   text-overflow: clip abc; /* Noncompliant */

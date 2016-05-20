@@ -1,13 +1,14 @@
-/* TODO: blabla */
+/* TODO: blabla */ /* Noncompliant */
 h1 {
   color: green;
 }
 
-/* [TODO] blabla */
+/* [TODO] blabla */ /* Noncompliant */
 h1 {
   color: green;
 }
 
+/* Noncompliant ![sl=12]! */
 /* TODO:
     - blabla
     - ...
@@ -16,11 +17,13 @@ h1 {
   color: green;
 }
 
-/* todo: blabla */
+/* todo: blabla */ /* Noncompliant  */
 h1 {
   color: green;
 }
 
+/* Noncompliant ![sl=27]! */
+/* Noncompliant ![sl=27]! */
 /* todo:
    todo
 */
@@ -29,7 +32,7 @@ h1 {
 }
 
 h1 {
-  color: green; /* TODO: blabla */
+  color: green; /* TODO: blabla */ /* Noncompliant */
 }
 
 /* todoforthefirsttime */

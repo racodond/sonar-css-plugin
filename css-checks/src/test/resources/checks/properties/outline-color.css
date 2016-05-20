@@ -2,7 +2,7 @@
   outline-color: inherit;
   outline-color: red;
   outline-color: rgb(25,25,25);
-  outline-color: 10px; /* Noncompliant */
+  outline-color: 10px; /* Noncompliant !{Update the invalid value of property "outline-color". Expected format: <color> | invert}! */
   outline-color: abc; /* Noncompliant */
   outline-color: invert;
 }

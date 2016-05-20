@@ -22,28 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class TrailingWhitespaceCheckTest {
 
-  private TrailingWhitespaceCheck check = new TrailingWhitespaceCheck();
-
   @Test
-  public void should_find_trailing_whitespaces_and_raise_issues() {
-    SourceFile testFile = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/trailingWhitespace.css"), check);
-    CheckMessagesVerifier.verify(testFile.getCheckMessages()).next()
-      .atLine(1).withMessage("Remove the useless trailing whitespaces at the end of this line.").next()
-      .atLine(4).withMessage("Remove the useless trailing whitespaces at the end of this line.").next()
-      .atLine(6).withMessage("Remove the useless trailing whitespaces at the end of this line.")
-      .noMore();
-  }
-
-  @Test
-  public void should_not_find_trailing_whitespaces_and_not_raise_issues() {
-    SourceFile testFile = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/emptyRule.css"), check);
-    CheckMessagesVerifier.verify(testFile.getCheckMessages()).noMore();
+  public void test() {
+    CssCheckVerifier.verify(new TrailingWhitespaceCheck(), new File("src/test/resources/checks/trailingWhitespace.css"));
   }
 
 }

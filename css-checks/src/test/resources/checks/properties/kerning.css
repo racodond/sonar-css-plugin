@@ -3,6 +3,6 @@
   kerning: auto;
   kerning: 10px;
   kerning: -10px;
-  kerning: 10; /* Noncompliant */
+  kerning: 10; /* Noncompliant !{Update the invalid value of property "kerning". Expected format: auto | <length>}! */
   kerning: abc; /* Noncompliant */
 }

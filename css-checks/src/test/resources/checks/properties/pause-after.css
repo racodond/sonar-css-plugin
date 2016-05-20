@@ -1,0 +1,9 @@
+.mybox {
+  pause-after: inherit;
+  pause-after: 3s;
+  pause-after: -3s; /* Noncompliant !{Update the invalid value of property "pause-after". Expected format: <time>(>=0) | <percentage>(>=0)}! */
+  pause-after: 50.5%;
+  pause-after: -50.5%; /* Noncompliant */
+  pause-after: abc; /* Noncompliant */
+  pause-after: 10px; /* Noncompliant */
+}

@@ -6,7 +6,7 @@
   line-stacking: inline-line-height consider-shifts;
   line-stacking: inline-line-height exclude-ruby;
   line-stacking: inline-line-height consider-shifts exclude-ruby;
-  line-stacking: inline-line-height consider-shifts exclude-ruby consider-shifts; /* Noncompliant */
+  line-stacking: inline-line-height consider-shifts exclude-ruby consider-shifts; /* Noncompliant !{Update the invalid value of property "line-stacking". Expected format: <line-stacking-strategy> || <line-stacking-ruby> || <line-stacking-shift>}! */
   line-stacking: inline-line-height abc; /* Noncompliant */
   line-stacking: 10; /* Noncompliant */
   line-stacking: abc; /* Noncompliant */

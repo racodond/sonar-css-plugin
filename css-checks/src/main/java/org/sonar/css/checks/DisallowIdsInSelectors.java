@@ -23,12 +23,11 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Disallow-IDs-in-selectors
@@ -41,7 +40,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_CHANGEABILITY)
 @SqaleConstantRemediation("1h")
 @ActivatedByDefault
-public class DisallowIdsInSelectors extends SquidCheck<LexerlessGrammar> {
+public class DisallowIdsInSelectors extends CssCheck {
 
   @Override
   public void init() {
@@ -50,6 +49,10 @@ public class DisallowIdsInSelectors extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    getContext().createLineViolation(this, "Remove the ID in this selector", astNode);
+    addIssue(
+      this,
+      "Remove ID \"" + astNode.getFirstChild(CssGrammar.identNoWS).getTokenValue() + "\" from this selector.",
+      astNode);
   }
+
 }

@@ -8,7 +8,7 @@
   outline-style: ridge;
   outline-style: inset;
   outline-style: outset;
-  outline-style: 10px; /* Noncompliant */
+  outline-style: 10px; /* Noncompliant !{Update the invalid value of property "outline-style". Expected format: none | hidden | dotted | dashed | solid | double | groove | ridge | inset | outset | auto}! */
   outline-style: abc; /* Noncompliant */
   outline-style: auto;
 }

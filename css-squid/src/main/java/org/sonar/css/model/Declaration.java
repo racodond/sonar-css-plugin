@@ -45,6 +45,10 @@ public class Declaration {
     return property;
   }
 
+  public Value getValue() {
+    return value;
+  }
+
   public boolean isValid() {
     List<Validator> validators = property.getStandardProperty().getValidators();
 

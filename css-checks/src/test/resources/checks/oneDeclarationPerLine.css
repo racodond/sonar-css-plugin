@@ -4,18 +4,21 @@ h1 {
   color: red;
 }
 
-/* Noncompliant */
 h1 {
   background-color: blue;
-  color: red; color: green;
+  color: red; color: green; /* Noncompliant ![sc=15;ec=27;el=+0]! !{Define this declaration on a separate line.}! */
 }
 
 h1 {
   background-color: blue;
-  color: blue; color: green;
-  color: red; color: green;
+  color: blue; color: green; /* Noncompliant ![sc=16;ec=28;el=+0]! !{Define this declaration on a separate line.}! */
+  color: red; color: green; /* Noncompliant ![sc=15;ec=27;el=+0]! !{Define this declaration on a separate line.}! */
 }
 
 h1 {
-  background-color: blue; --abc: red;
+  background-color: blue; --abc: red; /* Noncompliant ![sc=27;ec=37;el=+0]! !{Define this declaration on a separate line.}! */
+}
+
+h1 {
+  background-color: blue; --abc: red; color: blue; /* Noncompliant */ /* Noncompliant */
 }

@@ -2,20 +2,26 @@
     color: red !important;
 }
 
-ul l p a {
+ul l p a { /* Noncompliant ![sc=1;ec=9;el=+0;secondary=+0,+0,+0,+0]! !{Simplify this over-specified selector. Maximum allowed depth: 3. Actual depth: 4}! */
 }
 
-ul:hover a.id #class a{
+ul:hover a.id #class a {  /* Noncompliant ![sc=1;ec=23;el=+0;secondary=+0,+0,+0,+0]! !{Simplify this over-specified selector. Maximum allowed depth: 3. Actual depth: 4}! */
 }
 
-ul > div + a +li {
+ul > div + a +li {  /* Noncompliant ![sc=1;ec=17;el=+0;secondary=+0,+0,+0,+0]! !{Simplify this over-specified selector. Maximum allowed depth: 3. Actual depth: 4}! */
 }
 
-ul:hover #class a{
+ul:hover #class a /* Noncompliant ![sc=1;ec=2;el=+2;secondary=+0,+0,+0,+1,+1,+2]! !{Simplify this over-specified selector. Maximum allowed depth: 3. Actual depth: 6}! */
+l p
+a {
+}
+
+ul:hover #class a l /* Noncompliant ![sc=1;ec=4;el=+1;secondary=+0,+0,+0,+0,+1,+1]! !{Simplify this over-specified selector. Maximum allowed depth: 3. Actual depth: 6}! */
+p a {
 }
 
 ul > div +li {
 }
 
-.button.class,.link.class,.button.class2:active,.link.class3:active{
+.button.class,.link.class,.button.class2:active,.link.class3:active {
 }

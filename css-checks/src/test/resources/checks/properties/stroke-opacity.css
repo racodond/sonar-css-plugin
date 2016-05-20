@@ -4,7 +4,7 @@
   stroke-opacity: +0.1;
   stroke-opacity: 1.0;
   stroke-opacity: +1.0;
-  stroke-opacity: -0.5; /* Noncompliant */
+  stroke-opacity: -0.5; /* Noncompliant !{Update the invalid value of property "stroke-opacity". Expected format: <number>(0.0,1.0)}! */
   stroke-opacity: +1.5; /* Noncompliant */
   stroke-opacity: 1.5; /* Noncompliant */
   stroke-opacity: inherit;

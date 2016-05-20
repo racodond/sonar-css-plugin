@@ -2,6 +2,6 @@
   line-stacking-shift: inherit;
   line-stacking-shift: consider-shifts;
   line-stacking-shift: disregard-shifts;
-  line-stacking-shift: 10; /* Noncompliant */
+  line-stacking-shift: 10; /* Noncompliant !{Update the invalid value of property "line-stacking-shift". Expected format: consider-shifts | disregard-shifts}! */
   line-stacking-shift: abc; /* Noncompliant */
 }

@@ -13,7 +13,7 @@
   alignment-baseline: ideographic;
   alignment-baseline: mathematical;
   alignment-baseline: auto;
-  alignment-baseline: 10%; /* Noncompliant */
+  alignment-baseline: 10%; /* Noncompliant !{Update the invalid value of property "alignment-baseline". Expected format: auto | baseline | use-script | before-edge | text-before-edge | after-edge | text-after-edge | central | middle | ideographic | alphabetic | hanging | mathematical}! */
   alignment-baseline: -10%; /* Noncompliant */
   alignment-baseline: 10px; /* Noncompliant */
   alignment-baseline: -10px; /* Noncompliant */

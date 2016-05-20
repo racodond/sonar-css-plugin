@@ -20,16 +20,18 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
+
+import java.text.MessageFormat;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.model.Declaration;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "validate-property-value",
@@ -39,7 +41,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.INSTRUCTION_RELIABILITY)
 @SqaleConstantRemediation("10min")
-public class ValidatePropertyValueCheck extends SquidCheck<LexerlessGrammar> {
+public class ValidatePropertyValueCheck extends CssCheck {
 
   @Override
   public void init() {
@@ -47,15 +49,16 @@ public class ValidatePropertyValueCheck extends SquidCheck<LexerlessGrammar> {
   }
 
   @Override
-  public void leaveNode(AstNode astNode) {
-    Declaration declaration = new Declaration(astNode);
+  public void leaveNode(AstNode declarationNode) {
+    Declaration declaration = new Declaration(declarationNode);
     if (!declaration.getProperty().isVendorPrefixed() && !declaration.isValid()) {
-      getContext().createLineViolation(
+      addIssue(
         this,
-        "Update the invalid value of property \"{0}\". Expected format: {1}",
-        astNode,
-        declaration.getProperty().getStandardProperty().getName(),
-        declaration.getProperty().getStandardProperty().getValidatorFormat());
+        MessageFormat.format(
+          "Update the invalid value of property \"{0}\". Expected format: {1}",
+          declaration.getProperty().getStandardProperty().getName(),
+          declaration.getProperty().getStandardProperty().getValidatorFormat()),
+        declarationNode);
     }
   }
 

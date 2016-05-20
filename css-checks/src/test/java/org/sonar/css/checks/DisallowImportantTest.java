@@ -22,28 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class DisallowImportantTest {
 
-  private DisallowImportant check = new DisallowImportant();
-  private final String MESSAGE = "Remove this usage of the \"!important\" annotation";
-
   @Test
   public void test() {
-
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/important.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(2).withMessage(MESSAGE).next()
-      .atLine(3).withMessage(MESSAGE).next()
-      .atLine(4).withMessage(MESSAGE).next()
-      .atLine(5).withMessage(MESSAGE).next()
-      .atLine(6).withMessage(MESSAGE).next()
-      .atLine(7).withMessage(MESSAGE).next()
-      .atLine(8).withMessage(MESSAGE).next()
-      .atLine(9).withMessage(MESSAGE).noMore();
+    CssCheckVerifier.verify(new DisallowImportant(), new File("src/test/resources/checks/important.css"));
   }
 
 }

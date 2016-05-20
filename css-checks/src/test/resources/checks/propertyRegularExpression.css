@@ -1,8 +1,10 @@
 .mybox {
-  animation-delay: 3s;
-  animation-duration: 3s;
+  animation-delay: 3s; /* Noncompliant ![sc=3;ec=18;el=+0]! !{Remove this "animation" property...}! */
+  color: red;
+  animation-duration: 3s; /* Noncompliant ![sc=3;ec=21;el=+0]! !{Remove this "animation" property...}! */
 }
 
 .mybox {
-  animation: 3s;
+  animation: 3s;  /* Noncompliant ![sc=3;ec=12;el=+0]! !{Remove this "animation" property...}! */
+  color: red;
 }

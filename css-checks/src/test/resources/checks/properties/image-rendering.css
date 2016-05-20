@@ -5,7 +5,7 @@
   image-rendering: optimizespeed;
   image-rendering: optimizeQuality;
   image-rendering: optimizequality;
-  image-rendering: abc; /* Noncompliant */
+  image-rendering: abc; /* Noncompliant !{Update the invalid value of property "image-rendering". Expected format: auto | optimizespeed | optimizequality}! */
   image-rendering: 10px; /* Noncompliant */
   image-rendering: 10; /* Noncompliant */
 }

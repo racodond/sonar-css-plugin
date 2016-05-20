@@ -5,6 +5,6 @@
   justify-content: center;
   justify-content: space-between;
   justify-content: space-around;
-  justify-content: abc; /* Noncompliant */
+  justify-content: abc; /* Noncompliant !{Update the invalid value of property "justify-content". Expected format: flex-start | flex-end | center | space-between | space-around}! */
   justify-content: 10; /* Noncompliant */
 }

@@ -4,6 +4,6 @@
   font-family: sans-serif;
   font-family: "Arial";
   font-family: Helvetica;
-  font-family: 0; /* Noncompliant */
+  font-family: 0; /* Noncompliant {Update the invalid value of property "font-family". Expected format: [<family-name> | <generic-family>] [, <family-name>| <generic-family>]*}! */
   font-family: 10%; /* Noncompliant */
 }

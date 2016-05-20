@@ -3,6 +3,6 @@
   hyphens: none;
   hyphens: manual;
   hyphens: auto;
-  hyphens: top; /* Noncompliant */
+  hyphens: top; /* Noncompliant !{Update the invalid value of property "hyphens". Expected format: none | manual | auto}! */
   hyphens: Opx; /* Noncompliant */
 }

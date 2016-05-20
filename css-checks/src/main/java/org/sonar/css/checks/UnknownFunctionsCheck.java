@@ -23,14 +23,13 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.model.Function;
 import org.sonar.css.model.function.UnknownFunction;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "unknown-functions",
@@ -40,7 +39,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
-public class UnknownFunctionsCheck extends SquidCheck<LexerlessGrammar> {
+public class UnknownFunctionsCheck extends CssCheck {
 
   @Override
   public void init() {
@@ -51,11 +50,10 @@ public class UnknownFunctionsCheck extends SquidCheck<LexerlessGrammar> {
   public void leaveNode(AstNode astNode) {
     Function function = new Function(astNode.getTokenValue());
     if (function.getStandardFunction() instanceof UnknownFunction && !function.isVendorPrefixed()) {
-      getContext().createLineViolation(
+      addIssue(
         this,
-        "Remove this usage of the unknown \"{0}\" CSS function.",
-        astNode,
-        function.getStandardFunction().getName());
+        "Remove this usage of the unknown \"" + function.getStandardFunction().getName() + "\" CSS function.",
+        astNode.getFirstChild(CssGrammar.IDENT));
     }
   }
 

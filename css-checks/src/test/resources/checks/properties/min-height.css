@@ -5,7 +5,7 @@
   min-height: -100%;
   min-height: 10px;
   min-height: -10px;
-  min-height: 10; /* Noncompliant */
+  min-height: 10; /* Noncompliant !{Update the invalid value of property "min-height". Expected format: auto | <length> | <percentage> | fill | max-content | min-content | fit-content}! */
   min-height: none; /* Noncompliant */
   min-height: fill;
   min-height: max-content;

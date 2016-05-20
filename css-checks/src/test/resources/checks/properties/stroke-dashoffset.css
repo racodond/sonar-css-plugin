@@ -4,6 +4,6 @@
   stroke-dashoffset: -100%;
   stroke-dashoffset: 10px;
   stroke-dashoffset: -10px;
-  stroke-dashoffset: 10; /* Noncompliant */
+  stroke-dashoffset: 10; /* Noncompliant !{Update the invalid value of property "stroke-dashoffset". Expected format: <percentage> | <length>}! */
   stroke-dashoffset: abc; /* Noncompliant */
 }

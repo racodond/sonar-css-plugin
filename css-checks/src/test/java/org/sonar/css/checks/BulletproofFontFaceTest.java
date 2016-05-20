@@ -22,48 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class BulletproofFontFaceTest {
 
   @Test
   public void test() {
-    BulletproofFontFace check = new BulletproofFontFace();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/fontface.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(1).withMessage("Check that the first file is the .eot file and that the workaround for IE is set")
-      .noMore();
-  }
-
-
-  @Test
-  public void test3() {
-    BulletproofFontFace check = new BulletproofFontFace();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/fontface2.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
-  }
-
-  @Test
-  public void test4() {
-    BulletproofFontFace check = new BulletproofFontFace();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/fontface3.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(1).withMessage("Check that the first file is the .eot file and that the workaround for IE is set")
-      .noMore();
-  }
-
-
-  @Test
-  public void test2(){
-    BulletproofFontFace check = new BulletproofFontFace();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/sonarcss-19.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
+    CssCheckVerifier.verify(new BulletproofFontFace(), new File("src/test/resources/checks/fontface.css"));
   }
 
 }

@@ -24,12 +24,11 @@ import com.sonar.sslr.api.GenericTokenType;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "case",
@@ -39,7 +38,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("2min")
 @ActivatedByDefault
-public class CaseCheck extends SquidCheck<LexerlessGrammar> {
+public class CaseCheck extends CssCheck {
 
   @Override
   public void init() {
@@ -53,7 +52,7 @@ public class CaseCheck extends SquidCheck<LexerlessGrammar> {
       createIssue(astNode, "property", astNode.getTokenValue());
     } else if (astNode.is(CssGrammar.FUNCTION)
       && containsUpperCaseCharacter(astNode.getTokenValue())) {
-      createIssue(astNode, "function", astNode.getTokenValue());
+      createIssue(astNode.getFirstChild(CssGrammar.IDENT), "function", astNode.getTokenValue());
     } else if (astNode.is(CssGrammar.VARIABLE)
       && containsUpperCaseCharacter(astNode.getFirstChild(GenericTokenType.IDENTIFIER).getTokenValue())) {
       createIssue(astNode, "variable", astNode.getFirstChild(GenericTokenType.IDENTIFIER).getTokenValue());
@@ -61,12 +60,10 @@ public class CaseCheck extends SquidCheck<LexerlessGrammar> {
   }
 
   private void createIssue(AstNode astNode, String nodeType, String value) {
-    getContext().createLineViolation(
+    addIssue(
       this,
-      "Write {0} \"{1}\" in lowercase.",
-      astNode,
-      nodeType,
-      value);
+      "Write " + nodeType + " \"" + value + "\" in lowercase.",
+      astNode);
   }
 
   private boolean containsUpperCaseCharacter(String value) {

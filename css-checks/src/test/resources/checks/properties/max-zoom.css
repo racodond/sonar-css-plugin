@@ -3,7 +3,7 @@
   max-zoom: auto;
   max-zoom: 10%;
   max-zoom: 10;
-  max-zoom: -10; /* Noncompliant */
+  max-zoom: -10; /* Noncompliant !{Update the invalid value of property "max-zoom". Expected format: auto | <percentage>(>=0) | <number>(>=0)}! */
   max-zoom: -10%; /* Noncompliant */
   max-zoom: abc; /* Noncompliant */
   max-zoom: 10px; /* Noncompliant */

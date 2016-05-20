@@ -13,22 +13,19 @@ h1 {
   color: red;
 }
 
-/* Noncompliant */
 h1 {
-  background-color: blue
+  background-color: blue  /* Noncompliant ![sc=3;ec=25]! !{Add a semicolon at the end of this declaration.}! */
 }
 
-/* Noncompliant */
 h1 {
   background-color: blue;
-  *color: red
+  *color: red  /* Noncompliant ![sc=3;ec=14]! !{Add a semicolon at the end of this declaration.}! */
 }
 
-/* Noncompliant */
 h1 {
   background-color: blue;
   _color: red;
-  width: 10px
+  width: 10px /* Noncompliant ![sc=3;ec=14]! !{Add a semicolon at the end of this declaration.}! */
 }
 
 /* Compliant */
@@ -40,16 +37,14 @@ h1 {
        url('myfont-webfont.svg#svgFontName') format('svg');
 }
 
-/* Noncompliant */
 @font-face {
   font-family: 'MyFontFamily';
-  src: url('myfont-webfont.woff?#wohoo') format('woff'),
+  src: url('myfont-webfont.woff?#wohoo') format('woff'),  /* Noncompliant ![sc=3;ec=59;el=++3]! !{Add a semicolon at the end of this declaration.}! */
        url('myfont-webfont.eot?#iefix') format('embedded-opentype'),
        url('myfont-webfont.ttf')  format('truetype'),
        url('myfont-webfont.svg#svgFontName') format('svg')
 }
 
-/* Noncompliant */
 :root {
-  --abc: red
+  --abc: red /* Noncompliant ![sc=3;ec=13]! !{Add a semicolon at the end of this declaration.}! */
 }

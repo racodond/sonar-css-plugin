@@ -2,21 +2,28 @@ h1 {
   color:red;
 }
 
-.mybox { }
+.mybox { } /* Noncompliant ![sc=1;ec=11;el=+0]! !{Remove this empty rule.}! */
 
-.mybox {
+.mybox {  /* Noncompliant ![sc=1;ec=2;el=+2]! !{Remove this empty rule.}! */
 
 }
 
-.mybox {
-    /* a comment */
+.mybox { /* Noncompliant ![sc=1;ec=2;el=+2]! !{Remove this empty rule.}! */
+  /* a comment */
 }
+
+{} /* Noncompliant ![sc=1;ec=3;el=+0]! !{Remove this empty rule.}! */
+
+{ /* Noncompliant ![sc=1;ec=4;el=+2]! !{Remove this empty rule.}! */
+
+  }
 
 /* At-rules requiring a declaration block */
-@font-face {}
-@media print {}
-@page :first {}
-@supports (display: flex) {}
+@font-face {} /* Noncompliant ![sc=1;ec=14;el=+0]! !{Remove this empty rule.}! */
+@media print {} /* Noncompliant ![sc=1;ec=16;el=+0]! !{Remove this empty rule.}! */
+@page :first {} /* Noncompliant ![sc=1;ec=16;el=+0]! !{Remove this empty rule.}! */
+@supports (display: flex) { /* Noncompliant ![sc=1;ec=2;el=+1]! !{Remove this empty rule.}! */
+}
 
 @font-face {
   font-family: MyHelvetica;
@@ -45,6 +52,7 @@ h1 {
 
 @charset "UTF-8";
 @charset 'UTF-8';
+@CHARSET "UTF-8";
 
 @namespace "http://www.w3.org/1999/xhtml";
 @namespace svg "http://www.w3.org/2000/svg";

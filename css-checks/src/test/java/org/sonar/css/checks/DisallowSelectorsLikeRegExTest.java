@@ -22,24 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class DisallowSelectorsLikeRegExTest {
 
   @Test
   public void test() {
-    DisallowSelectorsLikeRegEx check = new DisallowSelectorsLikeRegEx();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/regexlikeselectors.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(1).withMessage("Remove this regular expression like selector").next()
-      .atLine(5).withMessage("Remove this regular expression like selector").next()
-      .atLine(17).withMessage("Remove this regular expression like selector").next()
-      .atLine(21).withMessage("Remove this regular expression like selector").next()
-      .atLine(25).withMessage("Remove this regular expression like selector")
-      .noMore();
+    CssCheckVerifier.verify(new DisallowSelectorsLikeRegEx(), new File("src/test/resources/checks/regexlikeselectors.css"));
   }
 
 }

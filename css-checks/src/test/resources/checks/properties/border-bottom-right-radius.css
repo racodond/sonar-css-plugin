@@ -1,0 +1,13 @@
+.mybox {
+  border-bottom-right-radius: inherit;
+  border-bottom-right-radius: 10px 10px;
+  border-bottom-right-radius: 10% 10%;
+  border-bottom-right-radius: 10px;
+  border-bottom-right-radius: 10%;
+  border-bottom-right-radius: -10px; /* Noncompliant !{Update the invalid value of property "border-bottom-right-radius". Expected format: [ <length>(>=0) | <percentage>(>=0) ]{1,2}}! */
+  border-bottom-right-radius: -10%; /* Noncompliant */
+  border-bottom-right-radius: 10px -10px; /* Noncompliant */
+  border-bottom-right-radius: -10px 10px; /* Noncompliant */
+  border-bottom-right-radius: 10px 10px 10px; /* Noncompliant */
+  border-bottom-right-radius: abc; /* Noncompliant */
+}

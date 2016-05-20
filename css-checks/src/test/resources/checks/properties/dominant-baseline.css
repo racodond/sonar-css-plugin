@@ -12,7 +12,7 @@
   dominant-baseline: middle;
   dominant-baseline: text-after-edge;
   dominant-baseline: text-before-edge;
-  dominant-baseline: 10; /* Noncompliant */
+  dominant-baseline: 10; /* Noncompliant !{Update the invalid value of property "dominant-baseline". Expected format: auto | use-script | no-change | reset-size | alphabetic | hanging | ideographic | mathematical | central | middle | text-after-edge | text-before-edge}! */
   dominant-baseline: 10px; /* Noncompliant */
   dominant-baseline: abc; /* Noncompliant */
 }

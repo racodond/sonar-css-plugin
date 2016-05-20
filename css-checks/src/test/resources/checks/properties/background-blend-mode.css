@@ -16,7 +16,7 @@
   background-blend-mode: saturation;
   background-blend-mode: color;
   background-blend-mode: luminosity;
-  background-blend-mode: luminosity color; /* Noncompliant */
+  background-blend-mode: luminosity color; /* Noncompliant !{Update the invalid value of property "background-blend-mode". Expected format: normal | multiply | screen | overlay | darken | lighten | color-dodge | color-burn | hard-light | soft-light | difference | exclusion | hue | saturation | color | luminosity}! */
   background-blend-mode: abc; /* Noncompliant */
   background-blend-mode: 10; /* Noncompliant */
 }

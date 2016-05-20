@@ -21,15 +21,13 @@ package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.model.Property;
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
@@ -38,8 +36,6 @@ import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-compatible-vendor-prefixes
@@ -52,7 +48,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
-public class CompatibleVendorPrefixes extends SquidCheck<LexerlessGrammar> {
+public class CompatibleVendorPrefixes extends CssCheck {
 
   Map<String, Set<Vendor>> properties = new HashMap<>();
 
@@ -82,16 +78,40 @@ public class CompatibleVendorPrefixes extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
+    List<String> missingVendorPrefixes;
     if (astNode.is(CssGrammar.RULESET)) {
       for (Entry<String, Set<Vendor>> props : properties.entrySet()) {
         StandardProperty p = StandardPropertyFactory.createStandardProperty(props.getKey());
+        missingVendorPrefixes = new ArrayList<>();
         for (Vendor vendor : p.getVendors()) {
           if (!props.getValue().contains(vendor)) {
-            getContext().createLineViolation(this, "Add the missing vendor prefix: " + vendor.getPrefix() + " to the property: " + props.getKey(), astNode);
+            missingVendorPrefixes.add(vendor.getPrefix());
           }
+        }
+        if (!missingVendorPrefixes.isEmpty()) {
+          createIssue(p.getName(), missingVendorPrefixes, astNode);
         }
       }
     }
+  }
+
+  private void createIssue(String propertyName, List<String> missingVendorPrefixes, AstNode ruleSetNode) {
+
+    StringBuilder message = new StringBuilder("Define the missing vendor prefixes: ");
+    for (String missingVendorPrefix : missingVendorPrefixes) {
+      message.append(missingVendorPrefix).append(" ");
+    }
+    message.append("for the \"").append(propertyName).append("\" property.");
+
+    AstNode primaryLocation;
+    if (ruleSetNode.getFirstChild(CssGrammar.SELECTOR) != null) {
+      primaryLocation = ruleSetNode.getFirstChild(CssGrammar.SELECTOR);
+    } else {
+      primaryLocation = ruleSetNode.getFirstChild(CssGrammar.BLOCK).getFirstChild(CssGrammar.OPEN_CURLY_BRACE);
+    }
+
+    addIssue(this, message.toString(), primaryLocation);
+
   }
 
 }

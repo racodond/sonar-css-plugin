@@ -5,6 +5,6 @@
   top: -10px;
   top: 10%;
   top: -10%;
-  top: abc; /* Noncompliant */
+  top: abc; /* Noncompliant !{Update the invalid value of property "top". Expected format: auto | <length> | <percentage>}! */
   top: 12; /* Noncompliant */
 }

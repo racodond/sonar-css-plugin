@@ -5,6 +5,6 @@
   outline-offset: 0.5px;
   outline-offset: +0.5px;
   outline-offset: -0.5px;
-  outline-offset: abc; /* Noncompliant */
+  outline-offset: abc; /* Noncompliant !{Update the invalid value of property "outline-offset". Expected format: <length>}! */
   outline-offset: 10; /* Noncompliant */
 }

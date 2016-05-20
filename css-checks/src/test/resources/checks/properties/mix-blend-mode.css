@@ -16,7 +16,7 @@
   mix-blend-mode: saturation;
   mix-blend-mode: color;
   mix-blend-mode: luminosity;
-  mix-blend-mode: luminosity color; /* Noncompliant */
+  mix-blend-mode: luminosity color; /* Noncompliant !{Update the invalid value of property "mix-blend-mode". Expected format: normal | multiply | screen | overlay | darken | lighten | color-dodge | color-burn | hard-light | soft-light | difference | exclusion | hue | saturation | color | luminosity}! */
   mix-blend-mode: abc; /* Noncompliant */
   mix-blend-mode: 10; /* Noncompliant */
 }

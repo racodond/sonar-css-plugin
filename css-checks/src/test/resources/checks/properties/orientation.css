@@ -3,6 +3,6 @@
   orientation: auto;
   orientation: portrait;
   orientation: landscape;
-  orientation: 10; /* Noncompliant */
+  orientation: 10; /* Noncompliant !{Update the invalid value of property "orientation". Expected format: auto | portrait | landscape}! */
   orientation: abc; /* Noncompliant */
 }

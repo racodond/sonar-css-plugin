@@ -1,8 +1,8 @@
-div.mybox {
+div.mybox { /* Noncompliant !{Remove the name of this overqualified element.}! */
     color: red;
 }
 
-.mybox li.active {
+.mybox li.active { /* Noncompliant !{Remove the name of this overqualified element.}! */
     background: red;
 }
 
@@ -22,7 +22,7 @@ p.active2 {
 }
 
 p .test {}
-div.test {}  /* Noncompliant */
+div.test {}  /* Noncompliant !{Remove the name of this overqualified element.}! */
 
 p.test2 {}
 div.test2 {}

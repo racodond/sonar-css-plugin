@@ -23,13 +23,12 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.model.AtRule;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "experimental-atrule-usage",
@@ -39,7 +38,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.DATA_CHANGEABILITY)
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
-public class ExperimentalAtRuleUsageCheck extends SquidCheck<LexerlessGrammar> {
+public class ExperimentalAtRuleUsageCheck extends CssCheck {
 
   @Override
   public void init() {
@@ -50,11 +49,10 @@ public class ExperimentalAtRuleUsageCheck extends SquidCheck<LexerlessGrammar> {
   public void visitNode(AstNode astNode) {
     AtRule atRule = new AtRule(astNode.getFirstChild(CssGrammar.AT_KEYWORD).getFirstChild(CssGrammar.IDENT).getTokenValue());
     if (atRule.isVendorPrefixed() || atRule.getStandardAtRule().isExperimental()) {
-      getContext().createLineViolation(
+      addIssue(
         this,
-        "Remove the usage of this experimental \"{0}\" @-rule.",
-        astNode,
-        atRule.getStandardAtRule().getName());
+        "Remove the usage of this experimental \"" + atRule.getStandardAtRule().getName() + "\" @-rule.",
+        astNode.getFirstChild(CssGrammar.AT_KEYWORD));
     }
   }
 

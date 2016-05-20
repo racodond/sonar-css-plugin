@@ -3,7 +3,7 @@
   zoom: auto;
   zoom: 10%;
   zoom: 10;
-  zoom: -10; /* Noncompliant */
+  zoom: -10; /* Noncompliant !{Update the invalid value of property "zoom". Expected format: auto | <percentage>(>=0) | <number>(>=0)}! */
   zoom: -10%; /* Noncompliant */
   zoom: abc; /* Noncompliant */
   zoom: 10px; /* Noncompliant */

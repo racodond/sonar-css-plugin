@@ -22,19 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class UnknownAtRulesCheckTest {
 
   @Test
-  public void should_contain_some_unknown_at_rules_and_raise_some_issues() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/unknownAtRules.css"), new UnknownAtRulesCheck());
-    CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(1).withMessage("Remove this usage of the unknown \"abc\" CSS @-rule.")
-      .next().atLine(5).withMessage("Remove this usage of the unknown \"def\" CSS @-rule.")
-      .noMore();
+  public void test() {
+    CssCheckVerifier.verify(new UnknownAtRulesCheck(), new File("src/test/resources/checks/unknownAtRules.css"));
   }
 
 }

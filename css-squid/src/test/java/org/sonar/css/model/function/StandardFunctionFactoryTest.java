@@ -23,6 +23,8 @@ import org.junit.Test;
 import org.sonar.css.model.function.standard.RepeatingLinearGradient;
 import org.sonar.css.model.function.standard.Rotatex;
 
+import java.io.File;
+
 import static org.junit.Assert.assertEquals;
 
 public class StandardFunctionFactoryTest {
@@ -77,5 +79,18 @@ public class StandardFunctionFactoryTest {
     assertEquals(function.isExperimental(), false);
     assertEquals(function.isObsolete(), false);
   }
+
+  @Test
+  public void number_of_standard_functions() {
+    int counter = 0;
+    File directory = new File("src/main/java/org/sonar/css/model/function/standard");
+    for (File file : directory.listFiles()) {
+      if (!"package-info.java".equals(file.getName())) {
+        counter++;
+      }
+    }
+    assertEquals(93, counter);
+  }
+
 
 }

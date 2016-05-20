@@ -23,12 +23,11 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "leading-zeros",
@@ -38,7 +37,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("2min")
-public class LeadingZerosCheck extends SquidCheck<LexerlessGrammar> {
+public class LeadingZerosCheck extends CssCheck {
 
   @Override
   public void init() {
@@ -48,7 +47,7 @@ public class LeadingZerosCheck extends SquidCheck<LexerlessGrammar> {
   @Override
   public void leaveNode(AstNode astNode) {
     if (astNode.getFirstChild(CssGrammar.VALUE).getTokenValue().startsWith("0.")) {
-      getContext().createLineViolation(this, "Remove this leading zero", astNode);
+      addIssue(this, "Remove the leading zero.", astNode.getFirstChild(CssGrammar.VALUE));
     }
   }
 

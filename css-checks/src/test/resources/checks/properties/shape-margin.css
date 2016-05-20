@@ -2,6 +2,6 @@
   shape-margin: inherit;
   shape-margin: 10px;
   shape-margin: 10%;
-  shape-margin: 10; /* Noncompliant */
+  shape-margin: 10; /* Noncompliant !{Update the invalid value of property "shape-margin". Expected format: <length> | <percentage>}! */
   shape-margin: abc; /* Noncompliant */
 }

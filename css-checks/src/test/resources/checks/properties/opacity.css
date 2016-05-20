@@ -4,7 +4,7 @@
   opacity: +0.1;
   opacity: 1.0;
   opacity: +1.0;
-  opacity: -0.5; /* Noncompliant */
+  opacity: -0.5; /* Noncompliant !{Update the invalid value of property "opacity". Expected format: <number>(0.0,1.0)}! */
   opacity: +1.5; /* Noncompliant */
   opacity: 1.5; /* Noncompliant */
   opacity: inherit;

@@ -4,7 +4,7 @@
   text-rendering: optimizeSpeed;
   text-rendering: optimizeLegibility;
   text-rendering: geometricPrecision;
-  text-rendering: abc; /* Noncompliant */
+  text-rendering: abc; /* Noncompliant !{Update the invalid value of property "text-rendering". Expected format: auto | optimizespeed | optimizelegibility | geometricprecision}! */
   text-rendering: 10px; /* Noncompliant */
   text-rendering: 10; /* Noncompliant */
 }

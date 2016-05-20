@@ -20,22 +20,22 @@
 package org.sonar.css.checks;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.sonar.sslr.api.AstNode;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
+import org.sonar.css.issue.PreciseIssue;
+import org.sonar.css.model.Declaration;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-properties-appropriate-for-display
@@ -48,59 +48,59 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
-public class DisplayPropertyGrouping extends SquidCheck<LexerlessGrammar> {
+public class DisplayPropertyGrouping extends CssCheck {
 
-  private Map<String, List<String>> rules = new HashMap<String, List<String>>() {
-    private static final long serialVersionUID = -6508282306820423526L;
+  private static final Map<String, ImmutableList<String>> RULES = ImmutableMap.of(
+    "inline", ImmutableList.of("width", "height", "margin", "margin-top", "margin-bottom", "float"),
+    "inline-block", ImmutableList.of("float"),
+    "block", ImmutableList.of("vertical-align"),
+    "table-*", ImmutableList.of("margin", "margin-top", "margin-bottom", "margin-left", "margin-right", "float"));
 
-    {
-      put("inline",
-        ImmutableList.<String>of(
-          "width", "height", "margin", "margin-top", "margin-bottom", "float"));
-      put("inline-block", ImmutableList.<String>of("float"));
-      put("block", ImmutableList.<String>of("vertical-align"));
-      put("table-*", ImmutableList.<String>of("margin", "margin-top", "margin-bottom", "margin-left", "margin-right", "float"));
-    }
-  };
+  private AstNode displayDeclarationNode;
+  private List<String> propertiesToNotUse;
 
   @Override
   public void init() {
     subscribeTo(CssGrammar.RULESET, CssGrammar.AT_RULE);
   }
 
-  //TODO refactor this to not use getDescendants
+  // TODO refactor this to not use getDescendants
   @Override
   public void visitNode(AstNode astNode) {
-    List<AstNode> declarations = astNode.getDescendants(CssGrammar.DECLARATION);
-    List<String> avoidProps = isDisplay(declarations);
-    if (avoidProps != null && !avoidProps.isEmpty() && isOtherUsed(declarations, avoidProps)) {
-      getContext().createLineViolation(this, "Remove this property that does not work with the \"display\" property.", astNode);
+    List<AstNode> declarationNodes = astNode.getDescendants(CssGrammar.DECLARATION);
+    setPropertiesToNotUse(declarationNodes);
+    if (propertiesToNotUse != null) {
+      addIssues(declarationNodes, propertiesToNotUse);
     }
   }
 
-  private List<String> isDisplay(List<AstNode> declarations) {
-    for (AstNode astNode : declarations) {
-      String property = astNode.getFirstChild(CssGrammar.PROPERTY).getToken().getValue();
-      String value = astNode.getFirstChild(CssGrammar.VALUE).getTokenValue();
-      if ("display".equalsIgnoreCase(property)) {
-        if (value.startsWith("table-")) {
-          return rules.get("table-*");
+  private void setPropertiesToNotUse(List<AstNode> declarationNodes) {
+    propertiesToNotUse = null;
+    for (AstNode declarationNode : declarationNodes) {
+      Declaration declaration = new Declaration(declarationNode);
+      if ("display".equals(declaration.getProperty().getStandardProperty().getName())) {
+        displayDeclarationNode = declarationNode;
+        if (declarationNode.getFirstChild(CssGrammar.VALUE).getTokenValue().startsWith("table-")) {
+          propertiesToNotUse = RULES.get("table-*");
         } else {
-          return rules.get(value);
+          propertiesToNotUse = RULES.get(declarationNode.getFirstChild(CssGrammar.VALUE).getTokenValue());
         }
+        return;
       }
     }
-    return Collections.emptyList();
   }
 
-  private boolean isOtherUsed(List<AstNode> declarations, List<String> avoidProps) {
-    for (AstNode astNode : declarations) {
-      String property = astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue();
-      if (avoidProps.contains(property)) {
-        return true;
+  private void addIssues(List<AstNode> declarationNodes, List<String> propertiesToNotUse) {
+    for (AstNode declarationNode : declarationNodes) {
+      String property = declarationNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue();
+      if (propertiesToNotUse.contains(property)) {
+        PreciseIssue issue = addIssue(
+          this,
+          "Remove this \"" + property + "\" declaration that does not work with the \"display\" declaration.",
+          declarationNode);
+        issue.addSecondaryLocation("\"display\" property declaration", displayDeclarationNode);
       }
     }
-    return false;
   }
 
 }

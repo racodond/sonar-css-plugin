@@ -22,20 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class DisallowDuplicateBackgroundImagesTest {
 
   @Test
   public void test() {
-    DisallowDuplicateBackgroundImages check = new DisallowDuplicateBackgroundImages();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/duplicatebackgroundimages.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(7).withMessage("Remove this duplicated background image").next()
-      .atLine(30).withMessage("Remove this duplicated background image").noMore();
+    CssCheckVerifier.verify(new DisallowDuplicateBackgroundImages(), new File("src/test/resources/checks/duplicatebackgroundimages.css"));
   }
 
 }

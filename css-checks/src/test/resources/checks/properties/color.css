@@ -6,7 +6,7 @@
   color: #F03;
   color: #ff0033;
   color: #FF0033;
-  color: #GF0033; /* Noncompliant */
+  color: #GF0033; /* Noncompliant !{Update the invalid value of property "color". Expected format: <color>}!*/
   color: #FF04033; /* Noncompliant */
   color: abc; /* Noncompliant */
   color: rgb(255, 0,51);

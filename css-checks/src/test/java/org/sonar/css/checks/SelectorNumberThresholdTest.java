@@ -20,23 +20,15 @@
 package org.sonar.css.checks;
 
 import java.io.File;
-import java.text.MessageFormat;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class SelectorNumberThresholdTest {
 
   @Test
   public void test() {
-    SelectorNumberThreshold check = new SelectorNumberThreshold();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/S2732.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .withMessage(MessageFormat.format("Reduce the number of selectors. This sheet contains {0,number,integer} selectors, {1,number,integer} more than the {2,number,integer} maximum.", 4097, 2, 4095))
-      .noMore();
+    CssCheckVerifier.verify(new SelectorNumberThreshold(), new File("src/test/resources/checks/S2732.css"));
   }
 
 }

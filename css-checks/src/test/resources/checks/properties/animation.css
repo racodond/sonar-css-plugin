@@ -8,6 +8,6 @@
   animation: slidein 3s ease-in 1s 2 reverse;
   animation: slidein 3s ease-in 1s 2 reverse both;
   animation: slidein 3s ease-in 1s 2 reverse both paused;
-  animation: slidein 3s ease-in 1s 2 reverse both paused paused;
+  animation: slidein 3s ease-in 1s 2 reverse both paused paused; /* Noncompliant !{Update the invalid value of property "animation". Expected format: <time> || <single-timing-function> || <time> || <single-animation-iteration-count> || <single-animation-direction> || <single-animation-fill-mode> || <single-animation-play-state> || <single-animation-name>}! */
   animation: slidein 3Hz; /* Noncompliant */
 }

@@ -27,13 +27,12 @@ import java.util.regex.Pattern;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.model.Unit;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * See https://drafts.csswg.org/css-values-3/#lengths:
@@ -50,7 +49,9 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
 @SqaleConstantRemediation("2min")
 @ActivatedByDefault
-public class DisallowUnitsForZeroValues extends SquidCheck<LexerlessGrammar> {
+public class DisallowUnitsForZeroValues extends CssCheck {
+
+  private static final String ISSUE_MESSAGE = "Remove the unit for this zero length.";
 
   @Override
   public void init() {
@@ -59,8 +60,12 @@ public class DisallowUnitsForZeroValues extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode node) {
-    if (isZeroValue(node) && (isLength(node) || isPercentage(node)) && !node.hasAncestor(CssGrammar.FUNCTION)) {
-      getContext().createLineViolation(this, "Remove the unit for this zero length.", node);
+    if (isZeroValue(node) && !node.hasAncestor(CssGrammar.FUNCTION)) {
+      if (isLength(node)) {
+        addIssue(this, ISSUE_MESSAGE, node.getFirstChild(CssGrammar.unit));
+      } else if (isPercentage(node)) {
+        addIssue(this, ISSUE_MESSAGE, node.getFirstChild(CssGrammar.PERCENTAGE_SIGN));
+      }
     }
   }
 

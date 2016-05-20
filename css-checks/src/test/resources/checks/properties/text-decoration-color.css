@@ -6,7 +6,7 @@
   text-decoration-color: #F03;
   text-decoration-color: #ff0033;
   text-decoration-color: #FF0033;
-  text-decoration-color: #GF0033; /* Noncompliant */
+  text-decoration-color: #GF0033; /* Noncompliant !{Update the invalid value of property "text-decoration-color". Expected format: <color>}! */
   text-decoration-color: #FF04033; /* Noncompliant */
   text-decoration-color: abc; /* Noncompliant */
   text-decoration-color: rgb(255, 0,51);

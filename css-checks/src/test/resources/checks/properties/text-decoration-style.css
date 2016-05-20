@@ -5,6 +5,6 @@
   text-decoration-style: dotted;
   text-decoration-style: dashed;
   text-decoration-style: wavy;
-  text-decoration-style: abc; /* Noncompliant */
+  text-decoration-style: abc; /* Noncompliant !{Update the invalid value of property "text-decoration-style". Expected format: solid | double | dotted | dashed | wavy}! */
   text-decoration-style: 10; /* Noncompliant */
 }

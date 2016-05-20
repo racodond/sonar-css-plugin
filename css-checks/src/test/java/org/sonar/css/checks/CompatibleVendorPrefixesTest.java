@@ -22,30 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class CompatibleVendorPrefixesTest {
 
   @Test
   public void test() {
-    CompatibleVendorPrefixes check = new CompatibleVendorPrefixes();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/vendorprefixes.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(11).withMessage("Add the missing vendor prefix: -moz- to the property: transform").next()
-      .atLine(11).withMessage("Add the missing vendor prefix: -ms- to the property: transform").next()
-      .atLine(11).withMessage("Add the missing vendor prefix: -o- to the property: transform").next()
-      .atLine(16).withMessage("Add the missing vendor prefix: -webkit- to the property: border-radius").noMore();
-  }
-
-  @Test
-  public void test2() {
-    CompatibleVendorPrefixes check = new CompatibleVendorPrefixes();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/fontface.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
+    CssCheckVerifier.verify(new CompatibleVendorPrefixes(), new File("src/test/resources/checks/vendorprefixes.css"));
   }
 
 }

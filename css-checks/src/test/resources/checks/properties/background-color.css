@@ -6,7 +6,7 @@
   background-color: #F03;
   background-color: #ff0033;
   background-color: #FF0033;
-  background-color: #GF0033; /* Noncompliant */
+  background-color: #GF0033; /* Noncompliant !{Update the invalid value of property "background-color". Expected format: <color>}! */
   background-color: #FF04033; /* Noncompliant */
   background-color: abc; /* Noncompliant */
   background-color: rgb(255, 0,51);

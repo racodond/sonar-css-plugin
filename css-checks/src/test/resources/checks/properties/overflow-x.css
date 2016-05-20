@@ -4,7 +4,7 @@
   overflow-x: hidden;
   overflow-x: scroll;
   overflow-x: auto;
-  overflow-x: 0; /* Noncompliant */
+  overflow-x: 0; /* Noncompliant !{Update the invalid value of property "overflow-x". Expected format: visible | hidden | scroll | auto | no-display | no-content}! */
   overflow-x: 0px; /* Noncompliant */
   overflow-x: abc; /* Noncompliant */
   overflow-x: no-content;

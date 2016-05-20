@@ -21,18 +21,20 @@ package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
+import org.sonar.css.issue.PreciseIssue;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Disallow-duplicate-background-images
@@ -45,9 +47,9 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.DATA_CHANGEABILITY)
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
-public class DisallowDuplicateBackgroundImages extends SquidCheck<LexerlessGrammar> {
+public class DisallowDuplicateBackgroundImages extends CssCheck {
 
-  Set<String> urls = new HashSet<>();
+  Map<String, List<AstNode>> urls;
 
   @Override
   public void init() {
@@ -55,13 +57,32 @@ public class DisallowDuplicateBackgroundImages extends SquidCheck<LexerlessGramm
   }
 
   @Override
-  public void visitNode(AstNode astNode) {
-    if(astNode.getTokenValue().startsWith("background")){
-      AstNode uri = astNode.getParent().getFirstChild(CssGrammar.VALUE).getFirstChild(CssGrammar.URI);
-      if(uri!=null) {
-        String url = CssChecksUtil.getStringValue(uri.getFirstChild(CssGrammar._URI_CONTENT)).replaceAll("['\"]", "");
-        if(!urls.add(url)){
-          getContext().createLineViolation(this, "Remove this duplicated background image", astNode);
+  public void visitFile(AstNode astNode) {
+    urls = new HashMap<>();
+  }
+
+  @Override
+  public void visitNode(AstNode propertyNode) {
+    if (propertyNode.getTokenValue().startsWith("background")) {
+      for (AstNode uriNode : propertyNode.getParent().getFirstChild(CssGrammar.VALUE).getChildren(CssGrammar.URI)) {
+        String url = CssChecksUtil.getStringValue(uriNode.getFirstChild(CssGrammar._URI_CONTENT)).replaceAll("['\"]", "");
+        if (urls.containsKey(url)) {
+          urls.get(url).add(uriNode);
+        } else {
+          urls.put(url, new ArrayList<AstNode>());
+          urls.get(url).add(uriNode);
+        }
+      }
+    }
+  }
+
+  @Override
+  public void leaveFile(AstNode astNode) {
+    for (Map.Entry<String, List<AstNode>> url : urls.entrySet()) {
+      if (url.getValue().size() > 1) {
+        PreciseIssue issue = addIssue(this, "Keep only one definition of those duplicated background images.", url.getValue().get(0));
+        for (int i = 1; i < url.getValue().size(); i++) {
+          issue.addSecondaryLocation("Duplicated background image", url.getValue().get(i));
         }
       }
     }

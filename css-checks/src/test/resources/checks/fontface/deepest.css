@@ -18,14 +18,14 @@
 @font-face {
   font-family: 'MyWebFont';
   src: url('myfont.eot');
-  src: url('myfont.woff2') format('woff2');    /* Noncompliant: 'eot' format is missing */
+  src: url('myfont.woff2') format('woff2');    /* Noncompliant ![sc=8;ec=27;el=+0]! !{URL for "eot" format is expected.}! */
 }
 
 @font-face {
   font-family: 'MyWebFont';
   src: url('myfont.eot');
   src: url('myfont.eot?#iefix') format('embedded-opentype'),
-       url('myfont.woff') format('woff'),      /* Noncompliant: 'woff2' format is expected */
+       url('myfont.woff') format('woff'),      /* Noncompliant ![sc=8;ec=26;el=+0]! !{URL for "woff2" format is expected.}! */
        url('myfont.ttf') format('truetype'),
        url('myfont.svg#svgFontName') format('svg');
 }
@@ -35,7 +35,7 @@
   src: url('myfont.eot');
   src: url('myfont.eot?#iefix') format('embedded-opentype'),
        url('myfont.woff2') format('woff2'),
-       url('myfont.ttf') format('truetype'),  /* Noncompliant: 'woff' format is expected */
+       url('myfont.ttf') format('truetype'),  /* Noncompliant ![sc=8;ec=25;el=+0]! !{URL for "woff" format is expected.}! */
        url('myfont.svg#svgFontName') format('svg');
 }
 
@@ -45,20 +45,20 @@
   src: url('myfont.eot?#iefix') format('embedded-opentype'),
        url('myfont.woff2') format('woff2'),
        url('myfont.woff') format('woff'),
-       url('myfont.svg#svgFontName') format('svg'); /* Noncompliant: 'ttf' format is expected */
+       url('myfont.svg#svgFontName') format('svg'); /* Noncompliant  ![sc=8;ec=37;el=+0]! !{URL for "ttf" format is expected.}! */
 }
 
 @font-face {
   font-family: 'MyWebFont';
   src: url('myfont.eot');
-  src: url('myfont.eot?#iefix') format('embedded-opentype'),
+  src: url('myfont.eot?#iefix') format('embedded-opentype'),  /* Noncompliant ![sc=3;ec=6;el=+0]! !{URL for "svg" format is expected.}! */
        url('myfont.woff2') format('woff2'),
        url('myfont.woff') format('woff'),
-       url('myfont.ttf') format('truetype');  /* Noncompliant: 'svg' format is missing */
+       url('myfont.ttf') format('truetype');
 }
 
 
-@font-face {
+@font-face {  /* Noncompliant ![sc=1;ec=11;el=+0]! !{Add an "src" property setting the URL for the ".eot" font file (to support IE9 Compatibility Modes).}! */
   font-family: 'MyWebFont';
   src: url('myfont.eot?#iefix') format('embedded-opentype'),
        url('myfont.woff2') format('woff2'),
@@ -69,7 +69,7 @@
 
 @font-face {
   font-family: 'MyWebFont';
-  src: url('myfont.woff');
+  src: url('myfont.woff'); /* Noncompliant ![sc=3;ec=6;el=+0]! !{Set the URL for the ".eot" file in this "src" property (to support IE9 Compatibility Modes).}! */
   src: url('myfont.eot?#iefix') format('embedded-opentype'),
        url('myfont.woff2') format('woff2'),
        url('myfont.woff') format('woff'),
@@ -79,7 +79,7 @@
 
 @font-face {
   font-family: 'MyWebFont';
-  src: url('myfont.eot') format('embedded-opentype');
+  src: url('myfont.eot') format('embedded-opentype'); /* Noncompliant ![sc=3;ec=6;el=+0]! !{Remove additional functions from this "src" property (to support IE9 Compatibility Modes).}! */
   src: url('myfont.eot?#iefix') format('embedded-opentype'),
        url('myfont.woff2') format('woff2'),
        url('myfont.woff') format('woff'),
@@ -90,5 +90,5 @@
 @font-face {
   font-family: 'MyWebFont';
   src: url('myfont.eot');
-  src: local('font');
+  src: local('font'); /* Noncompliant ![sc=3;ec=6;el=+0]! !{URL for "eot" format is expected.}! */
 }

@@ -23,13 +23,13 @@ import com.sonar.sslr.api.AstNode;
 
 public final class CssChecksUtil {
 
-  private CssChecksUtil(){
+  private CssChecksUtil() {
   }
 
-  public static String getStringValue(AstNode node){
+  public static String getStringValue(AstNode node) {
     AstNode n = node.getFirstChild();
     String ret = n.getTokenValue();
-    while((n = n.getNextSibling()) != null){
+    while ((n = n.getNextSibling()) != null) {
       ret = ret.concat(n.getTokenValue());
     }
     return ret;

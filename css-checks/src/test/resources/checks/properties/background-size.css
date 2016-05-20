@@ -16,7 +16,7 @@
   background-size: cover, contain, cover;
   background-size: 10px, 10%, auto;
   background-size: 10px auto, cover, 10%;
-  background-size: 10% -10px; /* Noncompliant */
+  background-size: 10% -10px; /* Noncompliant !{Update the invalid value of property "background-size". Expected format: [ <length> | <percentage> | auto ]{1,2} | cover | contain [,  [ <length> | <percentage> | auto ]{1,2} | cover | contain ]*}! */
   background-size: -10% -10px; /* Noncompliant */
   background-size: cover cover; /* Noncompliant */
   background-size: 12px cover; /* Noncompliant */

@@ -5,7 +5,7 @@
   transform: translate();
   transform: matrix() translate();
   transform: matrix() translate() translatex();
-  transform: abc(); /* Noncompliant */
+  transform: abc(); /* Noncompliant !{Update the invalid value of property "transform". Expected format: none | <transform-function>+}! */
   transform: matrix() abc(); /* Noncompliant */
   transform: 10px; /* Noncompliant */
 }

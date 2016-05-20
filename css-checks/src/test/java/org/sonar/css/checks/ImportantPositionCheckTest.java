@@ -22,22 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class ImportantPositionCheckTest {
 
-  private ImportantPositionCheck check = new ImportantPositionCheck();
-  private final String MESSAGE = "Move the \"!important\" annotation to the end of the declaration, just before the semi-colon.";
-
   @Test
-  public void should_find_some_misplaced_important_statements_and_raise_issues() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/importantPosition.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(7).withMessage(MESSAGE).next()
-      .atLine(8).withMessage(MESSAGE).next()
-      .atLine(9).withMessage(MESSAGE).noMore();
+  public void test() {
+    CssCheckVerifier.verify(new ImportantPositionCheck(), new File("src/test/resources/checks/importantPosition.css"));
   }
 
 }

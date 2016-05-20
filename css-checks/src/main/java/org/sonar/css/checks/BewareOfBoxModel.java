@@ -30,18 +30,17 @@ import java.util.Set;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.model.Value;
+import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.value.CssValueElement;
 import org.sonar.css.model.value.valueelement.DimensionValueElement;
 import org.sonar.css.model.value.valueelement.NumberValueElement;
 import org.sonar.css.model.value.valueelement.PercentageValueElement;
-import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Beware-of-box-model-size
@@ -54,23 +53,19 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("1h")
 @ActivatedByDefault
-public class BewareOfBoxModel extends SquidCheck<LexerlessGrammar> {
+public class BewareOfBoxModel extends CssCheck {
 
-  private static final List<String> WIDTH_SIZING = ImmutableList.<String>of(
-    "border", "border-left", "border-right", "border-width", "border-left-width", "border-right-width", "padding", "padding-left", "padding-right"
-    );
+  private static final List<String> WIDTH_SIZING = ImmutableList.of(
+    "border", "border-left", "border-right", "border-width", "border-left-width", "border-right-width", "padding", "padding-left", "padding-right");
 
-  private static final List<String> HEIGHT_SIZING = ImmutableList.<String>of(
-    "border", "border-top", "border-bottom", "border-width", "border-top-width", "border-bottom-width", "padding", "padding-top", "padding-bottom"
-    );
+  private static final List<String> HEIGHT_SIZING = ImmutableList.of(
+    "border", "border-top", "border-bottom", "border-width", "border-top-width", "border-bottom-width", "padding", "padding-top", "padding-bottom");
 
-  private static final List<String> PADDING_WIDTH = ImmutableList.<String>of(
-    "padding", "padding-top", "padding-bottom", "padding-right", "padding-left"
-    );
+  private static final List<String> PADDING_WIDTH = ImmutableList.of(
+    "padding", "padding-top", "padding-bottom", "padding-right", "padding-left");
 
-  private static final List<String> BORDER_WIDTH = ImmutableList.<String>of(
-    "border", "border-left", "border-right", "border-top", "border-bottom", "border-top-width", "border-bottom-width", "border-left-width", "border-right-width"
-    );
+  private static final List<String> BORDER_WIDTH = ImmutableList.of(
+    "border", "border-left", "border-right", "border-top", "border-bottom", "border-top-width", "border-bottom-width", "border-left-width", "border-right-width");
 
   private Set<Combinations> combinations;
 
@@ -108,9 +103,19 @@ public class BewareOfBoxModel extends SquidCheck<LexerlessGrammar> {
   public void leaveNode(AstNode astNode) {
     if (astNode.is(CssGrammar.RULESET)
       && (combinations.containsAll(Arrays.asList(Combinations.WIDTH_FOUND, Combinations.WIDTH_SIZING))
-      || combinations.containsAll(Arrays.asList(Combinations.HEIGHT_FOUND, Combinations.HEIGHT_SIZING)))) {
-      getContext().createLineViolation(this, "Check this potential box model size issue.", astNode);
+        || combinations.containsAll(Arrays.asList(Combinations.HEIGHT_FOUND, Combinations.HEIGHT_SIZING)))) {
+      createIssue(astNode);
     }
+  }
+
+  private void createIssue(AstNode ruleSetNode) {
+    AstNode node;
+    if (ruleSetNode.getFirstChild(CssGrammar.SELECTOR) != null) {
+      node = ruleSetNode.getFirstChild(CssGrammar.SELECTOR);
+    } else {
+      node = ruleSetNode.getFirstChild(CssGrammar.BLOCK).getFirstChild(CssGrammar.OPEN_CURLY_BRACE);
+    }
+    addIssue(this, "Check this potential box model size issue.", node);
   }
 
   private boolean isWidthSizing(AstNode astNode) {

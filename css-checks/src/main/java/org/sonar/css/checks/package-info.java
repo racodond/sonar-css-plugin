@@ -21,4 +21,3 @@
 package org.sonar.css.checks;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-

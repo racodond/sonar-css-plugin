@@ -4,7 +4,7 @@
   background-image: url(http://mybox);
   background-image: url(http://mybox), url(http://mybox);
   background-image: url(http://mybox), url(http://mybox), url(http://mybox);
-  background-image: 10; /* Noncompliant */
+  background-image: 10; /* Noncompliant !{Update the invalid value of property "background-image". Expected format: none | <image> [, <image>]*}! */
   background-image: 10, 10; /* Noncompliant */
   background-image: image();
   background-image: image-set();

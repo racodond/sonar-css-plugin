@@ -26,11 +26,10 @@ import java.util.List;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Bulletproof-font-face
@@ -43,7 +42,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   status = org.sonar.api.rules.Rule.STATUS_DEPRECATED)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("10min")
-public class BulletproofFontFace extends SquidCheck<LexerlessGrammar> {
+public class BulletproofFontFace extends CssCheck {
 
   boolean foundEot;
 
@@ -54,9 +53,9 @@ public class BulletproofFontFace extends SquidCheck<LexerlessGrammar> {
   }
 
   @Override
-  public void visitNode(AstNode astNode) {
-    if ("font-face".equals(astNode.getFirstChild(CssGrammar.AT_KEYWORD).getFirstChild(CssGrammar.IDENT).getTokenValue()) && !isEmptyFontFace(astNode)) {
-      List<AstNode> declarations = astNode.getFirstDescendant(CssGrammar.atRuleBlock).getFirstChild(CssGrammar.SUP_DECLARATION).getChildren(CssGrammar.DECLARATION);
+  public void visitNode(AstNode atRuleNode) {
+    if ("font-face".equals(atRuleNode.getFirstChild(CssGrammar.AT_KEYWORD).getFirstChild(CssGrammar.IDENT).getTokenValue()) && !isEmptyFontFace(atRuleNode)) {
+      List<AstNode> declarations = atRuleNode.getFirstDescendant(CssGrammar.atRuleBlock).getFirstChild(CssGrammar.SUP_DECLARATION).getChildren(CssGrammar.DECLARATION);
       for (AstNode declaration : declarations) {
         if ("src".equals(declaration.getFirstChild(CssGrammar.PROPERTY).getTokenValue())
           && declaration.getFirstChild(CssGrammar.VALUE).getFirstChild(CssGrammar.URI) != null) {
@@ -65,8 +64,10 @@ public class BulletproofFontFace extends SquidCheck<LexerlessGrammar> {
               .getFirstChild(CssGrammar.URI)
               .getFirstChild(CssGrammar._URI_CONTENT));
           if (!firstAnyFunctionValue.matches(".*\\.eot\\?.*?['\"]?$") && !foundEot) {
-            getContext().createLineViolation(this,
-              "Check that the first file is the .eot file and that the workaround for IE is set", astNode);
+            addIssue(
+              this,
+              "Check that the first file is the .eot file and that the workaround for IE is set.",
+              atRuleNode.getFirstChild(CssGrammar.AT_KEYWORD));
           } else {
             foundEot = true;
           }

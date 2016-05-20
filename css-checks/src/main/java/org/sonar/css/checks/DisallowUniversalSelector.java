@@ -23,12 +23,11 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Disallow-universal-selector
@@ -41,7 +40,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.CPU_EFFICIENCY)
 @SqaleConstantRemediation("1h")
 @ActivatedByDefault
-public class DisallowUniversalSelector extends SquidCheck<LexerlessGrammar> {
+public class DisallowUniversalSelector extends CssCheck {
 
   @Override
   public void init() {
@@ -51,7 +50,7 @@ public class DisallowUniversalSelector extends SquidCheck<LexerlessGrammar> {
   @Override
   public void visitNode(AstNode astNode) {
     if ("*".equals(astNode.getTokenValue()) && astNode.getFirstAncestor(CssGrammar.SUB_SELECTOR).getNextSibling() == null) {
-      getContext().createLineViolation(this, "Remove this usage of the universal selector as key part", astNode);
+      addIssue(this, "Remove this usage of the universal selector as key part.", astNode);
     }
   }
 

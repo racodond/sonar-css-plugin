@@ -5,6 +5,6 @@
   right: -10px;
   right: 10%;
   right: -10%;
-  right: abc; /* Noncompliant */
+  right: abc; /* Noncompliant !{Update the invalid value of property "right". Expected format: auto | <length> | <percentage>}! */
   right: 12; /* Noncompliant */
 }

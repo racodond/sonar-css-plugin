@@ -3,6 +3,6 @@
   box-sizing: content-box;
   box-sizing: padding-box;
   box-sizing: border-box;
-  box-sizing: abc; /* Noncompliant */
+  box-sizing: abc; /* Noncompliant !{Update the invalid value of property "box-sizing". Expected format: <box>}!*/
   box-sizing: 10%; /* Noncompliant */
 }

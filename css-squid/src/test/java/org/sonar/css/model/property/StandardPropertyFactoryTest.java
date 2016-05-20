@@ -19,6 +19,8 @@
  */
 package org.sonar.css.model.property;
 
+import java.io.File;
+
 import org.junit.Test;
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.standard.Border;
@@ -87,6 +89,18 @@ public class StandardPropertyFactoryTest {
     assertEquals(property.getValidators().size(), 0);
     assertEquals(property.getVendors().size(), 0);
     assertEquals(property.isObsolete(), false);
+  }
+
+  @Test
+  public void number_of_standard_properties() {
+    int counter = 0;
+    File directory = new File("src/main/java/org/sonar/css/model/property/standard");
+    for (File file : directory.listFiles()) {
+      if (!"package-info.java".equals(file.getName())) {
+        counter++;
+      }
+    }
+    assertEquals(438, counter);
   }
 
 }

@@ -7,7 +7,7 @@
   shape-rendering: crispedges;
   shape-rendering: geometricPrecision;
   shape-rendering: geometricprecision;
-  shape-rendering: abc; /* Noncompliant */
+  shape-rendering: abc; /* Noncompliant !{Update the invalid value of property "shape-rendering". Expected format: auto | optimizespeed | crispedges | geometricprecision}! */
   shape-rendering: 10px; /* Noncompliant */
   shape-rendering: 10; /* Noncompliant */
 }

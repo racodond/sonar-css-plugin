@@ -55,29 +55,29 @@
 
 @font-face {
   font-family: 'MyWebFont';
-  src: url('myfont.woff2') format('woff2');    /* Noncompliant: 'woff' format is missing */
+  src: url('myfont.woff2') format('woff2');    /* Noncompliant ![sc=3;ec=6;el=+0]! !{URL for "woff" format is expected.}! */
 }
 
 @font-face {
   font-family: 'MyWebFont';
-  src: url('myfont.woff') format('woff');      /* Noncompliant: 'woff2' format is expected */
+  src: url('myfont.woff') format('woff');      /* Noncompliant ![sc=8;ec=26;el=+0]! !{URL for "woff2" format is expected.}! */
 }
 
 @font-face {
   font-family: 'MyWebFont';
-  src: url('myfont.ttf') format('truetype');   /* Noncompliant: 'woff2' format is missing */
+  src: url('myfont.ttf') format('truetype');   /* Noncompliant ![sc=8;ec=25;el=+0]! !{URL for "woff2" format is expected.}! */
 }
 
 @font-face {
   font-family: 'MyWebFont';
-  src: url('myfont.ttf') format('truetype'),   /* Noncompliant: 'woff2' format is expected */
+  src: url('myfont.ttf') format('truetype'),   /* Noncompliant ![sc=8;ec=25;el=+0]! !{URL for "woff2" format is expected.}! */
        url('myfont.woff2') format('woff2');
 }
 
 @font-face {
   font-family: 'MyWebFont';
   src: url('myfont.woff2') format('woff2'),
-       url('myfont.ttf') format('truetype'),   /* Noncompliant: 'woff' format is expected */
+       url('myfont.ttf') format('truetype'),   /* Noncompliant ![sc=8;ec=25;el=+0]! !{URL for "woff" format is expected.}! */
        url('myfont.woff') format('woff');
 }
 
@@ -85,13 +85,13 @@
   font-family: 'MyWebFont';
   src: url('myfont.eot');
   src: url('myfont.eot?#iefix') format('embedded-opentype'),
-       url('myfont.woff') format('woff');      /* Noncompliant: 'woff2' format is expected */
+       url('myfont.woff') format('woff');      /* Noncompliant ![sc=8;ec=26;el=+0]! !{URL for "woff2" format is expected.}! */
 }
 
 @font-face {
   font-family: 'MyWebFont';
   src: url('myfont.eot');
-  src: local('font');
+  src: local('font');    /* Noncompliant ![sc=3;ec=6;el=+0]! !{URL for "woff2" format is expected.}! */
 }
 
 @font-face {

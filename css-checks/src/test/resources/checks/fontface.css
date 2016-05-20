@@ -1,4 +1,4 @@
-@font-face {
+@font-face { /* Noncompliant */
     font-family: 'MyFontFamily';
 
     /* First web font is missing query string */
@@ -6,28 +6,4 @@
          url('myfont-webfont.woff') format('woff'),
          url('myfont-webfont.ttf')  format('truetype'),
          url('myfont-webfont.svg#svgFontName') format('svg');
-}
-
-/* Do not log an issue for an empty @font-face. An issue against "Empty rules should be removed" will be already logged. */
-@font-face {
-
-}
-
-/* Do not log an issue on @font-face without src property. */
-@font-face {
-    font-family: 'MyFontFamily';
-}
-
-@font-face {
-    font-family: 'MyFontFamily';
-    src: url('myfont-webfont.eot?#iefix') format('embedded-opentype'),
-         url('myfont-webfont.woff') format('woff'),
-         url('myfont-webfont.ttf')  format('truetype'),
-         url('myfont-webfont.svg#svgFontName') format('svg');
-}
-
-/* Do not log any issue on @font-face with "src" property but without "url" property */
-@font-face {
-  font-family: GDS-Logo;
-  src: local("HelveticaNeue"), local("Helvetica Neue"), local("Arial"), local("Helvetica");
 }

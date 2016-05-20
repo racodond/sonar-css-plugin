@@ -21,17 +21,18 @@ package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "one-declaration-per-line",
@@ -41,7 +42,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("2min")
-public class OneDeclarationPerLineCheck extends SquidCheck<LexerlessGrammar> {
+public class OneDeclarationPerLineCheck extends CssCheck {
 
   @Override
   public void init() {
@@ -50,18 +51,19 @@ public class OneDeclarationPerLineCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (!isThereOneSingleDeclarationPerLine(astNode.getChildren(CssGrammar.DECLARATION, CssGrammar.VARIABLE_DECLARATION))) {
-      getContext().createLineViolation(this, "Define each declaration on a separate line", astNode.getParent());
+    for (AstNode declarationsOnSameLine : getDeclarationsOnSameLine(astNode.getChildren(CssGrammar.DECLARATION, CssGrammar.VARIABLE_DECLARATION))) {
+      addIssue(this, "Define this declaration on a separate line.", declarationsOnSameLine);
     }
   }
 
-  private boolean isThereOneSingleDeclarationPerLine(List<AstNode> declarations) {
+  private Set<AstNode> getDeclarationsOnSameLine(List<AstNode> declarations) {
+    Set<AstNode> declarationsOnSameLine = new HashSet<>();
     for (int i = 0; i < declarations.size() - 1; i++) {
       if (declarations.get(i).getTokenLine() == declarations.get(i + 1).getTokenLine()) {
-        return false;
+        declarationsOnSameLine.add(declarations.get(i + 1));
       }
     }
-    return true;
+    return declarationsOnSameLine;
   }
 
 }

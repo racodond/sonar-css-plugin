@@ -4,6 +4,6 @@
   flex-direction: row-reverse;
   flex-direction: column;
   flex-direction: column-reverse;
-  flex-direction: abc; /* Noncompliant */
+  flex-direction: abc; /* Noncompliant !{Update the invalid value of property "flex-direction". Expected format: row | row-reverse | column | column-reverse}! */
   flex-direction: 10; /* Noncompliant */
 }

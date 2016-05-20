@@ -4,7 +4,7 @@
   overflow: hidden;
   overflow: scroll;
   overflow: auto;
-  overflow: 0; /* Noncompliant */
+  overflow: 0; /* Noncompliant !{Update the invalid value of property "overflow". Expected format: [visible | hidden | scroll | auto | no-display | no-content]{1,2}}! */
   overflow: 0px; /* Noncompliant */
   overflow: abc; /* Noncompliant */
   overflow: no-content;

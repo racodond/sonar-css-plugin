@@ -5,6 +5,6 @@
   position: absolute;
   position: fixed;
   position: sticky;
-  position: 10px; /* Noncompliant */
+  position: 10px; /* Noncompliant !{Update the invalid value of property "position". Expected format: static | relative | absolute | fixed | sticky}! */
   position: abc; /* Noncompliant */
 }

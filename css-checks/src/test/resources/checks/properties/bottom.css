@@ -5,6 +5,6 @@
   bottom: -10px;
   bottom: 10%;
   bottom: -10%;
-  bottom: abc; /* Noncompliant */
+  bottom: abc; /* Noncompliant !{Update the invalid value of property "bottom". Expected format: auto | <length> | <percentage>}! */
   bottom: 12; /* Noncompliant */
 }

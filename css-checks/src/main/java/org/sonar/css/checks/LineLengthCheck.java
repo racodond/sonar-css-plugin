@@ -33,11 +33,10 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.css.CharsetAwareVisitor;
+import org.sonar.css.CssCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "line-length",
@@ -47,7 +46,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("1min")
 @ActivatedByDefault
-public class LineLengthCheck extends SquidCheck<LexerlessGrammar> implements CharsetAwareVisitor {
+public class LineLengthCheck extends CssCheck implements CharsetAwareVisitor {
 
   private static final int DEFAULT_MAXIMUM_LINE_LENGTH = 120;
   private Charset charset;
@@ -74,11 +73,10 @@ public class LineLengthCheck extends SquidCheck<LexerlessGrammar> implements Cha
     for (int i = 0; i < lines.size(); i++) {
       String line = lines.get(i);
       if (line.length() > maximumLineLength) {
-        getContext().createLineViolation(this,
-          "The line contains {0,number,integer} characters which is greater than {1,number,integer} authorized.",
-          i + 1,
-          line.length(),
-          maximumLineLength);
+        addLineIssue(
+          this,
+          "The line contains " + line.length() + " characters which is greater than " + maximumLineLength + " authorized.",
+          i + 1);
       }
     }
   }

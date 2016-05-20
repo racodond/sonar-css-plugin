@@ -6,7 +6,7 @@
   lighting-color: #F03;
   lighting-color: #ff0033;
   lighting-color: #FF0033;
-  lighting-color: #GF0033; /* Noncompliant */
+  lighting-color: #GF0033; /* Noncompliant !{Update the invalid value of property "lighting-color". Expected format: <color>}! */
   lighting-color: #FF04033; /* Noncompliant */
   lighting-color: abc; /* Noncompliant */
   lighting-color: rgb(255, 0,51);

@@ -66,6 +66,7 @@ public enum CssGrammar implements GrammarRuleKey {
   HASH,
   NUMBER,
   PERCENTAGE,
+  PERCENTAGE_SIGN,
   DIMENSION,
   URI,
   UNICODE_RANGE,
@@ -158,8 +159,7 @@ public enum CssGrammar implements GrammarRuleKey {
       addSpacing(b.zeroOrMore(ANY), b),
       b.firstOf(
         SEMICOLON,
-        atRuleBlock
-        ));
+        atRuleBlock));
 
     b.rule(BLOCK).is(
       OPEN_CURLY_BRACE,
@@ -180,8 +180,7 @@ public enum CssGrammar implements GrammarRuleKey {
 
     b.rule(RULESET).is(
       addSpacing(b.optional(SELECTOR), b),
-      BLOCK
-      );
+      BLOCK);
 
     b.rule(SELECTOR).is(SUB_SELECTOR, b.zeroOrMore(b.sequence(comma, SUB_SELECTOR)));
     b.rule(SUB_SELECTOR).is(b.sequence(
@@ -210,17 +209,15 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(ATTRIBUTE_SELECTOR).is(b.firstOf(
       b.oneOrMore(OPEN_BRACKET, IDENT,
         b.optional(b.firstOf(DASH_MATCH, INCLUDES, EQ, CONTAINS, STARTS_WITH, ENDS_WITH), ANY),
-      "]"),
+        "]"),
       b.oneOrMore(OPEN_BRACKET, b.optional(NAMESPACE), IDENT,
         b.optional(b.firstOf(DASH_MATCH, INCLUDES, EQ, CONTAINS, STARTS_WITH, ENDS_WITH), ANY),
-      "]")
-    ));
+        "]")));
     b.rule(CLASS_SELECTOR).is(b.oneOrMore(".", identNoWS));
     b.rule(ID_SELECTOR).is("#", identNoWS);
     b.rule(PSEUDO).is(
       b.firstOf("::", ":"),
-      b.firstOf(FUNCTION_PSEUDO, identNoWS)
-      );
+      b.firstOf(FUNCTION_PSEUDO, identNoWS));
     b.rule(SUP_DECLARATION).is(
       b.oneOrMore(b.firstOf(SEMICOLON, b.firstOf(VARIABLE_DECLARATION, DECLARATION))));
     b.rule(DECLARATION).is(PROPERTY, COLON, VALUE);
@@ -246,7 +243,8 @@ public enum CssGrammar implements GrammarRuleKey {
           addSpacing(IDENT, b),
           IMPORTANT,
           COLON,
-          addSpacing(DELIM, b))).skipIfOneChild();
+          addSpacing(DELIM, b)))
+      .skipIfOneChild();
     b.rule(eof).is(b.token(GenericTokenType.EOF, b.endOfInput())).skip();
 
   }
@@ -260,7 +258,8 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(STRING).is(addSpacing(_STRING, b));
     b.rule(HASH).is(addSpacing(b.sequence("#", _NAME), b));
     b.rule(NUMBER).is(addSpacing(_NUM, b));
-    b.rule(PERCENTAGE).is(addSpacing(b.sequence(_NUM, "%"), b));
+    b.rule(PERCENTAGE).is(addSpacing(b.sequence(_NUM, PERCENTAGE_SIGN), b));
+    b.rule(PERCENTAGE_SIGN).is("%");
     b.rule(DIMENSION).is(addSpacing(b.sequence(_NUM, unit), b));
     b.rule(unit).is(b.firstOf(
       matchCaseInsensitive(b, "em"),
@@ -288,8 +287,7 @@ public enum CssGrammar implements GrammarRuleKey {
       matchCaseInsensitive(b, "turn"),
       matchCaseInsensitive(b, "dpi"),
       matchCaseInsensitive(b, "dpcm"),
-      matchCaseInsensitive(b, "dppx"))
-      );
+      matchCaseInsensitive(b, "dppx")));
     b.rule(URI).is(
       addSpacing(
         b.sequence(matchCaseInsensitive(b, "url\\("), _URI_CONTENT, CLOSE_PARENTHESIS), b));
@@ -300,8 +298,8 @@ public enum CssGrammar implements GrammarRuleKey {
           b.firstOf(
             b.regexp("[!#$%&*-\\[\\]-~]+"),
             _NONASCII,
-            _ESCAPE))
-        ), _W));
+            _ESCAPE))),
+        _W));
     b.rule(UNICODE_RANGE)
       .is(addSpacing(b.regexp("u\\+[0-9a-f?]{1,6}(-[0-9a-f]{1,6})?"), b));
     b.rule(COLON).is(addSpacing(":", b));
@@ -317,7 +315,8 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(WHITESPACES).is(b.zeroOrMore(
       b.firstOf(
         b.skippedTrivia(WHITESPACE),
-        b.commentTrivia(b.regexp("(?:" + COMMENT_REGEX + "|" + COMMENT2_REGEX + ")"))))).skip();
+        b.commentTrivia(b.regexp("(?:" + COMMENT_REGEX + "|" + COMMENT2_REGEX + ")")))))
+      .skip();
     b.rule(FUNCTION).is(addSpacing(b.sequence(IDENT, OPEN_PARENTHESIS), b), b.zeroOrMore(parameters), CLOSE_PARENTHESIS);
     b.rule(FUNCTION_PSEUDO).is(addSpacing(b.sequence(IDENT, OPEN_PARENTHESIS), b), b.zeroOrMore(parameters), ")");
     b.rule(parameters).is(parameter, b.zeroOrMore(comma, parameter));
@@ -358,11 +357,13 @@ public enum CssGrammar implements GrammarRuleKey {
     b.rule(_STRING1).is(
       "\"",
       b.zeroOrMore(b.firstOf(b.regexp("[^\\n\\r\\f\\\\\"]"),
-        b.sequence("\\", _NL), _ESCAPE)), "\"").skip();
+        b.sequence("\\", _NL), _ESCAPE)),
+      "\"").skip();
     b.rule(_STRING2).is(
       "'",
       b.zeroOrMore(b.firstOf(b.regexp("[^\\n\\r\\f\\\\']"),
-        b.sequence("\\", _NL), _ESCAPE)), "'").skip();
+        b.sequence("\\", _NL), _ESCAPE)),
+      "'").skip();
     b.rule(_NL).is(b.firstOf("\n", "\r\n", "\r", "\f")).skip();
     b.rule(_W).is(b.regexp("[ \\t\\r\\n\\f]*")).skip();
   }

@@ -22,28 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class AlphabetizeDeclarationsCheckTest {
 
-  private final static String MESSAGE = "Alphabetically order these rule's properties.";
-
   @Test
-  public void properties_should_not_be_properly_ordered() {
-    SourceFile file = CssAstScanner.scanSingleFile(
-      new File("src/test/resources/checks/alphabetizeDeclarations.css"),
-      new AlphabetizeDeclarationsCheck());
-
-    CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(54).withMessage(MESSAGE)
-      .next().atLine(61).withMessage(MESSAGE)
-      .next().atLine(68).withMessage(MESSAGE)
-      .next().atLine(75).withMessage(MESSAGE)
-      .next().atLine(92).withMessage(MESSAGE)
-      .next().atLine(107).withMessage(MESSAGE)
-      .noMore();
+  public void test() {
+    CssCheckVerifier.verify(new AlphabetizeDeclarationsCheck(), new File("src/test/resources/checks/alphabetizeDeclarations.css"));
   }
 
 }

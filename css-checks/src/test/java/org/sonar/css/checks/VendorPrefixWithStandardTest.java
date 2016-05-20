@@ -22,32 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class VendorPrefixWithStandardTest {
 
-  private static final String MESSAGE = "Define the standard property after this vendor-prefixed property.";
-
   @Test
   public void test() {
-    VendorPrefixWithStandard check = new VendorPrefixWithStandard();
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/vendorprefixwithstandard.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(3).withMessage(MESSAGE)
-      .next().atLine(15).withMessage(MESSAGE)
-      .noMore();
-  }
-
-  @Test
-  public void test_n() {
-    VendorPrefixWithStandard check = new VendorPrefixWithStandard();
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/vendorprefixes.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(12).withMessage(MESSAGE)
-      .next().atLine(17).withMessage(MESSAGE)
-      .noMore();
+    CssCheckVerifier.verify(new VendorPrefixWithStandard(), new File("src/test/resources/checks/vendorprefixwithstandard.css"));
   }
 
 }

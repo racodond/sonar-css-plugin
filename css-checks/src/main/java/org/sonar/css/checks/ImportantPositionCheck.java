@@ -23,12 +23,11 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "important-position",
@@ -38,7 +37,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.INSTRUCTION_RELIABILITY)
 @SqaleConstantRemediation("5min")
-public class ImportantPositionCheck extends SquidCheck<LexerlessGrammar> {
+public class ImportantPositionCheck extends CssCheck {
 
   @Override
   public void init() {
@@ -48,11 +47,10 @@ public class ImportantPositionCheck extends SquidCheck<LexerlessGrammar> {
   @Override
   public void leaveNode(AstNode astNode) {
     if (astNode.getNextSibling() != null) {
-      getContext().createLineViolation(
+      addIssue(
         this,
         "Move the \"!important\" annotation to the end of the declaration, just before the semi-colon.",
-        astNode
-        );
+        astNode);
     }
   }
 

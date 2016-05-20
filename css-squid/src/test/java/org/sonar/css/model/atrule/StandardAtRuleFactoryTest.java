@@ -24,6 +24,8 @@ import org.sonar.css.model.atrule.standard.CharacterVariant;
 import org.sonar.css.model.atrule.standard.Charset;
 import org.sonar.css.model.atrule.standard.Keyframes;
 
+import java.io.File;
+
 import static org.junit.Assert.assertEquals;
 
 public class StandardAtRuleFactoryTest {
@@ -70,6 +72,18 @@ public class StandardAtRuleFactoryTest {
     assertEquals(atRule.getLinks().size(), 1);
     assertEquals(atRule.isObsolete(), false);
     assertEquals(atRule.isExperimental(), true);
+  }
+
+  @Test
+  public void number_of_standard_at_rules() {
+    int counter = 0;
+    File directory = new File("src/main/java/org/sonar/css/model/atrule/standard");
+    for (File file : directory.listFiles()) {
+      if (!"package-info.java".equals(file.getName())) {
+        counter++;
+      }
+    }
+    assertEquals(19, counter);
   }
 
 }

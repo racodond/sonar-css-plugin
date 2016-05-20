@@ -5,6 +5,6 @@
   color-interpolation-filters: linearRGB;
   color-interpolation-filters: srgb;
   color-interpolation-filters: linearrgb;
-  color-interpolation-filters: blabla; /* Noncompliant */
+  color-interpolation-filters: blabla; /* Noncompliant !{Update the invalid value of property "color-interpolation-filters". Expected format: auto | srgb | linearrgb}! */
   color-interpolation-filters: 10px;  /* Noncompliant */
 }

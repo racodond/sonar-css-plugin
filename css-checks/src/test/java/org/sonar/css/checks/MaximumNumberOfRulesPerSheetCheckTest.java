@@ -22,36 +22,29 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class MaximumNumberOfRulesPerSheetCheckTest {
 
-  private MaximumNumberOfRulesPerSheetCheck check = new MaximumNumberOfRulesPerSheetCheck();
-
   @Test
   public void should_contain_more_rules_than_the_allowed_number_and_raise_an_issue() {
+    MaximumNumberOfRulesPerSheetCheck check = new MaximumNumberOfRulesPerSheetCheck();
     check.setMax(9);
-    SourceFile testFile = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/maximumNumberOfRulesPerSheet.css"),
-        check);
-    CheckMessagesVerifier.verify(testFile.getCheckMessages()).next()
-      .withMessage("Reduce the number of rules. This sheet contains 10 rules, 1 more than the 9 allowed rules.")
-      .noMore();
+    CssCheckVerifier.verify(check, new File("src/test/resources/checks/maximumNumberOfRulesPerSheet9.css"));
   }
 
   @Test
   public void should_contain_fewer_rules_than_the_allowed_number_and_not_raise_an_issue() {
-    check.setMax(10);
-    SourceFile testFile = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/maximumNumberOfRulesPerSheet.css"), check);
-    CheckMessagesVerifier.verify(testFile.getCheckMessages()).noMore();
+    MaximumNumberOfRulesPerSheetCheck check = new MaximumNumberOfRulesPerSheetCheck();
+    check.setMax(11);
+    CssCheckVerifier.verify(check, new File("src/test/resources/checks/maximumNumberOfRulesPerSheet11.css"));
   }
 
   @Test
   public void should_contain_the_same_number_of_rules_than_the_allowed_number_and_not_raise_an_issue() {
-    check.setMax(11);
-    SourceFile testFile = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/maximumNumberOfRulesPerSheet.css"), check);
-    CheckMessagesVerifier.verify(testFile.getCheckMessages()).noMore();
+    MaximumNumberOfRulesPerSheetCheck check = new MaximumNumberOfRulesPerSheetCheck();
+    check.setMax(10);
+    CssCheckVerifier.verify(check, new File("src/test/resources/checks/maximumNumberOfRulesPerSheet10.css"));
   }
 
 }

@@ -1,0 +1,14 @@
+.mybox {
+  counter-reset: inherit;
+  counter-reset: none;
+  counter-reset: abc;
+  counter-reset: abc 2;
+  counter-reset: abc -2;
+  counter-reset: abc 2 def;
+  counter-reset: abc 2 def 2;
+  counter-reset: abc def ghi;
+  counter-reset: none none; /* Noncompliant !{Update the invalid value of property "counter-reset". Expected format: [ <identifier> <integer>? ]+ | none}! */
+  counter-reset: none 2; /* Noncompliant */
+  counter-reset: 2; /* Noncompliant */
+  counter-reset: abc 2 2 abc; /* Noncompliant */
+}

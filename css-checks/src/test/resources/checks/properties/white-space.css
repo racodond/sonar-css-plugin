@@ -5,6 +5,6 @@
   white-space: nowrap;
   white-space: pre-wrap;
   white-space: pre-line;
-  white-space: abc; /* Noncompliant */
+  white-space: abc; /* Noncompliant !{Update the invalid value of property "white-space". Expected format: normal | pre | nowrap | pre-wrap | pre-line}! */
   white-space: 10; /* Noncompliant */
 }

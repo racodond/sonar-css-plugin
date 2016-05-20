@@ -23,13 +23,12 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.model.Property;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "experimental-property-usage",
@@ -39,7 +38,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.DATA_CHANGEABILITY)
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
-public class ExperimentalPropertyUsageCheck extends SquidCheck<LexerlessGrammar> {
+public class ExperimentalPropertyUsageCheck extends CssCheck {
 
   @Override
   public void init() {
@@ -50,7 +49,10 @@ public class ExperimentalPropertyUsageCheck extends SquidCheck<LexerlessGrammar>
   public void visitNode(AstNode astNode) {
     Property property = new Property(astNode.getTokenValue());
     if (property.isVendorPrefixed()) {
-      getContext().createLineViolation(this, "Remove the usage of this experimental property.", astNode);
+      addIssue(
+        this,
+        "Remove the usage of this experimental \"" + property.getStandardProperty().getName() + "\" property.",
+        astNode);
     }
   }
 

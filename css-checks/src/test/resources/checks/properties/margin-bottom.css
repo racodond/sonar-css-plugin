@@ -1,0 +1,10 @@
+.mybox {
+  margin-bottom: inherit;
+  margin-bottom: auto;
+  margin-bottom: 50%;
+  margin-bottom: -50%;
+  margin-bottom: 10pt;
+  margin-bottom: -10pt;
+  margin-bottom: 10; /* Noncompliant {Update the invalid value of property "margin-bottom". Expected format: auto | fill | <length> | <percentage>}! */
+  margin-bottom: abc; /* Noncompliant */
+}

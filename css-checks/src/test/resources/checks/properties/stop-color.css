@@ -6,7 +6,7 @@
   stop-color: #F03;
   stop-color: #ff0033;
   stop-color: #FF0033;
-  stop-color: #GF0033; /* Noncompliant */
+  stop-color: #GF0033; /* Noncompliant !{Update the invalid value of property "stop-color". Expected format: <color>}! */
   stop-color: #FF04033; /* Noncompliant */
   stop-color: abc; /* Noncompliant */
   stop-color: rgb(255, 0,51);

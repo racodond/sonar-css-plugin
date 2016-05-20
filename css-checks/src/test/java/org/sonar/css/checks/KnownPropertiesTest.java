@@ -22,22 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class KnownPropertiesTest {
 
   @Test
   public void test() {
-    KnownProperties check = new KnownProperties();
-    String message = "Remove the usage of this unknown property: \"clr\".";
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/knownProperty.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(8).withMessage(message)
-      .next().atLine(28).withMessage(message)
-      .next().atLine(33).withMessage(message)
-      .noMore();
+    CssCheckVerifier.verify(new KnownProperties(), new File("src/test/resources/checks/knownProperty.css"));
   }
 
 }

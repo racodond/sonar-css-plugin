@@ -22,9 +22,7 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class TabCharacterCheckTest {
 
@@ -32,16 +30,12 @@ public class TabCharacterCheckTest {
 
   @Test
   public void should_find_tab_characters_and_raise_an_issue() {
-    SourceFile testFile = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/tabcharacter.css"), check);
-    CheckMessagesVerifier.verify(testFile.getCheckMessages()).next()
-      .withMessage("Replace all tab characters in this file by sequences of white-spaces.")
-      .noMore();
+    CssCheckVerifier.verify(check, new File("src/test/resources/checks/tabcharacter.css"));
   }
 
   @Test
   public void should_not_find_tab_characters_and_not_raise_an_issue() {
-    SourceFile testFile = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/notabcharacter.css"), check);
-    CheckMessagesVerifier.verify(testFile.getCheckMessages()).noMore();
+    CssCheckVerifier.verify(check, new File("src/test/resources/checks/notabcharacter.css"));
   }
 
 }

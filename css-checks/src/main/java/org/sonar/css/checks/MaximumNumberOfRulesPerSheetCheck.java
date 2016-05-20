@@ -19,17 +19,23 @@
  */
 package org.sonar.css.checks;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.sonar.sslr.api.AstNode;
+
+import java.text.MessageFormat;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.css.CssCheck;
+import org.sonar.css.issue.PreciseIssue;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleLinearRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "sheet-too-many-rules",
@@ -39,7 +45,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_CHANGEABILITY)
 @SqaleLinearRemediation(coeff = "5min", effortToFixDescription = "number of rules beyond the limit")
 @ActivatedByDefault
-public class MaximumNumberOfRulesPerSheetCheck extends SquidCheck<LexerlessGrammar> {
+public class MaximumNumberOfRulesPerSheetCheck extends CssCheck {
 
   private static final int DEFAULT_MAX_RULES = 500;
 
@@ -49,7 +55,7 @@ public class MaximumNumberOfRulesPerSheetCheck extends SquidCheck<LexerlessGramm
     defaultValue = "" + DEFAULT_MAX_RULES)
   private int max = DEFAULT_MAX_RULES;
 
-  private int currentRuleCount;
+  private Set<AstNode> ruleNodes = new HashSet<>();
 
   @Override
   public void init() {
@@ -58,24 +64,32 @@ public class MaximumNumberOfRulesPerSheetCheck extends SquidCheck<LexerlessGramm
 
   @Override
   public void visitFile(AstNode astNode) {
-    currentRuleCount = 0;
+    ruleNodes.clear();
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    currentRuleCount++;
+    ruleNodes.add(astNode);
   }
 
   @Override
   public void leaveFile(AstNode astNode) {
-    if (currentRuleCount > max) {
-      getContext().createFileViolation(this, "Reduce the number of rules. This sheet contains {0,number,integer} rules, "
-        + "{1,number,integer} more than the {2,number,integer} allowed rules.", currentRuleCount,
-        currentRuleCount - max, max);
+    int numberOfRules = ruleNodes.size();
+    if (numberOfRules > max) {
+      PreciseIssue issue = addFileIssue(
+        this,
+        MessageFormat.format("Reduce the number of rules. This sheet contains {0,number,integer} rules, "
+          + "{1,number,integer} more than the {2,number,integer} allowed rules.", numberOfRules, numberOfRules - max, max));
+      issue.setEffortToFix((double) numberOfRules - max);
+      for (AstNode ruleNode : ruleNodes) {
+        issue.addSecondaryLocation("+1", ruleNode);
+      }
     }
   }
 
+  @VisibleForTesting
   public void setMax(int max) {
     this.max = max;
   }
+
 }

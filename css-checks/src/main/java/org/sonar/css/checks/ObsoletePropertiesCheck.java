@@ -20,16 +20,18 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
+
+import java.text.MessageFormat;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.model.property.StandardPropertyFactory;
+import org.sonar.css.CssCheck;
+import org.sonar.css.model.Property;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "obsolete-properties",
@@ -39,7 +41,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LANGUAGE_RELATED_PORTABILITY)
 @SqaleConstantRemediation("10min")
-public class ObsoletePropertiesCheck extends SquidCheck<LexerlessGrammar> {
+public class ObsoletePropertiesCheck extends CssCheck {
 
   @Override
   public void init() {
@@ -47,13 +49,13 @@ public class ObsoletePropertiesCheck extends SquidCheck<LexerlessGrammar> {
   }
 
   @Override
-  public void leaveNode(AstNode astNode) {
-    if (StandardPropertyFactory.createStandardProperty(astNode.getTokenValue()).isObsolete()) {
-      getContext().createLineViolation(
+  public void leaveNode(AstNode propertyNode) {
+    Property property = new Property(propertyNode.getTokenValue());
+    if (property.getStandardProperty().isObsolete()) {
+      addIssue(
         this,
-        "Remove the obsolete / not on W3C Standards track \"{0}\" property.",
-        astNode,
-        astNode.getTokenValue());
+        MessageFormat.format("Remove this obsolete / not on W3C Standards track \"{0}\" property.", property.getStandardProperty().getName()),
+        propertyNode);
     }
   }
 

@@ -26,12 +26,11 @@ import java.util.List;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "semicolon-declaration",
@@ -41,7 +40,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LANGUAGE_RELATED_PORTABILITY)
 @SqaleConstantRemediation("2min")
-public class SemicolonDeclarationCheck extends SquidCheck<LexerlessGrammar> {
+public class SemicolonDeclarationCheck extends CssCheck {
 
   @Override
   public void init() {
@@ -53,7 +52,7 @@ public class SemicolonDeclarationCheck extends SquidCheck<LexerlessGrammar> {
     List<AstNode> declarations = astNode.getChildren(CssGrammar.DECLARATION, CssGrammar.VARIABLE_DECLARATION);
     for (AstNode declaration : declarations) {
       if (declaration.getNextSibling() == null) {
-        getContext().createLineViolation(this, "Add a semicolon at the end of this declaration", declaration);
+        addIssue(this, "Add a semicolon at the end of this declaration.", declaration);
       }
     }
   }
