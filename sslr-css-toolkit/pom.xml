@@ -23,7 +23,7 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>org.codehaus.sonar.sslr</groupId>
+      <groupId>org.sonarsource.sslr</groupId>
       <artifactId>sslr-toolkit</artifactId>
     </dependency>
     <dependency>
@@ -76,12 +76,12 @@
               <forceCreation>true</forceCreation>
               <includes>
                 <include>${project.groupId}:css-squid</include>
-                <include>org.codehaus.sonar.sslr:sslr-core</include>
-                <include>org.codehaus.sonar.sslr:sslr-xpath</include>
+                <include>org.sonarsource.sslr:sslr-core</include>
+                <include>org.sonarsource.sslr:sslr-xpath</include>
                 <include>jaxen:jaxen</include>
-                <include>org.codehaus.sonar.sslr:sslr-toolkit</include>
-                <include>org.codehaus.sonar:sonar-colorizer</include>
-                <include>org.codehaus.sonar:sonar-channel</include>
+                <include>org.sonarsource.sslr:sslr-toolkit</include>
+                <include>org.sonarsource.sonarqube:sonar-colorizer</include>
+                <include>org.sonarsource.sonarqube:sonar-channel</include>
                 <include>org.slf4j:slf4j-api</include>
                 <include>org.slf4j:jcl-over-slf4j</include>
                 <include>ch.qos.logback:logback-classic</include>
