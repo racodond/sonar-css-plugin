@@ -35,7 +35,7 @@ public class CssPluginTest {
 
   @Test
   public void testGetExtensions() throws Exception {
-    assertThat(plugin.getExtensions().size()).isEqualTo(8);
+    assertThat(plugin.getExtensions().size()).isEqualTo(6);
   }
 
 }

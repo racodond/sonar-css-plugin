@@ -27,7 +27,6 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.api.utils.SonarException;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.CharsetAwareVisitor;
@@ -60,7 +59,7 @@ public class TabCharacterCheck extends SquidCheck<LexerlessGrammar> implements C
     try {
       lines = Files.readLines(getContext().getFile(), charset);
     } catch (IOException e) {
-      throw new SonarException(e);
+      throw new IllegalStateException("Rule tab-character - cannot read file", e);
     }
     for (String line : lines) {
       if (line.contains("\t")) {

@@ -29,7 +29,6 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.api.utils.SonarException;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -70,7 +69,7 @@ public class LineLengthCheck extends SquidCheck<LexerlessGrammar> implements Cha
     try {
       lines = Files.readLines(getContext().getFile(), charset);
     } catch (IOException e) {
-      throw new SonarException(e);
+      throw new IllegalStateException("Rule line-length - cannot read file", e);
     }
     for (int i = 0; i < lines.size(); i++) {
       String line = lines.get(i);

@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.api.utils.SonarException;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.CharsetAwareVisitor;
@@ -60,7 +59,7 @@ public class TrailingWhitespaceCheck extends SquidCheck<LexerlessGrammar> implem
     try {
       lines = Files.readLines(getContext().getFile(), charset);
     } catch (IOException e) {
-      throw new SonarException(e);
+      throw new IllegalStateException("Rule S1131 - cannot read file", e);
     }
     for (int i = 0; i < lines.size(); i++) {
       String line = lines.get(i);
