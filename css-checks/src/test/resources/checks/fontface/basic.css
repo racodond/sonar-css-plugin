@@ -91,7 +91,7 @@
 @font-face {
   font-family: 'MyWebFont';
   src: url('myfont.eot');
-  src: locale('font');
+  src: local('font');
 }
 
 @font-face {
