@@ -21,11 +21,10 @@ package org.sonar.css.model.function.standard;
 
 import org.sonar.css.model.function.StandardFunction;
 
-public class Attr extends StandardFunction {
+public class FitContent extends StandardFunction {
 
-  public Attr() {
-    setExperimental(true);
-    addLinks("https://drafts.csswg.org/css-values-3/#funcdef-attr");
+  public FitContent() {
+    addLinks("https://www.w3.org/TR/css-grid-1/#valdef-grid-template-columns-fit-content");
   }
 
 }

@@ -21,11 +21,11 @@ package org.sonar.css.model.function.standard;
 
 import org.sonar.css.model.function.StandardFunction;
 
-public class Attr extends StandardFunction {
+public class Toggle extends StandardFunction {
 
-  public Attr() {
+  public Toggle() {
     setExperimental(true);
-    addLinks("https://drafts.csswg.org/css-values-3/#funcdef-attr");
+    addLinks("https://drafts.csswg.org/css-values-3/#valdef-frequency-toggle");
   }
 
 }

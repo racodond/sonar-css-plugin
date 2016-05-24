@@ -21,11 +21,11 @@ package org.sonar.css.model.function.standard;
 
 import org.sonar.css.model.function.StandardFunction;
 
-public class Attr extends StandardFunction {
+public class Min extends StandardFunction {
 
-  public Attr() {
-    setExperimental(true);
-    addLinks("https://drafts.csswg.org/css-values-3/#funcdef-attr");
+  public Min() {
+    setObsolete(true);
+    addLinks("https://www.w3.org/TR/2011/WD-css3-values-20110906/#min");
   }
 
 }
