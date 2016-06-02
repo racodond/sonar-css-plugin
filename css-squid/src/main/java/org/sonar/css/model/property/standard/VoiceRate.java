@@ -24,7 +24,8 @@ import org.sonar.css.model.property.StandardProperty;
 public class VoiceRate extends StandardProperty {
 
   public VoiceRate() {
-    addLinks("http://www.w3.org/TR/css3-speech/#voice-rate");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-speech-1/#voice-rate");
   }
 
 }

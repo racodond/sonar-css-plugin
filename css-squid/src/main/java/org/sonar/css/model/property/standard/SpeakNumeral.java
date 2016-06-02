@@ -26,7 +26,8 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class SpeakNumeral extends StandardProperty {
 
   public SpeakNumeral() {
-    addLinks("http://www.w3.org/TR/CSS21/aural.html#propdef-speak-numeral");
+    setObsolete(true);
+    addLinks("https://www.w3.org/TR/CSS22/aural.html#propdef-speak-numeral");
     addValidators(new IdentifierValidator(ImmutableList.of("digits", "continuous")));
   }
 

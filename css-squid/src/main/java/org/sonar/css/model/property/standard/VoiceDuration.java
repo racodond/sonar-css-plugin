@@ -25,7 +25,8 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class VoiceDuration extends StandardProperty {
 
   public VoiceDuration() {
-    addLinks("http://www.w3.org/TR/css3-speech/#mixing-props-voice-duration");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-speech-1/#voice-duration");
     addValidators(ValidatorFactory.getAutoValidator(), ValidatorFactory.getPositiveTimeValidator());
   }
 

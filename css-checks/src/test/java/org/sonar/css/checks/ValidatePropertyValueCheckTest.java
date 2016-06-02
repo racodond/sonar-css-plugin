@@ -38,7 +38,7 @@ public class ValidatePropertyValueCheckTest {
   @Test
   public void test_number_of_validated_properties() {
     File testDirectory = new File("src/test/resources/checks/properties");
-    Assert.assertEquals(194, testDirectory.listFiles().length);
+    Assert.assertEquals(199, testDirectory.listFiles().length);
   }
 
 }

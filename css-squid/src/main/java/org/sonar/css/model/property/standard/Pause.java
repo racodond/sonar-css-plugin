@@ -25,7 +25,8 @@ import org.sonar.css.model.property.validator.property.PausePropertyValidator;
 public class Pause extends StandardProperty {
 
   public Pause() {
-    addLinks("http://www.w3.org/TR/css3-speech/#pause");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-speech-1/#pause");
     addValidators(new PausePropertyValidator());
   }
 

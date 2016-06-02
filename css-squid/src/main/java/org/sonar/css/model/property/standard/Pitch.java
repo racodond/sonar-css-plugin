@@ -27,7 +27,8 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class Pitch extends StandardProperty {
 
   public Pitch() {
-    addLinks("http://www.w3.org/TR/CSS21/aural.html#propdef-pitch");
+    setObsolete(true);
+    addLinks("https://www.w3.org/TR/CSS22/aural.html#propdef-pitch");
     addValidators(
       ValidatorFactory.getFrequencyValidator(),
       new IdentifierValidator(ImmutableList.of("x-low", "low", "medium", "high", "x-high")));

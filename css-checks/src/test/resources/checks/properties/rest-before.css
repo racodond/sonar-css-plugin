@@ -1,0 +1,14 @@
+.mybox {
+  rest-before: inherit;
+  rest-before: 3s;
+  rest-before: none;
+  rest-before: x-weak;
+  rest-before: weak;
+  rest-before: medium;
+  rest-before: strong;
+  rest-before: x-strong;
+  rest-before: -3s; /* Noncompliant !{Update the invalid value of property "rest-before". Expected format: <time>(>=0) | none | x-weak | weak | medium | strong | x-strong}! */
+  rest-before: 50.5%; /* Noncompliant */
+  rest-before: abc; /* Noncompliant */
+  rest-before: 10px; /* Noncompliant */
+}

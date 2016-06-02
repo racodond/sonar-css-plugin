@@ -27,10 +27,14 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class Elevation extends StandardProperty {
 
   public Elevation() {
-    addLinks("http://www.w3.org/TR/CSS21/aural.html#propdef-elevation");
+    setObsolete(true);
+    addLinks(
+      "https://www.w3.org/TR/CSS22/aural.html#propdef-elevation",
+      "https://drafts.csswg.org/css-speech-1/#voice-balance");
     addValidators(
       ValidatorFactory.getAngleValidator(),
       new IdentifierValidator(ImmutableList.of("below", "level", "above", "higher", "lower")));
+
   }
 
 }

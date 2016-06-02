@@ -46,7 +46,7 @@ public class CuePropertyValidator implements ValueValidator {
   @Nonnull
   @Override
   public String getValidatorFormat() {
-    return "<cue-before> || <cue-after>";
+    return "<cue-before> <cue-after>?";
   }
 
 }

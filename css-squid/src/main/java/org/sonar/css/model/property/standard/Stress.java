@@ -25,7 +25,8 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class Stress extends StandardProperty {
 
   public Stress() {
-    addLinks("http://www.w3.org/TR/CSS21/aural.html#propdef-stress");
+    setObsolete(true);
+    addLinks("https://www.w3.org/TR/CSS22/aural.html#propdef-stress");
     addValidators(ValidatorFactory.getNumberValidator());
   }
 

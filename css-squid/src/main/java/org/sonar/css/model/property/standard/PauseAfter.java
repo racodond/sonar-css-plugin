@@ -25,7 +25,8 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class PauseAfter extends StandardProperty {
 
   public PauseAfter() {
-    addLinks("http://www.w3.org/TR/css3-speech/#pause-after");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-speech-1/#pause-after");
     addValidators(ValidatorFactory.getPauseValidator());
   }
 

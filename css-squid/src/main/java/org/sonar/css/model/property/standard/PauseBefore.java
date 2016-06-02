@@ -25,7 +25,8 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class PauseBefore extends StandardProperty {
 
   public PauseBefore() {
-    addLinks("http://www.w3.org/TR/css3-speech/#pause-before");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-speech-1/#pause-before");
     addValidators(ValidatorFactory.getPauseValidator());
   }
 

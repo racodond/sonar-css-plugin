@@ -25,7 +25,8 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class CueAfter extends StandardProperty {
 
   public CueAfter() {
-    addLinks("http://www.w3.org/TR/css3-speech/#cue-after");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-speech-1/#cue-after");
     addValidators(ValidatorFactory.getCueValidator());
   }
 

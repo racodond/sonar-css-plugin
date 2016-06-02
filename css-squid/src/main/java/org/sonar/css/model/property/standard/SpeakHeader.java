@@ -26,7 +26,8 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class SpeakHeader extends StandardProperty {
 
   public SpeakHeader() {
-    addLinks("http://www.w3.org/TR/CSS21/aural.html#propdef-speak-header");
+    setObsolete(true);
+    addLinks("https://www.w3.org/TR/CSS22/aural.html#speak-headers");
     addValidators(new IdentifierValidator(ImmutableList.of("once", "always")));
   }
 

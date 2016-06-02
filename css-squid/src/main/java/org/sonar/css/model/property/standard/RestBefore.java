@@ -20,11 +20,14 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.ValidatorFactory;
 
 public class RestBefore extends StandardProperty {
 
   public RestBefore() {
-    addLinks("http://www.w3.org/TR/css3-speech/#rest-before");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-speech-1/#rest-before");
+    addValidators(ValidatorFactory.getPauseValidator());
   }
 
 }

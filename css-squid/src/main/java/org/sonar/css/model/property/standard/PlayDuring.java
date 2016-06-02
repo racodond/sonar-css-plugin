@@ -24,7 +24,8 @@ import org.sonar.css.model.property.StandardProperty;
 public class PlayDuring extends StandardProperty {
 
   public PlayDuring() {
-    addLinks("http://www.w3.org/TR/CSS21/aural.html#mixing-props");
+    setObsolete(true);
+    addLinks("https://www.w3.org/TR/CSS22/aural.html#propdef-play-during");
   }
 
 }

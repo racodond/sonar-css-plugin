@@ -26,6 +26,7 @@ import org.sonar.css.model.property.validator.ValueElementMultiValidator;
 public class CueValidator extends ValueElementMultiValidator {
 
   public CueValidator() {
+    // TODO: missing <decibel>? validator
     super(ImmutableList.of(ValidatorFactory.getUriValidator(), ValidatorFactory.getNoneValidator()));
   }
 

@@ -19,12 +19,16 @@
  */
 package org.sonar.css.model.property.standard;
 
+import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class VoiceStress extends StandardProperty {
 
   public VoiceStress() {
-    addLinks("http://www.w3.org/TR/css3-speech/#voice-stress");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-speech-1/#voice-stress");
+    addValidators(new IdentifierValidator(ImmutableList.of("normal", "strong", "moderate", "none", "reduced")));
   }
 
 }

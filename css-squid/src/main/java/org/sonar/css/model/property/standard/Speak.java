@@ -26,8 +26,9 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class Speak extends StandardProperty {
 
   public Speak() {
-    addLinks("http://www.w3.org/TR/css3-speech/#speak");
-    addValidators(new IdentifierValidator(ImmutableList.of("auto", "normal", "none", "spell-out")));
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-speech-1/#speak");
+    addValidators(new IdentifierValidator(ImmutableList.of("auto", "normal", "none")));
   }
 
 }

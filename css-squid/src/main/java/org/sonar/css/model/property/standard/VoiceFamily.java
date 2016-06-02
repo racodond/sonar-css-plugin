@@ -24,7 +24,8 @@ import org.sonar.css.model.property.StandardProperty;
 public class VoiceFamily extends StandardProperty {
 
   public VoiceFamily() {
-    addLinks("http://www.w3.org/TR/css3-speech/#voice-family");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-speech-1/#voice-family");
   }
 
 }

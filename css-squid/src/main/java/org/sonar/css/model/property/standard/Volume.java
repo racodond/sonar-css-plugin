@@ -27,7 +27,10 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class Volume extends StandardProperty {
 
   public Volume() {
-    addLinks("http://www.w3.org/TR/CSS21/aural.html#propdef-volume");
+    setObsolete(true);
+    addLinks(
+      "https://www.w3.org/TR/CSS22/aural.html#volume-props",
+      "https://drafts.csswg.org/css-speech-1/");
     addValidators(
       new IdentifierValidator(ImmutableList.of("silent", "x-soft", "soft", "medium", "loud", "x-loud")),
       ValidatorFactory.getNumberValidator(),

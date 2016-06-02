@@ -1,12 +1,18 @@
 .mybox {
   pause: inherit;
   pause: 3s;
-  pause: -3s; /* Noncompliant !{Update the invalid value of property "pause". Expected format: [ <time>(>=0) | <percentage&gt>(>=0) ]{1,2}}! */
-  pause: 50.5%;
-  pause: -50.5%; /* Noncompliant */
+  pause-before: none;
+  pause-before: x-weak;
+  pause-before: weak;
+  pause-before: medium;
+  pause-before: strong;
+  pause-before: x-strong;
+  pause: -3s; /* Noncompliant !{Update the invalid value of property "pause". Expected format: <pause-before> <pause-after>?}! */
+  pause: 50.5%; /* Noncompliant */
   pause: abc; /* Noncompliant */
   pause: 10px; /* Noncompliant */
   pause: 3s 3s;
+  pause: weak medium;
   pause: 3s 3s 3s; /* Noncompliant */
   pause: 3s 10px; /* Noncompliant */
 }

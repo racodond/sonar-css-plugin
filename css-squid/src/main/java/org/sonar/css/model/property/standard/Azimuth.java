@@ -25,6 +25,10 @@ public class Azimuth extends StandardProperty {
 
   public Azimuth() {
     setObsolete(true);
+    addLinks(
+      "https://www.w3.org/TR/CSS22/aural.html#propdef-azimuth",
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/azimuth",
+      "https://drafts.csswg.org/css-speech-1/#voice-balance");
   }
 
 }

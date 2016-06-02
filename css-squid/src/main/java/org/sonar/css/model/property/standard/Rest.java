@@ -20,11 +20,14 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.property.PausePropertyValidator;
 
 public class Rest extends StandardProperty {
 
   public Rest() {
-    addLinks("http://www.w3.org/TR/css3-speech/#rest");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-speech-1/#rest");
+    addValidators(new PausePropertyValidator());
   }
 
 }

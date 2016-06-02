@@ -34,6 +34,7 @@ public class StandardProperty {
 
   private String name;
   private boolean obsolete;
+  private boolean experimental;
   private List<Vendor> vendors;
   private List<Validator> validators;
   private List<String> links;
@@ -41,6 +42,7 @@ public class StandardProperty {
   public StandardProperty() {
     name = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, this.getClass().getSimpleName());
     obsolete = false;
+    experimental = false;
     vendors = new ArrayList<>();
     validators = new ArrayList<>();
     links = new ArrayList<>();
@@ -52,6 +54,10 @@ public class StandardProperty {
 
   public void setObsolete(boolean obsolete) {
     this.obsolete = obsolete;
+  }
+
+  public void setExperimental(boolean experimental) {
+    this.experimental = experimental;
   }
 
   public void addVendors(Vendor... allVendors) {
@@ -73,6 +79,10 @@ public class StandardProperty {
 
   public boolean isObsolete() {
     return obsolete;
+  }
+
+  public boolean isExperimental() {
+    return experimental;
   }
 
   @Nonnull

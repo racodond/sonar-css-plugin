@@ -25,7 +25,8 @@ import org.sonar.css.model.property.validator.property.CuePropertyValidator;
 public class Cue extends StandardProperty {
 
   public Cue() {
-    addLinks("http://www.w3.org/TR/css3-speech/#cue");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-speech-1/#cue");
     addValidators(new CuePropertyValidator());
   }
 

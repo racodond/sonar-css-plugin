@@ -46,7 +46,7 @@ public class PausePropertyValidator implements ValueValidator {
   @Nonnull
   @Override
   public String getValidatorFormat() {
-    return "[ <time>(>=0) | <percentage&gt>(>=0) ]{1,2}";
+    return "<pause-before> <pause-after>?";
   }
 
 }

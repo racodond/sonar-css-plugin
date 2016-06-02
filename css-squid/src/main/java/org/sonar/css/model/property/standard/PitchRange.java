@@ -25,7 +25,8 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class PitchRange extends StandardProperty {
 
   public PitchRange() {
-    addLinks("http://www.w3.org/TR/CSS21/aural.html#propdef-pitch-range");
+    setObsolete(true);
+    addLinks("https://www.w3.org/TR/CSS22/aural.html#propdef-pitch-range");
     addValidators(ValidatorFactory.getNumberValidator());
   }
 

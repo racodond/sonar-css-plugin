@@ -25,7 +25,8 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class Richness extends StandardProperty {
 
   public Richness() {
-    addLinks("http://www.w3.org/TR/CSS21/aural.html#propdef-richness");
+    setObsolete(true);
+    addLinks("https://www.w3.org/TR/CSS22/aural.html#propdef-richness");
     addValidators(ValidatorFactory.getNumberValidator());
   }
 
