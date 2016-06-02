@@ -531,7 +531,7 @@ public class GenerateRuleDescriptions {
       StandardProperty property;
       ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(Border.class.getClassLoader()).getTopLevelClasses("org.sonar.css.model.property.standard");
       for (ClassPath.ClassInfo classInfo : classInfos) {
-        if (!classInfo.getName().equals("org.sonar.css.model.property.standard.package-info")) {
+        if (!"org.sonar.css.model.property.standard.package-info".equals(classInfo.getName())) {
           property = (StandardProperty) Class.forName(classInfo.getName()).newInstance();
           properties.put(property.getName(), property);
         }
@@ -548,7 +548,7 @@ public class GenerateRuleDescriptions {
       StandardAtRule atRule;
       ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(Annotation.class.getClassLoader()).getTopLevelClasses("org.sonar.css.model.atrule.standard");
       for (ClassPath.ClassInfo classInfo : classInfos) {
-        if (!classInfo.getName().equals("org.sonar.css.model.atrule.standard.package-info")) {
+        if (!"org.sonar.css.model.atrule.standard.package-info".equals(classInfo.getName())) {
           atRule = (StandardAtRule) Class.forName(classInfo.getName()).newInstance();
           atRules.put(atRule.getName(), atRule);
         }
@@ -565,7 +565,7 @@ public class GenerateRuleDescriptions {
       StandardFunction function;
       ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(Annotation.class.getClassLoader()).getTopLevelClasses("org.sonar.css.model.function.standard");
       for (ClassPath.ClassInfo classInfo : classInfos) {
-        if (!classInfo.getName().equals("org.sonar.css.model.function.standard.package-info")) {
+        if (!"org.sonar.css.model.function.standard.package-info".equals(classInfo.getName())) {
           function = (StandardFunction) Class.forName(classInfo.getName()).newInstance();
           functions.put(function.getName(), function);
         }

@@ -52,13 +52,13 @@ public class VendorPrefixWithStandard extends CssCheck {
   @Override
   public void leaveNode(AstNode declarationNode) {
     Property property = new Property(declarationNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue());
-    if (!(property.getStandardProperty() instanceof UnknownProperty) && property.isVendorPrefixed()) {
-      if (!isNonPrefixedPropertyDefined(declarationNode, property)) {
-        addIssue(
-          this,
-          "Define the standard property after this vendor-prefixed property.",
-          declarationNode.getFirstChild(CssGrammar.PROPERTY));
-      }
+    if (!(property.getStandardProperty() instanceof UnknownProperty)
+      && property.isVendorPrefixed()
+      && !isNonPrefixedPropertyDefined(declarationNode, property)) {
+      addIssue(
+        this,
+        "Define the standard property after this vendor-prefixed property.",
+        declarationNode.getFirstChild(CssGrammar.PROPERTY));
     }
   }
 

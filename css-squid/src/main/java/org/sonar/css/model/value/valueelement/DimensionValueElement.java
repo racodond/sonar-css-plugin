@@ -24,7 +24,7 @@ import com.sonar.sslr.api.GenericTokenType;
 import org.sonar.css.model.value.CssValueElement;
 import org.sonar.css.parser.CssGrammar;
 
-public class DimensionValueElement extends CssValueElement {
+public class DimensionValueElement implements CssValueElement {
 
   private final double value;
   private final String unit;

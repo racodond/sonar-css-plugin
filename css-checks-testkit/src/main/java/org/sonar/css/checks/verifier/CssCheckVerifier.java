@@ -72,8 +72,7 @@ public class CssCheckVerifier {
 
   private static List<TestIssue> getExpectedIssues(TestIssueCheck check) {
     Set<TestIssue> issues = check.getTestIssues();
-    List<TestIssue> sortedIssues = Ordering.natural().onResultOf(new IssueToLine()).sortedCopy(issues);
-    return sortedIssues;
+    return Ordering.natural().onResultOf(new IssueToLine()).sortedCopy(issues);
   }
 
   private static Iterator<Issue> getActualIssues(CssCheck check) {

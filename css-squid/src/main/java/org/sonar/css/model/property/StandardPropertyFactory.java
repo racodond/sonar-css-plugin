@@ -25,6 +25,9 @@ import java.util.Locale;
 
 public class StandardPropertyFactory {
 
+  private StandardPropertyFactory() {
+  }
+
   public static StandardProperty createStandardProperty(String propertyName) {
     try {
       String className = getClassNameFromPropertyName(propertyName);

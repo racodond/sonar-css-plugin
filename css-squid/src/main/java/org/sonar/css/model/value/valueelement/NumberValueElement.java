@@ -22,7 +22,7 @@ package org.sonar.css.model.value.valueelement;
 import com.sonar.sslr.api.AstNode;
 import org.sonar.css.model.value.CssValueElement;
 
-public class NumberValueElement extends CssValueElement {
+public class NumberValueElement implements CssValueElement {
 
   private final Double value;
   private final long integerValue;

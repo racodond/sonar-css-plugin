@@ -23,7 +23,7 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.css.model.Function;
 import org.sonar.css.model.value.CssValueElement;
 
-public class FunctionValueElement extends CssValueElement {
+public class FunctionValueElement implements CssValueElement {
 
   private Function function;
 

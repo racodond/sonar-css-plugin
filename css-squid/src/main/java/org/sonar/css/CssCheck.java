@@ -21,7 +21,6 @@ package org.sonar.css;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.api.Trivia;
 
 import java.util.Set;
 

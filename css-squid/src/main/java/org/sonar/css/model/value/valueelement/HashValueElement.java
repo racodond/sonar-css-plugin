@@ -23,7 +23,7 @@ import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.GenericTokenType;
 import org.sonar.css.model.value.CssValueElement;
 
-public class HashValueElement extends CssValueElement {
+public class HashValueElement implements CssValueElement {
 
   private final String value;
 

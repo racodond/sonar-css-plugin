@@ -33,7 +33,6 @@ import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.StandardPropertyFactory;
 import org.sonar.css.parser.CssGrammar;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 

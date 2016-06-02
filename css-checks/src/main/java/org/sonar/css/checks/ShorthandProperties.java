@@ -82,7 +82,7 @@ public class ShorthandProperties extends CssCheck {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    AstNode primaryIssueLocationNode = null;
+    AstNode primaryIssueLocationNode;
     if (astNode.is(CssGrammar.RULESET)) {
       if (astNode.getFirstChild(CssGrammar.SELECTOR) != null) {
         primaryIssueLocationNode = astNode.getFirstChild(CssGrammar.SELECTOR);

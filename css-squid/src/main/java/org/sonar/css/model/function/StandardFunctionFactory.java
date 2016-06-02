@@ -25,6 +25,9 @@ import java.util.Locale;
 
 public class StandardFunctionFactory {
 
+  private StandardFunctionFactory() {
+  }
+
   public static StandardFunction createStandardFunction(String functionName) {
     try {
       String className = getClassNameFromFunctionName(functionName);

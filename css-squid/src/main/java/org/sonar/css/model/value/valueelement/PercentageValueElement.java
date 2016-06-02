@@ -23,7 +23,7 @@ import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.GenericTokenType;
 import org.sonar.css.model.value.CssValueElement;
 
-public class PercentageValueElement extends CssValueElement {
+public class PercentageValueElement implements CssValueElement {
 
   private final double value;
   private final boolean isZero;

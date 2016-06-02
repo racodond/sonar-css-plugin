@@ -19,6 +19,6 @@
  */
 package org.sonar.css.model.value;
 
-public abstract class CssValueElement {
+public interface CssValueElement {
 
 }
