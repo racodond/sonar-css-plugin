@@ -290,7 +290,7 @@ public class GenerateRuleDescriptions {
       .append("  <li>Opera (<code>-o-</code>)</li>\n")
       .append("  <li>Internet Explorer (<code>-ms-</code>)</li>\n")
       .append("</ul>\n")
-      .append("Konqueror (<code>khtml-</code>) for example is not.\n")
+      .append("Konqueror (<code>-khtml-</code>) for example is not.\n")
       .append("</p>\n")
       .append("</ul>\n")
       .append("</p>\n")
