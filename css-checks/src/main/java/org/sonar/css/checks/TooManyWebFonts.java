@@ -44,7 +44,7 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   priority = Priority.MAJOR,
   tags = {Tags.PERFORMANCE})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
-@SqaleConstantRemediation("5min")
+@SqaleConstantRemediation("30min")
 @ActivatedByDefault
 public class TooManyWebFonts extends CssCheck {
 
