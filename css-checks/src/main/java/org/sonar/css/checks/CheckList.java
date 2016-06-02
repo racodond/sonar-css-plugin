@@ -38,7 +38,6 @@ public final class CheckList {
       AllGradientDefinitions.class,
       AlphabetizeDeclarationsCheck.class,
       BOMCheck.class,
-      BulletproofFontFace.class,
       BewareOfBoxModel.class,
       CaseCheck.class,
       CommentRegularExpressionCheck.class,
