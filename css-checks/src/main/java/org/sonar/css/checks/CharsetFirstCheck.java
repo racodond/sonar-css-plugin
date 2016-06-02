@@ -33,7 +33,7 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "charset-first",
-  name = "@charset should be the first element in the style sheet and not preceded by any character",
+  name = "@charset should be the first element in the style sheet and not be preceded by any character",
   priority = Priority.CRITICAL,
   tags = {Tags.BUG})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.INSTRUCTION_RELIABILITY)
