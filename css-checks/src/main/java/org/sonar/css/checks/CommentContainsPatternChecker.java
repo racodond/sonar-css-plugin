@@ -22,14 +22,14 @@ package org.sonar.css.checks;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.api.Trivia;
 import org.apache.commons.lang.StringUtils;
-import org.sonar.squidbridge.checks.SquidCheck;
+import org.sonar.css.CssCheck;
 
 public class CommentContainsPatternChecker {
-  private final SquidCheck<?> check;
+  private final CssCheck check;
   private final String pattern;
   private final String message;
 
-  public CommentContainsPatternChecker(SquidCheck<?> check, String pattern, String message) {
+  public CommentContainsPatternChecker(CssCheck check, String pattern, String message) {
     this.check = check;
     this.pattern = pattern;
     this.message = message;
@@ -43,7 +43,7 @@ public class CommentContainsPatternChecker {
 
         for (int i = 0; i < lines.length; i++) {
           if (StringUtils.containsIgnoreCase(lines[i], pattern) && !isLetterAround(lines[i], pattern)) {
-            check.getContext().createLineViolation(check, message, trivia.getToken().getLine() + i);
+            check.addLineIssue(check, message, trivia.getToken().getLine());
           }
         }
       }

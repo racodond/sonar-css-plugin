@@ -7,17 +7,17 @@
 } /* Compliant */
 
 .mybox
-{ /* Noncompliant */
+{ /* Noncompliant !{Move the opening curly brace to the previous line.}! */
   color: red;
 }
 
-.mybox {  color: red; /* Noncompliant */
-} .mybox { /* Noncompliant */
+.mybox {  color: red; /* Noncompliant !{Move the code following the opening curly brace to the next line.}! */
+} .mybox { /* Noncompliant !{Move the code following the closing curly brace to the next line.}! */
   color: blue;
 }
 
 .mybox {
-  color: red;} /* Noncompliant */
+  color: red;} /* Noncompliant !{Move the closing curly brace to the next line.}! */
 
 .mybox,
 .mybox2 { /* Compliant */
@@ -27,14 +27,14 @@
 
 .mybox,
 .mybox2
-{ /* Noncompliant */
+{ /* Noncompliant !{Move the opening curly brace to the previous line.}! */
   color: red;
 }
 
-{  color: red; /* Noncompliant */
-} { /* Noncompliant */
+{  color: red; /* Noncompliant !{Move the code following the opening curly brace to the next line.}! */
+} { /* Noncompliant !{Move the code following the closing curly brace to the next line.}! */
   color: blue;
 }
 
 {
-  color: red;} /* Noncompliant */
+  color: red;} /* Noncompliant !{Move the closing curly brace to the next line.}! */

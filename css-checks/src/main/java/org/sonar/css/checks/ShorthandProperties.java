@@ -23,17 +23,19 @@ import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
+import org.sonar.css.issue.PreciseIssue;
+import org.sonar.css.model.Property;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-shorthand-properties
@@ -46,12 +48,14 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
-public class ShorthandProperties extends SquidCheck<LexerlessGrammar> {
+public class ShorthandProperties extends CssCheck {
 
-  private static List<String> margin = ImmutableList.<String>of("margin-left", "margin-right", "margin-top", "margin-bottom");
-  private static List<String> padding = ImmutableList.<String>of("padding-left", "padding-right", "padding-top", "padding-bottom");
+  private static List<String> margin = ImmutableList.of("margin-left", "margin-right", "margin-top", "margin-bottom");
+  private static List<String> padding = ImmutableList.of("padding-left", "padding-right", "padding-top", "padding-bottom");
 
   List<String> properties = new ArrayList<>();
+  List<AstNode> marginNodes = new ArrayList<>();
+  List<AstNode> paddingNodes = new ArrayList<>();
 
   @Override
   public void init() {
@@ -62,23 +66,52 @@ public class ShorthandProperties extends SquidCheck<LexerlessGrammar> {
   public void visitNode(AstNode astNode) {
     if (astNode.getType().equals(CssGrammar.RULESET) || astNode.getType().equals(CssGrammar.AT_RULE)) {
       properties.clear();
+      marginNodes.clear();
+      paddingNodes.clear();
     } else if (astNode.getType().equals(CssGrammar.DECLARATION)) {
-      String property = astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue();
-      if (margin.contains(property) || padding.contains(property)) {
-        properties.add(property);
+      Property property = new Property(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue());
+      if (margin.contains(property.getStandardProperty().getName())) {
+        properties.add(property.getStandardProperty().getName());
+        marginNodes.add(astNode.getFirstChild(CssGrammar.PROPERTY));
+      } else if (padding.contains(property.getStandardProperty().getName())) {
+        properties.add(property.getStandardProperty().getName());
+        paddingNodes.add(astNode.getFirstChild(CssGrammar.PROPERTY));
       }
     }
   }
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (astNode.getType().equals(CssGrammar.RULESET) || astNode.getType().equals(CssGrammar.AT_RULE)) {
-      if (properties.containsAll(margin)) {
-        getContext().createLineViolation(this, "Use margin shorthand instead", astNode);
+    AstNode primaryIssueLocationNode = null;
+    if (astNode.is(CssGrammar.RULESET)) {
+      if (astNode.getFirstChild(CssGrammar.SELECTOR) != null) {
+        primaryIssueLocationNode = astNode.getFirstChild(CssGrammar.SELECTOR);
+      } else {
+        primaryIssueLocationNode = astNode.getFirstChild(CssGrammar.BLOCK).getFirstChild(CssGrammar.OPEN_CURLY_BRACE);
       }
-      if (properties.containsAll(padding)) {
-        getContext().createLineViolation(this, "Use padding shorthand instead", astNode);
-      }
+    } else if (astNode.getType().equals(CssGrammar.AT_RULE)) {
+      primaryIssueLocationNode = astNode.getFirstChild(CssGrammar.AT_KEYWORD);
+    } else {
+      return;
+    }
+    if (properties.containsAll(margin)) {
+      createIssue("margin", primaryIssueLocationNode);
+    }
+    if (properties.containsAll(padding)) {
+      createIssue("padding", primaryIssueLocationNode);
+    }
+  }
+
+  private void createIssue(String shorthandProperty, AstNode primaryIssueLocation) {
+    List<AstNode> nodes = Collections.emptyList();
+    PreciseIssue issue = addIssue(this, "Use the \"" + shorthandProperty + "\" shorthand property instead.", primaryIssueLocation);
+    if ("margin".equals(shorthandProperty)) {
+      nodes = marginNodes;
+    } else if ("padding".equals(shorthandProperty)) {
+      nodes = paddingNodes;
+    }
+    for (AstNode node : nodes) {
+      issue.addSecondaryLocation("\"" + shorthandProperty + "\" property", node);
     }
   }
 

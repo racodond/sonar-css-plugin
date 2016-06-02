@@ -20,15 +20,19 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
+import org.sonar.css.issue.PreciseIssue;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleLinearRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "S2735",
@@ -38,11 +42,11 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleLinearRemediation(coeff = "10min", effortToFixDescription = "number of imports beyond the limit")
-public class ImportNumberThreshold extends SquidCheck<LexerlessGrammar> {
+public class ImportNumberThreshold extends CssCheck {
 
   private static final int DEFAULT_THRESHOLD = 31;
 
-  private int currentImportCount;
+  private List<AstNode> importNodes;
 
   @Override
   public void init() {
@@ -51,22 +55,31 @@ public class ImportNumberThreshold extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitFile(AstNode astNode) {
-    currentImportCount = 0;
+    importNodes = new ArrayList<>();
   }
 
   @Override
   public void visitNode(AstNode astNode) {
     if ("import".equals(astNode.getFirstChild(CssGrammar.AT_KEYWORD).getFirstChild(CssGrammar.IDENT).getTokenValue())) {
-      currentImportCount++;
+      importNodes.add(astNode.getFirstChild(CssGrammar.AT_KEYWORD));
     }
   }
 
   @Override
   public void leaveFile(AstNode astNode) {
-    if (currentImportCount > DEFAULT_THRESHOLD) {
-      getContext().createFileViolation(this, "Reduce the number of @import. This sheet imports {0,number,integer} other sheets, "
-        + "{1,number,integer} more than the {2,number,integer} maximum.",
-        currentImportCount, currentImportCount - DEFAULT_THRESHOLD, DEFAULT_THRESHOLD);
+    if (importNodes.size() > DEFAULT_THRESHOLD) {
+      PreciseIssue issue = addFileIssue(
+        this,
+        String.format(
+          "Reduce the number of @import rules. This sheet imports %s other sheets, %s more than the %s maximum allowed.",
+          importNodes.size(),
+          importNodes.size() - DEFAULT_THRESHOLD,
+          DEFAULT_THRESHOLD));
+      for (AstNode importNode : importNodes) {
+        issue.addSecondaryLocation("+1", importNode);
+      }
+      issue.setEffortToFix((double) importNodes.size() - DEFAULT_THRESHOLD);
     }
   }
+
 }

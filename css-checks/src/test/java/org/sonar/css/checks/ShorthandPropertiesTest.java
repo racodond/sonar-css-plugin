@@ -22,21 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class ShorthandPropertiesTest {
 
   @Test
   public void test() {
-    ShorthandProperties check = new ShorthandProperties();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/shorthand.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(1).withMessage("Use margin shorthand instead").next()
-      .atLine(21).withMessage("Use padding shorthand instead")
-      .noMore();
+    CssCheckVerifier.verify(new ShorthandProperties(), new File("src/test/resources/checks/shorthand.css"));
   }
 
 }

@@ -2,6 +2,6 @@
   animation-play-state: inherit;
   animation-play-state: running;
   animation-play-state: paused;
-  animation-play-state: abc; /* Noncompliant */
+  animation-play-state: abc; /* Noncompliant !{Update the invalid value of property "animation-play-state". Expected format: running | paused}! */
   animation-play-state: 0; /* Noncompliant */
 }

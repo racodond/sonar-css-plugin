@@ -2,6 +2,6 @@
   user-zoom: inherit;
   user-zoom: zoom;
   user-zoom: fixed;
-  user-zoom: abc; /* Noncompliant */
+  user-zoom: abc; /* Noncompliant !{Update the invalid value of property "user-zoom". Expected format: zoom | fixed}! */
   user-zoom: 10; /* Noncompliant */
 }

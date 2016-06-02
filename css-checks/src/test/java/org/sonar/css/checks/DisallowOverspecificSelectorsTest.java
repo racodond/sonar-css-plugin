@@ -22,31 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class DisallowOverspecificSelectorsTest {
 
   @Test
   public void test() {
-    DisallowOverspecificSelectors check = new DisallowOverspecificSelectors();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/overspecselector.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(5).withMessage("Simplify this over-specified selector").next()
-      .atLine(8).withMessage("Simplify this over-specified selector").next()
-      .atLine(11).withMessage("Simplify this over-specified selector")
-      .noMore();
-  }
-
-  @Test
-  public void test2() {
-    DisallowOverspecificSelectors check = new DisallowOverspecificSelectors();
-    check.setDeepnessThreshold(4);
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/overspecselector.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
+    CssCheckVerifier.verify(new DisallowOverspecificSelectors(), new File("src/test/resources/checks/overspecselector.css"));
   }
 
 }

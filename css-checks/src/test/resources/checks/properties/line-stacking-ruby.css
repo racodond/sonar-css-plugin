@@ -2,6 +2,6 @@
   line-stacking-ruby: inherit;
   line-stacking-ruby: exclude-ruby;
   line-stacking-ruby: include-ruby;
-  line-stacking-ruby: 10; /* Noncompliant */
+  line-stacking-ruby: 10; /* Noncompliant !{Update the invalid value of property "line-stacking-ruby". Expected format: exclude-ruby | include-ruby}! */
   line-stacking-ruby: abc; /* Noncompliant */
 }

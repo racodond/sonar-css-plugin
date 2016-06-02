@@ -22,21 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class DisallowImportTest {
 
   @Test
   public void test() {
-    DisallowImport check = new DisallowImport();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/import.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(1).withMessage("Remove this @import rule").next()
-      .atLine(2).withMessage("Remove this @import rule")
-      .noMore();
+    CssCheckVerifier.verify(new DisallowImport(), new File("src/test/resources/checks/import.css"));
   }
 
 }

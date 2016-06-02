@@ -6,6 +6,6 @@
   flex-basis: 0;
   flex-basis: -10px;
   flex-basis: -10%;
-  flex-basis: -10.5; /* Noncompliant */
+  flex-basis: -10.5; /* Noncompliant !{Update the invalid value of property "flex-basis". Expected format: content | <width>}! */
   flex-basis: abc; /* Noncompliant */
 }

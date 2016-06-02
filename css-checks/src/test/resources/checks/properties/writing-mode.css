@@ -9,6 +9,6 @@
   writing-mode: lr;
   writing-mode: rl;
   writing-mode: tb;
-  writing-mode: abc; /* Noncompliant */
+  writing-mode: abc; /* Noncompliant !{Update the invalid value of property "writing-mode". Expected format: horizontal-tb | vertical-rl | vertical-lr | lr-tb | rl-tb | tb-rl | lr | rl | tb}! */
   writing-mode: -0.5; /* Noncompliant */
 }

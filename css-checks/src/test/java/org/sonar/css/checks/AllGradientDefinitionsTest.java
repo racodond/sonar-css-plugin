@@ -22,32 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class AllGradientDefinitionsTest {
 
   @Test
   public void test() {
-    AllGradientDefinitions check = new AllGradientDefinitions();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/gradientdefinition.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(2).withMessage("Add missing gradient definition: -moz-(linear|radial)-gradient.*").next()
-      .atLine(2).withMessage("Add missing gradient definition: -ms-(linear|radial)-gradient.*").next()
-      .atLine(2).withMessage("Add missing gradient definition: -o-(linear|radial)-gradient.*").next()
-      .atLine(8).withMessage("Add missing gradient definition: -webkit-(linear|radial)-gradient.*").next()
-      .atLine(8).withMessage("Add missing gradient definition: -webkit-gradient.*")
-      .noMore();
-  }
-
-  @Test
-  public void test2() {
-    AllGradientDefinitions check = new AllGradientDefinitions();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/fontface.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
+    CssCheckVerifier.verify(new AllGradientDefinitions(), new File("src/test/resources/checks/gradientdefinition.css"));
   }
 
 }

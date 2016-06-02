@@ -9,7 +9,7 @@
   flex-flow: column-reverse;
   flex-flow: column-reverse nowrap;
   flex-flow: nowrap column-reverse;
-  flex-flow: nowrap column-reverse nowrap; /* Noncompliant */
+  flex-flow: nowrap column-reverse nowrap; /* Noncompliant !{Update the invalid value of property "flex-flow". Expected format: <flex-direction> || <flex-wrap>}! */
   flex-flow: abc; /* Noncompliant */
   flex-flow: 10; /* Noncompliant */
   flex-flow: nowrap nowrap; /* Noncompliant */

@@ -8,7 +8,7 @@
   text-decoration-line: blink overline;
   text-decoration-line: blink overline underline;
   text-decoration-line: blink overline underline line-through;
-  text-decoration-line: blink overline underline blink overline; /* Noncompliant */
+  text-decoration-line: blink overline underline blink overline; /* Noncompliant !{Update the invalid value of property "text-decoration-line". Expected format: none | [ underline || overline || line-through || blink ]}! */
   text-decoration-line: blink blink; /* Noncompliant */
   text-decoration-line: none blink; /* Noncompliant */
   text-decoration-line: blink none; /* Noncompliant */

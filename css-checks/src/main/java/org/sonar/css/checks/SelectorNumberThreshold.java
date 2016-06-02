@@ -20,15 +20,18 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
+
+import java.text.MessageFormat;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
+import org.sonar.css.issue.PreciseIssue;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleLinearRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "S2732",
@@ -38,7 +41,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.HARDWARE_RELATED_PORTABILITY)
 @SqaleLinearRemediation(coeff = "10min", effortToFixDescription = "number of selectors beyond the limit")
-public class SelectorNumberThreshold extends SquidCheck<LexerlessGrammar> {
+public class SelectorNumberThreshold extends CssCheck {
 
   private static final int DEFAULT_THRESHOLD = 4095;
 
@@ -62,9 +65,12 @@ public class SelectorNumberThreshold extends SquidCheck<LexerlessGrammar> {
   @Override
   public void leaveFile(AstNode astNode) {
     if (currentSelectorCount > DEFAULT_THRESHOLD) {
-      getContext().createFileViolation(this, "Reduce the number of selectors. This sheet contains {0,number,integer} selectors, "
-        + "{1,number,integer} more than the {2,number,integer} maximum.", currentSelectorCount,
-        currentSelectorCount - DEFAULT_THRESHOLD, DEFAULT_THRESHOLD);
+      PreciseIssue issue = addFileIssue(
+        this,
+        MessageFormat.format("Reduce the number of selectors. This sheet contains {0,number,integer} selectors, "
+          + "{1,number,integer} more than the {2,number,integer} maximum.", currentSelectorCount,
+          currentSelectorCount - DEFAULT_THRESHOLD, DEFAULT_THRESHOLD));
+      issue.setEffortToFix((double) currentSelectorCount - DEFAULT_THRESHOLD);
     }
   }
 }

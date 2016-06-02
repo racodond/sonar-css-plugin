@@ -1,37 +1,36 @@
-/* Noncompliant */
 .mybox {
-    width: 0px;
-    width: 0.0px;
-    width: 0.00px;
-    width: .0px;
-    width: .00px;
-    width: 0%;
-    width: 0.0%;
-    width: 0.00%;
-    width: .0%;
-    width: .00%;
-    padding: 10px 0px;
+  width: 0px; /* Noncompliant ![sc=11;ec=13;el=+0]! !{Remove the unit for this zero length.}! */
+  width: 0.0px; /* Noncompliant ![sc=13;ec=15;el=+0]! !{Remove the unit for this zero length.}! */
+  width: 0.00px; /* Noncompliant ![sc=14;ec=16;el=+0]! !{Remove the unit for this zero length.}! */
+  width: .0px; /* Noncompliant ![sc=12;ec=14;el=+0]! !{Remove the unit for this zero length.}! */
+  width: .00px; /* Noncompliant ![sc=13;ec=15;el=+0]! !{Remove the unit for this zero length.}! */
+  width: 0%; /* Noncompliant ![sc=11;ec=12;el=+0]! !{Remove the unit for this zero length.}! */
+  width: 0.0%; /* Noncompliant ![sc=13;ec=14;el=+0]! !{Remove the unit for this zero length.}! */
+  width: 0.00%; /* Noncompliant ![sc=14;ec=15;el=+0]! !{Remove the unit for this zero length.}! */
+  width: .0%; /* Noncompliant ![sc=12;ec=13;el=+0]! !{Remove the unit for this zero length.}! */
+  width: .00%; /* Noncompliant ![sc=13;ec=14;el=+0]! !{Remove the unit for this zero length.}! */
+  padding: 10px 0px; /* Noncompliant ![sc=18;ec=20;el=+0]! !{Remove the unit for this zero length.}! */
 }
 
 /* Compliant */
 .mybox {
-    width: 0;
-    width: 0.0;
-    width: 0.00;
-    width: .0;
-    width: .00;
-    width: 0;
-    width: 0.0;
-    width: 0.00;
-    width: .0;
-    width: .00;
-    width: .1%;
-    width: .1px;
-    padding: 10 0;
+  width: 0;
+  width: 0.0;
+  width: 0.00;
+  width: .0;
+  width: .00;
+  width: 0;
+  width: 0.0;
+  width: 0.00;
+  width: .0;
+  width: .00;
+  width: .1%;
+  width: .1px;
+  padding: 10 0;
 }
 
 .mybox {
-    angle: 0grad;
-    transition-duration: 0s;
+  angle: 0grad;
+  transition-duration: 0s;
 }
 

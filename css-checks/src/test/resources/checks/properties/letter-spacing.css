@@ -3,6 +3,6 @@
   letter-spacing: normal;
   letter-spacing: 10px;
   letter-spacing: -10px;
-  letter-spacing: 10; /* Noncompliant */
+  letter-spacing: 10; /* Noncompliant !{Update the invalid value of property "letter-spacing". Expected format: normal | <length>}! */
   letter-spacing: abc; /* Noncompliant */
 }

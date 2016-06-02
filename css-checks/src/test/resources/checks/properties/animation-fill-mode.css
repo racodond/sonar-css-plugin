@@ -4,6 +4,6 @@
   animation-fill-mode: forwards;
   animation-fill-mode: backwards;
   animation-fill-mode: both;
-  animation-fill-mode: abc; /* Noncompliant */
+  animation-fill-mode: abc; /* Noncompliant !{Update the invalid value of property "animation-fill-mode". Expected format: none | forwards | backwards | both}! */
   animation-fill-mode: 10; /* Noncompliant */
 }

@@ -93,7 +93,7 @@
 @font-face {
   font-family: 'MyWebFont';
   src: url('myfont.eot');
-  src: locale('font');
+  src: locale('font');  /* Noncompliant: 'truetype' format is expected */
 }
 
 @font-face {

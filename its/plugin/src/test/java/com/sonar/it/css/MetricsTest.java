@@ -131,6 +131,6 @@ public class MetricsTest {
   }
 
   private static String keyFor(String s) {
-    return PROJECT_KEY + (orchestrator.getConfiguration().getSonarVersion().isGreaterThanOrEquals("4.2") ? ":src/" : ":") + s;
+    return PROJECT_KEY + ":src/" + s;
   }
 }

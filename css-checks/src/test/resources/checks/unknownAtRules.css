@@ -1,8 +1,8 @@
-@abc {  /* Noncompliant */
+@abc { /* Noncompliant ![sc=1;ec=5;el=+0]! !{Remove this usage of the unknown "abc" CSS @-rule.}! */
   property: red;
 }
 
-@DEF {  /* Noncompliant */
+@DEF { /* Noncompliant ![sc=1;ec=5;el=+0]! !{Remove this usage of the unknown "def" CSS @-rule.}! */
   property: red;
 }
 
@@ -79,7 +79,6 @@
             (-ms-perspective: 10px) or (-o-perspective: 10px) ) {
   /* specific CSS applied when 3D transforms, eventually prefixed, are supported */
 }
-
 
 @viewport {
   max-width: 10px;

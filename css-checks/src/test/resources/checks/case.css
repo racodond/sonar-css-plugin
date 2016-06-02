@@ -1,14 +1,15 @@
 .mybox {
   color: red;
-  COLOR: red; /* Noncompliant */
-  Color: red; /* Noncompliant */
-  CoLor: red; /* Noncompliant */
+  COLOR: red; /* Noncompliant ![sc=3;ec=8;el=+0]! !{Write property "COLOR" in lowercase.}! */
+  Color: red; /* Noncompliant ![sc=3;ec=8;el=+0]! !{Write property "Color" in lowercase.}! */
+  CoLor: red; /* Noncompliant ![sc=3;ec=8;el=+0]! !{Write property "CoLor" in lowercase.}! */
   *color: red;
-  *Color: red; /* Noncompliant */
+  *Color: red; /* Noncompliant ![sc=3;ec=9;el=+0]! !{Write property "*Color" in lowercase.}! */
   background-color: red;
-  Background-color: red; /* Noncompliant */
+  Background-color: red; /* Noncompliant ![sc=3;ec=19;el=+0]! !{Write property "Background-color" in lowercase.}! */
   color: rgb(255,255,255);
-  color: RGB(255,255,255); /* Noncompliant */
-  --ABC: red; /* Noncompliant */
-  --abc-DEF: red; /* Noncompliant */
+  color: RGB(255,255,255); /* Noncompliant ![sc=10;ec=13;el=+0]! !{Write function "RGB" in lowercase.}! */
+  --abc: red;
+  --ABC: red; /* Noncompliant ![sc=3;ec=8;el=+0]! !{Write variable "ABC" in lowercase.}! */
+  --abc-DEF: red; /* Noncompliant ![sc=3;ec=12;el=+0]! !{Write variable "abc-DEF" in lowercase.}! */
 }

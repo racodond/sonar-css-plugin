@@ -2,17 +2,23 @@ h1 {
   color:red;
 }
 
-/* -moz- is a vendor prefix, so ignore */
+/* The "foo" property is not defined in W3C standards, so it is ignored  */
 a {
-    -moz-foo: bar;
+  -moz-foo: bar;
 }
 
-/* Missing -moz, -ms, and -o */
-.mybox {
-    -webkit-transform: translate(50px, 100px);
+.mybox { /* Noncompliant  ![sc=1;ec=7;el=+0]! !{Define the missing vendor prefixes: -moz- -o- -ms- for the "transform" property.}! */
+  -webkit-transform: translate(50px, 100px);
 }
 
-/* Missing -webkit */
-.mybox {
-    -moz-border-radius: 5px;
+.mybox { /* Noncompliant  ![sc=1;ec=7;el=+0]! !{Define the missing vendor prefixes: -webkit- for the "border-radius" property.}! */
+  -moz-border-radius: 5px;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0]! !{Define the missing vendor prefixes: -webkit- for the "border-radius" property.}! */
+  -MOZ-border-radius: 5px;
+}
+
+  { /* Noncompliant ![sc=3;ec=4;el=+0]! !{Define the missing vendor prefixes: -webkit- for the "border-radius" property.}! */
+  -MOZ-border-radius: 5px;
 }

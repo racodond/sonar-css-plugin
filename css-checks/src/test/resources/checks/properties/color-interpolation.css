@@ -5,6 +5,6 @@
   color-interpolation: linearRGB;
   color-interpolation: srgb;
   color-interpolation: linearrgb;
-  color-interpolation: blabla; /* Noncompliant */
+  color-interpolation: blabla; /* Noncompliant !{Update the invalid value of property "color-interpolation". Expected format: auto | srgb | linearrgb}! */
   color-interpolation: 10px;  /* Noncompliant */
 }

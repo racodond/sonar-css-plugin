@@ -1,3 +1,7 @@
 img {
-  filter: alpha(opacity=40);
+  filter: alpha(opacity=40); /* Noncompliant ![sc=11;ec=28;el=+0]! !{Remove this usage of the "alpha" Internet Explorer static filter.}! */
+}
+
+.mybox {
+  color: red;
 }

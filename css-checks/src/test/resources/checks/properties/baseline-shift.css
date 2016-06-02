@@ -7,6 +7,6 @@
   baseline-shift: -10%;
   baseline-shift: 10px;
   baseline-shift: -10px;
-  baseline-shift: abc; /* Noncompliant */
+  baseline-shift: abc; /* Noncompliant !{Update the invalid value of property "baseline-shift". Expected format: baseline | sub | super | <length> | <percentage>}! */
   baseline-shift: 10; /* Noncompliant */
 }

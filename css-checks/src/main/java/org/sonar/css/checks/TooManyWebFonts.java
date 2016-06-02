@@ -20,16 +20,20 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.css.CssCheck;
+import org.sonar.css.issue.PreciseIssue;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Don%27t-use-too-many-web-fonts
@@ -42,7 +46,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
-public class TooManyWebFonts extends SquidCheck<LexerlessGrammar> {
+public class TooManyWebFonts extends CssCheck {
 
   private static final int DEFAULT_THRESHOLD = 2;
 
@@ -52,7 +56,7 @@ public class TooManyWebFonts extends SquidCheck<LexerlessGrammar> {
     defaultValue = "" + DEFAULT_THRESHOLD)
   private int fontFaceThreshold = DEFAULT_THRESHOLD;
 
-  private int currentFontFace;
+  private Set<AstNode> fontFaceNodes;
 
   @Override
   public void init() {
@@ -61,21 +65,25 @@ public class TooManyWebFonts extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitFile(AstNode astNode) {
-    currentFontFace = 0;
+    fontFaceNodes = new HashSet<>();
   }
 
   @Override
   public void visitNode(AstNode astNode) {
     if ("font-face".equals(astNode.getFirstChild(CssGrammar.AT_KEYWORD).getFirstChild(CssGrammar.IDENT).getTokenValue())) {
-      currentFontFace++;
+      fontFaceNodes.add(astNode.getFirstChild(CssGrammar.AT_KEYWORD));
     }
   }
 
   @Override
   public void leaveFile(AstNode astNode) {
-    if (currentFontFace > fontFaceThreshold) {
-      getContext().createFileViolation(this, "Reduce the number of web fonts. The number of "
-        + "@font-face is {0} greater than {1} authorized.", currentFontFace, fontFaceThreshold);
+    if (fontFaceNodes.size() > fontFaceThreshold) {
+      PreciseIssue issue = addFileIssue(
+        this,
+        "Reduce the number of web fonts. The number of @font-face is " + fontFaceNodes.size() + " greater than " + fontFaceThreshold + " authorized.");
+      for (AstNode fontFaceNode : fontFaceNodes) {
+        issue.addSecondaryLocation("+1", fontFaceNode);
+      }
     }
   }
 

@@ -5,7 +5,7 @@
   height: -100%;
   height: 10px;
   height: -10px;
-  height: 10; /* Noncompliant */
+  height: 10; /* Noncompliant !{Update the invalid value of property "height". Expected format: auto | <length> | <percentage> | fill | max-content | min-content | fit-content}! */
   height: abc; /* Noncompliant */
   height: fill;
   height: max-content;

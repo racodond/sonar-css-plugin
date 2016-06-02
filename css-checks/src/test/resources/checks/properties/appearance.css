@@ -29,7 +29,7 @@
   appearance: combo-box;
   appearance: signature;
   appearance: password;
-  appearance: 10px; /* Noncompliant */
+  appearance: 10px; /* Noncompliant !{Update the invalid value of property "appearance". Expected format: normal | icon | window | desktop | workspace | document | tooltip | dialog | button | push-button | hyperlink | radio-button | checkbox | menu-item | tab | menu | menubar | pull-down-menu | pop-up-menu | list-menu | radio-group | checkbox-group | outline-tree | range | field | combo-box | signature | password}! */
   appearance: 10; /* Noncompliant */
   appearance: abc; /* Noncompliant */
 }

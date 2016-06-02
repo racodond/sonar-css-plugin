@@ -24,48 +24,25 @@ import com.google.common.base.Charsets;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
 import org.sonar.css.CssConfiguration;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class BOMCheckTest {
 
   @Test
   public void should_find_that_the_UTF8_file_starts_with_a_BOM_and_raise_an_issue() {
-    SourceFile file = CssAstScanner.scanSingleFile(
-      new File("src/test/resources/checks/utf8WithBom.css"),
-      new BOMCheck());
-
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next().withMessage("Remove the BOM.").noMore();
+    CssCheckVerifier.verify(new BOMCheck(), new File("src/test/resources/checks/utf8WithBom.css"));
   }
 
   @Test
   public void should_find_that_the_UTF8_file_does_not_start_with_a_BOM_and_not_raise_any_issue() {
-    SourceFile file = CssAstScanner.scanSingleFile(
-      new File("src/test/resources/checks/unknownFunctions.css"),
-      new BOMCheck());
-
-    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
+    CssCheckVerifier.verify(new BOMCheck(), new File("src/test/resources/checks/utf8WithoutBom.css"));
   }
 
   @Test
   public void should_find_that_the_UTF16_files_start_with_a_BOM_but_not_raise_any_issue() {
-    SourceFile file;
-
-    file = CssAstScanner.scanSingleFileWithCustomConfiguration(
-      new File("src/test/resources/checks/utf16BE.css"),
-      new CssConfiguration(Charsets.UTF_16BE),
-      new BOMCheck());
-
-    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
-
-    file = CssAstScanner.scanSingleFileWithCustomConfiguration(
-      new File("src/test/resources/checks/utf16LE.css"),
-      new CssConfiguration(Charsets.UTF_16LE),
-      new BOMCheck());
-
-    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
+    CssCheckVerifier.verify(new BOMCheck(), new File("src/test/resources/checks/utf16BE.css"), new CssConfiguration(Charsets.UTF_16BE));
+    CssCheckVerifier.verify(new BOMCheck(), new File("src/test/resources/checks/utf16LE.css"), new CssConfiguration(Charsets.UTF_16LE));
   }
 
 }

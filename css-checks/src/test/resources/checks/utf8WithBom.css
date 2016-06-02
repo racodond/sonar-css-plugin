@@ -1,3 +1,4 @@
-﻿.mybox {
+﻿/* Noncompliant ![sl=0]! !{Remove the Byte Order Mark (BOM).}! */
+.mybox {
     margin-left: 10px;
 }

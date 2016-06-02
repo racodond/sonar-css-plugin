@@ -23,12 +23,11 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Disallow-%40import
@@ -41,7 +40,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
 @SqaleConstantRemediation("1h")
 @ActivatedByDefault
-public class DisallowImport extends SquidCheck<LexerlessGrammar> {
+public class DisallowImport extends CssCheck {
 
   @Override
   public void init() {
@@ -51,7 +50,8 @@ public class DisallowImport extends SquidCheck<LexerlessGrammar> {
   @Override
   public void visitNode(AstNode astNode) {
     if ("import".equals(astNode.getFirstChild(CssGrammar.AT_KEYWORD).getFirstChild(CssGrammar.IDENT).getTokenValue())) {
-      getContext().createLineViolation(this, "Remove this @import rule", astNode);
+      addIssue(this, "Remove this @import rule.", astNode.getFirstChild(CssGrammar.AT_KEYWORD));
     }
   }
+
 }

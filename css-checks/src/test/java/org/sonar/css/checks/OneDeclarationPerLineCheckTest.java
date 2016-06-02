@@ -22,22 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class OneDeclarationPerLineCheckTest {
 
-  private final static String MESSAGE = "Define each declaration on a separate line";
-  private OneDeclarationPerLineCheck check = new OneDeclarationPerLineCheck();
-
   @Test
-  public void should_find_some_declarations_on_the_same_line_and_raise_issues() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/oneDeclarationPerLine.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(8).withMessage(MESSAGE).next()
-      .atLine(13).withMessage(MESSAGE).next()
-      .atLine(19).withMessage(MESSAGE).noMore();
+  public void test() {
+    CssCheckVerifier.verify(new OneDeclarationPerLineCheck(), new File("src/test/resources/checks/oneDeclarationPerLine.css"));
   }
 
 }

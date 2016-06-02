@@ -3,6 +3,6 @@
   transform-box: border-box;
   transform-box: fill-box;
   transform-box: view-box;
-  transform-box: abc; /* Noncompliant */
+  transform-box: abc; /* Noncompliant !{Update the invalid value of property "transform-box". Expected format: border-box | fill-box | view-box}! */
   transform-box: 10; /* Noncompliant */
 }

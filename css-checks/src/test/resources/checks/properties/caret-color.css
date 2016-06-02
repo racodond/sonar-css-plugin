@@ -6,7 +6,7 @@
   caret-color: #F03;
   caret-color: #ff0033;
   caret-color: #FF0033;
-  caret-color: #GF0033; /* Noncompliant */
+  caret-color: #GF0033; /* Noncompliant !{Update the invalid value of property "caret-color". Expected format: auto | <color>}! */
   caret-color: #FF04033; /* Noncompliant */
   caret-color: abc; /* Noncompliant */
   caret-color: rgb(255, 0,51);

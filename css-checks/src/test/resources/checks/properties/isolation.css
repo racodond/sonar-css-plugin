@@ -2,7 +2,7 @@
   isolation: inherit;
   isolation: auto;
   isolation: isolate;
-  isolation: auto isolate; /* Noncompliant */
+  isolation: auto isolate; /* Noncompliant !{Update the invalid value of property "isolation". Expected format: auto | isolate}! */
   isolation: abc; /* Noncompliant */
   isolation: 10; /* Noncompliant */
 }

@@ -1,44 +1,43 @@
-@font-face {;}
+@font-face {;} /* Noncompliant ![sc=13;ec=14;el=+0]! !{Remove this empty declaration.}! */
 
 @font-face {
-;
+; /* Noncompliant ![sc=1;ec=2;el=+0]! !{Remove this empty declaration.}! */
 }
 
 @font-face {
-  ;
+  ; /* Noncompliant ![sc=3;ec=4;el=+0]! !{Remove this empty declaration.}! */
 }
 
-h1 {;}
+h1 {;} /* Noncompliant ![sc=5;ec=6;el=+0]! !{Remove this empty declaration.}! */
 
 h1 {
-;
+; /* Noncompliant ![sc=1;ec=2;el=+0]! !{Remove this empty declaration.}! */
 }
 
 h1 {
-  ;
+  ; /* Noncompliant ![sc=3;ec=4;el=+0]! !{Remove this empty declaration.}! */
 }
 
 h1 {
   color: blue;
-  ;
+  ;  /* Noncompliant ![sc=3;ec=4;el=+0]! !{Remove this empty declaration.}! */
   background-color: green
 }
 
 h1 {
-  ;
+  ; /* Noncompliant ![sc=3;ec=4;el=+0]! !{Remove this empty declaration.}! */
   color: blue;
 }
 
 h1 {
   color: blue;
-  ;
+  ; /* Noncompliant ![sc=3;ec=4;el=+0]! !{Remove this empty declaration.}! */
 }
 
 h1 {
-  color: blue;;
+  color: blue;; /* Noncompliant ![sc=15;ec=16;el=+0]! !{Remove this empty declaration.}! */
 }
 
 :root {
   --abc: red;
 }
-

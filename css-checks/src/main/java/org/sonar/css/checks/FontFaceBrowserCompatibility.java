@@ -21,12 +21,12 @@ package org.sonar.css.checks;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.sonar.sslr.api.AstNode;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-import javax.annotation.Nonnull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,11 +34,10 @@ import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.css.CssCheck;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 /*
  * https://css-tricks.com/snippets/css/using-font-face/
@@ -51,23 +50,26 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   tags = {Tags.BROWSER_COMPATIBILITY})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("20min")
-public class FontFaceBrowserCompatibility extends SquidCheck<LexerlessGrammar> {
-
-  private static final String DEFAULT_FORMAT = "basic";
+public class FontFaceBrowserCompatibility extends CssCheck {
 
   private static final Logger LOG = LoggerFactory.getLogger(FontFaceBrowserCompatibility.class);
 
-  private static final List<String> BASIC_FORMAT = ImmutableList.of("woff2", "woff");
-  private static final List<String> DEEP_FORMAT = ImmutableList.of("woff2", "woff", "ttf");
-  private static final List<String> DEEPEST_FORMAT = ImmutableList.of("eot", "woff2", "woff", "ttf", "svg");
+  private static final String BASIC_LEVEL = "basic";
+  private static final String DEEP_LEVEL = "deep";
+  private static final String DEEPEST_LEVEL = "deepest";
+
+  private static final ImmutableMap<String, ImmutableList<String>> FORMAT = ImmutableMap.of(
+    BASIC_LEVEL, ImmutableList.of("woff2", "woff"),
+    DEEP_LEVEL, ImmutableList.of("woff2", "woff", "ttf"),
+    DEEPEST_LEVEL, ImmutableList.of("eot", "woff2", "woff", "ttf", "svg"));
 
   private static final Pattern EOT_PATTERN = Pattern.compile(".+\\.eot.*");
 
   @RuleProperty(
     key = "browserSupportLevel",
     description = "Allowed values: 'basic', 'deep', 'deepest'",
-    defaultValue = "" + DEFAULT_FORMAT)
-  private String browserSupportLevel = DEFAULT_FORMAT;
+    defaultValue = "" + BASIC_LEVEL)
+  private String browserSupportLevel = BASIC_LEVEL;
 
   @Override
   public void init() {
@@ -85,14 +87,14 @@ public class FontFaceBrowserCompatibility extends SquidCheck<LexerlessGrammar> {
       return;
     }
     List<AstNode> declarations = atRuleNode.getFirstDescendant(CssGrammar.atRuleBlock).getFirstChild(CssGrammar.SUP_DECLARATION).getChildren(CssGrammar.DECLARATION);
-    if ("deepest".equals(browserSupportLevel)) {
-      if (getSecondToLastSrcPropertyValue(declarations) == null) {
-        getContext().createLineViolation(this, "Add an \"src\" property setting the URL for the \".eot\" font file (to support IE9 Compatibility Modes).", atRuleNode);
+    if (DEEPEST_LEVEL.equals(browserSupportLevel)) {
+      if (getSecondToLastSrcPropertyNode(declarations) == null) {
+        addIssue(this, "Add an \"src\" property setting the URL for the \".eot\" font file (to support IE9 Compatibility Modes).", atRuleNode.getFirstChild(CssGrammar.AT_KEYWORD));
       } else {
-        checkSecondToLastSrcProperty(getSecondToLastSrcPropertyValue(declarations));
+        checkSecondToLastSrcProperty(getSecondToLastSrcPropertyNode(declarations));
       }
     }
-    checkLastSrcProperty(getLastSrcPropertyValue(declarations));
+    checkLastSrcProperty(getLastSrcPropertyNode(declarations));
   }
 
   @VisibleForTesting
@@ -116,47 +118,58 @@ public class FontFaceBrowserCompatibility extends SquidCheck<LexerlessGrammar> {
     return false;
   }
 
-  private AstNode getSecondToLastSrcPropertyValue(List<AstNode> declarationNodes) {
-    AstNode srcSecondToLastPropertyValueNode = null;
-    AstNode srcLastPropertyValueNode = null;
+  private AstNode getSecondToLastSrcPropertyNode(List<AstNode> declarationNodes) {
+    AstNode srcSecondToLastPropertyNode = null;
+    AstNode srcLastPropertyNode = null;
     for (AstNode declarationNode : declarationNodes) {
       if ("src".equals(declarationNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue())) {
-        srcSecondToLastPropertyValueNode = srcLastPropertyValueNode;
-        srcLastPropertyValueNode = declarationNode.getFirstChild(CssGrammar.VALUE);
+        srcSecondToLastPropertyNode = srcLastPropertyNode;
+        srcLastPropertyNode = declarationNode;
       }
     }
-    return srcSecondToLastPropertyValueNode;
+    return srcSecondToLastPropertyNode;
   }
 
-  private AstNode getLastSrcPropertyValue(List<AstNode> declarationNodes) {
-    AstNode srcPropertyValueNode = null;
+  private AstNode getLastSrcPropertyNode(List<AstNode> declarationNodes) {
+    AstNode srcDeclarationNode = null;
     for (AstNode declarationNode : declarationNodes) {
       if ("src".equals(declarationNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue())) {
-        srcPropertyValueNode = declarationNode.getFirstChild(CssGrammar.VALUE);
+        srcDeclarationNode = declarationNode;
       }
     }
-    return srcPropertyValueNode;
+    return srcDeclarationNode;
   }
 
-  private void checkSecondToLastSrcProperty(@Nonnull AstNode srcValueNode) {
-    if (srcValueNode.getChildren(CssGrammar.URI).size() != 1) {
-      getContext().createLineViolation(this, "Define one single URL, the URL for the \".eot\" font file in this \"src\" property (to support IE9 Compatibility Modes).",
-        srcValueNode);
+  private void checkSecondToLastSrcProperty(AstNode srcPropertyDeclarationNode) {
+    AstNode propertyNode = srcPropertyDeclarationNode.getFirstChild(CssGrammar.PROPERTY);
+    AstNode valueNode = srcPropertyDeclarationNode.getFirstChild(CssGrammar.VALUE);
+    if (valueNode.getChildren(CssGrammar.URI).size() != 1) {
+      addIssue(
+        this,
+        "Define one single URL, the URL for the \".eot\" font file in this \"src\" property (to support IE9 Compatibility Modes).",
+        propertyNode);
     } else {
-      String font = srcValueNode.getFirstChild(CssGrammar.URI).getFirstChild(CssGrammar._URI_CONTENT).getFirstChild(CssGrammar.STRING).getTokenValue();
+      String font = "";
+      if (valueNode.getFirstChild(CssGrammar.URI).getFirstChild(CssGrammar._URI_CONTENT).getFirstChild(CssGrammar.STRING) != null) {
+        font = valueNode.getFirstChild(CssGrammar.URI).getFirstChild(CssGrammar._URI_CONTENT).getFirstChild(CssGrammar.STRING).getTokenValue();
+      }
       if (!EOT_PATTERN.matcher(font).matches()) {
-        getContext().createLineViolation(this, "Set the URL for the \".eot\" file in this \"src\" property (to support IE9 Compatibility Modes).",
-          srcValueNode.getFirstChild(CssGrammar.URI).getFirstChild(CssGrammar._URI_CONTENT).getFirstChild(CssGrammar.STRING));
-      } else if (!srcValueNode.getChildren(CssGrammar.FUNCTION).isEmpty()) {
-        getContext().createLineViolation(this, "Remove additional functions from this \"src\" property (to support IE9 Compatibility Modes).",
-          srcValueNode.getFirstChild(CssGrammar.FUNCTION));
+        addIssue(
+          this,
+          "Set the URL for the \".eot\" file in this \"src\" property (to support IE9 Compatibility Modes).",
+          propertyNode);
+      } else if (!valueNode.getChildren(CssGrammar.FUNCTION).isEmpty()) {
+        addIssue(
+          this,
+          "Remove additional functions from this \"src\" property (to support IE9 Compatibility Modes).",
+          propertyNode);
       }
     }
   }
 
-  private void checkLastSrcProperty(@Nonnull AstNode srcValueNode) {
+  private void checkLastSrcProperty(AstNode srcDeclarationNode) {
     List<AstNode> urls = new ArrayList<>();
-    for (AstNode uriNode : srcValueNode.getChildren(CssGrammar.URI)) {
+    for (AstNode uriNode : srcDeclarationNode.getFirstChild(CssGrammar.VALUE).getChildren(CssGrammar.URI)) {
       AstNode uriStringNode = uriNode.getFirstChild(CssGrammar._URI_CONTENT).getFirstChild(CssGrammar.STRING);
       if (uriStringNode != null) {
         urls.add(uriNode);
@@ -164,72 +177,65 @@ public class FontFaceBrowserCompatibility extends SquidCheck<LexerlessGrammar> {
     }
 
     if (urls.isEmpty()) {
-      addIssueLastSrcPropertyDoesNotContainUrl(srcValueNode);
+      addIssue(this, "URL for \"" + FORMAT.get(browserSupportLevel).get(0) + "\" format is expected.", srcDeclarationNode.getFirstChild(CssGrammar.PROPERTY));
       return;
     }
 
-    if ("basic".equals(browserSupportLevel)) {
+    if (BASIC_LEVEL.equals(browserSupportLevel)) {
       int j = 0;
       if (EOT_PATTERN.matcher(urls.get(0).getFirstChild(CssGrammar._URI_CONTENT).getFirstChild(CssGrammar.STRING).getTokenValue()).matches()) {
         j++;
       }
-      for (int i = 0; i < BASIC_FORMAT.size(); i++, j++) {
+      for (int i = 0; i < FORMAT.get(BASIC_LEVEL).size(); i++, j++) {
         if (j < urls.size()) {
-          if (!Pattern.compile(".*\\." + BASIC_FORMAT.get(i) + ".*").matcher(urls.get(j).getFirstChild(CssGrammar._URI_CONTENT).getFirstChild(CssGrammar.STRING).getTokenValue())
+          if (!Pattern.compile(".*\\." + FORMAT.get(BASIC_LEVEL).get(i) + ".*")
+            .matcher(urls.get(j).getFirstChild(CssGrammar._URI_CONTENT).getFirstChild(CssGrammar.STRING).getTokenValue())
             .matches()) {
-            getContext().createLineViolation(this, "URL for \"" + BASIC_FORMAT.get(i) + "\" format is expected.", urls.get(j));
+            addIssue(this, "URL for \"" + FORMAT.get(BASIC_LEVEL).get(i) + "\" format is expected.", urls.get(j));
             break;
           }
         } else {
-          getContext().createLineViolation(this, "URL for \"" + BASIC_FORMAT.get(i) + "\" format is expected.", srcValueNode);
+          addIssue(this, "URL for \"" + FORMAT.get(BASIC_LEVEL).get(i) + "\" format is expected.", srcDeclarationNode.getFirstChild(CssGrammar.PROPERTY));
           break;
         }
       }
-    } else if ("deep".equals(browserSupportLevel)) {
+    } else if (DEEP_LEVEL.equals(browserSupportLevel)) {
       int j = 0;
       if (EOT_PATTERN.matcher(urls.get(0).getFirstChild(CssGrammar._URI_CONTENT).getFirstChild(CssGrammar.STRING).getTokenValue()).matches()) {
         j++;
       }
-      for (int i = 0; i < DEEP_FORMAT.size(); i++, j++) {
+      for (int i = 0; i < FORMAT.get(DEEP_LEVEL).size(); i++, j++) {
         if (j < urls.size()) {
-          if (!Pattern.compile(".*\\." + DEEP_FORMAT.get(i) + ".*").matcher(urls.get(j).getFirstChild(CssGrammar._URI_CONTENT).getFirstChild(CssGrammar.STRING).getTokenValue())
+          if (!Pattern.compile(".*\\." + FORMAT.get(DEEP_LEVEL).get(i) + ".*")
+            .matcher(urls.get(j).getFirstChild(CssGrammar._URI_CONTENT).getFirstChild(CssGrammar.STRING).getTokenValue())
             .matches()) {
-            getContext().createLineViolation(this, "URL for \"" + DEEP_FORMAT.get(i) + "\" format is expected.", urls.get(j));
+            addIssue(this, "URL for \"" + FORMAT.get(DEEP_LEVEL).get(i) + "\" format is expected.", urls.get(j));
             break;
           }
         } else {
-          getContext().createLineViolation(this, "URL for \"" + DEEP_FORMAT.get(i) + "\" format is expected.", srcValueNode);
+          addIssue(this, "URL for \"" + FORMAT.get(DEEP_LEVEL).get(i) + "\" format is expected.", srcDeclarationNode.getFirstChild(CssGrammar.PROPERTY));
           break;
         }
       }
-    } else if ("deepest".equals(browserSupportLevel)) {
-      for (int i = 0; i < DEEPEST_FORMAT.size(); i++) {
+    } else if (DEEPEST_LEVEL.equals(browserSupportLevel)) {
+      for (int i = 0; i < FORMAT.get(DEEPEST_LEVEL).size(); i++) {
         if (i < urls.size()) {
-          if (!Pattern.compile(".*\\." + DEEPEST_FORMAT.get(i) + ".*").matcher(urls.get(i).getFirstChild(CssGrammar._URI_CONTENT).getFirstChild(CssGrammar.STRING).getTokenValue())
+          if (!Pattern.compile(".*\\." + FORMAT.get(DEEPEST_LEVEL).get(i) + ".*")
+            .matcher(urls.get(i).getFirstChild(CssGrammar._URI_CONTENT).getFirstChild(CssGrammar.STRING).getTokenValue())
             .matches()) {
-            getContext().createLineViolation(this, "URL for \"" + DEEPEST_FORMAT.get(i) + "\" format is expected.", urls.get(i));
+            addIssue(this, "URL for \"" + FORMAT.get(DEEPEST_LEVEL).get(i) + "\" format is expected.", urls.get(i));
             break;
           }
         } else {
-          getContext().createLineViolation(this, "URL for \"" + DEEPEST_FORMAT.get(i) + "\" format is expected.", srcValueNode);
+          addIssue(this, "URL for \"" + FORMAT.get(DEEPEST_LEVEL).get(i) + "\" format is expected.", srcDeclarationNode.getFirstChild(CssGrammar.PROPERTY));
           break;
         }
       }
-    }
-  }
-
-  private void addIssueLastSrcPropertyDoesNotContainUrl(@Nonnull AstNode srcValueNode) {
-    if ("basic".equals(browserSupportLevel)) {
-      getContext().createLineViolation(this, "URL for \"" + BASIC_FORMAT.get(0) + "\" format is expected.", srcValueNode);
-    } else if ("deep".equals(browserSupportLevel)) {
-      getContext().createLineViolation(this, "URL for \"" + DEEP_FORMAT.get(0) + "\" format is expected.", srcValueNode);
-    } else if ("deepest".equals(browserSupportLevel)) {
-      getContext().createLineViolation(this, "URL for \"" + DEEPEST_FORMAT.get(0) + "\" format is expected.", srcValueNode);
     }
   }
 
   private boolean isBrowserSupportLevelParameterValid() {
-    return "basic".equals(browserSupportLevel) || "deep".equals(browserSupportLevel) || "deepest".equals(browserSupportLevel);
+    return BASIC_LEVEL.equals(browserSupportLevel) || DEEP_LEVEL.equals(browserSupportLevel) || DEEPEST_LEVEL.equals(browserSupportLevel);
   }
 
 }

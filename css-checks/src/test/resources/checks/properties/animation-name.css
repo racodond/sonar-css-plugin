@@ -1,6 +1,6 @@
 .mybox {
   animation-name: inherit;
   animation-name: abc;
-  animation-name: 0; /* Noncompliant */
+  animation-name: 0; /* Noncompliant !{Update the invalid value of property "animation-name". Expected format: none | <identifier>}! */
   animation-name: 10px; /* Noncompliant */
 }

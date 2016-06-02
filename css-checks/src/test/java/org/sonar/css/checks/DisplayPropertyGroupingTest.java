@@ -22,30 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class DisplayPropertyGroupingTest {
 
-  private static final String MESSAGE = "Remove this property that does not work with the \"display\" property.";
-
   @Test
   public void test() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/displayProperty.css"), new DisplayPropertyGrouping());
-    CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(2).withMessage(MESSAGE)
-      .next().atLine(8).withMessage(MESSAGE)
-      .next().atLine(14).withMessage(MESSAGE)
-      .noMore();
-  }
-
-  @Test
-  public void test2() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/fontface.css"), new DisplayPropertyGrouping());
-    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
+    CssCheckVerifier.verify(new DisplayPropertyGrouping(), new File("src/test/resources/checks/displayProperty.css"));
   }
 
 }

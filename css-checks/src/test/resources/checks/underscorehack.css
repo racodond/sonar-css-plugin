@@ -1,4 +1,4 @@
 .mybox {
-    border: 1px solid black;
-    _width: 100px;
+  border: 1px solid black;
+  _width: 100px; /* Noncompliant ![sc=3;ec=9;el=+0]! !{Remove this usage of the "_" hack.}! */
 }

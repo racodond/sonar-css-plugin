@@ -24,15 +24,17 @@ import javax.annotation.Nonnull;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.StandardPropertyFactory;
 
+import java.util.Locale;
+
 public class Property {
 
-  private final String fullName;
+  private final String rawName;
   private final Vendor vendorPrefix;
   private final String hack;
   private final StandardProperty standardProperty;
 
-  public Property(String fullName) {
-    this.fullName = fullName;
+  public Property(String rawName) {
+    this.rawName = rawName;
     this.hack = setHack();
     this.vendorPrefix = setVendorPrefix();
     this.standardProperty = setStandardCssProperty();
@@ -59,9 +61,13 @@ public class Property {
     return vendorPrefix != null;
   }
 
+  public String getUnhackedFullName() {
+    return (vendorPrefix != null ? vendorPrefix.getPrefix() : "") + standardProperty.getName();
+  }
+
   private String setHack() {
-    if (fullName.startsWith("*") || fullName.startsWith("_")) {
-      return fullName.substring(0, 1);
+    if (rawName.startsWith("*") || rawName.startsWith("_")) {
+      return rawName.substring(0, 1);
     } else {
       return null;
     }
@@ -69,7 +75,7 @@ public class Property {
 
   private Vendor setVendorPrefix() {
     for (Vendor vendor : Vendor.values()) {
-      if (fullName.startsWith(vendor.getPrefix())) {
+      if (rawName.toLowerCase(Locale.ENGLISH).startsWith(vendor.getPrefix())) {
         return vendor;
       }
     }
@@ -77,7 +83,7 @@ public class Property {
   }
 
   private StandardProperty setStandardCssProperty() {
-    String propertyName = fullName;
+    String propertyName = rawName;
     if (isHacked()) {
       propertyName = propertyName.substring(1);
     }

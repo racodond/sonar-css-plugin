@@ -2,6 +2,6 @@
   border-collapse: inherit;
   border-collapse: collapse;
   border-collapse: separate;
-  border-collapse: abc; /* Noncompliant */
+  border-collapse: abc; /* Noncompliant !{Update the invalid value of property "border-collapse". Expected format: collapse | separate}! */
   border-collapse: 10; /* Noncompliant */
 }

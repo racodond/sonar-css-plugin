@@ -22,28 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class DeprecatedSystemColorsCheckTest {
 
-  private DeprecatedSystemColorsCheck check = new DeprecatedSystemColorsCheck();
-
   @Test
   public void should_contain_deprecated_system_colors_and_raise_issues() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/properties/color.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(20).withMessage("Remove this usage of the deprecated \"Background\" system color.").next()
-      .atLine(21).withMessage("Remove this usage of the deprecated \"background\" system color.").next()
-      .atLine(22).withMessage("Remove this usage of the deprecated \"ThreeDShadow\" system color.").next()
-      .atLine(23).withMessage("Remove this usage of the deprecated \"threedshadow\" system color.").noMore();
-  }
-
-  @Test
-  public void should_not_contain_deprecated_system_color_properties_and_not_raise_issues() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/emptyRule.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
+    CssCheckVerifier.verify(new DeprecatedSystemColorsCheck(), new File("src/test/resources/checks/deprecatedSystemColors.css"));
   }
 
 }

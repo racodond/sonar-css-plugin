@@ -30,12 +30,11 @@ import java.util.Map.Entry;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Disallow-overqualified-elements
@@ -48,7 +47,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
 @SqaleConstantRemediation("1h")
 @ActivatedByDefault
-public class DisallowOverqualifiedElements extends SquidCheck<LexerlessGrammar> {
+public class DisallowOverqualifiedElements extends CssCheck {
 
   List<Selectors> selectors = new ArrayList<>();
 
@@ -80,8 +79,7 @@ public class DisallowOverqualifiedElements extends SquidCheck<LexerlessGrammar> 
   public void leaveFile(AstNode astNode) {
     for (Selectors key : selectors) {
       if (key.getElements().size() == 1) {
-        getContext().createLineViolation(this, "Remove the name of this overqualified element.",
-          key.getElements().entrySet().iterator().next().getValue());
+        addLineIssue(this, "Remove the name of this overqualified element.", key.getElements().entrySet().iterator().next().getValue());
       }
     }
   }

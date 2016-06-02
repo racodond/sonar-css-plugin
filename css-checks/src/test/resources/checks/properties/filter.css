@@ -9,7 +9,7 @@
   filter: blur(1px) url(http://mybox.com);
   filter: blur(1px) url(http://mybox.com) url(http://mybox.com);
   filter: url(http://mybox.com) url(http://mybox.com) blur(1px);
-  filter: hello(); /* Noncompliant */
+  filter: hello(); /* Noncompliant !{Update the invalid value of property "filter". Expected format: none | [<uri> | <filter-function>]+}! */
   filter: blur(1px) hello(); /* Noncompliant */
   filter: none blur(1px); /* Noncompliant */
   filter: blur(1px) none blur(1px); /* Noncompliant */

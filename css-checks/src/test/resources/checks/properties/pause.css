@@ -1,7 +1,7 @@
 .mybox {
   pause: inherit;
   pause: 3s;
-  pause: -3s; /* Noncompliant */
+  pause: -3s; /* Noncompliant !{Update the invalid value of property "pause". Expected format: [ <time>(>=0) | <percentage&gt>(>=0) ]{1,2}}! */
   pause: 50.5%;
   pause: -50.5%; /* Noncompliant */
   pause: abc; /* Noncompliant */

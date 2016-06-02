@@ -33,7 +33,7 @@ public class Value {
 
   private List<CssValueElement> valueElements;
 
-  public Value(@Nonnull AstNode valueAstNode) {
+  public Value(AstNode valueAstNode) {
     valueElements = new ArrayList<>();
     if (valueAstNode.getChildren() != null) {
       for (AstNode valueElementNode : valueAstNode.getChildren()) {

@@ -22,20 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class ImportNumberThresholdTest {
 
   @Test
   public void test() {
-    ImportNumberThreshold check = new ImportNumberThreshold();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/importThreshold.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .withMessage("Reduce the number of @import. This sheet imports 32 other sheets, 1 more than the 31 maximum.")
-      .noMore();
+    CssCheckVerifier.verify(new ImportNumberThreshold(), new File("src/test/resources/checks/importThreshold.css"));
   }
 
 }

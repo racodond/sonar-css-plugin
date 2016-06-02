@@ -22,21 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class DisallowIdsInSelectorTest {
 
   @Test
   public void test() {
-    DisallowIdsInSelectors check = new DisallowIdsInSelectors();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/idsinselector.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(1).withMessage("Remove the ID in this selector").next()
-      .atLine(5).withMessage("Remove the ID in this selector")
-      .noMore();
+    CssCheckVerifier.verify(new DisallowIdsInSelectors(), new File("src/test/resources/checks/idsinselector.css"));
   }
 
 }

@@ -1,0 +1,8 @@
+/* Noncompliant ![sl=5]! */
+/* Noncompliant ![sl=6]! */
+/* Noncompliant ![sl=7]! */
+.mybox {
+    color: red; color: red; color: red; color: red;
+    color: red; color: red; color: red;
+    /* blabla blabla blabla blabla blabla */
+}

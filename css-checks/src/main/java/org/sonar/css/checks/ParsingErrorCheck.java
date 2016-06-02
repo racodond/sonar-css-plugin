@@ -27,12 +27,11 @@ import java.io.StringWriter;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.squidbridge.AstScannerExceptionHandler;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "S2260",
@@ -42,18 +41,18 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.INSTRUCTION_RELIABILITY)
 @SqaleConstantRemediation("30min")
-public class ParsingErrorCheck extends SquidCheck<LexerlessGrammar> implements AstScannerExceptionHandler {
+public class ParsingErrorCheck extends CssCheck implements AstScannerExceptionHandler {
 
   @Override
   public void processException(Exception e) {
     StringWriter exception = new StringWriter();
     e.printStackTrace(new PrintWriter(exception)); // NOSONAR
-    getContext().createFileViolation(this, exception.toString());
+    addFileIssue(this, exception.toString());
   }
 
   @Override
   public void processRecognitionException(RecognitionException e) {
-    getContext().createLineViolation(this, e.getMessage(), e.getLine());
+    addLineIssue(this, e.getMessage(), e.getLine());
   }
 
 }

@@ -23,11 +23,10 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.css.CssCheck;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.NoSqale;
 import org.sonar.squidbridge.annotations.RuleTemplate;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "property-regular-expression",
@@ -35,7 +34,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   priority = Priority.MAJOR)
 @RuleTemplate
 @NoSqale
-public class PropertyRegularExpressionCheck extends SquidCheck<LexerlessGrammar> {
+public class PropertyRegularExpressionCheck extends CssCheck {
 
   private static final String DEFAULT_REGULAR_EXPRESSION = "";
   private static final String DEFAULT_MESSAGE = "The regular expression matches this property.";
@@ -58,9 +57,9 @@ public class PropertyRegularExpressionCheck extends SquidCheck<LexerlessGrammar>
   }
 
   @Override
-  public void leaveNode(AstNode astNode) {
-    if (astNode.getTokenValue().matches(regularExpression)) {
-      getContext().createLineViolation(this, message, astNode);
+  public void leaveNode(AstNode propertyNode) {
+    if (propertyNode.getTokenValue().matches(regularExpression)) {
+      addIssue(this, message, propertyNode);
     }
   }
 

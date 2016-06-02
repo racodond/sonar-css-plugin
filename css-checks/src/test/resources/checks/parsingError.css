@@ -1,4 +1,4 @@
-/* Parsing error: property with no value */
+/* Noncompliant ![sl=3]! !{Parsing error.}! */
 .heart-icon {
   background: ;
 }

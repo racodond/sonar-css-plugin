@@ -20,26 +20,24 @@
 package org.sonar.css.checks;
 
 import java.io.File;
-import java.text.MessageFormat;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class SelectorNamingConventionCheckTest {
 
-  private static final String MESSAGE = "Rename selector {0} to match the regular expression: {1}";
-  private static final String FORMAT = "^[a-z][-a-z0-9]*$";
-  private SelectorNamingConventionCheck check = new SelectorNamingConventionCheck();
+  @Test
+  public void test_with_default_format() {
+    SelectorNamingConventionCheck check = new SelectorNamingConventionCheck();
+    check.setFormat("^[a-z][-a-z0-9]*$");
+    CssCheckVerifier.verify(check, new File("src/test/resources/checks/selectorNamingConvention.css"));
+  }
 
   @Test
-  public void should_find_some_badly_named_selectors_and_raise_issues() {
-    check.setFormat(FORMAT);
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/selectorNamingConvention.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(10).withMessage(MessageFormat.format(MESSAGE, "MYbOx", FORMAT)).next()
-      .atLine(13).withMessage(MessageFormat.format(MESSAGE, "ab_cd", FORMAT)).next()
-      .atLine(22).withMessage(MessageFormat.format(MESSAGE, "-rrr", FORMAT)).noMore();
+  public void test_with_custom_format() {
+    SelectorNamingConventionCheck check = new SelectorNamingConventionCheck();
+    check.setFormat("^[-a-z]+$");
+    CssCheckVerifier.verify(check, new File("src/test/resources/checks/selectorNamingConventionCustomFormat.css"));
   }
+
 }

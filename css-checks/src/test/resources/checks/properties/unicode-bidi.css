@@ -3,6 +3,6 @@
   unicode-bidi: embed;
   unicode-bidi: normal;
   unicode-bidi: bidi-override;
-  unicode-bidi: abc; /* Noncompliant */
+  unicode-bidi: abc; /* Noncompliant !{Update the invalid value of property "unicode-bidi". Expected format: normal | embed | bidi-override}! */
   unicode-bidi: 0.5; /* Noncompliant */
 }

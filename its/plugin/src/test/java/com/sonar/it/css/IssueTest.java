@@ -41,7 +41,6 @@ public class IssueTest {
   private static final String PROJECT_KEY = "metrics";
   private static final String FILE_NAME = "source1.css";
 
-
   @BeforeClass
   public static void init() {
     orchestrator.resetData();
@@ -58,7 +57,7 @@ public class IssueTest {
   }
 
   @Test
-  public void one_issue_for_export_one_function_per_line() {
+  public void one_issue_for_rule_zero_units() {
     List<Issue> issues = orchestrator.getServer().wsClient().issueClient().find(IssueQuery.create()).list();
 
     assertThat(issues).hasSize(1);
@@ -66,9 +65,8 @@ public class IssueTest {
     assertThat(issues.get(0).componentKey()).isEqualTo(keyFor(FILE_NAME));
   }
 
-  /* Helper methods */
-
   private static String keyFor(String s) {
-    return PROJECT_KEY + (orchestrator.getConfiguration().getSonarVersion().isGreaterThanOrEquals("4.2") ? ":src/" : ":") + s;
+    return PROJECT_KEY + ":src/" + s;
   }
+
 }

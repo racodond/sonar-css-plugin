@@ -22,24 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class InliningFontFilesTest {
 
-  private final static String MESSAGE = "Remove this inline font file.";
-
   @Test
-  public void should_find_some_inlined_font_files_and_raise_some_issues() {
-    SourceFile file = CssAstScanner.scanSingleFile(
-      new File("src/test/resources/checks/inliningFontFiles.css"),
-      new InliningFontFilesCheck());
-    CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(13).withMessage(MESSAGE)
-      .next().atLine(19).withMessage(MESSAGE)
-      .next().atLine(21).withMessage(MESSAGE)
-      .noMore();
+  public void test() {
+    CssCheckVerifier.verify(new InliningFontFilesCheck(), new File("src/test/resources/checks/inliningFontFiles.css"));
   }
 
 }

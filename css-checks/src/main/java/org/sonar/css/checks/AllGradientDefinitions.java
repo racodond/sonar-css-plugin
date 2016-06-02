@@ -29,12 +29,11 @@ import java.util.List;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-all-gradient-definitions
@@ -47,17 +46,17 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
-public class AllGradientDefinitions extends SquidCheck<LexerlessGrammar> {
+public class AllGradientDefinitions extends CssCheck {
 
-  private static List<String> gradients = ImmutableList.<String>of(
+  private static final List<String> GRADIENTS = ImmutableList.of(
     "-ms-(linear|radial)-gradient.*",
     "-moz-(linear|radial)-gradient.*",
     "-o-(linear|radial)-gradient.*",
     "-webkit-(linear|radial)-gradient.*",
     "-webkit-gradient.*");
 
-  private static String gradientMatcher = "-(ms|o|moz|webkit)-.*gradient.*";
-  private List<String> gradientsFound;
+  private static final String GRADIENT_MATCHER = "-(ms|o|moz|webkit)-.*gradient.*";
+  private List<String> missingGradients;
 
   @Override
   public void init() {
@@ -67,10 +66,10 @@ public class AllGradientDefinitions extends SquidCheck<LexerlessGrammar> {
   @Override
   public void visitNode(AstNode astNode) {
     if (astNode.is(CssGrammar.RULESET) || astNode.is(CssGrammar.AT_RULE)) {
-      gradientsFound = new ArrayList<>(gradients);
+      missingGradients = new ArrayList<>(GRADIENTS);
     } else if (astNode.is(CssGrammar.DECLARATION)) {
       String value = astNode.getFirstChild(CssGrammar.VALUE).getTokenValue();
-      if (value.matches(gradientMatcher)) {
+      if (value.matches(GRADIENT_MATCHER)) {
         removeMatch(value);
       }
     }
@@ -78,15 +77,23 @@ public class AllGradientDefinitions extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (astNode != null && astNode.is(CssGrammar.RULESET) && gradientsFound.size() != gradients.size()) {
-      for (String exptected : gradientsFound) {
-        getContext().createLineViolation(this, "Add missing gradient definition: " + exptected, astNode);
+    if (astNode.is(CssGrammar.RULESET) && !missingGradients.isEmpty() && missingGradients.size() != GRADIENTS.size()) {
+      StringBuilder message = new StringBuilder()
+        .append("Add missing gradient definitions: ")
+        .append(missingGradients.get(0));
+      for (int i = 1; i < missingGradients.size(); i++) {
+        message.append(", ").append(missingGradients.get(i));
       }
+      addIssue(
+        this,
+        message.toString(),
+        astNode.getFirstChild(CssGrammar.SELECTOR) != null ? astNode.getFirstChild(CssGrammar.SELECTOR)
+          : astNode.getFirstChild(CssGrammar.BLOCK).getFirstChild(CssGrammar.OPEN_CURLY_BRACE));
     }
   }
 
   private void removeMatch(String value) {
-    Iterator<String> gradientIt = gradientsFound.iterator();
+    Iterator<String> gradientIt = missingGradients.iterator();
     while (gradientIt.hasNext()) {
       if (value.matches(gradientIt.next())) {
         gradientIt.remove();

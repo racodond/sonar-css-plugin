@@ -3,9 +3,8 @@ h1 {
   color:red;
 }
 
-/* Unknown property: clr => Non-compliant */
 a {
-  clr:red;
+  clr:red; /* Noncompliant ![sc=3;ec=6;el=+0]! !{Remove the usage of this unknown "clr" property.}! */
 }
 
 /* Vendor-prefixed property: -moz- => Compliant */
@@ -23,16 +22,13 @@ a {
   _color:red;
 }
 
-/* Unknown property with '*' hack: clr => Non-compliant */
 a {
-  *clr:red;
+  *clr:red; /* Noncompliant ![sc=3;ec=7;el=+0]! !{Remove the usage of this unknown "clr" property.}! */
 }
 
-/* Unknown property with '_' hack: clr => Non-compliant */
 a {
-  _clr:red;
+  _clr:red;  /* Noncompliant ![sc=3;ec=7;el=+0]! !{Remove the usage of this unknown "clr" property.}! */
 }
-
 
 /* Known properties */
 .mybox {

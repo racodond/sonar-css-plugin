@@ -22,32 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class DisallowOverqualifiedElementsTest {
 
-  private static final String MESSAGE = "Remove the name of this overqualified element.";
-
   @Test
-  public void should_find_some_overqualified_elements_and_raise_some_issues() {
-    SourceFile file = CssAstScanner.scanSingleFile(
-      new File("src/test/resources/checks/overqualified.css"),
-      new DisallowOverqualifiedElements());
-    CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(1).withMessage(MESSAGE)
-      .next().atLine(5).withMessage(MESSAGE)
-      .next().atLine(25).withMessage(MESSAGE)
-      .noMore();
-  }
-
-  @Test
-  public void should_not_find_any_overqualified_elements_and_not_raise_any_issues() {
-    SourceFile file = CssAstScanner.scanSingleFile(
-      new File("src/test/resources/checks/duplicatedProperties.css"),
-      new DisallowOverqualifiedElements());
-    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
+  public void test() {
+    CssCheckVerifier.verify(new DisallowOverqualifiedElements(), new File("src/test/resources/checks/overqualified.css"));
   }
 
 }

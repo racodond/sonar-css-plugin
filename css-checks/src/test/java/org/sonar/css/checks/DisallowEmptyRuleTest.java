@@ -22,33 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class DisallowEmptyRuleTest {
 
   @Test
   public void test() {
-    DisallowEmptyRules check = new DisallowEmptyRules();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/emptyRule.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(5).withMessage("Remove this empty rule").next()
-      .atLine(7).withMessage("Remove this empty rule").next()
-      .atLine(11).withMessage("Remove this empty rule").next()
-      .atLine(16).withMessage("Remove this empty rule").next()
-      .atLine(17).withMessage("Remove this empty rule").next()
-      .atLine(18).withMessage("Remove this empty rule").next()
-      .atLine(19).withMessage("Remove this empty rule").noMore();
-  }
-
-  @Test
-  public void test2() {
-    DisallowEmptyRules check = new DisallowEmptyRules();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/boxSizing.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
+    CssCheckVerifier.verify(new DisallowEmptyRules(), new File("src/test/resources/checks/emptyRule.css"));
   }
 
 }

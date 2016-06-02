@@ -2,6 +2,6 @@
   clip-rule: inherit;
   clip-rule: nonzero;
   clip-rule: evenodd;
-  clip-rule: blabla; /* Noncompliant */
+  clip-rule: blabla; /* Noncompliant !{Update the invalid value of property "clip-rule". Expected format: nonzero | evenodd}! */
   clip-rule: 10px;  /* Noncompliant */
 }

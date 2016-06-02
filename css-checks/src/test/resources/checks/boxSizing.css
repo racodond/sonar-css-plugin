@@ -10,8 +10,8 @@
 h1 {
   color:red;
 }
-/* width and border */
-.mybox {
+/* Not compliant: width and border */
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0]! !{Check this potential box model size issue.}! */
     border: 1px solid black;
     width: 100px;
 }
@@ -29,8 +29,8 @@ h1 {
     width: 100px;
 }
 
-/* height and padding */
-.mybox {
+/* Not compliant: height and padding */
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0]! !{Check this potential box model size issue.}! */
     height: 100px;
     padding: 10px;
 }
@@ -41,14 +41,14 @@ h1 {
     height: 100px;
 }
 
-/* Noncompliant: 'border' and 'height' */
-.mybox {
+/* Not compliant: 'border' and 'height' */
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0]! !{Check this potential box model size issue.}! */
   border: 10px;
   height: 100px;
 }
 
-/* Noncompliant: 'border' and 'width' */
-.mybox {
+/* Not compliant: 'border' and 'width' */
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0]! !{Check this potential box model size issue.}! */
   border: 10px;
   width: 100px;
 }
@@ -95,14 +95,14 @@ h1 {
   width: 100px;
 }
 
-/* Noncompliant: 'padding' and 'width'*/
-.mybox {
+/* Not compliant: 'padding' and 'width'*/
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0]! !{Check this potential box model size issue.}! */
   padding: 0px 10px;
   width: 100px;
 }
 
-/* Noncompliant: 'border' and 'width'*/
-.mybox {
+/* Not compliant: 'border' and 'width'*/
+{ /* Noncompliant ![sc=1;ec=2;el=+0]! !{Check this potential box model size issue.}! */
   border: 0px medium;
   width: 100px;
 }

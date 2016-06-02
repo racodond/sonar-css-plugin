@@ -1,0 +1,7 @@
+.mybox {
+  marker-start: inherit;
+  marker-start: none;
+  marker-start: url("abc");
+  marker-start: url; /* Noncompliant !{Update the invalid value of property "marker-start". Expected format: none | <uri>}! */
+  marker-start: 10px; /* Noncompliant */
+}

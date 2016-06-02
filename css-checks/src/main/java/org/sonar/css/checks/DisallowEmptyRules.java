@@ -24,12 +24,11 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Disallow-empty-rules
@@ -42,15 +41,14 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
-public class DisallowEmptyRules extends SquidCheck<LexerlessGrammar> {
+public class DisallowEmptyRules extends CssCheck {
 
   private static final ImmutableList<String> AT_RULES_NOT_REQUIRING_DECLARATION_BLOCK = ImmutableList.of(
     "charset",
     "custom-media",
     "import",
     "namespace",
-    "viewport"
-    );
+    "viewport");
 
   int counter = 0;
 
@@ -71,13 +69,12 @@ public class DisallowEmptyRules extends SquidCheck<LexerlessGrammar> {
   @Override
   public void leaveNode(AstNode astNode) {
     if (counter == 0 && (astNode.is(CssGrammar.RULESET) || isAtRuleRequiringBlock(astNode))) {
-      getContext().createLineViolation(this, "Remove this empty rule", astNode);
+      addIssue(this, "Remove this empty rule.", astNode);
     }
   }
 
   private boolean isAtRuleRequiringBlock(AstNode astNode) {
     return astNode.is(CssGrammar.AT_RULE)
-      && !AT_RULES_NOT_REQUIRING_DECLARATION_BLOCK.contains(astNode.getFirstChild(CssGrammar.AT_KEYWORD).getFirstChild(CssGrammar
-        .IDENT).getTokenValue());
+      && !AT_RULES_NOT_REQUIRING_DECLARATION_BLOCK.contains(astNode.getFirstChild(CssGrammar.AT_KEYWORD).getFirstChild(CssGrammar.IDENT).getTokenValue().toLowerCase());
   }
 }

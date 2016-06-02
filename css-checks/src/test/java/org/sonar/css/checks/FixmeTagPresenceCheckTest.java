@@ -22,32 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class FixmeTagPresenceCheckTest {
 
-  private final static String MESSAGE = "Take the required action to fix the issue indicated by this comment.";
-  private FixmeTagPresenceCheck check = new FixmeTagPresenceCheck();
-
   @Test
-  public void should_contain_fixme_tags_and_raise_issues() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/fixmeTagPresence.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(1).withMessage(MESSAGE).next()
-      .atLine(6).withMessage(MESSAGE).next()
-      .atLine(11).withMessage(MESSAGE).next()
-      .atLine(19).withMessage(MESSAGE).next()
-      .atLine(24).withMessage(MESSAGE).next()
-      .atLine(25).withMessage(MESSAGE).next()
-      .atLine(32).withMessage(MESSAGE).noMore();
-  }
-
-  @Test
-  public void should_not_contain_fixme_tags_and_not_raise_issues() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/emptyRule.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
+  public void test() {
+    CssCheckVerifier.verify(new FixmeTagPresenceCheck(), new File("src/test/resources/checks/fixmeTagPresence.css"));
   }
 
 }

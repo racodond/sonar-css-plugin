@@ -23,14 +23,13 @@ import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.model.Property;
 import org.sonar.css.model.property.UnknownProperty;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-standard-property-with-vendor-prefix
@@ -43,7 +42,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
-public class VendorPrefixWithStandard extends SquidCheck<LexerlessGrammar> {
+public class VendorPrefixWithStandard extends CssCheck {
 
   @Override
   public void init() {
@@ -51,11 +50,14 @@ public class VendorPrefixWithStandard extends SquidCheck<LexerlessGrammar> {
   }
 
   @Override
-  public void leaveNode(AstNode astNode) {
-    Property property = new Property(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue());
+  public void leaveNode(AstNode declarationNode) {
+    Property property = new Property(declarationNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue());
     if (!(property.getStandardProperty() instanceof UnknownProperty) && property.isVendorPrefixed()) {
-      if (!isNonPrefixedPropertyDefined(astNode, property)) {
-        getContext().createLineViolation(this, "Define the standard property after this vendor-prefixed property.", astNode);
+      if (!isNonPrefixedPropertyDefined(declarationNode, property)) {
+        addIssue(
+          this,
+          "Define the standard property after this vendor-prefixed property.",
+          declarationNode.getFirstChild(CssGrammar.PROPERTY));
       }
     }
   }

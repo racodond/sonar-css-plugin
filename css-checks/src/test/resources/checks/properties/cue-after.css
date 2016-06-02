@@ -1,0 +1,7 @@
+.mybox {
+  cue-after: inherit;
+  cue-after: none;
+  cue-after: url(http://mybox.com);
+  cue-after: abc; /* Noncompliant !{Update the invalid value of property "cue-after". Expected format: <uri> | none}! */
+  cue-after: 10px; /* Noncompliant */
+}

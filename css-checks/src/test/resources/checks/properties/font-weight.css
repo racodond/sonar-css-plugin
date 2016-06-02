@@ -13,6 +13,6 @@
   font-weight: 700;
   font-weight: 800;
   font-weight: 900;
-  font-weight: abc; /* Noncompliant */
+  font-weight: abc; /* Noncompliant !{Update the invalid value of property "font-weight". Expected format: normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900}! */
   font-weight: 150; /* Noncompliant */
 }

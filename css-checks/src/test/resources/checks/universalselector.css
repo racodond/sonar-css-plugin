@@ -1,13 +1,17 @@
-* {
-    color: red;
+* { /* Noncompliant ![sc=1;ec=2;el=+0]! !{Remove this usage of the universal selector as key part.}! */
+  color: red;
 }
 
-.selected * {
-    color: red;
+  * { /* Noncompliant ![sc=3;ec=4;el=+0]! !{Remove this usage of the universal selector as key part.}! */
+  color: red;
 }
 
-/* universal selector is not key */
+.selected * { /* Noncompliant ![sc=11;ec=12;el=+0]! !{Remove this usage of the universal selector as key part.}! */
+  color: red;
+}
+
+/* Compliant: Universal selector is not key */
 .selected * a {
-    color: red;
+  color: red;
 }
 

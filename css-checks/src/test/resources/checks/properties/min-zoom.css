@@ -3,7 +3,7 @@
   min-zoom: auto;
   min-zoom: 10%;
   min-zoom: 10;
-  min-zoom: -10; /* Noncompliant */
+  min-zoom: -10; /* Noncompliant !{Update the invalid value of property "min-zoom". Expected format: auto | <percentage>(>=0) | <number>(>=0)}! */
   min-zoom: -10%; /* Noncompliant */
   min-zoom: abc; /* Noncompliant */
   min-zoom: 10px; /* Noncompliant */

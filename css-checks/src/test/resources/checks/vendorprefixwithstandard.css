@@ -1,16 +1,16 @@
-/* missing standard property */
+/* Compliant: Both vendor-prefix and standard property */
 .mybox {
-    -moz-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
 
-/* both vendor-prefix and standard property */
+/* Missing standard property */
 .mybox {
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+  -moz-border-radius: 5px; /* Noncompliant ![sc=3;ec=21;el=+0]! !{Define the standard property after this vendor-prefixed property.}! */
 }
 
-/* standard property should come after vendor-prefixed property */
+/* Standard property should come after vendor-prefixed property */
 .mybox {
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px; /* Noncompliant ![sc=3;ec=24;el=+0]! !{Define the standard property after this vendor-prefixed property.}! */
 }

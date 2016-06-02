@@ -2,7 +2,7 @@
   perspective: inherit;
   perspective: none;
   perspective: 10px;
-  perspective: -10px; /* Noncompliant */
+  perspective: -10px; /* Noncompliant !{Update the invalid value of property "perspective". Expected format: none | <length>(>=0)}! */
   perspective: abc; /* Noncompliant */
   perspective: 10; /* Noncompliant */
 }

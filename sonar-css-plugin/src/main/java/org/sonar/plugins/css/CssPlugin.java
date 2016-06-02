@@ -44,14 +44,9 @@ public class CssPlugin extends SonarPlugin {
   public ImmutableList getExtensions() {
     return ImmutableList.of(
       Css.class,
-
       SonarComponents.class,
       CssSquidSensor.class,
-
       CssCpdMapping.class,
-
-      CssCommonRulesEngine.class,
-      CssCommonRulesDecorator.class,
       CssProfile.class,
       CssRulesDefinition.class);
   }

@@ -3,7 +3,7 @@
   stroke-linecap: butt;
   stroke-linecap: round;
   stroke-linecap: square;
-  stroke-linecap: 100%; /* Noncompliant */
+  stroke-linecap: 100%; /* Noncompliant !{Update the invalid value of property "stroke-linecap". Expected format: butt | round | square}! */
   stroke-linecap: 10px; /* Noncompliant */
   stroke-linecap: 10; /* Noncompliant */
   stroke-linecap: abc; /* Noncompliant */

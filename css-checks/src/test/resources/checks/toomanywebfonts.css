@@ -1,42 +1,41 @@
-@font-face {
-    font-family: 'MyFontFamily1';
+/* Noncompliant ![sl=0;secondary=3,11,19,27,35]! !{Reduce the number of web fonts. The number of @font-face is 5 greater than 3 authorized.}! */
 
-    /* First web font is missing query string */
-    src: url('myfont-webfont.eot') format('embedded-opentype'),
-        url('myfont-webfont.woff') format('woff'),
-        url('myfont-webfont.ttf')  format('truetype'),
-        url('myfont-webfont.svg#svgFontName') format('svg');
+@font-face {
+  font-family: 'MyFontFamily1';
+  src: url('myfont-webfont.eot') format('embedded-opentype'),
+       url('myfont-webfont.woff') format('woff'),
+       url('myfont-webfont.ttf')  format('truetype'),
+       url('myfont-webfont.svg#svgFontName') format('svg');
 }
 
 @font-face {
-    font-family: 'MyFontFamily2';
-    src: url('myfont-webfont.eot?#iefix') format('embedded-opentype'),
-        url('myfont-webfont.woff') format('woff'),
-        url('myfont-webfont.ttf')  format('truetype'),
-        url('myfont-webfont.svg#svgFontName') format('svg');
+  font-family: 'MyFontFamily2';
+  src: url('myfont-webfont.eot?#iefix') format('embedded-opentype'),
+       url('myfont-webfont.woff') format('woff'),
+       url('myfont-webfont.ttf')  format('truetype'),
+       url('myfont-webfont.svg#svgFontName') format('svg');
 }
 
 @font-face {
-    font-family: 'MyFontFamily3';
-    src: url('myfont-webfont.woff?#wohoo') format('woff'),
-	url('myfont-webfont.eot?#iefix') format('embedded-opentype'),
-        url('myfont-webfont.ttf')  format('truetype'),
-        url('myfont-webfont.svg#svgFontName') format('svg');
+  font-family: 'MyFontFamily3';
+  src: url('myfont-webfont.woff?#wohoo') format('woff'),
+       url('myfont-webfont.eot?#iefix') format('embedded-opentype'),
+       url('myfont-webfont.ttf')  format('truetype'),
+       url('myfont-webfont.svg#svgFontName') format('svg');
 }
 
 @font-face {
-    font-family: 'MyFontFamily4';
-    src: url('myfont-webfont.woff?#wohoo') format('woff'),
-	url('myfont-webfont.eot?#iefix') format('embedded-opentype'),
-        url('myfont-webfont.ttf')  format('truetype'),
-        url('myfont-webfont.svg#svgFontName') format('svg');
+  font-family: 'MyFontFamily4';
+  src: url('myfont-webfont.woff?#wohoo') format('woff'),
+       url('myfont-webfont.eot?#iefix') format('embedded-opentype'),
+       url('myfont-webfont.ttf')  format('truetype'),
+       url('myfont-webfont.svg#svgFontName') format('svg');
 }
 
 @font-face {
-    font-family: 'MyFontFamily5';
-    src: url('myfont-webfont.woff?#wohoo') format('woff'),
-	url('myfont-webfont.eot?#iefix') format('embedded-opentype'),
-        url('myfont-webfont.ttf')  format('truetype'),
-        url('myfont-webfont.svg#svgFontName') format('svg');
+  font-family: 'MyFontFamily5';
+  src: url('myfont-webfont.woff?#wohoo') format('woff'),
+       url('myfont-webfont.eot?#iefix') format('embedded-opentype'),
+       url('myfont-webfont.ttf')  format('truetype'),
+       url('myfont-webfont.svg#svgFontName') format('svg');
 }
-

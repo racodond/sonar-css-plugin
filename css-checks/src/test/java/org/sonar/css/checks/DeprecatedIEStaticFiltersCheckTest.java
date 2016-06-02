@@ -22,25 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class DeprecatedIEStaticFiltersCheckTest {
 
-  private DeprecatedIEStaticFiltersCheck check = new DeprecatedIEStaticFiltersCheck();
-
   @Test
-  public void should_contain_ie_static_filters_and_raise_issues() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/ieStaticFilters.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(2).withMessage("Remove this usage of the \"alpha\" Internet Explorer static filter.").noMore();
-  }
-
-  @Test
-  public void should_not_contain_ie_static_filters_and_not_raise_issues() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/emptyRule.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
+  public void test() {
+    CssCheckVerifier.verify(new DeprecatedIEStaticFiltersCheck(), new File("src/test/resources/checks/ieStaticFilters.css"));
   }
 
 }

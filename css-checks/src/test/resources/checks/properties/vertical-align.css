@@ -15,6 +15,6 @@
   vertical-align: -10%;
   vertical-align: 10px;
   vertical-align: -10px;
-  vertical-align: abc; /* Noncompliant */
+  vertical-align: abc; /* Noncompliant !{Update the invalid value of property "vertical-align". Expected format: auto | use-script | baseline | sub | super | top | text-top | central | middle | bottom | text-bottom | <percentage> | <length>}! */
   vertical-align: 10; /* Noncompliant */
 }

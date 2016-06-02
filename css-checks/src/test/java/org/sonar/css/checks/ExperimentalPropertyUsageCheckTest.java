@@ -22,43 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class ExperimentalPropertyUsageCheckTest {
 
-  private final static String MESSAGE = "Remove the usage of this experimental property.";
-  private ExperimentalPropertyUsageCheck check = new ExperimentalPropertyUsageCheck();
-
   @Test
-  public void should_contain_experimental_properties_and_raise_issues() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/experimentalPropertyUsage.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(2).withMessage(MESSAGE)
-      .next().atLine(7).withMessage(MESSAGE)
-      .next().atLine(11).withMessage(MESSAGE)
-      .next().atLine(12).withMessage(MESSAGE)
-      .next().atLine(13).withMessage(MESSAGE)
-      .next().atLine(14).withMessage(MESSAGE)
-      .next().atLine(15).withMessage(MESSAGE)
-      .next().atLine(16).withMessage(MESSAGE)
-      .next().atLine(17).withMessage(MESSAGE)
-      .next().atLine(18).withMessage(MESSAGE)
-      .next().atLine(19).withMessage(MESSAGE)
-      .next().atLine(20).withMessage(MESSAGE)
-      .next().atLine(21).withMessage(MESSAGE)
-      .next().atLine(22).withMessage(MESSAGE)
-      .next().atLine(23).withMessage(MESSAGE)
-      .next().atLine(24).withMessage(MESSAGE)
-      .next().atLine(25).withMessage(MESSAGE)
-      .noMore();
-  }
-
-  @Test
-  public void should_not_contain_experimental_properties_and_not_raise_issues() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/emptyRule.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
+  public void test() {
+    CssCheckVerifier.verify(new ExperimentalPropertyUsageCheck(), new File("src/test/resources/checks/experimentalPropertyUsage.css"));
   }
 
 }

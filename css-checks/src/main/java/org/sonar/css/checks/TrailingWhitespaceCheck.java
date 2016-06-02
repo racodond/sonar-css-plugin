@@ -28,14 +28,12 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.api.utils.SonarException;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.CharsetAwareVisitor;
+import org.sonar.css.CssCheck;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "S1131",
@@ -44,7 +42,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   tags = {Tags.FORMAT})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("1min")
-public class TrailingWhitespaceCheck extends SquidCheck<LexerlessGrammar> implements CharsetAwareVisitor {
+public class TrailingWhitespaceCheck extends CssCheck implements CharsetAwareVisitor {
 
   private static final String WHITESPACE = "\\t\\u000B\\f\\u0020\\u00A0\\uFEFF\\p{Zs}";
   private Charset charset;
@@ -60,12 +58,12 @@ public class TrailingWhitespaceCheck extends SquidCheck<LexerlessGrammar> implem
     try {
       lines = Files.readLines(getContext().getFile(), charset);
     } catch (IOException e) {
-      throw new SonarException(e);
+      throw new IllegalStateException("Rule S1131 - cannot read file", e);
     }
     for (int i = 0; i < lines.size(); i++) {
       String line = lines.get(i);
       if (line.length() > 0 && Pattern.matches("[" + WHITESPACE + "]", line.subSequence(line.length() - 1, line.length()))) {
-        getContext().createLineViolation(this, "Remove the useless trailing whitespaces at the end of this line.", i + 1);
+        addLineIssue(this, "Remove the useless trailing whitespaces at the end of this line.", i + 1);
       }
     }
   }

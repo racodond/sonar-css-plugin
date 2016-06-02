@@ -24,6 +24,8 @@ import javax.annotation.Nonnull;
 import org.sonar.css.model.function.StandardFunction;
 import org.sonar.css.model.function.StandardFunctionFactory;
 
+import java.util.Locale;
+
 public class Function {
 
   private final String fullName;
@@ -34,10 +36,6 @@ public class Function {
     this.fullName = fullName;
     this.vendorPrefix = setVendorPrefix();
     this.standardFunction = setStandardFunction();
-  }
-
-  public Vendor getVendorPrefix() {
-    return vendorPrefix;
   }
 
   public boolean isVendorPrefixed() {
@@ -51,7 +49,7 @@ public class Function {
 
   private Vendor setVendorPrefix() {
     for (Vendor vendor : Vendor.values()) {
-      if (fullName.startsWith(vendor.getPrefix())) {
+      if (fullName.toLowerCase(Locale.ENGLISH).startsWith(vendor.getPrefix())) {
         return vendor;
       }
     }

@@ -1,5 +1,7 @@
+/* Noncompliant ![sl=0;effortToFix=2;secondary=2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34]! !{Reduce the number of @import rules. This sheet imports 33 other sheets, 2 more than the 31 maximum allowed.}! */
 @import url(more.css);
-@import url(andmore.css);
+@import url(more.css);
+@import url(more.css);
 @import url(more.css);
 @import url(more.css);
 @import url(more.css);

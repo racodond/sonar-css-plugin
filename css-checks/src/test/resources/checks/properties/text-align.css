@@ -8,6 +8,6 @@
   text-align: justify;
   text-align: match-parent;
   text-align: justify-all;
-  text-align: abc; /* Noncompliant */
+  text-align: abc; /* Noncompliant !{Update the invalid value of property "text-align". Expected format: start | end | left | right | center | justify | match-parent | justify-all}! */
   text-align: 10; /* Noncompliant */
 }

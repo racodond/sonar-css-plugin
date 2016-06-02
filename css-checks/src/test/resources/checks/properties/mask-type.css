@@ -2,7 +2,7 @@
   mask-type: inherit;
   mask-type: luminance;
   mask-type: alpha;
-  mask-type: abc; /* Noncompliant */
+  mask-type: abc; /* Noncompliant !{Update the invalid value of property "mask-type". Expected format: luminance | alpha}! */
   mask-type: 10px; /* Noncompliant */
   mask-type: 10; /* Noncompliant */
 }

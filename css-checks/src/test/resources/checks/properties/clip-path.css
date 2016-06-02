@@ -2,7 +2,7 @@
   clip-path: inherit;
   clip-path: none;
   clip-path: url("abc");
-  clip-path: url; /* Noncompliant */
+  clip-path: url; /* Noncompliant !{Update the invalid value of property "clip-path". Expected format: none | <uri>}! */
   clip-path: 10%; /* Noncompliant */
   clip-path: 10px; /* Noncompliant */
 }

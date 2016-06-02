@@ -22,13 +22,14 @@ package org.sonar.css.ast.visitors;
 import java.io.File;
 import javax.annotation.CheckForNull;
 
-import org.sonar.api.BatchExtension;
+import org.sonar.api.batch.BatchSide;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.component.ResourcePerspectives;
 import org.sonar.api.source.Highlightable;
 
-public class SonarComponents implements BatchExtension {
+@BatchSide
+public class SonarComponents {
 
   private final ResourcePerspectives resourcePerspectives;
   private final FileSystem fs;

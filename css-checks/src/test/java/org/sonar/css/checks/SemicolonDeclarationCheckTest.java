@@ -22,24 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class SemicolonDeclarationCheckTest {
 
-  private final static String MESSAGE = "Add a semicolon at the end of this declaration";
-  private SemicolonDeclarationCheck check = new SemicolonDeclarationCheck();
-
   @Test
-  public void should_find_missing_semicolons_at_the_end_of_some_declarations() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/semicolonDeclaration.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(18).withMessage(MESSAGE).next()
-      .atLine(24).withMessage(MESSAGE).next()
-      .atLine(31).withMessage(MESSAGE).next()
-      .atLine(46).withMessage(MESSAGE).next()
-      .atLine(54).withMessage(MESSAGE).noMore();
+  public void test() {
+    CssCheckVerifier.verify(new SemicolonDeclarationCheck(), new File("src/test/resources/checks/semicolonDeclaration.css"));
   }
 
 }

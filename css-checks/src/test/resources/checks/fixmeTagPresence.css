@@ -1,13 +1,14 @@
-/* FIXME: blabla */
+/* FIXME: blabla */ /* Noncompliant */
 h1 {
   color: green;
 }
 
-/* [FIXME] blabla */
+/* [FIXME] blabla */ /* Noncompliant */
 h1 {
   color: green;
 }
 
+ /* Noncompliant ![sl=12]! */
 /* FIXME:
     - blabla
     - ...
@@ -16,11 +17,13 @@ h1 {
   color: green;
 }
 
-/* fixme: blabla */
+/* fixme: blabla */ /* Noncompliant */
 h1 {
   color: green;
 }
 
+/* Noncompliant ![sl=27]! */
+/* Noncompliant ![sl=27]! */
 /* fixme:
    fixme
 */
@@ -29,7 +32,7 @@ h1 {
 }
 
 h1 {
-  color: green; /* FIXME: blabla */
+  color: green; /* FIXME: blabla */ /* Noncompliant */
 }
 
 /* fixmeforthefirsttime */

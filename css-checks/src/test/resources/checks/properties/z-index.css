@@ -4,6 +4,6 @@
   z-index: -10;
   z-index: 0;
   z-index: 10;
-  z-index: abc; /* Noncompliant */
+  z-index: abc; /* Noncompliant !{Update the invalid value of property "z-index". Expected format: auto | <integer>}! */
   z-index: 10.5; /* Noncompliant */
 }

@@ -21,8 +21,6 @@ package org.sonar.css.model.function;
 
 import java.util.Locale;
 
-import org.sonar.css.model.property.StandardProperty;
-
 public class UnknownFunction extends StandardFunction {
 
   public UnknownFunction(String functionName) {

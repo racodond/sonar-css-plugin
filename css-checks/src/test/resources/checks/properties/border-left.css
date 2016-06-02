@@ -1,0 +1,12 @@
+.mybox {
+  border-left: inherit;
+  border-left: dotted;
+  border-left: dotted thin;
+  border-left: dotted thin green;
+  border-left: thin green;
+  border-left: 10px green;
+  border-left: rgb(25,25,25) 10px;
+  border-left: dotted thin green green; /* Noncompliant !{Update the invalid value of property "border-left". Expected format: <border-width> || <border-style> || <color>}! */
+  border-left: dotted abc green; /* Noncompliant */
+  border-left: dotted -10px green; /* Noncompliant */
+}

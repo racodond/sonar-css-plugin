@@ -24,11 +24,10 @@ import com.sonar.sslr.api.Token;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "nosonar",
@@ -37,7 +36,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.INSTRUCTION_RELIABILITY)
 @SqaleConstantRemediation("1min")
 @ActivatedByDefault
-public class NosonarTagPresenceCheck extends SquidCheck<LexerlessGrammar> implements AstAndTokenVisitor {
+public class NosonarTagPresenceCheck extends CssCheck implements AstAndTokenVisitor {
 
   private static final String PATTERN = "NOSONAR";
   private static final String MESSAGE = "Is NOSONAR used to exclude false positive or to hide real quality flaw?";

@@ -6,6 +6,6 @@
   border-style: dotted dotted dotted dotted;
   border-style: dotted dotted dotted dotted dotted; /* Noncompliant */
   border-style: dashed solid double dotted;
-  border-style: 10; /* Noncompliant */
+  border-style: 10; /* Noncompliant !{Update the invalid value of property "border-style". Expected format: <border-style>{1,4}}! */
   border-style: 10px; /* Noncompliant */
 }

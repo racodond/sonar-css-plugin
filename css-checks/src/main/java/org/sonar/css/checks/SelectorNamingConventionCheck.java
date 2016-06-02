@@ -19,17 +19,20 @@
  */
 package org.sonar.css.checks;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.sonar.sslr.api.AstNode;
+
+import java.text.MessageFormat;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.css.CssCheck;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "selector-naming-convention",
@@ -39,7 +42,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
-public class SelectorNamingConventionCheck extends SquidCheck<LexerlessGrammar> {
+public class SelectorNamingConventionCheck extends CssCheck {
 
   private static final String DEFAULT_FORMAT = "^[a-z][-a-z0-9]*$";
   @RuleProperty(
@@ -54,13 +57,16 @@ public class SelectorNamingConventionCheck extends SquidCheck<LexerlessGrammar> 
   }
 
   @Override
-  public void leaveNode(AstNode astNode) {
-    if (!astNode.getFirstChild(CssGrammar.identNoWS).getTokenValue().matches(format)) {
-      getContext().createLineViolation(this, "Rename selector {0} to match the regular expression: {1}", astNode,
-        astNode.getFirstChild(CssGrammar.identNoWS).getTokenValue(), format);
+  public void leaveNode(AstNode selectorNode) {
+    if (!selectorNode.getFirstChild(CssGrammar.identNoWS).getTokenValue().matches(format)) {
+      addIssue(
+        this,
+        MessageFormat.format("Rename selector \"{0}\" to match the regular expression: {1}", selectorNode.getFirstChild(CssGrammar.identNoWS).getTokenValue(), format),
+        selectorNode.getFirstChild(CssGrammar.identNoWS));
     }
   }
 
+  @VisibleForTesting
   public void setFormat(String format) {
     this.format = format;
   }

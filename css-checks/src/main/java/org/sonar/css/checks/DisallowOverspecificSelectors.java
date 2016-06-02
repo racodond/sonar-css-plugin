@@ -19,17 +19,23 @@
  */
 package org.sonar.css.checks;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.sonar.sslr.api.AstNode;
+
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.css.CssCheck;
+import org.sonar.css.issue.PreciseIssue;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "overspecific-selectors",
@@ -39,7 +45,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_CHANGEABILITY)
 @SqaleConstantRemediation("2h")
 @ActivatedByDefault
-public class DisallowOverspecificSelectors extends SquidCheck<LexerlessGrammar> {
+public class DisallowOverspecificSelectors extends CssCheck {
 
   private static final int DEFAULT_NUM_LEVELS = 3;
 
@@ -49,7 +55,7 @@ public class DisallowOverspecificSelectors extends SquidCheck<LexerlessGrammar> 
     defaultValue = "" + DEFAULT_NUM_LEVELS)
   private int deepnessThreshold = DEFAULT_NUM_LEVELS;
 
-  private int deepness;
+  private List<AstNode> selectors;
 
   @Override
   public void init() {
@@ -59,19 +65,26 @@ public class DisallowOverspecificSelectors extends SquidCheck<LexerlessGrammar> 
   @Override
   public void visitNode(AstNode astNode) {
     if (astNode.is(CssGrammar.SUB_SELECTOR)) {
-      deepness = 0;
+      selectors = new ArrayList<>();
     } else {
-      deepness++;
+      selectors.add(astNode);
     }
   }
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (astNode.is(CssGrammar.SUB_SELECTOR) && deepness > deepnessThreshold) {
-      getContext().createLineViolation(this, "Simplify this over-specified selector", astNode);
+    if (astNode.is(CssGrammar.SUB_SELECTOR) && selectors.size() > deepnessThreshold) {
+      PreciseIssue issue = addIssue(
+        this,
+        MessageFormat.format("Simplify this over-specified selector. Maximum allowed depth: {0}. Actual depth: {1}", deepnessThreshold, selectors.size()),
+        astNode);
+      for (int i = 0; i < selectors.size(); i++) {
+        issue.addSecondaryLocation("+1", selectors.get(i));
+      }
     }
   }
 
+  @VisibleForTesting
   public void setDeepnessThreshold(int deepnessThreshold) {
     this.deepnessThreshold = deepnessThreshold;
   }

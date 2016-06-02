@@ -4,7 +4,7 @@
   text-justify: none;
   text-justify: inter-word;
   text-justify: inter-character;
-  text-justify: abc; /* Noncompliant */
+  text-justify: abc; /* Noncompliant !{Update the invalid value of property "text-justify". Expected format: auto | none | inter-word | inter-character}! */
   text-justify: 10px; /* Noncompliant */
   text-justify: 10; /* Noncompliant */
 }

@@ -28,11 +28,10 @@ import javax.annotation.Nonnull;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.CssCheck;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 /*
  * See http://bramstein.com/writing/web-font-anti-patterns-inlining.html
@@ -44,7 +43,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   tags = {Tags.PERFORMANCE})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.CPU_EFFICIENCY)
 @SqaleConstantRemediation("1h")
-public class InliningFontFilesCheck extends SquidCheck<LexerlessGrammar> {
+public class InliningFontFilesCheck extends CssCheck {
 
   private static final Pattern BASE64_PATTERN = Pattern.compile(".*base64.*");
 
@@ -59,7 +58,7 @@ public class InliningFontFilesCheck extends SquidCheck<LexerlessGrammar> {
       && "font-face".equals(getAtRuleIdentifier(uriContentNode.getFirstAncestor(CssGrammar.AT_RULE)))) {
       for (Token uriContentToken : uriContentNode.getTokens()) {
         if (BASE64_PATTERN.matcher(uriContentToken.getValue()).matches()) {
-          getContext().createLineViolation(this, "Remove this inline font file.", uriContentNode);
+          addIssue(this, "Remove this inline font file.", uriContentNode);
         }
       }
     }

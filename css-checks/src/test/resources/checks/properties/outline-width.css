@@ -4,6 +4,6 @@
   outline-width: medium;
   outline-width: thick;
   outline-width: 10px;
-  outline-width: -10px; /* Noncompliant */
+  outline-width: -10px; /* Noncompliant !{Update the invalid value of property "outline-width". Expected format: thin | medium | thick | <length>(>=0)}! */
   outline-width: abc; /* Noncompliant */
 }

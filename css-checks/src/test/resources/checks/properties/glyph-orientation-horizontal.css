@@ -1,6 +1,6 @@
 .mybox {
   glyph-orientation-horizontal: inherit;
   glyph-orientation-horizontal: 90deg;
-  glyph-orientation-horizontal: abc; /* Noncompliant */
+  glyph-orientation-horizontal: abc; /* Noncompliant !{Update the invalid value of property "glyph-orientation-horizontal". Expected format: <angle>}! */
   glyph-orientation-horizontal: 0.5; /* Noncompliant */
 }

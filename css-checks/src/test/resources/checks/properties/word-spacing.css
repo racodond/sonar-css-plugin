@@ -3,6 +3,6 @@
   word-spacing: normal;
   word-spacing: 10px;
   word-spacing: 10cm;
-  word-spacing: abc; /* Noncompliant */
+  word-spacing: abc; /* Noncompliant !{Update the invalid value of property "word-spacing". Expected format: normal | <length>}! */
   word-spacing: 10; /* Noncompliant */
 }

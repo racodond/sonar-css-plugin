@@ -6,7 +6,7 @@
   flood-color: #F03;
   flood-color: #ff0033;
   flood-color: #FF0033;
-  flood-color: #GF0033; /* Noncompliant */
+  flood-color: #GF0033; /* Noncompliant !{Update the invalid value of property "flood-color". Expected format: <color>}! */
   flood-color: #FF04033; /* Noncompliant */
   flood-color: abc; /* Noncompliant */
   flood-color: rgb(255, 0,51);

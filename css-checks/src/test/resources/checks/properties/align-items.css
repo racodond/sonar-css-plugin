@@ -5,6 +5,6 @@
   align-items: center;
   align-items: baseline;
   align-items: stretch;
-  align-items: abc; /* Noncompliant */
+  align-items: abc; /* Noncompliant !{Update the invalid value of property "align-items". Expected format: flex-start | flex-end | center | baseline | stretch}! */
   align-items: 10; /* Noncompliant */
 }

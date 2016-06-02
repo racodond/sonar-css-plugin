@@ -2,7 +2,7 @@
   backface-visibility: inherit;
   backface-visibility: visible;
   backface-visibility: hidden;
-  backface-visibility: 10px; /* Noncompliant */
+  backface-visibility: 10px; /* Noncompliant !{Update the invalid value of property "backface-visibility". Expected format: visible | hidden}! */
   backface-visibility: 10; /* Noncompliant */
   backface-visibility: abc; /* Noncompliant */
 }

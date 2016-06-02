@@ -6,6 +6,6 @@
   align-self: center;
   align-self: baseline;
   align-self: stretch;
-  align-self: abc; /* Noncompliant */
+  align-self: abc; /* Noncompliant !{Update the invalid value of property "align-self". Expected format: auto | flex-start | flex-end | center | baseline | stretch}! */
   align-self: 10; /* Noncompliant */
 }

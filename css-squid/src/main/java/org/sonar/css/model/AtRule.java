@@ -23,21 +23,18 @@ import org.sonar.css.model.atrule.StandardAtRule;
 import org.sonar.css.model.atrule.StandardAtRuleFactory;
 
 import javax.annotation.Nonnull;
+import java.util.Locale;
 
 public class AtRule {
 
-  private final String fullName;
+  private final String rawName;
   private final Vendor vendorPrefix;
   private final StandardAtRule standardAtRule;
 
-  public AtRule(String fullName) {
-    this.fullName = fullName;
+  public AtRule(String rawName) {
+    this.rawName = rawName;
     this.vendorPrefix = setVendorPrefix();
     this.standardAtRule = setStandardAtRule();
-  }
-
-  public Vendor getVendorPrefix() {
-    return vendorPrefix;
   }
 
   public boolean isVendorPrefixed() {
@@ -51,7 +48,7 @@ public class AtRule {
 
   private Vendor setVendorPrefix() {
     for (Vendor vendor : Vendor.values()) {
-      if (fullName.startsWith(vendor.getPrefix())) {
+      if (rawName.toLowerCase(Locale.ENGLISH).startsWith(vendor.getPrefix())) {
         return vendor;
       }
     }
@@ -59,7 +56,7 @@ public class AtRule {
   }
 
   private StandardAtRule setStandardAtRule() {
-    String atRuleName = fullName;
+    String atRuleName = rawName;
     if (isVendorPrefixed()) {
       atRuleName = atRuleName.substring(vendorPrefix.getPrefix().length());
     }

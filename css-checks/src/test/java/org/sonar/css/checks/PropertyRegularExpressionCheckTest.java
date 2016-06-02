@@ -22,32 +22,16 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class PropertyRegularExpressionCheckTest {
 
-  private PropertyRegularExpressionCheck check = new PropertyRegularExpressionCheck();
-
   @Test
-  public void should_match_some_properties_and_raise_issues() {
-    String message = "Remove those \"animation\" properties.";
-    check.setMessage(message);
+  public void test() {
+    PropertyRegularExpressionCheck check = new PropertyRegularExpressionCheck();
     check.setRegularExpression("(?i).*animation.*");
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/propertyRegularExpression.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(2).withMessage(message).next()
-      .atLine(3).withMessage(message).next()
-      .atLine(7).withMessage(message).noMore();
+    check.setMessage("Remove this \"animation\" property...");
+    CssCheckVerifier.verify(check, new File("src/test/resources/checks/propertyRegularExpression.css"));
   }
 
-  @Test
-  public void should_not_match_any_properties_and_not_raise_any_issues() {
-    String message = "blabla";
-    check.setRegularExpression(message);
-    check.setMessage("(?i).*blabla.*");
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/propertyRegularExpression.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).noMore();
-  }
 }

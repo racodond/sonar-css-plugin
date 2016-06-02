@@ -22,19 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class LeadingZerosCheckTest {
 
-  private final static String MESSAGE = "Remove this leading zero";
-  private LeadingZerosCheck check = new LeadingZerosCheck();
-
   @Test
-  public void should_find_some_leading_zeros() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File("src/test/resources/checks/leadingZeros.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next().atLine(3).withMessage(MESSAGE).noMore();
+  public void test() {
+    CssCheckVerifier.verify(new LeadingZerosCheck(), new File("src/test/resources/checks/leadingZeros.css"));
   }
 
 }

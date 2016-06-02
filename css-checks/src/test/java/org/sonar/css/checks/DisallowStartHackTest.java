@@ -22,20 +22,13 @@ package org.sonar.css.checks;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.CssAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class DisallowStartHackTest {
 
   @Test
   public void test() {
-    DisallowStarHack check = new DisallowStarHack();
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/checks/starhack.css"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages()).next()
-      .atLine(3).withMessage("Remove this usage of \"*\"")
-      .noMore();
+    CssCheckVerifier.verify(new DisallowStarHack(), new File("src/test/resources/checks/starhack.css"));
   }
 
 }

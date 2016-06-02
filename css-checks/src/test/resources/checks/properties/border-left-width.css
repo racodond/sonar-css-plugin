@@ -1,0 +1,9 @@
+.mybox {
+  border-left-width: inherit;
+  border-left-width: thin;
+  border-left-width: medium;
+  border-left-width: thick;
+  border-left-width: 10px;
+  border-left-width: -10px; /* Noncompliant !{Update the invalid value of property "border-left-width". Expected format: thin | medium | thick | <length>(>=0)}! */
+  border-left-width: abc; /* Noncompliant */
+}

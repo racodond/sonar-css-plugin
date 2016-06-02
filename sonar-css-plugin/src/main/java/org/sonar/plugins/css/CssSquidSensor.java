@@ -23,32 +23,32 @@ import com.google.common.collect.Lists;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.InputFile.Type;
-import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.batch.rule.CheckFactory;
 import org.sonar.api.batch.rule.Checks;
-import org.sonar.api.issue.Issuable;
-import org.sonar.api.issue.Issue;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.resources.Project;
-import org.sonar.api.rule.RuleKey;
 import org.sonar.css.CssAstScanner;
 import org.sonar.css.CssConfiguration;
 import org.sonar.css.api.CssMetric;
 import org.sonar.css.ast.visitors.SonarComponents;
 import org.sonar.css.checks.CheckList;
+import org.sonar.css.issue.Issue;
+import org.sonar.css.issue.PreciseIssue;
 import org.sonar.plugins.css.core.Css;
 import org.sonar.squidbridge.AstScanner;
 import org.sonar.squidbridge.SquidAstVisitor;
-import org.sonar.squidbridge.api.CheckMessage;
 import org.sonar.squidbridge.api.SourceCode;
 import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.squidbridge.indexer.QueryByType;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
@@ -78,34 +78,31 @@ public class CssSquidSensor implements Sensor {
   public void analyse(Project project, SensorContext context) {
     this.context = context;
 
-    Checks<SquidAstVisitor> checks = checkFactory.<SquidAstVisitor>create(CheckList.REPOSITORY_KEY).addAnnotatedChecks(CheckList.getChecks());
-    Collection<SquidAstVisitor> checkList = checks.all();
+    Checks<SquidCheck> checks = checkFactory.<SquidCheck>create(CheckList.REPOSITORY_KEY).addAnnotatedChecks(CheckList.getChecks());
+    Collection<SquidCheck> checkList = checks.all();
     CssConfiguration conf = new CssConfiguration(fs.encoding());
-    this.scanner = CssAstScanner.create(conf, sonarComponents, checkList.toArray(new SquidAstVisitor[checkList.size()]));
+    Set<Issue> issues = new HashSet<>();
+    this.scanner = CssAstScanner.create(conf, sonarComponents, issues, checkList.toArray(new SquidAstVisitor[checkList.size()]));
     scanner.scanFiles(Lists.newArrayList(filesToAnalyze()));
 
-    Collection<SourceCode> squidSourceFiles = scanner.getIndex().search(
-      new QueryByType(SourceFile.class));
-    save(squidSourceFiles, checks);
+    Collection<SourceCode> squidSourceFiles = scanner.getIndex().search(new QueryByType(SourceFile.class));
+    save(squidSourceFiles, checks, issues);
   }
 
   private Iterable<File> filesToAnalyze() {
     return fs.files(fs.predicates().and(fs.predicates().hasLanguage(Css.KEY), fs.predicates().hasType(Type.MAIN)));
   }
 
-  private void save(Collection<SourceCode> squidSourceFiles, Checks<SquidAstVisitor> checks) {
+  private void save(Collection<SourceCode> squidSourceFiles, Checks<SquidCheck> checks, Set<Issue> issues) {
     for (SourceCode squidSourceFile : squidSourceFiles) {
       SourceFile squidFile = (SourceFile) squidSourceFile;
-
       InputFile sonarFile = fs.inputFile(fs.predicates().hasAbsolutePath(squidFile.getKey()));
-
       if (sonarFile != null) {
-        noSonarFilter.addComponent(((DefaultInputFile) sonarFile).key(), squidFile.getNoSonarTagLines());
+        noSonarFilter.noSonarInFile(sonarFile, squidFile.getNoSonarTagLines());
       }
-
       saveMeasures(sonarFile, squidFile);
-      saveIssues(sonarFile, squidFile, checks);
     }
+    saveIssues(checks, issues);
   }
 
   private void saveMeasures(InputFile sonarFile, SourceFile squidFile) {
@@ -118,19 +115,12 @@ public class CssSquidSensor implements Sensor {
     context.saveMeasure(sonarFile, CoreMetrics.COMPLEXITY_IN_FUNCTIONS, squidFile.getDouble(CssMetric.COMPLEXITY_IN_FUNCTIONS));
   }
 
-  private void saveIssues(InputFile sonarFile, SourceFile squidFile, Checks<SquidAstVisitor> checks) {
-    Collection<CheckMessage> messages = squidFile.getCheckMessages();
-    if (messages != null) {
-      for (CheckMessage message : messages) {
-        RuleKey activeRule = checks.ruleKey((SquidAstVisitor) message.getCheck());
-        Issuable issuable = sonarComponents.getResourcePerspectives().as(Issuable.class, sonarFile);
-        Issue issue = issuable.newIssueBuilder()
-          .ruleKey(RuleKey.of(activeRule.repository(), activeRule.rule()))
-          .line(message.getLine())
-          .message(message.formatDefaultMessage())
-          .effortToFix(message.getCost())
-          .build();
-        issuable.addIssue(issue);
+  private void saveIssues(Checks<SquidCheck> checks, Set<Issue> issues) {
+    for (Issue issue : issues) {
+      if (issue instanceof PreciseIssue) {
+        ((PreciseIssue) issue).save(checks, context);
+      } else {
+        throw new IllegalStateException("Unsupported type of issue to be saved.");
       }
     }
   }
