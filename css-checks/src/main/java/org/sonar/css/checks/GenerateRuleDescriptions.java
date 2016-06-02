@@ -51,6 +51,7 @@ public class GenerateRuleDescriptions {
     generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/experimental-property-usage.html", generateExperimentalPropertiesRuleDescription());
     generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/experimental-atrule-usage.html", generateExperimentalAtRulesRuleDescription());
     generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/experimental-function-usage.html", generateExperimentalFunctionsRuleDescription());
+    generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/compatible-vendor-prefixes.html", generateCompatibleVendorPrefixesRuleDescription());
   }
 
   private static StringBuilder generateObsoletePropertiesRuleDescription() {
@@ -217,6 +218,64 @@ public class GenerateRuleDescriptions {
       .append("@-moz-vendoratrule {} /* Noncompliant: vendor-prefixed @-rule */\n")
       .append("\n")
       .append("@custom-media --narrow-window (max-width: 30em); /* Noncompliant: experimental @-rule */\n")
+      .append("</pre>\n");
+
+    return htmlPage;
+  }
+
+  private static StringBuilder generateCompatibleVendorPrefixesRuleDescription() {
+    StringBuilder htmlPage = new StringBuilder()
+      .append(
+        "<p>Experimental CSS properties are typically implemented using vendor prefixes until the final behavior has been established and agreed upon. Most CSS3 properties have vendor-prefixed equivalents for multiple vendors, including Firefox (<code>-moz-</code>), Safari/Chrome (<code>-webkit-</code>), Opera (<code>-o-</code>), and Internet Explorer (<code>-ms-</code>). It's easy to forget to include the vendor prefixed version of a property when there are so many to keep track of.</p>\n")
+      .append("<p>The following properties have multiple vendor-prefixed versions:\n")
+      .append("<ul>\n");
+
+    StandardProperty property;
+    for (Map.Entry<String, StandardProperty> entry : getAllStandardProperties().entrySet()) {
+      property = entry.getValue();
+      if (property.getVendors().size() > 0) {
+        htmlPage.append("  <li>");
+        if (!property.getLinks().isEmpty()) {
+          htmlPage.append("<a target=\"_blank\" href=\"").append(property.getLinks().get(0)).append("\">");
+        }
+        htmlPage.append(property.getName());
+        if (!property.getLinks().isEmpty()) {
+          htmlPage.append("</a>");
+        }
+        htmlPage.append("  </li>\n");
+      }
+    }
+
+    htmlPage
+      .append("</ul>\n")
+      .append("</p>\n")
+      .append("<p>This rule is intended to raise an issue when a vendor-prefixed property is missing. Note that only the following main vendors are checked by this rule:\n")
+      .append("<ul>\n")
+      .append("  <li>Firefox (<code>-moz-</code>)</li>\n")
+      .append("  <li>Safari/Chrome (<code>-webkit-</code>)</li>\n")
+      .append("  <li>Opera (<code>-o-</code>)</li>\n")
+      .append("  <li>Internet Explorer (<code>-ms-</code>)</li>\n")
+      .append("</ul>\n")
+      .append("Konqueror (<code>khtml-</code>) for example is not.\n")
+      .append("</p>\n")
+      .append("</ul>\n")
+      .append("</p>\n")
+      .append("<h2>Noncompliant Code Example</h2>\n")
+      .append("<pre>\n")
+      .append("/* Noncompliant: Missing -moz-, -ms-, and -o- */\n")
+      .append(".mybox {\n")
+      .append("  -webkit-transform: translate(50px, 100px);\n")
+      .append("}\n")
+      .append("</pre>\n")
+      .append("\n")
+      .append("<h2>Compliant Solution</h2>\n")
+      .append("<pre>\n")
+      .append(".mybox {\n")
+      .append("  -webkit-transform: translate(50px, 100px);\n")
+      .append("  -moz-transform: translate(50px, 100px);\n")
+      .append("  -ms-transform: translate(50px, 100px);\n")
+      .append("  -o-transform: translate(50px, 100px);\n")
+      .append("}\n")
       .append("</pre>\n");
 
     return htmlPage;
