@@ -1,0 +1,9 @@
+@keyframes fade {}
+
+@keyframes fade {}
+
+@import "mystyle.css"; /* Noncompliant ![sc=1;ec=8;el=+0;secondary=1,3]! !{Move this @import rule before all the other at-rules and style rules.}! */
+
+@keyframes fade {}
+
+@import "mystyle2.css"; /* Noncompliant ![sc=1;ec=8;el=+0;secondary=1,3,7]! !{Move this @import rule before all the other at-rules and style rules.}! */
