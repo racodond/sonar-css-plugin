@@ -60,6 +60,7 @@ public final class CheckList {
       DisplayPropertyGrouping.class,
       DuplicatedProperties.class,
       EmptyDeclarationCheck.class,
+      ExperimentalFunctionUsageCheck.class,
       ExperimentalAtRuleUsageCheck.class,
       ExperimentalPropertyUsageCheck.class,
       FontFaceBrowserCompatibility.class,
