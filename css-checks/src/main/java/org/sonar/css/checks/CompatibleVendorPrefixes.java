@@ -47,7 +47,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   tags = {Tags.BROWSER_COMPATIBILITY})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("10min")
-@ActivatedByDefault
 public class CompatibleVendorPrefixes extends CssCheck {
 
   Map<String, Set<Vendor>> properties = new HashMap<>();
