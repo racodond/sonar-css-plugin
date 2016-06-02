@@ -42,7 +42,7 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
  */
 @Rule(
   key = "compatible-vendor-prefixes",
-  name = "Missing vendor prefixes should be added to experimental CSS properties",
+  name = "Missing vendor prefixes should be added to experimental properties",
   priority = Priority.MAJOR,
   tags = {Tags.BROWSER_COMPATIBILITY})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)

@@ -33,7 +33,7 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "unknown-at-rules",
-  name = "Unknown CSS @-rules should be removed",
+  name = "Unknown @-rules should be removed",
   priority = Priority.MAJOR,
   tags = {Tags.PITFALL})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
@@ -52,7 +52,7 @@ public class UnknownAtRulesCheck extends CssCheck {
     if (atRule.getStandardAtRule() instanceof UnknownAtRule && !atRule.isVendorPrefixed()) {
       addIssue(
         this,
-        "Remove this usage of the unknown \"" + atRule.getStandardAtRule().getName() + "\" CSS @-rule.",
+        "Remove this usage of the unknown \"" + atRule.getStandardAtRule().getName() + "\" @-rule.",
         astNode);
     }
   }

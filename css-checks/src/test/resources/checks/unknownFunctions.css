@@ -1,5 +1,5 @@
 .mybox {
-  color: hello(100); /* Noncompliant ![sc=10;ec=15;el=+0]! !{Remove this usage of the unknown "hello" CSS function.}!*/
+  color: hello(100); /* Noncompliant ![sc=10;ec=15;el=+0]! !{Remove this usage of the unknown "hello" function.}!*/
   background-image: -moz-blabla(12);
   background-image: repeating-linear-gradient(180deg,rgb(26,198,204),rgb(26,198,204) 7%, rgb(100,100,100) 10%);
   background-image: Repeating-linear-gradient(180deg,rgb(26,198,204),rgb(26,198,204) 7%, rgb(100,100,100) 10%);

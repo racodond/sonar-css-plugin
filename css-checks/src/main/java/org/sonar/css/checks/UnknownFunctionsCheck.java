@@ -33,7 +33,7 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "unknown-functions",
-  name = "Unknown CSS functions should be removed",
+  name = "Unknown functions should be removed",
   priority = Priority.MAJOR,
   tags = {Tags.PITFALL})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
@@ -52,7 +52,7 @@ public class UnknownFunctionsCheck extends CssCheck {
     if (function.getStandardFunction() instanceof UnknownFunction && !function.isVendorPrefixed()) {
       addIssue(
         this,
-        "Remove this usage of the unknown \"" + function.getStandardFunction().getName() + "\" CSS function.",
+        "Remove this usage of the unknown \"" + function.getStandardFunction().getName() + "\" function.",
         astNode.getFirstChild(CssGrammar.IDENT));
     }
   }

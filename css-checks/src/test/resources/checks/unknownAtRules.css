@@ -1,8 +1,8 @@
-@abc { /* Noncompliant ![sc=1;ec=5;el=+0]! !{Remove this usage of the unknown "abc" CSS @-rule.}! */
+@abc { /* Noncompliant ![sc=1;ec=5;el=+0]! !{Remove this usage of the unknown "abc" @-rule.}! */
   property: red;
 }
 
-@DEF { /* Noncompliant ![sc=1;ec=5;el=+0]! !{Remove this usage of the unknown "def" CSS @-rule.}! */
+@DEF { /* Noncompliant ![sc=1;ec=5;el=+0]! !{Remove this usage of the unknown "def" @-rule.}! */
   property: red;
 }
 

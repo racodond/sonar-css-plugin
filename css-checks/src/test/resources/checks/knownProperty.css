@@ -4,7 +4,7 @@ h1 {
 }
 
 a {
-  clr:red; /* Noncompliant ![sc=3;ec=6;el=+0]! !{Remove the usage of this unknown "clr" property.}! */
+  clr:red; /* Noncompliant ![sc=3;ec=6;el=+0]! !{Remove this usage of the unknown "clr" property.}! */
 }
 
 /* Vendor-prefixed property: -moz- => Compliant */
@@ -23,11 +23,11 @@ a {
 }
 
 a {
-  *clr:red; /* Noncompliant ![sc=3;ec=7;el=+0]! !{Remove the usage of this unknown "clr" property.}! */
+  *clr:red; /* Noncompliant ![sc=3;ec=7;el=+0]! !{Remove this usage of the unknown "clr" property.}! */
 }
 
 a {
-  _clr:red;  /* Noncompliant ![sc=3;ec=7;el=+0]! !{Remove the usage of this unknown "clr" property.}! */
+  _clr:red;  /* Noncompliant ![sc=3;ec=7;el=+0]! !{Remove this usage of the unknown "clr" property.}! */
 }
 
 /* Known properties */

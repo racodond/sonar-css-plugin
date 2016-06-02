@@ -67,7 +67,7 @@ public final class CheckList {
       ImportantPositionCheck.class,
       ImportNumberThreshold.class,
       InliningFontFilesCheck.class,
-      KnownProperties.class,
+      UnnownPropertiesCheck.class,
       LeadingZerosCheck.class,
       LineLengthCheck.class,
       MaximumNumberOfRulesPerSheetCheck.class,

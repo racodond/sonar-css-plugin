@@ -33,13 +33,13 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "known-properties",
-  name = "Unknown CSS properties should be removed",
+  name = "Unknown properties should be removed",
   priority = Priority.MAJOR,
   tags = {Tags.PITFALL})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
-public class KnownProperties extends CssCheck {
+public class UnnownPropertiesCheck extends CssCheck {
 
   @Override
   public void init() {
@@ -49,9 +49,10 @@ public class KnownProperties extends CssCheck {
   @Override
   public void visitNode(AstNode astNode) {
     Property property = new Property(astNode.getTokenValue());
-    if (property.getStandardProperty() instanceof UnknownProperty
-      && !property.isVendorPrefixed()) {
-      addIssue(this, "Remove the usage of this unknown \"" + property.getStandardProperty().getName() + "\" property.", astNode);
+    if (property.getStandardProperty() instanceof UnknownProperty && !property.isVendorPrefixed()) {
+      addIssue(this,
+        "Remove this usage of the unknown \"" + property.getStandardProperty().getName() + "\" property.",
+        astNode);
     }
   }
 

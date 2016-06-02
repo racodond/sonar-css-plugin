@@ -24,11 +24,11 @@ import java.io.File;
 import org.junit.Test;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
-public class KnownPropertiesTest {
+public class UnnownPropertiesCheckTest {
 
   @Test
   public void test() {
-    CssCheckVerifier.verify(new KnownProperties(), new File("src/test/resources/checks/knownProperty.css"));
+    CssCheckVerifier.verify(new UnnownPropertiesCheck(), new File("src/test/resources/checks/knownProperty.css"));
   }
 
 }
