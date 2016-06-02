@@ -66,7 +66,7 @@ public class FileLinesVisitor extends SquidAstVisitor<LexerlessGrammar> implemen
   @Override
   public void leaveFile(AstNode astNode) {
     InputFile sonarFile = sonarComponents.inputFileFor(getContext().getFile());
-    Preconditions.checkNotNull(sonarFile);
+    sonarFile = Preconditions.checkNotNull(sonarFile);
     FileLinesContext fileLinesContext = fileLinesContextFactory.createFor(sonarFile);
 
     int fileLength = getContext().peekSourceCode().getInt(CssMetric.LINES);

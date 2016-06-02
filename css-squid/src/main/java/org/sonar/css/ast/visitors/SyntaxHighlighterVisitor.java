@@ -68,7 +68,7 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
       return;
     }
     InputFile inputFile = sonarComponents.inputFileFor(getContext().getFile());
-    Preconditions.checkNotNull(inputFile);
+    inputFile = Preconditions.checkNotNull(inputFile);
     highlighting = sonarComponents.highlightableFor(inputFile).newHighlighting();
     offsets = new SourceFileOffsets(getContext().getFile(), charset);
   }
