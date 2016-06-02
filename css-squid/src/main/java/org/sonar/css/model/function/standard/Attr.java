@@ -24,7 +24,6 @@ import org.sonar.css.model.function.StandardFunction;
 public class Attr extends StandardFunction {
 
   public Attr() {
-    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-values-3/#funcdef-attr");
   }
 

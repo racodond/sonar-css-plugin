@@ -50,6 +50,7 @@ public class GenerateRuleDescriptions {
     generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/unknown-functions.html", generateUnknownFunctionsRuleDescription());
     generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/experimental-property-usage.html", generateExperimentalPropertiesRuleDescription());
     generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/experimental-atrule-usage.html", generateExperimentalAtRulesRuleDescription());
+    generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/experimental-function-usage.html", generateExperimentalFunctionsRuleDescription());
   }
 
   private static StringBuilder generateObsoletePropertiesRuleDescription() {
@@ -216,6 +217,48 @@ public class GenerateRuleDescriptions {
       .append("@-moz-vendoratrule {} /* Noncompliant: vendor-prefixed @-rule */\n")
       .append("\n")
       .append("@custom-media --narrow-window (max-width: 30em); /* Noncompliant: experimental @-rule */\n")
+      .append("</pre>\n");
+
+    return htmlPage;
+  }
+
+  private static StringBuilder generateExperimentalFunctionsRuleDescription() {
+    StringBuilder htmlPage = new StringBuilder()
+      .append(
+        "<p>Even though vendor-specific functions are guaranteed not to cause conflicts, it should be recognized that these extensions may also be subject to change at the vendor’s whim, as they don’t form part of the CSS specifications, even though they often mimic the proposed behavior of existing or forthcoming CSS functions. Thus, it is not recommended to use them in production code.</p>\n")
+      .append("<p>The rule raises an issue when one of the following prefixes is found:\n")
+      .append(generateListOfVendors())
+      .append("</p>\n")
+      .append("<p>This rule also raises an issue each time one of the following experimental functions is used:\n")
+      .append("<ul>\n");
+
+    StandardFunction function;
+    for (Map.Entry<String, StandardFunction> entry : getAllStandardFunctions().entrySet()) {
+      function = entry.getValue();
+      if (function.isExperimental()) {
+        htmlPage.append("  <li>");
+        if (!function.getLinks().isEmpty()) {
+          htmlPage.append("<a target=\"_blank\" href=\"").append(function.getLinks().get(0)).append("\">");
+        }
+        htmlPage.append(function.getName());
+        if (!function.getLinks().isEmpty()) {
+          htmlPage.append("</a>");
+        }
+        htmlPage.append("  </li>\n");
+      }
+    }
+
+    htmlPage.append("</ul>\n")
+      .append("</p>\n")
+      .append("<h2>Noncompliant Code Example</h2>\n")
+      .append("<pre>\n")
+      .append(".mybox {\n")
+      .append("  background-image: -moz-linear-gradient(top, #D7D 0%, #068 100%); /* Noncompliant: vendor-prefixed function */\n")
+      .append("}\n")
+      .append("\n")
+      .append(".mybox {\n")
+      .append("  background: #0ac repeating-conic-gradient(at 20%, white 0deg, white 20deg, red 20deg, red 40deg); /* Noncompliant: experimental function */\n")
+      .append("}\n")
       .append("</pre>\n");
 
     return htmlPage;

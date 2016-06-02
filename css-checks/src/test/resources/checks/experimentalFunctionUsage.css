@@ -1,0 +1,24 @@
+.mybox {
+  background-image: -moz-linear-gradient(top, #D7D 0%, #068 100%); /* Noncompliant */
+  background: conic-gradient(#f06, rgba(0,0,0,.5)); /* Noncompliant */
+  background: #0ac repeating-conic-gradient(at 20%, white 0deg, white 20deg, red 20deg, red 40deg); /* Noncompliant ![sc=20;ec=44;el=+0]! !{Remove this usage of the experimental "repeating-conic-gradient" function.}! */
+  background-image: image-set(); /* Noncompliant */
+  background-image: cross-fade(); /* Noncompliant */
+  abc: supports(); /* Noncompliant */
+}
+
+@document domain("w3.org") { /* Noncompliant */
+  body { font-size: 16px ! important }
+}
+
+@document regexp("http://www.w3.org/TR/\\d{4}/[^/]*-CSS2-\\d{8}/") { /* Noncompliant */
+  body { font-size: 20px ! important }
+}
+
+@document url-prefix("http://www.w3.org/Style/CSS/") { /* Noncompliant */
+  #summary { background: yellow; color: black}
+}
+
+em {
+  font-style: toggle(italic, normal); /* Noncompliant */
+}

@@ -17,15 +17,18 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.model.function.standard;
+package org.sonar.css.checks;
 
-import org.sonar.css.model.function.StandardFunction;
+import java.io.File;
 
-public class Toggle extends StandardFunction {
+import org.junit.Test;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
-  public Toggle() {
-    setExperimental(true);
-    addLinks("https://drafts.csswg.org/css-values-3/#funcdef-toggle");
+public class ExperimentalFunctionUsageCheckTest {
+
+  @Test
+  public void test() {
+    CssCheckVerifier.verify(new ExperimentalFunctionUsageCheck(), new File("src/test/resources/checks/experimentalFunctionUsage.css"));
   }
 
 }
