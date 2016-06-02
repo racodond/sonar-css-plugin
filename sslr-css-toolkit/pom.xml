@@ -9,7 +9,7 @@
 
   <artifactId>sslr-css-toolkit</artifactId>
 
-  <name>CSS :: SSLR Toolkit</name>
+  <name>SonarQube CSS Plugin :: SSLR Toolkit</name>
 
   <dependencies>
     <dependency>

@@ -10,7 +10,7 @@
 
   <artifactId>css-squid</artifactId>
 
-  <name>CSS :: Squid</name>
+  <name>SonarQube CSS Plugin :: Squid</name>
 
   <dependencies>
     <dependency>

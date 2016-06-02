@@ -10,7 +10,7 @@
 
   <artifactId>css-checks</artifactId>
 
-  <name>CSS :: Checks</name>
+  <name>SonarQube CSS Plugin :: Checks</name>
 
   <build>
     <plugins>

@@ -14,7 +14,7 @@
   <version>1.10-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>CSS</name>
+  <name>SonarQube CSS Plugin</name>
   <description>Parent POM of the SonarQube CSS Plugin</description>
   <url/>
   <inceptionYear>2013</inceptionYear>

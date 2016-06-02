@@ -11,7 +11,7 @@
 
   <artifactId>css-checks-testkit</artifactId>
 
-  <name>SonarQube CSS :: Check Test Toolkit</name>
+  <name>SonarQube CSS Plugin :: Check Test Toolkit</name>
 
   <dependencies>
     <dependency>
