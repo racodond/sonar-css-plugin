@@ -89,7 +89,7 @@ public class StandardFunctionFactoryTest {
         counter++;
       }
     }
-    assertEquals(93, counter);
+    assertEquals(101, counter);
   }
 
 
