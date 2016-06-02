@@ -27,35 +27,35 @@ import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.CssCheck;
-import org.sonar.css.model.Property;
+import org.sonar.css.model.Function;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
-  key = "obsolete-properties",
-  name = "Obsolete properties and properties not on W3C Standards track should not be used",
+  key = "obsolete-functions",
+  name = "Obsolete functions and functions not on W3C Standards track should not be used",
   priority = Priority.MAJOR,
   tags = {Tags.BROWSER_COMPATIBILITY})
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LANGUAGE_RELATED_PORTABILITY)
 @SqaleConstantRemediation("10min")
-public class ObsoletePropertiesCheck extends CssCheck {
+public class ObsoleteFunctionsCheck extends CssCheck {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.PROPERTY);
+    subscribeTo(CssGrammar.FUNCTION);
   }
 
   @Override
-  public void leaveNode(AstNode propertyNode) {
-    Property property = new Property(propertyNode.getTokenValue());
-    if (property.getStandardProperty().isObsolete()) {
+  public void leaveNode(AstNode functionNode) {
+    Function function = new Function(functionNode.getFirstChild(CssGrammar.IDENT).getTokenValue());
+    if (function.getStandardFunction().isObsolete()) {
       addIssue(
         this,
-        MessageFormat.format("Remove this usage of the obsolete / not on W3C Standards track \"{0}\" property.", property.getStandardProperty().getName()),
-        propertyNode);
+        MessageFormat.format("Remove this usage of the obsolete / not on W3C Standards track \"{0}\" function.", function.getStandardFunction().getName()),
+        functionNode.getFirstChild(CssGrammar.IDENT));
     }
   }
 

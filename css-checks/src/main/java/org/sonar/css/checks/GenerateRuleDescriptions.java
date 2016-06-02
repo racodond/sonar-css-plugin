@@ -46,6 +46,7 @@ public class GenerateRuleDescriptions {
     generateHtmlDescriptionFile("doc/validators.html", generateValidatePropertyRuleDescription(false));
     generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/validate-property-value.html", generateValidatePropertyRuleDescription(sizeLimit));
     generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/obsolete-properties.html", generateObsoletePropertiesRuleDescription());
+    generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/obsolete-functions.html", generateObsoleteFunctionsRuleDescription());
     generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/unknown-at-rules.html", generateUnknownAtRulesRuleDescription());
     generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/unknown-functions.html", generateUnknownFunctionsRuleDescription());
     generateHtmlDescriptionFile("css-checks/target/classes/org/sonar/l10n/css/rules/css/experimental-property-usage.html", generateExperimentalPropertiesRuleDescription());
@@ -78,6 +79,39 @@ public class GenerateRuleDescriptions {
         }
         htmlPage.append(property.getName());
         if (!property.getLinks().isEmpty()) {
+          htmlPage.append("</a>");
+        }
+        htmlPage.append("  </li>\n");
+      }
+    }
+    htmlPage.append("</ul>\n");
+    return htmlPage;
+  }
+
+  private static StringBuilder generateObsoleteFunctionsRuleDescription() {
+    StringBuilder htmlPage = new StringBuilder()
+        .append(
+            "<p>To make sure that your code will keep working as expected in the future, do not use: <ul><li>Obsolete functions (no longer supported by main vendors or support to be removed by main vendors)</li><li>Functions not on W3C Standards track</li></ul></p>\n")
+        .append("<h2>Noncompliant Code Example</h2>\n")
+        .append("<pre>\n")
+        .append(".mybox {\n")
+        .append("  font-size: min(10px, 3em); /* Noncompliant */\n")
+        .append("  font-size: max(10px, 3em); /* Noncompliant */\n")
+        .append("}\n")
+        .append("</pre>\n")
+        .append("<h2>Obsolete and Not on Standards Track Functions</h2>\n")
+        .append("<ul>\n");
+
+    StandardFunction function;
+    for (Map.Entry<String, StandardFunction> entry : getAllStandardFunctions().entrySet()) {
+      function = entry.getValue();
+      if (function.isObsolete()) {
+        htmlPage.append("  <li>");
+        if (!function.getLinks().isEmpty()) {
+          htmlPage.append("<a target=\"_blank\" href=\"").append(function.getLinks().get(0)).append("\">");
+        }
+        htmlPage.append(function.getName());
+        if (!function.getLinks().isEmpty()) {
           htmlPage.append("</a>");
         }
         htmlPage.append("  </li>\n");
