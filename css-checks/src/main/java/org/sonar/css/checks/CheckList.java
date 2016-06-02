@@ -68,6 +68,7 @@ public final class CheckList {
       FixmeTagPresenceCheck.class,
       ImportantPositionCheck.class,
       ImportNumberThreshold.class,
+      ImportFirstCheck.class,
       InliningFontFilesCheck.class,
       UnnownPropertiesCheck.class,
       LeadingZerosCheck.class,
