@@ -1,0 +1,4 @@
+p {
+  font-size: min(10px, 3em); /* Noncompliant ![sc=14;ec=17;el=+0]! !{Remove this usage of the obsolete / not on W3C Standards track "min" function.}! */
+  font-size: max(10px, 3em); /* Noncompliant ![sc=14;ec=17;el=+0]! !{Remove this usage of the obsolete / not on W3C Standards track "max" function.}! */
+}

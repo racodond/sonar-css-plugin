@@ -24,11 +24,11 @@ import java.io.File;
 import org.junit.Test;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
-public class ObsoletePropertiesCheckTest {
+public class ObsoleteFunctionsCheckTest {
 
   @Test
   public void test() {
-    CssCheckVerifier.verify(new ObsoletePropertiesCheck(), new File("src/test/resources/checks/obsoleteProperties.css"));
+    CssCheckVerifier.verify(new ObsoleteFunctionsCheck(), new File("src/test/resources/checks/obsoleteFunctions.css"));
   }
 
 }

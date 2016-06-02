@@ -73,6 +73,7 @@ public final class CheckList {
       LineLengthCheck.class,
       MaximumNumberOfRulesPerSheetCheck.class,
       NosonarTagPresenceCheck.class,
+      ObsoleteFunctionsCheck.class,
       ObsoletePropertiesCheck.class,
       OneDeclarationPerLineCheck.class,
       ParsingErrorCheck.class,
