@@ -40,6 +40,7 @@ public final class CheckList {
       BOMCheck.class,
       BewareOfBoxModel.class,
       CaseCheck.class,
+      CharsetFirstCheck.class,
       CommentRegularExpressionCheck.class,
       CompatibleVendorPrefixes.class,
       FormattingCheck.class,
