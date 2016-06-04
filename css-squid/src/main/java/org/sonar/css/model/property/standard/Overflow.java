@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.property.OverflowPropertyValidator
 public class Overflow extends StandardProperty {
 
   public Overflow() {
-    addLinks("http://dev.w3.org/csswg/css-box-3/#overflow1");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/visufx.html#propdef-overflow",
+      "https://drafts.csswg.org/css-box-3/#overflow");
     addValidators(new OverflowPropertyValidator());
   }
 

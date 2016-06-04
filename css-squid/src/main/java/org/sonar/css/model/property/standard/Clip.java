@@ -27,7 +27,7 @@ import org.sonar.css.model.property.validator.valueelement.function.FunctionVali
 public class Clip extends StandardProperty {
 
   public Clip() {
-    addLinks("http://www.w3.org/TR/CSS2/visufx.html#propdef-clip");
+    addLinks("https://www.w3.org/TR/CSS22/visufx.html#propdef-clip");
     addValidators(new FunctionValidator(ImmutableList.of("rect")), ValidatorFactory.getAutoValidator());
   }
 

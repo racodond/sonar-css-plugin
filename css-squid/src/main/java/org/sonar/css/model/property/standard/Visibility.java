@@ -26,7 +26,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class Visibility extends StandardProperty {
 
   public Visibility() {
-    addLinks("http://www.w3.org/TR/CSS21/visufx.html#propdef-visibility");
+    addLinks("https://www.w3.org/TR/CSS22/visufx.html#propdef-visibility");
     addValidators(new IdentifierValidator(ImmutableList.of("visible", "hidden", "collapse")));
   }
 
