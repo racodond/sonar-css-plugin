@@ -26,7 +26,9 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class Position extends StandardProperty {
 
   public Position() {
-    addLinks("http://dev.w3.org/csswg/css-position-3/#position-property");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/visuren.html#propdef-position",
+      "https://drafts.csswg.org/css-position-3/#propdef-position");
     addValidators(new IdentifierValidator(ImmutableList.of("static", "relative", "absolute", "fixed", "sticky")));
   }
 

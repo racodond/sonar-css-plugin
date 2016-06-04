@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class Top extends StandardProperty {
 
   public Top() {
-    addLinks("http://dev.w3.org/csswg/css2/visuren.html#propdef-top");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/visuren.html#propdef-top",
+      "https://drafts.csswg.org/css-position-3/#propdef-top");
     addValidators(
       ValidatorFactory.getAutoValidator(),
       ValidatorFactory.getLengthValidator(),

@@ -26,8 +26,10 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class UnicodeBidi extends StandardProperty {
 
   public UnicodeBidi() {
-    addLinks("http://dev.w3.org/csswg/css-writing-modes-3/#propdef-unicode-bidi");
-    addValidators(new IdentifierValidator(ImmutableList.of("normal", "embed", "bidi-override")));
+    addLinks(
+      "https://www.w3.org/TR/CSS22/visuren.html#propdef-unicode-bidi",
+      "https://drafts.csswg.org/css-writing-modes-3/#propdef-unicode-bidi");
+    addValidators(new IdentifierValidator(ImmutableList.of("normal", "embed", "isolate", "bidi-override", "isolate-override", "plaintext")));
   }
 
 }

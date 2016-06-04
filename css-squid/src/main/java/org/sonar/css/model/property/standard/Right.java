@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class Right extends StandardProperty {
 
   public Right() {
-    addLinks("http://dev.w3.org/csswg/css2/visuren.html#propdef-right");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/visuren.html#propdef-right",
+      "https://drafts.csswg.org/css-position-3/#propdef-right");
     addValidators(
       ValidatorFactory.getAutoValidator(),
       ValidatorFactory.getLengthValidator(),

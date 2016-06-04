@@ -24,7 +24,9 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 
 public class Left extends StandardProperty {
   public Left() {
-    addLinks("http://dev.w3.org/csswg/css2/visuren.html#propdef-left");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/visuren.html#propdef-left",
+      "https://drafts.csswg.org/css-position-3/#propdef-left");
     addValidators(
       ValidatorFactory.getAutoValidator(),
       ValidatorFactory.getLengthValidator(),

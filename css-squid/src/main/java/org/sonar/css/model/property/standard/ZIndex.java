@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class ZIndex extends StandardProperty {
 
   public ZIndex() {
-    addLinks("http://www.w3.org/TR/CSS2/visuren.html#propdef-z-index");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/visuren.html#propdef-z-index",
+      "https://drafts.csswg.org/css-position-3/#propdef-z-index");
     addValidators(ValidatorFactory.getAutoValidator(), ValidatorFactory.getIntegerValidator());
   }
 

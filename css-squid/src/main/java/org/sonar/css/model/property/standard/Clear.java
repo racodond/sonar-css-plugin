@@ -26,7 +26,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class Clear extends StandardProperty {
 
   public Clear() {
-    addLinks("http://www.w3.org/TR/CSS2/visuren.html#flow-control");
+    addLinks("https://www.w3.org/TR/CSS22/visuren.html#propdef-clear");
     addValidators(new IdentifierValidator(ImmutableList.of("none", "left", "right", "both")));
   }
 

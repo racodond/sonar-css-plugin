@@ -26,7 +26,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class Float extends StandardProperty {
 
   public Float() {
-    addLinks("http://www.w3.org/TR/CSS2/visuren.html#propdef-float");
+    addLinks("https://www.w3.org/TR/CSS22/visuren.html#propdef-float");
     addValidators(new IdentifierValidator(ImmutableList.of("left", "right", "none")));
   }
 

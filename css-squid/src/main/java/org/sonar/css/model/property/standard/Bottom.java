@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class Bottom extends StandardProperty {
 
   public Bottom() {
-    addLinks("http://dev.w3.org/csswg/css2/visuren.html#propdef-bottom");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/visuren.html#propdef-bottom",
+      "https://drafts.csswg.org/css-position-3/#propdef-bottom");
     addValidators(
       ValidatorFactory.getAutoValidator(),
       ValidatorFactory.getLengthValidator(),
