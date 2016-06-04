@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class FontSizeAdjust extends StandardProperty {
 
   public FontSizeAdjust() {
-    addLinks("http://dev.w3.org/csswg/css-fonts-3/#propdef-font-size-adjust");
+    addLinks("https://drafts.csswg.org/css-fonts-3/#propdef-font-size-adjust");
     addValidators(ValidatorFactory.getNoneValidator(), ValidatorFactory.getNumberValidator());
   }
 

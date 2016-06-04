@@ -24,7 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class Src extends StandardProperty {
 
   public Src() {
-    addLinks("http://www.w3.org/TR/css3-fonts/#descdef-src");
+    addLinks("https://drafts.csswg.org/css-fonts-3/#descdef-src");
   }
 
 }

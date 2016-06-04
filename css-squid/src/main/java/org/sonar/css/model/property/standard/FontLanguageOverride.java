@@ -27,7 +27,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class FontLanguageOverride extends StandardProperty {
 
   public FontLanguageOverride() {
-    addLinks("http://dev.w3.org/csswg/css-fonts-3/#propdef-font-language-override");
+    addLinks("https://drafts.csswg.org/css-fonts-3/#propdef-font-variant-east-asian");
     addValidators(
       new IdentifierValidator(ImmutableList.of("normal")),
       ValidatorFactory.getStringValidator());

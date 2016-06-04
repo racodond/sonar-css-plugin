@@ -26,7 +26,9 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class FontVariant extends StandardProperty {
 
   public FontVariant() {
-    addLinks("http://dev.w3.org/csswg/css-fonts-3/#descdef-font-face-font-variant");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/fonts.html#propdef-font-variant",
+      "https://drafts.csswg.org/css-fonts-3/#descdef-font-variant");
     addValidators(new IdentifierValidator(ImmutableList.of("normal", "small-caps")));
   }
 

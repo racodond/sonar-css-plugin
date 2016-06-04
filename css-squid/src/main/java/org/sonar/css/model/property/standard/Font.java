@@ -24,7 +24,9 @@ import org.sonar.css.model.property.StandardProperty;
 public class Font extends StandardProperty {
 
   public Font() {
-    addLinks("http://dev.w3.org/csswg/css3-fonts/#font");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/fonts.html#propdef-font",
+      "https://drafts.csswg.org/css-fonts-3/#propdef-font");
   }
 
 }

@@ -27,7 +27,9 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class FontSize extends StandardProperty {
 
   public FontSize() {
-    addLinks("http://www.w3.org/TR/CSS2/fonts.html#propdef-font-size");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/fonts.html#propdef-font-size",
+      "https://drafts.csswg.org/css-fonts-3/#propdef-font-size");
     addValidators(
       new IdentifierValidator(ImmutableList.of("xx-small", "x-small", "small", "medium", "large", "x-large", "xx-large")),
       new IdentifierValidator(ImmutableList.of("larger", "smaller")),

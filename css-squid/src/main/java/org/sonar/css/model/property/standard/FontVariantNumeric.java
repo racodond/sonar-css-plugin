@@ -24,8 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class FontVariantNumeric extends StandardProperty {
 
   public FontVariantNumeric() {
-    setName("font-variant-numeric");
-    addLinks("http://dev.w3.org/csswg/css-fonts-3/#propdef-font-variant-numeric");
+    addLinks("https://drafts.csswg.org/css-fonts-3/#propdef-font-variant-numeric");
   }
 
 }

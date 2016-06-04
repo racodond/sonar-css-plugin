@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.property.FontWeightValidator;
 public class FontWeight extends StandardProperty {
 
   public FontWeight() {
-    addLinks("http://dev.w3.org/csswg/css3-fonts/#font-weight-prop");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/fonts.html#propdef-font-weight",
+      "https://drafts.csswg.org/css-fonts-3/#propdef-font-weight");
     addValidators(new FontWeightValidator());
   }
 

@@ -24,7 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class FontVariantEastAsian extends StandardProperty {
 
   public FontVariantEastAsian() {
-    addLinks("http://dev.w3.org/csswg/css-fonts-3/#propdef-font-variant-east-asian");
+    addLinks("https://drafts.csswg.org/css-fonts-3/#propdef-font-variant-east-asian");
   }
 
 }

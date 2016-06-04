@@ -26,7 +26,9 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class FontStyle extends StandardProperty {
 
   public FontStyle() {
-    addLinks("http://dev.w3.org/csswg/css3-fonts/#font-style-prop");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/fonts.html#propdef-font-style",
+      "https://drafts.csswg.org/css-fonts-3/#font-style-prop");
     addValidators(new IdentifierValidator(ImmutableList.of("normal", "italic", "oblique")));
   }
 

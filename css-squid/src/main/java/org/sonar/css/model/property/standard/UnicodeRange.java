@@ -24,7 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class UnicodeRange extends StandardProperty {
 
   public UnicodeRange() {
-    addLinks("http://dev.w3.org/csswg/css-fonts-3/#descdef-font-face-unicode-range");
+    addLinks("https://drafts.csswg.org/css-fonts-3/#descdef-unicode-range");
   }
 
 }
