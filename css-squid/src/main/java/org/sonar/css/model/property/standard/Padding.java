@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.property.PaddingValidator;
 public class Padding extends StandardProperty {
 
   public Padding() {
-    addLinks("http://www.w3.org/TR/CSS2/box.html#propdef-padding");
+    addLinks("https://www.w3.org/TR/CSS22/box.html#propdef-padding");
     addValidators(new PaddingValidator());
   }
 

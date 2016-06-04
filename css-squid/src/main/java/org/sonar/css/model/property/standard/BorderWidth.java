@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.property.border.BorderWidthPropert
 public class BorderWidth extends StandardProperty {
 
   public BorderWidth() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#border-width");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/box.html#propdef-border-width",
+      "https://drafts.csswg.org/css-backgrounds-3/#border-width");
     addValidators(new BorderWidthPropertyValidator());
   }
 

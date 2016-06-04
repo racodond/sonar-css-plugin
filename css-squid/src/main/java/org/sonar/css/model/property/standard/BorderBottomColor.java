@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class BorderBottomColor extends StandardProperty {
 
   public BorderBottomColor() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-color");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/box.html#propdef-border-bottom-color",
+      "https://drafts.csswg.org/css-backgrounds-3/#border-bottom-color");
     addValidators(ValidatorFactory.getColorValidator());
   }
 

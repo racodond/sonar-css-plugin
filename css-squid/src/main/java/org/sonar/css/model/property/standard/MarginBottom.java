@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class MarginBottom extends StandardProperty {
 
   public MarginBottom() {
-    addLinks("http://dev.w3.org/csswg/css-box-3/#margin-top");
+    addLinks("https://www.w3.org/TR/CSS22/box.html#propdef-margin-bottom");
     addValidators(ValidatorFactory.getMarginWidthValidator());
   }
 

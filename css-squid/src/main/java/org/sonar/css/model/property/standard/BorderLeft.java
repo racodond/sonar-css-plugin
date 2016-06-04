@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class BorderLeft extends StandardProperty {
 
   public BorderLeft() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-shorthands");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/box.html#propdef-border-left",
+      "https://drafts.csswg.org/css-backgrounds-3/#border-left");
     addValidators(ValidatorFactory.getBorderValidator());
   }
 

@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class MarginRight extends StandardProperty {
 
   public MarginRight() {
-    addLinks("http://dev.w3.org/csswg/css-box-3/#margin-right");
+    addLinks("https://www.w3.org/TR/CSS22/box.html#propdef-margin-right");
     addValidators(ValidatorFactory.getMarginWidthValidator());
   }
 

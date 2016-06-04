@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class BorderLeftColor extends StandardProperty {
 
   public BorderLeftColor() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-color");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/box.html#propdef-border-left-color",
+      "https://drafts.csswg.org/css-backgrounds-3/#border-left-color");
     addValidators(ValidatorFactory.getColorValidator());
   }
 

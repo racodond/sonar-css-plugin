@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class PaddingRight extends StandardProperty {
 
   public PaddingRight() {
-    addLinks("http://www.w3.org/TR/CSS2/box.html#propdef-padding-right");
+    addLinks("https://www.w3.org/TR/CSS22/box.html#propdef-padding-right");
     addValidators(ValidatorFactory.getPaddingWidthValidator());
   }
 

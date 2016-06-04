@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.property.border.BorderStylePropert
 public class BorderStyle extends StandardProperty {
 
   public BorderStyle() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#border-style");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/box.html#propdef-border-style",
+      "https://drafts.csswg.org/css-backgrounds-3/#border-style");
     addValidators(new BorderStylePropertyValidator());
   }
 

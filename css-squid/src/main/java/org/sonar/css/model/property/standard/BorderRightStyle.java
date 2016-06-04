@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class BorderRightStyle extends StandardProperty {
 
   public BorderRightStyle() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-style");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/box.html#propdef-border-right-style",
+      "https://drafts.csswg.org/css-backgrounds-3/#border-right-style");
     addValidators(ValidatorFactory.getBorderStyleValidator());
   }
 

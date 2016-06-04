@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class PaddingLeft extends StandardProperty {
 
   public PaddingLeft() {
-    addLinks("http://www.w3.org/TR/CSS2/box.html#propdef-padding-left");
+    addLinks("https://www.w3.org/TR/CSS22/box.html#propdef-padding-left");
     addValidators(ValidatorFactory.getPaddingWidthValidator());
   }
 

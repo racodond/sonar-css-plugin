@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class BorderTop extends StandardProperty {
 
   public BorderTop() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-shorthands");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/box.html#propdef-border-top",
+      "https://drafts.csswg.org/css-backgrounds-3/#border-top");
     addValidators(ValidatorFactory.getBorderValidator());
   }
 

@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class PaddingBottom extends StandardProperty {
 
   public PaddingBottom() {
-    addLinks("http://www.w3.org/TR/CSS2/box.html#propdef-padding-top");
+    addLinks("https://www.w3.org/TR/CSS22/box.html#propdef-padding-bottom");
     addValidators(ValidatorFactory.getPaddingWidthValidator());
   }
 

@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.property.MarginValidator;
 public class Margin extends StandardProperty {
 
   public Margin() {
-    addLinks("http://dev.w3.org/csswg/css-box-3/#margin");
+    addLinks("https://www.w3.org/TR/CSS22/box.html#propdef-margin");
     addValidators(new MarginValidator());
   }
 
