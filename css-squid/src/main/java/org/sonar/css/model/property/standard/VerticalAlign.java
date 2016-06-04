@@ -27,7 +27,8 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class VerticalAlign extends StandardProperty {
 
   public VerticalAlign() {
-    addLinks("http://www.w3.org/TR/CSS2/visudet.html#propdef-vertical-align");
+    addLinks("https://www.w3.org/TR/CSS22/visudet.html#propdef-vertical-align");
+    // TODO: check this validator because it does not correspond to the link
     addValidators(
       new IdentifierValidator(ImmutableList.of("auto", "use-script", "baseline", "sub", "super", "top", "text-top",
         "central", "middle", "bottom", "text-bottom")),

@@ -19,16 +19,25 @@
  */
 package org.sonar.css.model.property.standard;
 
+import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.ValidatorFactory;
+import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
+import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
 
 public class ColumnWidth extends StandardProperty {
 
   public ColumnWidth() {
-    addLinks("http://dev.w3.org/csswg/css-multicol-1/#propdef-column-width");
+    addLinks(
+      "https://drafts.csswg.org/css-multicol-1/#propdef-column-width",
+      "https://drafts.csswg.org/css-sizing-3/#column-sizing");
     addVendors(Vendor.WEBKIT, Vendor.MOZILLA, Vendor.MICROSOFT);
-    addValidators(ValidatorFactory.getAutoValidator(), ValidatorFactory.getPositiveLengthValidator());
+    addValidators(
+      ValidatorFactory.getAutoValidator(),
+      ValidatorFactory.getPositiveLengthValidator(),
+      new IdentifierValidator(ImmutableList.of("fill", "max-content", "min-content", "fit-content")),
+      new FunctionValidator(ImmutableList.of("fit-content")));
   }
 
 }

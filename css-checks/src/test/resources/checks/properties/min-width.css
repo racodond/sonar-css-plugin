@@ -5,10 +5,12 @@
   min-width: -100%;
   min-width: 10px;
   min-width: -10px;
-  min-width: 10; /* Noncompliant !{Update the invalid value of property "min-width". Expected format: auto | <length> | <percentage> | fill | max-content | min-content | fit-content}! */
+  min-width: 10; /* Noncompliant !{Update the invalid value of property "min-width". Expected format: auto | <length> | <percentage> | fill | max-content | min-content | fit-content | <function>(fit-content)}! */
   min-width: none; /* Noncompliant */
   min-width: fill;
   min-width: max-content;
   min-width: min-content;
   min-width: fit-content;
+  min-width: fit-content(10%);
 }
+

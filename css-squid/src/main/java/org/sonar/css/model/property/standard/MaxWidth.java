@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class MaxWidth extends StandardProperty {
 
   public MaxWidth() {
-    addLinks("http://dev.w3.org/csswg/css-sizing-3/#width-height-keywords");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/visudet.html#propdef-max-width",
+      "https://drafts.csswg.org/css-sizing-3/#width-height-keywords");
     addValidators(ValidatorFactory.getMaxWidthHeightValidator());
   }
 
