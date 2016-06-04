@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class PageBreakBefore extends StandardProperty {
 
   public PageBreakBefore() {
-    addLinks("http://dev.w3.org/csswg/css2/page.html#propdef-page-break-before");
+    addLinks("https://www.w3.org/TR/CSS22/page.html#propdef-page-break-before");
     addValidators(ValidatorFactory.getPageBreakValidator());
   }
 

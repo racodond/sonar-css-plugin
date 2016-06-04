@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class PageBreakAfter extends StandardProperty {
 
   public PageBreakAfter() {
-    addLinks("http://dev.w3.org/csswg/css2/page.html#propdef-page-break-after");
+    addLinks("https://www.w3.org/TR/CSS22/page.html#propdef-page-break-after");
     addValidators(ValidatorFactory.getPageBreakValidator());
   }
 

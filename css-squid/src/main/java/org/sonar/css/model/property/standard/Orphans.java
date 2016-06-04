@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class Orphans extends StandardProperty {
 
   public Orphans() {
-    addLinks("http://dev.w3.org/csswg/css-break-3/#propdef-orphans");
+    addLinks("https://www.w3.org/TR/CSS22/page.html#propdef-orphans");
     addValidators(ValidatorFactory.getIntegerValidator());
   }
 

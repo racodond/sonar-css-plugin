@@ -1,0 +1,8 @@
+.mybox {
+  page-break-inside: inherit;
+  page-break-inside: auto;
+  page-break-inside: avoid;
+  page-break-inside: 10; /* Noncompliant !{Update the invalid value of property "page-break-inside". Expected format: avoid | auto}! */
+  page-break-inside: none; /* Noncompliant */
+  page-break-inside: 10px; /* Noncompliant */
+}
