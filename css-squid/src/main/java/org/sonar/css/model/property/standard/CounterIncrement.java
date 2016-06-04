@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class CounterIncrement extends StandardProperty {
 
   public CounterIncrement() {
-    addLinks("http://dev.w3.org/csswg/css-lists-3/#propdef-counter-increment");
+    addLinks("https://www.w3.org/TR/CSS22/generate.html#propdef-counter-increment");
     addValidators(ValidatorFactory.getCounterValidator());
   }
 

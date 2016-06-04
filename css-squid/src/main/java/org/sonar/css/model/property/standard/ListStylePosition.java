@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.property.liststyle.ListStylePositi
 public class ListStylePosition extends StandardProperty {
 
   public ListStylePosition() {
-    addLinks("http://dev.w3.org/csswg/css-lists-3/#propdef-list-style-position");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/generate.html#propdef-list-style-position",
+      "https://drafts.csswg.org/css-lists-3/#propdef-list-style-position");
     addValidators(new ListStylePositionValidator());
   }
 

@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.property.liststyle.ListStyleValida
 public class ListStyle extends StandardProperty {
 
   public ListStyle() {
-    addLinks("http://dev.w3.org/csswg/css-lists-3/#propdef-list-style");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/generate.html#propdef-list-style",
+      "https://drafts.csswg.org/css-lists-3/#propdef-list-style");
     addValidators(new ListStyleValidator());
   }
 

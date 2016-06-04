@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.property.liststyle.ListStyleImageV
 public class ListStyleImage extends StandardProperty {
 
   public ListStyleImage() {
-    addLinks("http://dev.w3.org/csswg/css-lists-3/#propdef-list-style-image");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/generate.html#propdef-list-style-image",
+      "https://drafts.csswg.org/css-lists-3/#propdef-list-style-image");
     addValidators(new ListStyleImageValidator());
   }
 

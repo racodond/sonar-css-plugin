@@ -24,7 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class Quotes extends StandardProperty {
 
   public Quotes() {
-    addLinks("http://www.w3.org/TR/CSS2/generate.html#quotes");
+    addLinks("https://www.w3.org/TR/CSS22/generate.html#propdef-quotes");
   }
 
 }
