@@ -102,7 +102,7 @@ public class StandardPropertyFactoryTest {
         counter++;
       }
     }
-    assertEquals(439, counter);
+    assertEquals(443, counter);
   }
 
 }

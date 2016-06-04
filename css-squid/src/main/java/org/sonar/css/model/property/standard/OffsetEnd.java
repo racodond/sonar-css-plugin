@@ -17,28 +17,20 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks;
+package org.sonar.css.model.property.standard;
 
-import java.io.File;
+import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.ValidatorFactory;
 
-import junit.framework.Assert;
-import org.junit.Test;
-import org.sonar.css.checks.verifier.CssCheckVerifier;
+public class OffsetEnd extends StandardProperty {
 
-public class ValidatePropertyValueCheckTest {
-
-  @Test
-  public void test_validate_properties() {
-    File testDirectory = new File("src/test/resources/checks/properties");
-    for (File file : testDirectory.listFiles()) {
-      CssCheckVerifier.verify(new ValidatePropertyValueCheck(), file);
-    }
-  }
-
-  @Test
-  public void test_number_of_validated_properties() {
-    File testDirectory = new File("src/test/resources/checks/properties");
-    Assert.assertEquals(204, testDirectory.listFiles().length);
+  public OffsetEnd() {
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-position-3/#propdef-offset-before");
+    addValidators(
+      ValidatorFactory.getAutoValidator(),
+      ValidatorFactory.getLengthValidator(),
+      ValidatorFactory.getPercentageValidator());
   }
 
 }

@@ -1,0 +1,10 @@
+.mybox {
+  offset-start: inherit;
+  offset-start: auto;
+  offset-start: 10px;
+  offset-start: -10px;
+  offset-start: 3%;
+  offset-start: -3%;
+  offset-start: abc; /* Noncompliant !{Update the invalid value of property "offset-start". Expected format: auto | <length> | <percentage>}! */
+  offset-start: 0.5; /* Noncompliant */
+}
