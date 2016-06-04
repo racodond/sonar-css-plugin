@@ -25,7 +25,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class BoxShadow extends StandardProperty {
 
   public BoxShadow() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#box-shadow");
+    addLinks("https://drafts.csswg.org/css-backgrounds-3/#box-shadow");
     addVendors(Vendor.WEBKIT, Vendor.MOZILLA);
   }
 

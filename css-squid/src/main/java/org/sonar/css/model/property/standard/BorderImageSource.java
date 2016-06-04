@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class BorderImageSource extends StandardProperty {
 
   public BorderImageSource() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#border-image-source");
+    addLinks("https://drafts.csswg.org/css-backgrounds-3/#border-image-source");
     addValidators(ValidatorFactory.getNoneValidator(), ValidatorFactory.getImageValidator());
   }
 

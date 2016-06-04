@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class Color extends StandardProperty {
 
   public Color() {
-    addLinks("http://dev.w3.org/csswg/css-color-3/#color0");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/colors.html#propdef-color",
+      "https://drafts.csswg.org/css-color-3/#color0");
     addValidators(ValidatorFactory.getColorValidator());
   }
 

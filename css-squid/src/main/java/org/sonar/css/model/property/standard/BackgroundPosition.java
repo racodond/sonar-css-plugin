@@ -24,7 +24,9 @@ import org.sonar.css.model.property.StandardProperty;
 public class BackgroundPosition extends StandardProperty {
 
   public BackgroundPosition() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#background-position");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/colors.html#propdef-background-position",
+      "https://drafts.csswg.org/css-backgrounds-3/#the-background-position");
   }
 
 }

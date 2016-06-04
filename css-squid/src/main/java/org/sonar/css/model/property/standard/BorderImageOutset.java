@@ -24,7 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class BorderImageOutset extends StandardProperty {
 
   public BorderImageOutset() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#border-image-outset");
+    addLinks("https://drafts.csswg.org/css-backgrounds-3/#border-image-outset");
   }
 
 }

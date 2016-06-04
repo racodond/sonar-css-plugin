@@ -24,7 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class BorderImageWidth extends StandardProperty {
 
   public BorderImageWidth() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#border-image-width");
+    addLinks("https://drafts.csswg.org/css-backgrounds-3/#border-image-width");
   }
 
 }

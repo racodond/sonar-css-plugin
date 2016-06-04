@@ -72,7 +72,7 @@ public class StandardPropertyFactoryTest {
     assertEquals(BorderImage.class, property.getClass());
     assertEquals(property.getName(), "border-image");
     assertEquals(property.getLinks().size(), 1);
-    assertEquals(property.getLinks().get(0), "http://dev.w3.org/csswg/css-backgrounds-3/#border-image");
+    assertEquals(property.getLinks().get(0), "https://drafts.csswg.org/css-backgrounds-3/#border-image");
     assertEquals(property.getValidators().size(), 0);
     assertEquals(property.getVendors().size(), 3);
     assertEquals(property.getVendors().contains(Vendor.WEBKIT), true);

@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.property.background.BackgroundOrig
 public class BackgroundOrigin extends StandardProperty {
 
   public BackgroundOrigin() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#background-origin");
+    addLinks("https://drafts.csswg.org/css-backgrounds-3/#background-origin");
     addValidators(new BackgroundOriginValidator());
   }
 

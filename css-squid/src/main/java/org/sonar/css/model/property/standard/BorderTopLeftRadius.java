@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class BorderTopLeftRadius extends StandardProperty {
 
   public BorderTopLeftRadius() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-radius");
+    addLinks("https://drafts.csswg.org/css-backgrounds-3/#border-top-left-radius");
     addValidators(ValidatorFactory.getBorderRadiusValidator());
   }
 

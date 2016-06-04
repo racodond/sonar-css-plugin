@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.property.background.BackgroundSize
 public class BackgroundSize extends StandardProperty {
 
   public BackgroundSize() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#background-size");
+    addLinks("https://drafts.csswg.org/css-backgrounds-3/#background-size");
     addValidators(new BackgroundSizeValidator());
   }
 

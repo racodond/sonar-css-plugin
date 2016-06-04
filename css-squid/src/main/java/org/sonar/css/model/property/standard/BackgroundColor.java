@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class BackgroundColor extends StandardProperty {
 
   public BackgroundColor() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#background-color");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/colors.html#propdef-background-color",
+      "https://drafts.csswg.org/css-backgrounds-3/#background-color");
     addValidators(ValidatorFactory.getColorValidator());
   }
 

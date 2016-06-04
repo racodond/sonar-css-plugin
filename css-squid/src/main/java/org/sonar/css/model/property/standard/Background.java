@@ -24,7 +24,9 @@ import org.sonar.css.model.property.StandardProperty;
 public class Background extends StandardProperty {
 
   public Background() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#background");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/colors.html#propdef-background",
+      "https://drafts.csswg.org/css-backgrounds-3/#background");
   }
 
 }

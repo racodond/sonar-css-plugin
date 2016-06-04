@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.property.background.BackgroundAtta
 public class BackgroundAttachment extends StandardProperty {
 
   public BackgroundAttachment() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#background-attachment");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/colors.html#propdef-background-attachment",
+      "https://drafts.csswg.org/css-backgrounds-3/#the-background-attachment");
     addValidators(new BackgroundAttachmentValidator());
   }
 

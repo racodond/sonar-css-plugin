@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.property.background.BackgroundRepe
 public class BackgroundRepeat extends StandardProperty {
 
   public BackgroundRepeat() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#background-repeat");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/colors.html#propdef-background-repeat",
+      "https://drafts.csswg.org/css-backgrounds-3/#background-repeat");
     addValidators(new BackgroundRepeatValidator());
   }
 

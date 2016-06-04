@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.property.background.BackgroundImag
 public class BackgroundImage extends StandardProperty {
 
   public BackgroundImage() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#background-image");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/colors.html#propdef-background-image",
+      "https://drafts.csswg.org/css-backgrounds-3/#background-image");
     addValidators(new BackgroundImageValidator());
   }
 

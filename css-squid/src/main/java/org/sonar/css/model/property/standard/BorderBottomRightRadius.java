@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class BorderBottomRightRadius extends StandardProperty {
 
   public BorderBottomRightRadius() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#the-border-radius");
+    addLinks("https://drafts.csswg.org/css-backgrounds-3/#border-bottom-right-radius");
     addValidators(ValidatorFactory.getBorderRadiusValidator());
   }
 

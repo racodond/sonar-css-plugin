@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.property.background.BackgroundClip
 public class BackgroundClip extends StandardProperty {
 
   public BackgroundClip() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#background-clip");
+    addLinks("https://drafts.csswg.org/css-backgrounds-3/#background-clip");
     addValidators(new BackgroundClipValidator());
   }
 

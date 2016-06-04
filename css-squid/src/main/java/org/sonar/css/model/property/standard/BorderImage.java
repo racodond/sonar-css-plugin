@@ -25,7 +25,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class BorderImage extends StandardProperty {
 
   public BorderImage() {
-    addLinks("http://dev.w3.org/csswg/css-backgrounds-3/#border-image");
+    addLinks("https://drafts.csswg.org/css-backgrounds-3/#border-image");
     addVendors(Vendor.WEBKIT, Vendor.MOZILLA, Vendor.OPERA);
   }
 
