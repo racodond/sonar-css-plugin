@@ -17,28 +17,18 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.css.checks;
+package org.sonar.css.model.property.standard;
 
-import java.io.File;
+import com.google.common.collect.ImmutableList;
+import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
-import junit.framework.Assert;
-import org.junit.Test;
-import org.sonar.css.checks.verifier.CssCheckVerifier;
+public class BoxSuppress extends StandardProperty {
 
-public class ValidatePropertyValueCheckTest {
-
-  @Test
-  public void test_validate_properties() {
-    File testDirectory = new File("src/test/resources/checks/properties");
-    for (File file : testDirectory.listFiles()) {
-      CssCheckVerifier.verify(new ValidatePropertyValueCheck(), file);
-    }
-  }
-
-  @Test
-  public void test_number_of_validated_properties() {
-    File testDirectory = new File("src/test/resources/checks/properties");
-    Assert.assertEquals(200, testDirectory.listFiles().length);
+  public BoxSuppress() {
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-display/#propdef-box-suppress");
+    addValidators(new IdentifierValidator(ImmutableList.of("show", "discard", "hide")));
   }
 
 }

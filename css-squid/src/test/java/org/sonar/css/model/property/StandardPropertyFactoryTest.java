@@ -36,8 +36,9 @@ public class StandardPropertyFactoryTest {
     StandardProperty property = StandardPropertyFactory.createStandardProperty("border");
     assertEquals(Border.class, property.getClass());
     assertEquals(property.getName(), "border");
-    assertEquals(property.getLinks().size(), 1);
-    assertEquals(property.getLinks().get(0), "http://dev.w3.org/csswg/css-backgrounds-3/#the-border-shorthands");
+    assertEquals(property.getLinks().size(), 2);
+    assertEquals(property.getLinks().get(0), "https://www.w3.org/TR/CSS22/box.html#propdef-border");
+    assertEquals(property.getLinks().get(1), "https://drafts.csswg.org/css-backgrounds-3/#border");
     assertEquals(property.getVendors().size(), 0);
     assertEquals(property.isObsolete(), false);
   }
@@ -47,8 +48,9 @@ public class StandardPropertyFactoryTest {
     StandardProperty property = StandardPropertyFactory.createStandardProperty("BORDER");
     assertEquals(Border.class, property.getClass());
     assertEquals(property.getName(), "border");
-    assertEquals(property.getLinks().size(), 1);
-    assertEquals(property.getLinks().get(0), "http://dev.w3.org/csswg/css-backgrounds-3/#the-border-shorthands");
+    assertEquals(property.getLinks().size(), 2);
+    assertEquals(property.getLinks().get(0), "https://www.w3.org/TR/CSS22/box.html#propdef-border");
+    assertEquals(property.getLinks().get(1), "https://drafts.csswg.org/css-backgrounds-3/#border");
     assertEquals(property.getVendors().size(), 0);
     assertEquals(property.isObsolete(), false);
   }
@@ -100,7 +102,7 @@ public class StandardPropertyFactoryTest {
         counter++;
       }
     }
-    assertEquals(438, counter);
+    assertEquals(439, counter);
   }
 
 }
