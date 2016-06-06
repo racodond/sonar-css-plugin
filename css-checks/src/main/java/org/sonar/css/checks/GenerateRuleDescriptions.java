@@ -513,6 +513,8 @@ public class GenerateRuleDescriptions {
                 "<a target=\"_blank\" href=\"https://drafts.csswg.org/css-ui/#typedef-target-name\">&lt;target-name&gt;</a>")
               .replace("<time>",
                 "<a target=\"_blank\" href=\"http://dev.w3.org/csswg/css-values-3/#time-value\">&lt;time&gt;</a>")
+              .replace("<transform-functions>",
+                "<a target=\"_blank\" href=\"https://drafts.csswg.org/css-transforms/#typedef-transform-function\">&lt;transform-functions&gt;</a>")
               .replace("<width>",
                 "<a target=\"_blank\" href=\"http://dev.w3.org/csswg/css2/visudet.html#propdef-width\">&lt;width&gt;</a>")
               .replace("<x>", "&lt;x&gt;")
