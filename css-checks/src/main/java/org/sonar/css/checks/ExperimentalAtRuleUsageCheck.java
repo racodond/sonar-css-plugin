@@ -51,7 +51,7 @@ public class ExperimentalAtRuleUsageCheck extends CssCheck {
     if (atRule.isVendorPrefixed() || atRule.getStandardAtRule().isExperimental()) {
       addIssue(
         this,
-        "Remove the usage of this experimental \"" + atRule.getStandardAtRule().getName() + "\" @-rule.",
+        "Remove this usage of the experimental \"" + atRule.getStandardAtRule().getName() + "\" @-rule.",
         astNode.getFirstChild(CssGrammar.AT_KEYWORD));
     }
   }

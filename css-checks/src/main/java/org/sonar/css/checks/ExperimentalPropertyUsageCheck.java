@@ -48,10 +48,10 @@ public class ExperimentalPropertyUsageCheck extends CssCheck {
   @Override
   public void visitNode(AstNode astNode) {
     Property property = new Property(astNode.getTokenValue());
-    if (property.isVendorPrefixed()) {
+    if (property.isVendorPrefixed() || property.getStandardProperty().isExperimental()) {
       addIssue(
         this,
-        "Remove the usage of this experimental \"" + property.getStandardProperty().getName() + "\" property.",
+        "Remove this usage of the experimental \"" + property.getStandardProperty().getName() + "\" property.",
         astNode);
     }
   }

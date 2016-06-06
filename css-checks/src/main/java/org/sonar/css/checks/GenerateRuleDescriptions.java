@@ -204,19 +204,41 @@ public class GenerateRuleDescriptions {
   }
 
   private static StringBuilder generateExperimentalPropertiesRuleDescription() {
-    return new StringBuilder()
+    StringBuilder htmlPage = new StringBuilder()
       .append(
         "<p>Even though vendor-specific properties are guaranteed not to cause conflicts, it should be recognized that these extensions may also be subject to change at the vendor’s whim, as they don’t form part of the CSS specifications, even though they often mimic the proposed behavior of existing or forthcoming CSS properties. Thus, it is not recommended to use them in production code.</p>\n")
       .append("<p>The rule raises an issue when one of the following prefixes is found:\n")
       .append(generateListOfVendors())
       .append("</p>\n")
+      .append("<p>This rule also raises an issue each time one of the following experimental properties is used:\n")
+      .append("<ul>\n");
+
+    StandardProperty property;
+    for (Map.Entry<String, StandardProperty> entry : getAllStandardProperties().entrySet()) {
+      property = entry.getValue();
+      if (property.isExperimental()) {
+        htmlPage.append("  <li>");
+        if (!property.getLinks().isEmpty()) {
+          htmlPage.append("<a target=\"_blank\" href=\"").append(property.getLinks().get(0)).append("\">");
+        }
+        htmlPage.append(property.getName());
+        if (!property.getLinks().isEmpty()) {
+          htmlPage.append("</a>");
+        }
+        htmlPage.append("  </li>\n");
+      }
+    }
+
+    htmlPage.append("</ul>\n")
       .append("<h2>Noncompliant Code Example</h2>\n")
       .append("<pre>\n")
       .append(".mybox {\n")
       .append("  -moz-border-radius: 5px;  /* Noncompliant */\n")
-      .append("  color: green;\n")
+      .append("  pause: 3s;  /* Noncompliant */\n")
       .append("}\n")
       .append("</pre>\n");
+
+    return htmlPage;
   }
 
   private static StringBuilder generateExperimentalAtRulesRuleDescription() {
