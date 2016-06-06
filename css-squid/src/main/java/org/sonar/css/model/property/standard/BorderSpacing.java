@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.property.border.BorderSpacingValid
 public class BorderSpacing extends StandardProperty {
 
   public BorderSpacing() {
-    addLinks("http://www.w3.org/TR/CSS2/tables.html#separated-borders");
+    addLinks("https://www.w3.org/TR/CSS22/tables.html#propdef-border-spacing");
     addValidators(new BorderSpacingValidator());
   }
 

@@ -26,7 +26,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class TableLayout extends StandardProperty {
 
   public TableLayout() {
-    addLinks("http://www.w3.org/TR/CSS2/tables.html#propdef-table-layout");
+    addLinks("https://www.w3.org/TR/CSS22/tables.html#propdef-table-layout");
     addValidators(new IdentifierValidator(ImmutableList.of("auto", "fixed")));
   }
 

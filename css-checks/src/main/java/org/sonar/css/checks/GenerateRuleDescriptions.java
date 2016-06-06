@@ -502,7 +502,7 @@ public class GenerateRuleDescriptions {
               .replace("<single-animation-play-state>",
                 "<a target=\"_blank\" href=\"http://www.w3.org/TR/css3-animations/#single-animation-play-state\">&lt;single-animation-play-state&gt;</a>")
               .replace("<shape-box>",
-                "<a target=\"_blank\" href=\"\">&lt;shape-box&gt;</a>") // TODO: add link when W3C standard is back online
+                "<a target=\"_blank\" href=\"https://drafts.csswg.org/css-shapes/#typedef-shape-box\">&lt;shape-box&gt;</a>")
               .replace("<single-timing-function>",
                 "<a target=\"_blank\" href=\"http://www.w3.org/TR/2012/WD-css3-transitions-20120403/#transition-timing-function\">&lt;single-timing-function&gt;</a>")
               .replace("<string>",

@@ -26,7 +26,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class BorderCollapse extends StandardProperty {
 
   public BorderCollapse() {
-    addLinks("http://www.w3.org/TR/CSS2/tables.html#borders");
+    addLinks("https://www.w3.org/TR/CSS22/tables.html#propdef-border-collapse");
     addValidators(new IdentifierValidator(ImmutableList.of("collapse", "separate")));
   }
 

@@ -26,7 +26,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class EmptyCells extends StandardProperty {
 
   public EmptyCells() {
-    addLinks("http://www.w3.org/TR/CSS2/tables.html#propdef-empty-cells");
+    addLinks("https://www.w3.org/TR/CSS22/tables.html#propdef-empty-cells");
     addValidators(new IdentifierValidator(ImmutableList.of("show", "hide")));
   }
 
