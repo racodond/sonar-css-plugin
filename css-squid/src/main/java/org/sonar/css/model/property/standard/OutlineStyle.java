@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.valueelement.OutlineStyleValidator
 public class OutlineStyle extends StandardProperty {
 
   public OutlineStyle() {
-    addLinks("http://dev.w3.org/csswg/css-ui-3/#propdef-outline-style");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/ui.html#propdef-outline-style",
+      "https://drafts.csswg.org/css-ui/#propdef-outline-style");
     addValidators(new OutlineStyleValidator());
   }
 

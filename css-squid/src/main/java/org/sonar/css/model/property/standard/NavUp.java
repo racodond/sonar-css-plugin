@@ -20,11 +20,13 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.property.NavValidator;
 
 public class NavUp extends StandardProperty {
 
   public NavUp() {
-    addLinks("http://dev.w3.org/csswg/css-ui-3/#propdef-nav-up");
+    addLinks("https://drafts.csswg.org/css-ui/#propdef-nav-up");
+    addValidators(new NavValidator());
   }
 
 }

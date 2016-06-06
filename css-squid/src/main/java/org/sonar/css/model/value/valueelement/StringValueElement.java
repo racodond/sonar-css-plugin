@@ -24,6 +24,14 @@ import org.sonar.css.model.value.CssValueElement;
 
 public class StringValueElement implements CssValueElement {
 
+  private String value;
+
   public StringValueElement(AstNode stringNode) {
+    value = stringNode.getTokenValue();
   }
+
+  public String getValue() {
+    return value;
+  }
+
 }

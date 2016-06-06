@@ -26,7 +26,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class Resize extends StandardProperty {
 
   public Resize() {
-    addLinks("http://dev.w3.org/csswg/css-ui-3/#propdef-resize");
+    addLinks("https://drafts.csswg.org/css-ui/#propdef-resize");
     addValidators(new IdentifierValidator(ImmutableList.of("none", "both", "horizontal", "vertical")));
   }
 

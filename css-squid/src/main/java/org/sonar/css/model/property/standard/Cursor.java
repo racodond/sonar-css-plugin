@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.property.CursorValidator;
 public class Cursor extends StandardProperty {
 
   public Cursor() {
-    addLinks("http://dev.w3.org/csswg/css-ui-3/#propdef-cursor");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/ui.html#propdef-cursor",
+      "https://drafts.csswg.org/css-ui/#cursor");
     addValidators(new CursorValidator());
   }
 

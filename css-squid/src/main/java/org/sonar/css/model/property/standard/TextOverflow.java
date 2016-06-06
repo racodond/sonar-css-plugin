@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.property.TextOverflowValidator;
 public class TextOverflow extends StandardProperty {
 
   public TextOverflow() {
-    addLinks("http://dev.w3.org/csswg/css-ui-3/#propdef-text-overflow");
+    addLinks("https://drafts.csswg.org/css-ui/#propdef-text-overflow");
     addValidators(new TextOverflowValidator());
   }
 

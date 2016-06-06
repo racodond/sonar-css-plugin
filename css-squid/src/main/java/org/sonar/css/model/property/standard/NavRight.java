@@ -20,11 +20,13 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.property.NavValidator;
 
 public class NavRight extends StandardProperty {
 
   public NavRight() {
-    addLinks("http://dev.w3.org/csswg/css-ui-3/#propdef-nav-right");
+    addLinks("https://drafts.csswg.org/css-ui/#propdef-nav-right");
+    addValidators(new NavValidator());
   }
 
 }

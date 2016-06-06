@@ -453,6 +453,8 @@ public class GenerateRuleDescriptions {
                 "&lt;function&gt;</a>")
               .replace("<generic-family>",
                 "<a target=\"_blank\" href=\"http://www.w3.org/TR/CSS2/fonts.html#value-def-generic-family\">&lt;generic-family&gt;</a>")
+              .replace("<id>",
+                "<a target=\"_blank\" href=\"https://drafts.csswg.org/css-ui/#typedef-id\">&lt;id&gt;</a>")
               .replace("<identifier>",
                 "<a target=\"_blank\" href=\"http://dev.w3.org/csswg/css-values-3/#identifier-value\">&lt;identifier&gt;</a>")
               .replace("<image>",
@@ -507,6 +509,8 @@ public class GenerateRuleDescriptions {
                 "<a target=\"_blank\" href=\"http://www.w3.org/TR/2012/WD-css3-transitions-20120403/#transition-timing-function\">&lt;single-timing-function&gt;</a>")
               .replace("<string>",
                 "<a target=\"_blank\" href=\"http://dev.w3.org/csswg/css-values-3/#string-value\">&lt;string&gt;</a>")
+              .replace("<target-name>",
+                "<a target=\"_blank\" href=\"https://drafts.csswg.org/css-ui/#typedef-target-name\">&lt;target-name&gt;</a>")
               .replace("<time>",
                 "<a target=\"_blank\" href=\"http://dev.w3.org/csswg/css-values-3/#time-value\">&lt;time&gt;</a>")
               .replace("<width>",

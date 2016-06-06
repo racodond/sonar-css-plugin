@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.valueelement.OutlineColorValidator
 public class OutlineColor extends StandardProperty {
 
   public OutlineColor() {
-    addLinks("http://dev.w3.org/csswg/css-ui-3/#propdef-outline-color");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/ui.html#propdef-outline-color",
+      "https://drafts.csswg.org/css-ui/#propdef-outline-color");
     addValidators(new OutlineColorValidator());
   }
 

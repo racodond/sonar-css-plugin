@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.valueelement.OutlineWidthValidator
 public class OutlineWidth extends StandardProperty {
 
   public OutlineWidth() {
-    addLinks("http://dev.w3.org/csswg/css-ui-3/#propdef-outline-width");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/ui.html#propdef-outline-width",
+      "https://drafts.csswg.org/css-ui/#propdef-outline-width");
     addValidators(new OutlineWidthValidator());
   }
 
