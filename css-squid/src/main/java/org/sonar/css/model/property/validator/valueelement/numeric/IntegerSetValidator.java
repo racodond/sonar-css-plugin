@@ -26,7 +26,7 @@ import org.sonar.css.model.value.valueelement.NumberValueElement;
 
 public class IntegerSetValidator extends IntegerValidator {
 
-  int[] set;
+  private final int[] set;
 
   public IntegerSetValidator(int[] set) {
     this.set = set;
@@ -36,8 +36,8 @@ public class IntegerSetValidator extends IntegerValidator {
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {
     if (super.isValid(cssValueElement)) {
       int value = ((NumberValueElement) cssValueElement).getValue().intValue();
-      for (int i = 0; i < set.length; i++) {
-        if (value == set[i]) {
+      for (int v : set) {
+        if (value == v) {
           return true;
         }
       }
@@ -49,11 +49,11 @@ public class IntegerSetValidator extends IntegerValidator {
   @Nonnull
   public String getValidatorFormat() {
     StringBuilder format = new StringBuilder();
-    for (int i = 0; i < set.length; i++) {
+    for (int v : set) {
       if (format.length() != 0) {
         format.append(" | ");
       }
-      format.append(set[i]);
+      format.append(v);
     }
     return format.toString();
   }

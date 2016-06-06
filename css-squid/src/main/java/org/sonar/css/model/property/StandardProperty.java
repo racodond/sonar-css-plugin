@@ -35,9 +35,9 @@ public class StandardProperty {
   private String name;
   private boolean obsolete;
   private boolean experimental;
-  private List<Vendor> vendors;
-  private List<Validator> validators;
-  private List<String> links;
+  private final List<Vendor> vendors;
+  private final List<Validator> validators;
+  private final List<String> links;
 
   public StandardProperty() {
     name = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, this.getClass().getSimpleName());

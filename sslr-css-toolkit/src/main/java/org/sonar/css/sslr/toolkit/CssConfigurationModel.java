@@ -31,7 +31,6 @@ import org.slf4j.LoggerFactory;
 import org.sonar.colorizer.*;
 import org.sonar.css.CssConfiguration;
 import org.sonar.css.parser.CssGrammar;
-import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.parser.ParserAdapter;
 import org.sonar.sslr.toolkit.AbstractConfigurationModel;
 import org.sonar.sslr.toolkit.ConfigurationProperty;
@@ -44,8 +43,7 @@ public class CssConfigurationModel extends AbstractConfigurationModel {
   private static final String CHARSET_PROPERTY_KEY = "sonar.sourceEncoding";
   private static final String END_TAG = "</span>";
 
-  @VisibleForTesting
-  ConfigurationProperty charsetProperty = new ConfigurationProperty("Charset",
+  private final ConfigurationProperty charsetProperty = new ConfigurationProperty("Charset",
     CHARSET_PROPERTY_KEY, getPropertyOrDefaultValue(CHARSET_PROPERTY_KEY, "UTF-8"),
     Validators.charsetValidator());
 
@@ -61,7 +59,7 @@ public class CssConfigurationModel extends AbstractConfigurationModel {
 
   @Override
   public Parser doGetParser() {
-    return new ParserAdapter<LexerlessGrammar>(getCharset(), CssGrammar.createGrammar());
+    return new ParserAdapter<>(getCharset(), CssGrammar.createGrammar());
   }
 
   @Override

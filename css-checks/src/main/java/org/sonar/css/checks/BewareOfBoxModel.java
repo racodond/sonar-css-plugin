@@ -142,8 +142,8 @@ public class BewareOfBoxModel extends CssCheck {
     List<CssValueElement> valueElements = value.getValueElements();
     for (CssValueElement valueElement : valueElements) {
       if (ValidatorFactory.getBorderWidthValidator().isValid(valueElement)) {
-        if (valueElement instanceof DimensionValueElement && !((DimensionValueElement) valueElement).isZero()
-          || valueElement instanceof PercentageValueElement && !((PercentageValueElement) valueElement).isZero()
+        if (valueElement instanceof DimensionValueElement && ((DimensionValueElement) valueElement).isNotZero()
+          || valueElement instanceof PercentageValueElement && ((PercentageValueElement) valueElement).isNotZero()
           || valueElement instanceof NumberValueElement && !((NumberValueElement) valueElement).isZero()) {
           return false;
         } else if (!(valueElement instanceof DimensionValueElement)
@@ -161,8 +161,8 @@ public class BewareOfBoxModel extends CssCheck {
     List<CssValueElement> valueElements = value.getValueElements();
     for (CssValueElement valueElement : valueElements) {
       if (ValidatorFactory.getPaddingWidthValidator().isValid(valueElement)) {
-        if (valueElement instanceof DimensionValueElement && !((DimensionValueElement) valueElement).isZero()
-          || valueElement instanceof PercentageValueElement && !((PercentageValueElement) valueElement).isZero()
+        if (valueElement instanceof DimensionValueElement && ((DimensionValueElement) valueElement).isNotZero()
+          || valueElement instanceof PercentageValueElement && ((PercentageValueElement) valueElement).isNotZero()
           || valueElement instanceof NumberValueElement && !((NumberValueElement) valueElement).isZero()) {
           return false;
         } else if (!(valueElement instanceof DimensionValueElement)

@@ -32,8 +32,8 @@ import org.sonar.css.model.value.CssValueElement;
 
 public class TextIndentValidator implements ValueValidator {
 
-  IdentifierValidator hangingValidator = new IdentifierValidator(ImmutableList.of("hanging"));
-  IdentifierValidator eachLineValidator = new IdentifierValidator(ImmutableList.of("each-line"));
+  private final IdentifierValidator hangingValidator = new IdentifierValidator(ImmutableList.of("hanging"));
+  private final IdentifierValidator eachLineValidator = new IdentifierValidator(ImmutableList.of("each-line"));
 
   @Override
   public boolean isValid(@Nonnull Value value) {

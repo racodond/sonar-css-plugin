@@ -33,8 +33,8 @@ import org.sonar.css.model.value.valueelement.DelimiterValueElement;
 
 public class BackgroundRepeatValidator implements ValueValidator {
 
-  IdentifierValidator repeatXYValidator = new IdentifierValidator(ImmutableList.of("repeat-x", "repeat-y"));
-  IdentifierValidator repeatOthersValidator = new IdentifierValidator(ImmutableList.of("repeat", "space", "round", "no-repeat"));
+  private final IdentifierValidator repeatXYValidator = new IdentifierValidator(ImmutableList.of("repeat-x", "repeat-y"));
+  private final IdentifierValidator repeatOthersValidator = new IdentifierValidator(ImmutableList.of("repeat", "space", "round", "no-repeat"));
 
   @Override
   public boolean isValid(@Nonnull Value value) {
@@ -58,7 +58,7 @@ public class BackgroundRepeatValidator implements ValueValidator {
   }
 
   private List<List<CssValueElement>> buildRepeatStyleList(Value value) {
-    List<List<CssValueElement>> repeatStyleList = new ArrayList();
+    List<List<CssValueElement>> repeatStyleList = new ArrayList<>();
     repeatStyleList.add(new ArrayList<CssValueElement>());
     int listIndex = 0;
     for (CssValueElement valueElement : value.getValueElements()) {

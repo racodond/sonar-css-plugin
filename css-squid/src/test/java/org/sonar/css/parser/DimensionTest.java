@@ -26,7 +26,7 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class DimensionTest extends TestBase {
 
-  private LexerlessGrammar b = CssGrammar.createGrammar();
+  private final LexerlessGrammar b = CssGrammar.createGrammar();
 
   @Test
   public void should_be_dimensions() {

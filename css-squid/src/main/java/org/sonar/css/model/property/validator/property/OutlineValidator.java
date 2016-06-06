@@ -31,9 +31,9 @@ import org.sonar.css.model.value.CssValueElement;
 
 public class OutlineValidator implements ValueValidator {
 
-  OutlineColorValidator outlineColorValidator = new OutlineColorValidator();
-  OutlineWidthValidator outlineWidthValidator = new OutlineWidthValidator();
-  OutlineStyleValidator outlineStyleValidator = new OutlineStyleValidator();
+  private final OutlineColorValidator outlineColorValidator = new OutlineColorValidator();
+  private final OutlineWidthValidator outlineWidthValidator = new OutlineWidthValidator();
+  private final OutlineStyleValidator outlineStyleValidator = new OutlineStyleValidator();
 
   @Override
   public boolean isValid(@Nonnull Value value) {

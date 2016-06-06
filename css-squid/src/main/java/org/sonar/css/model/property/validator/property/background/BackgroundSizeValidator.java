@@ -35,7 +35,7 @@ import org.sonar.css.model.value.valueelement.DelimiterValueElement;
 
 public class BackgroundSizeValidator implements ValueValidator {
 
-  ValueElementValidator coverContainValidator = new IdentifierValidator(ImmutableList.of("cover", "contain"));
+  private final ValueElementValidator coverContainValidator = new IdentifierValidator(ImmutableList.of("cover", "contain"));
 
   @Override
   public boolean isValid(@Nonnull Value value) {
@@ -62,7 +62,7 @@ public class BackgroundSizeValidator implements ValueValidator {
   }
 
   private List<List<CssValueElement>> buildRepeatStyleList(Value value) {
-    List<List<CssValueElement>> repeatStyleList = new ArrayList();
+    List<List<CssValueElement>> repeatStyleList = new ArrayList<>();
     repeatStyleList.add(new ArrayList<CssValueElement>());
     int listIndex = 0;
     for (CssValueElement valueElement : value.getValueElements()) {

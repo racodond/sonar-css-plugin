@@ -19,11 +19,13 @@
  */
 package org.sonar.css.model.function;
 
+import com.google.common.base.Preconditions;
+
+import java.io.File;
+
 import org.junit.Test;
 import org.sonar.css.model.function.standard.RepeatingLinearGradient;
 import org.sonar.css.model.function.standard.Rotatex;
-
-import java.io.File;
 
 import static org.junit.Assert.assertEquals;
 
@@ -84,6 +86,7 @@ public class StandardFunctionFactoryTest {
   public void number_of_standard_functions() {
     int counter = 0;
     File directory = new File("src/main/java/org/sonar/css/model/function/standard");
+    directory = Preconditions.checkNotNull(directory);
     for (File file : directory.listFiles()) {
       if (!"package-info.java".equals(file.getName())) {
         counter++;
@@ -91,6 +94,5 @@ public class StandardFunctionFactoryTest {
     }
     assertEquals(101, counter);
   }
-
 
 }

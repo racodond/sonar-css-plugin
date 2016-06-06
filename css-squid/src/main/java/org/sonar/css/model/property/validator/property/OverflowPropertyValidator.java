@@ -30,7 +30,7 @@ import org.sonar.css.model.value.CssValueElement;
 
 public class OverflowPropertyValidator implements ValueValidator {
 
-  ValueElementValidator overflowValidator = new OverflowValidator();
+  private final ValueElementValidator overflowValidator = new OverflowValidator();
 
   @Override
   public boolean isValid(@Nonnull Value value) {

@@ -32,9 +32,9 @@ import org.sonar.css.model.value.CssValueElement;
 
 public class TouchActionValidator implements ValueValidator {
 
-  IdentifierValidator panxValidator = new IdentifierValidator(ImmutableList.of("pan-x"));
-  IdentifierValidator panyValidator = new IdentifierValidator(ImmutableList.of("pan-y"));
-  IdentifierValidator manipulationValidator = new IdentifierValidator(ImmutableList.of("manipulation"));
+  private final IdentifierValidator panxValidator = new IdentifierValidator(ImmutableList.of("pan-x"));
+  private final IdentifierValidator panyValidator = new IdentifierValidator(ImmutableList.of("pan-y"));
+  private final IdentifierValidator manipulationValidator = new IdentifierValidator(ImmutableList.of("manipulation"));
 
   @Override
   public boolean isValid(@Nonnull Value value) {

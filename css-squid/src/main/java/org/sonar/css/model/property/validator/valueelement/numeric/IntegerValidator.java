@@ -41,7 +41,7 @@ public class IntegerValidator implements ValueElementValidator {
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {
     if (cssValueElement instanceof NumberValueElement && ((NumberValueElement) cssValueElement).isInteger()) {
       if (positiveOnly) {
-        return ((NumberValueElement) cssValueElement).isPositive() ? true : false;
+        return ((NumberValueElement) cssValueElement).isPositive();
       }
       return true;
     }

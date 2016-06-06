@@ -78,8 +78,8 @@ public class DisallowOverspecificSelectors extends CssCheck {
         this,
         MessageFormat.format("Simplify this over-specified selector. Maximum allowed depth: {0}. Actual depth: {1}", deepnessThreshold, selectors.size()),
         astNode);
-      for (int i = 0; i < selectors.size(); i++) {
-        issue.addSecondaryLocation("+1", selectors.get(i));
+      for (AstNode selector : selectors) {
+        issue.addSecondaryLocation("+1", selector);
       }
     }
   }

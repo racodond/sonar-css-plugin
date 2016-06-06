@@ -26,7 +26,7 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class SelectorTest extends TestBase {
 
-  private LexerlessGrammar b = CssGrammar.createGrammar();
+  private final LexerlessGrammar b = CssGrammar.createGrammar();
 
   @Test
   public void should_match_id_selector() {

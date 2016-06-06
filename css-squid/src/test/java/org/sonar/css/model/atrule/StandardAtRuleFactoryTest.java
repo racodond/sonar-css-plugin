@@ -19,12 +19,14 @@
  */
 package org.sonar.css.model.atrule;
 
+import com.google.common.base.Preconditions;
+
+import java.io.File;
+
 import org.junit.Test;
 import org.sonar.css.model.atrule.standard.CharacterVariant;
 import org.sonar.css.model.atrule.standard.Charset;
 import org.sonar.css.model.atrule.standard.Keyframes;
-
-import java.io.File;
 
 import static org.junit.Assert.assertEquals;
 
@@ -78,6 +80,7 @@ public class StandardAtRuleFactoryTest {
   public void number_of_standard_at_rules() {
     int counter = 0;
     File directory = new File("src/main/java/org/sonar/css/model/atrule/standard");
+    directory = Preconditions.checkNotNull(directory);
     for (File file : directory.listFiles()) {
       if (!"package-info.java".equals(file.getName())) {
         counter++;

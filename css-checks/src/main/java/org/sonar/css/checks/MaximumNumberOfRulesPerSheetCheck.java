@@ -55,7 +55,7 @@ public class MaximumNumberOfRulesPerSheetCheck extends CssCheck {
     defaultValue = "" + DEFAULT_MAX_RULES)
   private int max = DEFAULT_MAX_RULES;
 
-  private Set<AstNode> ruleNodes = new HashSet<>();
+  private final Set<AstNode> ruleNodes = new HashSet<>();
 
   @Override
   public void init() {

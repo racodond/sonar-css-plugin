@@ -26,7 +26,7 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class LowLevelTest extends TestBase {
 
-  private LexerlessGrammar b = CssGrammar.createGrammar();
+  private final LexerlessGrammar b = CssGrammar.createGrammar();
 
   @Test
   public void strings() {

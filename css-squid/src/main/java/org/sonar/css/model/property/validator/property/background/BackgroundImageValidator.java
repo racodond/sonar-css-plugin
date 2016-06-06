@@ -51,7 +51,7 @@ public class BackgroundImageValidator implements ValueValidator {
   }
 
   private List<List<CssValueElement>> buildBackgroundImageList(Value value) {
-    List<List<CssValueElement>> backgroundImageList = new ArrayList();
+    List<List<CssValueElement>> backgroundImageList = new ArrayList<>();
     backgroundImageList.add(new ArrayList<CssValueElement>());
     int listIndex = 0;
     for (CssValueElement valueElement : value.getValueElements()) {

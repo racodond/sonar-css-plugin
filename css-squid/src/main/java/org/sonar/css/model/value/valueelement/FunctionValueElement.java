@@ -25,7 +25,7 @@ import org.sonar.css.model.value.CssValueElement;
 
 public class FunctionValueElement implements CssValueElement {
 
-  private Function function;
+  private final Function function;
 
   public FunctionValueElement(AstNode functionNode) {
     this.function = new Function(functionNode.getTokenValue());

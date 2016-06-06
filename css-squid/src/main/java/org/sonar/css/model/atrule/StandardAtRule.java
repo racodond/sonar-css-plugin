@@ -31,7 +31,7 @@ public class StandardAtRule {
   private String name;
   private boolean obsolete;
   private boolean experimental;
-  private List<String> links;
+  private final List<String> links;
 
   public StandardAtRule() {
     name = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, this.getClass().getSimpleName());

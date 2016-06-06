@@ -32,7 +32,7 @@ public class NumberValueElement implements CssValueElement {
   public NumberValueElement(AstNode numberNode) {
     value = Double.valueOf(numberNode.getTokenValue());
     isZero = numberNode.getTokenValue().matches("([\\-\\+])?[0]*(\\.[0]+)?");
-    isInteger = numberNode.getTokenValue().matches("[\\-\\+]{0,1}[0-9]+");
+    isInteger = numberNode.getTokenValue().matches("[\\-\\+]?[0-9]+");
     integerValue = Math.round(Double.valueOf(numberNode.getTokenValue()));
   }
 

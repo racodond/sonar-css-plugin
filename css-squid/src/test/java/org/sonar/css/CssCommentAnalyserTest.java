@@ -28,9 +28,9 @@ import static org.fest.assertions.Assertions.assertThat;
 public class CssCommentAnalyserTest {
 
   @Rule
-  public ExpectedException thrown = ExpectedException.none();
+  public final ExpectedException thrown = ExpectedException.none();
 
-  private CssCommentAnalyser analyser = new CssCommentAnalyser();
+  private final CssCommentAnalyser analyser = new CssCommentAnalyser();
 
   @Test
   public void content() {

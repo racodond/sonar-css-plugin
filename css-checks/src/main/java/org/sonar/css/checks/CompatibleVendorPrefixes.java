@@ -48,7 +48,7 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 @SqaleConstantRemediation("10min")
 public class CompatibleVendorPrefixes extends CssCheck {
 
-  Map<String, Set<Vendor>> properties = new HashMap<>();
+  private final Map<String, Set<Vendor>> properties = new HashMap<>();
 
   @Override
   public void init() {

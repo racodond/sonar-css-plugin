@@ -31,7 +31,7 @@ import org.sonar.css.parser.CssGrammar;
 
 public class Value {
 
-  private List<CssValueElement> valueElements;
+  private final List<CssValueElement> valueElements;
 
   public Value(AstNode valueAstNode) {
     valueElements = new ArrayList<>();

@@ -23,7 +23,7 @@ import java.nio.charset.Charset;
 
 public class CssConfiguration {
 
-  private Charset charset;
+  private final Charset charset;
   private boolean ignoreHeaderComments;
 
   public CssConfiguration(Charset charset) {

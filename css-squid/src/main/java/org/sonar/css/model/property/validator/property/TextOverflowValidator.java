@@ -33,7 +33,7 @@ import org.sonar.css.model.value.CssValueElement;
 
 public class TextOverflowValidator implements ValueValidator {
 
-  ValueElementValidator identifierValidator = new IdentifierValidator(ImmutableList.of("clip", "ellipsis"));
+  private final ValueElementValidator identifierValidator = new IdentifierValidator(ImmutableList.of("clip", "ellipsis"));
 
   @Override
   public boolean isValid(@Nonnull Value value) {

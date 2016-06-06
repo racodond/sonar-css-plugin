@@ -39,7 +39,7 @@ public class PreciseIssue implements Issue {
   private final File file;
   private Double effortToFix;
   private PreciseIssueLocation primaryLocation;
-  private List<PreciseIssueLocation> secondaryLocations;
+  private final List<PreciseIssueLocation> secondaryLocations;
 
   private PreciseIssue(SquidCheck check, File file) {
     this.check = check;

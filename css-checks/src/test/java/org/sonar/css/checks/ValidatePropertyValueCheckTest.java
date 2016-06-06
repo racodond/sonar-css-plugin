@@ -19,6 +19,8 @@
  */
 package org.sonar.css.checks;
 
+import com.google.common.base.Preconditions;
+
 import java.io.File;
 
 import junit.framework.Assert;
@@ -30,6 +32,7 @@ public class ValidatePropertyValueCheckTest {
   @Test
   public void test_validate_properties() {
     File testDirectory = new File("src/test/resources/checks/properties");
+    testDirectory = Preconditions.checkNotNull(testDirectory);
     for (File file : testDirectory.listFiles()) {
       CssCheckVerifier.verify(new ValidatePropertyValueCheck(), file);
     }
@@ -38,6 +41,7 @@ public class ValidatePropertyValueCheckTest {
   @Test
   public void test_number_of_validated_properties() {
     File testDirectory = new File("src/test/resources/checks/properties");
+    testDirectory = Preconditions.checkNotNull(testDirectory);
     Assert.assertEquals(226, testDirectory.listFiles().length);
   }
 

@@ -23,7 +23,7 @@ import com.google.common.collect.ImmutableList;
 
 import java.io.File;
 import java.nio.charset.Charset;
-import java.util.Arrays;
+import java.util.Collections;
 
 import org.apache.commons.collections.ListUtils;
 import org.junit.Before;
@@ -40,7 +40,6 @@ import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
-import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
 import org.sonar.css.ast.visitors.SonarComponents;
 import org.sonar.squidbridge.SquidAstVisitor;
@@ -51,24 +50,21 @@ import static org.mockito.Mockito.*;
 public class CssSquidSensorTest {
 
   private CssSquidSensor sensor;
-  private FileSystem fs;
-  private FileLinesContextFactory fileLinesContextFactory;
-  private CheckFactory checkFactory;
 
   @Before
   public void setUp() {
-    fileLinesContextFactory = mock(FileLinesContextFactory.class);
+    FileLinesContextFactory fileLinesContextFactory = mock(FileLinesContextFactory.class);
     FileLinesContext fileLinesContext = mock(FileLinesContext.class);
     when(fileLinesContextFactory.createFor(Mockito.any(InputFile.class))).thenReturn(fileLinesContext);
 
-    fs = mock(FileSystem.class);
+    FileSystem fs = mock(FileSystem.class);
     when(fs.predicates()).thenReturn(mock(FilePredicates.class));
-    when(fs.files(Mockito.any(FilePredicate.class))).thenReturn(Arrays.asList(new File("src/test/resources/org/sonar/plugins/css/cssProject/css/metrics.css")));
+    when(fs.files(Mockito.any(FilePredicate.class))).thenReturn(Collections.singletonList(new File("src/test/resources/org/sonar/plugins/css/cssProject/css/metrics.css")));
     when(fs.encoding()).thenReturn(Charset.forName("UTF-8"));
 
-    Checks<SquidAstVisitor> checks = mock(Checks.class);
+    Checks checks = mock(Checks.class);
     when(checks.addAnnotatedChecks(Mockito.anyCollection())).thenReturn(checks);
-    checkFactory = mock(CheckFactory.class);
+    CheckFactory checkFactory = mock(CheckFactory.class);
     when(checkFactory.<SquidAstVisitor>create(Mockito.anyString())).thenReturn(checks);
 
     sensor = new CssSquidSensor(null, fs, checkFactory, mock(NoSonarFilter.class));

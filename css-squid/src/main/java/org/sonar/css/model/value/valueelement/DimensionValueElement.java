@@ -44,8 +44,8 @@ public class DimensionValueElement implements CssValueElement {
     return value >= 0;
   }
 
-  public boolean isZero() {
-    return isZero;
+  public boolean isNotZero() {
+    return !isZero;
   }
 
 }

@@ -29,7 +29,7 @@ public enum CssPunctuator implements TokenType {
 
   private final String value;
 
-  private CssPunctuator(String word) {
+  CssPunctuator(String word) {
     this.value = word;
   }
 

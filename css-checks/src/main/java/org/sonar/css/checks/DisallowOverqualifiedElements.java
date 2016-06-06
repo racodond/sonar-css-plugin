@@ -49,7 +49,7 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 @ActivatedByDefault
 public class DisallowOverqualifiedElements extends CssCheck {
 
-  List<Selectors> selectors = new ArrayList<>();
+  private final List<Selectors> selectors = new ArrayList<>();
 
   @Override
   public void init() {
@@ -85,8 +85,8 @@ public class DisallowOverqualifiedElements extends CssCheck {
   }
 
   private static class Selectors {
-    String className;
-    Map<String, Integer> elements = new HashMap<>();
+    private final String className;
+    private final Map<String, Integer> elements = new HashMap<>();
 
     public Selectors(String className, String element, int line) {
       this.className = className;

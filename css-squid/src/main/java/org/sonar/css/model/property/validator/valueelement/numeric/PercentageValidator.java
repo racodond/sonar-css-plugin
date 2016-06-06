@@ -37,7 +37,7 @@ public class PercentageValidator implements ValueElementValidator {
   public boolean isValid(@Nonnull CssValueElement cssValueElement) {
     if (cssValueElement instanceof PercentageValueElement) {
       if (positiveOnly) {
-        return ((PercentageValueElement) cssValueElement).isPositive() ? true : false;
+        return ((PercentageValueElement) cssValueElement).isPositive();
       }
       return true;
     }

@@ -19,6 +19,8 @@
  */
 package org.sonar.css.model.property;
 
+import com.google.common.base.Preconditions;
+
 import java.io.File;
 
 import org.junit.Test;
@@ -97,6 +99,7 @@ public class StandardPropertyFactoryTest {
   public void number_of_standard_properties() {
     int counter = 0;
     File directory = new File("src/main/java/org/sonar/css/model/property/standard");
+    directory = Preconditions.checkNotNull(directory);
     for (File file : directory.listFiles()) {
       if (!"package-info.java".equals(file.getName())) {
         counter++;

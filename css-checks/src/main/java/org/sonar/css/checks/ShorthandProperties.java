@@ -50,12 +50,12 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 @ActivatedByDefault
 public class ShorthandProperties extends CssCheck {
 
-  private static List<String> margin = ImmutableList.of("margin-left", "margin-right", "margin-top", "margin-bottom");
-  private static List<String> padding = ImmutableList.of("padding-left", "padding-right", "padding-top", "padding-bottom");
+  private static final List<String> margin = ImmutableList.of("margin-left", "margin-right", "margin-top", "margin-bottom");
+  private static final List<String> padding = ImmutableList.of("padding-left", "padding-right", "padding-top", "padding-bottom");
 
-  List<String> properties = new ArrayList<>();
-  List<AstNode> marginNodes = new ArrayList<>();
-  List<AstNode> paddingNodes = new ArrayList<>();
+  private final List<String> properties = new ArrayList<>();
+  private final List<AstNode> marginNodes = new ArrayList<>();
+  private final List<AstNode> paddingNodes = new ArrayList<>();
 
   @Override
   public void init() {

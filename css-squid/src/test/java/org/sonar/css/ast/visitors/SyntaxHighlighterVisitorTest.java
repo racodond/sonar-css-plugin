@@ -38,7 +38,7 @@ import static org.mockito.Mockito.mock;
 public class SyntaxHighlighterVisitorTest {
 
   @Rule
-  public TemporaryFolder temp = new TemporaryFolder();
+  public final TemporaryFolder temp = new TemporaryFolder();
 
   private final SonarComponents sonarComponents = Mockito.mock(SonarComponents.class);
   private final Highlightable highlightable = Mockito.mock(Highlightable.class);

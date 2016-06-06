@@ -27,7 +27,7 @@ import org.sonar.css.model.Value;
 
 public class ValueMultiValidator implements ValueValidator {
 
-  private List<Validator> validators;
+  private final List<Validator> validators;
 
   public ValueMultiValidator() {
     validators = new ArrayList<>();

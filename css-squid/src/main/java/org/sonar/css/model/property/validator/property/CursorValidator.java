@@ -75,7 +75,7 @@ public class CursorValidator implements ValueValidator {
   }
 
   private List<List<CssValueElement>> buildCursorList(Value value) {
-    List<List<CssValueElement>> cursorList = new ArrayList();
+    List<List<CssValueElement>> cursorList = new ArrayList<>();
     cursorList.add(new ArrayList<CssValueElement>());
     int listIndex = 0;
     for (CssValueElement valueElement : value.getValueElements()) {

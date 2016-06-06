@@ -33,7 +33,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class CssRealCodeTest {
-  private LexerlessGrammar b = CssGrammar.createGrammar();
+  private final LexerlessGrammar b = CssGrammar.createGrammar();
 
   @Test
   public void realLife1() throws IOException, URISyntaxException {

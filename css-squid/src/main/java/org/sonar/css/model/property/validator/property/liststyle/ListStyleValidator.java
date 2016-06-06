@@ -28,9 +28,9 @@ import org.sonar.css.model.value.CssValueElement;
 
 public class ListStyleValidator implements ValueValidator {
 
-  ListStyleTypeValidator listStyleTypeValidator = new ListStyleTypeValidator();
-  ListStylePositionValidator listStylePositionValidator = new ListStylePositionValidator();
-  ListStyleImageValidator listStyleImageValidator = new ListStyleImageValidator();
+  private final ListStyleTypeValidator listStyleTypeValidator = new ListStyleTypeValidator();
+  private final ListStylePositionValidator listStylePositionValidator = new ListStylePositionValidator();
+  private final ListStyleImageValidator listStyleImageValidator = new ListStyleImageValidator();
 
   @Override
   public boolean isValid(@Nonnull Value value) {

@@ -79,7 +79,7 @@ public class DuplicatedProperties extends CssCheck {
   }
 
   private Map<String, List<AstNode>> getPropertiesMap(List<AstNode> declarationNodes) {
-    Map<String, List<AstNode>> propertiesMap = new HashMap();
+    Map<String, List<AstNode>> propertiesMap = new HashMap<>();
     Property property;
     String propertyName;
     for (AstNode declarationNode : declarationNodes) {

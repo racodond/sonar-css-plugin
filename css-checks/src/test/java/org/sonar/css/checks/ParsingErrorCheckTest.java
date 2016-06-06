@@ -27,7 +27,7 @@ import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class ParsingErrorCheckTest {
 
-  private ParsingErrorCheck check = new ParsingErrorCheck();
+  private final ParsingErrorCheck check = new ParsingErrorCheck();
 
   @Test
   @Ignore

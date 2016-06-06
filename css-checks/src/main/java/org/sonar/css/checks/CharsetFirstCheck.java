@@ -69,7 +69,7 @@ public class CharsetFirstCheck extends CssCheck {
   }
 
   private boolean isFirst(AstNode astNode) {
-    return astNode.getTokenLine() == 1 && astNode.getToken().getColumn() == 0 + offset;
+    return astNode.getTokenLine() == 1 && astNode.getToken().getColumn() == offset;
   }
 
 }

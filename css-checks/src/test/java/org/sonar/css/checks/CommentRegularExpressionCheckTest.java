@@ -28,7 +28,7 @@ import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class CommentRegularExpressionCheckTest {
 
-  private CommentRegularExpressionCheck check = new CommentRegularExpressionCheck();
+  private final CommentRegularExpressionCheck check = new CommentRegularExpressionCheck();
 
   @Test
   public void should_match_some_comments_and_raise_issues() {

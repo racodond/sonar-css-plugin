@@ -26,7 +26,7 @@ import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class TabCharacterCheckTest {
 
-  private TabCharacterCheck check = new TabCharacterCheck();
+  private final TabCharacterCheck check = new TabCharacterCheck();
 
   @Test
   public void should_find_tab_characters_and_raise_an_issue() {

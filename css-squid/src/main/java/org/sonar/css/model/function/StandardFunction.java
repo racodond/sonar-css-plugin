@@ -32,7 +32,7 @@ public class StandardFunction {
   private boolean obsolete;
   private boolean experimental;
   private boolean ieStaticFilter;
-  private List<String> links;
+  private final List<String> links;
 
   public StandardFunction() {
     name = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, this.getClass().getSimpleName());

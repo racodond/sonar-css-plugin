@@ -31,8 +31,8 @@ import org.sonar.css.model.value.CssValueElement;
 
 public class ShapeOutsideValidator implements ValueValidator {
 
-  BasicShapeValidator basicShapeValidator = new BasicShapeValidator();
-  ShapeBoxValidator shapeBoxValidator = new ShapeBoxValidator();
+  private final BasicShapeValidator basicShapeValidator = new BasicShapeValidator();
+  private final ShapeBoxValidator shapeBoxValidator = new ShapeBoxValidator();
 
   @Override
   public boolean isValid(@Nonnull Value value) {

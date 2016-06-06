@@ -31,10 +31,10 @@ import org.sonar.css.model.value.CssValueElement;
 
 public class HangingPunctuationValidator implements ValueValidator {
 
-  IdentifierValidator singleElementValidator = new IdentifierValidator(ImmutableList.of("none", "first", "force-end", "allow-end", "last"));
-  IdentifierValidator firstValidator = new IdentifierValidator(ImmutableList.of("first"));
-  IdentifierValidator lastValidator = new IdentifierValidator(ImmutableList.of("last"));
-  IdentifierValidator forceEndAllowEndValidator = new IdentifierValidator(ImmutableList.of("force-end", "allow-end"));
+  private final IdentifierValidator singleElementValidator = new IdentifierValidator(ImmutableList.of("none", "first", "force-end", "allow-end", "last"));
+  private final IdentifierValidator firstValidator = new IdentifierValidator(ImmutableList.of("first"));
+  private final IdentifierValidator lastValidator = new IdentifierValidator(ImmutableList.of("last"));
+  private final IdentifierValidator forceEndAllowEndValidator = new IdentifierValidator(ImmutableList.of("force-end", "allow-end"));
 
   @Override
   public boolean isValid(@Nonnull Value value) {

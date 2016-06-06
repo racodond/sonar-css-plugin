@@ -58,7 +58,6 @@ public class CssSquidSensor implements Sensor {
   private final NoSonarFilter noSonarFilter;
 
   private SensorContext context;
-  private AstScanner<LexerlessGrammar> scanner;
   private final SonarComponents sonarComponents;
   private final FileSystem fs;
 
@@ -82,7 +81,7 @@ public class CssSquidSensor implements Sensor {
     Collection<SquidCheck> checkList = checks.all();
     CssConfiguration conf = new CssConfiguration(fs.encoding());
     Set<Issue> issues = new HashSet<>();
-    this.scanner = CssAstScanner.create(conf, sonarComponents, issues, checkList.toArray(new SquidAstVisitor[checkList.size()]));
+    AstScanner<LexerlessGrammar> scanner = CssAstScanner.create(conf, sonarComponents, issues, checkList.toArray(new SquidAstVisitor[checkList.size()]));
     scanner.scanFiles(Lists.newArrayList(filesToAnalyze()));
 
     Collection<SourceCode> squidSourceFiles = scanner.getIndex().search(new QueryByType(SourceFile.class));
@@ -97,9 +96,7 @@ public class CssSquidSensor implements Sensor {
     for (SourceCode squidSourceFile : squidSourceFiles) {
       SourceFile squidFile = (SourceFile) squidSourceFile;
       InputFile sonarFile = fs.inputFile(fs.predicates().hasAbsolutePath(squidFile.getKey()));
-      if (sonarFile != null) {
-        noSonarFilter.noSonarInFile(sonarFile, squidFile.getNoSonarTagLines());
-      }
+      noSonarFilter.noSonarInFile(sonarFile, squidFile.getNoSonarTagLines());
       saveMeasures(sonarFile, squidFile);
     }
     saveIssues(checks, issues);

@@ -26,7 +26,7 @@ import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class LineLengthCheckTest {
 
-  private LineLengthCheck check = new LineLengthCheck();
+  private final LineLengthCheck check = new LineLengthCheck();
 
   @Test
   public void should_not_find_any_line_longer_than_the_default_value_120() {
