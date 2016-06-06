@@ -26,7 +26,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class TextJustify extends StandardProperty {
 
   public TextJustify() {
-    addLinks("http://dev.w3.org/csswg/css-text-3/#propdef-text-justify");
+    addLinks("https://drafts.csswg.org/css-text-3/#propdef-text-justify");
     addValidators(new IdentifierValidator(ImmutableList.of("auto", "none", "inter-word", "inter-character")));
   }
 

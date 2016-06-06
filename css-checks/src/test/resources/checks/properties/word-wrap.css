@@ -1,0 +1,8 @@
+.mybox {
+  word-wrap: inherit;
+  word-wrap: normal;
+  word-wrap: break-word;
+  word-wrap: 0; /* Noncompliant !{Update the invalid value of property "word-wrap". Expected format: normal | break-word}! */
+  word-wrap: 0px; /* Noncompliant */
+  word-wrap: abc; /* Noncompliant */
+}

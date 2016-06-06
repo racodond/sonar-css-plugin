@@ -27,7 +27,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class WordBreak extends StandardProperty {
 
   public WordBreak() {
-    addLinks("http://www.w3.org/TR/css3-text/#word-break");
+    addLinks("https://drafts.csswg.org/css-text-3/#propdef-word-break");
     addVendors(Vendor.EPUB, Vendor.MICROSOFT);
     addValidators(new IdentifierValidator(ImmutableList.of("normal", "keep-all", "break-all")));
   }

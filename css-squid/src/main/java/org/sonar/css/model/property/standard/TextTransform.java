@@ -26,7 +26,9 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class TextTransform extends StandardProperty {
 
   public TextTransform() {
-    addLinks("http://dev.w3.org/csswg/css3-text/#text-transform");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/text.html#propdef-text-transform",
+      "https://drafts.csswg.org/css-text-3/#propdef-text-transform");
     addValidators(new IdentifierValidator(ImmutableList.of("capitalize", "uppercase", "lowercase", "full-width", "none")));
   }
 

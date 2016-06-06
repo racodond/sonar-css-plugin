@@ -26,7 +26,9 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class TextDecoration extends StandardProperty {
 
   public TextDecoration() {
-    addLinks("http://dev.w3.org/csswg/css-text-decor-3/#propdef-text-decoration");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/text.html#propdef-text-decoration",
+      "https://drafts.csswg.org/css-text-decor-3/#propdef-text-decoration");
     addValidators(new IdentifierValidator(ImmutableList.of("none", "underline", "overline", "line-through", "blink")));
     // TODO: Move to CSS3 validator
   }

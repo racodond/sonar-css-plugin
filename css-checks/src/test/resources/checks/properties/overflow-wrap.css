@@ -1,0 +1,8 @@
+.mybox {
+  overflow-wrap: inherit;
+  overflow-wrap: normal;
+  overflow-wrap: break-word;
+  overflow-wrap: 0; /* Noncompliant !{Update the invalid value of property "overflow-wrap". Expected format: normal | break-word}! */
+  overflow-wrap: 0px; /* Noncompliant */
+  overflow-wrap: abc; /* Noncompliant */
+}

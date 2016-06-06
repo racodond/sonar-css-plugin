@@ -20,13 +20,15 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.ValidatorFactory;
+import org.sonar.css.model.property.validator.property.TextIndentValidator;
 
 public class TextIndent extends StandardProperty {
 
   public TextIndent() {
-    addLinks("http://www.w3.org/TR/CSS2/text.html#indentation-prop");
-    addValidators(ValidatorFactory.getLengthValidator(), ValidatorFactory.getPercentageValidator());
+    addLinks(
+      "https://www.w3.org/TR/CSS22/text.html#propdef-text-indent",
+      "https://drafts.csswg.org/css-text-3/#propdef-text-indent");
+    addValidators(new TextIndentValidator());
   }
 
 }

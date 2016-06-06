@@ -27,7 +27,9 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class LetterSpacing extends StandardProperty {
 
   public LetterSpacing() {
-    addLinks("http://dev.w3.org/csswg/css-text-3/#propdef-letter-spacing");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/text.html#propdef-letter-spacing",
+      "https://drafts.csswg.org/css-text-3/#propdef-letter-spacing");
     addValidators(
       new IdentifierValidator(ImmutableList.of("normal")),
       ValidatorFactory.getLengthValidator());

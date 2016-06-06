@@ -20,11 +20,13 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.property.HangingPunctuationValidator;
 
 public class HangingPunctuation extends StandardProperty {
 
   public HangingPunctuation() {
-    addLinks("http://www.w3.org/TR/css3-text/#hanging-punctuation");
+    addLinks("https://drafts.csswg.org/css-text-3/#propdef-hanging-punctuation");
+    addValidators(new HangingPunctuationValidator());
   }
 
 }

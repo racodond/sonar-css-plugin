@@ -26,7 +26,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class WordWrap extends StandardProperty {
 
   public WordWrap() {
-    addLinks("http://dev.w3.org/csswg/css-text-3/#propdef-word-wrap");
+    addLinks("https://drafts.csswg.org/css-text-3/#propdef-word-wrap");
     addValidators(new IdentifierValidator(ImmutableList.of("normal", "break-word")));
   }
 

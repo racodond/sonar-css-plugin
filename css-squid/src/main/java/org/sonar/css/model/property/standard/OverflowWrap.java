@@ -26,7 +26,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class OverflowWrap extends StandardProperty {
 
   public OverflowWrap() {
-    addLinks("http://dev.w3.org/csswg/css-text-3/#propdef-overflow-wrap");
+    addLinks("https://drafts.csswg.org/css-text-3/#propdef-overflow-wrap");
     addValidators(new IdentifierValidator(ImmutableList.of("normal", "break-word")));
   }
 

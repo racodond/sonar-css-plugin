@@ -90,17 +90,17 @@ public class GenerateRuleDescriptions {
 
   private static StringBuilder generateObsoleteFunctionsRuleDescription() {
     StringBuilder htmlPage = new StringBuilder()
-        .append(
-            "<p>To make sure that your code will keep working as expected in the future, do not use: <ul><li>Obsolete functions (no longer supported by main vendors or support to be removed by main vendors)</li><li>Functions not on W3C Standards track</li></ul></p>\n")
-        .append("<h2>Noncompliant Code Example</h2>\n")
-        .append("<pre>\n")
-        .append(".mybox {\n")
-        .append("  font-size: min(10px, 3em); /* Noncompliant */\n")
-        .append("  font-size: max(10px, 3em); /* Noncompliant */\n")
-        .append("}\n")
-        .append("</pre>\n")
-        .append("<h2>Obsolete and Not on Standards Track Functions</h2>\n")
-        .append("<ul>\n");
+      .append(
+        "<p>To make sure that your code will keep working as expected in the future, do not use: <ul><li>Obsolete functions (no longer supported by main vendors or support to be removed by main vendors)</li><li>Functions not on W3C Standards track</li></ul></p>\n")
+      .append("<h2>Noncompliant Code Example</h2>\n")
+      .append("<pre>\n")
+      .append(".mybox {\n")
+      .append("  font-size: min(10px, 3em); /* Noncompliant */\n")
+      .append("  font-size: max(10px, 3em); /* Noncompliant */\n")
+      .append("}\n")
+      .append("</pre>\n")
+      .append("<h2>Obsolete and Not on Standards Track Functions</h2>\n")
+      .append("<ul>\n");
 
     StandardFunction function;
     for (Map.Entry<String, StandardFunction> entry : getAllStandardFunctions().entrySet()) {
@@ -413,6 +413,14 @@ public class GenerateRuleDescriptions {
                 " <a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar\">|</a> ")
               .replace("||",
                 "<a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar\">||</a>")
+              .replace("&&",
+                "<a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_ampersand\">&amp;&amp;</a>")
+              .replace("?",
+                "<a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Question_mark_()\">?</a>")
+              .replace("+",
+                "<a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Plus_()\">+</a>")
+              .replace("*",
+                "<a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Asterisk_(*)\">*</a>")
               .replace("<angle>",
                 "<a target=\"_blank\" href=\"http://dev.w3.org/csswg/css-values-3/#angle-value\">&lt;angle&gt;</a>")
               .replace("<basic-shape>",

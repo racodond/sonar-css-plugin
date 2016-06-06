@@ -26,7 +26,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class TextAlignLast extends StandardProperty {
 
   public TextAlignLast() {
-    addLinks("http://dev.w3.org/csswg/css-text-3/#propdef-text-align-last");
+    addLinks("https://drafts.csswg.org/css-text-3/#propdef-text-align-last");
     addValidators(new IdentifierValidator(ImmutableList.of("auto", "start", "end", "left", "right", "center", "justify")));
   }
 

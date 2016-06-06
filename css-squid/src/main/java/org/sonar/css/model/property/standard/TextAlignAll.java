@@ -26,7 +26,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class TextAlignAll extends StandardProperty {
 
   public TextAlignAll() {
-    addLinks("http://dev.w3.org/csswg/css-text-3/#propdef-text-align-all");
+    addLinks("https://drafts.csswg.org/css-text-3/#propdef-text-align-all");
     addValidators(new IdentifierValidator(ImmutableList.of("start", "end", "left", "right", "center", "justify", "match-parent")));
   }
 

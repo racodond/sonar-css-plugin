@@ -27,10 +27,13 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class WordSpacing extends StandardProperty {
 
   public WordSpacing() {
-    addLinks("http://www.w3.org/TR/CSS2/text.html#propdef-word-spacing");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/text.html#propdef-word-spacing",
+      "https://drafts.csswg.org/css-text-3/#propdef-word-spacing");
     addValidators(
       new IdentifierValidator(ImmutableList.of("normal")),
-      ValidatorFactory.getLengthValidator());
+      ValidatorFactory.getLengthValidator(),
+      ValidatorFactory.getPercentageValidator());
   }
 
 }

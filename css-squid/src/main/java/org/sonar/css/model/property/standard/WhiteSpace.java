@@ -26,7 +26,9 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class WhiteSpace extends StandardProperty {
 
   public WhiteSpace() {
-    addLinks("http://www.w3.org/TR/CSS2/text.html#propdef-white-space");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/text.html#propdef-white-space",
+      "https://drafts.csswg.org/css-text-3/#propdef-white-space");
     addValidators(new IdentifierValidator(ImmutableList.of("normal", "pre", "nowrap", "pre-wrap", "pre-line")));
   }
 
