@@ -120,6 +120,7 @@ public class GenerateRuleDescriptions {
       .append("  <tr align=center>\n")
       .append("    <th>Name</th>\n")
       .append("    <th>Validator</th>\n")
+      .append("    <th>Status</th>\n")
       .append("  </tr>\n")
       .append("  </thead>\n");
 
@@ -254,6 +255,13 @@ public class GenerateRuleDescriptions {
             "<a target=\"_blank\" href=\"http://dev.w3.org/csswg/css2/visudet.html#propdef-width\">&lt;width&gt;</a>")
           .replace("<x>", "&lt;x&gt;")
           .replace("<y>", "&lt;y&gt;"));
+      }
+      description.append("</td>\n")
+        .append("<td align=center>");
+      if (property.isExperimental()) {
+        description.append("Experimental");
+      } else {
+        description.append("Standard");
       }
       description.append("</td>\n")
         .append("  </tr>\n");
