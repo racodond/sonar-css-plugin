@@ -93,7 +93,7 @@ public class PreciseIssue implements Issue {
     NewIssue issue = sensorContext.newIssue();
     issue
       .forRule(ruleKey)
-      .effortToFix(effortToFix);
+      .gap(effortToFix);
 
     if (primaryLocation.getStartLine() != 0) {
       if (primaryLocation.getEndLine() != 0) {
