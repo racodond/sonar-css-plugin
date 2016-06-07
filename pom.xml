@@ -4,9 +4,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.codehaus.sonar-plugins</groupId>
+    <groupId>org.sonarsource.parent</groupId>
     <artifactId>parent</artifactId>
-    <version>19</version>
+    <version>34</version>
   </parent>
 
   <groupId>org.codehaus.sonar-plugins.css</groupId>
@@ -68,7 +68,8 @@
 
   <properties>
     <license.title>SonarQube CSS Plugin</license.title>
-    <license.mailto>kende.tamas@gmail.com</license.mailto>
+    <license.mailto>mailto: kende.tamas@gmail.com and david.racodon@gmail.com</license.mailto>
+    <license.owner>Tamas Kende and David RACODON</license.owner>
 
     <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
 
