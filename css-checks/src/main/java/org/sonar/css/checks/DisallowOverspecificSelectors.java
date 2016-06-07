@@ -1,7 +1,7 @@
 /*
  * SonarQube CSS Plugin
- * Copyright (C) 2013 Tamas Kende and David RACODON
- * kende.tamas@gmail.com
+ * Copyright (C) 2013-2016 Tamas Kende and David RACODON
+ * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -13,9 +13,9 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 package org.sonar.css.checks;
 
@@ -78,8 +78,8 @@ public class DisallowOverspecificSelectors extends CssCheck {
         this,
         MessageFormat.format("Simplify this over-specified selector. Maximum allowed depth: {0}. Actual depth: {1}", deepnessThreshold, selectors.size()),
         astNode);
-      for (int i = 0; i < selectors.size(); i++) {
-        issue.addSecondaryLocation("+1", selectors.get(i));
+      for (AstNode selector : selectors) {
+        issue.addSecondaryLocation("+1", selector);
       }
     }
   }

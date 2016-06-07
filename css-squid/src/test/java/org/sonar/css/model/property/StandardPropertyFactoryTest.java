@@ -1,7 +1,7 @@
 /*
  * SonarQube CSS Plugin
- * Copyright (C) 2013 Tamas Kende and David RACODON
- * kende.tamas@gmail.com
+ * Copyright (C) 2013-2016 Tamas Kende and David RACODON
+ * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -13,13 +13,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 package org.sonar.css.model.property;
-
-import java.io.File;
 
 import org.junit.Test;
 import org.sonar.css.model.Vendor;
@@ -36,8 +34,9 @@ public class StandardPropertyFactoryTest {
     StandardProperty property = StandardPropertyFactory.createStandardProperty("border");
     assertEquals(Border.class, property.getClass());
     assertEquals(property.getName(), "border");
-    assertEquals(property.getLinks().size(), 1);
-    assertEquals(property.getLinks().get(0), "http://dev.w3.org/csswg/css-backgrounds-3/#the-border-shorthands");
+    assertEquals(property.getLinks().size(), 2);
+    assertEquals(property.getLinks().get(0), "https://www.w3.org/TR/CSS22/box.html#propdef-border");
+    assertEquals(property.getLinks().get(1), "https://drafts.csswg.org/css-backgrounds-3/#border");
     assertEquals(property.getVendors().size(), 0);
     assertEquals(property.isObsolete(), false);
   }
@@ -47,8 +46,9 @@ public class StandardPropertyFactoryTest {
     StandardProperty property = StandardPropertyFactory.createStandardProperty("BORDER");
     assertEquals(Border.class, property.getClass());
     assertEquals(property.getName(), "border");
-    assertEquals(property.getLinks().size(), 1);
-    assertEquals(property.getLinks().get(0), "http://dev.w3.org/csswg/css-backgrounds-3/#the-border-shorthands");
+    assertEquals(property.getLinks().size(), 2);
+    assertEquals(property.getLinks().get(0), "https://www.w3.org/TR/CSS22/box.html#propdef-border");
+    assertEquals(property.getLinks().get(1), "https://drafts.csswg.org/css-backgrounds-3/#border");
     assertEquals(property.getVendors().size(), 0);
     assertEquals(property.isObsolete(), false);
   }
@@ -70,7 +70,7 @@ public class StandardPropertyFactoryTest {
     assertEquals(BorderImage.class, property.getClass());
     assertEquals(property.getName(), "border-image");
     assertEquals(property.getLinks().size(), 1);
-    assertEquals(property.getLinks().get(0), "http://dev.w3.org/csswg/css-backgrounds-3/#border-image");
+    assertEquals(property.getLinks().get(0), "https://drafts.csswg.org/css-backgrounds-3/#border-image");
     assertEquals(property.getValidators().size(), 0);
     assertEquals(property.getVendors().size(), 3);
     assertEquals(property.getVendors().contains(Vendor.WEBKIT), true);
@@ -93,14 +93,7 @@ public class StandardPropertyFactoryTest {
 
   @Test
   public void number_of_standard_properties() {
-    int counter = 0;
-    File directory = new File("src/main/java/org/sonar/css/model/property/standard");
-    for (File file : directory.listFiles()) {
-      if (!"package-info.java".equals(file.getName())) {
-        counter++;
-      }
-    }
-    assertEquals(438, counter);
+    assertEquals(443, StandardPropertyFactory.createAll().size());
   }
 
 }

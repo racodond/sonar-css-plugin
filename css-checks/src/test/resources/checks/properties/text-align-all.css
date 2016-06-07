@@ -1,0 +1,12 @@
+.mybox {
+  text-align-all: inherit;
+  text-align-all: start;
+  text-align-all: end;
+  text-align-all: left;
+  text-align-all: right;
+  text-align-all: center;
+  text-align-all: justify;
+  text-align-all: match-parent;
+  text-align-all: abc; /* Noncompliant !{Update the invalid value of property "text-align-all". Expected format: start | end | left | right | center | justify | match-parent}! */
+  text-align-all: 10; /* Noncompliant */
+}

@@ -1,0 +1,15 @@
+.mybox {
+  nav-down: inherit;
+  nav-down: auto;
+  nav-down: #abc;
+  nav-down: #abc "myelement";
+  nav-down: #abc 'myelement';
+  nav-down: #abc root;
+  nav-down: #abc current;
+  nav-down: 10; /* Noncompliant !{Update the invalid value of property "nav-down". Expected format: auto | <id> [ current | root | <target-name> ]?}! */
+  nav-down: none; /* Noncompliant */
+  nav-down: root; /* Noncompliant */
+  nav-down: current; /* Noncompliant */
+  nav-down: 'abc'; /* Noncompliant */
+  nav-down: "abc"; /* Noncompliant */
+}

@@ -1,7 +1,7 @@
 /*
  * SonarQube CSS Plugin
- * Copyright (C) 2013 Tamas Kende and David RACODON
- * kende.tamas@gmail.com
+ * Copyright (C) 2013-2016 Tamas Kende and David RACODON
+ * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -13,9 +13,9 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 package org.sonar.css.model.atrule;
 
@@ -23,8 +23,6 @@ import org.junit.Test;
 import org.sonar.css.model.atrule.standard.CharacterVariant;
 import org.sonar.css.model.atrule.standard.Charset;
 import org.sonar.css.model.atrule.standard.Keyframes;
-
-import java.io.File;
 
 import static org.junit.Assert.assertEquals;
 
@@ -76,14 +74,7 @@ public class StandardAtRuleFactoryTest {
 
   @Test
   public void number_of_standard_at_rules() {
-    int counter = 0;
-    File directory = new File("src/main/java/org/sonar/css/model/atrule/standard");
-    for (File file : directory.listFiles()) {
-      if (!"package-info.java".equals(file.getName())) {
-        counter++;
-      }
-    }
-    assertEquals(19, counter);
+    assertEquals(19, StandardAtRuleFactory.createAll().size());
   }
 
 }

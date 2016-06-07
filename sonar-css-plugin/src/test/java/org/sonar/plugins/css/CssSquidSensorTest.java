@@ -1,7 +1,7 @@
 /*
  * SonarQube CSS Plugin
- * Copyright (C) 2013 Tamas Kende and David RACODON
- * kende.tamas@gmail.com
+ * Copyright (C) 2013-2016 Tamas Kende and David RACODON
+ * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -13,9 +13,9 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 package org.sonar.plugins.css;
 
@@ -23,9 +23,9 @@ import com.google.common.collect.ImmutableList;
 
 import java.io.File;
 import java.nio.charset.Charset;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 
-import org.apache.commons.collections.ListUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -40,7 +40,6 @@ import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
-import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
 import org.sonar.css.ast.visitors.SonarComponents;
 import org.sonar.squidbridge.SquidAstVisitor;
@@ -51,24 +50,21 @@ import static org.mockito.Mockito.*;
 public class CssSquidSensorTest {
 
   private CssSquidSensor sensor;
-  private FileSystem fs;
-  private FileLinesContextFactory fileLinesContextFactory;
-  private CheckFactory checkFactory;
 
   @Before
   public void setUp() {
-    fileLinesContextFactory = mock(FileLinesContextFactory.class);
+    FileLinesContextFactory fileLinesContextFactory = mock(FileLinesContextFactory.class);
     FileLinesContext fileLinesContext = mock(FileLinesContext.class);
     when(fileLinesContextFactory.createFor(Mockito.any(InputFile.class))).thenReturn(fileLinesContext);
 
-    fs = mock(FileSystem.class);
+    FileSystem fs = mock(FileSystem.class);
     when(fs.predicates()).thenReturn(mock(FilePredicates.class));
-    when(fs.files(Mockito.any(FilePredicate.class))).thenReturn(Arrays.asList(new File("src/test/resources/org/sonar/plugins/css/cssProject/css/metrics.css")));
+    when(fs.files(Mockito.any(FilePredicate.class))).thenReturn(Collections.singletonList(new File("src/test/resources/org/sonar/plugins/css/cssProject/css/metrics.css")));
     when(fs.encoding()).thenReturn(Charset.forName("UTF-8"));
 
-    Checks<SquidAstVisitor> checks = mock(Checks.class);
+    Checks checks = mock(Checks.class);
     when(checks.addAnnotatedChecks(Mockito.anyCollection())).thenReturn(checks);
-    checkFactory = mock(CheckFactory.class);
+    CheckFactory checkFactory = mock(CheckFactory.class);
     when(checkFactory.<SquidAstVisitor>create(Mockito.anyString())).thenReturn(checks);
 
     sensor = new CssSquidSensor(null, fs, checkFactory, mock(NoSonarFilter.class));
@@ -81,7 +77,7 @@ public class CssSquidSensorTest {
     when(fs.predicates()).thenReturn(mock(FilePredicates.class));
     CssSquidSensor cssSensor = new CssSquidSensor(mock(SonarComponents.class), fs, mock(CheckFactory.class), mock(NoSonarFilter.class));
 
-    when(fs.files(Mockito.any(FilePredicate.class))).thenReturn(ListUtils.EMPTY_LIST);
+    when(fs.files(Mockito.any(FilePredicate.class))).thenReturn(new ArrayList<>());
     assertThat(cssSensor.shouldExecuteOnProject(project)).isFalse();
 
     when(fs.files(Mockito.any(FilePredicate.class))).thenReturn(ImmutableList.of(new File("/tmp")));

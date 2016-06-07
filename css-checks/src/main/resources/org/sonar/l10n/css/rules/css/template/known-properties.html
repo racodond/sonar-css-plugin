@@ -1,0 +1,25 @@
+<p>
+    The list of supported CSS properties is growing quite large, and it's very easy to miss a typo.
+</p>
+<p>
+    This rule checks each property name to make sure that it is a known CSS property. All vendor-prefixed properties are
+    ignored because vendors may add in their own properties at any point in time.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+a {
+  clr: red; /* Noncompliant: 'clr' isn't a known property */
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+.mybox {
+  color: rgb(255,0,51); /* Compliant: 'color' is a known property */
+  -moz-background-color: 10px; /* Compliant: '-moz-background-color' is a vendor property */
+}
+</pre>
+
+<h2>List of Known Properties</h2>
+[[allProperties]]

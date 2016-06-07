@@ -1,7 +1,7 @@
 /*
  * SonarQube CSS Plugin
- * Copyright (C) 2013 Tamas Kende and David RACODON
- * kende.tamas@gmail.com
+ * Copyright (C) 2013-2016 Tamas Kende and David RACODON
+ * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -13,9 +13,9 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 package org.sonar.css.checks;
 
@@ -41,8 +41,8 @@ public class CommentContainsPatternChecker {
       if (StringUtils.containsIgnoreCase(comment, pattern)) {
         String[] lines = comment.split("\r\n?|\n");
 
-        for (int i = 0; i < lines.length; i++) {
-          if (StringUtils.containsIgnoreCase(lines[i], pattern) && !isLetterAround(lines[i], pattern)) {
+        for (String line : lines) {
+          if (StringUtils.containsIgnoreCase(line, pattern) && !isLetterAround(line, pattern)) {
             check.addLineIssue(check, message, trivia.getToken().getLine());
           }
         }
@@ -54,8 +54,8 @@ public class CommentContainsPatternChecker {
     int start = StringUtils.indexOfIgnoreCase(line, pattern);
     int end = start + pattern.length();
 
-    boolean pre = start > 0 ? Character.isLetter(line.charAt(start - 1)) : false;
-    boolean post = end < line.length() - 1 ? Character.isLetter(line.charAt(end)) : false;
+    boolean pre = start > 0 && Character.isLetter(line.charAt(start - 1));
+    boolean post = end < line.length() - 1 && Character.isLetter(line.charAt(end));
 
     return pre || post;
   }

@@ -1,0 +1,12 @@
+.mybox {
+  caption-side: inherit;
+  caption-side: top;
+  caption-side: bottom;
+  caption-side: block-start;
+  caption-side: inline-start;
+  caption-side: block-end;
+  caption-side: inline-end;
+  caption-side: 10; /* Noncompliant !{Update the invalid value of property "caption-side". Expected format: top | bottom | block-start | block-end | inline-start | inline-end}! */
+  caption-side: 10%; /* Noncompliant */
+  caption-side: abc; /* Noncompliant */
+}

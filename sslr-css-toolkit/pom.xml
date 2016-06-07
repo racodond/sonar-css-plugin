@@ -73,7 +73,6 @@
               <goal>jarjar</goal>
             </goals>
             <configuration>
-              <forceCreation>true</forceCreation>
               <includes>
                 <include>${project.groupId}:css-squid</include>
                 <include>org.sonarsource.sslr:sslr-core</include>
@@ -113,7 +112,7 @@
               <rules>
                 <requireFilesSize>
                   <maxsize>3600000</maxsize>
-                  <minsize>3400000</minsize>
+                  <minsize>3000000</minsize>
                   <files>
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                   </files>

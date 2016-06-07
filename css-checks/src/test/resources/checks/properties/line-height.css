@@ -1,11 +1,11 @@
 .mybox {
   line-height: inherit;
   line-height: normal;
-  line-height: none;
+  line-height: none; /* Noncompliant */
   line-height: 10px;
   line-height: 10%;
   line-height: 10;
-  line-height: -10px; /* Noncompliant !{Update the invalid value of property "line-height". Expected format: normal | none | <length>(>=0) | <percentage>(>=0) | <number>(>=0)}! */
+  line-height: -10px; /* Noncompliant !{Update the invalid value of property "line-height". Expected format: normal | <length>(>=0) | <percentage>(>=0) | <number>(>=0)}! */
   line-height: -10%; /* Noncompliant */
   line-height: -10; /* Noncompliant */
   line-height: abc; /* Noncompliant */

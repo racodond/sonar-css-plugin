@@ -1,7 +1,7 @@
 /*
  * SonarQube CSS Plugin
- * Copyright (C) 2013 Tamas Kende and David RACODON
- * kende.tamas@gmail.com
+ * Copyright (C) 2013-2016 Tamas Kende and David RACODON
+ * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -13,9 +13,9 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 package org.sonar.css.checks;
 
@@ -142,8 +142,8 @@ public class BewareOfBoxModel extends CssCheck {
     List<CssValueElement> valueElements = value.getValueElements();
     for (CssValueElement valueElement : valueElements) {
       if (ValidatorFactory.getBorderWidthValidator().isValid(valueElement)) {
-        if (valueElement instanceof DimensionValueElement && !((DimensionValueElement) valueElement).isZero()
-          || valueElement instanceof PercentageValueElement && !((PercentageValueElement) valueElement).isZero()
+        if (valueElement instanceof DimensionValueElement && ((DimensionValueElement) valueElement).isNotZero()
+          || valueElement instanceof PercentageValueElement && ((PercentageValueElement) valueElement).isNotZero()
           || valueElement instanceof NumberValueElement && !((NumberValueElement) valueElement).isZero()) {
           return false;
         } else if (!(valueElement instanceof DimensionValueElement)
@@ -161,8 +161,8 @@ public class BewareOfBoxModel extends CssCheck {
     List<CssValueElement> valueElements = value.getValueElements();
     for (CssValueElement valueElement : valueElements) {
       if (ValidatorFactory.getPaddingWidthValidator().isValid(valueElement)) {
-        if (valueElement instanceof DimensionValueElement && !((DimensionValueElement) valueElement).isZero()
-          || valueElement instanceof PercentageValueElement && !((PercentageValueElement) valueElement).isZero()
+        if (valueElement instanceof DimensionValueElement && ((DimensionValueElement) valueElement).isNotZero()
+          || valueElement instanceof PercentageValueElement && ((PercentageValueElement) valueElement).isNotZero()
           || valueElement instanceof NumberValueElement && !((NumberValueElement) valueElement).isZero()) {
           return false;
         } else if (!(valueElement instanceof DimensionValueElement)

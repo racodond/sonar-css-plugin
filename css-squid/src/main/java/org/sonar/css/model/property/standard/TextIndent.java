@@ -1,7 +1,7 @@
 /*
  * SonarQube CSS Plugin
- * Copyright (C) 2013 Tamas Kende and David RACODON
- * kende.tamas@gmail.com
+ * Copyright (C) 2013-2016 Tamas Kende and David RACODON
+ * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -13,20 +13,22 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.ValidatorFactory;
+import org.sonar.css.model.property.validator.property.TextIndentValidator;
 
 public class TextIndent extends StandardProperty {
 
   public TextIndent() {
-    addLinks("http://www.w3.org/TR/CSS2/text.html#indentation-prop");
-    addValidators(ValidatorFactory.getLengthValidator(), ValidatorFactory.getPercentageValidator());
+    addLinks(
+      "https://www.w3.org/TR/CSS22/text.html#propdef-text-indent",
+      "https://drafts.csswg.org/css-text-3/#propdef-text-indent");
+    addValidators(new TextIndentValidator());
   }
 
 }

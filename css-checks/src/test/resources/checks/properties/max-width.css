@@ -5,10 +5,11 @@
   max-width: -100%;
   max-width: 10px;
   max-width: -10px;
-  max-width: 10; /* Noncompliant !{Update the invalid value of property "max-width". Expected format: none | <length> | <percentage> | fill | max-content | min-content | fit-content}! */
+  max-width: 10; /* Noncompliant !{Update the invalid value of property "max-width". Expected format: none | <length> | <percentage> | fill | max-content | min-content | fit-content | <function>(fit-content)}! */
   max-width: auto; /* Noncompliant */
   max-width: fill;
   max-width: max-content;
   max-width: min-content;
   max-width: fit-content;
+  max-width: fit-content(10%);
 }

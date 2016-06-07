@@ -1,7 +1,7 @@
 /*
  * SonarQube CSS Plugin
- * Copyright (C) 2013 Tamas Kende and David RACODON
- * kende.tamas@gmail.com
+ * Copyright (C) 2013-2016 Tamas Kende and David RACODON
+ * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -13,9 +13,9 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 package org.sonar.css.model.property.validator.property.background;
 
@@ -35,7 +35,7 @@ import org.sonar.css.model.value.valueelement.DelimiterValueElement;
 
 public class BackgroundSizeValidator implements ValueValidator {
 
-  ValueElementValidator coverContainValidator = new IdentifierValidator(ImmutableList.of("cover", "contain"));
+  private final ValueElementValidator coverContainValidator = new IdentifierValidator(ImmutableList.of("cover", "contain"));
 
   @Override
   public boolean isValid(@Nonnull Value value) {
@@ -62,7 +62,7 @@ public class BackgroundSizeValidator implements ValueValidator {
   }
 
   private List<List<CssValueElement>> buildRepeatStyleList(Value value) {
-    List<List<CssValueElement>> repeatStyleList = new ArrayList();
+    List<List<CssValueElement>> repeatStyleList = new ArrayList<>();
     repeatStyleList.add(new ArrayList<CssValueElement>());
     int listIndex = 0;
     for (CssValueElement valueElement : value.getValueElements()) {

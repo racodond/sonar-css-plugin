@@ -1,0 +1,9 @@
+.mybox {
+  orphans: inherit;
+  orphans: 10;
+  orphans: -10;
+  orphans: 0;
+  orphans: 10%; /* Noncompliant !{Update the invalid value of property "orphans". Expected format: <integer>}! */
+  orphans: none; /* Noncompliant */
+  orphans: 10px; /* Noncompliant */
+}

@@ -1,4 +1,7 @@
-<p>Browsers ignore invalid property values. Review those invalid property values and either remove them if they are useless or update them.</p>
+<p>
+    Browsers ignore invalid property values. Review those invalid property values and either remove them or update them.
+</p>
+
 <h2>Noncompliant Code Example</h2>
 <pre>
 /* 'word-spacing' validator is 'normal | &lt;length&gt;' */
@@ -10,8 +13,13 @@
   word-spacing: 10;       /* Noncompliant: Missing length unit */
   word-spacing: abc;      /* Noncompliant: 'abc' value is not allowed */
 }
-</pre><h2>Implemented Validators</h2>
-<p>Based on <a target="_blank" href="http://www.w3.org/Style/CSS/current-work">W3C CSS specifications</a> Level 1 or 2 or 3 which status is either Completed or Testing or Refining. Note that not all validators are implemented for now.</p>
+</pre>
+
+<h2>Implemented Validators</h2>
+<p>
+    Based on <a target="_blank" href="http://www.w3.org/Style/CSS/current-work">W3C CSS specifications</a> Level 1 or 2
+    or 3 which status is either Completed or Testing or Refining. Note that not all validators are implemented for now.
+</p>
 <table border=1>
   <thead>
   <tr align=center>
@@ -77,51 +85,51 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-animations/#propdef-animation-timing-function">animation-timing-function</a></td>
-    <td>ease <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> linear <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ease-in <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ease-out <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ease-in-out <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> step-start <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> step-end <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> &lt;function&gt;</a>(steps <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> cubic-bezier)</td>
+    <td>ease <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> linear <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ease-in <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ease-out <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ease-in-out <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> step-start <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> step-end <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> &lt;function&gt;(steps <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> cubic-bezier)</td>
   </tr>
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-transforms/#propdef-backface-visibility">backface-visibility</a></td>
     <td>visible <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> hidden</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#background">background</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/colors.html#propdef-background">background</a></td>
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#background-attachment">background-attachment</a></td>
-    <td>scroll <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fixed <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> local [, scroll <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fixed <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> local]*</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/colors.html#propdef-background-attachment">background-attachment</a></td>
+    <td>scroll <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fixed <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> local [, scroll <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fixed <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> local]<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Asterisk_(*)">*</a></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/fxtf/compositing-1/#propdef-background-blend-mode">background-blend-mode</a></td>
     <td>normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> multiply <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> screen <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> overlay <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> darken <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> lighten <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> color-dodge <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> color-burn <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> hard-light <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> soft-light <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> difference <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> exclusion <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> hue <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> saturation <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> color <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> luminosity</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#background-clip">background-clip</a></td>
-    <td><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#box">&lt;box&gt;</a> [, <a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#box">&lt;box&gt;</a>]*</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-backgrounds-3/#background-clip">background-clip</a></td>
+    <td><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#box">&lt;box&gt;</a> [, <a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#box">&lt;box&gt;</a>]<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Asterisk_(*)">*</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#background-color">background-color</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/colors.html#propdef-background-color">background-color</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-color/#typedef-color">&lt;color&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#background-image">background-image</a></td>
-    <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-images-3/#funcdef-image">&lt;image&gt;</a> [, <a target="_blank" href="http://dev.w3.org/csswg/css-images-3/#funcdef-image">&lt;image&gt;</a>]*</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/colors.html#propdef-background-image">background-image</a></td>
+    <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-images-3/#funcdef-image">&lt;image&gt;</a> [, <a target="_blank" href="http://dev.w3.org/csswg/css-images-3/#funcdef-image">&lt;image&gt;</a>]<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Asterisk_(*)">*</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#background-origin">background-origin</a></td>
-    <td><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#box">&lt;box&gt;</a> [, <a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#box">&lt;box&gt;</a>]*</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-backgrounds-3/#background-origin">background-origin</a></td>
+    <td><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#box">&lt;box&gt;</a> [, <a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#box">&lt;box&gt;</a>]<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Asterisk_(*)">*</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#background-position">background-position</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/colors.html#propdef-background-position">background-position</a></td>
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#background-repeat">background-repeat</a></td>
-    <td>repeat-x <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> repeat-y <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> [repeat <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> space <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> round <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> no-repeat]{1,2} [, repeat-x <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> repeat-y <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> [repeat <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> space <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> round <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> no-repeat]{1,2}]*</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/colors.html#propdef-background-repeat">background-repeat</a></td>
+    <td>repeat-x <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> repeat-y <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> [repeat <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> space <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> round <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> no-repeat]{1,2} [, repeat-x <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> repeat-y <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> [repeat <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> space <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> round <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> no-repeat]{1,2}]<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Asterisk_(*)">*</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#background-size">background-size</a></td>
-    <td>[ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> auto ]{1,2} <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> cover <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> contain [,  [ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> auto ]{1,2} <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> cover <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> contain ]*</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-backgrounds-3/#background-size">background-size</a></td>
+    <td>[ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> auto ]{1,2} <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> cover <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> contain [,  [ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> auto ]{1,2} <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> cover <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> contain ]<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Asterisk_(*)">*</a></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-inline/#propdef-baseline-shift">baseline-shift</a></td>
@@ -148,7 +156,7 @@
     <td>open <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> close</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#the-border-shorthands">border</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-border">border</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-width">&lt;border-width&gt;</a>{1,4} <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar">||</a> <a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-style">&lt;border-style&gt;</a>{1,4} <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar">||</a> <a target="_blank" href="http://dev.w3.org/csswg/css-color/#typedef-color">&lt;color&gt;</a></td>
   </tr>
   <tr>
@@ -184,59 +192,59 @@
     <td>thin <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> medium <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> thick <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0)</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#the-border-shorthands">border-bottom</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-border-bottom">border-bottom</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-width">&lt;border-width&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar">||</a> <a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-style">&lt;border-style&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar">||</a> <a target="_blank" href="http://dev.w3.org/csswg/css-color/#typedef-color">&lt;color&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#the-border-color">border-bottom-color</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-border-bottom-color">border-bottom-color</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-color/#typedef-color">&lt;color&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#the-border-radius">border-bottom-left-radius</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-backgrounds-3/#border-bottom-left-radius">border-bottom-left-radius</a></td>
     <td>[ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a>(>=0) ]{1,2}</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#the-border-radius">border-bottom-right-radius</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-backgrounds-3/#border-bottom-right-radius">border-bottom-right-radius</a></td>
     <td>[ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a>(>=0) ]{1,2}</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#the-border-style">border-bottom-style</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-border-bottom-style">border-bottom-style</a></td>
     <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> hidden <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> dotted <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> dashed <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> solid <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> double <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> groove <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ridge <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> inset <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> outset</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-width">border-bottom-width</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-border-bottom-width">border-bottom-width</a></td>
     <td>thin <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> medium <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> thick <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0)</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS2/tables.html#borders">border-collapse</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/tables.html#propdef-border-collapse">border-collapse</a></td>
     <td>collapse <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> separate</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-color">border-color</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-border-color">border-color</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-color/#typedef-color">&lt;color&gt;</a>{1,4}</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-image">border-image</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-backgrounds-3/#border-image">border-image</a></td>
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-image-outset">border-image-outset</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-backgrounds-3/#border-image-outset">border-image-outset</a></td>
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-image-repeat">border-image-repeat</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-backgrounds-3/#border-image-repeat">border-image-repeat</a></td>
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-image-slice">border-image-slice</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-backgrounds-3/#border-image-slice">border-image-slice</a></td>
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-image-source">border-image-source</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-backgrounds-3/#border-image-source">border-image-source</a></td>
     <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-images-3/#funcdef-image">&lt;image&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-image-width">border-image-width</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-backgrounds-3/#border-image-width">border-image-width</a></td>
     <td>Not yet implemented</td>
   </tr>
   <tr>
@@ -272,79 +280,79 @@
     <td>thin <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> medium <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> thick <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0)</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#the-border-shorthands">border-left</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-border-left">border-left</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-width">&lt;border-width&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar">||</a> <a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-style">&lt;border-style&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar">||</a> <a target="_blank" href="http://dev.w3.org/csswg/css-color/#typedef-color">&lt;color&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#the-border-color">border-left-color</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-border-left-color">border-left-color</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-color/#typedef-color">&lt;color&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#the-border-style">border-left-style</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-border-left-style">border-left-style</a></td>
     <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> hidden <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> dotted <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> dashed <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> solid <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> double <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> groove <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ridge <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> inset <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> outset</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-width">border-left-width</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-border-left-width">border-left-width</a></td>
     <td>thin <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> medium <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> thick <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0)</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-radius">border-radius</a></td>
-    <td>[ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a>(>=0) ]{1,4} [ / [ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a>(>=0) ]{1,4} ]?</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-backgrounds-3/#border-radius">border-radius</a></td>
+    <td>[ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a>(>=0) ]{1,4} [ / [ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a>(>=0) ]{1,4} ]<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Question_mark_()">?</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#the-border-shorthands">border-right</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-border-right">border-right</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-width">&lt;border-width&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar">||</a> <a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-style">&lt;border-style&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar">||</a> <a target="_blank" href="http://dev.w3.org/csswg/css-color/#typedef-color">&lt;color&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#the-border-color">border-right-color</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-border-right-color">border-right-color</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-color/#typedef-color">&lt;color&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#the-border-style">border-right-style</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-border-right-style">border-right-style</a></td>
     <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> hidden <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> dotted <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> dashed <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> solid <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> double <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> groove <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ridge <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> inset <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> outset</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-width">border-right-width</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-border-right-width">border-right-width</a></td>
     <td>thin <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> medium <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> thick <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0)</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS2/tables.html#separated-borders">border-spacing</a></td>
-    <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0)?</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/tables.html#propdef-border-spacing">border-spacing</a></td>
+    <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0)<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Question_mark_()">?</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-style">border-style</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-border-style">border-style</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-style">&lt;border-style&gt;</a>{1,4}</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#the-border-shorthands">border-top</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-border-top">border-top</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-width">&lt;border-width&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar">||</a> <a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-style">&lt;border-style&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar">||</a> <a target="_blank" href="http://dev.w3.org/csswg/css-color/#typedef-color">&lt;color&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#the-border-color">border-top-color</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-border-top-color">border-top-color</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-color/#typedef-color">&lt;color&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#the-border-radius">border-top-left-radius</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-backgrounds-3/#border-top-left-radius">border-top-left-radius</a></td>
     <td>[ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a>(>=0) ]{1,2}</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#the-border-radius">border-top-right-radius</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-backgrounds-3/#border-top-right-radius">border-top-right-radius</a></td>
     <td>[ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a>(>=0) ]{1,2}</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#the-border-style">border-top-style</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-border-top-style">border-top-style</a></td>
     <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> hidden <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> dotted <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> dashed <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> solid <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> double <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> groove <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ridge <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> inset <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> outset</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-width">border-top-width</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-border-top-width">border-top-width</a></td>
     <td>thin <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> medium <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> thick <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0)</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-width">border-width</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-border-width">border-width</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#border-width">&lt;border-width&gt;</a>{1,4}</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css2/visuren.html#propdef-bottom">bottom</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visuren.html#propdef-bottom">bottom</a></td>
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a></td>
   </tr>
   <tr>
@@ -352,11 +360,11 @@
     <td>slice <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> clone</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#box-shadow">box-shadow</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-backgrounds-3/#box-shadow">box-shadow</a></td>
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-ui-3/#propdef-box-sizing">box-sizing</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-ui/#box-sizing">box-sizing</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-backgrounds-3/#box">&lt;box&gt;</a></td>
   </tr>
   <tr>
@@ -372,20 +380,20 @@
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> avoid <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> avoid-page <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> avoid-column <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> avoid-region</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-logical-props/#caption-side">caption-side</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/tables.html#propdef-caption-side">caption-side</a></td>
     <td>top <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> bottom <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> block-start <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> block-end <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> inline-start <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> inline-end</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/2015/WD-css3-ui-20150519/#propdef-caret-color">caret-color</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-ui/#propdef-caret-color">caret-color</a></td>
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-color/#typedef-color">&lt;color&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS2/visuren.html#flow-control">clear</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visuren.html#propdef-clear">clear</a></td>
     <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> left <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> right <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> both</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS2/visufx.html#propdef-clip">clip</a></td>
-    <td>&lt;function&gt;</a>(rect) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> auto</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visufx.html#propdef-clip">clip</a></td>
+    <td>&lt;function&gt;(rect) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> auto</td>
   </tr>
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/SVG/masking.html#ClipPathProperty">clip-path</a></td>
@@ -396,7 +404,7 @@
     <td>nonzero <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> evenodd</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-color-3/#color0">color</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/colors.html#propdef-color">color</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-color/#typedef-color">&lt;color&gt;</a></td>
   </tr>
   <tr>
@@ -444,51 +452,39 @@
     <td>all <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> none</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-multicol-1/#propdef-column-width">column-width</a></td>
-    <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0)</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-multicol-1/#propdef-column-width">column-width</a></td>
+    <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fill <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> max-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> min-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fit-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> &lt;function&gt;(fit-content)</td>
   </tr>
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-multicol-1/#propdef-columns">columns</a></td>
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS2/generate.html#content">content</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/generate.html">content</a></td>
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-lists-3/#propdef-counter-increment">counter-increment</a></td>
-    <td>[ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#identifier-value">&lt;identifier&gt;</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#integer-value">&lt;integer&gt;</a>? ]+ <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> none</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/generate.html#propdef-counter-increment">counter-increment</a></td>
+    <td>[ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#identifier-value">&lt;identifier&gt;</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#integer-value">&lt;integer&gt;</a><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Question_mark_()">?</a> ]<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Plus_()">+</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> none</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-lists-3/#propdef-counter-reset">counter-reset</a></td>
-    <td>[ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#identifier-value">&lt;identifier&gt;</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#integer-value">&lt;integer&gt;</a>? ]+ <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> none</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/generate.html#propdef-counter-reset">counter-reset</a></td>
+    <td>[ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#identifier-value">&lt;identifier&gt;</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#integer-value">&lt;integer&gt;</a><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Question_mark_()">?</a> ]<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Plus_()">+</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> none</td>
   </tr>
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-lists-3/#propdef-counter-set">counter-set</a></td>
-    <td>[ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#identifier-value">&lt;identifier&gt;</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#integer-value">&lt;integer&gt;</a>? ]+ <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> none</td>
+    <td>[ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#identifier-value">&lt;identifier&gt;</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#integer-value">&lt;integer&gt;</a><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Question_mark_()">?</a> ]<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Plus_()">+</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> none</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-speech/#cue">cue</a></td>
-    <td><a target="_blank" href="http://www.w3.org/TR/css3-speech/#cue-before">&lt;cue-before&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar">||</a> <a target="_blank" href="http://www.w3.org/TR/css3-speech/#cue-after">&lt;cue-after&gt;</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/ui.html#propdef-cursor">cursor</a></td>
+    <td>[[ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#url-value">&lt;uri&gt;</a> [&lt;x&gt; &lt;y&gt;]<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Question_mark_()">?</a>,]<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Asterisk_(*)">*</a> [auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> default <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> context-menu <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> help <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> pointer <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> progress <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> wait <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> cell <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> crosshair <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> text <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> vertical-text <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> alias <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> copy <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> move <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> no-drop <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> not-allowed <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> e-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> n-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ne-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> nw-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> s-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> se-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> sw-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> w-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ew-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ns-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> nesw-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> nwse-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> col-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> row-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> all-scroll <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> zoom-in <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> zoom-out <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> grab <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> grabbing]</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-speech/#cue-after">cue-after</a></td>
-    <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#url-value">&lt;uri&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> none</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-speech/#cue-before">cue-before</a></td>
-    <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#url-value">&lt;uri&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> none</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-ui-3/#propdef-cursor">cursor</a></td>
-    <td>[[ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#url-value">&lt;uri&gt;</a> [&lt;x&gt; &lt;y&gt;]?,]* [auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> default <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> context-menu <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> help <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> pointer <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> progress <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> wait <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> cell <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> crosshair <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> text <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> vertical-text <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> alias <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> copy <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> move <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> no-drop <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> not-allowed <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> e-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> n-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ne-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> nw-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> s-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> se-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> sw-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> w-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ew-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ns-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> nesw-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> nwse-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> col-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> row-resize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> all-scroll <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> zoom-in <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> zoom-out <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> grab <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> grabbing]</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-writing-modes-3/#propdef-direction">direction</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visuren.html#propdef-direction">direction</a></td>
     <td>ltr <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> rtl</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-display/#propdef-display">display</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visuren.html#propdef-display">display</a></td>
     <td>inline <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> block <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> list-item <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> inline-block <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> table <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> inline-table <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> table-row-group <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> table-header-group <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> table-footer-group <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> table-row <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> table-column-group <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> table-column <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> table-cell <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> table-caption <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> flex <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> inline-flex <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> grid <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> inline-grid <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> run-in <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> contents <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ruby <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ruby-base <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ruby-text <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ruby-base-container <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ruby-text-container <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> compact <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> marker</td>
   </tr>
   <tr>
@@ -496,11 +492,7 @@
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> use-script <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> no-change <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> reset-size <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> alphabetic <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> hanging <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ideographic <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> mathematical <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> central <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> middle <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> text-after-edge <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> text-before-edge</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-elevation">elevation</a></td>
-    <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#angle-value">&lt;angle&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> below <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> level <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> above <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> higher <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> lower</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS2/tables.html#propdef-empty-cells">empty-cells</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/tables.html#propdef-empty-cells">empty-cells</a></td>
     <td>show <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> hide</td>
   </tr>
   <tr>
@@ -521,7 +513,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/fxtf/filters/#propdef-filter">filter</a></td>
-    <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> [<a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#url-value">&lt;uri&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/fxtf/filters/#typedef-filter-function">&lt;filter-function&gt;</a>]+</td>
+    <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> [<a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#url-value">&lt;uri&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/fxtf/filters/#typedef-filter-function">&lt;filter-function&gt;</a>]<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Plus_()">+</a></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css-flexbox-1/#propdef-flex">flex</a></td>
@@ -552,7 +544,7 @@
     <td>nowrap <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> wrap <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> wrap-reverse</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS2/visuren.html#propdef-float">float</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visuren.html#propdef-float">float</a></td>
     <td>left <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> right <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> none</td>
   </tr>
   <tr>
@@ -572,75 +564,75 @@
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#number-value">&lt;number&gt;</a>(0.0,1.0)</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css3-fonts/#font">font</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/fonts.html#propdef-font">font</a></td>
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css3-fonts/#font-family-prop">font-family</a></td>
-    <td>[<a target="_blank" href="http://www.w3.org/TR/CSS2/fonts.html#value-def-family-name">&lt;family-name&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://www.w3.org/TR/CSS2/fonts.html#value-def-generic-family">&lt;generic-family&gt;</a>] [, <a target="_blank" href="http://www.w3.org/TR/CSS2/fonts.html#value-def-family-name">&lt;family-name&gt;</a>| <a target="_blank" href="http://www.w3.org/TR/CSS2/fonts.html#value-def-generic-family">&lt;generic-family&gt;</a>]*</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/fonts.html#propdef-font-family">font-family</a></td>
+    <td>[<a target="_blank" href="http://www.w3.org/TR/CSS2/fonts.html#value-def-family-name">&lt;family-name&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://www.w3.org/TR/CSS2/fonts.html#value-def-generic-family">&lt;generic-family&gt;</a>] [, <a target="_blank" href="http://www.w3.org/TR/CSS2/fonts.html#value-def-family-name">&lt;family-name&gt;</a>| <a target="_blank" href="http://www.w3.org/TR/CSS2/fonts.html#value-def-generic-family">&lt;generic-family&gt;</a>]<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Asterisk_(*)">*</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-fonts-3/#descdef-font-face-font-feature-settings">font-feature-settings</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-fonts-3/#descdef-font-feature-settings">font-feature-settings</a></td>
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-fonts-3/#propdef-font-kerning">font-kerning</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-fonts-3/#propdef-font-kerning">font-kerning</a></td>
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> none</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-fonts-3/#propdef-font-language-override">font-language-override</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-fonts-3/#propdef-font-variant-east-asian">font-language-override</a></td>
     <td>normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#string-value">&lt;string&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS2/fonts.html#propdef-font-size">font-size</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/fonts.html#propdef-font-size">font-size</a></td>
     <td>xx-small <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> x-small <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> small <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> medium <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> large <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> x-large <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> xx-large <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> larger <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> smaller <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a>(>=0)</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-fonts-3/#propdef-font-size-adjust">font-size-adjust</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-fonts-3/#propdef-font-size-adjust">font-size-adjust</a></td>
     <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#number-value">&lt;number&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-fonts-3/#propdef-font-stretch">font-stretch</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-fonts-3/#propdef-font-stretch">font-stretch</a></td>
     <td>normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ultra-condensed <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> extra-condensed <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> condensed <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> semi-condensed <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> semi-expanded <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> expanded <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> extra-expanded <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ultra-expanded <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> wider <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> narrower</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css3-fonts/#font-style-prop">font-style</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/fonts.html#propdef-font-style">font-style</a></td>
     <td>normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> italic <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> oblique</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-fonts-3/#propdef-font-synthesis">font-synthesis</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-fonts-3/#propdef-font-synthesis">font-synthesis</a></td>
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-fonts-3/#descdef-font-face-font-variant">font-variant</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/fonts.html#propdef-font-variant">font-variant</a></td>
     <td>normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> small-caps</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-fonts-3/#propdef-font-variant-alternates">font-variant-alternates</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-fonts-3/#propdef-font-variant-alternates">font-variant-alternates</a></td>
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-fonts-3/#propdef-font-variant-caps">font-variant-caps</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-fonts-3/#propdef-font-variant-caps">font-variant-caps</a></td>
+    <td>normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> small-caps <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> all-small-caps <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> petite-caps <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> all-petite-caps <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> unicase <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> titling-caps</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-fonts-3/#propdef-font-variant-east-asian">font-variant-east-asian</a></td>
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-fonts-3/#propdef-font-variant-east-asian">font-variant-east-asian</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-fonts-3/#propdef-font-variant-ligatures">font-variant-ligatures</a></td>
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-fonts-3/#propdef-font-variant-ligatures">font-variant-ligatures</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-fonts-3/#propdef-font-variant-numeric">font-variant-numeric</a></td>
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-fonts-3/#propdef-font-variant-numeric">font-variant-numeric</a></td>
-    <td>Not yet implemented</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-fonts-3/#propdef-font-variant-position">font-variant-position</a></td>
+    <td>normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> sub <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> super</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-fonts-3/#propdef-font-variant-position">font-variant-position</a></td>
-    <td>Not yet implemented</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css3-fonts/#font-weight-prop">font-weight</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/fonts.html#propdef-font-weight">font-weight</a></td>
     <td>normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> bold <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> bolder <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> lighter <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> 100 <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> 200 <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> 300 <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> 400 <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> 500 <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> 600 <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> 700 <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> 800 <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> 900</td>
   </tr>
   <tr>
@@ -700,15 +692,15 @@
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-text/#hanging-punctuation">hanging-punctuation</a></td>
-    <td>Not yet implemented</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-text-3/#propdef-hanging-punctuation">hanging-punctuation</a></td>
+    <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> [ first <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar">||</a> [ force-end <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> allow-end ] <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar">||</a> last ]</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-sizing-3/#width-height-keywords">height</a></td>
-    <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fill <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> max-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> min-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fit-content</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visudet.html#propdef-height">height</a></td>
+    <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fill <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> max-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> min-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fit-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> &lt;function&gt;(fit-content)</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-text-3/#propdef-hyphens">hyphens</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-text-3/#propdef-hyphens">hyphens</a></td>
     <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> manual <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> auto</td>
   </tr>
   <tr>
@@ -744,11 +736,11 @@
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css2/visuren.html#propdef-left">left</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visuren.html#propdef-left">left</a></td>
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-text-3/#propdef-letter-spacing">letter-spacing</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/text.html#propdef-letter-spacing">letter-spacing</a></td>
     <td>normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a></td>
   </tr>
   <tr>
@@ -756,12 +748,12 @@
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-color/#typedef-color">&lt;color&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-text/#line-break0">line-break</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-text-3/#propdef-line-break">line-break</a></td>
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> loose <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> strict</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visudet.html#propdef-line-height">line-height</a></td>
-    <td>normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#number-value">&lt;number&gt;</a>(>=0)</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visudet.html#propdef-line-height">line-height</a></td>
+    <td>normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#number-value">&lt;number&gt;</a>(>=0)</td>
   </tr>
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-linebox/#line-stacking">line-stacking</a></td>
@@ -780,39 +772,39 @@
     <td>inline-line-height <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> block-line-height <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> max-height <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> grid-height</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-lists-3/#propdef-list-style">list-style</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/generate.html#propdef-list-style">list-style</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-lists-3/#propdef-list-style-type">&lt;list-style-type&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar">||</a> <a target="_blank" href="http://dev.w3.org/csswg/css-lists-3/#propdef-list-style-position">&lt;list-style-image&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar">||</a> <a target="_blank" href="http://dev.w3.org/csswg/css-lists-3/#propdef-list-style-image">&lt;list-style-position&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-lists-3/#propdef-list-style-image">list-style-image</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/generate.html#propdef-list-style-image">list-style-image</a></td>
     <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-images-3/#funcdef-image">&lt;image&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-lists-3/#propdef-list-style-position">list-style-position</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/generate.html#propdef-list-style-position">list-style-position</a></td>
     <td>inside <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> outside</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-lists-3/#propdef-list-style-type">list-style-type</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/generate.html#propdef-list-style-type">list-style-type</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-counter-styles-3/#typedef-counter-style">&lt;counter-style&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#string-value">&lt;string&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> none</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-box-3/#margin">margin</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-margin">margin</a></td>
     <td><a target="_blank" href="http://www.w3.org/TR/CSS2/box.html#value-def-margin-width">&lt;margin-width&gt;</a>{1,4}</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-box-3/#margin-top">margin-bottom</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-margin-bottom">margin-bottom</a></td>
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fill <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-box-3/#margin-left">margin-left</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-margin-left">margin-left</a></td>
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fill <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-box-3/#margin-right">margin-right</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-margin-right">margin-right</a></td>
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fill <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-box-3/#margin-start">margin-top</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-margin-top">margin-top</a></td>
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fill <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a></td>
   </tr>
   <tr>
@@ -848,16 +840,16 @@
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-sizing-3/#width-height-keywords">max-height</a></td>
-    <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fill <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> max-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> min-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fit-content</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visudet.html#propdef-max-height">max-height</a></td>
+    <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fill <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> max-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> min-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fit-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> &lt;function&gt;(fit-content)</td>
   </tr>
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-logical-props/#propdef-max-inline-size">max-inline-size</a></td>
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-sizing-3/#width-height-keywords">max-width</a></td>
-    <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fill <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> max-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> min-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fit-content</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visudet.html#propdef-max-width">max-width</a></td>
+    <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fill <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> max-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> min-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fit-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> &lt;function&gt;(fit-content)</td>
   </tr>
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-device-adapt/#descdef-viewport-max-zoom">max-zoom</a></td>
@@ -868,16 +860,16 @@
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-sizing-3/#width-height-keywords">min-height</a></td>
-    <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fill <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> max-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> min-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fit-content</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visudet.html#propdef-min-height">min-height</a></td>
+    <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fill <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> max-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> min-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fit-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> &lt;function&gt;(fit-content)</td>
   </tr>
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-logical-props/#propdef-min-inline-size">min-inline-size</a></td>
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-sizing-3/#width-height-keywords">min-width</a></td>
-    <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fill <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> max-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> min-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fit-content</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visudet.html#propdef-min-width">min-width</a></td>
+    <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fill <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> max-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> min-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fit-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> &lt;function&gt;(fit-content)</td>
   </tr>
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-device-adapt/#descdef-viewport-min-zoom">min-zoom</a></td>
@@ -888,20 +880,20 @@
     <td>normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> multiply <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> screen <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> overlay <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> darken <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> lighten <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> color-dodge <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> color-burn <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> hard-light <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> soft-light <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> difference <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> exclusion <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> hue <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> saturation <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> color <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> luminosity</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-ui-3/#propdef-nav-down">nav-down</a></td>
-    <td>Not yet implemented</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-ui/#propdef-nav-down">nav-down</a></td>
+    <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="https://drafts.csswg.org/css-ui/#typedef-id">&lt;id&gt;</a> [ current <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> root <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="https://drafts.csswg.org/css-ui/#typedef-target-name">&lt;target-name&gt;</a> ]<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Question_mark_()">?</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-ui-3/#propdef-nav-left">nav-left</a></td>
-    <td>Not yet implemented</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-ui/#propdef-nav-left">nav-left</a></td>
+    <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="https://drafts.csswg.org/css-ui/#typedef-id">&lt;id&gt;</a> [ current <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> root <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="https://drafts.csswg.org/css-ui/#typedef-target-name">&lt;target-name&gt;</a> ]<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Question_mark_()">?</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-ui-3/#propdef-nav-right">nav-right</a></td>
-    <td>Not yet implemented</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-ui/#propdef-nav-right">nav-right</a></td>
+    <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="https://drafts.csswg.org/css-ui/#typedef-id">&lt;id&gt;</a> [ current <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> root <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="https://drafts.csswg.org/css-ui/#typedef-target-name">&lt;target-name&gt;</a> ]<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Question_mark_()">?</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-ui-3/#propdef-nav-up">nav-up</a></td>
-    <td>Not yet implemented</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-ui/#propdef-nav-up">nav-up</a></td>
+    <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="https://drafts.csswg.org/css-ui/#typedef-id">&lt;id&gt;</a> [ current <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> root <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="https://drafts.csswg.org/css-ui/#typedef-target-name">&lt;target-name&gt;</a> ]<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Question_mark_()">?</a></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-images-3/#propdef-object-fit">object-fit</a></td>
@@ -924,35 +916,35 @@
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> portrait <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> landscape</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-break-3/#propdef-orphans">orphans</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/page.html#propdef-orphans">orphans</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#integer-value">&lt;integer&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-ui-3/#propdef-outline">outline</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/ui.html#propdef-outline">outline</a></td>
     <td><a target="_blank" href="http://www.w3.org/TR/CSS2/ui.html#propdef-outline-width">&lt;outline-width&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar">||</a> <a target="_blank" href="http://www.w3.org/TR/CSS2/ui.html#propdef-outline-style">&lt;outline-style&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar">||</a> <a target="_blank" href="http://www.w3.org/TR/CSS2/ui.html#propdef-outline-color">&lt;outline-color&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-ui-3/#propdef-outline-color">outline-color</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/ui.html#propdef-outline-color">outline-color</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-color/#typedef-color">&lt;color&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> invert</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-ui-3/#propdef-outline-offset">outline-offset</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-ui/#propdef-outline-offset">outline-offset</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-ui-3/#propdef-outline-style">outline-style</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/ui.html#propdef-outline-style">outline-style</a></td>
     <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> hidden <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> dotted <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> dashed <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> solid <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> double <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> groove <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ridge <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> inset <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> outset <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> auto</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-ui-3/#propdef-outline-width">outline-width</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/ui.html#propdef-outline-width">outline-width</a></td>
     <td>thin <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> medium <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> thick <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0)</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-box-3/#overflow1">overflow</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visufx.html#propdef-overflow">overflow</a></td>
     <td>[visible <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> hidden <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> scroll <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> no-display <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> no-content]{1,2}</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-text-3/#propdef-overflow-wrap">overflow-wrap</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-text-3/#propdef-overflow-wrap">overflow-wrap</a></td>
     <td>normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> break-word</td>
   </tr>
   <tr>
@@ -964,7 +956,7 @@
     <td>visible <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> hidden <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> scroll <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> no-display <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> no-content</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS2/box.html#propdef-padding">padding</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-padding">padding</a></td>
     <td><a target="_blank" href="http://www.w3.org/TR/CSS2/box.html#value-def-padding-width">&lt;padding-width&gt;</a>{1,4}</td>
   </tr>
   <tr>
@@ -976,7 +968,7 @@
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a>(>=0)</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS2/box.html#propdef-padding-top">padding-bottom</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-padding-bottom">padding-bottom</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a>(>=0)</td>
   </tr>
   <tr>
@@ -988,15 +980,15 @@
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a>(>=0)</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS2/box.html#propdef-padding-left">padding-left</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-padding-left">padding-left</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a>(>=0)</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS2/box.html#propdef-padding-right">padding-right</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-padding-right">padding-right</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a>(>=0)</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS2/box.html#propdef-padding-top">padding-top</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/box.html#propdef-padding-top">padding-top</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a>(>=0)</td>
   </tr>
   <tr>
@@ -1004,28 +996,16 @@
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#identifier-value">&lt;identifier&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css2/page.html#propdef-page-break-after">page-break-after</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/page.html#propdef-page-break-after">page-break-after</a></td>
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> always <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> avoid <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> left <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> right</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css2/page.html#propdef-page-break-before">page-break-before</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/page.html#propdef-page-break-before">page-break-before</a></td>
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> always <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> avoid <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> left <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> right</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css2/page.html#propdef-page-break-inside   ">page-break-inside</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/page.html#propdef-page-break-inside">page-break-inside</a></td>
     <td>avoid <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> auto</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-speech/#pause">pause</a></td>
-    <td>[ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#time-value">&lt;time&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <percentage&gt>(>=0) ]{1,2}</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-speech/#pause-after">pause-after</a></td>
-    <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#time-value">&lt;time&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a>(>=0)</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-speech/#pause-before">pause-before</a></td>
-    <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#time-value">&lt;time&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a>(>=0)</td>
   </tr>
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-transforms/#propdef-perspective">perspective</a></td>
@@ -1040,23 +1020,11 @@
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-pitch">pitch</a></td>
-    <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#frequency-value">&lt;frequency&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> x-low <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> low <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> medium <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> high <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> x-high</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-pitch-range">pitch-range</a></td>
-    <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#number-value">&lt;number&gt;</a></td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#mixing-props">play-during</a></td>
-    <td>Not yet implemented</td>
-  </tr>
-  <tr>
     <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/SVG/interact.html#PointerEventsProperty">pointer-events</a></td>
     <td>visiblepainted <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> visiblefill <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> visiblestroke <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> visible <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> painted <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fill <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> stroke <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> all <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> none</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-position-3/#position-property">position</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visuren.html#propdef-position">position</a></td>
     <td>static <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> relative <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> absolute <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fixed <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> sticky</td>
   </tr>
   <tr>
@@ -1064,31 +1032,15 @@
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS2/generate.html#quotes">quotes</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/generate.html#propdef-quotes">quotes</a></td>
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-ui-3/#propdef-resize">resize</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-ui/#propdef-resize">resize</a></td>
     <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> both <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> horizontal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> vertical</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-speech/#rest">rest</a></td>
-    <td>Not yet implemented</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-speech/#rest-after">rest-after</a></td>
-    <td>Not yet implemented</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-speech/#rest-before">rest-before</a></td>
-    <td>Not yet implemented</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-richness">richness</a></td>
-    <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#number-value">&lt;number&gt;</a></td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css2/visuren.html#propdef-right">right</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visuren.html#propdef-right">right</a></td>
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a></td>
   </tr>
   <tr>
@@ -1113,7 +1065,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-shapes/#propdef-shape-outside">shape-outside</a></td>
-    <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> [<a target="_blank" href="http://dev.w3.org/csswg/css-shapes/#typedef-basic-shape">&lt;basic-shape&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar">||</a> <a target="_blank" href="">&lt;shape-box&gt;</a>] <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-images-3/#funcdef-image">&lt;image&gt;</a></td>
+    <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> [<a target="_blank" href="http://dev.w3.org/csswg/css-shapes/#typedef-basic-shape">&lt;basic-shape&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar">||</a> <a target="_blank" href="https://drafts.csswg.org/css-shapes/#typedef-shape-box">&lt;shape-box&gt;</a>] <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-images-3/#funcdef-image">&lt;image&gt;</a></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/SVG/painting.html#ShapeRenderingProperty">shape-rendering</a></td>
@@ -1124,31 +1076,7 @@
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-speech/#speak">speak</a></td>
-    <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> spell-out</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-speech/#speak-as">speak-as</a></td>
-    <td>Not yet implemented</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-speak-header">speak-header</a></td>
-    <td>once <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> always</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-speak-numeral">speak-numeral</a></td>
-    <td>digits <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> continuous</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-speak-punctuation">speak-punctuation</a></td>
-    <td>code <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> none</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-speech-rate">speech-rate</a></td>
-    <td>x-slow <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> slow <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> medium <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fast <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> x-fast <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> faster <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> slower <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#number-value">&lt;number&gt;</a></td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-fonts/#descdef-src">src</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-fonts-3/#descdef-src">src</a></td>
     <td>Not yet implemented</td>
   </tr>
   <tr>
@@ -1158,10 +1086,6 @@
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/SVG/pservers.html#StopOpacityProperty">stop-opacity</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#number-value">&lt;number&gt;</a>(0.0,1.0)</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-stress">stress</a></td>
-    <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#number-value">&lt;number&gt;</a></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css-gcpm-3/#propdef-string-set">string-set</a></td>
@@ -1200,23 +1124,23 @@
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a>(>=0)</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-text-3/#propdef-tab-size">tab-size</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-text-3/#propdef-tab-size">tab-size</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a>(>=0) <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#integer-value">&lt;integer&gt;</a>(>=0)</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS2/tables.html#propdef-table-layout">table-layout</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/tables.html#propdef-table-layout">table-layout</a></td>
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fixed</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css3-text/#text-align-property">text-align</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/text.html#propdef-text-align">text-align</a></td>
     <td>start <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> end <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> left <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> right <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> center <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> justify <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> match-parent <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> justify-all</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-text-3/#propdef-text-align-all">text-align-all</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-text-3/#propdef-text-align-all">text-align-all</a></td>
     <td>start <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> end <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> left <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> right <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> center <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> justify <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> match-parent</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-text-3/#propdef-text-align-last">text-align-last</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-text-3/#propdef-text-align-last">text-align-last</a></td>
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> start <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> end <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> left <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> right <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> center <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> justify</td>
   </tr>
   <tr>
@@ -1224,7 +1148,7 @@
     <td>start <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> middle <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> end</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-text-decor-3/#propdef-text-decoration">text-decoration</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/text.html#propdef-text-decoration">text-decoration</a></td>
     <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> underline <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> overline <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> line-through <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> blink</td>
   </tr>
   <tr>
@@ -1260,11 +1184,11 @@
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> font-size <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> text-size <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> max-size</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS2/text.html#indentation-prop">text-indent</a></td>
-    <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/text.html#propdef-text-indent">text-indent</a></td>
+    <td>[ <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a> ] <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_ampersand">&amp;&amp;</a> hanging<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Question_mark_()">?</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_ampersand">&amp;&amp;</a> each-line<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Question_mark_()">?</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-text-3/#propdef-text-justify">text-justify</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-text-3/#propdef-text-justify">text-justify</a></td>
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> inter-word <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> inter-character</td>
   </tr>
   <tr>
@@ -1272,7 +1196,7 @@
     <td>mixed <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> upright <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> sideways-right <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> sideways-left <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> sideways <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> use-glyph-orientation</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-ui-3/#propdef-text-overflow">text-overflow</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-ui/#propdef-text-overflow">text-overflow</a></td>
     <td>[clip <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> ellipsis <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#string-value">&lt;string&gt;</a>]{1,2}</td>
   </tr>
   <tr>
@@ -1288,7 +1212,7 @@
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css3-text/#text-transform">text-transform</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/text.html#propdef-text-transform">text-transform</a></td>
     <td>capitalize <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> uppercase <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> lowercase <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> full-width <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> none</td>
   </tr>
   <tr>
@@ -1296,7 +1220,7 @@
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css2/visuren.html#propdef-top">top</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visuren.html#propdef-top">top</a></td>
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a></td>
   </tr>
   <tr>
@@ -1305,7 +1229,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-transforms/#propdef-transform">transform</a></td>
-    <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <transform-function>+</td>
+    <td>none <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="https://drafts.csswg.org/css-transforms/#typedef-transform-function">&lt;transform-function&gt;</a><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Plus_()">+</a></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-transforms/#propdef-transform-box">transform-box</a></td>
@@ -1340,11 +1264,11 @@
     <td>Not yet implemented</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-writing-modes-3/#propdef-unicode-bidi">unicode-bidi</a></td>
-    <td>normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> embed <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> bidi-override</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visuren.html#propdef-unicode-bidi">unicode-bidi</a></td>
+    <td>normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> embed <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> isolate <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> bidi-override <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> isolate-override <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> plaintext</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-fonts-3/#descdef-font-face-unicode-range">unicode-range</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-fonts-3/#descdef-unicode-range">unicode-range</a></td>
     <td>Not yet implemented</td>
   </tr>
   <tr>
@@ -1356,71 +1280,35 @@
     <td>zoom <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fixed</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS2/visudet.html#propdef-vertical-align">vertical-align</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visudet.html#propdef-vertical-align">vertical-align</a></td>
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> use-script <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> baseline <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> sub <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> super <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> top <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> text-top <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> central <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> middle <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> bottom <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> text-bottom <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/visufx.html#propdef-visibility">visibility</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visufx.html#propdef-visibility">visibility</a></td>
     <td>visible <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> hidden <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> collapse</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-speech/#voice-balance">voice-balance</a></td>
-    <td>Not yet implemented</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-speech/#mixing-props-voice-duration">voice-duration</a></td>
-    <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#time-value">&lt;time&gt;</a>(>=0)</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-speech/#voice-family">voice-family</a></td>
-    <td>Not yet implemented</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-speech/#voice-pitch">voice-pitch</a></td>
-    <td>Not yet implemented</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-speech/#voice-range">voice-range</a></td>
-    <td>Not yet implemented</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-speech/#voice-rate">voice-rate</a></td>
-    <td>Not yet implemented</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-speech/#voice-stress">voice-stress</a></td>
-    <td>Not yet implemented</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-speech/#voice-volume">voice-volume</a></td>
-    <td>Not yet implemented</td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS21/aural.html#propdef-volume">volume</a></td>
-    <td>silent <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> x-soft <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> soft <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> medium <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> loud <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> x-loud <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#number-value">&lt;number&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a></td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS2/text.html#propdef-white-space">white-space</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/text.html#propdef-white-space">white-space</a></td>
     <td>normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> pre <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> nowrap <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> pre-wrap <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> pre-line</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-break-3/#propdef-widows">widows</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/page.html#propdef-widows">widows</a></td>
     <td><a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#integer-value">&lt;integer&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-sizing-3/#width-height-keywords">width</a></td>
-    <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fill <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> max-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> min-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fit-content</td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visudet.html#propdef-width">width</a></td>
+    <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fill <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> max-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> min-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> fit-content <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> &lt;function&gt;(fit-content)</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/css3-text/#word-break">word-break</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-text-3/#propdef-word-break">word-break</a></td>
     <td>normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> keep-all <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> break-all</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS2/text.html#propdef-word-spacing">word-spacing</a></td>
-    <td>normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/text.html#propdef-word-spacing">word-spacing</a></td>
+    <td>normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#length-value">&lt;length&gt;</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#percentage-value">&lt;percentage&gt;</a></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://dev.w3.org/csswg/css-text-3/#propdef-word-wrap">word-wrap</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://drafts.csswg.org/css-text-3/#propdef-word-wrap">word-wrap</a></td>
     <td>normal <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> break-word</td>
   </tr>
   <tr>
@@ -1428,7 +1316,7 @@
     <td>horizontal-tb <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> vertical-rl <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> vertical-lr <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> lr-tb <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> rl-tb <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> tb-rl <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> lr <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> rl <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> tb</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><a target="_blank" href="http://www.w3.org/TR/CSS2/visuren.html#propdef-z-index">z-index</a></td>
+    <td nowrap="nowrap"><a target="_blank" href="https://www.w3.org/TR/CSS22/visuren.html#propdef-z-index">z-index</a></td>
     <td>auto <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar">|</a> <a target="_blank" href="http://dev.w3.org/csswg/css-values-3/#integer-value">&lt;integer&gt;</a></td>
   </tr>
   <tr>

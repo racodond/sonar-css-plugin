@@ -1,7 +1,7 @@
 /*
  * SonarQube CSS Plugin
- * Copyright (C) 2013 Tamas Kende and David RACODON
- * kende.tamas@gmail.com
+ * Copyright (C) 2013-2016 Tamas Kende and David RACODON
+ * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -13,9 +13,9 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 package org.sonar.plugins.css;
 
@@ -58,7 +58,6 @@ public class CssSquidSensor implements Sensor {
   private final NoSonarFilter noSonarFilter;
 
   private SensorContext context;
-  private AstScanner<LexerlessGrammar> scanner;
   private final SonarComponents sonarComponents;
   private final FileSystem fs;
 
@@ -82,7 +81,7 @@ public class CssSquidSensor implements Sensor {
     Collection<SquidCheck> checkList = checks.all();
     CssConfiguration conf = new CssConfiguration(fs.encoding());
     Set<Issue> issues = new HashSet<>();
-    this.scanner = CssAstScanner.create(conf, sonarComponents, issues, checkList.toArray(new SquidAstVisitor[checkList.size()]));
+    AstScanner<LexerlessGrammar> scanner = CssAstScanner.create(conf, sonarComponents, issues, checkList.toArray(new SquidAstVisitor[checkList.size()]));
     scanner.scanFiles(Lists.newArrayList(filesToAnalyze()));
 
     Collection<SourceCode> squidSourceFiles = scanner.getIndex().search(new QueryByType(SourceFile.class));
@@ -97,9 +96,7 @@ public class CssSquidSensor implements Sensor {
     for (SourceCode squidSourceFile : squidSourceFiles) {
       SourceFile squidFile = (SourceFile) squidSourceFile;
       InputFile sonarFile = fs.inputFile(fs.predicates().hasAbsolutePath(squidFile.getKey()));
-      if (sonarFile != null) {
-        noSonarFilter.noSonarInFile(sonarFile, squidFile.getNoSonarTagLines());
-      }
+      noSonarFilter.noSonarInFile(sonarFile, squidFile.getNoSonarTagLines());
       saveMeasures(sonarFile, squidFile);
     }
     saveIssues(checks, issues);

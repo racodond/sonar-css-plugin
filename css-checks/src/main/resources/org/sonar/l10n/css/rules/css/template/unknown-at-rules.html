@@ -1,0 +1,24 @@
+<p>
+    The list of supported CSS @-rules is growing quite large, and it's very easy to miss a typo.
+</p>
+<p>
+    This rule checks each @-rule name to make sure that it is a known CSS @-rule. All vendor-prefixed @-rules are
+    ignored because vendors may add in their own @-rules at any point in time.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+@abc { /* Noncompliant: 'abc' isn't a known @-rule */
+  color: red;
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+@import url("styles.css"); /* Compliant: 'import' is a known @-rule */
+
+@-moz-vendoratrule {} /* Compliant: '-moz-vendoratrule is a vendor @-rule */
+</pre>
+
+<h2>List of Known @-rules</h2>
+[[allAtRules]]

@@ -29,10 +29,6 @@
         </executions>
         <configuration>
           <mainClass>org.sonar.css.checks.GenerateRuleDescriptions</mainClass>
-          <!-- TODO: Hack to be removed when http://jira.sonarsource.com/browse/SONAR-6632 is fixed -->
-          <arguments>
-            <argument>sizeLimit</argument>
-          </arguments>
         </configuration>
       </plugin>
     </plugins>
@@ -50,7 +46,14 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>19.0</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-io</artifactId>
     </dependency>
     <dependency>
       <groupId>org.hamcrest</groupId>

@@ -1,0 +1,11 @@
+.mybox {
+  page-break-after: inherit;
+  page-break-after: auto;
+  page-break-after: always;
+  page-break-after: avoid;
+  page-break-after: left;
+  page-break-after: right;
+  page-break-after: 10; /* Noncompliant !{Update the invalid value of property "page-break-after". Expected format: auto | always | avoid | left | right}! */
+  page-break-after: none; /* Noncompliant */
+  page-break-after: 10px; /* Noncompliant */
+}

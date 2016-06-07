@@ -1,7 +1,7 @@
 /*
  * SonarQube CSS Plugin
- * Copyright (C) 2013 Tamas Kende and David RACODON
- * kende.tamas@gmail.com
+ * Copyright (C) 2013-2016 Tamas Kende and David RACODON
+ * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -13,65 +13,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 package org.sonar.css.model.atrule;
 
-import com.google.common.base.CaseFormat;
-import com.google.common.collect.Lists;
+import org.sonar.css.model.StandardCssObject;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.Nonnull;
-
-public class StandardAtRule {
-
-  private String name;
-  private boolean obsolete;
-  private boolean experimental;
-  private List<String> links;
-
-  public StandardAtRule() {
-    name = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, this.getClass().getSimpleName());
-    obsolete = false;
-    experimental = false;
-    links = new ArrayList<>();
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public void setObsolete(boolean obsolete) {
-    this.obsolete = obsolete;
-  }
-
-  public void setExperimental(boolean experimental) {
-    this.experimental = experimental;
-  }
-
-  public void addLinks(String... allLinks) {
-    links.addAll(Lists.newArrayList(allLinks));
-  }
-
-  @Nonnull
-  public String getName() {
-    return name;
-  }
-
-  public boolean isObsolete() {
-    return obsolete;
-  }
-
-  public boolean isExperimental() {
-    return experimental;
-  }
-
-  @Nonnull
-  public List<String> getLinks() {
-    return links;
-  }
+public class StandardAtRule extends StandardCssObject {
 
 }

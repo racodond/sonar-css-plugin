@@ -1,7 +1,7 @@
 /*
  * SonarQube CSS Plugin
- * Copyright (C) 2013 Tamas Kende and David RACODON
- * kende.tamas@gmail.com
+ * Copyright (C) 2013-2016 Tamas Kende and David RACODON
+ * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -13,15 +13,16 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 package org.sonar.css.model.property.validator.valueelement;
 
 import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementMultiValidator;
+import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
 
 public class WidthHeightValidator extends ValueElementMultiValidator {
 
@@ -30,7 +31,8 @@ public class WidthHeightValidator extends ValueElementMultiValidator {
       ValidatorFactory.getAutoValidator(),
       ValidatorFactory.getLengthValidator(),
       ValidatorFactory.getPercentageValidator(),
-      new IdentifierValidator(ImmutableList.of("fill", "max-content", "min-content", "fit-content"))));
+      new IdentifierValidator(ImmutableList.of("fill", "max-content", "min-content", "fit-content")),
+      new FunctionValidator(ImmutableList.of("fit-content"))));
   }
 
 }

@@ -1,7 +1,7 @@
 /*
  * SonarQube CSS Plugin
- * Copyright (C) 2013 Tamas Kende and David RACODON
- * kende.tamas@gmail.com
+ * Copyright (C) 2013-2016 Tamas Kende and David RACODON
+ * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -13,9 +13,9 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 package org.sonar.css.sslr.toolkit;
 
@@ -31,7 +31,6 @@ import org.slf4j.LoggerFactory;
 import org.sonar.colorizer.*;
 import org.sonar.css.CssConfiguration;
 import org.sonar.css.parser.CssGrammar;
-import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.parser.ParserAdapter;
 import org.sonar.sslr.toolkit.AbstractConfigurationModel;
 import org.sonar.sslr.toolkit.ConfigurationProperty;
@@ -44,8 +43,7 @@ public class CssConfigurationModel extends AbstractConfigurationModel {
   private static final String CHARSET_PROPERTY_KEY = "sonar.sourceEncoding";
   private static final String END_TAG = "</span>";
 
-  @VisibleForTesting
-  ConfigurationProperty charsetProperty = new ConfigurationProperty("Charset",
+  private final ConfigurationProperty charsetProperty = new ConfigurationProperty("Charset",
     CHARSET_PROPERTY_KEY, getPropertyOrDefaultValue(CHARSET_PROPERTY_KEY, "UTF-8"),
     Validators.charsetValidator());
 
@@ -61,7 +59,7 @@ public class CssConfigurationModel extends AbstractConfigurationModel {
 
   @Override
   public Parser doGetParser() {
-    return new ParserAdapter<LexerlessGrammar>(getCharset(), CssGrammar.createGrammar());
+    return new ParserAdapter<>(getCharset(), CssGrammar.createGrammar());
   }
 
   @Override
