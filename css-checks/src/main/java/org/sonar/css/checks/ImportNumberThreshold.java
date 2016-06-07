@@ -32,6 +32,8 @@ import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleLinearRemediation;
 
+import javax.annotation.Nullable;
+
 @Rule(
   key = "S2735",
   name = "Stylesheets should not \"@import\" too many other sheets",
@@ -51,7 +53,7 @@ public class ImportNumberThreshold extends CssCheck {
   }
 
   @Override
-  public void visitFile(AstNode astNode) {
+  public void visitFile(@Nullable AstNode astNode) {
     importNodes = new ArrayList<>();
   }
 
@@ -63,7 +65,7 @@ public class ImportNumberThreshold extends CssCheck {
   }
 
   @Override
-  public void leaveFile(AstNode astNode) {
+  public void leaveFile(@Nullable AstNode astNode) {
     if (importNodes.size() > DEFAULT_THRESHOLD) {
       PreciseIssue issue = addFileIssue(
         this,

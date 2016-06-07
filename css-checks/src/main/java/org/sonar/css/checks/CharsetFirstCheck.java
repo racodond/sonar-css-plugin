@@ -29,6 +29,8 @@ import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
+import javax.annotation.Nullable;
+
 @Rule(
   key = "charset-first",
   name = "@charset should be the first element in the style sheet and not be preceded by any character",
@@ -46,7 +48,7 @@ public class CharsetFirstCheck extends CssCheck {
   }
 
   @Override
-  public void visitFile(AstNode astNode) {
+  public void visitFile(@Nullable AstNode astNode) {
     offset = 0;
   }
 

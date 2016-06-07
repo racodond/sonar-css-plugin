@@ -31,6 +31,8 @@ import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleLinearRemediation;
 
+import javax.annotation.Nullable;
+
 @Rule(
   key = "S2732",
   name = "Stylesheets should not contain too many selectors",
@@ -50,7 +52,7 @@ public class SelectorNumberThreshold extends CssCheck {
   }
 
   @Override
-  public void visitFile(AstNode astNode) {
+  public void visitFile(@Nullable AstNode astNode) {
     currentSelectorCount = 0;
   }
 
@@ -60,7 +62,7 @@ public class SelectorNumberThreshold extends CssCheck {
   }
 
   @Override
-  public void leaveFile(AstNode astNode) {
+  public void leaveFile(@Nullable AstNode astNode) {
     if (currentSelectorCount > DEFAULT_THRESHOLD) {
       PreciseIssue issue = addFileIssue(
         this,

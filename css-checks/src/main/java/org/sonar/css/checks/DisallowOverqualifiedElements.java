@@ -34,6 +34,8 @@ import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
+import javax.annotation.Nullable;
+
 /**
  * https://github.com/stubbornella/csslint/wiki/Disallow-overqualified-elements
  */
@@ -54,7 +56,7 @@ public class DisallowOverqualifiedElements extends CssCheck {
   }
 
   @Override
-  public void visitFile(AstNode astNode) {
+  public void visitFile(@Nullable AstNode astNode) {
     selectors.clear();
   }
 
@@ -73,7 +75,7 @@ public class DisallowOverqualifiedElements extends CssCheck {
   }
 
   @Override
-  public void leaveFile(AstNode astNode) {
+  public void leaveFile(@Nullable AstNode astNode) {
     for (Selectors key : selectors) {
       if (key.getElements().size() == 1) {
         addLineIssue(this, "Remove the name of this overqualified element.", key.getElements().entrySet().iterator().next().getValue());

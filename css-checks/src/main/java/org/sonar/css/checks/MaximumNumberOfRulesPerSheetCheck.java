@@ -35,6 +35,8 @@ import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleLinearRemediation;
 
+import javax.annotation.Nullable;
+
 @Rule(
   key = "sheet-too-many-rules",
   name = "Stylesheets should not contain too many rules",
@@ -60,7 +62,7 @@ public class MaximumNumberOfRulesPerSheetCheck extends CssCheck {
   }
 
   @Override
-  public void visitFile(AstNode astNode) {
+  public void visitFile(@Nullable AstNode astNode) {
     ruleNodes.clear();
   }
 
@@ -70,7 +72,7 @@ public class MaximumNumberOfRulesPerSheetCheck extends CssCheck {
   }
 
   @Override
-  public void leaveFile(AstNode astNode) {
+  public void leaveFile(@Nullable AstNode astNode) {
     int numberOfRules = ruleNodes.size();
     if (numberOfRules > max) {
       PreciseIssue issue = addFileIssue(

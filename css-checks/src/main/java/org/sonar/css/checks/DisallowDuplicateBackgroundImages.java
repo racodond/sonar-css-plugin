@@ -34,6 +34,8 @@ import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
+import javax.annotation.Nullable;
+
 /**
  * https://github.com/stubbornella/csslint/wiki/Disallow-duplicate-background-images
  */
@@ -54,7 +56,7 @@ public class DisallowDuplicateBackgroundImages extends CssCheck {
   }
 
   @Override
-  public void visitFile(AstNode astNode) {
+  public void visitFile(@Nullable AstNode astNode) {
     urls = new HashMap<>();
   }
 
@@ -74,7 +76,7 @@ public class DisallowDuplicateBackgroundImages extends CssCheck {
   }
 
   @Override
-  public void leaveFile(AstNode astNode) {
+  public void leaveFile(@Nullable AstNode astNode) {
     for (Map.Entry<String, List<AstNode>> url : urls.entrySet()) {
       if (url.getValue().size() > 1) {
         PreciseIssue issue = addIssue(this, "Keep only one definition of those duplicated background images.", url.getValue().get(0));

@@ -33,6 +33,8 @@ import org.sonar.css.CssCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
+import javax.annotation.Nullable;
+
 @Rule(
   key = "tab-character",
   name = "Tabulation characters should not be used",
@@ -50,7 +52,7 @@ public class TabCharacterCheck extends CssCheck implements CharsetAwareVisitor {
   }
 
   @Override
-  public void visitFile(AstNode astNode) {
+  public void visitFile(@Nullable AstNode astNode) {
     List<String> lines;
     try {
       lines = Files.readLines(getContext().getFile(), charset);

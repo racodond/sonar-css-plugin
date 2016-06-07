@@ -33,6 +33,8 @@ import org.sonar.css.CharsetAwareVisitor;
 import org.sonar.css.CssCheck;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
+import javax.annotation.Nullable;
+
 @Rule(
   key = "S1131",
   name = "Lines should not end with trailing whitespaces",
@@ -50,7 +52,7 @@ public class TrailingWhitespaceCheck extends CssCheck implements CharsetAwareVis
   }
 
   @Override
-  public void visitFile(AstNode astNode) {
+  public void visitFile(@Nullable AstNode astNode) {
     List<String> lines;
     try {
       lines = Files.readLines(getContext().getFile(), charset);

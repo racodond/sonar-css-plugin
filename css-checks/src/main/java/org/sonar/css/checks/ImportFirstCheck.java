@@ -35,6 +35,8 @@ import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
+import javax.annotation.Nullable;
+
 @Rule(
   key = "import-first",
   name = "@import rules should precede all other at-rules and style rules",
@@ -52,7 +54,7 @@ public class ImportFirstCheck extends CssCheck {
   }
 
   @Override
-  public void visitFile(AstNode astNode) {
+  public void visitFile(@Nullable AstNode astNode) {
     precedingRules = new HashSet<>();
   }
 

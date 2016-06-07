@@ -23,6 +23,7 @@ import com.sonar.sslr.api.AstNode;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.annotation.Nullable;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -61,7 +62,7 @@ public class TooManyWebFonts extends CssCheck {
   }
 
   @Override
-  public void visitFile(AstNode astNode) {
+  public void visitFile(@Nullable AstNode astNode) {
     fontFaceNodes = new HashSet<>();
   }
 
@@ -73,7 +74,7 @@ public class TooManyWebFonts extends CssCheck {
   }
 
   @Override
-  public void leaveFile(AstNode astNode) {
+  public void leaveFile(@Nullable AstNode astNode) {
     if (fontFaceNodes.size() > fontFaceThreshold) {
       PreciseIssue issue = addFileIssue(
         this,
