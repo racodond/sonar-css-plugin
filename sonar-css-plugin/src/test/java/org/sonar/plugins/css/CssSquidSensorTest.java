@@ -23,9 +23,9 @@ import com.google.common.collect.ImmutableList;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Collections;
 
-import org.apache.commons.collections.ListUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -77,7 +77,7 @@ public class CssSquidSensorTest {
     when(fs.predicates()).thenReturn(mock(FilePredicates.class));
     CssSquidSensor cssSensor = new CssSquidSensor(mock(SonarComponents.class), fs, mock(CheckFactory.class), mock(NoSonarFilter.class));
 
-    when(fs.files(Mockito.any(FilePredicate.class))).thenReturn(ListUtils.EMPTY_LIST);
+    when(fs.files(Mockito.any(FilePredicate.class))).thenReturn(new ArrayList<>());
     assertThat(cssSensor.shouldExecuteOnProject(project)).isFalse();
 
     when(fs.files(Mockito.any(FilePredicate.class))).thenReturn(ImmutableList.of(new File("/tmp")));

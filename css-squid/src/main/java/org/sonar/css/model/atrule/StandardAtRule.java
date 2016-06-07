@@ -19,59 +19,8 @@
  */
 package org.sonar.css.model.atrule;
 
-import com.google.common.base.CaseFormat;
-import com.google.common.collect.Lists;
+import org.sonar.css.model.StandardCssObject;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.Nonnull;
-
-public class StandardAtRule {
-
-  private String name;
-  private boolean obsolete;
-  private boolean experimental;
-  private final List<String> links;
-
-  public StandardAtRule() {
-    name = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, this.getClass().getSimpleName());
-    obsolete = false;
-    experimental = false;
-    links = new ArrayList<>();
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public void setObsolete(boolean obsolete) {
-    this.obsolete = obsolete;
-  }
-
-  public void setExperimental(boolean experimental) {
-    this.experimental = experimental;
-  }
-
-  public void addLinks(String... allLinks) {
-    links.addAll(Lists.newArrayList(allLinks));
-  }
-
-  @Nonnull
-  public String getName() {
-    return name;
-  }
-
-  public boolean isObsolete() {
-    return obsolete;
-  }
-
-  public boolean isExperimental() {
-    return experimental;
-  }
-
-  @Nonnull
-  public List<String> getLinks() {
-    return links;
-  }
+public class StandardAtRule extends StandardCssObject {
 
 }

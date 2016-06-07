@@ -30,23 +30,20 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>css-checks</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.sonarsource.sonarqube</groupId>
       <artifactId>sonar-plugin-api</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.codehaus.sonar</groupId>
-      <artifactId>sonar-plugin-api</artifactId>
-      <scope>provided</scope>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
     </dependency>
     <dependency>
       <groupId>org.sonarsource.sonarqube</groupId>
       <artifactId>sonar-testing-harness</artifactId>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -80,8 +77,8 @@
             <configuration>
               <rules>
                 <requireFilesSize>
-                  <maxsize>1600000</maxsize>
-                  <minsize>1500000</minsize>
+                  <maxsize>4000000</maxsize>
+                  <minsize>3000000</minsize>
                   <files>
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                   </files>

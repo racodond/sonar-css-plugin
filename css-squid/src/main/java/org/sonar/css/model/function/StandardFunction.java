@@ -19,69 +19,22 @@
  */
 package org.sonar.css.model.function;
 
-import com.google.common.base.CaseFormat;
-import com.google.common.collect.Lists;
+import org.sonar.css.model.StandardCssObject;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.Nonnull;
+public class StandardFunction extends StandardCssObject {
 
-public class StandardFunction {
-
-  private String name;
-  private boolean obsolete;
-  private boolean experimental;
   private boolean ieStaticFilter;
-  private final List<String> links;
 
   public StandardFunction() {
-    name = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, this.getClass().getSimpleName());
-    obsolete = false;
-    experimental = false;
     ieStaticFilter = false;
-    links = new ArrayList<>();
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public void setObsolete(boolean obsolete) {
-    this.obsolete = obsolete;
-  }
-
-  public void setExperimental(boolean experimental) {
-    this.experimental = experimental;
   }
 
   public void setIeStaticFilter(boolean ieStaticFilter) {
     this.ieStaticFilter = ieStaticFilter;
   }
 
-  public void addLinks(String... allLinks) {
-    links.addAll(Lists.newArrayList(allLinks));
-  }
-
-  @Nonnull
-  public String getName() {
-    return name;
-  }
-
-  public boolean isObsolete() {
-    return obsolete;
-  }
-
   public boolean isIeStaticFilter() {
     return ieStaticFilter;
-  }
-
-  public boolean isExperimental() {
-    return experimental;
-  }
-
-  @Nonnull
-  public List<String> getLinks() {
-    return links;
   }
 
 }
