@@ -124,7 +124,7 @@ public class GenerateRuleDescriptions {
       .append("  </thead>\n");
 
     StandardProperty property;
-    for (StandardCssObject cssObject : getStandardCssObjects(StandardProperty.class, false, false, null)) {
+    for (StandardCssObject cssObject : getStandardCssObjects(StandardProperty.class, false, null, null)) {
       property = (StandardProperty) cssObject;
       description.append("  <tr>\n").append("    <td nowrap=\"nowrap\">");
       if (!property.getLinks().isEmpty()) {
