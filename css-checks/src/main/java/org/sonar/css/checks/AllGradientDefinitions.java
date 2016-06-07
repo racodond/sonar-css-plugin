@@ -26,14 +26,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.CssCheck;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-all-gradient-definitions
@@ -43,7 +41,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   name = "Gradient definitions should be set for all vendors",
   priority = Priority.MAJOR,
   tags = {Tags.BROWSER_COMPATIBILITY})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
 public class AllGradientDefinitions extends CssCheck {

@@ -23,7 +23,6 @@ import com.sonar.sslr.api.AstNode;
 
 import java.text.MessageFormat;
 
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.CssCheck;
@@ -31,7 +30,6 @@ import org.sonar.css.issue.PreciseIssue;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleLinearRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "S2732",
@@ -39,7 +37,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   priority = Priority.CRITICAL,
   tags = {Tags.BROWSER_COMPATIBILITY, Tags.BUG, Tags.DESIGN})
 @ActivatedByDefault
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.HARDWARE_RELATED_PORTABILITY)
 @SqaleLinearRemediation(coeff = "10min", effortToFixDescription = "number of selectors beyond the limit")
 public class SelectorNumberThreshold extends CssCheck {
 

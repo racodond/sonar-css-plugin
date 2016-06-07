@@ -20,7 +20,6 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.CssCheck;
@@ -29,7 +28,6 @@ import org.sonar.css.model.property.UnknownProperty;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-standard-property-with-vendor-prefix
@@ -39,7 +37,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   name = "Standard properties should be specified along with vendor-prefixed properties",
   priority = Priority.MAJOR,
   tags = {Tags.BROWSER_COMPATIBILITY})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
 public class VendorPrefixWithStandard extends CssCheck {

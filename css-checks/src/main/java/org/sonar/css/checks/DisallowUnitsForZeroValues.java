@@ -24,7 +24,6 @@ import com.sonar.sslr.api.GenericTokenType;
 
 import java.util.regex.Pattern;
 
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.CssCheck;
@@ -32,7 +31,6 @@ import org.sonar.css.model.Unit;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 /**
  * See https://drafts.csswg.org/css-values-3/#lengths:
@@ -46,7 +44,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   name = "Units for zero length values should be removed",
   priority = Priority.MAJOR,
   tags = {Tags.CONVENTION, Tags.PERFORMANCE})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
 @SqaleConstantRemediation("2min")
 @ActivatedByDefault
 public class DisallowUnitsForZeroValues extends CssCheck {

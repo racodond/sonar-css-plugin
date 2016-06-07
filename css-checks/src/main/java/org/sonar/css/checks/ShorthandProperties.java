@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.CssCheck;
@@ -35,7 +34,6 @@ import org.sonar.css.model.Property;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-shorthand-properties
@@ -45,7 +43,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   name = "Shorthand properties should be used whenever possible",
   priority = Priority.MAJOR,
   tags = {Tags.PERFORMANCE, Tags.CONVENTION})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
 public class ShorthandProperties extends CssCheck {

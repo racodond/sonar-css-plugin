@@ -20,7 +20,6 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.CssCheck;
@@ -28,14 +27,12 @@ import org.sonar.css.model.Function;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "deprecated-ie-static-filters",
   name = "Deprecated Internet Explorer static filters should be removed",
   priority = Priority.MAJOR,
   tags = {Tags.BROWSER_COMPATIBILITY})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
 public class DeprecatedIEStaticFiltersCheck extends CssCheck {

@@ -27,14 +27,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.CssCheck;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Disallow-overqualified-elements
@@ -44,7 +42,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   name = "Name of overqualified element should be removed",
   priority = Priority.MAJOR,
   tags = {Tags.DESIGN, Tags.PERFORMANCE})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
 @SqaleConstantRemediation("1h")
 @ActivatedByDefault
 public class DisallowOverqualifiedElements extends CssCheck {

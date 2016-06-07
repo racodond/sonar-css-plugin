@@ -24,7 +24,6 @@ import com.sonar.sslr.api.AstNode;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -33,7 +32,6 @@ import org.sonar.css.issue.PreciseIssue;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Don%27t-use-too-many-web-fonts
@@ -43,7 +41,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   name = "The number of web fonts should be reduced",
   priority = Priority.MAJOR,
   tags = {Tags.PERFORMANCE})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
 @SqaleConstantRemediation("30min")
 @ActivatedByDefault
 public class TooManyWebFonts extends CssCheck {

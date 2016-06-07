@@ -26,7 +26,6 @@ import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -35,14 +34,12 @@ import org.sonar.css.issue.PreciseIssue;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleLinearRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "sheet-too-many-rules",
   name = "Stylesheets should not contain too many rules",
   priority = Priority.MAJOR,
   tags = {Tags.DESIGN, Tags.PERFORMANCE})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_CHANGEABILITY)
 @SqaleLinearRemediation(coeff = "5min", effortToFixDescription = "number of rules beyond the limit")
 @ActivatedByDefault
 public class MaximumNumberOfRulesPerSheetCheck extends CssCheck {

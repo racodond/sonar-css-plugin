@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
 
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.CssCheck;
@@ -35,14 +34,12 @@ import org.sonar.css.issue.PreciseIssue;
 import org.sonar.css.model.Property;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "alphabetize-declarations",
   name = "Rule properties should be alphabetically ordered",
   priority = Priority.MINOR,
   tags = {Tags.CONVENTION})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("2min")
 public class AlphabetizeDeclarationsCheck extends CssCheck {
 

@@ -25,13 +25,11 @@ import com.sonar.sslr.api.Token;
 import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
 
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.CssCheck;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 /*
  * See http://bramstein.com/writing/web-font-anti-patterns-inlining.html
@@ -41,7 +39,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   name = "Font files inlining should not be used",
   priority = Priority.MAJOR,
   tags = {Tags.PERFORMANCE})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.CPU_EFFICIENCY)
 @SqaleConstantRemediation("1h")
 public class InliningFontFilesCheck extends CssCheck {
 

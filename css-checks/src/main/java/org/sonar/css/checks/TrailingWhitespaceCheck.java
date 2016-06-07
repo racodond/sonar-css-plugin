@@ -27,20 +27,17 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.CharsetAwareVisitor;
 import org.sonar.css.CssCheck;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "S1131",
   name = "Lines should not end with trailing whitespaces",
   priority = Priority.MINOR,
   tags = {Tags.FORMAT})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("1min")
 public class TrailingWhitespaceCheck extends CssCheck implements CharsetAwareVisitor {
 

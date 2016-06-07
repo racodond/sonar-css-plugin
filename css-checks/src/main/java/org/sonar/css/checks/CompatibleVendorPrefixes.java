@@ -24,7 +24,6 @@ import com.sonar.sslr.api.AstNode;
 import java.util.*;
 import java.util.Map.Entry;
 
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.CssCheck;
@@ -34,7 +33,6 @@ import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.StandardPropertyFactory;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 /**
  * https://github.com/stubbornella/csslint/wiki/Require-compatible-vendor-prefixes
@@ -44,7 +42,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   name = "Missing vendor prefixes should be added to experimental properties",
   priority = Priority.MAJOR,
   tags = {Tags.BROWSER_COMPATIBILITY})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("10min")
 public class CompatibleVendorPrefixes extends CssCheck {
 

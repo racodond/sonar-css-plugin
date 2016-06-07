@@ -24,7 +24,6 @@ import com.sonar.sslr.api.AstNode;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.CssCheck;
@@ -35,14 +34,12 @@ import org.sonar.css.model.atrule.standard.Import;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "import-first",
   name = "@import rules should precede all other at-rules and style rules",
   priority = Priority.CRITICAL,
   tags = {Tags.BUG})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.INSTRUCTION_RELIABILITY)
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
 public class ImportFirstCheck extends CssCheck {

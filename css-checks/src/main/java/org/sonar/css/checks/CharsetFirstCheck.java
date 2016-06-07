@@ -20,7 +20,6 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.CssCheck;
@@ -29,14 +28,12 @@ import org.sonar.css.model.atrule.standard.Charset;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "charset-first",
   name = "@charset should be the first element in the style sheet and not be preceded by any character",
   priority = Priority.CRITICAL,
   tags = {Tags.BUG})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.INSTRUCTION_RELIABILITY)
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
 public class CharsetFirstCheck extends CssCheck {
@@ -61,9 +58,9 @@ public class CharsetFirstCheck extends CssCheck {
       AtRule atRule = new AtRule(astNode.getFirstChild(CssGrammar.AT_KEYWORD).getFirstChild(CssGrammar.IDENT).getTokenValue());
       if (atRule.getStandardAtRule() instanceof Charset && !isFirst(astNode.getFirstChild(CssGrammar.AT_KEYWORD))) {
         addIssue(
-            this,
-            "Move the @charset rule to the beginning of the style sheet.",
-            astNode.getFirstChild(CssGrammar.AT_KEYWORD));
+          this,
+          "Move the @charset rule to the beginning of the style sheet.",
+          astNode.getFirstChild(CssGrammar.AT_KEYWORD));
       }
     }
   }

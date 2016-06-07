@@ -24,7 +24,6 @@ import com.sonar.sslr.api.AstNode;
 
 import java.nio.charset.Charset;
 
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.CharsetAwareVisitor;
@@ -32,14 +31,12 @@ import org.sonar.css.CssCheck;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "bom-utf8-files",
   name = "Byte Order Mark (BOM) should not be used for UTF-8 files",
   priority = Priority.MAJOR,
   tags = {Tags.PITFALL})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SOFTWARE_RELATED_PORTABILITY)
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
 public class BOMCheck extends CssCheck implements CharsetAwareVisitor {
