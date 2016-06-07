@@ -29,11 +29,6 @@ import static org.fest.assertions.Assertions.assertThat;
 
 public class CssAstScannerTest {
 
-  // FIXME Drop the computation of the FILES metric
-  @Test
-  public void files() {
-  }
-
   @Test
   public void comments() {
     SourceFile file = CssAstScanner.scanSingleFile(new File(
@@ -41,13 +36,6 @@ public class CssAstScannerTest {
     assertThat(file.getInt(CssMetric.COMMENT_LINES)).isEqualTo(2);
     assertThat(file.getNoSonarTagLines()).contains(10);
     assertThat(file.getNoSonarTagLines().size()).isEqualTo(1);
-  }
-
-  @Test
-  public void lines() {
-    SourceFile file = CssAstScanner.scanSingleFile(new File(
-      "src/test/resources/metrics/metric.css"));
-    assertThat(file.getInt(CssMetric.LINES)).isEqualTo(24);
   }
 
   @Test

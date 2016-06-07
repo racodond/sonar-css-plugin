@@ -121,8 +121,7 @@ public final class CssAstScanner {
       .subscribeTo(CssGrammar.SELECTOR, CssGrammar.AT_RULE)
       .build());
 
-    builder.withSquidAstVisitor(new LinesVisitor<LexerlessGrammar>(CssMetric.LINES));
-    builder.withSquidAstVisitor(new LinesOfCodeVisitor<LexerlessGrammar>(CssMetric.LINES_OF_CODE));
+    builder.withSquidAstVisitor(new LinesOfCodeVisitor<>(CssMetric.LINES_OF_CODE));
 
     if (sonarComponents != null) {
       builder.withSquidAstVisitor(new SyntaxHighlighterVisitor(sonarComponents, conf.getCharset()));

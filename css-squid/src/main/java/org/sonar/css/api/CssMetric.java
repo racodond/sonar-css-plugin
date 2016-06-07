@@ -25,7 +25,6 @@ import org.sonar.squidbridge.measures.MetricDef;
 public enum CssMetric implements MetricDef {
 
   FILES,
-  LINES,
   LINES_OF_CODE,
   COMMENT_LINES,
   STATEMENTS,

@@ -26,15 +26,14 @@ import org.sonar.squidbridge.annotations.AnnotationBasedRulesDefinition;
 
 public class CssRulesDefinition implements RulesDefinition {
 
-    @Override
-    public void define(Context context) {
-        NewRepository repository = context
-            .createRepository(CheckList.REPOSITORY_KEY, Css.KEY)
-            .setName(CheckList.REPOSITORY_NAME);
+  @Override
+  public void define(Context context) {
+    NewRepository repository = context
+      .createRepository(CheckList.REPOSITORY_KEY, Css.KEY)
+      .setName(CheckList.REPOSITORY_NAME);
 
-        AnnotationBasedRulesDefinition.load(repository, "css", CheckList.getChecks());
-
-        repository.done();
-    }
+    new AnnotationBasedRulesDefinition(repository, "css").addRuleClasses(false, CheckList.getChecks());
+    repository.done();
+  }
 
 }
