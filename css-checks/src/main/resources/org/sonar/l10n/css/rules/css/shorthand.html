@@ -1,4 +1,7 @@
-<p>Sometimes when editing a rule you may end up defining multiple properties that can better be represented using shorthand. For example:
+<p>
+    Sometimes when editing a rule you may end up defining multiple properties that can better be represented using
+    shorthand. For example:
+</p>
 <pre>
 .mybox {
   margin-left: 10px;
@@ -13,14 +16,21 @@ These four properties can actually be combined into a single margin property, su
   margin: 20px 10px 30px;
 }
 </pre>
-Using shorthand properties where possible helps to decrease the overall size of the CSS.
+<p>
+    Using shorthand properties where possible helps to decrease the overall size of the CSS.
 </p>
-<p>This rule is aimed at decreasing file size by finding properties that can be combined into one. As such, it raises an issue in the following cases:</p>
+<p>This rule is aimed at decreasing file size by finding properties that can be combined into one. As such, it raises an
+    issue in the following cases:
+</p>
 <ul>
-  <li>When <code>margin-left</code>, <code>margin-right</code>, <code>margin-top</code>, and <code>margin-bottom</code> are used together in a single rule.</li>
-  <li>When <code>padding-left</code>, <code>padding-right</code>, <code>padding-top</code>, and <code>padding-bottom</code> are used together in a single rule.</li>
+    <li>When <code>margin-left</code>, <code>margin-right</code>, <code>margin-top</code>, and
+        <code>margin-bottom</code> are used together in a single rule.
+    </li>
+    <li>When <code>padding-left</code>, <code>padding-right</code>, <code>padding-top</code>, and
+        <code>padding-bottom</code> are used together in a single rule.
+    </li>
 </ul>
-</p>
+
 <h2>Noncompliant Code Example</h2>
 <pre>
 .mybox {
@@ -37,6 +47,7 @@ Using shorthand properties where possible helps to decrease the overall size of 
   padding-bottom: 30px;
 }
 </pre>
+
 <h2>Compliant Solution</h2>
 <pre>
 /* Compliant: Shorthand magin property */
@@ -62,7 +73,9 @@ Using shorthand properties where possible helps to decrease the overall size of 
   padding-top: 20px;
 }
 </pre>
+
 <h2>See</h2>
 <ul>
-  <li><a href="https://github.com/CSSLint/csslint/wiki/Require-shorthand-properties">CSSLint rule documentation</a></li>
+    <li><a href="https://github.com/CSSLint/csslint/wiki/Require-shorthand-properties">CSSLint rule documentation</a>
+    </li>
 </ul>

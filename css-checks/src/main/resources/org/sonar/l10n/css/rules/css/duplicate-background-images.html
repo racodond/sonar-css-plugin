@@ -1,6 +1,12 @@
-<p>One of the main rules of performance is to use as few bytes as possible to get the job done. Along those lines, URLs are best used just once inside of CSS. If you have more than one class that needs to use the same background image, then it's better to have one class that uses the URL and simply apply that class to the various elements where it is needed.</p>
+<p>
+    One of the main rules of performance is to use as few bytes as possible to get the job done. Along those lines, URLs
+    are best used just once inside of CSS. If you have more than one class that needs to use the same background image,
+    then it's better to have one class that uses the URL and simply apply that class to the various elements where it is
+    needed.
+</p>
+
 <h2>Noncompliant Code Example</h2>
-<p>Consider the following:
+<p>Consider the following:</p>
 <pre>
 .heart-icon {
   background: url(sprite.png) -16px 0 no-repeat;
@@ -10,9 +16,16 @@
   background: url(sprite.png) -32px 0 no-repeat;
 }
 </pre>
-The background image is repeated in both classes. That's extra bytes you don't need and also increases the chances that you'll forget to change one should the filename change.</p>
+<p>
+    The background image is repeated in both classes. That's extra bytes you don't need and also increases the chances
+    that you'll forget to change one should the filename change.
+</p>
+
 <h2>Compliant Solution</h2>
-<p>An alternative is to define one class that has the URL and be sure to apply that class to the HTML elements where the other classes are used. For example:
+<p>
+    An alternative is to define one class that has the URL and be sure to apply that class to the HTML elements where
+    the other classes are used. For example:
+</p>
 <pre>
 .icons {
   background: url(sprite.png) no-repeat;
@@ -26,10 +39,10 @@ The background image is repeated in both classes. That's extra bytes you don't n
   background-position: -32px 0;
 }
 </pre>
-Here, the icons class contains the background image while the other classes just change the background position.</p>
-</p>
+<p>Here, the icons class contains the background image while the other classes just change the background position.</p>
+
 <h2>See</h2>
 <ul>
-  <li><a href="https://github.com/stubbornella/csslint/wiki/Disallow-duplicate-background-images">CSSLint rule documentation</a></li>
+    <li><a href="https://github.com/stubbornella/csslint/wiki/Disallow-duplicate-background-images">CSSLint rule
+        documentation</a></li>
 </ul>
-

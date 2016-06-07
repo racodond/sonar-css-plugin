@@ -1,4 +1,8 @@
-<p>The underscore hack is a technique for applying CSS properties only to Internet Explorer prior to version 7. By placing an underscore immediately before the property name, older versions of Internet Explorer treated as if the underscore isn't there while other browsers simply ignore it. For example:
+<p>
+    The underscore hack is a technique for applying CSS properties only to Internet Explorer prior to version 7. By
+    placing an underscore immediately before the property name, older versions of Internet Explorer treated as if the
+    underscore isn't there while other browsers simply ignore it. For example:
+</p>
 <pre>
 .mybox {
   border: 1px solid black;
@@ -7,9 +11,15 @@
   _width: 200px;
 }
 </pre>
-In this example, the <code>_width</code> property is treated as if it were <code>width</code> by Internet Explorer 6 and earlier, so it uses the value of 200px; other browsers skip that property and use the value of 100px.</p>
+<p>
+    In this example, the <code>_width</code> property is treated as if it were
+    <code>width</code> by Internet Explorer 6 and earlier, so it uses the value of 200px; other browsers skip that
+    property and use the value of 100px.
+</p>
 <p>The underscore hack relies on an old CSS parser bug in Internet Explorer, and as such, some prefer not to use it.</p>
+
 <h2>See</h2>
 <ul>
-  <li><a href="https://github.com/stubbornella/csslint/wiki/Disallow-underscore-hack">CSSLint rule documentation</a></li>
+    <li><a href="https://github.com/stubbornella/csslint/wiki/Disallow-underscore-hack">CSSLint rule documentation</a>
+    </li>
 </ul>

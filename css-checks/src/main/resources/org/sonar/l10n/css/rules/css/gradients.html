@@ -1,13 +1,19 @@
-<p>As of December 2011, there is still no standard CSS gradient implementation, which means using CSS gradients in a cross-browser way requires using many different vendor-prefixed versions. There are currently five different vendor-prefixed versions of CSS gradient:
-<ul>
-  <li><code>-ms-linear-gradient</code> and <code>-ms-radial-gradient</code> for Internet Explorer 10+</li>
-  <li><code>-moz-linear-gradient</code> and <code>-moz-radial-gradient</code> for Firefox 3.6+</li>
-  <li><code>-o-linear-gradient</code> and <code>-o-radial-gradient</code> for Opera 11.10+</li>
-  <li><code>-webkit-linear-gradient</code> and <code>-webkit-radial-gradient</code> for Safari 5+ and Chrome</li>
-  <li><code>-webkit-gradient</code> for Safari 4+ and Chrome (aka "Old WebKit")</li>
-</ul>
-This rule raises an issue when one vendor-prefixed gradient is used without all of the others.
+<p>
+    As of December 2011, there is still no standard CSS gradient implementation, which means using CSS gradients in a
+    cross-browser way requires using many different vendor-prefixed versions. There are currently five different
+    vendor-prefixed versions of CSS gradient:
 </p>
+<ul>
+    <li><code>-ms-linear-gradient</code> and <code>-ms-radial-gradient</code> for Internet Explorer 10+</li>
+    <li><code>-moz-linear-gradient</code> and <code>-moz-radial-gradient</code> for Firefox 3.6+</li>
+    <li><code>-o-linear-gradient</code> and <code>-o-radial-gradient</code> for Opera 11.10+</li>
+    <li><code>-webkit-linear-gradient</code> and <code>-webkit-radial-gradient</code> for Safari 5+ and Chrome</li>
+    <li><code>-webkit-gradient</code> for Safari 4+ and Chrome (aka "Old WebKit")</li>
+</ul>
+<p>
+    This rule raises an issue when one vendor-prefixed gradient is used without all of the others.
+</p>
+
 <h2>Noncompliant Code Example</h2>
 <pre>
 /* Noncompliant: Missing -moz, -ms, and -o */
@@ -23,6 +29,7 @@ This rule raises an issue when one vendor-prefixed gradient is used without all 
   background: -ms-linear-gradient(top, #1e5799 0%,#7db9e8 100%);
 }
 </pre>
+
 <h2>Compliant Solution</h2>
 <pre>
 .mybox {
@@ -33,7 +40,9 @@ This rule raises an issue when one vendor-prefixed gradient is used without all 
   background: -ms-linear-gradient(top, #1e5799 0%,#7db9e8 100%);
 }
 </pre>
+
 <h2>See</h2>
 <ul>
-  <li><a href="https://github.com/stubbornella/csslint/wiki/Require-all-gradient-definitions">CSSLint rule documentation</a></li>
+    <li><a href="https://github.com/stubbornella/csslint/wiki/Require-all-gradient-definitions">CSSLint rule
+        documentation</a></li>
 </ul>

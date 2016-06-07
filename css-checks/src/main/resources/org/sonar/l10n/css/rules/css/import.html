@@ -1,5 +1,6 @@
 <p>
-The <code>@import</code> rule is used to include CSS files within other CSS files, for example:
+    The <code>@import</code> rule is used to include CSS files within other CSS files, for example:
+</p>
 <pre>
 @import url(more.css);
 @import url(andmore.css);
@@ -8,21 +9,28 @@ a {
   color: black;
 }
 </pre>
-This code includes two more style sheets at the beginning of a style sheet. When the browser parses this code, it stops at each <code>@import</code> and starts to download the specified file. The browser doesn't continue downloading other style sheets until this one has finished, eliminating any possible parallel downloads of CSS.
+<p>
+    This code includes two more style sheets at the beginning of a style sheet. When the browser parses this code, it
+    stops at each <code>@import</code> and starts to download the specified file. The browser doesn't continue
+    downloading other style sheets until this one has finished, eliminating any possible parallel downloads of CSS.
 </p>
+
 <h2>Noncompliant Code Example</h2>
 <pre>
 @import url(more.css);
 @import url(andmore.css);
 </pre>
+
 <h2>Compliant Solution</h2>
-<p>There are two alternatives to using <code>@import</code>:
+<p>There are two alternatives to using <code>@import</code>:</p>
 <ol>
-  <li>Use a build system to concatenate CSS files together before deploying.</li>
-  <li>Use multiple <code>&lt;link&gt;</code> tags to include the stylesheets you want. These will still be downloaded in parallel.</li>
+    <li>Use a build system to concatenate CSS files together before deploying.</li>
+    <li>Use multiple <code>&lt;link&gt;</code> tags to include the stylesheets you want. These will still be downloaded
+        in parallel.
+    </li>
 </ol>
-</p>
+
 <h2>See</h2>
 <ul>
-  <li><a href="https://github.com/stubbornella/csslint/wiki/Disallow-%40import">CSSLint rule documentation</a></li>
+    <li><a href="https://github.com/stubbornella/csslint/wiki/Disallow-%40import">CSSLint rule documentation</a></li>
 </ul>
