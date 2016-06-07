@@ -35,7 +35,7 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "obsolete-properties",
-  name = "Obsolete properties and properties not on W3C Standards track should not be used",
+  name = "Obsolete properties should not be used",
   priority = Priority.MAJOR,
   tags = {Tags.BROWSER_COMPATIBILITY})
 @ActivatedByDefault

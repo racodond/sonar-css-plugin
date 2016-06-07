@@ -20,8 +20,16 @@
 package org.sonar.css.model.function;
 
 import com.google.common.base.CaseFormat;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.reflect.ClassPath;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+
+import org.sonar.css.model.StandardCssObject;
+import org.sonar.css.model.atrule.standard.Annotation;
 
 public class StandardFunctionFactory {
 
@@ -37,6 +45,21 @@ public class StandardFunctionFactory {
       return new UnknownFunction(functionName);
     } catch (IllegalAccessException | InstantiationException e) {
       throw new IllegalStateException("CSS function for '" + functionName + "' cannot be created.", e);
+    }
+  }
+
+  public static List<StandardCssObject> createAll() {
+    try {
+      List<StandardCssObject> standardFunctions = new ArrayList<>();
+      ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(Annotation.class.getClassLoader()).getTopLevelClasses("org.sonar.css.model.function.standard");
+      for (ClassPath.ClassInfo classInfo : classInfos) {
+        if (!"org.sonar.css.model.function.standard.package-info".equals(classInfo.getName())) {
+          standardFunctions.add((StandardFunction) Class.forName(classInfo.getName()).newInstance());
+        }
+      }
+      return standardFunctions;
+    } catch (ClassNotFoundException | IOException | InstantiationException | IllegalAccessException e) {
+      throw new IllegalStateException("CSS functions full list cannot be created.", e);
     }
   }
 

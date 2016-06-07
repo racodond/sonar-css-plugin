@@ -19,21 +19,23 @@
  */
 package org.sonar.css.checks;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.reflect.ClassPath;
+import com.google.common.collect.Lists;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import javax.annotation.Nullable;
 
 import org.apache.commons.io.FileUtils;
 import org.sonar.css.model.StandardCssObject;
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.atrule.StandardAtRule;
-import org.sonar.css.model.atrule.standard.Annotation;
+import org.sonar.css.model.atrule.StandardAtRuleFactory;
 import org.sonar.css.model.function.StandardFunction;
+import org.sonar.css.model.function.StandardFunctionFactory;
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.standard.Border;
+import org.sonar.css.model.property.StandardPropertyFactory;
 
 public class GenerateRuleDescriptions {
 
@@ -64,63 +66,54 @@ public class GenerateRuleDescriptions {
 
   private static String generateObsoletePropertiesRuleDescription() throws IOException {
     String description = FileUtils.readFileToString(new File(TEMPLATE_DIRECTORY + "obsolete-properties.html"), UTF_8);
-    return description.replace("[[obsoleteProperties]]", generateHtmlList(getStandardProperties(true, false, false)));
+    return description.replace("[[obsoleteProperties]]", generateHtmlTable(getStandardCssObjects(StandardProperty.class, true, null, null)));
   }
 
   private static String generateObsoleteFunctionsRuleDescription() throws IOException {
     String description = FileUtils.readFileToString(new File(TEMPLATE_DIRECTORY + "obsolete-functions.html"), UTF_8);
-    return description.replace("[[obsoleteFunctions]]", generateHtmlList(getStandardFunctions(true, false)));
+    return description.replace("[[obsoleteFunctions]]", generateHtmlTable(getStandardCssObjects(StandardFunction.class, true, null, null)));
   }
 
   private static String generateUnknownPropertiesRuleDescription() throws IOException {
     String description = FileUtils.readFileToString(new File(TEMPLATE_DIRECTORY + "known-properties.html"), UTF_8);
-    return description.replace("[[allProperties]]", generateHtmlList(getStandardProperties(false, false, false)));
+    return description.replace("[[allProperties]]", generateHtmlTable(getStandardCssObjects(StandardProperty.class, null, null, null)));
   }
 
   private static String generateUnknownAtRulesRuleDescription() throws IOException {
     String description = FileUtils.readFileToString(new File(TEMPLATE_DIRECTORY + "unknown-at-rules.html"), UTF_8);
-    return description.replace("[[allAtRules]]", generateHtmlList(getStandardAtRules(false, false)));
+    return description.replace("[[allAtRules]]", generateHtmlTable(getStandardCssObjects(StandardAtRule.class, null, null, null)));
   }
 
   private static String generateUnknownFunctionsRuleDescription() throws IOException {
     String description = FileUtils.readFileToString(new File(TEMPLATE_DIRECTORY + "unknown-functions.html"), UTF_8);
-    return description.replace("[[allFunctions]]", generateHtmlList(getStandardFunctions(false, false)));
+    return description.replace("[[allFunctions]]", generateHtmlTable(getStandardCssObjects(StandardFunction.class, null, null, null)));
   }
 
   private static String generateExperimentalPropertiesRuleDescription() throws IOException {
     String description = FileUtils.readFileToString(
       new File(TEMPLATE_DIRECTORY + "experimental-property-usage.html"), UTF_8);
-
     description = description.replace("[[vendors]]", generateListOfVendors());
-    description = description.replace("[[experimentalProperties]]", generateHtmlList(getStandardProperties(false, true, false)));
-
-    return description;
+    return description.replace("[[experimentalProperties]]", generateHtmlTable(getStandardCssObjects(StandardProperty.class, null, true, null)));
   }
 
   private static String generateExperimentalAtRulesRuleDescription() throws IOException {
     String description = FileUtils.readFileToString(
       new File(TEMPLATE_DIRECTORY + "experimental-atrule-usage.html"), UTF_8);
-
     description = description.replace("[[vendors]]", generateListOfVendors());
-    description = description.replace("[[experimentalAtRules]]", generateHtmlList(getStandardAtRules(false, true)));
-
-    return description;
+    return description.replace("[[experimentalAtRules]]", generateHtmlTable(getStandardCssObjects(StandardAtRule.class, null, true, null)));
   }
 
   private static String generateExperimentalFunctionsRuleDescription() throws IOException {
     String description = FileUtils.readFileToString(
       new File(TEMPLATE_DIRECTORY + "experimental-function-usage.html"), UTF_8);
-
     description = description.replace("[[vendors]]", generateListOfVendors());
-    description = description.replace("[[experimentalFunctions]]", generateHtmlList(getStandardFunctions(false, true)));
-
-    return description;
+    return description.replace("[[experimentalFunctions]]", generateHtmlTable(getStandardCssObjects(StandardFunction.class, null, true, null)));
   }
 
   private static String generateCompatibleVendorPrefixesRuleDescription() throws IOException {
     String description = FileUtils.readFileToString(
       new File(TEMPLATE_DIRECTORY + "compatible-vendor-prefixes.html"), UTF_8);
-    return description.replace("[[vendorPrefixedProperties]]", generateHtmlList(getStandardProperties(false, false, true)));
+    return description.replace("[[vendorPrefixedProperties]]", generateHtmlTable(getStandardCssObjects(StandardProperty.class, null, null, true)));
   }
 
   /**
@@ -145,7 +138,7 @@ public class GenerateRuleDescriptions {
         .append("  </thead>\n");
 
       StandardProperty property;
-      for (StandardCssObject cssObject : getStandardProperties(false, false, false)) {
+      for (StandardCssObject cssObject : getStandardCssObjects(StandardProperty.class, false, false, null)) {
         property = (StandardProperty) cssObject;
         description.append("  <tr>\n").append("    <td nowrap=\"nowrap\">");
         if (!property.getLinks().isEmpty()) {
@@ -294,105 +287,29 @@ public class GenerateRuleDescriptions {
     }
   }
 
-  private static List<StandardCssObject> getStandardProperties(boolean isObsolete, boolean isExperimental, boolean hasVendors) {
-    try {
-      List<StandardCssObject> properties = new ArrayList<>();
-      ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(Border.class.getClassLoader()).getTopLevelClasses("org.sonar.css.model.property.standard");
-      for (ClassPath.ClassInfo classInfo : classInfos) {
-        if (!"org.sonar.css.model.property.standard.package-info".equals(classInfo.getName())) {
-          properties.add((StandardProperty) Class.forName(classInfo.getName()).newInstance());
-        }
-      }
-
-      properties
-        .stream()
-        .sorted((object1, object2) -> object1.getName().compareTo(object2.getName()));
-
-      if (isObsolete) {
-        properties
-          .stream()
-          .filter(p -> p.isObsolete());
-      }
-
-      if (isExperimental) {
-        properties
-          .stream()
-          .filter(p -> p.isExperimental());
-      }
-
-      if (hasVendors) {
-        properties
-          .stream()
-          .filter(p -> p.hasVendors());
-      }
-
-      return properties;
-    } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
-      throw new IllegalStateException("Could not retrieve the list of standard CSS property classes.", e);
+  private static List<StandardCssObject> getStandardCssObjects(Class clazz, @Nullable Boolean isObsolete, @Nullable Boolean isExperimental, @Nullable Boolean hasVendors) {
+    List<StandardCssObject> cssObjects;
+    if ("StandardProperty".equals(clazz.getSimpleName())) {
+      cssObjects = StandardPropertyFactory.createAll();
+    } else if ("StandardAtRule".equals(clazz.getSimpleName())) {
+      cssObjects = StandardAtRuleFactory.createAll();
+    } else if ("StandardFunction".equals(clazz.getSimpleName())) {
+      cssObjects = StandardFunctionFactory.createAll();
+    } else {
+      throw new IllegalArgumentException("Unknown Standard CSS object");
     }
-  }
 
-  private static List<StandardCssObject> getStandardAtRules(boolean isObsolete, boolean isExperimental) {
-    try {
-      List<StandardCssObject> atRules = new ArrayList<>();
-      ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(Annotation.class.getClassLoader()).getTopLevelClasses("org.sonar.css.model.atrule.standard");
-      for (ClassPath.ClassInfo classInfo : classInfos) {
-        if (!"org.sonar.css.model.atrule.standard.package-info".equals(classInfo.getName())) {
-          atRules.add((StandardAtRule) Class.forName(classInfo.getName()).newInstance());
-        }
-      }
-      atRules
-        .stream()
-        .sorted((object1, object2) -> object1.getName().compareTo(object2.getName()));
-
-      if (isObsolete) {
-        atRules
-          .stream()
-          .filter(p -> p.isObsolete());
-      }
-
-      if (isExperimental) {
-        atRules
-          .stream()
-          .filter(p -> p.isExperimental());
-      }
-
-      return atRules;
-    } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
-      throw new IllegalStateException("Could not retrieve the list of standard CSS at rule classes.", e);
+    if (isObsolete != null) {
+      cssObjects = cssObjects.stream().filter(o -> o.isObsolete() == isObsolete).collect(Collectors.toList());
     }
-  }
-
-  private static List<StandardCssObject> getStandardFunctions(boolean isObsolete, boolean isExperimental) {
-    try {
-      List<StandardCssObject> functions = new ArrayList<>();
-      ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(Annotation.class.getClassLoader()).getTopLevelClasses("org.sonar.css.model.function.standard");
-      for (ClassPath.ClassInfo classInfo : classInfos) {
-        if (!"org.sonar.css.model.function.standard.package-info".equals(classInfo.getName())) {
-          functions.add((StandardFunction) Class.forName(classInfo.getName()).newInstance());
-        }
-      }
-
-      functions
-        .stream()
-        .sorted((object1, object2) -> object1.getName().compareTo(object2.getName()));
-
-      if (isObsolete) {
-        functions
-          .stream()
-          .filter(p -> p.isObsolete());
-      }
-
-      if (isExperimental) {
-        functions
-          .stream()
-          .filter(p -> p.isExperimental());
-      }
-
-      return functions;
-    } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
-      throw new IllegalStateException("Could not retrieve the list of standard CSS function classes.", e);
+    if (isExperimental != null) {
+      cssObjects = cssObjects.stream().filter(o -> o.isExperimental() == isExperimental).collect(Collectors.toList());
     }
+    if (hasVendors != null) {
+      cssObjects = cssObjects.stream().filter(o -> o.hasVendors() == hasVendors).collect(Collectors.toList());
+    }
+    Collections.sort(cssObjects, (f1, f2) -> f1.getName().compareTo(f2.getName()));
+    return cssObjects;
   }
 
   private static String generateListOfVendors() {
@@ -409,23 +326,29 @@ public class GenerateRuleDescriptions {
     return html.toString();
   }
 
-  private static String generateHtmlList(List<StandardCssObject> standardCssObjects) {
-    StringBuilder html = new StringBuilder("<ul>\n");
-    for (StandardCssObject standardCssObject : standardCssObjects) {
-      html.append("  <li>");
-      if (!standardCssObject.getLinks().isEmpty()) {
-        html.append("<a target=\"_blank\" href=\"").append(standardCssObject.getLinks().get(0)).append("\">");
+  private static String generateHtmlTable(List<StandardCssObject> standardCssObjects) {
+    StringBuilder html = new StringBuilder("<table style=\"border: 0;\">\n");
+    List<List<StandardCssObject>> subLists = Lists.partition(standardCssObjects, 3);
+    for (List<StandardCssObject> subList : subLists) {
+      html.append("<tr>");
+      for (StandardCssObject standardCssObject : subList) {
+        html.append("<td style=\"border: 0; \">");
+        if (!standardCssObject.getLinks().isEmpty()) {
+          html.append("<a target=\"_blank\" href=\"").append(standardCssObject.getLinks().get(0)).append("\">");
+        }
+        html.append("<code>").append(standardCssObject.getName()).append("</code>");
+        if (!standardCssObject.getLinks().isEmpty()) {
+          html.append("</a>");
+        }
+        html.append("</code>");
+        for (int i = 1; i < standardCssObject.getLinks().size(); i++) {
+          html.append("&nbsp;&nbsp;<a target=\"_blank\" href=\"").append(standardCssObject.getLinks().get(i)).append("\">#").append(i + 1).append("</a>");
+        }
+        html.append("</td>\n");
       }
-      html.append(standardCssObject.getName());
-      if (!standardCssObject.getLinks().isEmpty()) {
-        html.append("</a>");
-      }
-      for (int i = 1; i < standardCssObject.getLinks().size(); i++) {
-        html.append("<a target=\"_blank\" href=\"").append(standardCssObject.getLinks().get(i)).append("\"> link#").append(i).append("</a>");
-      }
-      html.append("  </li>\n");
+      html.append("</tr>");
     }
-    html.append("</ul>\n");
+    html.append("</table>\n");
     return html.toString();
   }
 
