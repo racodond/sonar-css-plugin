@@ -27,7 +27,7 @@ public class ImageRendering extends StandardProperty {
 
   public ImageRendering() {
     addLinks("http://dev.w3.org/csswg/css-images-3/#propdef-image-rendering");
-    addValidators(new IdentifierValidator(ImmutableList.of("auto", "optimizespeed", "optimizequality")));
+    addValidators(new IdentifierValidator(ImmutableList.of("auto", "crisp-edges", "pixelated")));
   }
 
 }

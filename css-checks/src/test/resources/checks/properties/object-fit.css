@@ -1,0 +1,11 @@
+.mybox {
+  object-fit: inherit;
+  object-fit: fill;
+  object-fit: contain;
+  object-fit: cover;
+  object-fit: none;
+  object-fit: scale-down;
+  object-fit: 10; /* Noncompliant !{Update the invalid value of property "object-fit". Expected format: fill | contain | cover | none | scale-down}! */
+  object-fit: auto; /* Noncompliant */
+  object-fit: 10px; /* Noncompliant */
+}

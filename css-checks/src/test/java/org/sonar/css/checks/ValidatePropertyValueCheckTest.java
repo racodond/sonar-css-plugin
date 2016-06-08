@@ -42,7 +42,7 @@ public class ValidatePropertyValueCheckTest {
   public void test_number_of_validated_properties() {
     File testDirectory = new File("src/test/resources/checks/properties");
     testDirectory = Preconditions.checkNotNull(testDirectory);
-    Assert.assertEquals(235, testDirectory.listFiles().length);
+    Assert.assertEquals(236, testDirectory.listFiles().length);
   }
 
 }
