@@ -2,7 +2,16 @@
   clip-path: inherit;
   clip-path: none;
   clip-path: url("abc");
-  clip-path: url; /* Noncompliant !{Update the invalid value of property "clip-path". Expected format: none | <uri>}! */
+  clip-path: inset();
+  clip-path: circle();
+  clip-path: ellipse();
+  clip-path: polygon();
+  clip-path: content-box;
+  clip-path: padding-box;
+  clip-path: border-box;
+  clip-path: margin-box;
+  clip-path: url; /* Noncompliant !{Update the invalid value of property "clip-path". Expected format: none | <uri> | <shape-box> | <function>(inset | circle | ellipse | polygon)}! */
   clip-path: 10%; /* Noncompliant */
   clip-path: 10px; /* Noncompliant */
+  clip-path: abc(); /* Noncompliant */
 }
