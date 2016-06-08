@@ -17,32 +17,20 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.checks;
+package org.sonar.css.model.property.validator.property.background;
 
-import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
+import org.sonar.css.model.property.validator.ValidatorFactory;
+import org.sonar.css.model.property.validator.ValueElementListValidator;
+import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
-import java.io.File;
-
-import junit.framework.Assert;
-import org.junit.Test;
-import org.sonar.css.checks.verifier.CssCheckVerifier;
-
-public class ValidatePropertyValueCheckTest {
-
-  @Test
-  public void test_validate_properties() {
-    File testDirectory = new File("src/test/resources/checks/properties");
-    testDirectory = Preconditions.checkNotNull(testDirectory);
-    for (File file : testDirectory.listFiles()) {
-      CssCheckVerifier.verify(new ValidatePropertyValueCheck(), file);
-    }
-  }
-
-  @Test
-  public void test_number_of_validated_properties() {
-    File testDirectory = new File("src/test/resources/checks/properties");
-    testDirectory = Preconditions.checkNotNull(testDirectory);
-    Assert.assertEquals(227, testDirectory.listFiles().length);
+public class BackgroundPositionValidator extends ValueElementListValidator {
+  // TODO: Update validator to strictly follow the specification at https://drafts.csswg.org/css-backgrounds-3/#background-position
+  public BackgroundPositionValidator() {
+    super(ImmutableList.of(
+      ValidatorFactory.getLengthValidator(),
+      ValidatorFactory.getPercentageValidator(),
+      new IdentifierValidator(ImmutableList.of("top", "bottom", "center", "left", "right"))));
   }
 
 }

@@ -20,13 +20,15 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.property.background.BackgroundPositionValidator;
 
 public class BackgroundPosition extends StandardProperty {
 
   public BackgroundPosition() {
     addLinks(
       "https://www.w3.org/TR/CSS22/colors.html#propdef-background-position",
-      "https://drafts.csswg.org/css-backgrounds-3/#the-background-position");
+      "https://drafts.csswg.org/css-backgrounds-3/#background-position");
+    addValidators(new BackgroundPositionValidator());
   }
 
 }
