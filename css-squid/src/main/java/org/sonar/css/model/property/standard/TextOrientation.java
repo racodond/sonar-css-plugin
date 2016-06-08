@@ -28,7 +28,7 @@ public class TextOrientation extends StandardProperty {
   public TextOrientation() {
     addLinks("http://dev.w3.org/csswg/css-writing-modes-3/#propdef-text-orientation");
     addValidators(new IdentifierValidator(
-      ImmutableList.of("mixed", "upright", "sideways-right", "sideways-left", "sideways", "use-glyph-orientation")));
+      ImmutableList.of("mixed", "upright", "sideways")));
   }
 
 }
