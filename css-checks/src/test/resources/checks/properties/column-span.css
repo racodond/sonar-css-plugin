@@ -1,0 +1,8 @@
+.mybox {
+  column-span: inherit;
+  column-span: all;
+  column-span: none;
+  column-span: 10; /* Noncompliant !{Update the invalid value of property "column-span". Expected format: all | none}! */
+  column-span: auto; /* Noncompliant */
+  column-span: 10px; /* Noncompliant */
+}
