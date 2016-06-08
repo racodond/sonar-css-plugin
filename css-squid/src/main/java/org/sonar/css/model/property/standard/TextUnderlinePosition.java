@@ -20,11 +20,13 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.property.TextUnderlinePositionValidator;
 
 public class TextUnderlinePosition extends StandardProperty {
 
   public TextUnderlinePosition() {
     addLinks("http://www.w3.org/TR/css-text-decor-3/#text-underline-position");
+    addValidators(new TextUnderlinePositionValidator());
   }
 
 }
