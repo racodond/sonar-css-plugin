@@ -2,6 +2,9 @@
   glyph-orientation-vertical: inherit;
   glyph-orientation-vertical: auto;
   glyph-orientation-vertical: 90deg;
-  glyph-orientation-vertical: abc; /* Noncompliant !{Update the invalid value of property "glyph-orientation-vertical". Expected format: auto | <angle>}! */
+  glyph-orientation-vertical: 0;
+  glyph-orientation-vertical: 90;
+  glyph-orientation-vertical: abc; /* Noncompliant !{Update the invalid value of property "glyph-orientation-vertical". Expected format: auto | <angle> | 0 | 90}! */
   glyph-orientation-vertical: 0.5; /* Noncompliant */
+  glyph-orientation-vertical: 180; /* Noncompliant */
 }
