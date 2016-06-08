@@ -1,0 +1,14 @@
+.mybox {
+  text-emphasis-position: inherit;
+  text-emphasis-position: over right;
+  text-emphasis-position: left over;
+  text-emphasis-position: under left;
+  text-emphasis-position: right under;
+  text-emphasis-position: 0; /* Noncompliant !{Update the invalid value of property "text-emphasis-position". Expected format: [ over | under ] && [ right | left ]}! */
+  text-emphasis-position: 0px; /* Noncompliant */
+  text-emphasis-position: over; /* Noncompliant */
+  text-emphasis-position: right; /* Noncompliant */
+  text-emphasis-position: over abc; /* Noncompliant */
+  text-emphasis-position: under over; /* Noncompliant */
+  text-emphasis-position: left right; /* Noncompliant */
+}

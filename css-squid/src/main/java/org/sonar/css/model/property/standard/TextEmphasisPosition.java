@@ -20,11 +20,13 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.property.TextEmphasisPositionValidator;
 
 public class TextEmphasisPosition extends StandardProperty {
 
   public TextEmphasisPosition() {
-    addLinks("http://www.w3.org/TR/css-text-decor-3/#text-emphasis-position");
+    addLinks("https://drafts.csswg.org/css-text-decor-3/#propdef-text-emphasis-position");
+    addValidators(new TextEmphasisPositionValidator());
   }
 
 }
