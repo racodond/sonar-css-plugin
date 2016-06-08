@@ -19,17 +19,12 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
-public class ClipRule extends StandardProperty {
+public class MaskImage extends StandardProperty {
 
-  public ClipRule() {
-    addLinks(
-      "https://drafts.fxtf.org/masking/#propdef-clip-rule",
-      "https://www.w3.org/TR/SVG/masking.html#ClipRuleProperty");
-    addValidators(new IdentifierValidator(ImmutableList.of("nonzero", "evenodd")));
+  public MaskImage() {
+    addLinks("https://drafts.fxtf.org/masking/#propdef-mask-image");
   }
 
 }
