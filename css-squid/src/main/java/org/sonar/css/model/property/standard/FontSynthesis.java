@@ -20,11 +20,13 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.property.FontSynthesisValidator;
 
 public class FontSynthesis extends StandardProperty {
 
   public FontSynthesis() {
     addLinks("https://drafts.csswg.org/css-fonts-3/#propdef-font-synthesis");
+    addValidators(new FontSynthesisValidator());
   }
 
 }
