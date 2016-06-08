@@ -3,12 +3,13 @@
   writing-mode: horizontal-tb;
   writing-mode: vertical-rl;
   writing-mode: vertical-lr;
-  writing-mode: lr-tb;
-  writing-mode: rl-tb;
-  writing-mode: tb-rl;
-  writing-mode: lr;
-  writing-mode: rl;
-  writing-mode: tb;
-  writing-mode: abc; /* Noncompliant !{Update the invalid value of property "writing-mode". Expected format: horizontal-tb | vertical-rl | vertical-lr | lr-tb | rl-tb | tb-rl | lr | rl | tb}! */
+  writing-mode: sideways-rl;
+  writing-mode: sideways-rl;
+  writing-mode: rl-tb; /* Noncompliant */
+  writing-mode: tb-rl; /* Noncompliant */
+  writing-mode: lr; /* Noncompliant */
+  writing-mode: rl; /* Noncompliant */
+  writing-mode: tb; /* Noncompliant */
+  writing-mode: abc; /* Noncompliant !{Update the invalid value of property "writing-mode". Expected format: horizontal-tb | vertical-rl | vertical-lr | sideways-rl | sideways-lr}! */
   writing-mode: -0.5; /* Noncompliant */
 }

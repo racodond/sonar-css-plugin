@@ -27,9 +27,9 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class WritingMode extends StandardProperty {
 
   public WritingMode() {
-    addLinks("http://dev.w3.org/csswg/css-writing-modes-3/#propdef-writing-mode");
+    addLinks("https://drafts.csswg.org/css-writing-modes-3/#propdef-writing-mode");
     addVendors(Vendor.EPUB, Vendor.MICROSOFT);
-    addValidators(new IdentifierValidator(ImmutableList.of("horizontal-tb", "vertical-rl", "vertical-lr", "lr-tb", "rl-tb", "tb-rl", "lr", "rl", "tb")));
+    addValidators(new IdentifierValidator(ImmutableList.of("horizontal-tb", "vertical-rl", "vertical-lr", "sideways-rl", "sideways-lr")));
   }
 
 }

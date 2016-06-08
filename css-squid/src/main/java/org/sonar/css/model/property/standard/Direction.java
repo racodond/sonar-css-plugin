@@ -26,7 +26,9 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class Direction extends StandardProperty {
 
   public Direction() {
-    addLinks("https://www.w3.org/TR/CSS22/visuren.html#propdef-direction");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/visuren.html#propdef-direction",
+      "https://drafts.csswg.org/css-writing-modes-3/#propdef-direction");
     addValidators(new IdentifierValidator(ImmutableList.of("ltr", "rtl")));
   }
 
