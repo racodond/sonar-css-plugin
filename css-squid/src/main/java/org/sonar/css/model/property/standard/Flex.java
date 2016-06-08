@@ -24,7 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class Flex extends StandardProperty {
 
   public Flex() {
-    addLinks("http://www.w3.org/TR/css-flexbox-1/#propdef-flex");
+    addLinks("https://drafts.csswg.org/css-flexbox-1/#propdef-flex");
   }
 
 }

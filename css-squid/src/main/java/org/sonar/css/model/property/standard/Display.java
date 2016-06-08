@@ -28,7 +28,8 @@ public class Display extends StandardProperty {
   public Display() {
     addLinks(
       "https://www.w3.org/TR/CSS22/visuren.html#propdef-display",
-      "https://drafts.csswg.org/css-display/#propdef-display");
+      "https://drafts.csswg.org/css-display/#propdef-display",
+      "https://drafts.csswg.org/css-flexbox-1/#flex-containers");
     // TODO: Update display validator to comply with https://drafts.csswg.org/css-display/#propdef-display
     addValidators(new IdentifierValidator(ImmutableList.of(
       "inline", "block", "list-item", "inline-block", "table",

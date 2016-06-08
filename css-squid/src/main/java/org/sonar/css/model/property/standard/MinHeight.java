@@ -27,7 +27,8 @@ public class MinHeight extends StandardProperty {
   public MinHeight() {
     addLinks(
       "https://www.w3.org/TR/CSS22/visudet.html#propdef-min-height",
-      "https://drafts.csswg.org/css-sizing-3/#width-height-keywords");
+      "https://drafts.csswg.org/css-sizing-3/#width-height-keywords",
+      "https://drafts.csswg.org/css-flexbox-1/#min-size-auto");
     addValidators(ValidatorFactory.getMinWidthHeightValidator());
   }
 
