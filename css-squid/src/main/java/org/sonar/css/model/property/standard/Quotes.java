@@ -20,11 +20,13 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.property.QuotesValidator;
 
 public class Quotes extends StandardProperty {
 
   public Quotes() {
     addLinks("https://www.w3.org/TR/CSS22/generate.html#propdef-quotes");
+    addValidators(new QuotesValidator());
   }
 
 }

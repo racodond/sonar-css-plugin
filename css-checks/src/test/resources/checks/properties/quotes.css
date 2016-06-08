@@ -1,0 +1,12 @@
+.mybox {
+  quotes: inherit;
+  quotes: none;
+  quotes: "abc" "def";
+  quotes: 'abc' 'def';
+  quotes: 'abc' 'def' "ghi" "jkl";
+  quotes: -3s; /* Noncompliant !{Update the invalid value of property "quotes". Expected format: none | [<string> <string>]+}! */
+  quotes: 50.5%; /* Noncompliant */
+  quotes: abc; /* Noncompliant */
+  quotes: "abc" "def" "ghi"; /* Noncompliant */
+  quotes: "abc" "def" "ghi" "jkl" "mno"; /* Noncompliant */
+}
