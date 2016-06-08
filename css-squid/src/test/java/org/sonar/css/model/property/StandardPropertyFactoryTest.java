@@ -93,7 +93,7 @@ public class StandardPropertyFactoryTest {
 
   @Test
   public void number_of_standard_properties() {
-    assertEquals(450, StandardPropertyFactory.createAll().size());
+    assertEquals(451, StandardPropertyFactory.createAll().size());
   }
 
 }
