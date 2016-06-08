@@ -20,11 +20,13 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.ValidatorFactory;
 
 public class TextEmphasisColor extends StandardProperty {
 
   public TextEmphasisColor() {
-    addLinks("http://www.w3.org/TR/css-text-decor-3/#text-emphasis-color");
+    addLinks("https://drafts.csswg.org/css-text-decor-3/#propdef-text-emphasis-color");
+    addValidators(ValidatorFactory.getColorValidator());
   }
 
 }
