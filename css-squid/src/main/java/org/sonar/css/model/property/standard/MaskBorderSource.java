@@ -19,19 +19,16 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.ValidatorFactory;
-import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
 
-public class Clip extends StandardProperty {
+public class MaskBorderSource extends StandardProperty {
 
-  public Clip() {
-    setObsolete(true);
-    addLinks(
-      "https://www.w3.org/TR/CSS22/visufx.html#propdef-clip",
-      "https://drafts.fxtf.org/masking/#propdef-clip");
-    addValidators(new FunctionValidator(ImmutableList.of("rect")), ValidatorFactory.getAutoValidator());
+  public MaskBorderSource() {
+    addLinks("https://drafts.fxtf.org/masking/#propdef-mask-border-source");
+    addValidators(
+      ValidatorFactory.getNoneValidator(),
+      ValidatorFactory.getImageValidator());
   }
 
 }
