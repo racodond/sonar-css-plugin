@@ -27,7 +27,7 @@ public class BackgroundAttachment extends StandardProperty {
   public BackgroundAttachment() {
     addLinks(
       "https://www.w3.org/TR/CSS22/colors.html#propdef-background-attachment",
-      "https://drafts.csswg.org/css-backgrounds-3/#the-background-attachment");
+      "https://drafts.csswg.org/css-backgrounds-3/#background-attachment");
     addValidators(new BackgroundAttachmentValidator());
   }
 

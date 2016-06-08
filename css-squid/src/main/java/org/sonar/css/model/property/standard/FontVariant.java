@@ -29,6 +29,7 @@ public class FontVariant extends StandardProperty {
     addLinks(
       "https://www.w3.org/TR/CSS22/fonts.html#propdef-font-variant",
       "https://drafts.csswg.org/css-fonts-3/#descdef-font-variant");
+    // TODO: Update validator to comply with https://drafts.csswg.org/css-fonts-3/#descdef-font-variant
     addValidators(new IdentifierValidator(ImmutableList.of("normal", "small-caps")));
   }
 

@@ -31,7 +31,7 @@ import org.sonar.css.model.value.CssValueElement;
 public class BackgroundImageValidator implements ValueValidator {
 
   @Override
-  public boolean isValid(@Nonnull Value value) {
+  public boolean isValid(Value value) {
     List<CssValueElement> valueElements = value.getValueElements();
     for (int i = 0; i < valueElements.size(); i++) {
       if (ValidatorFactory.getNoneValidator().isValid(valueElements.get(i)) && i != 0) {
@@ -52,11 +52,11 @@ public class BackgroundImageValidator implements ValueValidator {
 
   private List<List<CssValueElement>> buildBackgroundImageList(Value value) {
     List<List<CssValueElement>> backgroundImageList = new ArrayList<>();
-    backgroundImageList.add(new ArrayList<CssValueElement>());
+    backgroundImageList.add(new ArrayList<>());
     int listIndex = 0;
     for (CssValueElement valueElement : value.getValueElements()) {
       if (ValidatorFactory.getCommaDelimiterValidator().isValid(valueElement)) {
-        backgroundImageList.add(new ArrayList<CssValueElement>());
+        backgroundImageList.add(new ArrayList<>());
         listIndex++;
       } else {
         backgroundImageList.get(listIndex).add(valueElement);

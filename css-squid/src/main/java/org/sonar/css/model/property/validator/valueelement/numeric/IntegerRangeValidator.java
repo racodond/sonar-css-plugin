@@ -36,7 +36,7 @@ public class IntegerRangeValidator extends IntegerValidator {
   }
 
   @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+  public boolean isValid(CssValueElement cssValueElement) {
     return super.isValid(cssValueElement)
       && ((NumberValueElement) cssValueElement).getIntegerValue() >= min
       && ((NumberValueElement) cssValueElement).getIntegerValue() <= max;

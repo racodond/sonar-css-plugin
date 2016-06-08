@@ -28,7 +28,7 @@ import org.sonar.css.model.value.valueelement.UriValueElement;
 public class UriValidator implements ValueElementValidator {
 
   @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+  public boolean isValid(CssValueElement cssValueElement) {
     return cssValueElement instanceof UriValueElement;
   }
 

@@ -34,7 +34,7 @@ public class DelimiterValidator implements ValueElementValidator {
   }
 
   @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+  public boolean isValid(CssValueElement cssValueElement) {
     return cssValueElement instanceof DelimiterValueElement
       && separator.equals(((DelimiterValueElement) cssValueElement).getType());
   }

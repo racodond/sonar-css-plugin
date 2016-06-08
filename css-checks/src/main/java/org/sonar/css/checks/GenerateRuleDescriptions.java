@@ -158,6 +158,10 @@ public class GenerateRuleDescriptions {
             "<a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Plus_()\">+</a>")
           .replace("*",
             "<a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Asterisk_(*)\">*</a>")
+          .replace("[",
+            "<a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Brackets\">[</a>")
+          .replace("]",
+            "<a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Brackets\">]</a>")
           .replace("<angle>",
             "<a target=\"_blank\" href=\"http://dev.w3.org/csswg/css-values-3/#angle-value\">&lt;angle&gt;</a>")
           .replace("<basic-shape>",
@@ -195,7 +199,7 @@ public class GenerateRuleDescriptions {
           .replace("<identifier>",
             "<a target=\"_blank\" href=\"http://dev.w3.org/csswg/css-values-3/#identifier-value\">&lt;identifier&gt;</a>")
           .replace("<image>",
-            "<a target=\"_blank\" href=\"http://dev.w3.org/csswg/css-images-3/#funcdef-image\">&lt;image&gt;</a>")
+            "<a target=\"_blank\" href=\"https://drafts.csswg.org/css-images-3/#typedef-image\">&lt;image&gt;</a>")
           .replace("<integer>",
             "<a target=\"_blank\" href=\"http://dev.w3.org/csswg/css-values-3/#integer-value\">&lt;integer&gt;</a>")
           .replace("<length>",

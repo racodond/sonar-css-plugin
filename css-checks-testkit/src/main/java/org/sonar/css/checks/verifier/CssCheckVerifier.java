@@ -36,6 +36,8 @@ import org.sonar.css.issue.Issue;
 import org.sonar.css.issue.PreciseIssue;
 import org.sonar.css.issue.PreciseIssueLocation;
 
+import javax.annotation.Nullable;
+
 import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
@@ -112,7 +114,7 @@ public class CssCheckVerifier {
 
   private static class IssueToLine implements Function<Issue, Integer> {
     @Override
-    public Integer apply(Issue issue) {
+    public Integer apply(@Nullable Issue issue) {
       return line(issue);
     }
   }

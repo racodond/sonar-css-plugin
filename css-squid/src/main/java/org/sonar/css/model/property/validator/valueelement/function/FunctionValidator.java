@@ -36,7 +36,7 @@ public class FunctionValidator implements ValueElementValidator {
   }
 
   @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+  public boolean isValid(CssValueElement cssValueElement) {
     return cssValueElement instanceof FunctionValueElement
       && allowedFunctions.contains(((FunctionValueElement) cssValueElement).getFunction().getStandardFunction().getName());
   }

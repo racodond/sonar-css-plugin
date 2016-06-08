@@ -30,7 +30,7 @@ import org.sonar.css.model.value.CssValueElement;
 public class BorderStylePropertyValidator implements ValueValidator {
 
   @Override
-  public boolean isValid(@Nonnull Value value) {
+  public boolean isValid(Value value) {
     List<CssValueElement> valueElements = value.getValueElements();
     if (value.getNumberOfValueElements() > 4) {
       return false;

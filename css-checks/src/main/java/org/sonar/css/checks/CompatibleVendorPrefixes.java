@@ -64,7 +64,7 @@ public class CompatibleVendorPrefixes extends CssCheck {
         if (properties.containsKey(cssPropertyName)) {
           properties.get(cssPropertyName).add(vendorPrefix);
         } else {
-          properties.put(cssPropertyName, new HashSet<Vendor>());
+          properties.put(cssPropertyName, new HashSet<>());
           properties.get(cssPropertyName).add(vendorPrefix);
         }
       }

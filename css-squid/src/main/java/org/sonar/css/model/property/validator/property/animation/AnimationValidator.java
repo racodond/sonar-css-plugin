@@ -38,7 +38,7 @@ public class AnimationValidator implements ValueValidator {
   private final AnimationTimingFunctionValidator animationTimingFunctionValidator = new AnimationTimingFunctionValidator();
 
   @Override
-  public boolean isValid(@Nonnull Value value) {
+  public boolean isValid(Value value) {
     List<CssValueElement> valueElements = value.getValueElements();
     if (value.getNumberOfValueElements() > 8) {
       return false;

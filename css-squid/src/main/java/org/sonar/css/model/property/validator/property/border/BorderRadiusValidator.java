@@ -32,7 +32,7 @@ public class BorderRadiusValidator implements ValueValidator {
   private final RadiusValidator radiusValidator = new RadiusValidator();
 
   @Override
-  public boolean isValid(@Nonnull Value value) {
+  public boolean isValid(Value value) {
     List<CssValueElement> valueElements = value.getValueElements();
     if (value.getNumberOfValueElements() > 2) {
       return false;

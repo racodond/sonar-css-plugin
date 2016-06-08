@@ -25,11 +25,15 @@ import javax.annotation.Nonnull;
 
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementMultiValidator;
+import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
 
 public class ListStyleTypeValidator extends ValueElementMultiValidator {
 
   public ListStyleTypeValidator() {
-    super(ImmutableList.of(ValidatorFactory.getStringValidator(), ValidatorFactory.getAnyIdentifierValidator()));
+    super(ImmutableList.of(
+      ValidatorFactory.getStringValidator(),
+      new FunctionValidator(ImmutableList.of("symbols")),
+      ValidatorFactory.getAnyIdentifierValidator()));
   }
 
   @Override

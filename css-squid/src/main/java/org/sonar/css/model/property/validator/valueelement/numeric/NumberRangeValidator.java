@@ -43,7 +43,7 @@ public class NumberRangeValidator extends NumberValidator {
   }
 
   @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+  public boolean isValid(CssValueElement cssValueElement) {
     if (super.isValid(cssValueElement)) {
       double value = ((NumberValueElement) cssValueElement).getValue();
       if (max != null) {

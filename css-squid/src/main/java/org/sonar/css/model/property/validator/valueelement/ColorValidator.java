@@ -31,7 +31,7 @@ import org.sonar.css.model.value.CssValueElement;
 public class ColorValidator implements ValueElementValidator {
 
   @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+  public boolean isValid(CssValueElement cssValueElement) {
     return new IdentifierValidator(Color.SVG_COLORS).isValid(cssValueElement)
       || new IdentifierValidator(Color.CSS4_COLORS).isValid(cssValueElement)
       || new IdentifierValidator(Color.CSS2_SYSTEM_COLORS).isValid(cssValueElement)

@@ -34,7 +34,7 @@ public class NumberValidator implements ValueElementValidator {
   }
 
   @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+  public boolean isValid(CssValueElement cssValueElement) {
     if (cssValueElement instanceof NumberValueElement) {
       if (positiveOnly) {
         return ((NumberValueElement) cssValueElement).isPositive();

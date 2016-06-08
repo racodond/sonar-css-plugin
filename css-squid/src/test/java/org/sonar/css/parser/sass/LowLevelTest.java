@@ -29,7 +29,7 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class LowLevelTest extends TestBase {
 
-  private LexerlessGrammar b = SassGrammar.createGrammar();
+  private final LexerlessGrammar b = SassGrammar.createGrammar();
 
   @Test
   public void variable() {

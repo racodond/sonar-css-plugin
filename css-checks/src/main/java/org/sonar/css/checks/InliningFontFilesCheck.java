@@ -62,7 +62,7 @@ public class InliningFontFilesCheck extends CssCheck {
   }
 
   @Nonnull
-  private static String getAtRuleIdentifier(@Nonnull AstNode atRuleNode) {
+  private static String getAtRuleIdentifier(AstNode atRuleNode) {
     return atRuleNode.getFirstChild(CssGrammar.AT_KEYWORD).getFirstChild(CssGrammar.IDENT).getTokenValue();
   }
 

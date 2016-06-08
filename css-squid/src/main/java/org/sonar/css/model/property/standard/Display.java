@@ -29,8 +29,9 @@ public class Display extends StandardProperty {
     addLinks(
       "https://www.w3.org/TR/CSS22/visuren.html#propdef-display",
       "https://drafts.csswg.org/css-display/#propdef-display");
+    // TODO: Update display validator to comply with https://drafts.csswg.org/css-display/#propdef-display
     addValidators(new IdentifierValidator(ImmutableList.of(
-        "inline", "block", "list-item", "inline-block", "table",
+      "inline", "block", "list-item", "inline-block", "table",
       "inline-table", "table-row-group", "table-header-group", "table-footer-group", "table-row",
       "table-column-group", "table-column", "table-cell", "table-caption", "none", "flex", "inline-flex", "grid",
       "inline-grid", "run-in", "contents", "ruby", "ruby-base", "ruby-text", "ruby-base-container",

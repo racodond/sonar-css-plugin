@@ -33,7 +33,7 @@ public class IntegerSetValidator extends IntegerValidator {
   }
 
   @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+  public boolean isValid(CssValueElement cssValueElement) {
     if (super.isValid(cssValueElement)) {
       int value = ((NumberValueElement) cssValueElement).getValue().intValue();
       for (int v : set) {

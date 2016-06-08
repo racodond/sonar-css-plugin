@@ -28,7 +28,7 @@ import org.sonar.css.model.value.valueelement.HashValueElement;
 public class HashValidator implements ValueElementValidator {
 
   @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+  public boolean isValid(CssValueElement cssValueElement) {
     return cssValueElement instanceof HashValueElement && ((HashValueElement) cssValueElement).getValue().matches("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
   }
 

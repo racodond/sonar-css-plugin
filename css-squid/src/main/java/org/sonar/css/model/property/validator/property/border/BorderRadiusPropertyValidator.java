@@ -31,7 +31,7 @@ import org.sonar.css.model.value.valueelement.DelimiterValueElement;
 public class BorderRadiusPropertyValidator implements ValueValidator {
 
   @Override
-  public boolean isValid(@Nonnull Value value) {
+  public boolean isValid(Value value) {
     List<CssValueElement> valueElements = value.getValueElements();
 
     if (valueElements.size() > 9) {

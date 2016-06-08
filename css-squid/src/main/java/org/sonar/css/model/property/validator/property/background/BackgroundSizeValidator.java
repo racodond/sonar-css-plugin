@@ -38,7 +38,7 @@ public class BackgroundSizeValidator implements ValueValidator {
   private final ValueElementValidator coverContainValidator = new IdentifierValidator(ImmutableList.of("cover", "contain"));
 
   @Override
-  public boolean isValid(@Nonnull Value value) {
+  public boolean isValid(Value value) {
     List<CssValueElement> valueElements = value.getValueElements();
     for (CssValueElement valueElement : valueElements) {
       if (valueElement instanceof DelimiterValueElement) {
@@ -63,11 +63,11 @@ public class BackgroundSizeValidator implements ValueValidator {
 
   private List<List<CssValueElement>> buildRepeatStyleList(Value value) {
     List<List<CssValueElement>> repeatStyleList = new ArrayList<>();
-    repeatStyleList.add(new ArrayList<CssValueElement>());
+    repeatStyleList.add(new ArrayList<>());
     int listIndex = 0;
     for (CssValueElement valueElement : value.getValueElements()) {
       if (valueElement instanceof DelimiterValueElement) {
-        repeatStyleList.add(new ArrayList<CssValueElement>());
+        repeatStyleList.add(new ArrayList<>());
         listIndex++;
       } else {
         repeatStyleList.get(listIndex).add(valueElement);

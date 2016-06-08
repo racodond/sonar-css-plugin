@@ -76,11 +76,11 @@ public class CursorValidator implements ValueValidator {
 
   private List<List<CssValueElement>> buildCursorList(Value value) {
     List<List<CssValueElement>> cursorList = new ArrayList<>();
-    cursorList.add(new ArrayList<CssValueElement>());
+    cursorList.add(new ArrayList<>());
     int listIndex = 0;
     for (CssValueElement valueElement : value.getValueElements()) {
       if (ValidatorFactory.getCommaDelimiterValidator().isValid(valueElement)) {
-        cursorList.add(new ArrayList<CssValueElement>());
+        cursorList.add(new ArrayList<>());
         listIndex++;
       } else {
         cursorList.get(listIndex).add(valueElement);

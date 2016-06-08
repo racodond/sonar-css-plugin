@@ -68,7 +68,7 @@ public class DisallowDuplicateBackgroundImages extends CssCheck {
         if (urls.containsKey(url)) {
           urls.get(url).add(uriNode);
         } else {
-          urls.put(url, new ArrayList<AstNode>());
+          urls.put(url, new ArrayList<>());
           urls.get(url).add(uriNode);
         }
       }

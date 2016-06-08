@@ -20,9 +20,6 @@
 package org.sonar.css.model.property.validator.valueelement.dimension;
 
 import com.google.common.collect.ImmutableList;
-
-import javax.annotation.Nonnull;
-
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
 import org.sonar.css.model.value.CssValueElement;
@@ -44,7 +41,7 @@ public abstract class DimensionValidator implements ValueElementValidator {
   }
 
   @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+  public boolean isValid(CssValueElement cssValueElement) {
 
     if (cssValueElement instanceof DimensionValueElement) {
       if (!units.contains(((DimensionValueElement) cssValueElement).getUnit())) {

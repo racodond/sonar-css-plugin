@@ -45,8 +45,8 @@ public enum Vendor {
   WEBKIT("-webkit-", "Safari, Chrome (and other WebKit-based browsers)"),
   OPERA2("-xv-", "Opera Software");
 
-  private String prefix;
-  private String description;
+  private final String prefix;
+  private final String description;
 
   Vendor(String prefix, String description) {
     this.prefix = prefix;

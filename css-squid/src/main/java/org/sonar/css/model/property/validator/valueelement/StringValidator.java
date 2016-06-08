@@ -28,7 +28,7 @@ import org.sonar.css.model.value.valueelement.StringValueElement;
 public class StringValidator implements ValueElementValidator {
 
   @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+  public boolean isValid(CssValueElement cssValueElement) {
     return cssValueElement instanceof StringValueElement;
   }
 

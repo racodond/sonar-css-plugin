@@ -64,7 +64,7 @@ public final class CssAstScanner {
     if (!file.isFile()) {
       throw new IllegalArgumentException("File '" + file + "' not found.");
     }
-    AstScanner scanner = create(conf, null, new HashSet<Issue>(), visitors);
+    AstScanner scanner = create(conf, null, new HashSet<>(), visitors);
     scanner.scanFile(file);
     Collection<SourceCode> sources = scanner.getIndex().search(new QueryByType(SourceFile.class));
     if (sources.size() != 1) {

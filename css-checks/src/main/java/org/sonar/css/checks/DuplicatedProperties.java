@@ -85,7 +85,7 @@ public class DuplicatedProperties extends CssCheck {
       if (propertiesMap.containsKey(propertyName)) {
         propertiesMap.get(propertyName).add(declarationNode);
       } else {
-        propertiesMap.put(propertyName, new ArrayList<AstNode>());
+        propertiesMap.put(propertyName, new ArrayList<>());
         propertiesMap.get(propertyName).add(declarationNode);
       }
     }
