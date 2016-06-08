@@ -133,9 +133,12 @@ public class GenerateRuleDescriptions {
       if (!property.getLinks().isEmpty()) {
         description.append("<a target=\"_blank\" href=\"").append(property.getLinks().get(0)).append("\">");
       }
-      description.append(property.getName());
+      description.append("<code>").append(property.getName()).append("</code>");
       if (!property.getLinks().isEmpty()) {
         description.append("</a>");
+      }
+      for (int i = 1; i < property.getLinks().size(); i++) {
+        description.append("&nbsp;&nbsp;<a target=\"_blank\" href=\"").append(property.getLinks().get(i)).append("\">#").append(i + 1).append("</a>");
       }
       description.append("</td>\n")
         .append("    <td>");
