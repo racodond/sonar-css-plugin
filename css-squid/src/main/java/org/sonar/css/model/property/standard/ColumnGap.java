@@ -19,16 +19,20 @@
  */
 package org.sonar.css.model.property.standard;
 
+import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.ValidatorFactory;
+import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class ColumnGap extends StandardProperty {
 
   public ColumnGap() {
     addLinks("http://dev.w3.org/csswg/css-multicol-1/#propdef-column-gap");
     addVendors(Vendor.WEBKIT, Vendor.MOZILLA, Vendor.MICROSOFT);
-    addValidators(ValidatorFactory.getPositiveLengthValidator());
+    addValidators(
+      new IdentifierValidator(ImmutableList.of("normal")),
+      ValidatorFactory.getPositiveLengthValidator());
   }
 
 }
