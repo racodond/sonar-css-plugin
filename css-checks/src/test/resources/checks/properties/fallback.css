@@ -1,0 +1,10 @@
+.mybox {
+  fallback: inherit;
+  fallback: abc;
+  fallback: def;
+  fallback: 10px; /* Noncompliant !{Update the invalid value of property "fallback". Expected format: <identifier>}! */
+  fallback: 10; /* Noncompliant */
+  fallback: 10px; /* Noncompliant */
+  fallback: '10'; /* Noncompliant */
+  fallback: abc abc; /* Noncompliant */
+}
