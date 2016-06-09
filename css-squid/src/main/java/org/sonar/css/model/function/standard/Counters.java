@@ -17,17 +17,15 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.model.property.standard;
+package org.sonar.css.model.function.standard;
 
-import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.function.StandardFunction;
 
-public class SpeakAs extends StandardProperty {
+public class Counters extends StandardFunction {
 
-  public SpeakAs() {
+  public Counters() {
     setExperimental(true);
-    addLinks(
-      "https://drafts.csswg.org/css-speech-1/#speak-as",
-      "https://drafts.csswg.org/css-counter-styles-3/#descdef-counter-style-speak-as");
+    addLinks("https://drafts.csswg.org/css-lists-3/#funcdef-counters");
   }
 
 }
