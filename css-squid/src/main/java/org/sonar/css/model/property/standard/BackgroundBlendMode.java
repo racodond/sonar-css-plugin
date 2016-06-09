@@ -20,13 +20,14 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.HashMultiplierValidator;
 import org.sonar.css.model.property.validator.valueelement.BlendModeValidator;
 
 public class BackgroundBlendMode extends StandardProperty {
 
   public BackgroundBlendMode() {
-    addLinks("http://dev.w3.org/fxtf/compositing-1/#propdef-background-blend-mode");
-    addValidators(new BlendModeValidator());
+    addLinks("https://drafts.fxtf.org/compositing-1/#propdef-background-blend-mode");
+    addValidators(new HashMultiplierValidator(new BlendModeValidator()));
   }
 
 }

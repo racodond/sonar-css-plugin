@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class Isolation extends StandardProperty {
 
   public Isolation() {
-    addLinks("http://dev.w3.org/fxtf/compositing-1/#propdef-isolation");
+    addLinks("https://drafts.fxtf.org/compositing-1/#propdef-isolation");
     addValidators(new IdentifierValidator("auto", "isolate"));
   }
 
