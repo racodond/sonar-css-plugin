@@ -1,0 +1,16 @@
+.mybox {
+  mask-border-width: inherit;
+  mask-border-width: auto;
+  mask-border-width: 10px;
+  mask-border-width: 10;
+  mask-border-width: 10.5;
+  mask-border-width: 0;
+  mask-border-width: 10%;
+  mask-border-width: abc; /* Noncompliant !{Update the invalid value of property "mask-border-width". Expected format: [ <length> | <percentage> | <number> | auto ]{1,4}}! */
+  mask-border-width: auto auto;
+  mask-border-width: auto auto auto;
+  mask-border-width: auto auto auto auto;
+  mask-border-width: auto auto auto auto auto; /* Noncompliant */
+  mask-border-width: 3 10% 10px auto;
+  mask-border-width: 3 10% abc auto; /* Noncompliant */
+}
