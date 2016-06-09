@@ -20,7 +20,8 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.property.FontWeightValidator;
+import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
+import org.sonar.css.model.property.validator.valueelement.numeric.IntegerSetValidator;
 
 public class FontWeight extends StandardProperty {
 
@@ -28,7 +29,9 @@ public class FontWeight extends StandardProperty {
     addLinks(
       "https://www.w3.org/TR/CSS22/fonts.html#propdef-font-weight",
       "https://drafts.csswg.org/css-fonts-3/#propdef-font-weight");
-    addValidators(new FontWeightValidator());
+    addValidators(
+      new IdentifierValidator("normal", "bold", "bolder", "lighter"),
+      new IntegerSetValidator(new int[] {100, 200, 300, 400, 500, 600, 700, 800, 900}));
   }
 
 }
