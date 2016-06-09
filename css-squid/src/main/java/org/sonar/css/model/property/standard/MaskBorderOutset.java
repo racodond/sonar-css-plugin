@@ -20,13 +20,14 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.property.MaskBorderOutsetValidator;
+import org.sonar.css.model.property.validator.MultiplierValidator;
+import org.sonar.css.model.property.validator.ValidatorFactory;
 
 public class MaskBorderOutset extends StandardProperty {
 
   public MaskBorderOutset() {
     addLinks("https://drafts.fxtf.org/masking/#propdef-mask-border-outset");
-    addValidators(new MaskBorderOutsetValidator());
+    addValidators(new MultiplierValidator(4, ValidatorFactory.getLengthValidator(), ValidatorFactory.getNumberValidator()));
   }
 
 }

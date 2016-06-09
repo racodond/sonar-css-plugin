@@ -17,36 +17,17 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.model.property.validator.property;
+package org.sonar.css.model.property.standard;
 
-import java.util.List;
-import javax.annotation.Nonnull;
+import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.MultiplierValidator;
+import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
-import org.sonar.css.model.Value;
-import org.sonar.css.model.property.validator.ValidatorFactory;
-import org.sonar.css.model.property.validator.ValueValidator;
-import org.sonar.css.model.value.CssValueElement;
+public class MaskBorderRepeat extends StandardProperty {
 
-public class MarginValidator implements ValueValidator {
-
-  @Override
-  public boolean isValid(@Nonnull Value value) {
-    List<CssValueElement> valueElements = value.getValueElements();
-    if (value.getNumberOfValueElements() > 4) {
-      return false;
-    }
-    for (CssValueElement valueElement : valueElements) {
-      if (!ValidatorFactory.getMarginWidthValidator().isValid(valueElement)) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  @Nonnull
-  @Override
-  public String getValidatorFormat() {
-    return "<margin-width>{1,4}";
+  public MaskBorderRepeat() {
+    addLinks("https://drafts.fxtf.org/masking/#propdef-mask-border-repeat");
+    addValidators(new MultiplierValidator(2, new IdentifierValidator("stretch", "repeat", "round", "space")));
   }
 
 }

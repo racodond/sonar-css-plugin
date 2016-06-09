@@ -20,13 +20,20 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.property.MaskBorderWidthValidator;
+import org.sonar.css.model.property.validator.MultiplierValidator;
+import org.sonar.css.model.property.validator.ValidatorFactory;
 
 public class MaskBorderWidth extends StandardProperty {
 
   public MaskBorderWidth() {
     addLinks("https://drafts.fxtf.org/masking/#propdef-mask-border-width");
-    addValidators(new MaskBorderWidthValidator());
+    addValidators(
+      new MultiplierValidator(
+        4,
+        ValidatorFactory.getLengthValidator(),
+        ValidatorFactory.getPercentageValidator(),
+        ValidatorFactory.getNumberValidator(),
+        ValidatorFactory.getAutoValidator()));
   }
 
 }

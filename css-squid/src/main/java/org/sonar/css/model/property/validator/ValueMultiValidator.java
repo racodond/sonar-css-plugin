@@ -38,7 +38,7 @@ public class ValueMultiValidator implements ValueValidator {
   }
 
   @Override
-  public boolean isValid(@Nonnull Value value) {
+  public boolean isValid(Value value) {
     for (Validator validator : validators) {
       if (validator instanceof ValueElementValidator
         && ((ValueElementValidator) validator).isValid(value.getValueElements().get(0))) {

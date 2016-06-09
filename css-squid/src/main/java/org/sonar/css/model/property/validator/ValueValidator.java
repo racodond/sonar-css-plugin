@@ -19,12 +19,10 @@
  */
 package org.sonar.css.model.property.validator;
 
-import javax.annotation.Nonnull;
-
 import org.sonar.css.model.Value;
 
 public interface ValueValidator extends Validator {
 
-  boolean isValid(@Nonnull Value value);
+  boolean isValid(Value value);
 
 }

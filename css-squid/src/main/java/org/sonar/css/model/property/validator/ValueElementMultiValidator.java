@@ -36,7 +36,7 @@ public class ValueElementMultiValidator implements ValueElementValidator {
   }
 
   @Override
-  public boolean isValid(@Nonnull CssValueElement cssValueElement) {
+  public boolean isValid(CssValueElement cssValueElement) {
     for (ValueElementValidator validator : validators) {
       if (validator.isValid(cssValueElement)) {
         return true;

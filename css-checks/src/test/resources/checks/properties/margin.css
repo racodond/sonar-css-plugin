@@ -5,7 +5,7 @@
   margin: -50%;
   margin: 10pt;
   margin: -10pt;
-  margin: 10; /* Noncompliant !{Update the invalid value of property "margin". Expected format: <margin-width>{1,4}}! */
+  margin: 10; /* Noncompliant !{Update the invalid value of property "margin". Expected format: [ auto | fill | <length> | <percentage> ]{1,4}}! */
   margin: abc; /* Noncompliant */
   margin: 50% 50%;
   margin: 50% 50% 50%;

@@ -20,13 +20,19 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.property.TextOverflowValidator;
+import org.sonar.css.model.property.validator.MultiplierValidator;
+import org.sonar.css.model.property.validator.ValidatorFactory;
+import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class TextOverflow extends StandardProperty {
 
   public TextOverflow() {
     addLinks("https://drafts.csswg.org/css-ui/#propdef-text-overflow");
-    addValidators(new TextOverflowValidator());
+    addValidators(
+      new MultiplierValidator(
+        2,
+        new IdentifierValidator("clip", "ellipsis"),
+        ValidatorFactory.getStringValidator()));
   }
 
 }

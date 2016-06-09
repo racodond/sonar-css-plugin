@@ -20,7 +20,8 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.property.border.BorderWidthPropertyValidator;
+import org.sonar.css.model.property.validator.MultiplierValidator;
+import org.sonar.css.model.property.validator.ValidatorFactory;
 
 public class BorderWidth extends StandardProperty {
 
@@ -28,7 +29,7 @@ public class BorderWidth extends StandardProperty {
     addLinks(
       "https://www.w3.org/TR/CSS22/box.html#propdef-border-width",
       "https://drafts.csswg.org/css-backgrounds-3/#border-width");
-    addValidators(new BorderWidthPropertyValidator());
+    addValidators(new MultiplierValidator(4, ValidatorFactory.getBorderWidthValidator()));
   }
 
 }

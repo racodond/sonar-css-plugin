@@ -19,36 +19,13 @@
  */
 package org.sonar.css.model.property.validator.property.border;
 
-import java.util.List;
-import javax.annotation.Nonnull;
-
-import org.sonar.css.model.Value;
-import org.sonar.css.model.property.validator.ValueValidator;
+import org.sonar.css.model.property.validator.MultiplierValidator;
 import org.sonar.css.model.property.validator.valueelement.RadiusValidator;
-import org.sonar.css.model.value.CssValueElement;
 
-public class BorderRadiusValidator implements ValueValidator {
+public class BorderRadiusValidator extends MultiplierValidator {
 
-  private final RadiusValidator radiusValidator = new RadiusValidator();
-
-  @Override
-  public boolean isValid(Value value) {
-    List<CssValueElement> valueElements = value.getValueElements();
-    if (value.getNumberOfValueElements() > 2) {
-      return false;
-    }
-    for (CssValueElement valueElement : valueElements) {
-      if (!radiusValidator.isValid(valueElement)) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  @Nonnull
-  @Override
-  public String getValidatorFormat() {
-    return "[ <length>(>=0) | <percentage>(>=0) ]{1,2}";
+  public BorderRadiusValidator() {
+    super(2, new RadiusValidator());
   }
 
 }

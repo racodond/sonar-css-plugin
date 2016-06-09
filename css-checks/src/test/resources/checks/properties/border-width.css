@@ -4,7 +4,7 @@
   border-width: thin thin;
   border-width: thin thin thin;
   border-width: thin thin thin thin;
-  border-width: thin thin thin thin thin; /* Noncompliant !{Update the invalid value of property "border-width". Expected format: <border-width>{1,4}}! */
+  border-width: thin thin thin thin thin; /* Noncompliant !{Update the invalid value of property "border-width". Expected format: [ thin | medium | thick | <length>(>=0) ]{1,4}}! */
   border-width: 10px;
   border-width: -10px; /* Noncompliant */
   border-width: 10px 10px 10px;

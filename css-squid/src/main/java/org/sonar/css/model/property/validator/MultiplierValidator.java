@@ -19,40 +19,52 @@
  */
 package org.sonar.css.model.property.validator;
 
-import com.google.common.collect.ImmutableList;
+import com.google.common.base.Preconditions;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 
 import org.sonar.css.model.Value;
 import org.sonar.css.model.value.CssValueElement;
-import org.sonar.css.model.value.valueelement.DelimiterValueElement;
 
-public class ValueElementListValidator implements ValueValidator {
+/**
+ * Validator to check property values than can be multiplied: [xxx]{1,n}
+ * See https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Curly_braces_(_)
+ */
+public class MultiplierValidator implements ValueValidator {
 
-  private List<? extends ValueElementValidator> validators = new ArrayList<>();
+  private final int multiplier;
+  private final List<ValueElementValidator> validators;
 
-  public ValueElementListValidator(ImmutableList<? extends ValueElementValidator> validators) {
-    this.validators = validators;
+  public MultiplierValidator(int multiplier, ValueElementValidator... validators) {
+    Preconditions.checkArgument(multiplier > 1);
+    this.multiplier = multiplier;
+    this.validators = Arrays.asList(validators);
   }
 
   @Override
   public boolean isValid(Value value) {
-    boolean valid;
+
+    if (value.getValueElements().size() > multiplier) {
+      return false;
+    }
+
+    boolean isValid;
     for (CssValueElement valueElement : value.getValueElements()) {
-      valid = false;
-      if (!(valueElement instanceof DelimiterValueElement)) {
-        for (ValueElementValidator validator : validators) {
-          if (validator.isValid(valueElement)) {
-            valid = true;
-          }
-        }
-        if (!valid) {
-          return false;
+      isValid = false;
+      for (ValueElementValidator validator : validators) {
+        if (validator.isValid(valueElement)) {
+          isValid = true;
+          break;
         }
       }
+      if (!isValid) {
+        return false;
+      }
     }
+
     return true;
   }
 
@@ -60,24 +72,19 @@ public class ValueElementListValidator implements ValueValidator {
   @Nonnull
   public String getValidatorFormat() {
     StringBuilder format = new StringBuilder();
-    for (Validator validator : validators) {
-      if (format.length() > 0) {
-        format.append(" | ");
-      }
-      format.append(validator.getValidatorFormat());
+
+    String joinedValidatorsFormat = validators.stream()
+      .map(v -> v.getValidatorFormat())
+      .collect(Collectors.joining(" | "));
+
+    if (joinedValidatorsFormat.contains(" | ")) {
+      format.append("[ ");
     }
-
-    format.append(" [, ");
-    int length = format.length();
-
-    for (Validator validator : validators) {
-      if (format.length() > length) {
-        format.append(" | ");
-      }
-      format.append(validator.getValidatorFormat());
+    format.append(joinedValidatorsFormat);
+    if (joinedValidatorsFormat.contains(" | ")) {
+      format.append(" ]");
     }
-
-    format.append("]*");
+    format.append("{1,").append(multiplier).append("}");
     return format.toString();
   }
 

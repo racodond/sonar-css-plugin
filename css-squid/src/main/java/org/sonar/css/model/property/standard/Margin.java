@@ -20,13 +20,14 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.property.MarginValidator;
+import org.sonar.css.model.property.validator.MultiplierValidator;
+import org.sonar.css.model.property.validator.ValidatorFactory;
 
 public class Margin extends StandardProperty {
 
   public Margin() {
     addLinks("https://www.w3.org/TR/CSS22/box.html#propdef-margin");
-    addValidators(new MarginValidator());
+    addValidators(new MultiplierValidator(4, ValidatorFactory.getMarginWidthValidator()));
   }
 
 }

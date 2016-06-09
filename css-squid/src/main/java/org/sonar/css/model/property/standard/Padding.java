@@ -20,13 +20,14 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.property.PaddingValidator;
+import org.sonar.css.model.property.validator.MultiplierValidator;
+import org.sonar.css.model.property.validator.ValidatorFactory;
 
 public class Padding extends StandardProperty {
 
   public Padding() {
     addLinks("https://www.w3.org/TR/CSS22/box.html#propdef-padding");
-    addValidators(new PaddingValidator());
+    addValidators(new MultiplierValidator(4, ValidatorFactory.getPaddingWidthValidator()));
   }
 
 }
