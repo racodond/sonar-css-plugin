@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class Widows extends StandardProperty {
 
   public Widows() {
-    addLinks("https://www.w3.org/TR/CSS22/page.html#propdef-widows");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/page.html#propdef-widows",
+      "https://drafts.csswg.org/css-break-3/#propdef-widows");
     addValidators(ValidatorFactory.getIntegerValidator());
   }
 

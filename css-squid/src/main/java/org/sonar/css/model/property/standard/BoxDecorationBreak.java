@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class BoxDecorationBreak extends StandardProperty {
 
   public BoxDecorationBreak() {
-    addLinks("http://dev.w3.org/csswg/css-break-3/#propdef-box-decoration-break");
+    addLinks("https://drafts.csswg.org/css-break-3/#propdef-box-decoration-break");
     addValidators(new IdentifierValidator("slice", "clone"));
   }
 

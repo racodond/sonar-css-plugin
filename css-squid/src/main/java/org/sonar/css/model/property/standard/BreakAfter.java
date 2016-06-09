@@ -25,9 +25,9 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class BreakAfter extends StandardProperty {
 
   public BreakAfter() {
-    addLinks("http://dev.w3.org/csswg/css-break-3/#propdef-break-after");
+    addLinks("https://drafts.csswg.org/css-break-3/#propdef-break-after");
     addValidators(
-      new IdentifierValidator("auto", "avoid", "always", "any", "avoid-page", "page", "left", "right", "recto", "verso",
+      new IdentifierValidator("auto", "avoid", "avoid-page", "page", "left", "right", "recto", "verso",
         "avoid-column", "column", "avoid-region", "region"));
   }
 
