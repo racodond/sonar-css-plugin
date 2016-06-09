@@ -17,32 +17,21 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.checks;
+package org.sonar.css.model.property.standard;
 
-import com.google.common.base.Preconditions;
+import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.PlusMultiplierValidator;
+import org.sonar.css.model.property.validator.ValidatorFactory;
 
-import java.io.File;
+public class Symbols extends StandardProperty {
 
-import junit.framework.Assert;
-import org.junit.Test;
-import org.sonar.css.checks.verifier.CssCheckVerifier;
-
-public class ValidatePropertyValueCheckTest {
-
-  @Test
-  public void test_validate_properties() {
-    File testDirectory = new File("src/test/resources/checks/properties");
-    testDirectory = Preconditions.checkNotNull(testDirectory);
-    for (File file : testDirectory.listFiles()) {
-      CssCheckVerifier.verify(new ValidatePropertyValueCheck(), file);
-    }
-  }
-
-  @Test
-  public void test_number_of_validated_properties() {
-    File testDirectory = new File("src/test/resources/checks/properties");
-    testDirectory = Preconditions.checkNotNull(testDirectory);
-    Assert.assertEquals(253, testDirectory.listFiles().length);
+  public Symbols() {
+    addLinks("https://drafts.csswg.org/css-counter-styles-3/#descdef-counter-style-symbols");
+    addValidators(
+      new PlusMultiplierValidator(
+        ValidatorFactory.getStringValidator(),
+        ValidatorFactory.getImageValidator(),
+        ValidatorFactory.getAnyIdentifierValidator()));
   }
 
 }
