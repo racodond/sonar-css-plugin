@@ -2,7 +2,8 @@
   all: inherit;
   all: initial;
   all: unset;
-  all: abc; /* Noncompliant ![sc=3;ec=11;el=+0]! !{Update the invalid value of property "all". Expected format: inherit | initial | unset}! */
+  all: revert;
+  all: abc; /* Noncompliant ![sc=3;ec=11;el=+0]! !{Update the invalid value of property "all". Expected format: inherit | initial | unset | revert}! */
   *all: abc; /* Noncompliant */
   _all: abc; /* Noncompliant */
   -moz-all: abc; /* Compliant: vendor-prefix properties are not checked */

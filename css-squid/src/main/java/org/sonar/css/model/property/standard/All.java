@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class All extends StandardProperty {
 
   public All() {
     addLinks("http://www.w3.org/TR/css3-cascade/#propdef-all");
-    addValidators(new IdentifierValidator("inherit", "initial", "unset"));
+    addValidators(new IdentifierValidator("inherit", "initial", "unset", "revert"));
   }
 
 }
