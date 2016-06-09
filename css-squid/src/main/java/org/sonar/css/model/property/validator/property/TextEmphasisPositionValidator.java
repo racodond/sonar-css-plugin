@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.property;
 
-import com.google.common.collect.ImmutableList;
-
 import java.util.List;
 import javax.annotation.Nonnull;
 
@@ -32,8 +30,8 @@ import org.sonar.css.model.value.CssValueElement;
 
 public class TextEmphasisPositionValidator implements ValueValidator {
 
-  private static final ValueElementValidator OVER_UNDER_VALIDATOR = new IdentifierValidator(ImmutableList.of("over", "under"));
-  private static final ValueElementValidator RIGHT_LEFT_VALIDATOR = new IdentifierValidator(ImmutableList.of("right", "left"));
+  private static final ValueElementValidator OVER_UNDER_VALIDATOR = new IdentifierValidator("over", "under");
+  private static final ValueElementValidator RIGHT_LEFT_VALIDATOR = new IdentifierValidator("right", "left");
 
   @Override
   public boolean isValid(Value value) {

@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class Isolation extends StandardProperty {
 
   public Isolation() {
     addLinks("http://dev.w3.org/fxtf/compositing-1/#propdef-isolation");
-    addValidators(new IdentifierValidator(ImmutableList.of("auto", "isolate")));
+    addValidators(new IdentifierValidator("auto", "isolate"));
   }
 
 }

@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class Clear extends StandardProperty {
 
   public Clear() {
     addLinks("https://www.w3.org/TR/CSS22/visuren.html#propdef-clear");
-    addValidators(new IdentifierValidator(ImmutableList.of("none", "left", "right", "both")));
+    addValidators(new IdentifierValidator("none", "left", "right", "both"));
   }
 
 }

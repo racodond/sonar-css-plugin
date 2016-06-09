@@ -19,13 +19,12 @@
  */
 package org.sonar.css.model.property.validator.property.animation;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class AnimationPlayStateValidator extends IdentifierValidator {
 
   public AnimationPlayStateValidator() {
-    super(ImmutableList.of("running", "paused"));
+    super("running", "paused");
   }
 
 }

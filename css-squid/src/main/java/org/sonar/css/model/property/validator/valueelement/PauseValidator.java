@@ -19,16 +19,15 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementMultiValidator;
 
 public class PauseValidator extends ValueElementMultiValidator {
 
   public PauseValidator() {
-    super(ImmutableList.of(
+    super(
       ValidatorFactory.getPositiveTimeValidator(),
-      new IdentifierValidator(ImmutableList.of("none", "x-weak", "weak", "medium", "strong", "x-strong"))));
+      new IdentifierValidator("none", "x-weak", "weak", "medium", "strong", "x-strong"));
   }
 
 }

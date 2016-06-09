@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
@@ -29,7 +28,7 @@ public class WritingMode extends StandardProperty {
   public WritingMode() {
     addLinks("https://drafts.csswg.org/css-writing-modes-3/#propdef-writing-mode");
     addVendors(Vendor.EPUB, Vendor.MICROSOFT);
-    addValidators(new IdentifierValidator(ImmutableList.of("horizontal-tb", "vertical-rl", "vertical-lr", "sideways-rl", "sideways-lr")));
+    addValidators(new IdentifierValidator("horizontal-tb", "vertical-rl", "vertical-lr", "sideways-rl", "sideways-lr"));
   }
 
 }

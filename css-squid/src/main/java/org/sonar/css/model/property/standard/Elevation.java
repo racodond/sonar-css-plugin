@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
@@ -33,7 +32,7 @@ public class Elevation extends StandardProperty {
       "https://drafts.csswg.org/css-speech-1/#voice-balance");
     addValidators(
       ValidatorFactory.getAngleValidator(),
-      new IdentifierValidator(ImmutableList.of("below", "level", "above", "higher", "lower")));
+      new IdentifierValidator("below", "level", "above", "higher", "lower"));
 
   }
 

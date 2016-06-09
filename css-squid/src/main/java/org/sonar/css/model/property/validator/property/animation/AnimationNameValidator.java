@@ -19,15 +19,14 @@
  */
 package org.sonar.css.model.property.validator.property.animation;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementMultiValidator;
 
 public class AnimationNameValidator extends ValueElementMultiValidator {
 
   public AnimationNameValidator() {
-    super(ImmutableList.of(
+    super(
       ValidatorFactory.getNoneValidator(),
-      ValidatorFactory.getAnyIdentifierValidator()));
+      ValidatorFactory.getAnyIdentifierValidator());
   }
 }

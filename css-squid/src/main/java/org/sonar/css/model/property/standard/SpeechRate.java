@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
@@ -30,7 +29,7 @@ public class SpeechRate extends StandardProperty {
     setObsolete(true);
     addLinks("https://www.w3.org/TR/CSS22/aural.html#propdef-speech-rate");
     addValidators(
-      new IdentifierValidator(ImmutableList.of("x-slow", "slow", "medium", "fast", "x-fast", "faster", "slower")),
+      new IdentifierValidator("x-slow", "slow", "medium", "fast", "x-fast", "faster", "slower"),
       ValidatorFactory.getNumberValidator());
   }
 

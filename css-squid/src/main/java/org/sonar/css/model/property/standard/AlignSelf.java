@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class AlignSelf extends StandardProperty {
 
   public AlignSelf() {
     addLinks("http://dev.w3.org/csswg/css-flexbox-1/#propdef-align-self");
-    addValidators(new IdentifierValidator(ImmutableList.of("auto", "flex-start", "flex-end", "center", "baseline", "stretch")));
+    addValidators(new IdentifierValidator("auto", "flex-start", "flex-end", "center", "baseline", "stretch"));
   }
 
 }

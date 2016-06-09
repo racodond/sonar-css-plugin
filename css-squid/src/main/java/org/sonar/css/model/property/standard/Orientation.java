@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class Orientation extends StandardProperty {
 
   public Orientation() {
     addLinks("http://dev.w3.org/csswg/css-device-adapt/#descdef-viewport-orientation");
-    addValidators(new IdentifierValidator(ImmutableList.of("auto", "portrait", "landscape")));
+    addValidators(new IdentifierValidator("auto", "portrait", "landscape"));
   }
 
 }

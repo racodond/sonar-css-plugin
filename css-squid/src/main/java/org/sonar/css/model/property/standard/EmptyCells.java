@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class EmptyCells extends StandardProperty {
 
   public EmptyCells() {
     addLinks("https://www.w3.org/TR/CSS22/tables.html#propdef-empty-cells");
-    addValidators(new IdentifierValidator(ImmutableList.of("show", "hide")));
+    addValidators(new IdentifierValidator("show", "hide"));
   }
 
 }

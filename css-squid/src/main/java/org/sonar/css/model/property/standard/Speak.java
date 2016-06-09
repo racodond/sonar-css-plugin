@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -28,7 +27,7 @@ public class Speak extends StandardProperty {
   public Speak() {
     setExperimental(true);
     addLinks("https://drafts.csswg.org/css-speech-1/#speak");
-    addValidators(new IdentifierValidator(ImmutableList.of("auto", "normal", "none")));
+    addValidators(new IdentifierValidator("auto", "normal", "none"));
   }
 
 }

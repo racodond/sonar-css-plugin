@@ -19,12 +19,10 @@
  */
 package org.sonar.css.model.property.validator.valueelement.function;
 
-import com.google.common.collect.ImmutableList;
-
 public class BasicShapeValidator extends FunctionValidator {
 
   public BasicShapeValidator() {
-    super(ImmutableList.of("inset", "circle", "ellipse", "polygon"));
+    super("inset", "circle", "ellipse", "polygon");
   }
 
 }

@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.property;
 
-import com.google.common.collect.ImmutableList;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -35,22 +33,21 @@ import org.sonar.css.model.value.valueelement.IdentifierValueElement;
 
 public class TextDecorationSkipValidator implements ValueValidator {
 
-  private final ValueElementValidator identifierValidator = new IdentifierValidator(
-    ImmutableList.of("objects", "spaces", "ink", "edges", "box-decoration"));
+  private static final ValueElementValidator IDENTIFIER_VALIDATOR = new IdentifierValidator("objects", "spaces", "ink", "edges", "box-decoration");
 
   @Override
-  public boolean isValid(@Nonnull Value value) {
+  public boolean isValid(Value value) {
     List<CssValueElement> valueElements = value.getValueElements();
     if (value.getNumberOfValueElements() > 5) {
       return false;
     }
     List<String> listTextDecorationSkip = new ArrayList<>();
     for (int i = 0; i < valueElements.size(); i++) {
-      if (i == 0 && (ValidatorFactory.getNoneValidator().isValid(valueElements.get(i)) && valueElements.size() == 1 || identifierValidator.isValid(valueElements.get(i)))) {
+      if (i == 0 && (ValidatorFactory.getNoneValidator().isValid(valueElements.get(i)) && valueElements.size() == 1 || IDENTIFIER_VALIDATOR.isValid(valueElements.get(i)))) {
         listTextDecorationSkip.add(((IdentifierValueElement) valueElements.get(i)).getName());
         continue;
       }
-      if (i != 0 && identifierValidator.isValid(valueElements.get(i)) && !listTextDecorationSkip.contains(((IdentifierValueElement) valueElements.get(i)).getName())) {
+      if (i != 0 && IDENTIFIER_VALIDATOR.isValid(valueElements.get(i)) && !listTextDecorationSkip.contains(((IdentifierValueElement) valueElements.get(i)).getName())) {
         listTextDecorationSkip.add(((IdentifierValueElement) valueElements.get(i)).getName());
         continue;
       }

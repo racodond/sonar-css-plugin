@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.property;
 
-import com.google.common.collect.ImmutableList;
-
 import javax.annotation.Nonnull;
 
 import org.sonar.css.model.property.validator.ValidatorFactory;
@@ -29,7 +27,9 @@ import org.sonar.css.model.property.validator.ValueElementListValidator;
 public class FontFamilyValidator extends ValueElementListValidator {
 
   public FontFamilyValidator() {
-    super(ImmutableList.of(ValidatorFactory.getAnyIdentifierValidator(), ValidatorFactory.getStringValidator()));
+    super(
+      ValidatorFactory.getAnyIdentifierValidator(),
+      ValidatorFactory.getStringValidator());
   }
 
   @Nonnull

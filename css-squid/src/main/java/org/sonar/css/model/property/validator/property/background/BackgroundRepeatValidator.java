@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.property.background;
 
-import com.google.common.collect.ImmutableList;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -33,8 +31,8 @@ import org.sonar.css.model.value.valueelement.DelimiterValueElement;
 
 public class BackgroundRepeatValidator implements ValueValidator {
 
-  private final IdentifierValidator repeatXYValidator = new IdentifierValidator(ImmutableList.of("repeat-x", "repeat-y"));
-  private final IdentifierValidator repeatOthersValidator = new IdentifierValidator(ImmutableList.of("repeat", "space", "round", "no-repeat"));
+  private static final IdentifierValidator REPEAT_XY_VALIDATOR = new IdentifierValidator("repeat-x", "repeat-y");
+  private static final IdentifierValidator REPEAT_OTHERS_VALIDATOR = new IdentifierValidator("repeat", "space", "round", "no-repeat");
 
   @Override
   public boolean isValid(Value value) {
@@ -44,7 +42,7 @@ public class BackgroundRepeatValidator implements ValueValidator {
         if (!",".equals(((DelimiterValueElement) valueElement).getType())) {
           return false;
         }
-      } else if (!repeatXYValidator.isValid(valueElement) && !repeatOthersValidator.isValid(valueElement)) {
+      } else if (!REPEAT_XY_VALIDATOR.isValid(valueElement) && !REPEAT_OTHERS_VALIDATOR.isValid(valueElement)) {
         return false;
       }
     }
@@ -76,7 +74,7 @@ public class BackgroundRepeatValidator implements ValueValidator {
   private boolean checkRepeatStyleList(List<List<CssValueElement>> repeatStyleList) {
     for (List<CssValueElement> elementList : repeatStyleList) {
       if (elementList.isEmpty()
-        || (elementList.size() == 2 && (repeatXYValidator.isValid(elementList.get(0)) || repeatXYValidator.isValid(elementList.get(1))))) {
+        || (elementList.size() == 2 && (REPEAT_XY_VALIDATOR.isValid(elementList.get(0)) || REPEAT_XY_VALIDATOR.isValid(elementList.get(1))))) {
         return false;
       }
     }

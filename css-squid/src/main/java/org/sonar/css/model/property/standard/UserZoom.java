@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class UserZoom extends StandardProperty {
 
   public UserZoom() {
     addLinks("http://dev.w3.org/csswg/css-device-adapt/#descdef-viewport-user-zoom");
-    addValidators(new IdentifierValidator(ImmutableList.of("zoom", "fixed")));
+    addValidators(new IdentifierValidator("zoom", "fixed"));
   }
 
 }

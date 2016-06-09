@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class ColumnFill extends StandardProperty {
 
   public ColumnFill() {
     addLinks("http://dev.w3.org/csswg/css-multicol-1/#propdef-column-fill");
-    addValidators(new IdentifierValidator(ImmutableList.of("auto", "balance", "balance-all")));
+    addValidators(new IdentifierValidator("auto", "balance", "balance-all"));
   }
 
 }

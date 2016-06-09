@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.property;
 
-import com.google.common.collect.ImmutableList;
-
 import java.util.List;
 import javax.annotation.Nonnull;
 
@@ -34,7 +32,7 @@ import org.sonar.css.model.value.valueelement.IdentifierValueElement;
 
 public class TextCombineUprightValidator implements ValueValidator {
 
-  private static final ValueElementValidator IDENTIFIER_VALIDATOR = new IdentifierValidator(ImmutableList.of("none", "all", "digits"));
+  private static final ValueElementValidator IDENTIFIER_VALIDATOR = new IdentifierValidator("none", "all", "digits");
 
   @Override
   public boolean isValid(@Nonnull Value value) {

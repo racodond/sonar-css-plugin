@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class PointerEvents extends StandardProperty {
 
   public PointerEvents() {
     addLinks("https://www.w3.org/TR/SVG/interact.html#PointerEventsProperty");
-    addValidators(new IdentifierValidator(ImmutableList.of("visiblepainted", "visiblefill", "visiblestroke", "visible", "painted", "fill", "stroke", "all", "none")));
+    addValidators(new IdentifierValidator("visiblepainted", "visiblefill", "visiblestroke", "visible", "painted", "fill", "stroke", "all", "none"));
   }
 
 }

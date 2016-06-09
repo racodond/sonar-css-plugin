@@ -28,14 +28,14 @@ import org.sonar.css.model.value.CssValueElement;
 
 public class AnimationValidator implements ValueValidator {
 
-  private final AnimationDelayValidator animationDelayValidator = new AnimationDelayValidator();
-  private final AnimationDirectionValidator animationDirectionValidator = new AnimationDirectionValidator();
-  private final AnimationDurationValidator animationDurationValidator = new AnimationDurationValidator();
-  private final AnimationFillModeValidator animationFillModeValidator = new AnimationFillModeValidator();
-  private final AnimationIterationCountValidator animationIterationCountValidator = new AnimationIterationCountValidator();
-  private final AnimationNameValidator animationNameValidator = new AnimationNameValidator();
-  private final AnimationPlayStateValidator animationPlayStateValidator = new AnimationPlayStateValidator();
-  private final AnimationTimingFunctionValidator animationTimingFunctionValidator = new AnimationTimingFunctionValidator();
+  private static final AnimationDelayValidator ANIMATION_DELAY_VALIDATOR = new AnimationDelayValidator();
+  private static final AnimationDirectionValidator ANIMATION_DIRECTION_VALIDATOR = new AnimationDirectionValidator();
+  private static final AnimationDurationValidator ANIMATION_DURATION_VALIDATOR = new AnimationDurationValidator();
+  private static final AnimationFillModeValidator ANIMATION_FILL_MODE_VALIDATOR = new AnimationFillModeValidator();
+  private static final AnimationIterationCountValidator ANIMATION_ITERATION_COUNT_VALIDATOR = new AnimationIterationCountValidator();
+  private static final AnimationNameValidator ANIMATION_NAME_VALIDATOR = new AnimationNameValidator();
+  private static final AnimationPlayStateValidator ANIMATION_PLAY_STATE_VALIDATOR = new AnimationPlayStateValidator();
+  private static final AnimationTimingFunctionValidator ANIMATION_TIMING_FUNCTION_VALIDATOR = new AnimationTimingFunctionValidator();
 
   @Override
   public boolean isValid(Value value) {
@@ -44,14 +44,14 @@ public class AnimationValidator implements ValueValidator {
       return false;
     }
     for (CssValueElement valueElement : valueElements) {
-      if (!animationDelayValidator.isValid(valueElement)
-        && !animationDirectionValidator.isValid(valueElement)
-        && !animationDurationValidator.isValid(valueElement)
-        && !animationFillModeValidator.isValid(valueElement)
-        && !animationIterationCountValidator.isValid(valueElement)
-        && !animationNameValidator.isValid(valueElement)
-        && !animationPlayStateValidator.isValid(valueElement)
-        && !animationTimingFunctionValidator.isValid(valueElement)) {
+      if (!ANIMATION_DELAY_VALIDATOR.isValid(valueElement)
+        && !ANIMATION_DIRECTION_VALIDATOR.isValid(valueElement)
+        && !ANIMATION_DURATION_VALIDATOR.isValid(valueElement)
+        && !ANIMATION_FILL_MODE_VALIDATOR.isValid(valueElement)
+        && !ANIMATION_ITERATION_COUNT_VALIDATOR.isValid(valueElement)
+        && !ANIMATION_NAME_VALIDATOR.isValid(valueElement)
+        && !ANIMATION_PLAY_STATE_VALIDATOR.isValid(valueElement)
+        && !ANIMATION_TIMING_FUNCTION_VALIDATOR.isValid(valueElement)) {
         return false;
       }
     }

@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
@@ -29,9 +28,9 @@ public class AlignmentAdjust extends StandardProperty {
   public AlignmentAdjust() {
     addLinks("http://www.w3.org/TR/css3-linebox/#alignment-adjust");
     addValidators(
-      new IdentifierValidator(ImmutableList
-        .of("auto", "baseline", "before-edge", "text-before-edge", "middle", "central", "after-edge",
-          "text-after-edge", "ideographic", "alphabetic", "hanging", "mathematical")),
+      new IdentifierValidator(
+        "auto", "baseline", "before-edge", "text-before-edge", "middle", "central", "after-edge",
+        "text-after-edge", "ideographic", "alphabetic", "hanging", "mathematical"),
       ValidatorFactory.getPercentageValidator(),
       ValidatorFactory.getLengthValidator());
 

@@ -19,17 +19,16 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementMultiValidator;
 
 public class SizeValidator extends ValueElementMultiValidator {
 
   public SizeValidator() {
-    super(ImmutableList.of(
+    super(
       ValidatorFactory.getAutoValidator(),
       ValidatorFactory.getLengthValidator(),
-      ValidatorFactory.getPercentageValidator()));
+      ValidatorFactory.getPercentageValidator());
   }
 
 }

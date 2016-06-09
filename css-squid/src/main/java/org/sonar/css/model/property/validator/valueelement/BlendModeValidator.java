@@ -19,13 +19,11 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import com.google.common.collect.ImmutableList;
-
 public class BlendModeValidator extends IdentifierValidator {
 
   public BlendModeValidator() {
-    super(ImmutableList.of("normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light",
-      "difference", "exclusion", "hue", "saturation", "color", "luminosity"));
+    super("normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light",
+      "difference", "exclusion", "hue", "saturation", "color", "luminosity");
   }
 
 }

@@ -33,7 +33,7 @@ import org.sonar.css.model.value.valueelement.StringValueElement;
 public class NavValidator implements ValueValidator {
 
   @Override
-  public boolean isValid(@Nonnull Value value) {
+  public boolean isValid(Value value) {
     List<CssValueElement> valueElements = value.getValueElements();
     if (value.getNumberOfValueElements() > 2) {
       return false;

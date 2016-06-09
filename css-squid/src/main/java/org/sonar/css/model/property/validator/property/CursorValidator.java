@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.property;
 
-import com.google.common.collect.ImmutableList;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -36,16 +34,15 @@ import org.sonar.css.model.value.CssValueElement;
 public class CursorValidator implements ValueValidator {
 
   private final ValueElementValidator identifierValidator = new IdentifierValidator(
-    ImmutableList
-      .of("auto", "default", "none", "context-menu", "help", "pointer", "progress", "wait", "cell", "crosshair", "text",
-        "vertical-text", "alias", "copy", "move", "no-drop",
-        "not-allowed", "e-resize", "n-resize", "ne-resize", "nw-resize", "s-resize", "se-resize", "sw-resize", "w-resize",
-        "ew-resize", "ns-resize", "nesw-resize", "nwse-resize",
-        "col-resize", "row-resize", "all-scroll", "zoom-in", "zoom-out", "grab", "grabbing"));
+    "auto", "default", "none", "context-menu", "help", "pointer", "progress", "wait", "cell", "crosshair", "text",
+    "vertical-text", "alias", "copy", "move", "no-drop",
+    "not-allowed", "e-resize", "n-resize", "ne-resize", "nw-resize", "s-resize", "se-resize", "sw-resize", "w-resize",
+    "ew-resize", "ns-resize", "nesw-resize", "nwse-resize",
+    "col-resize", "row-resize", "all-scroll", "zoom-in", "zoom-out", "grab", "grabbing");
   private final ValueElementValidator positiveIntegerValidator = new IntegerRangeValidator(0, 32);
 
   @Override
-  public boolean isValid(@Nonnull Value value) {
+  public boolean isValid(Value value) {
     List<List<CssValueElement>> cursorList = buildCursorList(value);
     if (cursorList.size() == 1) {
       if (cursorList.get(0).size() != 1

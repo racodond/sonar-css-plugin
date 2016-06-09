@@ -19,13 +19,12 @@
  */
 package org.sonar.css.model.property.validator.property.line;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class LineStackingStrategyValidator extends IdentifierValidator {
 
   public LineStackingStrategyValidator() {
-    super(ImmutableList.of("inline-line-height", "block-line-height", "max-height", "grid-height"));
+    super("inline-line-height", "block-line-height", "max-height", "grid-height");
   }
 
 }

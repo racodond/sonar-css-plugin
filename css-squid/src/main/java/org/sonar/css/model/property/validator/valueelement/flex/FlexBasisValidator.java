@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.valueelement.flex;
 
-import com.google.common.collect.ImmutableList;
-
 import javax.annotation.Nonnull;
 
 import org.sonar.css.model.property.validator.ValidatorFactory;
@@ -30,7 +28,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class FlexBasisValidator extends ValueElementMultiValidator {
 
   public FlexBasisValidator() {
-    super(ImmutableList.of(new IdentifierValidator(ImmutableList.of("content")), ValidatorFactory.getWidthHeightValidator()));
+    super(new IdentifierValidator("content"), ValidatorFactory.getWidthHeightValidator());
   }
 
   @Nonnull

@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class TextRendering extends StandardProperty {
 
   public TextRendering() {
     addLinks("http://www.w3.org/TR/SVG11/painting.html#TextRenderingProperty");
-    addValidators(new IdentifierValidator(ImmutableList.of("auto", "optimizespeed", "optimizelegibility", "geometricprecision")));
+    addValidators(new IdentifierValidator("auto", "optimizespeed", "optimizelegibility", "geometricprecision"));
   }
 
 }

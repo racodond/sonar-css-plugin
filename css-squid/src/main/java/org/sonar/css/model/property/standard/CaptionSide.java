@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -29,7 +28,7 @@ public class CaptionSide extends StandardProperty {
     addLinks(
       "https://www.w3.org/TR/CSS22/tables.html#propdef-caption-side",
       "http://dev.w3.org/csswg/css-logical-props/#caption-side");
-    addValidators(new IdentifierValidator(ImmutableList.of("top", "bottom", "block-start", "block-end", "inline-start", "inline-end")));
+    addValidators(new IdentifierValidator("top", "bottom", "block-start", "block-end", "inline-start", "inline-end"));
   }
 
 }

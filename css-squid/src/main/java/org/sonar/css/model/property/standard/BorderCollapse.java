@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class BorderCollapse extends StandardProperty {
 
   public BorderCollapse() {
     addLinks("https://www.w3.org/TR/CSS22/tables.html#propdef-border-collapse");
-    addValidators(new IdentifierValidator(ImmutableList.of("collapse", "separate")));
+    addValidators(new IdentifierValidator("collapse", "separate"));
   }
 
 }

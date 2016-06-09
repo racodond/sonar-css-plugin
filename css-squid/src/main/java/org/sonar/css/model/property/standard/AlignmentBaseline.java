@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,8 +26,8 @@ public class AlignmentBaseline extends StandardProperty {
 
   public AlignmentBaseline() {
     addLinks("http://www.w3.org/TR/css3-linebox/#alignment-baseline");
-    addValidators(new IdentifierValidator(ImmutableList.of("auto", "baseline", "use-script", "before-edge", "text-before-edge",
-      "after-edge", "text-after-edge", "central", "middle", "ideographic", "alphabetic", "hanging", "mathematical")));
+    addValidators(new IdentifierValidator("auto", "baseline", "use-script", "before-edge", "text-before-edge",
+      "after-edge", "text-after-edge", "central", "middle", "ideographic", "alphabetic", "hanging", "mathematical"));
   }
 
 }

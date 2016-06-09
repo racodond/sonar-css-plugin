@@ -27,7 +27,7 @@ public class TableLayout extends StandardProperty {
 
   public TableLayout() {
     addLinks("https://www.w3.org/TR/CSS22/tables.html#propdef-table-layout");
-    addValidators(new IdentifierValidator(ImmutableList.of("auto", "fixed")));
+    addValidators(new IdentifierValidator("auto", "fixed"));
   }
 
 }

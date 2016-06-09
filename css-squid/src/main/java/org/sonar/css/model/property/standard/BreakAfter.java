@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -28,9 +27,8 @@ public class BreakAfter extends StandardProperty {
   public BreakAfter() {
     addLinks("http://dev.w3.org/csswg/css-break-3/#propdef-break-after");
     addValidators(
-      new IdentifierValidator(ImmutableList
-        .of("auto", "avoid", "always", "any", "avoid-page", "page", "left", "right", "recto", "verso", "avoid-column",
-          "column", "avoid-region", "region")));
+      new IdentifierValidator("auto", "avoid", "always", "any", "avoid-page", "page", "left", "right", "recto", "verso",
+        "avoid-column", "column", "avoid-region", "region"));
   }
 
 }

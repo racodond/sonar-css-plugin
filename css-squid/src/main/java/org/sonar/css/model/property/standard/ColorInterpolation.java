@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class ColorInterpolation extends StandardProperty {
 
   public ColorInterpolation() {
     addLinks("https://www.w3.org/TR/SVG/painting.html#ColorInterpolationProperty");
-    addValidators(new IdentifierValidator(ImmutableList.of("auto", "srgb", "linearrgb")));
+    addValidators(new IdentifierValidator("auto", "srgb", "linearrgb"));
   }
 
 }

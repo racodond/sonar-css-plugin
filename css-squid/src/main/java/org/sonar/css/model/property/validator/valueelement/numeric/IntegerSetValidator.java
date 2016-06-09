@@ -21,6 +21,7 @@ package org.sonar.css.model.property.validator.valueelement.numeric;
 
 import javax.annotation.Nonnull;
 
+import com.google.common.base.Joiner;
 import org.sonar.css.model.value.CssValueElement;
 import org.sonar.css.model.value.valueelement.NumberValueElement;
 

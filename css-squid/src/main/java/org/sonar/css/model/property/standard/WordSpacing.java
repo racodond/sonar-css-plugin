@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
@@ -31,7 +30,7 @@ public class WordSpacing extends StandardProperty {
       "https://www.w3.org/TR/CSS22/text.html#propdef-word-spacing",
       "https://drafts.csswg.org/css-text-3/#propdef-word-spacing");
     addValidators(
-      new IdentifierValidator(ImmutableList.of("normal")),
+      new IdentifierValidator("normal"),
       ValidatorFactory.getLengthValidator(),
       ValidatorFactory.getPercentageValidator());
   }

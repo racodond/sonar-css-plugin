@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import com.google.common.collect.ImmutableList;
-
 import javax.annotation.Nonnull;
 
 import org.sonar.css.model.property.validator.ValidatorFactory;
@@ -29,9 +27,10 @@ import org.sonar.css.model.property.validator.valueelement.function.FunctionVali
 
 public class ImageValidator extends ValueElementMultiValidator {
   public ImageValidator() {
-    super(ImmutableList.of(ValidatorFactory.getUriValidator(), new FunctionValidator(ImmutableList
-      .of("image", "image-set", "cross-fade", "element", "linear-gradient", "radial-gradient", "repeating-linear-gradient",
-        "repeating-radial-gradient"))));
+    super(
+      ValidatorFactory.getUriValidator(),
+      new FunctionValidator("image", "image-set", "cross-fade", "element", "linear-gradient", "radial-gradient",
+        "repeating-linear-gradient", "repeating-radial-gradient"));
   }
 
   @Nonnull

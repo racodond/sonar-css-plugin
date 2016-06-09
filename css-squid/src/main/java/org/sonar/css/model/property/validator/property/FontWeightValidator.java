@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.validator.property;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.ValueMultiValidator;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 import org.sonar.css.model.property.validator.valueelement.numeric.IntegerSetValidator;
@@ -27,7 +26,7 @@ import org.sonar.css.model.property.validator.valueelement.numeric.IntegerSetVal
 public class FontWeightValidator extends ValueMultiValidator {
 
   public FontWeightValidator() {
-    getValidators().add(new IdentifierValidator(ImmutableList.of("normal", "bold", "bolder", "lighter")));
+    getValidators().add(new IdentifierValidator("normal", "bold", "bolder", "lighter"));
     getValidators().add(new IntegerSetValidator(new int[] {100, 200, 300, 400, 500, 600, 700, 800, 900}));
   }
 

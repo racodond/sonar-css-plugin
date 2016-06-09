@@ -19,13 +19,12 @@
  */
 package org.sonar.css.model.property.validator.property.line;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class LineStackingRubyValidator extends IdentifierValidator {
 
   public LineStackingRubyValidator() {
-    super(ImmutableList.of("exclude-ruby", "include-ruby"));
+    super("exclude-ruby", "include-ruby");
   }
 
 }

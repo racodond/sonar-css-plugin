@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
@@ -29,7 +28,7 @@ public class WordBreak extends StandardProperty {
   public WordBreak() {
     addLinks("https://drafts.csswg.org/css-text-3/#propdef-word-break");
     addVendors(Vendor.EPUB, Vendor.MICROSOFT);
-    addValidators(new IdentifierValidator(ImmutableList.of("normal", "keep-all", "break-all")));
+    addValidators(new IdentifierValidator("normal", "keep-all", "break-all"));
   }
 
 }

@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.property;
 
-import com.google.common.collect.ImmutableList;
-
 import java.util.List;
 import javax.annotation.Nonnull;
 
@@ -33,8 +31,7 @@ import org.sonar.css.model.value.valueelement.IdentifierValueElement;
 
 public class FontSynthesisValidator implements ValueValidator {
 
-  private static final ValueElementValidator IDENTIFIER_VALIDATOR = new IdentifierValidator(
-    ImmutableList.of("none", "weight", "style"));
+  private static final ValueElementValidator IDENTIFIER_VALIDATOR = new IdentifierValidator("none", "weight", "style");
 
   @Override
   public boolean isValid(@Nonnull Value value) {

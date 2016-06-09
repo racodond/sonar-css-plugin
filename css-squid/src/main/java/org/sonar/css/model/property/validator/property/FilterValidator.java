@@ -19,23 +19,22 @@
  */
 package org.sonar.css.model.property.validator.property;
 
-import com.google.common.collect.ImmutableList;
-
 import java.util.List;
 import javax.annotation.Nonnull;
 
 import org.sonar.css.model.Value;
 import org.sonar.css.model.property.validator.ValidatorFactory;
+import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.ValueValidator;
 import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
 import org.sonar.css.model.value.CssValueElement;
 
 public class FilterValidator implements ValueValidator {
 
-  private final ImmutableList<String> allowedFunctions = ImmutableList
-    .of("blur", "brightness", "contrast", "drop-shadow", "grayscale", "hue-rotate", "invert", "opacity", "saturate", "sepia",
-      "alpha", "basicimage", "blendtrans", "chroma", "compositor", "dropshadow", "emboss", "engrave", "fliph", "flipv",
-      "glow", "icmfilter", "light", "maskfilter", "matrix", "motionblur", "redirect", "revealtrans", "shadow", "wave", "xray");
+  private static final ValueElementValidator FUNCTION_VALIDATOR = new FunctionValidator(
+    "blur", "brightness", "contrast", "drop-shadow", "grayscale", "hue-rotate", "invert", "opacity", "saturate", "sepia",
+    "alpha", "basicimage", "blendtrans", "chroma", "compositor", "dropshadow", "emboss", "engrave", "fliph", "flipv",
+    "glow", "icmfilter", "light", "maskfilter", "matrix", "motionblur", "redirect", "revealtrans", "shadow", "wave", "xray");
 
   @Override
   public boolean isValid(@Nonnull Value value) {
@@ -44,7 +43,7 @@ public class FilterValidator implements ValueValidator {
       return true;
     }
     for (CssValueElement valueElement : valueElements) {
-      if (!new FunctionValidator(allowedFunctions).isValid(valueElement)
+      if (!FUNCTION_VALIDATOR.isValid(valueElement)
         && !ValidatorFactory.getUriValidator().isValid(valueElement)) {
         return false;
       }

@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
@@ -29,7 +28,7 @@ public class InlineBoxAlign extends StandardProperty {
   public InlineBoxAlign() {
     addLinks("http://www.w3.org/TR/css3-linebox/#inline-box-align");
     addValidators(
-      new IdentifierValidator(ImmutableList.of("initial", "last")),
+      new IdentifierValidator("initial", "last"),
       ValidatorFactory.getIntegerValidator());
   }
 

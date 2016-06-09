@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class ColorRendering extends StandardProperty {
 
   public ColorRendering() {
     addLinks("https://www.w3.org/TR/SVG/painting.html#ColorRenderingProperty");
-    addValidators(new IdentifierValidator(ImmutableList.of("auto", "optimizespeed", "optimizequality")));
+    addValidators(new IdentifierValidator("auto", "optimizespeed", "optimizequality"));
   }
 
 }

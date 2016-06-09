@@ -19,14 +19,13 @@
  */
 package org.sonar.css.model.property.validator.property.background;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.ValueElementListValidator;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class BackgroundAttachmentValidator extends ValueElementListValidator {
 
   public BackgroundAttachmentValidator() {
-    super(ImmutableList.of(new IdentifierValidator(ImmutableList.of("scroll", "fixed", "local"))));
+    super(new IdentifierValidator("scroll", "fixed", "local"));
   }
 
 }

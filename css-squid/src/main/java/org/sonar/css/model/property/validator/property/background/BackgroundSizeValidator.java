@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.property.background;
 
-import com.google.common.collect.ImmutableList;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -35,7 +33,7 @@ import org.sonar.css.model.value.valueelement.DelimiterValueElement;
 
 public class BackgroundSizeValidator implements ValueValidator {
 
-  private final ValueElementValidator coverContainValidator = new IdentifierValidator(ImmutableList.of("cover", "contain"));
+  private static final ValueElementValidator COVER_CONTAIN_VALIDATOR = new IdentifierValidator("cover", "contain");
 
   @Override
   public boolean isValid(Value value) {
@@ -45,7 +43,7 @@ public class BackgroundSizeValidator implements ValueValidator {
         if (!",".equals(((DelimiterValueElement) valueElement).getType())) {
           return false;
         }
-      } else if (!coverContainValidator.isValid(valueElement)
+      } else if (!COVER_CONTAIN_VALIDATOR.isValid(valueElement)
         && !ValidatorFactory.getAutoValidator().isValid(valueElement)
         && !ValidatorFactory.getPositiveLengthValidator().isValid(valueElement)
         && !ValidatorFactory.getPositivePercentageValidator().isValid(valueElement)) {
@@ -79,7 +77,7 @@ public class BackgroundSizeValidator implements ValueValidator {
   private boolean checkRepeatStyleList(List<List<CssValueElement>> repeatStyleList) {
     for (List<CssValueElement> elementList : repeatStyleList) {
       if (elementList.isEmpty()
-        || (elementList.size() == 2 && (coverContainValidator.isValid(elementList.get(0)) || coverContainValidator.isValid(elementList.get(1))))) {
+        || (elementList.size() == 2 && (COVER_CONTAIN_VALIDATOR.isValid(elementList.get(0)) || COVER_CONTAIN_VALIDATOR.isValid(elementList.get(1))))) {
         return false;
       }
     }

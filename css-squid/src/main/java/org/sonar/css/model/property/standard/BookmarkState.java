@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class BookmarkState extends StandardProperty {
 
   public BookmarkState() {
     addLinks("http://www.w3.org/TR/css-gcpm-3/#propdef-bookmark-state");
-    addValidators(new IdentifierValidator(ImmutableList.of("open", "close")));
+    addValidators(new IdentifierValidator("open", "close"));
   }
 
 }

@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model;
 
-import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.api.AstNode;
 
 import java.util.List;
@@ -75,8 +74,8 @@ public class Declaration {
       }
     }
 
-    return new IdentifierValidator(ImmutableList.of("inherit", "initial", "unset")).isValid(value.getValueElements().get(0))
-      || new FunctionValidator(ImmutableList.of("var")).isValid(value.getValueElements().get(0));
+    return new IdentifierValidator("inherit", "initial", "unset").isValid(value.getValueElements().get(0))
+      || new FunctionValidator("var").isValid(value.getValueElements().get(0));
   }
 
   private boolean hasOnlyPropertyValueElementValidators() {

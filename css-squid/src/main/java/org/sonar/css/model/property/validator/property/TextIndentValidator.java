@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.property;
 
-import com.google.common.collect.ImmutableList;
-
 import java.util.List;
 import javax.annotation.Nonnull;
 
@@ -32,8 +30,8 @@ import org.sonar.css.model.value.CssValueElement;
 
 public class TextIndentValidator implements ValueValidator {
 
-  private final IdentifierValidator hangingValidator = new IdentifierValidator(ImmutableList.of("hanging"));
-  private final IdentifierValidator eachLineValidator = new IdentifierValidator(ImmutableList.of("each-line"));
+  private static final IdentifierValidator HANGING_VALIDATOR = new IdentifierValidator("hanging");
+  private static final IdentifierValidator EACH_LINE_VALIDATOR = new IdentifierValidator("each-line");
 
   @Override
   public boolean isValid(@Nonnull Value value) {
@@ -66,9 +64,9 @@ public class TextIndentValidator implements ValueValidator {
     for (CssValueElement valueElement : valueElements) {
       if (ValidatorFactory.getLengthValidator().isValid(valueElement) || ValidatorFactory.getPercentageValidator().isValid(valueElement)) {
         lengthPercentage++;
-      } else if (hangingValidator.isValid(valueElement)) {
+      } else if (HANGING_VALIDATOR.isValid(valueElement)) {
         hanging++;
-      } else if (eachLineValidator.isValid(valueElement)) {
+      } else if (EACH_LINE_VALIDATOR.isValid(valueElement)) {
         eachLine++;
       }
     }

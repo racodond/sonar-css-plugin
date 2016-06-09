@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class TextAlignLast extends StandardProperty {
 
   public TextAlignLast() {
     addLinks("https://drafts.csswg.org/css-text-3/#propdef-text-align-last");
-    addValidators(new IdentifierValidator(ImmutableList.of("auto", "start", "end", "left", "right", "center", "justify")));
+    addValidators(new IdentifierValidator("auto", "start", "end", "left", "right", "center", "justify"));
   }
 
 }

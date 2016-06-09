@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,9 +26,8 @@ public class DominantBaseline extends StandardProperty {
 
   public DominantBaseline() {
     addLinks("http://dev.w3.org/csswg/css-inline/#propdef-dominant-baseline");
-    addValidators(new IdentifierValidator(ImmutableList
-      .of("auto", "use-script", "no-change", "reset-size", "alphabetic", "hanging", "ideographic", "mathematical",
-        "central", "middle", "text-after-edge", "text-before-edge")));
+    addValidators(new IdentifierValidator("auto", "use-script", "no-change", "reset-size", "alphabetic", "hanging",
+      "ideographic", "mathematical", "central", "middle", "text-after-edge", "text-before-edge"));
   }
 
 }

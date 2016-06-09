@@ -27,7 +27,7 @@ public class BackfaceVisibility extends StandardProperty {
 
   public BackfaceVisibility() {
     addLinks("http://dev.w3.org/csswg/css-transforms/#propdef-backface-visibility");
-    addValidators(new IdentifierValidator(ImmutableList.of("visible", "hidden")));
+    addValidators(new IdentifierValidator("visible", "hidden"));
   }
 
 }

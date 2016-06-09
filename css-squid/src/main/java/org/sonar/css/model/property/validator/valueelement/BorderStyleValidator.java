@@ -19,12 +19,10 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import com.google.common.collect.ImmutableList;
-
 public class BorderStyleValidator extends IdentifierValidator {
 
   public BorderStyleValidator() {
-    super(ImmutableList.of("none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset"));
+    super("none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset");
   }
 
 }

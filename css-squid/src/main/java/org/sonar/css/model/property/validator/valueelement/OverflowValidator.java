@@ -19,12 +19,10 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import com.google.common.collect.ImmutableList;
-
 public class OverflowValidator extends IdentifierValidator {
 
   public OverflowValidator() {
-    super(ImmutableList.of("visible", "hidden", "scroll", "auto", "no-display", "no-content"));
+    super("visible", "hidden", "scroll", "auto", "no-display", "no-content");
   }
 
 }

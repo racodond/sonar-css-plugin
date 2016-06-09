@@ -19,12 +19,10 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import com.google.common.collect.ImmutableList;
-
 public class TextDecorationStyleValidator extends IdentifierValidator {
 
   public TextDecorationStyleValidator() {
-    super(ImmutableList.of("solid", "double", "dotted", "dashed", "wavy"));
+    super("solid", "double", "dotted", "dashed", "wavy");
   }
 
 }

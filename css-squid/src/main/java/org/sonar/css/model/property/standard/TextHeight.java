@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class TextHeight extends StandardProperty {
 
   public TextHeight() {
     addLinks("http://www.w3.org/TR/css3-linebox/#text-height");
-    addValidators(new IdentifierValidator(ImmutableList.of("auto", "font-size", "text-size", "max-size")));
+    addValidators(new IdentifierValidator("auto", "font-size", "text-size", "max-size"));
   }
 
 }

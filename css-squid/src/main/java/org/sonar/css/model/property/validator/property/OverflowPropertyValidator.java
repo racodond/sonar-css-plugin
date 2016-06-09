@@ -33,7 +33,7 @@ public class OverflowPropertyValidator implements ValueValidator {
   private final ValueElementValidator overflowValidator = new OverflowValidator();
 
   @Override
-  public boolean isValid(@Nonnull Value value) {
+  public boolean isValid(Value value) {
     List<CssValueElement> valueElements = value.getValueElements();
     if (value.getNumberOfValueElements() > 2) {
       return false;

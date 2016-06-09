@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.property;
 
-import com.google.common.collect.ImmutableList;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -35,8 +33,7 @@ import org.sonar.css.model.value.valueelement.IdentifierValueElement;
 
 public class TextDecorationLineValidator implements ValueValidator {
 
-  private final ValueElementValidator identifierValidator = new IdentifierValidator(
-    ImmutableList.of("underline", "overline", "line-through", "blink"));
+  private static final ValueElementValidator IDENTIFIER_VALIDATOR = new IdentifierValidator("underline", "overline", "line-through", "blink");
 
   @Override
   public boolean isValid(@Nonnull Value value) {
@@ -46,11 +43,11 @@ public class TextDecorationLineValidator implements ValueValidator {
     }
     List<String> listTextDecorationLine = new ArrayList<>();
     for (int i = 0; i < valueElements.size(); i++) {
-      if (i == 0 && (ValidatorFactory.getNoneValidator().isValid(valueElements.get(i)) && valueElements.size() == 1 || identifierValidator.isValid(valueElements.get(i)))) {
+      if (i == 0 && (ValidatorFactory.getNoneValidator().isValid(valueElements.get(i)) && valueElements.size() == 1 || IDENTIFIER_VALIDATOR.isValid(valueElements.get(i)))) {
         listTextDecorationLine.add(((IdentifierValueElement) valueElements.get(i)).getName());
         continue;
       }
-      if (i != 0 && identifierValidator.isValid(valueElements.get(i)) && !listTextDecorationLine.contains(((IdentifierValueElement) valueElements.get(i)).getName())) {
+      if (i != 0 && IDENTIFIER_VALIDATOR.isValid(valueElements.get(i)) && !listTextDecorationLine.contains(((IdentifierValueElement) valueElements.get(i)).getName())) {
         listTextDecorationLine.add(((IdentifierValueElement) valueElements.get(i)).getName());
         continue;
       }

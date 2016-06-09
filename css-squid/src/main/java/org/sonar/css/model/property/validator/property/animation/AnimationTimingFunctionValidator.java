@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.validator.property.animation;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.ValueElementMultiValidator;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
@@ -27,9 +26,9 @@ import org.sonar.css.model.property.validator.valueelement.function.FunctionVali
 public class AnimationTimingFunctionValidator extends ValueElementMultiValidator {
 
   public AnimationTimingFunctionValidator() {
-    super(ImmutableList.of(
-      new IdentifierValidator(ImmutableList.of("ease", "linear", "ease-in", "ease-out", "ease-in-out", "step-start", "step-end")),
-      new FunctionValidator(ImmutableList.of("steps", "cubic-bezier"))));
+    super(
+      new IdentifierValidator("ease", "linear", "ease-in", "ease-out", "ease-in-out", "step-start", "step-end"),
+      new FunctionValidator("steps", "cubic-bezier"));
   }
 
 }

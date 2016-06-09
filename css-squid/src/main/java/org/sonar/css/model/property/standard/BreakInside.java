@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class BreakInside extends StandardProperty {
 
   public BreakInside() {
     addLinks("http://dev.w3.org/csswg/css-break-3/#propdef-break-inside");
-    addValidators(new IdentifierValidator(ImmutableList.of("auto", "avoid", "avoid-page", "avoid-column", "avoid-region")));
+    addValidators(new IdentifierValidator("auto", "avoid", "avoid-page", "avoid-column", "avoid-region"));
   }
 
 }

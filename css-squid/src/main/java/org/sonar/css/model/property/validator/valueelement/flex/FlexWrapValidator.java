@@ -19,13 +19,12 @@
  */
 package org.sonar.css.model.property.validator.valueelement.flex;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class FlexWrapValidator extends IdentifierValidator {
 
   public FlexWrapValidator() {
-    super(ImmutableList.of("nowrap", "wrap", "wrap-reverse"));
+    super("nowrap", "wrap", "wrap-reverse");
   }
 
 }

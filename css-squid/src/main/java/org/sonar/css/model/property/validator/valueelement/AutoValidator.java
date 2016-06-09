@@ -19,12 +19,10 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import com.google.common.collect.ImmutableList;
-
 public class AutoValidator extends IdentifierValidator {
 
   public AutoValidator() {
-    super(ImmutableList.of("auto"));
+    super("auto");
   }
 
 }

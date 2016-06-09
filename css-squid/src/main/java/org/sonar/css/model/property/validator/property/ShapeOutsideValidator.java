@@ -31,11 +31,11 @@ import org.sonar.css.model.value.CssValueElement;
 
 public class ShapeOutsideValidator implements ValueValidator {
 
-  private final BasicShapeValidator basicShapeValidator = new BasicShapeValidator();
-  private final ShapeBoxValidator shapeBoxValidator = new ShapeBoxValidator();
+  private static final BasicShapeValidator BASIC_SHAPE_VALIDATOR = new BasicShapeValidator();
+  private static final ShapeBoxValidator SHAPE_BOX_VALIDATOR = new ShapeBoxValidator();
 
   @Override
-  public boolean isValid(@Nonnull Value value) {
+  public boolean isValid(Value value) {
     List<CssValueElement> valueElements = value.getValueElements();
     if (value.getNumberOfValueElements() > 2) {
       return false;
@@ -43,12 +43,12 @@ public class ShapeOutsideValidator implements ValueValidator {
     if (value.getNumberOfValueElements() == 1) {
       return ValidatorFactory.getNoneValidator().isValid(valueElements.get(0))
         || ValidatorFactory.getImageValidator().isValid(valueElements.get(0))
-        || shapeBoxValidator.isValid(valueElements.get(0))
-        || basicShapeValidator.isValid(valueElements.get(0));
+        || SHAPE_BOX_VALIDATOR.isValid(valueElements.get(0))
+        || BASIC_SHAPE_VALIDATOR.isValid(valueElements.get(0));
     }
     if (value.getNumberOfValueElements() == 2) {
-      return shapeBoxValidator.isValid(valueElements.get(0)) && basicShapeValidator.isValid(valueElements.get(1))
-        || shapeBoxValidator.isValid(valueElements.get(1)) && basicShapeValidator.isValid(valueElements.get(0));
+      return SHAPE_BOX_VALIDATOR.isValid(valueElements.get(0)) && BASIC_SHAPE_VALIDATOR.isValid(valueElements.get(1))
+        || SHAPE_BOX_VALIDATOR.isValid(valueElements.get(1)) && BASIC_SHAPE_VALIDATOR.isValid(valueElements.get(0));
     }
     return false;
   }

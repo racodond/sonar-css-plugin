@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class ColumnSpan extends StandardProperty {
 
   public ColumnSpan() {
     addLinks("http://dev.w3.org/csswg/css-multicol-1/#propdef-column-span");
-    addValidators(new IdentifierValidator(ImmutableList.of("all", "none")));
+    addValidators(new IdentifierValidator("all", "none"));
   }
 
 }

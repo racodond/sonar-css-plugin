@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.ValidatorFactory;
@@ -36,8 +35,8 @@ public class ColumnWidth extends StandardProperty {
     addValidators(
       ValidatorFactory.getAutoValidator(),
       ValidatorFactory.getPositiveLengthValidator(),
-      new IdentifierValidator(ImmutableList.of("fill", "max-content", "min-content", "fit-content")),
-      new FunctionValidator(ImmutableList.of("fit-content")));
+      new IdentifierValidator("fill", "max-content", "min-content", "fit-content"),
+      new FunctionValidator("fit-content"));
   }
 
 }

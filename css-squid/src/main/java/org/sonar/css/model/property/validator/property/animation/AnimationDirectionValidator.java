@@ -19,13 +19,12 @@
  */
 package org.sonar.css.model.property.validator.property.animation;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class AnimationDirectionValidator extends IdentifierValidator {
 
   public AnimationDirectionValidator() {
-    super(ImmutableList.of("normal", "reverse", "alternate", "alternate-reverse"));
+    super("normal", "reverse", "alternate", "alternate-reverse");
   }
 
 }

@@ -19,14 +19,12 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import com.google.common.collect.ImmutableList;
-
 import javax.annotation.Nonnull;
 
 public class BoxValidator extends IdentifierValidator {
 
   public BoxValidator() {
-    super(ImmutableList.of("border-box", "padding-box", "content-box"));
+    super("border-box", "padding-box", "content-box");
   }
 
   @Override

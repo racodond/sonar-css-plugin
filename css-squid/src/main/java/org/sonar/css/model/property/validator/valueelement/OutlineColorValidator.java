@@ -19,14 +19,13 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementMultiValidator;
 
 public class OutlineColorValidator extends ValueElementMultiValidator {
 
   public OutlineColorValidator() {
-    super(ImmutableList.of(ValidatorFactory.getColorValidator(), new IdentifierValidator(ImmutableList.of("invert"))));
+    super(ValidatorFactory.getColorValidator(), new IdentifierValidator("invert"));
   }
 
 }

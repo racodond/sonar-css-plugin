@@ -19,10 +19,9 @@
  */
 package org.sonar.css.model.property.validator;
 
-import com.google.common.collect.ImmutableList;
-
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 
 import org.sonar.css.model.Value;
@@ -31,10 +30,10 @@ import org.sonar.css.model.value.valueelement.DelimiterValueElement;
 
 public class ValueElementListValidator implements ValueValidator {
 
-  private List<? extends ValueElementValidator> validators = new ArrayList<>();
+  private List<ValueElementValidator> validators;
 
-  public ValueElementListValidator(ImmutableList<? extends ValueElementValidator> validators) {
-    this.validators = validators;
+  public ValueElementListValidator(ValueElementValidator... validators) {
+    this.validators = Arrays.asList(validators);
   }
 
   @Override
@@ -46,6 +45,7 @@ public class ValueElementListValidator implements ValueValidator {
         for (ValueElementValidator validator : validators) {
           if (validator.isValid(valueElement)) {
             valid = true;
+            break;
           }
         }
         if (!valid) {
@@ -59,25 +59,15 @@ public class ValueElementListValidator implements ValueValidator {
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    StringBuilder format = new StringBuilder();
-    for (Validator validator : validators) {
-      if (format.length() > 0) {
-        format.append(" | ");
-      }
-      format.append(validator.getValidatorFormat());
-    }
+    String joinedValidatorsFormat = validators.stream()
+      .map(v -> v.getValidatorFormat())
+      .collect(Collectors.joining(" | "));
 
-    format.append(" [, ");
-    int length = format.length();
-
-    for (Validator validator : validators) {
-      if (format.length() > length) {
-        format.append(" | ");
-      }
-      format.append(validator.getValidatorFormat());
-    }
-
-    format.append("]*");
+    StringBuilder format = new StringBuilder()
+      .append(joinedValidatorsFormat)
+      .append(" [, ")
+      .append(joinedValidatorsFormat)
+      .append("]*");
     return format.toString();
   }
 

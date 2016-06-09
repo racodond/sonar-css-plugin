@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -31,12 +30,12 @@ public class Display extends StandardProperty {
       "https://drafts.csswg.org/css-display/#propdef-display",
       "https://drafts.csswg.org/css-flexbox-1/#flex-containers");
     // TODO: Update display validator to comply with https://drafts.csswg.org/css-display/#propdef-display
-    addValidators(new IdentifierValidator(ImmutableList.of(
+    addValidators(new IdentifierValidator(
       "inline", "block", "list-item", "inline-block", "table",
       "inline-table", "table-row-group", "table-header-group", "table-footer-group", "table-row",
       "table-column-group", "table-column", "table-cell", "table-caption", "none", "flex", "inline-flex", "grid",
       "inline-grid", "run-in", "contents", "ruby", "ruby-base", "ruby-text", "ruby-base-container",
-      "ruby-text-container", "compact", "marker")));
+      "ruby-text-container", "compact", "marker"));
   }
 
 }

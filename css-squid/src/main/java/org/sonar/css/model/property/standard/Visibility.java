@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class Visibility extends StandardProperty {
 
   public Visibility() {
     addLinks("https://www.w3.org/TR/CSS22/visufx.html#propdef-visibility");
-    addValidators(new IdentifierValidator(ImmutableList.of("visible", "hidden", "collapse")));
+    addValidators(new IdentifierValidator("visible", "hidden", "collapse"));
   }
 
 }

@@ -19,13 +19,12 @@
  */
 package org.sonar.css.model.property.validator.property.line;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class LineStackingShiftValidator extends IdentifierValidator {
 
   public LineStackingShiftValidator() {
-    super(ImmutableList.of("consider-shifts", "disregard-shifts"));
+    super("consider-shifts", "disregard-shifts");
   }
 
 }

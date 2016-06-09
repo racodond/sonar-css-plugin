@@ -19,16 +19,15 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementMultiValidator;
 
 public class BorderWidthValidator extends ValueElementMultiValidator {
 
   public BorderWidthValidator() {
-    super(ImmutableList.of(
-      new IdentifierValidator(ImmutableList.of("thin", "medium", "thick")),
-      ValidatorFactory.getPositiveLengthValidator()));
+    super(
+      new IdentifierValidator("thin", "medium", "thick"),
+      ValidatorFactory.getPositiveLengthValidator());
   }
 
 }

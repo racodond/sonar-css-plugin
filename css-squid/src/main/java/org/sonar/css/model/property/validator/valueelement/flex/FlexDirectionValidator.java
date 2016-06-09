@@ -19,13 +19,12 @@
  */
 package org.sonar.css.model.property.validator.valueelement.flex;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class FlexDirectionValidator extends IdentifierValidator {
 
   public FlexDirectionValidator() {
-    super(ImmutableList.of("row", "row-reverse", "column", "column-reverse"));
+    super("row", "row-reverse", "column", "column-reverse");
   }
 
 }

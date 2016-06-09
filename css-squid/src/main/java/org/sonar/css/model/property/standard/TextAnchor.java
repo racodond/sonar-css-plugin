@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class TextAnchor extends StandardProperty {
 
   public TextAnchor() {
     addLinks("https://www.w3.org/TR/SVG/text.html#TextAnchorProperty");
-    addValidators(new IdentifierValidator(ImmutableList.of("start", "middle", "end")));
+    addValidators(new IdentifierValidator("start", "middle", "end"));
   }
 
 }

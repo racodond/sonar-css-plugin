@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class TransformStyle extends StandardProperty {
 
   public TransformStyle() {
     addLinks("http://dev.w3.org/csswg/css-transforms/#propdef-transform-style");
-    addValidators(new IdentifierValidator(ImmutableList.of("auto", "flat", "preserve-3d")));
+    addValidators(new IdentifierValidator("auto", "flat", "preserve-3d"));
   }
 
 }

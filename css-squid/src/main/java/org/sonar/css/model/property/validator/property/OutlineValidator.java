@@ -31,19 +31,19 @@ import org.sonar.css.model.value.CssValueElement;
 
 public class OutlineValidator implements ValueValidator {
 
-  private final OutlineColorValidator outlineColorValidator = new OutlineColorValidator();
-  private final OutlineWidthValidator outlineWidthValidator = new OutlineWidthValidator();
-  private final OutlineStyleValidator outlineStyleValidator = new OutlineStyleValidator();
+  private static final OutlineColorValidator OUTLINE_COLOR_VALIDATOR = new OutlineColorValidator();
+  private static final OutlineWidthValidator OUTLINE_WIDTH_VALIDATOR = new OutlineWidthValidator();
+  private static final OutlineStyleValidator outlineStyleValidator = new OutlineStyleValidator();
 
   @Override
-  public boolean isValid(@Nonnull Value value) {
+  public boolean isValid(Value value) {
     List<CssValueElement> valueElements = value.getValueElements();
     if (value.getNumberOfValueElements() > 3) {
       return false;
     }
     for (CssValueElement valueElement : valueElements) {
-      if (!outlineColorValidator.isValid(valueElement)
-        && !outlineWidthValidator.isValid(valueElement)
+      if (!OUTLINE_COLOR_VALIDATOR.isValid(valueElement)
+        && !OUTLINE_WIDTH_VALIDATOR.isValid(valueElement)
         && !outlineStyleValidator.isValid(valueElement)) {
         return false;
       }

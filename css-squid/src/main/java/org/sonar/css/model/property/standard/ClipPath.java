@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.valueelement.ShapeBoxValidator;
@@ -35,7 +34,7 @@ public class ClipPath extends StandardProperty {
       ValidatorFactory.getNoneValidator(),
       ValidatorFactory.getUriValidator(),
       new ShapeBoxValidator(),
-      new FunctionValidator(ImmutableList.of("inset", "circle", "ellipse", "polygon")));
+      new FunctionValidator("inset", "circle", "ellipse", "polygon"));
   }
 
 }

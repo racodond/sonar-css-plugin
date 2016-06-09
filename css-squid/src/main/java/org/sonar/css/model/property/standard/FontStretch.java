@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,9 +26,8 @@ public class FontStretch extends StandardProperty {
 
   public FontStretch() {
     addLinks("https://drafts.csswg.org/css-fonts-3/#propdef-font-stretch");
-    addValidators(new IdentifierValidator(
-      ImmutableList.of("normal", "ultra-condensed", "extra-condensed", "condensed", "semi-condensed",
-        "semi-expanded", "expanded", "extra-expanded", "ultra-expanded", "wider", "narrower")));
+    addValidators(new IdentifierValidator("normal", "ultra-condensed", "extra-condensed", "condensed", "semi-condensed",
+      "semi-expanded", "expanded", "extra-expanded", "ultra-expanded", "wider", "narrower"));
   }
 
 }

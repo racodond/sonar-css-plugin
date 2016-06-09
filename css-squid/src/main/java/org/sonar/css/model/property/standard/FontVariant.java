@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -30,7 +29,7 @@ public class FontVariant extends StandardProperty {
       "https://www.w3.org/TR/CSS22/fonts.html#propdef-font-variant",
       "https://drafts.csswg.org/css-fonts-3/#descdef-font-variant");
     // TODO: Update validator to comply with https://drafts.csswg.org/css-fonts-3/#descdef-font-variant
-    addValidators(new IdentifierValidator(ImmutableList.of("normal", "small-caps")));
+    addValidators(new IdentifierValidator("normal", "small-caps"));
   }
 
 }

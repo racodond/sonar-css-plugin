@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class FontKerning extends StandardProperty {
 
   public FontKerning() {
     addLinks("https://drafts.csswg.org/css-fonts-3/#propdef-font-kerning");
-    addValidators(new IdentifierValidator(ImmutableList.of("auto", "normal", "none")));
+    addValidators(new IdentifierValidator("auto", "normal", "none"));
   }
 
 }

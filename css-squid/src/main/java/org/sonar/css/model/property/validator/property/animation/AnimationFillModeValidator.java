@@ -19,12 +19,11 @@
  */
 package org.sonar.css.model.property.validator.property.animation;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class AnimationFillModeValidator extends IdentifierValidator {
 
   public AnimationFillModeValidator() {
-    super(ImmutableList.of("none", "forwards", "backwards", "both"));
+    super("none", "forwards", "backwards", "both");
   }
 }

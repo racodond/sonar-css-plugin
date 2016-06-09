@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import com.google.common.collect.ImmutableList;
-
 import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -33,16 +31,12 @@ public class IdentifierValidator implements ValueElementValidator {
 
   private final List<String> allowedValues;
 
-  public IdentifierValidator() {
-    allowedValues = ImmutableList.of();
-  }
-
-  public IdentifierValidator(ImmutableList<String> allowedValues) {
-    this.allowedValues = allowedValues;
-  }
-
   public IdentifierValidator(String... allowedValues) {
     this.allowedValues = Arrays.asList(allowedValues);
+  }
+
+  public IdentifierValidator(List<String> allowedValues) {
+    this.allowedValues = allowedValues;
   }
 
   @Override

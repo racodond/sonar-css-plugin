@@ -27,7 +27,7 @@ public class All extends StandardProperty {
 
   public All() {
     addLinks("http://www.w3.org/TR/css3-cascade/#propdef-all");
-    addValidators(new IdentifierValidator(ImmutableList.of("inherit", "initial", "unset")));
+    addValidators(new IdentifierValidator("inherit", "initial", "unset"));
   }
 
 }

@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import com.google.common.collect.ImmutableList;
-
 import javax.annotation.Nonnull;
 
 import org.sonar.css.model.property.validator.ValidatorFactory;
@@ -29,7 +27,7 @@ import org.sonar.css.model.property.validator.ValueElementMultiValidator;
 public class ShapeBoxValidator extends ValueElementMultiValidator {
 
   public ShapeBoxValidator() {
-    super(ImmutableList.of(ValidatorFactory.getBoxValidator(), new IdentifierValidator(ImmutableList.of("margin-box"))));
+    super(ValidatorFactory.getBoxValidator(), new IdentifierValidator("margin-box"));
   }
 
   @Override

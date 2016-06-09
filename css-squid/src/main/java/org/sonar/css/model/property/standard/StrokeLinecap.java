@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class StrokeLinecap extends StandardProperty {
 
   public StrokeLinecap() {
     addLinks("https://www.w3.org/TR/SVG/painting.html#StrokeLinecapProperty");
-    addValidators(new IdentifierValidator(ImmutableList.of("butt", "round", "square")));
+    addValidators(new IdentifierValidator("butt", "round", "square"));
   }
 
 }

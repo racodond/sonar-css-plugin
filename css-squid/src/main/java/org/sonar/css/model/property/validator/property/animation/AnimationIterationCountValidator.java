@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.validator.property.animation;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementMultiValidator;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
@@ -27,8 +26,8 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class AnimationIterationCountValidator extends ValueElementMultiValidator {
 
   public AnimationIterationCountValidator() {
-    super(ImmutableList.of(
-      new IdentifierValidator(ImmutableList.of("infinite")),
-      ValidatorFactory.getPositiveNumberValidator()));
+    super(
+      new IdentifierValidator("infinite"),
+      ValidatorFactory.getPositiveNumberValidator());
   }
 }

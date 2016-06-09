@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class PageBreakInside extends StandardProperty {
 
   public PageBreakInside() {
     addLinks("https://www.w3.org/TR/CSS22/page.html#propdef-page-break-inside");
-    addValidators(new IdentifierValidator(ImmutableList.of("avoid", "auto")));
+    addValidators(new IdentifierValidator("avoid", "auto"));
   }
 
 }

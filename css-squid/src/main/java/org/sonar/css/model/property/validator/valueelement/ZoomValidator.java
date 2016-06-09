@@ -19,17 +19,16 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementMultiValidator;
 
 public class ZoomValidator extends ValueElementMultiValidator {
 
   public ZoomValidator() {
-    super(ImmutableList.of(
+    super(
       ValidatorFactory.getAutoValidator(),
       ValidatorFactory.getPositivePercentageValidator(),
-      ValidatorFactory.getPositiveNumberValidator()));
+      ValidatorFactory.getPositiveNumberValidator());
   }
 
 }

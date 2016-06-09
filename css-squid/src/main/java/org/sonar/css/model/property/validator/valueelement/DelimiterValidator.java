@@ -42,7 +42,7 @@ public class DelimiterValidator implements ValueElementValidator {
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    return "<uri>";
+    return separator;
   }
 
 }

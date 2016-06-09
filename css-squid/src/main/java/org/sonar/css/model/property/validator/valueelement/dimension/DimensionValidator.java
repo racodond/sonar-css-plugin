@@ -19,7 +19,8 @@
  */
 package org.sonar.css.model.property.validator.valueelement.dimension;
 
-import com.google.common.collect.ImmutableList;
+import java.util.List;
+
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
 import org.sonar.css.model.value.CssValueElement;
@@ -29,9 +30,9 @@ import org.sonar.css.model.value.valueelement.NumberValueElement;
 public abstract class DimensionValidator implements ValueElementValidator {
 
   private final boolean positiveOnly;
-  private final ImmutableList<String> units;
+  private final List<String> units;
 
-  public DimensionValidator(boolean positiveOnly, ImmutableList<String> units) {
+  public DimensionValidator(boolean positiveOnly, List<String> units) {
     this.positiveOnly = positiveOnly;
     this.units = units;
   }
@@ -50,7 +51,7 @@ public abstract class DimensionValidator implements ValueElementValidator {
       return isPositiveOnly() ? ((DimensionValueElement) cssValueElement).isPositive() : true;
     }
 
-    if (new FunctionValidator(ImmutableList.of("calc")).isValid(cssValueElement)) {
+    if (new FunctionValidator("calc").isValid(cssValueElement)) {
       return true;
     }
 

@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import com.google.common.collect.ImmutableList;
-
 import javax.annotation.Nonnull;
 
 import org.sonar.css.model.Color;
@@ -35,8 +33,8 @@ public class ColorValidator implements ValueElementValidator {
     return new IdentifierValidator(Color.SVG_COLORS).isValid(cssValueElement)
       || new IdentifierValidator(Color.CSS4_COLORS).isValid(cssValueElement)
       || new IdentifierValidator(Color.CSS2_SYSTEM_COLORS).isValid(cssValueElement)
-      || new IdentifierValidator(ImmutableList.of("transparent", "currentcolor")).isValid(cssValueElement)
-      || new FunctionValidator(ImmutableList.of("rgb", "rgba", "hsl", "hsla")).isValid(cssValueElement)
+      || new IdentifierValidator("transparent", "currentcolor").isValid(cssValueElement)
+      || new FunctionValidator("rgb", "rgba", "hsl", "hsla").isValid(cssValueElement)
       || new HashValidator().isValid(cssValueElement);
   }
 

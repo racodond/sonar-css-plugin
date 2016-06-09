@@ -19,8 +19,9 @@
  */
 package org.sonar.css.model.property.validator.valueelement.function;
 
-import com.google.common.collect.ImmutableList;
-
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 
 import org.sonar.css.model.property.validator.ValueElementValidator;
@@ -29,10 +30,10 @@ import org.sonar.css.model.value.valueelement.FunctionValueElement;
 
 public class FunctionValidator implements ValueElementValidator {
 
-  private final ImmutableList<String> allowedFunctions;
+  private final List<String> allowedFunctions;
 
-  public FunctionValidator(ImmutableList<String> allowedFunctions) {
-    this.allowedFunctions = allowedFunctions;
+  public FunctionValidator(String... allowedFunctions) {
+    this.allowedFunctions = Arrays.asList(allowedFunctions);
   }
 
   @Override
@@ -44,15 +45,7 @@ public class FunctionValidator implements ValueElementValidator {
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    StringBuilder format = new StringBuilder("<function>(");
-    for (String allowedValue : allowedFunctions) {
-      if (format.length() > 11) {
-        format.append(" | ");
-      }
-      format.append(allowedValue);
-    }
-    format.append(")");
-    return format.toString();
+    return "<function>(" + allowedFunctions.stream().collect(Collectors.joining(" | ")) + ")";
   }
 
 }

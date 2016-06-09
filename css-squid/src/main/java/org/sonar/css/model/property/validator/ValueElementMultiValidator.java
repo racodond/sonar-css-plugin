@@ -19,20 +19,19 @@
  */
 package org.sonar.css.model.property.validator;
 
-import com.google.common.collect.ImmutableList;
-
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 
 import org.sonar.css.model.value.CssValueElement;
 
 public class ValueElementMultiValidator implements ValueElementValidator {
 
-  private List<? extends ValueElementValidator> validators = new ArrayList<>();
+  private List<ValueElementValidator> validators;
 
-  public ValueElementMultiValidator(ImmutableList<? extends ValueElementValidator> validators) {
-    this.validators = validators;
+  public ValueElementMultiValidator(ValueElementValidator... validators) {
+    this.validators = Arrays.asList(validators);
   }
 
   @Override
@@ -48,14 +47,9 @@ public class ValueElementMultiValidator implements ValueElementValidator {
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    StringBuilder format = new StringBuilder();
-    for (Validator validator : validators) {
-      if (format.length() > 0) {
-        format.append(" | ");
-      }
-      format.append(validator.getValidatorFormat());
-    }
-    return format.toString();
+    return validators.stream()
+      .map(v -> v.getValidatorFormat())
+      .collect(Collectors.joining(" | "));
   }
 
 }

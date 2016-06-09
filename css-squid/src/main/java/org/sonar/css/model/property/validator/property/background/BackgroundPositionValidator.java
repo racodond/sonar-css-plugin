@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.validator.property.background;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementListValidator;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
@@ -27,10 +26,10 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class BackgroundPositionValidator extends ValueElementListValidator {
   // TODO: Update validator to strictly follow the specification at https://drafts.csswg.org/css-backgrounds-3/#background-position
   public BackgroundPositionValidator() {
-    super(ImmutableList.of(
+    super(
       ValidatorFactory.getLengthValidator(),
       ValidatorFactory.getPercentageValidator(),
-      new IdentifierValidator(ImmutableList.of("top", "bottom", "center", "left", "right"))));
+      new IdentifierValidator("top", "bottom", "center", "left", "right"));
   }
 
 }

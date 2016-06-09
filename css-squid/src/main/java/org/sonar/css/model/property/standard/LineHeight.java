@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
@@ -28,7 +27,7 @@ public class LineHeight extends StandardProperty {
 
   public LineHeight() {
     addLinks("https://www.w3.org/TR/CSS22/visudet.html#propdef-line-height");
-    addValidators(new IdentifierValidator(ImmutableList.of("normal")),
+    addValidators(new IdentifierValidator("normal"),
       ValidatorFactory.getPositiveLengthValidator(),
       ValidatorFactory.getPositivePercentageValidator(),
       ValidatorFactory.getPositiveNumberValidator());

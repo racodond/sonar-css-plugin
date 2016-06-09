@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class ObjectFit extends StandardProperty {
 
   public ObjectFit() {
     addLinks("http://dev.w3.org/csswg/css-images-3/#propdef-object-fit");
-    addValidators(new IdentifierValidator(ImmutableList.of("fill", "contain", "cover", "none", "scale-down")));
+    addValidators(new IdentifierValidator("fill", "contain", "cover", "none", "scale-down"));
   }
 
 }

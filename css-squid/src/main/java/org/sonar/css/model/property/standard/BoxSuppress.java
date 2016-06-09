@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -28,7 +27,7 @@ public class BoxSuppress extends StandardProperty {
   public BoxSuppress() {
     setExperimental(true);
     addLinks("https://drafts.csswg.org/css-display/#propdef-box-suppress");
-    addValidators(new IdentifierValidator(ImmutableList.of("show", "discard", "hide")));
+    addValidators(new IdentifierValidator("show", "discard", "hide"));
   }
 
 }

@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class ShapeRendering extends StandardProperty {
 
   public ShapeRendering() {
     addLinks("https://www.w3.org/TR/SVG/painting.html#ShapeRenderingProperty");
-    addValidators(new IdentifierValidator(ImmutableList.of("auto", "optimizespeed", "crispedges", "geometricprecision")));
+    addValidators(new IdentifierValidator("auto", "optimizespeed", "crispedges", "geometricprecision"));
   }
 
 }

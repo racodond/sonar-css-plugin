@@ -36,16 +36,16 @@ public class ValidatorFactory {
 
   private static final ValueElementValidator angleValidator = new AngleValidator();
   private static final ValueElementValidator anyIdentifierValidator = new IdentifierValidator();
-  private static final ValueElementValidator autoValidator = new IdentifierValidator(ImmutableList.of("auto"));
+  private static final ValueElementValidator autoValidator = new IdentifierValidator("auto");
   private static final ValueElementValidator boxValidator = new BoxValidator();
   private static final ValueElementValidator colorValidator = new ColorValidator();
   private static final ValueElementValidator commaDelimiterValidator = new DelimiterValidator(",");
   private static final ValueElementValidator frequencyValidator = new FrequencyValidator();
   private static final ValueElementValidator integerValidator = new IntegerValidator();
   private static final ValueElementValidator lengthValidator = new LengthValidator(false);
-  private static final ValueElementValidator noneValidator = new IdentifierValidator(ImmutableList.of("none"));
+  private static final ValueElementValidator noneValidator = new IdentifierValidator("none");
   private static final ValueElementValidator numberValidator = new NumberValidator(false);
-  private static final ValueElementValidator pageBreakValidator = new IdentifierValidator(ImmutableList.of("auto", "always", "avoid", "left", "right"));
+  private static final ValueElementValidator pageBreakValidator = new IdentifierValidator("auto", "always", "avoid", "left", "right");
   private static final ValueElementValidator percentageValidator = new PercentageValidator(false);
   private static final ValueElementValidator positiveIntegerValidator = new IntegerValidator(true);
   private static final ValueElementValidator positiveLengthValidator = new LengthValidator(true);

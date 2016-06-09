@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class Float extends StandardProperty {
 
   public Float() {
     addLinks("https://www.w3.org/TR/CSS22/visuren.html#propdef-float");
-    addValidators(new IdentifierValidator(ImmutableList.of("left", "right", "none")));
+    addValidators(new IdentifierValidator("left", "right", "none"));
   }
 
 }

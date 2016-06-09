@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
@@ -29,7 +28,7 @@ public class Hyphens extends StandardProperty {
   public Hyphens() {
     addLinks("https://drafts.csswg.org/css-text-3/#propdef-hyphens");
     addVendors(Vendor.EPUB, Vendor.MOZILLA);
-    addValidators(new IdentifierValidator(ImmutableList.of("none", "manual", "auto")));
+    addValidators(new IdentifierValidator("none", "manual", "auto"));
   }
 
 }

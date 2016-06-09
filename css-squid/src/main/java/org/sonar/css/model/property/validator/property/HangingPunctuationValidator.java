@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.property;
 
-import com.google.common.collect.ImmutableList;
-
 import java.util.List;
 import javax.annotation.Nonnull;
 
@@ -31,10 +29,10 @@ import org.sonar.css.model.value.CssValueElement;
 
 public class HangingPunctuationValidator implements ValueValidator {
 
-  private final IdentifierValidator singleElementValidator = new IdentifierValidator(ImmutableList.of("none", "first", "force-end", "allow-end", "last"));
-  private final IdentifierValidator firstValidator = new IdentifierValidator(ImmutableList.of("first"));
-  private final IdentifierValidator lastValidator = new IdentifierValidator(ImmutableList.of("last"));
-  private final IdentifierValidator forceEndAllowEndValidator = new IdentifierValidator(ImmutableList.of("force-end", "allow-end"));
+  private static final IdentifierValidator SINGLE_ELEMENT_VALIDATOR = new IdentifierValidator("none", "first", "force-end", "allow-end", "last");
+  private static final IdentifierValidator FIRST_VALIDATOR = new IdentifierValidator("first");
+  private static final IdentifierValidator LAST_VALIDATOR = new IdentifierValidator("last");
+  private static final IdentifierValidator FORCE_END_ALLOW_END_VALIDATOR = new IdentifierValidator("force-end", "allow-end");
 
   @Override
   public boolean isValid(@Nonnull Value value) {
@@ -43,7 +41,7 @@ public class HangingPunctuationValidator implements ValueValidator {
       return false;
     }
     if (value.getNumberOfValueElements() == 1) {
-      return singleElementValidator.isValid(valueElements.get(0));
+      return SINGLE_ELEMENT_VALIDATOR.isValid(valueElements.get(0));
     }
     if (value.getNumberOfValueElements() > 1) {
       return validateMultiElementValue(valueElements);
@@ -63,11 +61,11 @@ public class HangingPunctuationValidator implements ValueValidator {
     int last = 0;
 
     for (CssValueElement valueElement : valueElements) {
-      if (firstValidator.isValid(valueElement)) {
+      if (FIRST_VALIDATOR.isValid(valueElement)) {
         first++;
-      } else if (lastValidator.isValid(valueElement)) {
+      } else if (LAST_VALIDATOR.isValid(valueElement)) {
         last++;
-      } else if (forceEndAllowEndValidator.isValid(valueElement)) {
+      } else if (FORCE_END_ALLOW_END_VALIDATOR.isValid(valueElement)) {
         forceEndAllowEnd++;
       }
     }

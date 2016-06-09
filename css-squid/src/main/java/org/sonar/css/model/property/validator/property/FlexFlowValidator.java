@@ -31,8 +31,8 @@ import org.sonar.css.model.value.CssValueElement;
 
 public class FlexFlowValidator implements ValueValidator {
 
-  private final ValueElementValidator flexDirectionValidator = new FlexDirectionValidator();
-  private final ValueElementValidator flexWrapValidator = new FlexWrapValidator();
+  private static final ValueElementValidator FLEX_DIRECTION_VALIDATOR = new FlexDirectionValidator();
+  private static final ValueElementValidator FLEX_WRAP_VALIDATOR = new FlexWrapValidator();
 
   @Override
   public boolean isValid(@Nonnull Value value) {
@@ -43,12 +43,12 @@ public class FlexFlowValidator implements ValueValidator {
     int countFlexWrap = 0;
     int countFlexDirection = 0;
     for (CssValueElement valueElement : valueElements) {
-      if (!flexWrapValidator.isValid(valueElement)
-        && !flexDirectionValidator.isValid(valueElement)) {
+      if (!FLEX_WRAP_VALIDATOR.isValid(valueElement)
+        && !FLEX_DIRECTION_VALIDATOR.isValid(valueElement)) {
         return false;
-      } else if (flexWrapValidator.isValid(valueElement)) {
+      } else if (FLEX_WRAP_VALIDATOR.isValid(valueElement)) {
         countFlexWrap++;
-      } else if (flexDirectionValidator.isValid(valueElement)) {
+      } else if (FLEX_DIRECTION_VALIDATOR.isValid(valueElement)) {
         countFlexDirection++;
       }
     }

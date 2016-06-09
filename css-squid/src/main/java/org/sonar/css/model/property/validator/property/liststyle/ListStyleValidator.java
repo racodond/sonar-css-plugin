@@ -23,14 +23,15 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import org.sonar.css.model.Value;
+import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.ValueValidator;
 import org.sonar.css.model.value.CssValueElement;
 
 public class ListStyleValidator implements ValueValidator {
 
-  private final ListStyleTypeValidator listStyleTypeValidator = new ListStyleTypeValidator();
-  private final ListStylePositionValidator listStylePositionValidator = new ListStylePositionValidator();
-  private final ListStyleImageValidator listStyleImageValidator = new ListStyleImageValidator();
+  private static final ValueElementValidator LIST_STYLE_TYPE_VALIDATOR = new ListStyleTypeValidator();
+  private static final ValueElementValidator LIST_STYLE_POSITION_VALIDATOR = new ListStylePositionValidator();
+  private static final ValueElementValidator LIST_STYLE_IMAGE_VALIDATOR = new ListStyleImageValidator();
 
   @Override
   public boolean isValid(Value value) {
@@ -39,9 +40,9 @@ public class ListStyleValidator implements ValueValidator {
       return false;
     }
     for (CssValueElement valueElement : valueElements) {
-      if (!listStyleTypeValidator.isValid(valueElement)
-        && !listStylePositionValidator.isValid(valueElement)
-        && !listStyleImageValidator.isValid(valueElement)) {
+      if (!LIST_STYLE_TYPE_VALIDATOR.isValid(valueElement)
+        && !LIST_STYLE_POSITION_VALIDATOR.isValid(valueElement)
+        && !LIST_STYLE_IMAGE_VALIDATOR.isValid(valueElement)) {
         return false;
       }
     }

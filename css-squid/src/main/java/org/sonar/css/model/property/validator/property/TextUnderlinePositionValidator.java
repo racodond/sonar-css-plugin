@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.property;
 
-import com.google.common.collect.ImmutableList;
-
 import java.util.List;
 import javax.annotation.Nonnull;
 
@@ -33,14 +31,13 @@ import org.sonar.css.model.value.valueelement.IdentifierValueElement;
 
 public class TextUnderlinePositionValidator implements ValueValidator {
 
-  private final ValueElementValidator identifierValidator = new IdentifierValidator(
-    ImmutableList.of("auto", "under", "left", "right"));
+  private static final ValueElementValidator IDENTIFIER_VALIDATOR = new IdentifierValidator("auto", "under", "left", "right");
 
   @Override
   public boolean isValid(@Nonnull Value value) {
     List<CssValueElement> valueElements = value.getValueElements();
     if (value.getNumberOfValueElements() == 1) {
-      return identifierValidator.isValid(valueElements.get(0));
+      return IDENTIFIER_VALIDATOR.isValid(valueElements.get(0));
     }
     if (value.getNumberOfValueElements() == 2) {
       int count = 0;

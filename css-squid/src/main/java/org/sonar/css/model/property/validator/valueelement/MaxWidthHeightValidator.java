@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementMultiValidator;
 import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
@@ -27,12 +26,12 @@ import org.sonar.css.model.property.validator.valueelement.function.FunctionVali
 public class MaxWidthHeightValidator extends ValueElementMultiValidator {
 
   public MaxWidthHeightValidator() {
-    super(ImmutableList.of(
+    super(
       ValidatorFactory.getNoneValidator(),
       ValidatorFactory.getLengthValidator(),
       ValidatorFactory.getPercentageValidator(),
-      new IdentifierValidator(ImmutableList.of("fill", "max-content", "min-content", "fit-content")),
-      new FunctionValidator(ImmutableList.of("fit-content"))));
+      new IdentifierValidator("fill", "max-content", "min-content", "fit-content"),
+      new FunctionValidator("fit-content"));
   }
 
 }

@@ -21,6 +21,7 @@ package org.sonar.css.model.property.validator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 
 import org.sonar.css.model.Value;
@@ -55,14 +56,9 @@ public class ValueMultiValidator implements ValueValidator {
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    StringBuilder format = new StringBuilder();
-    for (Validator validator : validators) {
-      if (format.length() > 0) {
-        format.append(" | ");
-      }
-      format.append(validator.getValidatorFormat());
-    }
-    return format.toString();
+    return validators.stream()
+      .map(v -> v.getValidatorFormat())
+      .collect(Collectors.joining(" | "));
   }
 
 }

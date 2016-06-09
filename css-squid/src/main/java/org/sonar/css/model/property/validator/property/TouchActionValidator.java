@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.property;
 
-import com.google.common.collect.ImmutableList;
-
 import java.util.List;
 import javax.annotation.Nonnull;
 
@@ -32,9 +30,9 @@ import org.sonar.css.model.value.CssValueElement;
 
 public class TouchActionValidator implements ValueValidator {
 
-  private final IdentifierValidator panxValidator = new IdentifierValidator(ImmutableList.of("pan-x"));
-  private final IdentifierValidator panyValidator = new IdentifierValidator(ImmutableList.of("pan-y"));
-  private final IdentifierValidator manipulationValidator = new IdentifierValidator(ImmutableList.of("manipulation"));
+  private static final IdentifierValidator PANX_VALIDATOR = new IdentifierValidator("pan-x");
+  private static final IdentifierValidator PANY_VALIDATOR = new IdentifierValidator("pan-y");
+  private static final IdentifierValidator MANIPULATION_VALIDATOR = new IdentifierValidator("manipulation");
 
   @Override
   public boolean isValid(@Nonnull Value value) {
@@ -45,13 +43,13 @@ public class TouchActionValidator implements ValueValidator {
     if (value.getNumberOfValueElements() == 1) {
       return ValidatorFactory.getNoneValidator().isValid(valueElements.get(0))
         || ValidatorFactory.getAutoValidator().isValid(valueElements.get(0))
-        || manipulationValidator.isValid(valueElements.get(0))
-        || panxValidator.isValid(valueElements.get(0))
-        || panyValidator.isValid(valueElements.get(0));
+        || MANIPULATION_VALIDATOR.isValid(valueElements.get(0))
+        || PANX_VALIDATOR.isValid(valueElements.get(0))
+        || PANY_VALIDATOR.isValid(valueElements.get(0));
     }
     if (value.getNumberOfValueElements() == 2) {
-      return panxValidator.isValid(valueElements.get(0)) && panyValidator.isValid(valueElements.get(1))
-        || panxValidator.isValid(valueElements.get(1)) && panyValidator.isValid(valueElements.get(0));
+      return PANX_VALIDATOR.isValid(valueElements.get(0)) && PANY_VALIDATOR.isValid(valueElements.get(1))
+        || PANX_VALIDATOR.isValid(valueElements.get(1)) && PANY_VALIDATOR.isValid(valueElements.get(0));
     }
     return false;
   }

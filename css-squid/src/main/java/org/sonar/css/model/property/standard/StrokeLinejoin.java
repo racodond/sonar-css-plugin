@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class StrokeLinejoin extends StandardProperty {
 
   public StrokeLinejoin() {
     addLinks("https://www.w3.org/TR/SVG/painting.html#StrokeLinejoinProperty");
-    addValidators(new IdentifierValidator(ImmutableList.of("miter", "round", "bevel")));
+    addValidators(new IdentifierValidator("miter", "round", "bevel"));
   }
 
 }

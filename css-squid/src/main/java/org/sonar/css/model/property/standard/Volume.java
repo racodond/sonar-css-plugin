@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
@@ -32,7 +31,7 @@ public class Volume extends StandardProperty {
       "https://www.w3.org/TR/CSS22/aural.html#volume-props",
       "https://drafts.csswg.org/css-speech-1/");
     addValidators(
-      new IdentifierValidator(ImmutableList.of("silent", "x-soft", "soft", "medium", "loud", "x-loud")),
+      new IdentifierValidator("silent", "x-soft", "soft", "medium", "loud", "x-loud"),
       ValidatorFactory.getNumberValidator(),
       ValidatorFactory.getPercentageValidator());
   }

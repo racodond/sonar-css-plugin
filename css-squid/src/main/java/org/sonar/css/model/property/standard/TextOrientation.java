@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,8 +26,7 @@ public class TextOrientation extends StandardProperty {
 
   public TextOrientation() {
     addLinks("http://dev.w3.org/csswg/css-writing-modes-3/#propdef-text-orientation");
-    addValidators(new IdentifierValidator(
-      ImmutableList.of("mixed", "upright", "sideways")));
+    addValidators(new IdentifierValidator("mixed", "upright", "sideways"));
   }
 
 }

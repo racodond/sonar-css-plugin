@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.property;
 
-import com.google.common.collect.ImmutableList;
-
 import java.util.List;
 import javax.annotation.Nonnull;
 
@@ -33,10 +31,9 @@ import org.sonar.css.model.value.CssValueElement;
 
 public class TransformValidator implements ValueValidator {
 
-  private final ValueElementValidator functionValidator = new FunctionValidator(
-    ImmutableList
-      .of("matrix", "translate", "translatex", "translatey", "scale", "scalex", "scaley", "rotate", "skew", "skewx", "skewy", "matrix3d",
-        "translate3d", "translatez", "scale3d", "scalez", "rotate3d", "rotatex", "rotatey", "rotatez", "perspective"));
+  private static final ValueElementValidator FUNCTION_VALIDATOR = new FunctionValidator(
+    "matrix", "translate", "translatex", "translatey", "scale", "scalex", "scaley", "rotate", "skew", "skewx", "skewy", "matrix3d",
+    "translate3d", "translatez", "scale3d", "scalez", "rotate3d", "rotatex", "rotatey", "rotatez", "perspective");
 
   @Override
   public boolean isValid(@Nonnull Value value) {
@@ -45,7 +42,7 @@ public class TransformValidator implements ValueValidator {
       return true;
     }
     for (CssValueElement valueElement : valueElements) {
-      if (!functionValidator.isValid(valueElement)) {
+      if (!FUNCTION_VALIDATOR.isValid(valueElement)) {
         return false;
       }
     }

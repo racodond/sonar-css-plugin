@@ -19,12 +19,10 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import com.google.common.collect.ImmutableList;
-
 public class NoneValidator extends IdentifierValidator {
 
   public NoneValidator() {
-    super(ImmutableList.of("none"));
+    super("none");
   }
 
 }

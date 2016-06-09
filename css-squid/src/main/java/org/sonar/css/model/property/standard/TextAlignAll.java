@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class TextAlignAll extends StandardProperty {
 
   public TextAlignAll() {
     addLinks("https://drafts.csswg.org/css-text-3/#propdef-text-align-all");
-    addValidators(new IdentifierValidator(ImmutableList.of("start", "end", "left", "right", "center", "justify", "match-parent")));
+    addValidators(new IdentifierValidator("start", "end", "left", "right", "center", "justify", "match-parent"));
   }
 
 }

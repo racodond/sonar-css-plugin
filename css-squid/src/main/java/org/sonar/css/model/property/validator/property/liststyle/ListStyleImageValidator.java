@@ -19,14 +19,13 @@
  */
 package org.sonar.css.model.property.validator.property.liststyle;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementMultiValidator;
 
 public class ListStyleImageValidator extends ValueElementMultiValidator {
 
   public ListStyleImageValidator() {
-    super(ImmutableList.of(ValidatorFactory.getNoneValidator(), ValidatorFactory.getImageValidator()));
+    super(ValidatorFactory.getNoneValidator(), ValidatorFactory.getImageValidator());
   }
 
 }

@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -27,7 +26,7 @@ public class MaskBorderMode extends StandardProperty {
 
   public MaskBorderMode() {
     addLinks("https://drafts.fxtf.org/masking/#propdef-mask-border-mode");
-    addValidators(new IdentifierValidator(ImmutableList.of("luminance", "alpha")));
+    addValidators(new IdentifierValidator("luminance", "alpha"));
   }
 
 }

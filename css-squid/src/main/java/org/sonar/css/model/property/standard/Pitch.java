@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
@@ -31,7 +30,7 @@ public class Pitch extends StandardProperty {
     addLinks("https://www.w3.org/TR/CSS22/aural.html#propdef-pitch");
     addValidators(
       ValidatorFactory.getFrequencyValidator(),
-      new IdentifierValidator(ImmutableList.of("x-low", "low", "medium", "high", "x-high")));
+      new IdentifierValidator("x-low", "low", "medium", "high", "x-high"));
   }
 
 }

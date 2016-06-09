@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -29,7 +28,7 @@ public class Position extends StandardProperty {
     addLinks(
       "https://www.w3.org/TR/CSS22/visuren.html#propdef-position",
       "https://drafts.csswg.org/css-position-3/#propdef-position");
-    addValidators(new IdentifierValidator(ImmutableList.of("static", "relative", "absolute", "fixed", "sticky")));
+    addValidators(new IdentifierValidator("static", "relative", "absolute", "fixed", "sticky"));
   }
 
 }

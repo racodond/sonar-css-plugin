@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementMultiValidator;
 
@@ -27,7 +26,7 @@ public class CueValidator extends ValueElementMultiValidator {
 
   public CueValidator() {
     // TODO: missing <decibel>? validator
-    super(ImmutableList.of(ValidatorFactory.getUriValidator(), ValidatorFactory.getNoneValidator()));
+    super(ValidatorFactory.getUriValidator(), ValidatorFactory.getNoneValidator());
   }
 
 }

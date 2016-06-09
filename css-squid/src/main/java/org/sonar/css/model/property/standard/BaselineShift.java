@@ -29,7 +29,7 @@ public class BaselineShift extends StandardProperty {
   public BaselineShift() {
     addLinks("http://dev.w3.org/csswg/css-inline/#propdef-baseline-shift");
     addValidators(
-      new IdentifierValidator(ImmutableList.of("baseline", "sub", "super")),
+      new IdentifierValidator("baseline", "sub", "super"),
       ValidatorFactory.getLengthValidator(),
       ValidatorFactory.getPercentageValidator());
   }
