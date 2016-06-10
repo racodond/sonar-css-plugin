@@ -19,81 +19,88 @@
  */
 package org.sonar.plugins.css;
 
-import com.google.common.collect.ImmutableList;
-
 import java.io.File;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Collection;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
-import org.sonar.api.batch.SensorContext;
-import org.sonar.api.batch.fs.FilePredicate;
-import org.sonar.api.batch.fs.FilePredicates;
-import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.batch.fs.internal.DefaultInputFile;
+import org.sonar.api.batch.fs.internal.FileMetadata;
+import org.sonar.api.batch.rule.ActiveRules;
 import org.sonar.api.batch.rule.CheckFactory;
-import org.sonar.api.batch.rule.Checks;
+import org.sonar.api.batch.rule.internal.ActiveRulesBuilder;
+import org.sonar.api.batch.sensor.internal.DefaultSensorDescriptor;
+import org.sonar.api.batch.sensor.internal.SensorContextTester;
+import org.sonar.api.batch.sensor.issue.Issue;
+import org.sonar.api.internal.google.common.base.Charsets;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
-import org.sonar.api.measures.FileLinesContext;
-import org.sonar.api.measures.FileLinesContextFactory;
-import org.sonar.api.resources.Project;
-import org.sonar.css.ast.visitors.SonarComponents;
-import org.sonar.squidbridge.SquidAstVisitor;
+import org.sonar.api.rule.RuleKey;
+import org.sonar.css.checks.CheckList;
+import org.sonar.plugins.css.core.CssLanguage;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
 
 public class CssSquidSensorTest {
 
-  private CssSquidSensor sensor;
+  private final File baseDir = new File("src/test/resources");
+  private final SensorContextTester context = SensorContextTester.create(baseDir);
+  private CheckFactory checkFactory = new CheckFactory(mock(ActiveRules.class));
 
-  @Before
-  public void setUp() {
-    FileLinesContextFactory fileLinesContextFactory = mock(FileLinesContextFactory.class);
-    FileLinesContext fileLinesContext = mock(FileLinesContext.class);
-    when(fileLinesContextFactory.createFor(Mockito.any(InputFile.class))).thenReturn(fileLinesContext);
-
-    FileSystem fs = mock(FileSystem.class);
-    when(fs.predicates()).thenReturn(mock(FilePredicates.class));
-    when(fs.files(Mockito.any(FilePredicate.class))).thenReturn(Collections.singletonList(new File("src/test/resources/org/sonar/plugins/css/cssProject/css/metrics.css")));
-    when(fs.encoding()).thenReturn(Charset.forName("UTF-8"));
-
-    Checks checks = mock(Checks.class);
-    when(checks.addAnnotatedChecks(Mockito.anyCollection())).thenReturn(checks);
-    CheckFactory checkFactory = mock(CheckFactory.class);
-    when(checkFactory.<SquidAstVisitor>create(Mockito.anyString())).thenReturn(checks);
-
-    sensor = new CssSquidSensor(null, fs, checkFactory, mock(NoSonarFilter.class));
+  @Test
+  public void should_create_a_valid_sensor_descriptor() {
+    DefaultSensorDescriptor descriptor = new DefaultSensorDescriptor();
+    createCssSquidSensor().describe(descriptor);
+    assertThat(descriptor.name()).isEqualTo("CSS Squid Sensor");
+    assertThat(descriptor.languages()).containsOnly("css");
+    assertThat(descriptor.type()).isEqualTo(InputFile.Type.MAIN);
   }
 
   @Test
-  public void should_execute_on() {
-    Project project = new Project("key");
-    FileSystem fs = mock(FileSystem.class);
-    when(fs.predicates()).thenReturn(mock(FilePredicates.class));
-    CssSquidSensor cssSensor = new CssSquidSensor(mock(SonarComponents.class), fs, mock(CheckFactory.class), mock(NoSonarFilter.class));
+  public void should_execute_and_compute_valid_measures() {
+    String relativePath = "measures.css";
+    inputFile(relativePath);
 
-    when(fs.files(Mockito.any(FilePredicate.class))).thenReturn(new ArrayList<>());
-    assertThat(cssSensor.shouldExecuteOnProject(project)).isFalse();
+    createCssSquidSensor().execute(context);
 
-    when(fs.files(Mockito.any(FilePredicate.class))).thenReturn(ImmutableList.of(new File("/tmp")));
-    assertThat(cssSensor.shouldExecuteOnProject(project)).isTrue();
+    String key = "moduleKey:" + relativePath;
+
+    assertThat(context.measure(key, CoreMetrics.NCLOC).value()).isEqualTo(31);
+    assertThat(context.measure(key, CoreMetrics.STATEMENTS).value()).isEqualTo(21);
+    assertThat(context.measure(key, CoreMetrics.COMMENT_LINES).value()).isEqualTo(6);
   }
 
   @Test
-  public void should_analyse() {
-    Project project = new Project("key");
-    SensorContext context = mock(SensorContext.class);
+  public void should_execute_and_save_issues() throws Exception {
+    inputFile("issues.css");
 
-    sensor.analyse(project, context);
+    ActiveRules activeRules = (new ActiveRulesBuilder())
+      .create(RuleKey.of(CheckList.REPOSITORY_KEY, "formatting"))
+      .activate()
+      .create(RuleKey.of(CheckList.REPOSITORY_KEY, "important"))
+      .activate()
+      .build();
+    checkFactory = new CheckFactory(activeRules);
 
-    verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.NCLOC), Mockito.eq(31.0));
-    verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.STATEMENTS), Mockito.eq(21.0));
-    verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.COMMENT_LINES), Mockito.eq(6.0));
+    createCssSquidSensor().execute(context);
+
+    assertThat(context.allIssues()).hasSize(3);
+  }
+
+  private CssSquidSensor createCssSquidSensor() {
+    return new CssSquidSensor(null, context.fileSystem(), checkFactory, new NoSonarFilter());
+  }
+
+  private DefaultInputFile inputFile(String relativePath) {
+    DefaultInputFile inputFile = new DefaultInputFile("moduleKey", relativePath)
+      .setModuleBaseDir(baseDir.toPath())
+      .setType(InputFile.Type.MAIN)
+      .setLanguage(CssLanguage.KEY);
+
+    context.fileSystem().add(inputFile);
+
+    return inputFile.initMetadata(new FileMetadata().readMetadata(inputFile.file(), Charsets.UTF_8));
   }
 
 }

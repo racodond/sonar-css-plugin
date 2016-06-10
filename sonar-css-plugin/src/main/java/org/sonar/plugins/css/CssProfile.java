@@ -19,6 +19,7 @@
  */
 package org.sonar.plugins.css;
 
+import org.sonar.api.batch.rule.ActiveRules;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.RuleFinder;
@@ -39,6 +40,7 @@ public class CssProfile extends ProfileDefinition {
 
     @Override
     public RulesProfile createProfile(ValidationMessages messages) {
+
         AnnotationBasedProfileBuilder annotationBasedProfileBuilder = new AnnotationBasedProfileBuilder(ruleFinder);
         return annotationBasedProfileBuilder.build(CheckList.REPOSITORY_KEY, SONAR_WAY_PROFILE_NAME, CssLanguage.KEY, CheckList.getChecks(), messages);
     }
