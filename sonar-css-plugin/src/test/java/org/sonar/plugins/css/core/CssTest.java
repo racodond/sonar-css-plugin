@@ -29,14 +29,14 @@ public class CssTest {
 
   @Test
   public void language_key_and_name() {
-    Css css = new Css(mock(Settings.class));
+    CssLanguage css = new CssLanguage(mock(Settings.class));
     assertThat(css.getKey()).isEqualTo("css");
     assertThat(css.getName()).isEqualTo("CSS");
   }
 
   @Test
   public void default_suffixes() {
-    Css css = new Css(mock(Settings.class));
+    CssLanguage css = new CssLanguage(mock(Settings.class));
     assertThat(css.getFileSuffixes()).containsOnly("css");
   }
 
@@ -45,7 +45,7 @@ public class CssTest {
     Settings settings = new Settings();
     settings.setProperty("sonar.css.file.suffixes", ".foo,bar");
 
-    Css css = new Css(settings);
+    CssLanguage css = new CssLanguage(settings);
     assertThat(css.getFileSuffixes()).containsOnly(".foo", "bar");
   }
 

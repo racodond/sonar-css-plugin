@@ -21,7 +21,7 @@ package org.sonar.plugins.css;
 
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.css.checks.CheckList;
-import org.sonar.plugins.css.core.Css;
+import org.sonar.plugins.css.core.CssLanguage;
 import org.sonar.squidbridge.annotations.AnnotationBasedRulesDefinition;
 
 public class CssRulesDefinition implements RulesDefinition {
@@ -29,7 +29,7 @@ public class CssRulesDefinition implements RulesDefinition {
   @Override
   public void define(Context context) {
     NewRepository repository = context
-      .createRepository(CheckList.REPOSITORY_KEY, Css.KEY)
+      .createRepository(CheckList.REPOSITORY_KEY, CssLanguage.KEY)
       .setName(CheckList.REPOSITORY_NAME);
 
     new AnnotationBasedRulesDefinition(repository, "css").addRuleClasses(false, CheckList.getChecks());

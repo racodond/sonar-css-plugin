@@ -30,7 +30,7 @@ import org.mockito.Mockito;
 import org.sonar.api.config.Settings;
 import org.sonar.api.scan.filesystem.FileQuery;
 import org.sonar.api.scan.filesystem.ModuleFileSystem;
-import org.sonar.plugins.css.core.Css;
+import org.sonar.plugins.css.core.CssLanguage;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -46,12 +46,12 @@ public class CssCpdMappingTest {
     when(fileSystem.sourceCharset()).thenReturn(Charsets.UTF_8);
     when(fileSystem.files(Mockito.any(FileQuery.class))).thenReturn(Collections.singletonList(new File("src/test/resources/org/sonar/plugins/css/cssProject/css/boxSizing.css")));
     mapping = new CssCpdMapping(
-      new Css(new Settings()), fileSystem);
+      new CssLanguage(new Settings()), fileSystem);
   }
 
   @Test
   public void test() {
-    assertThat(mapping.getLanguage().getKey()).isEqualTo(Css.KEY);
+    assertThat(mapping.getLanguage().getKey()).isEqualTo(CssLanguage.KEY);
     assertThat(mapping.getTokenizer()).isNotNull();
   }
 

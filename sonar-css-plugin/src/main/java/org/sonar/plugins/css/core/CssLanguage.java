@@ -24,13 +24,13 @@ import org.sonar.api.config.Settings;
 import org.sonar.api.resources.AbstractLanguage;
 import org.sonar.plugins.css.CssPlugin;
 
-public class Css extends AbstractLanguage {
+public class CssLanguage extends AbstractLanguage {
 
   public static final String KEY = "css";
 
   private final Settings settings;
 
-  public Css(Settings settings) {
+  public CssLanguage(Settings settings) {
     super(KEY, "CSS");
     this.settings = settings;
   }

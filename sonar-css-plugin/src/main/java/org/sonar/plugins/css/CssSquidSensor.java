@@ -43,7 +43,7 @@ import org.sonar.css.ast.visitors.SonarComponents;
 import org.sonar.css.checks.CheckList;
 import org.sonar.css.issue.Issue;
 import org.sonar.css.issue.PreciseIssue;
-import org.sonar.plugins.css.core.Css;
+import org.sonar.plugins.css.core.CssLanguage;
 import org.sonar.squidbridge.AstScanner;
 import org.sonar.squidbridge.SquidAstVisitor;
 import org.sonar.squidbridge.api.SourceCode;
@@ -89,7 +89,7 @@ public class CssSquidSensor implements Sensor {
   }
 
   private Iterable<File> filesToAnalyze() {
-    return fs.files(fs.predicates().and(fs.predicates().hasLanguage(Css.KEY), fs.predicates().hasType(Type.MAIN)));
+    return fs.files(fs.predicates().and(fs.predicates().hasLanguage(CssLanguage.KEY), fs.predicates().hasType(Type.MAIN)));
   }
 
   private void save(Collection<SourceCode> squidSourceFiles, Checks<SquidCheck> checks, Set<Issue> issues) {

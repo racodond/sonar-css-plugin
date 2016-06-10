@@ -24,7 +24,7 @@ import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.css.checks.CheckList;
-import org.sonar.plugins.css.core.Css;
+import org.sonar.plugins.css.core.CssLanguage;
 import org.sonar.squidbridge.annotations.AnnotationBasedProfileBuilder;
 
 public class CssProfile extends ProfileDefinition {
@@ -40,6 +40,6 @@ public class CssProfile extends ProfileDefinition {
     @Override
     public RulesProfile createProfile(ValidationMessages messages) {
         AnnotationBasedProfileBuilder annotationBasedProfileBuilder = new AnnotationBasedProfileBuilder(ruleFinder);
-        return annotationBasedProfileBuilder.build(CheckList.REPOSITORY_KEY, SONAR_WAY_PROFILE_NAME, Css.KEY, CheckList.getChecks(), messages);
+        return annotationBasedProfileBuilder.build(CheckList.REPOSITORY_KEY, SONAR_WAY_PROFILE_NAME, CssLanguage.KEY, CheckList.getChecks(), messages);
     }
 }

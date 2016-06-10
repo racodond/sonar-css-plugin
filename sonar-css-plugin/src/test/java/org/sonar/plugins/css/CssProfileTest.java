@@ -27,7 +27,7 @@ import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.css.checks.CheckList;
-import org.sonar.plugins.css.core.Css;
+import org.sonar.plugins.css.core.CssLanguage;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Matchers.anyString;
@@ -43,7 +43,7 @@ public class CssProfileTest {
     RulesProfile profile = definition.createProfile(validation);
 
     assertThat(profile.getName()).isEqualTo(CssProfile.SONAR_WAY_PROFILE_NAME);
-    assertThat(profile.getLanguage()).isEqualTo(Css.KEY);
+    assertThat(profile.getLanguage()).isEqualTo(CssLanguage.KEY);
     assertThat(profile.getActiveRulesByRepository(CheckList.REPOSITORY_KEY)).hasSize(50);
     assertThat(validation.hasErrors()).isFalse();
   }
