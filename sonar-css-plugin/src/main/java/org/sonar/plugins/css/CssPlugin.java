@@ -19,10 +19,9 @@
  */
 package org.sonar.plugins.css;
 
-import com.google.common.collect.ImmutableList;
+import org.sonar.api.Plugin;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
-import org.sonar.api.SonarPlugin;
 import org.sonar.css.ast.visitors.SonarComponents;
 import org.sonar.plugins.css.core.Css;
 import org.sonar.plugins.css.cpd.CssCpdMapping;
@@ -35,14 +34,14 @@ import org.sonar.plugins.css.cpd.CssCpdMapping;
     description = "Comma-separated list of suffixes for files to analyze. To not filter, leave the list empty.",
     global = true, project = true),
 })
-public class CssPlugin extends SonarPlugin {
+public class CssPlugin implements Plugin {
 
   public static final String FILE_SUFFIXES_KEY = "sonar.css.file.suffixes";
   public static final String FILE_SUFFIXES_DEFVALUE = "css";
 
   @Override
-  public ImmutableList getExtensions() {
-    return ImmutableList.of(
+  public void define(Context context) {
+    context.addExtensions(
       Css.class,
       SonarComponents.class,
       CssSquidSensor.class,

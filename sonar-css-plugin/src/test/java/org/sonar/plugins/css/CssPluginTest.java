@@ -19,23 +19,27 @@
  */
 package org.sonar.plugins.css;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.sonar.api.Plugin.Context;
+import org.sonar.api.utils.Version;
 
 import static org.fest.assertions.Assertions.assertThat;
 
 public class CssPluginTest {
 
-  private CssPlugin plugin;
-
-  @Before
-  public void setUp() throws Exception {
-    plugin = new CssPlugin();
+  @Test
+  public void should_get_the_right_version() throws Exception {
+    Context context = new Context(Version.create(5, 6));
+    new CssPlugin().define(context);
+    assertThat(context.getSonarQubeVersion().major()).isEqualTo(5);
+    assertThat(context.getSonarQubeVersion().minor()).isEqualTo(6);
   }
 
   @Test
-  public void testGetExtensions() throws Exception {
-    assertThat(plugin.getExtensions().size()).isEqualTo(6);
+  public void should_get_the_right_number_of_extensions() throws Exception {
+    Context context = new Context(Version.create(5, 6));
+    new CssPlugin().define(context);
+    assertThat(context.getExtensions()).hasSize(6);
   }
 
 }
