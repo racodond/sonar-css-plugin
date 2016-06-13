@@ -39,7 +39,6 @@ import org.sonar.api.measures.CoreMetrics;
 import org.sonar.css.CssAstScanner;
 import org.sonar.css.CssConfiguration;
 import org.sonar.css.api.CssMetric;
-import org.sonar.css.ast.visitors.SonarComponents;
 import org.sonar.css.checks.CheckList;
 import org.sonar.css.issue.Issue;
 import org.sonar.css.issue.PreciseIssue;
@@ -58,13 +57,11 @@ public class CssSquidSensor implements Sensor {
   private final FileSystem fileSystem;
   private final FilePredicate mainFilePredicate;
   private final NoSonarFilter noSonarFilter;
-  private final SonarComponents sonarComponents;
 
-  private SensorContext context;
+  private SensorContext sensorContext;
 
-  public CssSquidSensor(SonarComponents sonarComponents, FileSystem fileSystem, CheckFactory checkFactory, NoSonarFilter noSonarFilter) {
+  public CssSquidSensor(FileSystem fileSystem, CheckFactory checkFactory, NoSonarFilter noSonarFilter) {
     this.checkFactory = checkFactory;
-    this.sonarComponents = sonarComponents;
     this.fileSystem = fileSystem;
     this.noSonarFilter = noSonarFilter;
     this.mainFilePredicate = fileSystem.predicates().and(
@@ -82,7 +79,7 @@ public class CssSquidSensor implements Sensor {
 
   @Override
   public void execute(SensorContext context) {
-    this.context = context;
+    this.sensorContext = context;
 
     CssConfiguration cssConfiguration = new CssConfiguration(fileSystem.encoding());
 
@@ -91,7 +88,7 @@ public class CssSquidSensor implements Sensor {
 
     Set<Issue> issues = new HashSet<>();
 
-    AstScanner<LexerlessGrammar> scanner = CssAstScanner.create(cssConfiguration, sonarComponents, issues, checkList.toArray(new SquidAstVisitor[checkList.size()]));
+    AstScanner<LexerlessGrammar> scanner = CssAstScanner.create(sensorContext, cssConfiguration, issues, checkList.toArray(new SquidAstVisitor[checkList.size()]));
     scanner.scanFiles(Lists.newArrayList(fileSystem.files(mainFilePredicate)));
 
     Collection<SourceCode> squidSourceFiles = scanner.getIndex().search(new QueryByType(SourceFile.class));
@@ -109,37 +106,37 @@ public class CssSquidSensor implements Sensor {
   }
 
   private void saveMeasures(InputFile sonarFile, SourceFile squidFile) {
-    context.<Integer>newMeasure()
+    sensorContext.<Integer>newMeasure()
       .on(sonarFile)
       .forMetric(CoreMetrics.NCLOC)
       .withValue(squidFile.getInt(CssMetric.LINES_OF_CODE))
       .save();
 
-    context.<Integer>newMeasure()
+    sensorContext.<Integer>newMeasure()
       .on(sonarFile)
       .forMetric(CoreMetrics.STATEMENTS)
       .withValue(squidFile.getInt(CssMetric.STATEMENTS))
       .save();
 
-    context.<Integer>newMeasure()
+    sensorContext.<Integer>newMeasure()
       .on(sonarFile)
       .forMetric(CoreMetrics.COMMENT_LINES)
       .withValue(squidFile.getInt(CssMetric.COMMENT_LINES))
       .save();
 
-    context.<Integer>newMeasure()
+    sensorContext.<Integer>newMeasure()
       .on(sonarFile)
       .forMetric(CoreMetrics.FUNCTIONS)
       .withValue(squidFile.getInt(CssMetric.FUNCTIONS))
       .save();
 
-    context.<Integer>newMeasure()
+    sensorContext.<Integer>newMeasure()
       .on(sonarFile)
       .forMetric(CoreMetrics.COMPLEXITY)
       .withValue(squidFile.getInt(CssMetric.COMPLEXITY))
       .save();
 
-    context.<Integer>newMeasure()
+    sensorContext.<Integer>newMeasure()
       .on(sonarFile)
       .forMetric(CoreMetrics.COMPLEXITY_IN_FUNCTIONS)
       .withValue(squidFile.getInt(CssMetric.COMPLEXITY_IN_FUNCTIONS))
@@ -150,7 +147,7 @@ public class CssSquidSensor implements Sensor {
     // TODO: Try and remove TestIssue to avoid this ugly if
     for (Issue issue : issues) {
       if (issue instanceof PreciseIssue) {
-        ((PreciseIssue) issue).save(checks, context);
+        ((PreciseIssue) issue).save(checks, sensorContext);
       } else {
         throw new IllegalStateException("Unsupported type of issue to be saved.");
       }

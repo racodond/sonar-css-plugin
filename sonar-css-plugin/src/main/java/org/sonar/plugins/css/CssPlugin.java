@@ -22,7 +22,6 @@ package org.sonar.plugins.css;
 import org.sonar.api.Plugin;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
-import org.sonar.css.ast.visitors.SonarComponents;
 import org.sonar.plugins.css.core.CssLanguage;
 import org.sonar.plugins.css.cpd.CssCpdMapping;
 
@@ -43,7 +42,6 @@ public class CssPlugin implements Plugin {
   public void define(Context context) {
     context.addExtensions(
       CssLanguage.class,
-      SonarComponents.class,
       CssSquidSensor.class,
       CssCpdMapping.class,
       CssProfile.class,

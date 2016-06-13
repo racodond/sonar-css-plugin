@@ -55,7 +55,12 @@ public class SourceFileOffsets {
 
   private void initOffsets(String toParse) {
     boolean hasByteOrderMark = toParse.startsWith(Character.toString('\uFEFF'));
-    lineStartOffsets.add(0);
+    if (hasByteOrderMark) {
+      lineStartOffsets.add(-1);
+    } else {
+      lineStartOffsets.add(0);
+    }
+
     int i = 0;
     while (i < length) {
       if (toParse.charAt(i) == '\n' || toParse.charAt(i) == '\r') {

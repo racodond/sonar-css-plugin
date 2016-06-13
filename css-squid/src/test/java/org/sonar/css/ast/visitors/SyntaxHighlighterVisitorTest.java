@@ -23,118 +23,143 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import org.mockito.Mockito;
 import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.source.Highlightable;
+import org.sonar.api.batch.fs.internal.DefaultFileSystem;
+import org.sonar.api.batch.fs.internal.DefaultInputFile;
+import org.sonar.api.batch.sensor.highlighting.TypeOfText;
+import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.css.CssAstScanner;
+import org.sonar.squidbridge.SquidAstVisitorContext;
 
+import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.sonar.api.batch.sensor.highlighting.TypeOfText.*;
 
 public class SyntaxHighlighterVisitorTest {
 
+  private DefaultFileSystem fileSystem;
+  private SensorContextTester sensorContext;
+  private File file;
+  private DefaultInputFile inputFile;
+  private SquidAstVisitorContext visitorContext;
+
   @Rule
-  public final TemporaryFolder temp = new TemporaryFolder();
-
-  private final SonarComponents sonarComponents = Mockito.mock(SonarComponents.class);
-  private final Highlightable highlightable = Mockito.mock(Highlightable.class);
-  private final Highlightable.HighlightingBuilder highlighting = Mockito.mock(Highlightable.HighlightingBuilder.class);
-
-  private final SyntaxHighlighterVisitor syntaxHighlighterVisitor = new SyntaxHighlighterVisitor(sonarComponents, Charsets.UTF_8);
-
-  private String eol;
+  public final TemporaryFolder tempFolder = new TemporaryFolder();
 
   @Before
-  public void setUp() {
-    InputFile inputFile = mock(InputFile.class);
-    Mockito.when(sonarComponents.inputFileFor(Mockito.any(File.class))).thenReturn(inputFile);
-    Mockito.when(sonarComponents.highlightableFor(inputFile)).thenReturn(highlightable);
-    Mockito.when(highlightable.newHighlighting()).thenReturn(highlighting);
+  public void setUp() throws IOException {
+    fileSystem = new DefaultFileSystem(tempFolder.getRoot());
+    fileSystem.setEncoding(Charsets.UTF_8);
+    file = tempFolder.newFile();
+    inputFile = new DefaultInputFile("moduleKey", file.getName())
+      .setLanguage("css")
+      .setType(InputFile.Type.MAIN);
+    fileSystem.add(inputFile);
+
+    sensorContext = SensorContextTester.create(tempFolder.getRoot());
+    sensorContext.setFileSystem(fileSystem);
+
+    visitorContext = mock(SquidAstVisitorContext.class);
+    when(visitorContext.getFile()).thenReturn(file);
   }
 
   @Test
   public void parse_error() throws Exception {
-    File file = temp.newFile();
-    Files.write("ParseError", file, Charsets.UTF_8);
-    CssAstScanner.scanSingleFile(file, syntaxHighlighterVisitor);
-
-    Mockito.verifyZeroInteractions(highlightable);
-  }
-
-  // TODO Factorize duplicated methods, but still allow double click on failures to jump to the right line
-
-  @Test
-  public void test_LF() throws Exception {
-    this.eol = "\n";
-    File file = temp.newFile();
-    Files.write(Files.toString(new File("src/test/resources/syntax_highlight.css"), Charsets.UTF_8).replaceAll("\\r\\n", "\n").replaceAll("\\n", eol), file, Charsets.UTF_8);
-
-    CssAstScanner.scanSingleFile(file, syntaxHighlighterVisitor);
-
-    Mockito.verify(highlighting).highlight(0, 6, "h");
-    Mockito.verify(highlighting).highlight(24, 29, "c");
-    Mockito.verify(highlighting).highlight(39, 48, "cppd");
-    Mockito.verify(highlighting).highlight(50, 56, "h");
-    Mockito.verify(highlighting).highlight(61, 66, "c");
-    Mockito.verify(highlighting).highlight(75, 84, "cppd");
+    highlight("ParseError");
+    for (int i = 0; i < 10; i++) {
+      assertThat(sensorContext.highlightingTypeAt("moduleKey:" + file.getName(), 1, i)).isEmpty();
+    }
   }
 
   @Test
-  public void test_CR() throws Exception {
-    this.eol = "\r";
-    File file = temp.newFile();
-    Files.write(Files.toString(new File("src/test/resources/syntax_highlight.css"), Charsets.UTF_8).replaceAll("\\r\\n", "\n").replaceAll("\\n", eol), file, Charsets.UTF_8);
-
-    CssAstScanner.scanSingleFile(file, syntaxHighlighterVisitor);
-
-    Mockito.verify(highlighting).highlight(0, 6, "h");
-    Mockito.verify(highlighting).highlight(24, 29, "c");
-    Mockito.verify(highlighting).highlight(39, 48, "cppd");
-    Mockito.verify(highlighting).highlight(50, 56, "h");
-    Mockito.verify(highlighting).highlight(61, 66, "c");
-    Mockito.verify(highlighting).highlight(75, 84, "cppd");
-    Mockito.verify(highlighting).done();
-    Mockito.verifyNoMoreInteractions(highlighting);
+  public void empty_input() throws Exception {
+    highlight("");
+    assertThat(sensorContext.highlightingTypeAt("moduleKey:" + file.getName(), 1, 0)).isEmpty();
   }
 
   @Test
-  public void test_CR_LF() throws Exception {
-    this.eol = "\r\n";
-    File file = temp.newFile();
-    Files.write(Files.toString(new File("src/test/resources/syntax_highlight.css"), Charsets.UTF_8).replaceAll("\\r\\n", "\n").replaceAll("\\n", eol), file, Charsets.UTF_8);
-
-    CssAstScanner.scanSingleFile(file, syntaxHighlighterVisitor);
-
-    Mockito.verify(highlighting).highlight(0, 6, "h");
-    Mockito.verify(highlighting).highlight(25, 30, "c");
-    Mockito.verify(highlighting).highlight(43, 54, "cppd");
-    Mockito.verify(highlighting).highlight(58, 64, "h");
-    Mockito.verify(highlighting).highlight(70, 75, "c");
-    Mockito.verify(highlighting).highlight(86, 95, "cppd");
-    Mockito.verify(highlighting).done();
-    Mockito.verifyNoMoreInteractions(highlighting);
+  public void string_simple_quote() throws Exception {
+    highlight(".mybox {\nprop: 'string';\n}");
+    assertHighlighting(2, 6, 8, STRING);
   }
 
   @Test
-  public void test_BOM_LF() throws Exception {
-    this.eol = "\n";
-    File file = temp.newFile();
-    Files.write(Files.toString(new File("src/test/resources/syntax_highlight_bom.css"), Charsets.UTF_8).replaceAll("\\r\\n", "\n").replaceAll("\\n", eol), file, Charsets.UTF_8);
+  public void string_double_quote() throws Exception {
+    highlight(".mybox {\nprop: \"string\";\n}");
+    assertHighlighting(2, 6, 8, STRING);
+  }
 
-    CssAstScanner.scanSingleFile(file, syntaxHighlighterVisitor);
+  @Test
+  public void property() throws Exception {
+    highlight(".mybox {\nprop: \"string\";\n}");
+    assertHighlighting(2, 0, 4, CONSTANT);
+  }
 
-    Mockito.verify(highlighting).highlight(1, 7, "h"); /* First character is BOM */
-    Mockito.verify(highlighting).highlight(24, 29, "c");
-    Mockito.verify(highlighting).highlight(39, 48, "cppd");
-    Mockito.verify(highlighting).highlight(50, 56, "h");
-    Mockito.verify(highlighting).highlight(61, 66, "c");
-    Mockito.verify(highlighting).highlight(75, 84, "cppd");
-    Mockito.verify(highlighting).done();
-    Mockito.verifyNoMoreInteractions(highlighting);
+  @Test
+  public void variable() throws Exception {
+    highlight(".mybox {\n--prop: \"string\";\n}");
+    assertHighlighting(2, 0, 6, CONSTANT);
+  }
+
+  @Test
+  public void class_selector() throws Exception {
+    highlight(".mybox {\n--prop: \"string\";\n}");
+    assertHighlighting(1, 0, 6, KEYWORD_LIGHT);
+  }
+
+  @Test
+  public void class_selector2() throws Exception {
+    highlight(".mybox.mybox2 {\n--prop: \"string\";\n}");
+    assertHighlighting(1, 0, 13, KEYWORD_LIGHT);
+  }
+
+  @Test
+  public void id_selector() throws Exception {
+    highlight(" #abc {\n--prop: \"string\";\n}");
+    assertHighlighting(1, 1, 4, KEYWORD_LIGHT);
+  }
+
+  @Test
+  public void comment() throws Exception {
+    highlight(" #abc {\n--prop: \"string\"; /* blabla */\n}");
+    assertHighlighting(2, 18, 12, COMMENT);
+  }
+
+  @Test
+  public void multiline_comment() throws Exception {
+    highlight("/* blabla...\nblabla...\n blabla...\n */");
+    assertHighlighting(1, 0, 13, COMMENT);
+    assertHighlighting(2, 0, 13, COMMENT);
+    assertHighlighting(3, 1, 13, COMMENT);
+  }
+
+  @Test
+  public void byte_order_mark() throws Exception {
+    highlight("\uFEFF#abc {\n--prop: \"string\";\n}");
+    assertHighlighting(1, 0, 4, KEYWORD_LIGHT);
+    assertHighlighting(2, 0, 4, CONSTANT);
+  }
+
+  private void highlight(String string) throws Exception {
+    inputFile.initMetadata(string);
+    Files.write(string, file, Charsets.UTF_8);
+    CssAstScanner.scanSingleFile(file, sensorContext);
+  }
+
+  private void assertHighlighting(int line, int column, int length, TypeOfText type) {
+    for (int i = column; i < column + length; i++) {
+      List<TypeOfText> typeOfTexts = sensorContext.highlightingTypeAt("moduleKey:" + file.getName(), line, i);
+      assertThat(typeOfTexts).hasSize(1);
+      assertThat(typeOfTexts.get(0)).isEqualTo(type);
+    }
   }
 
 }

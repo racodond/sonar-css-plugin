@@ -19,40 +19,41 @@
  */
 package org.sonar.css.ast.visitors;
 
-import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import com.sonar.sslr.api.*;
 
 import java.nio.charset.Charset;
 import java.util.Map;
+import javax.annotation.Nullable;
 
-import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.source.Highlightable;
+import org.sonar.api.batch.fs.FileSystem;
+import org.sonar.api.batch.sensor.SensorContext;
+import org.sonar.api.batch.sensor.highlighting.NewHighlighting;
+import org.sonar.api.batch.sensor.highlighting.TypeOfText;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.SquidAstVisitor;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-import javax.annotation.Nullable;
-
 public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> implements AstAndTokenVisitor {
 
-  private static final Map<AstNodeType, String> TYPES = ImmutableMap.<AstNodeType, String>builder()
-    .put(CssGrammar.STRING, "s")
-    .put(CssGrammar.PROPERTY, "c")
-    .put(CssGrammar.VARIABLE, "c")
-    .put(CssGrammar.CLASS_SELECTOR, "h")
-    .put(CssGrammar.ID_SELECTOR, "h")
-    .put(CssGrammar.AT_KEYWORD, "p")
+  private static final Map<AstNodeType, TypeOfText> TYPES = ImmutableMap.<AstNodeType, TypeOfText>builder()
+    .put(CssGrammar.STRING, TypeOfText.STRING)
+    .put(CssGrammar.PROPERTY, TypeOfText.CONSTANT)
+    .put(CssGrammar.VARIABLE, TypeOfText.CONSTANT)
+    .put(CssGrammar.CLASS_SELECTOR, TypeOfText.KEYWORD_LIGHT)
+    .put(CssGrammar.ID_SELECTOR, TypeOfText.KEYWORD_LIGHT)
+    .put(CssGrammar.AT_KEYWORD, TypeOfText.PREPROCESS_DIRECTIVE)
     .build();
 
-  private final SonarComponents sonarComponents;
+  private final SensorContext sensorContext;
   private final Charset charset;
+  private final FileSystem fileSystem;
+  private NewHighlighting highlighting;
+  private SourceFileOffsets sourceFileOffsets;
 
-  private Highlightable.HighlightingBuilder highlighting;
-  private SourceFileOffsets offsets;
-
-  public SyntaxHighlighterVisitor(SonarComponents sonarComponents, Charset charset) {
-    this.sonarComponents = Preconditions.checkNotNull(sonarComponents);
+  public SyntaxHighlighterVisitor(SensorContext sensorContext, Charset charset) {
+    this.sensorContext = sensorContext;
+    this.fileSystem = sensorContext.fileSystem();
     this.charset = charset;
   }
 
@@ -69,30 +70,28 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
       // parse error
       return;
     }
-    InputFile inputFile = sonarComponents.inputFileFor(getContext().getFile());
-    inputFile = Preconditions.checkNotNull(inputFile);
-    highlighting = sonarComponents.highlightableFor(inputFile).newHighlighting();
-    offsets = new SourceFileOffsets(getContext().getFile(), charset);
+    highlighting = sensorContext.newHighlighting().onFile(fileSystem.inputFile(fileSystem.predicates().is(getContext().getFile())));
+    sourceFileOffsets = new SourceFileOffsets(getContext().getFile(), charset);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    highlighting.highlight(
-        offsets.startOffset(astNode),
-        offsets.endOffset(astNode),
-        TYPES.get(astNode.getType())
-    );
+    highlighting
+      .highlight(
+        sourceFileOffsets.startOffset(astNode),
+        sourceFileOffsets.endOffset(astNode),
+        TYPES.get(astNode.getType()));
   }
 
   @Override
   public void visitToken(Token token) {
     for (Trivia trivia : token.getTrivia()) {
       if (trivia.isComment()) {
-        highlighting.highlight(
-            offsets.startOffset(trivia.getToken()),
-            offsets.endOffset(trivia.getToken()),
-            "cppd"
-        );
+        highlighting
+          .highlight(
+            sourceFileOffsets.startOffset(trivia.getToken()),
+            sourceFileOffsets.endOffset(trivia.getToken()),
+            TypeOfText.COMMENT);
       }
     }
   }
@@ -103,7 +102,7 @@ public class SyntaxHighlighterVisitor extends SquidAstVisitor<LexerlessGrammar> 
       // parse error
       return;
     }
-    highlighting.done();
+    highlighting.save();
   }
 
 }
