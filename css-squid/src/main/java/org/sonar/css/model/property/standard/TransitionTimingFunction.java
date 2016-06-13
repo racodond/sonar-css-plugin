@@ -19,14 +19,18 @@
  */
 package org.sonar.css.model.property.standard;
 
-import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.HashMultiplierValidator;
+import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
+import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
 
 public class TransitionTimingFunction extends StandardProperty {
 
   public TransitionTimingFunction() {
-    addLinks("http://dev.w3.org/csswg/css-transitions/#propdef-transition-timing-function");
-    addVendors(Vendor.WEBKIT, Vendor.MOZILLA, Vendor.OPERA);
+    addLinks("https://drafts.csswg.org/css-transitions-1/#propdef-transition-timing-function");
+    addValidators(new HashMultiplierValidator(
+      new IdentifierValidator("ease", "linear", "ease-in", "ease-out", "ease-in-out", "step-start", "step-end"),
+      new FunctionValidator("steps", "cubic-bezier")));
   }
 
 }

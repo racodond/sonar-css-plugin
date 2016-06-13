@@ -1,0 +1,14 @@
+.mybox {
+  transition-delay: inherit;
+  transition-delay: 10s;
+  transition-delay: 0;
+  transition-delay: -10s; /* Noncompliant !{Update the invalid value of property "transition-delay". Expected format: <time>(>=0)#}! */
+  transition-delay: +10ms;
+  transition-delay: 10; /* Noncompliant */
+  transition-delay: 10.5; /* Noncompliant */
+  transition-delay: abc; /* Noncompliant */
+  transition-delay: 10s, 10s;
+  transition-delay: 10s, 10s, 0, 10s;
+  transition-delay: 10s, 10s, 0, -10s; /* Noncompliant */
+  transition-delay: 10s, 10s, 10, 10s; /* Noncompliant */
+}

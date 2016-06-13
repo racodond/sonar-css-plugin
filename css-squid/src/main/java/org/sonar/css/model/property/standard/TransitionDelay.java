@@ -19,14 +19,15 @@
  */
 package org.sonar.css.model.property.standard;
 
-import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.HashMultiplierValidator;
+import org.sonar.css.model.property.validator.ValidatorFactory;
 
 public class TransitionDelay extends StandardProperty {
 
   public TransitionDelay() {
-    addLinks("http://dev.w3.org/csswg/css-transitions/#propdef-transition-delay");
-    addVendors(Vendor.WEBKIT, Vendor.MOZILLA, Vendor.OPERA);
+    addLinks("https://drafts.csswg.org/css-transitions-1/#propdef-transition-delay");
+    addValidators(new HashMultiplierValidator(ValidatorFactory.getPositiveTimeValidator()));
   }
 
 }
