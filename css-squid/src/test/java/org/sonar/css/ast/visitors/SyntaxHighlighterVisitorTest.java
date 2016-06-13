@@ -45,18 +45,16 @@ import static org.sonar.api.batch.sensor.highlighting.TypeOfText.*;
 
 public class SyntaxHighlighterVisitorTest {
 
-  private DefaultFileSystem fileSystem;
   private SensorContextTester sensorContext;
   private File file;
   private DefaultInputFile inputFile;
-  private SquidAstVisitorContext visitorContext;
 
   @Rule
   public final TemporaryFolder tempFolder = new TemporaryFolder();
 
   @Before
   public void setUp() throws IOException {
-    fileSystem = new DefaultFileSystem(tempFolder.getRoot());
+    DefaultFileSystem fileSystem = new DefaultFileSystem(tempFolder.getRoot());
     fileSystem.setEncoding(Charsets.UTF_8);
     file = tempFolder.newFile();
     inputFile = new DefaultInputFile("moduleKey", file.getName())
@@ -67,7 +65,7 @@ public class SyntaxHighlighterVisitorTest {
     sensorContext = SensorContextTester.create(tempFolder.getRoot());
     sensorContext.setFileSystem(fileSystem);
 
-    visitorContext = mock(SquidAstVisitorContext.class);
+    SquidAstVisitorContext visitorContext = mock(SquidAstVisitorContext.class);
     when(visitorContext.getFile()).thenReturn(file);
   }
 

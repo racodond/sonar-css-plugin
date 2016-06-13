@@ -63,12 +63,7 @@ public class ValueElementListValidator implements ValueValidator {
       .map(v -> v.getValidatorFormat())
       .collect(Collectors.joining(" | "));
 
-    StringBuilder format = new StringBuilder()
-      .append(joinedValidatorsFormat)
-      .append(" [, ")
-      .append(joinedValidatorsFormat)
-      .append("]*");
-    return format.toString();
+    return joinedValidatorsFormat + " [, " + joinedValidatorsFormat + "]*";
   }
 
 }
