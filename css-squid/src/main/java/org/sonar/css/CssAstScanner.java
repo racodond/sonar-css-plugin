@@ -29,8 +29,8 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.Nullable;
 
+import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.css.api.CssMetric;
-import org.sonar.css.ast.visitors.SonarComponents;
 import org.sonar.css.ast.visitors.SyntaxHighlighterVisitor;
 import org.sonar.css.issue.Issue;
 import org.sonar.css.parser.CssGrammar;
@@ -56,15 +56,21 @@ public final class CssAstScanner {
    */
   @VisibleForTesting
   public static SourceFile scanSingleFile(File file, SquidAstVisitor<LexerlessGrammar>... visitors) {
-    return scanSingleFileWithCustomConfiguration(file, new CssConfiguration(Charsets.UTF_8), visitors);
+    return scanSingleFileWithCustomConfiguration(file, null, new CssConfiguration(Charsets.UTF_8), visitors);
   }
 
   @VisibleForTesting
-  public static SourceFile scanSingleFileWithCustomConfiguration(File file, CssConfiguration conf, SquidAstVisitor<LexerlessGrammar>... visitors) {
+  public static SourceFile scanSingleFile(File file, SensorContext sensorContext, SquidAstVisitor<LexerlessGrammar>... visitors) {
+    return scanSingleFileWithCustomConfiguration(file, sensorContext, new CssConfiguration(Charsets.UTF_8), visitors);
+  }
+
+  @VisibleForTesting
+  public static SourceFile scanSingleFileWithCustomConfiguration(File file, @Nullable SensorContext sensorContext, CssConfiguration conf,
+    SquidAstVisitor<LexerlessGrammar>... visitors) {
     if (!file.isFile()) {
       throw new IllegalArgumentException("File '" + file + "' not found.");
     }
-    AstScanner scanner = create(conf, null, new HashSet<>(), visitors);
+    AstScanner scanner = create(sensorContext, conf, new HashSet<>(), visitors);
     scanner.scanFile(file);
     Collection<SourceCode> sources = scanner.getIndex().search(new QueryByType(SourceFile.class));
     if (sources.size() != 1) {
@@ -73,9 +79,9 @@ public final class CssAstScanner {
     return (SourceFile) sources.iterator().next();
   }
 
-  public static AstScanner<LexerlessGrammar> create(CssConfiguration conf, @Nullable SonarComponents sonarComponents, Set<Issue> issues,
+  public static AstScanner<LexerlessGrammar> create(@Nullable SensorContext sensorContext, CssConfiguration conf, Set<Issue> issues,
     SquidAstVisitor<LexerlessGrammar>... visitors) {
-    final CssSquidContext context = new CssSquidContext(new SourceProject("Python Project"), issues);
+    final CssSquidContext context = new CssSquidContext(new SourceProject("CSS Project"), issues);
     final Parser<LexerlessGrammar> parser = new ParserAdapter<>(conf.getCharset(), CssGrammar.createGrammar());
 
     AstScanner.Builder<LexerlessGrammar> builder = AstScanner.builder(context).setBaseParser(parser);
@@ -122,8 +128,8 @@ public final class CssAstScanner {
 
     builder.withSquidAstVisitor(new LinesOfCodeVisitor<>(CssMetric.LINES_OF_CODE));
 
-    if (sonarComponents != null) {
-      builder.withSquidAstVisitor(new SyntaxHighlighterVisitor(sonarComponents, conf.getCharset()));
+    if (sensorContext != null) {
+      builder.withSquidAstVisitor(new SyntaxHighlighterVisitor(sensorContext, conf.getCharset()));
     }
 
     for (SquidAstVisitor<LexerlessGrammar> visitor : visitors) {

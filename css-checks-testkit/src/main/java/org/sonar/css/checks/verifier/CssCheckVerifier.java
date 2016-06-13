@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.Nullable;
 
 import org.sonar.css.CssAstScanner;
 import org.sonar.css.CssCheck;
@@ -35,8 +36,6 @@ import org.sonar.css.CssConfiguration;
 import org.sonar.css.issue.Issue;
 import org.sonar.css.issue.PreciseIssue;
 import org.sonar.css.issue.PreciseIssueLocation;
-
-import javax.annotation.Nullable;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.fail;
@@ -51,11 +50,11 @@ public class CssCheckVerifier {
   }
 
   public static void verify(CssCheck check, File file, CssConfiguration configuration) {
-    CssAstScanner.scanSingleFileWithCustomConfiguration(file, configuration, check);
+    CssAstScanner.scanSingleFileWithCustomConfiguration(file, null, configuration, check);
     Iterator<Issue> actualIssues = getActualIssues(check);
 
     TestIssueCheck testIssueCheck = new TestIssueCheck();
-    CssAstScanner.scanSingleFileWithCustomConfiguration(file, configuration, testIssueCheck);
+    CssAstScanner.scanSingleFileWithCustomConfiguration(file, null, configuration, testIssueCheck);
     List<TestIssue> expectedIssues = getExpectedIssues(testIssueCheck);
 
     for (TestIssue expected : expectedIssues) {

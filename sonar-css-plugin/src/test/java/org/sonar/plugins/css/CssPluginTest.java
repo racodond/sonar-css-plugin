@@ -39,7 +39,7 @@ public class CssPluginTest {
   public void should_get_the_right_number_of_extensions() throws Exception {
     Context context = new Context(Version.create(5, 6));
     new CssPlugin().define(context);
-    assertThat(context.getExtensions()).hasSize(6);
+    assertThat(context.getExtensions()).hasSize(5);
   }
 
 }

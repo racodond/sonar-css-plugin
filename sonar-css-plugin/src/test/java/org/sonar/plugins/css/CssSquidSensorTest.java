@@ -20,7 +20,6 @@
 package org.sonar.plugins.css;
 
 import java.io.File;
-import java.util.Collection;
 
 import org.junit.Test;
 import org.sonar.api.batch.fs.InputFile;
@@ -31,7 +30,6 @@ import org.sonar.api.batch.rule.CheckFactory;
 import org.sonar.api.batch.rule.internal.ActiveRulesBuilder;
 import org.sonar.api.batch.sensor.internal.DefaultSensorDescriptor;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
-import org.sonar.api.batch.sensor.issue.Issue;
 import org.sonar.api.internal.google.common.base.Charsets;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
@@ -89,7 +87,7 @@ public class CssSquidSensorTest {
   }
 
   private CssSquidSensor createCssSquidSensor() {
-    return new CssSquidSensor(null, context.fileSystem(), checkFactory, new NoSonarFilter());
+    return new CssSquidSensor(context.fileSystem(), checkFactory, new NoSonarFilter());
   }
 
   private DefaultInputFile inputFile(String relativePath) {

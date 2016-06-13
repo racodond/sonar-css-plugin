@@ -75,7 +75,7 @@ public class CssRealCodeTest {
     File file = new File(CssRealCodeTest.class.getClassLoader().getResource(fileName)
       .toURI());
     BufferedReader reader = Files.newReader(file, Charsets.UTF_8);
-    String line = null;
+    String line;
     while ((line = reader.readLine()) != null) {
       text.append(line).append("\n");
     }
