@@ -17,36 +17,28 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.checks;
+package org.sonar.css;
 
-import com.google.common.base.Charsets;
-import com.sonar.sslr.api.AstNode;
-import org.sonar.check.Priority;
-import org.sonar.check.Rule;
-import org.sonar.css.CssCheck;
-import org.sonar.css.parser.CssGrammar;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import com.google.common.io.Files;
 
-@Rule(
-  key = "bom-utf8-files",
-  name = "Byte Order Mark (BOM) should not be used for UTF-8 files",
-  priority = Priority.MAJOR,
-  tags = {Tags.PITFALL})
-@SqaleConstantRemediation("5min")
-@ActivatedByDefault
-public class BOMCheck extends CssCheck {
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
 
-  @Override
-  public void init() {
-    if (Charsets.UTF_8.equals(getCharset())) {
-      subscribeTo(CssGrammar.BOM);
-    }
+public class FileUtils {
+
+  public static boolean startsWithBOM(File file, Charset charset) {
+    return fileContent(file, charset).startsWith(Character.toString('\uFEFF'));
   }
 
-  @Override
-  public void visitNode(AstNode node) {
-    addFileIssue(this, "Remove the Byte Order Mark (BOM).");
+  public static String fileContent(File file, Charset charset) {
+    String fileContent;
+    try {
+      fileContent = Files.toString(file, charset);
+    } catch (IOException e) {
+      throw new IllegalStateException("Could not read " + file, e);
+    }
+    return fileContent;
   }
 
 }

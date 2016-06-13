@@ -31,4 +31,9 @@ public class DisallowSelectorsLikeRegExTest {
     CssCheckVerifier.verify(new DisallowSelectorsLikeRegEx(), new File("src/test/resources/checks/regexlikeselectors.css"));
   }
 
+  @Test
+  public void test_with_bom() {
+    CssCheckVerifier.verify(new DisallowSelectorsLikeRegEx(), new File("src/test/resources/checks/regexlikeselectorsStartingWithBOM.css"));
+  }
+
 }

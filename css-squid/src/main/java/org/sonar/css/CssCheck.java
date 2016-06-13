@@ -22,6 +22,7 @@ package org.sonar.css;
 import com.google.common.annotations.VisibleForTesting;
 import com.sonar.sslr.api.AstNode;
 
+import java.nio.charset.Charset;
 import java.util.Set;
 
 import org.sonar.css.issue.Issue;
@@ -29,10 +30,21 @@ import org.sonar.css.issue.PreciseIssue;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-public class CssCheck extends SquidCheck<LexerlessGrammar> {
+public class CssCheck extends SquidCheck<LexerlessGrammar> implements CharsetAwareVisitor {
+
+  private Charset charset;
+
+  @Override
+  public void setCharset(Charset charset) {
+    this.charset = charset;
+  }
+
+  public Charset getCharset() {
+    return charset;
+  }
 
   public PreciseIssue addIssue(SquidCheck check, String message, AstNode astNode) {
-    PreciseIssue issue = new PreciseIssue(check, getContext().getFile(), message, astNode);
+    PreciseIssue issue = new PreciseIssue(check, getContext().getFile(), message, astNode, charset);
     addIssue(issue);
     return issue;
   }

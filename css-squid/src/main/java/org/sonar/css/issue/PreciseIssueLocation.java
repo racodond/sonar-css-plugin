@@ -29,12 +29,22 @@ public class PreciseIssueLocation {
   private final int endLine;
   private final int endColumn;
 
-  public PreciseIssueLocation(String message, AstNode astNode) {
+  public PreciseIssueLocation(String message, AstNode astNode, boolean bomOffset) {
     this.message = message;
     this.startLine = astNode.getToken().getLine();
-    this.startColumn = astNode.getToken().getColumn();
     this.endLine = astNode.getLastToken().getLine();
-    this.endColumn = astNode.getLastToken().getColumn() + astNode.getLastToken().getValue().length();
+
+    if (bomOffset && startLine == 1) {
+      this.startColumn = astNode.getToken().getColumn() - 1;
+    } else {
+      this.startColumn = astNode.getToken().getColumn();
+    }
+
+    if (bomOffset && endLine == 1) {
+      this.endColumn = astNode.getLastToken().getColumn() + astNode.getLastToken().getValue().length() - 1;
+    } else {
+      this.endColumn = astNode.getLastToken().getColumn() + astNode.getLastToken().getValue().length();
+    }
   }
 
   public PreciseIssueLocation(String message, int line) {

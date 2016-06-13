@@ -23,17 +23,14 @@ import com.google.common.io.Files;
 import com.sonar.sslr.api.AstNode;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.List;
 import java.util.regex.Pattern;
+import javax.annotation.Nullable;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.CharsetAwareVisitor;
 import org.sonar.css.CssCheck;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-
-import javax.annotation.Nullable;
 
 @Rule(
   key = "S1131",
@@ -41,21 +38,15 @@ import javax.annotation.Nullable;
   priority = Priority.MINOR,
   tags = {Tags.FORMAT})
 @SqaleConstantRemediation("1min")
-public class TrailingWhitespaceCheck extends CssCheck implements CharsetAwareVisitor {
+public class TrailingWhitespaceCheck extends CssCheck {
 
   private static final String WHITESPACE = "\\t\\u000B\\f\\u0020\\u00A0\\uFEFF\\p{Zs}";
-  private Charset charset;
-
-  @Override
-  public void setCharset(Charset charset) {
-    this.charset = charset;
-  }
 
   @Override
   public void visitFile(@Nullable AstNode astNode) {
     List<String> lines;
     try {
-      lines = Files.readLines(getContext().getFile(), charset);
+      lines = Files.readLines(getContext().getFile(), getCharset());
     } catch (IOException e) {
       throw new IllegalStateException("Rule S1131 - cannot read file", e);
     }

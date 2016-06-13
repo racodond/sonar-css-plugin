@@ -23,17 +23,14 @@ import com.google.common.io.Files;
 import com.sonar.sslr.api.AstNode;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.List;
+import javax.annotation.Nullable;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.CharsetAwareVisitor;
 import org.sonar.css.CssCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-
-import javax.annotation.Nullable;
 
 @Rule(
   key = "tab-character",
@@ -42,20 +39,13 @@ import javax.annotation.Nullable;
   tags = {Tags.CONVENTION})
 @ActivatedByDefault
 @SqaleConstantRemediation("2min")
-public class TabCharacterCheck extends CssCheck implements CharsetAwareVisitor {
-
-  private Charset charset;
-
-  @Override
-  public void setCharset(Charset charset) {
-    this.charset = charset;
-  }
+public class TabCharacterCheck extends CssCheck {
 
   @Override
   public void visitFile(@Nullable AstNode astNode) {
     List<String> lines;
     try {
-      lines = Files.readLines(getContext().getFile(), charset);
+      lines = Files.readLines(getContext().getFile(), getCharset());
     } catch (IOException e) {
       throw new IllegalStateException("Rule tab-character - cannot read file", e);
     }

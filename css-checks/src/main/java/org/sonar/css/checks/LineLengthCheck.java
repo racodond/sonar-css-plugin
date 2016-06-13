@@ -24,14 +24,12 @@ import com.google.common.io.Files;
 import com.sonar.sslr.api.AstNode;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.List;
 import javax.annotation.Nullable;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
-import org.sonar.css.CharsetAwareVisitor;
 import org.sonar.css.CssCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -43,10 +41,9 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   tags = {Tags.CONVENTION})
 @SqaleConstantRemediation("1min")
 @ActivatedByDefault
-public class LineLengthCheck extends CssCheck implements CharsetAwareVisitor {
+public class LineLengthCheck extends CssCheck {
 
   private static final int DEFAULT_MAXIMUM_LINE_LENGTH = 120;
-  private Charset charset;
 
   @RuleProperty(
     key = "maximumLineLength",
@@ -55,15 +52,10 @@ public class LineLengthCheck extends CssCheck implements CharsetAwareVisitor {
   private int maximumLineLength = DEFAULT_MAXIMUM_LINE_LENGTH;
 
   @Override
-  public void setCharset(Charset charset) {
-    this.charset = charset;
-  }
-
-  @Override
   public void visitFile(@Nullable AstNode astNode) {
     List<String> lines;
     try {
-      lines = Files.readLines(getContext().getFile(), charset);
+      lines = Files.readLines(getContext().getFile(), getCharset());
     } catch (IOException e) {
       throw new IllegalStateException("Rule line-length - cannot read file", e);
     }

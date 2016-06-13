@@ -20,9 +20,12 @@
 package org.sonar.css.issue;
 
 import com.google.common.base.Preconditions;
+import com.google.common.io.Files;
 import com.sonar.sslr.api.AstNode;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,11 +35,13 @@ import org.sonar.api.batch.rule.Checks;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.rule.RuleKey;
+import org.sonar.css.FileUtils;
 import org.sonar.squidbridge.checks.SquidCheck;
 
 public class PreciseIssue implements Issue {
   private final SquidCheck check;
   private final File file;
+  private boolean fileStartsWithBOM;
   private Double effortToFix;
   private PreciseIssueLocation primaryLocation;
   private final List<PreciseIssueLocation> secondaryLocations;
@@ -45,11 +50,13 @@ public class PreciseIssue implements Issue {
     this.check = check;
     this.file = file;
     this.secondaryLocations = new ArrayList<>();
+
   }
 
-  public PreciseIssue(SquidCheck check, File file, String message, AstNode primaryLocation) {
+  public PreciseIssue(SquidCheck check, File file, String message, AstNode primaryLocation, Charset charset) {
     this(check, file);
-    this.primaryLocation = new PreciseIssueLocation(message, primaryLocation);
+    this.fileStartsWithBOM = FileUtils.startsWithBOM(file, charset);
+    this.primaryLocation = new PreciseIssueLocation(message, primaryLocation, fileStartsWithBOM);
   }
 
   public PreciseIssue(SquidCheck check, File file, String message, int line) {
@@ -79,7 +86,7 @@ public class PreciseIssue implements Issue {
   }
 
   public PreciseIssue addSecondaryLocation(String message, AstNode astNode) {
-    secondaryLocations.add(new PreciseIssueLocation(message, astNode));
+    secondaryLocations.add(new PreciseIssueLocation(message, astNode, fileStartsWithBOM));
     return this;
   }
 
@@ -122,4 +129,15 @@ public class PreciseIssue implements Issue {
 
     issue.save();
   }
+
+  private static String fileContent(File file, Charset charset) {
+    String fileContent;
+    try {
+      fileContent = Files.toString(file, charset);
+    } catch (IOException e) {
+      throw new IllegalStateException("Could not read " + file, e);
+    }
+    return fileContent;
+  }
+
 }
