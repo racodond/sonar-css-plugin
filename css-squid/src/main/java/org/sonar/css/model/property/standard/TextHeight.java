@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class TextHeight extends StandardProperty {
 
   public TextHeight() {
+    setExperimental(true);
     addLinks("http://www.w3.org/TR/css3-linebox/#text-height");
     addValidators(new IdentifierValidator("auto", "font-size", "text-size", "max-size"));
   }

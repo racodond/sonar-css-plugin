@@ -20,11 +20,14 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class RubyMerge extends StandardProperty {
 
   public RubyMerge() {
-    addLinks("http://www.w3.org/TR/2003/CR-css3-ruby-20030514/#rubyspan");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-ruby-1/#propdef-ruby-merge");
+    addValidators(new IdentifierValidator("separate", "collapse", "auto"));
   }
 
 }

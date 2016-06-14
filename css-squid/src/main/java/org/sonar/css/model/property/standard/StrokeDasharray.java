@@ -24,6 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class StrokeDasharray extends StandardProperty {
 
   public StrokeDasharray() {
+    setExperimental(true);
     addLinks("https://www.w3.org/TR/SVG/painting.html#StrokeDasharrayProperty");
   }
 

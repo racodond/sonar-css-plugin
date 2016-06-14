@@ -20,13 +20,12 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.property.line.LineStackingShiftValidator;
 
 public class LineStackingShift extends StandardProperty {
 
   public LineStackingShift() {
+    setObsolete(true);
     addLinks("http://www.w3.org/TR/css3-linebox/#line-stacking-shift");
-    addValidators(new LineStackingShiftValidator());
   }
 
 }

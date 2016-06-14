@@ -24,6 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class ImageOrientation extends StandardProperty {
 
   public ImageOrientation() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-images-3/#propdef-image-orientation");
   }
 

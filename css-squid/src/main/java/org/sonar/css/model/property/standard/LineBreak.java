@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class LineBreak extends StandardProperty {
 
   public LineBreak() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-text-3/#propdef-line-break");
     addValidators(new IdentifierValidator("auto", "loose", "normal", "strict"));
   }

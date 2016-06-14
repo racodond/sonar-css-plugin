@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.property.animation.AnimationDelayValidator;
 
@@ -27,7 +26,6 @@ public class AnimationDelay extends StandardProperty {
 
   public AnimationDelay() {
     addLinks("http://www.w3.org/TR/css3-animations/#animation-delay");
-    addVendors(Vendor.WEBKIT, Vendor.MOZILLA);
     addValidators(new AnimationDelayValidator());
   }
 

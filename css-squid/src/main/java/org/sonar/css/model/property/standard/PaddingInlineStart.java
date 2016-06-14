@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class PaddingInlineStart extends StandardProperty {
 
   public PaddingInlineStart() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-logical-props/#propdef-padding-inline-start");
     addValidators(ValidatorFactory.getPaddingWidthValidator());
   }

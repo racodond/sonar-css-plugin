@@ -24,6 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class MaskSize extends StandardProperty {
 
   public MaskSize() {
+    setExperimental(true);
     addLinks("https://drafts.fxtf.org/masking/#propdef-mask-size");
   }
 

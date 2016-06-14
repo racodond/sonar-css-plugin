@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class BorderInlineEndWidth extends StandardProperty {
 
   public BorderInlineEndWidth() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-logical-props/#propdef-border-inline-end-width");
     addValidators(ValidatorFactory.getBorderWidthValidator());
   }

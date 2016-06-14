@@ -24,6 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class Phonemes extends StandardProperty {
 
   public Phonemes() {
+    setObsolete(true);
     addLinks("http://www.w3.org/TR/2003/WD-css3-speech-20030514/#phonetic-props");
   }
 

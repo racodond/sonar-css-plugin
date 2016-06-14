@@ -24,6 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class GridRowStart extends StandardProperty {
 
   public GridRowStart() {
+    setExperimental(true);
     addLinks("http://www.w3.org/TR/css-grid-1/#propdef-grid-row-start");
   }
 

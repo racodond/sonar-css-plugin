@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.property.NavValidator;
 public class NavUp extends StandardProperty {
 
   public NavUp() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-ui/#propdef-nav-up");
     addValidators(new NavValidator());
   }

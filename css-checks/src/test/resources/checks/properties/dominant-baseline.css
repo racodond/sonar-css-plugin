@@ -1,18 +1,15 @@
 .mybox {
   dominant-baseline: inherit;
   dominant-baseline: auto;
-  dominant-baseline: use-script;
-  dominant-baseline: no-change;
-  dominant-baseline: reset-size;
+  dominant-baseline: text-bottom ;
   dominant-baseline: alphabetic;
-  dominant-baseline: hanging;
   dominant-baseline: ideographic;
-  dominant-baseline: mathematical;
-  dominant-baseline: central;
   dominant-baseline: middle;
-  dominant-baseline: text-after-edge;
-  dominant-baseline: text-before-edge;
-  dominant-baseline: 10; /* Noncompliant !{Update the invalid value of property "dominant-baseline". Expected format: auto | use-script | no-change | reset-size | alphabetic | hanging | ideographic | mathematical | central | middle | text-after-edge | text-before-edge}! */
+  dominant-baseline: central;
+  dominant-baseline: mathematical;
+  dominant-baseline: hanging;
+  dominant-baseline: text-top;
+  dominant-baseline: 10; /* Noncompliant !{Update the invalid value of property "dominant-baseline". Expected format: auto | text-bottom | alphabetic | ideographic | middle | central | mathematical | hanging | text-top}! */
   dominant-baseline: 10px; /* Noncompliant */
   dominant-baseline: abc; /* Noncompliant */
 }

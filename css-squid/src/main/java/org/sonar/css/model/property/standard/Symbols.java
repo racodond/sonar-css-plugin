@@ -26,6 +26,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class Symbols extends StandardProperty {
 
   public Symbols() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-counter-styles-3/#descdef-counter-style-symbols");
     addValidators(
       new PlusMultiplierValidator(

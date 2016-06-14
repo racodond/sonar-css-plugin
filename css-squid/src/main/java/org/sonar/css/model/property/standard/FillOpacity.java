@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.valueelement.numeric.NumberRangeVa
 public class FillOpacity extends StandardProperty {
 
   public FillOpacity() {
+    setExperimental(true);
     addLinks("https://www.w3.org/TR/SVG/painting.html#FillOpacityProperty");
     addValidators(new NumberRangeValidator(0, 1));
   }

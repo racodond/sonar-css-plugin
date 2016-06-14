@@ -25,7 +25,8 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class BookmarkState extends StandardProperty {
 
   public BookmarkState() {
-    addLinks("http://www.w3.org/TR/css-gcpm-3/#propdef-bookmark-state");
+    setExperimental(true);
+    addLinks("https://www.w3.org/TR/css-content-3/#propdef-bookmark-state");
     addValidators(new IdentifierValidator("open", "close"));
   }
 

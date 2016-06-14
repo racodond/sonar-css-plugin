@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class FontVariantCaps extends StandardProperty {
 
   public FontVariantCaps() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-fonts-3/#propdef-font-variant-caps");
     addValidators(new IdentifierValidator("normal", "small-caps", "all-small-caps", "petite-caps", "all-petite-caps", "unicase", "titling-caps"));
   }

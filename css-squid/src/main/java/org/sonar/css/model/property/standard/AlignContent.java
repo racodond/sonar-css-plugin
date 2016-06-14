@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class AlignContent extends StandardProperty {
 
   public AlignContent() {
-    addLinks("http://dev.w3.org/csswg/css-flexbox-1/#propdef-align-content");
+    addLinks(
+      "http://dev.w3.org/csswg/css-flexbox-1/#propdef-align-content",
+      "https://drafts.csswg.org/css-align-3/#propdef-align-content");
     addValidators(new IdentifierValidator("flex-start", "flex-end", "center", "space-between", "space-around", "stretch"));
   }
 

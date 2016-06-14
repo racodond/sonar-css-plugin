@@ -24,7 +24,10 @@ import org.sonar.css.model.property.StandardProperty;
 public class Columns extends StandardProperty {
 
   public Columns() {
-    addLinks("http://dev.w3.org/csswg/css-multicol-1/#propdef-columns");
+    setExperimental(true);
+    addLinks(
+      "http://dev.w3.org/csswg/css-multicol-1/#propdef-columns",
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/columns");
   }
 
 }

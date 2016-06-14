@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class MinInlineSize extends StandardProperty {
 
   public MinInlineSize() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-logical-props/#propdef-min-inline-size");
     addValidators(ValidatorFactory.getSizeValidator());
   }

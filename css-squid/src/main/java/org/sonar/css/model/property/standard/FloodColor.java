@@ -25,7 +25,10 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class FloodColor extends StandardProperty {
 
   public FloodColor() {
-    addLinks("https://www.w3.org/TR/SVG/filters.html#FloodColorProperty");
+    setExperimental(true);
+    addLinks(
+      "https://www.w3.org/TR/SVG/filters.html#FloodColorProperty",
+      "https://drafts.fxtf.org/filters/#propdef-flood-color");
     addValidators(ValidatorFactory.getColorValidator());
   }
 

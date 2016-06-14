@@ -27,7 +27,6 @@ public class Transform extends StandardProperty {
 
   public Transform() {
     addLinks("http://dev.w3.org/csswg/css-transforms/#propdef-transform");
-    addVendors(Vendor.WEBKIT, Vendor.MOZILLA, Vendor.OPERA, Vendor.MICROSOFT);
     addValidators(new TransformValidator());
   }
 

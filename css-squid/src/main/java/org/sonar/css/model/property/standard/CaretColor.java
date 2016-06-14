@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class CaretColor extends StandardProperty {
 
   public CaretColor() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-ui/#propdef-caret-color");
     addValidators(ValidatorFactory.getAutoValidator(), ValidatorFactory.getColorValidator());
   }

@@ -26,6 +26,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class MaskBorderOutset extends StandardProperty {
 
   public MaskBorderOutset() {
+    setExperimental(true);
     addLinks("https://drafts.fxtf.org/masking/#propdef-mask-border-outset");
     addValidators(new MultiplierValidator(4, ValidatorFactory.getLengthValidator(), ValidatorFactory.getNumberValidator()));
   }

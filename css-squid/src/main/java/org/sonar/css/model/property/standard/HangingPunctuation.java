@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.property.HangingPunctuationValidat
 public class HangingPunctuation extends StandardProperty {
 
   public HangingPunctuation() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-text-3/#propdef-hanging-punctuation");
     addValidators(new HangingPunctuationValidator());
   }

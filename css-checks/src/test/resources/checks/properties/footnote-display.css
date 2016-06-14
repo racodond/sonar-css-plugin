@@ -1,0 +1,8 @@
+.mybox {
+  footnote-display: inherit;
+  footnote-display: block;
+  footnote-display: inline;
+  footnote-display: compact;
+  footnote-display: abc; /* Noncompliant !{Update the invalid value of property "footnote-display". Expected format: block | inline | compact}! */
+  footnote-display: 10; /* Noncompliant */
+}

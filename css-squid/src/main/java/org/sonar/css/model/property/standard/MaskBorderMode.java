@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class MaskBorderMode extends StandardProperty {
 
   public MaskBorderMode() {
+    setExperimental(true);
     addLinks("https://drafts.fxtf.org/masking/#propdef-mask-border-mode");
     addValidators(new IdentifierValidator("luminance", "alpha"));
   }

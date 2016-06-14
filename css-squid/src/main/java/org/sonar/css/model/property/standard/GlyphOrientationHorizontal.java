@@ -26,6 +26,7 @@ public class GlyphOrientationHorizontal extends StandardProperty {
 
   public GlyphOrientationHorizontal() {
     // TODO: Validator should restrict angles to 0, 90, 180, and 270 degrees
+    setExperimental(true);
     addLinks("https://www.w3.org/TR/SVG/text.html#GlyphOrientationHorizontalProperty");
     addValidators(ValidatorFactory.getAngleValidator());
   }

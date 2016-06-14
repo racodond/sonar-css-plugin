@@ -24,6 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class PresentationLevel extends StandardProperty {
 
   public PresentationLevel() {
+    setObsolete(true);
     addLinks("http://www.w3.org/TR/css3-preslev/#presentation-level-property");
   }
 

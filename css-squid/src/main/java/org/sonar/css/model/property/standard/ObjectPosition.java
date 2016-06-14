@@ -24,7 +24,10 @@ import org.sonar.css.model.property.StandardProperty;
 public class ObjectPosition extends StandardProperty {
 
   public ObjectPosition() {
-    addLinks("http://dev.w3.org/csswg/css-images-3/#propdef-object-position");
+    setExperimental(true);
+    addLinks(
+      "http://dev.w3.org/csswg/css-images-3/#propdef-object-position",
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/object-position");
   }
 
 }

@@ -19,13 +19,18 @@
  */
 package org.sonar.css.model.property.standard;
 
+import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class ColumnFill extends StandardProperty {
 
   public ColumnFill() {
-    addLinks("http://dev.w3.org/csswg/css-multicol-1/#propdef-column-fill");
+    setExperimental(true);
+    addLinks(
+      "http://dev.w3.org/csswg/css-multicol-1/#propdef-column-fill",
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/column-fill");
+    addVendors(Vendor.MOZILLA);
     addValidators(new IdentifierValidator("auto", "balance", "balance-all"));
   }
 

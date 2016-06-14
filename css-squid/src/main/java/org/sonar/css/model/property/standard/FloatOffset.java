@@ -20,11 +20,14 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.ValidatorFactory;
 
 public class FloatOffset extends StandardProperty {
 
   public FloatOffset() {
-    addLinks("http://dev.w3.org/csswg/css-page-floats/#propdef-float-offset");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-page-floats/#propdef-float-offset");
+    addValidators(ValidatorFactory.getLengthValidator(), ValidatorFactory.getPercentageValidator());
   }
 
 }

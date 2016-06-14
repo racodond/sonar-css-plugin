@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class ShapeMargin extends StandardProperty {
 
   public ShapeMargin() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-shapes/#propdef-shape-margin");
     addValidators(ValidatorFactory.getLengthValidator(), ValidatorFactory.getPercentageValidator());
   }

@@ -25,7 +25,10 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class BreakInside extends StandardProperty {
 
   public BreakInside() {
-    addLinks("https://drafts.csswg.org/css-break-3/#propdef-break-after");
+    setExperimental(true);
+    addLinks(
+      "https://drafts.csswg.org/css-break-3/#propdef-break-after",
+      "https://drafts.csswg.org/css-regions-1/#propdef-break-inside");
     addValidators(new IdentifierValidator("auto", "avoid", "avoid-page", "avoid-column", "avoid-region"));
   }
 

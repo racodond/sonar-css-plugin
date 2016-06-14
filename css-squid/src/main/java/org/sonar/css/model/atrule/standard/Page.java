@@ -24,7 +24,8 @@ import org.sonar.css.model.atrule.StandardAtRule;
 public class Page extends StandardAtRule {
 
   public Page() {
-    addLinks("https://www.w3.org/TR/CSS2/page.html#page-box");
+    addLinks("https://www.w3.org/TR/CSS2/page.html#page-box",
+        "");
   } 
 
 }

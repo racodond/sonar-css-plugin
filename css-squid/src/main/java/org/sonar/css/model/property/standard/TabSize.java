@@ -26,8 +26,9 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class TabSize extends StandardProperty {
 
   public TabSize() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-text-3/#propdef-tab-size");
-    addVendors(Vendor.MOZILLA, Vendor.OPERA);
+    addVendors(Vendor.MOZILLA);
     addValidators(ValidatorFactory.getPositiveLengthValidator(), ValidatorFactory.getPositiveIntegerValidator());
   }
 

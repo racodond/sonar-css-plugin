@@ -24,7 +24,10 @@ import org.sonar.css.model.property.StandardProperty;
 public class Content extends StandardProperty {
 
   public Content() {
-    addLinks("https://www.w3.org/TR/CSS22/generate.html");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/generate.html",
+      "https://drafts.csswg.org/css-gcpm-3/#funcdef-element",
+      "https://www.w3.org/TR/css-content-3/#propdef-content");
   }
 
 }

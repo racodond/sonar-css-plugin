@@ -25,7 +25,8 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class CounterSet extends StandardProperty {
 
   public CounterSet() {
-    addLinks("http://dev.w3.org/csswg/css-lists-3/#propdef-counter-set");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-lists-3/#propdef-counter-set");
     addValidators(ValidatorFactory.getCounterValidator());
   }
 

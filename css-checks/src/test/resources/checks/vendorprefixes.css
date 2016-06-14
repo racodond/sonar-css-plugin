@@ -7,10 +7,6 @@ a {
   -moz-foo: bar;
 }
 
-.mybox { /* Noncompliant  ![sc=1;ec=7;el=+0]! !{Define the missing vendor prefixes: -moz- -o- -ms- for the "transform" property.}! */
-  -webkit-transform: translate(50px, 100px);
-}
-
 .mybox { /* Noncompliant  ![sc=1;ec=7;el=+0]! !{Define the missing vendor prefixes: -webkit- for the "border-radius" property.}! */
   -moz-border-radius: 5px;
 }

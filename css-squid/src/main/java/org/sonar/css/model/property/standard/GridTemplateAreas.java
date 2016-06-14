@@ -24,6 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class GridTemplateAreas extends StandardProperty {
 
   public GridTemplateAreas() {
+    setExperimental(true);
     addLinks("http://www.w3.org/TR/css-grid-1/#propdef-grid-template-areas");
   }
 

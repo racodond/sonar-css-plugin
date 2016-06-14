@@ -24,6 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class MaskRepeat extends StandardProperty {
 
   public MaskRepeat() {
+    setExperimental(true);
     addLinks("https://drafts.fxtf.org/masking/#propdef-mask-repeat");
   }
 

@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.valueelement.numeric.NumberRangeVa
 public class StrokeOpacity extends StandardProperty {
 
   public StrokeOpacity() {
+    setExperimental(true);
     addLinks("https://www.w3.org/TR/SVG/painting.html#StrokeOpacityProperty");
     addValidators(new NumberRangeValidator(0, 1));
   }

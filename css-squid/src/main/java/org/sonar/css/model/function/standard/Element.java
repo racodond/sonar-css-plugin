@@ -24,7 +24,9 @@ import org.sonar.css.model.function.StandardFunction;
 public class Element extends StandardFunction {
 
   public Element() {
-    addLinks("https://drafts.csswg.org/css-images-4/#funcdef-element");
+    addLinks(
+      "https://drafts.csswg.org/css-images-4/#funcdef-element",
+      "https://drafts.csswg.org/css-gcpm-3/#funcdef-element");
   }
 
 }

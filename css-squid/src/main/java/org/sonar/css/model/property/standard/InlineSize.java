@@ -25,7 +25,8 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class InlineSize extends StandardProperty {
 
   public InlineSize() {
-    addLinks("http://dev.w3.org/csswg/css-logical-props/#propdef-inline-size");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-logical-props/#propdef-inline-size");
     addValidators(ValidatorFactory.getSizeValidator());
   }
 

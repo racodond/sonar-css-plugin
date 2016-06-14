@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.property.TextDecorationLineValidat
 public class TextDecorationLine extends StandardProperty {
 
   public TextDecorationLine() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-text-decor-3/#propdef-text-decoration-line");
     addValidators(new TextDecorationLineValidator());
   }

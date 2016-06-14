@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.property.TouchActionValidator;
 public class TouchAction extends StandardProperty {
 
   public TouchAction() {
+    setExperimental(true);
     addLinks("https://w3c.github.io/pointerevents/#the-touch-action-css-property");
     addValidators(new TouchActionValidator());
   }

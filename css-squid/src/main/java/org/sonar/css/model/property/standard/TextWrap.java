@@ -24,7 +24,8 @@ import org.sonar.css.model.property.StandardProperty;
 public class TextWrap extends StandardProperty {
 
   public TextWrap() {
-    setObsolete(true);
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-text-4/#propdef-text-wrap");
   }
 
 }

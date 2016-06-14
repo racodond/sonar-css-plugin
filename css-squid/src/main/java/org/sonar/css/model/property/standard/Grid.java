@@ -24,7 +24,10 @@ import org.sonar.css.model.property.StandardProperty;
 public class Grid extends StandardProperty {
 
   public Grid() {
-    addLinks("http://www.w3.org/TR/css-grid-1/#propdef-grid");
+    setExperimental(true);
+    addLinks(
+      "https://drafts.csswg.org/css-grid-1/#propdef-grid",
+      "https://drafts.csswg.org/mediaqueries-4/#descdef-media-grid");
   }
 
 }

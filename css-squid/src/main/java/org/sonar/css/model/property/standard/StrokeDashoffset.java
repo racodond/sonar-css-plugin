@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class StrokeDashoffset extends StandardProperty {
 
   public StrokeDashoffset() {
+    setExperimental(true);
     addLinks("https://www.w3.org/TR/SVG/painting.html#StrokeDashoffsetProperty");
     addValidators(ValidatorFactory.getPercentageValidator(), ValidatorFactory.getLengthValidator());
   }

@@ -24,6 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class MaskOrigin extends StandardProperty {
 
   public MaskOrigin() {
+    setExperimental(true);
     addLinks("https://drafts.fxtf.org/masking/#propdef-mask-origin");
   }
 

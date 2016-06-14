@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class JustifyContent extends StandardProperty {
 
   public JustifyContent() {
-    addLinks("http://dev.w3.org/csswg/css-flexbox-1/#propdef-justify-content");
+    addLinks(
+      "http://dev.w3.org/csswg/css-flexbox-1/#propdef-justify-content",
+        "https://drafts.csswg.org/css-align-3/#propdef-justify-content");
     addValidators(
       new IdentifierValidator("flex-start", "flex-end", "center", "space-between", "space-around"));
   }

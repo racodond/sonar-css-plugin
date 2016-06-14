@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class ClipRule extends StandardProperty {
 
   public ClipRule() {
+    setExperimental(true);
     addLinks(
       "https://drafts.fxtf.org/masking/#propdef-clip-rule",
       "https://www.w3.org/TR/SVG/masking.html#ClipRuleProperty");

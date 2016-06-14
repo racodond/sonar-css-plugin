@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.property.TextUnderlinePositionVali
 public class TextUnderlinePosition extends StandardProperty {
 
   public TextUnderlinePosition() {
+    setExperimental(true);
     addLinks("http://www.w3.org/TR/css-text-decor-3/#text-underline-position");
     addValidators(new TextUnderlinePositionValidator());
   }

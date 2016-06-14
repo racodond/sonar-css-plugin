@@ -26,8 +26,11 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class ColumnRuleColor extends StandardProperty {
 
   public ColumnRuleColor() {
-    addLinks("http://dev.w3.org/csswg/css-multicol-1/#propdef-column-rule-color");
-    addVendors(Vendor.WEBKIT, Vendor.MOZILLA, Vendor.MICROSOFT);
+    setExperimental(true);
+    addLinks(
+      "http://dev.w3.org/csswg/css-multicol-1/#propdef-column-rule-color",
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/column-rule-color");
+    addVendors(Vendor.MOZILLA);
     addValidators(ValidatorFactory.getColorValidator());
   }
 

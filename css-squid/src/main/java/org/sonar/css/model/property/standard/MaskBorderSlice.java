@@ -24,6 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class MaskBorderSlice extends StandardProperty {
 
   public MaskBorderSlice() {
+    setExperimental(true);
     addLinks("https://drafts.fxtf.org/masking/#propdef-mask-border-slice");
   }
 

@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class TextDecoration extends StandardProperty {
 
   public TextDecoration() {
+    setExperimental(true);
     addLinks(
       "https://www.w3.org/TR/CSS22/text.html#propdef-text-decoration",
       "https://drafts.csswg.org/css-text-decor-3/#propdef-text-decoration");

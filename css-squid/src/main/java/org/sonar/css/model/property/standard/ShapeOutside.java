@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.property.ShapeOutsideValidator;
 public class ShapeOutside extends StandardProperty {
 
   public ShapeOutside() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-shapes/#propdef-shape-outside");
     addValidators(new ShapeOutsideValidator());
   }

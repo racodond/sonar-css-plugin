@@ -26,8 +26,9 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class Hyphens extends StandardProperty {
 
   public Hyphens() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-text-3/#propdef-hyphens");
-    addVendors(Vendor.EPUB, Vendor.MOZILLA);
+    addVendors(Vendor.MICROSOFT, Vendor.WEBKIT);
     addValidators(new IdentifierValidator("none", "manual", "auto"));
   }
 

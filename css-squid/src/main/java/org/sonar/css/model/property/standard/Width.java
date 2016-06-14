@@ -27,7 +27,9 @@ public class Width extends StandardProperty {
   public Width() {
     addLinks(
       "https://www.w3.org/TR/CSS22/visudet.html#propdef-width",
-      "https://drafts.csswg.org/css-sizing-3/#width-height-keywords");
+      "https://drafts.csswg.org/css-sizing-3/#width-height-keywords",
+      "https://drafts.csswg.org/css-device-adapt/#descdef-viewport-width",
+      "https://drafts.csswg.org/mediaqueries-4/#descdef-media-width");
     addValidators(ValidatorFactory.getWidthHeightValidator());
   }
 

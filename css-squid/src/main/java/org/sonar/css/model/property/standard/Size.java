@@ -24,6 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class Size extends StandardProperty {
 
   public Size() {
+    setExperimental(true);
     addLinks("http://www.w3.org/TR/css3-page/#size");
   }
 

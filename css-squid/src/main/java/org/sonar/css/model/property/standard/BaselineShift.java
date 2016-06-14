@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
@@ -27,9 +26,10 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class BaselineShift extends StandardProperty {
 
   public BaselineShift() {
-    addLinks("http://dev.w3.org/csswg/css-inline/#propdef-baseline-shift");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-inline/#propdef-baseline-shift");
     addValidators(
-      new IdentifierValidator("baseline", "sub", "super"),
+      new IdentifierValidator("sub", "super"),
       ValidatorFactory.getLengthValidator(),
       ValidatorFactory.getPercentageValidator());
   }

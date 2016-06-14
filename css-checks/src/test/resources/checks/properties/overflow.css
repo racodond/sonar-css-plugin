@@ -2,14 +2,12 @@
   overflow: inherit;
   overflow: visible;
   overflow: hidden;
+  overflow: clip;
   overflow: scroll;
   overflow: auto;
-  overflow: 0; /* Noncompliant !{Update the invalid value of property "overflow". Expected format: [visible | hidden | scroll | auto | no-display | no-content]{1,2}}! */
+  overflow: 0; /* Noncompliant !{Update the invalid value of property "overflow". Expected format: visible | hidden | clip | scroll | auto}! */
   overflow: 0px; /* Noncompliant */
   overflow: abc; /* Noncompliant */
-  overflow: no-content;
-  overflow: no-display;
-  overflow: no-display visible;
-  overflow: no-display visible scroll; /* Noncompliant */
-  overflow: no-display abc; /* Noncompliant */
+  overflow: no-content; /* Noncompliant */
+  overflow: no-display; /* Noncompliant */
 }

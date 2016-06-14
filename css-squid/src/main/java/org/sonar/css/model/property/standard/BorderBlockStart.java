@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class BorderBlockStart extends StandardProperty {
 
   public BorderBlockStart() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-logical-props/#propdef-border-block-start");
     addValidators(ValidatorFactory.getBorderValidator());
   }

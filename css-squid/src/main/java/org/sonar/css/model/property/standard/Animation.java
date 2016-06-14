@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.property.animation.AnimationValidator;
 
@@ -27,7 +26,6 @@ public class Animation extends StandardProperty {
 
   public Animation() {
     addLinks("http://www.w3.org/TR/css3-animations/#animation");
-    addVendors(Vendor.WEBKIT, Vendor.MOZILLA);
     addValidators(new AnimationValidator());
   }
 

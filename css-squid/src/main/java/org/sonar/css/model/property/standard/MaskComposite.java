@@ -24,6 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class MaskComposite extends StandardProperty {
 
   public MaskComposite() {
+    setExperimental(true);
     addLinks("https://drafts.fxtf.org/masking/#propdef-mask-composite");
   }
 

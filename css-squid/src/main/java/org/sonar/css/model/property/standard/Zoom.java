@@ -25,7 +25,8 @@ import org.sonar.css.model.property.validator.valueelement.ZoomValidator;
 public class Zoom extends StandardProperty {
 
   public Zoom() {
-    addLinks("http://dev.w3.org/csswg/css-device-adapt/#descdef-viewport-zoom");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-device-adapt/#descdef-viewport-zoomN");
     addValidators(new ZoomValidator());
   }
 

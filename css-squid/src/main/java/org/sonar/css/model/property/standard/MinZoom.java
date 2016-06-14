@@ -25,7 +25,8 @@ import org.sonar.css.model.property.validator.valueelement.ZoomValidator;
 public class MinZoom extends StandardProperty {
 
   public MinZoom() {
-    addLinks("http://dev.w3.org/csswg/css-device-adapt/#descdef-viewport-min-zoom");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-device-adapt/#descdef-viewport-min-zoom");
     addValidators(new ZoomValidator());
   }
 

@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.property.QuotesValidator;
 public class Quotes extends StandardProperty {
 
   public Quotes() {
-    addLinks("https://www.w3.org/TR/CSS22/generate.html#propdef-quotes");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/generate.html#propdef-quotes",
+      "https://www.w3.org/TR/css-content-3/#propdef-quotes");
     addValidators(new QuotesValidator());
   }
 

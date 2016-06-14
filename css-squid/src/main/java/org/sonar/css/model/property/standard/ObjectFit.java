@@ -25,7 +25,10 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class ObjectFit extends StandardProperty {
 
   public ObjectFit() {
-    addLinks("http://dev.w3.org/csswg/css-images-3/#propdef-object-fit");
+    setExperimental(true);
+    addLinks(
+      "http://dev.w3.org/csswg/css-images-3/#propdef-object-fit",
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit");
     addValidators(new IdentifierValidator("fill", "contain", "cover", "none", "scale-down"));
   }
 

@@ -20,13 +20,12 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.property.line.LineStackingRubyValidator;
 
 public class LineStackingRuby extends StandardProperty {
 
   public LineStackingRuby() {
+    setObsolete(true);
     addLinks("http://www.w3.org/TR/css3-linebox/#line-stacking-ruby");
-    addValidators(new LineStackingRubyValidator());
   }
 
 }

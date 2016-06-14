@@ -2,11 +2,12 @@
   overflow-y: inherit;
   overflow-y: visible;
   overflow-y: hidden;
+  overflow-y: clip;
   overflow-y: scroll;
   overflow-y: auto;
-  overflow-y: 0; /* Noncompliant !{Update the invalid value of property "overflow-y". Expected format: visible | hidden | scroll | auto | no-display | no-content}! */
+  overflow-y: 0; /* Noncompliant !{Update the invalid value of property "overflow-y". Expected format: visible | hidden | clip | scroll | auto}! */
   overflow-y: 0px; /* Noncompliant */
   overflow-y: abc; /* Noncompliant */
-  overflow-y: no-content;
-  overflow-y: no-display;
+  overflow-y: no-content; /* Noncompliant */
+  overflow-y: no-display; /* Noncompliant */
 }

@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class PaddingInlineEnd extends StandardProperty {
 
   public PaddingInlineEnd() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-logical-props/#propdef-padding-inline-end");
     addValidators(ValidatorFactory.getPaddingWidthValidator());
   }

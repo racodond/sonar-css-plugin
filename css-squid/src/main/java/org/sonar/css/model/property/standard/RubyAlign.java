@@ -20,11 +20,14 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class RubyAlign extends StandardProperty {
 
   public RubyAlign() {
-    addLinks("http://dev.w3.org/csswg/css-ruby/#propdef-ruby-align");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-ruby-1/#propdef-ruby-align");
+    addValidators(new IdentifierValidator("start", "center", "space-between", "space-around"));
   }
 
 }

@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.property.TextDecorationSkipValidat
 public class TextDecorationSkip extends StandardProperty {
 
   public TextDecorationSkip() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-text-decor-3/#propdef-text-decoration-skip");
     addValidators(new TextDecorationSkipValidator());
   }

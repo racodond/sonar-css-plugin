@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class FontVariantPosition extends StandardProperty {
 
   public FontVariantPosition() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-fonts-3/#propdef-font-variant-position");
     addValidators(new IdentifierValidator("normal", "sub", "super"));
   }

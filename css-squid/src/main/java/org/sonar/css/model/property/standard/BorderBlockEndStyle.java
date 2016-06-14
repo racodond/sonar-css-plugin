@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class BorderBlockEndStyle extends StandardProperty {
 
   public BorderBlockEndStyle() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-logical-props/#propdef-border-block-end-style");
     addValidators(ValidatorFactory.getBorderStyleValidator());
   }

@@ -25,7 +25,7 @@ import org.sonar.css.model.property.validator.valueelement.numeric.NumberRangeVa
 public class Opacity extends StandardProperty {
 
   public Opacity() {
-    addLinks("http://dev.w3.org/csswg/css-color-3/#opacity");
+    addLinks("https://drafts.csswg.org/css-color-3/#opacity");
     addValidators(new NumberRangeValidator(0, 1));
   }
 

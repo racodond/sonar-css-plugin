@@ -26,7 +26,8 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class UserSelect extends StandardProperty {
 
   public UserSelect() {
-    addLinks("http://caniuse.com/#feat=user-select-none");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-ui-4/#propdef-user-select");
     addVendors(Vendor.WEBKIT, Vendor.MOZILLA, Vendor.MICROSOFT);
     addValidators(ValidatorFactory.getNoneValidator());
   }

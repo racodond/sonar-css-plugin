@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class BorderBlockStartColor extends StandardProperty {
 
   public BorderBlockStartColor() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-logical-props/#propdef-border-block-start-color");
     addValidators(ValidatorFactory.getColorValidator());
   }

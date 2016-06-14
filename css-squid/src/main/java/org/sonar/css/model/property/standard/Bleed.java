@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class Bleed extends StandardProperty {
 
   public Bleed() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-page/#descdef-page-bleed");
     addValidators(ValidatorFactory.getAutoValidator(), ValidatorFactory.getLengthValidator());
   }

@@ -24,6 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class FontVariantAlternates extends StandardProperty {
 
   public FontVariantAlternates() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-fonts-3/#propdef-font-variant-alternates");
   }
 

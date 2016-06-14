@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 
@@ -27,7 +26,6 @@ public class BoxSizing extends StandardProperty {
 
   public BoxSizing() {
     addLinks("https://drafts.csswg.org/css-ui/#box-sizing");
-    addVendors(Vendor.WEBKIT, Vendor.MOZILLA);
     addValidators(ValidatorFactory.getBoxValidator());
   }
 

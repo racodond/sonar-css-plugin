@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class CounterReset extends StandardProperty {
 
   public CounterReset() {
-    addLinks("https://www.w3.org/TR/CSS22/generate.html#propdef-counter-reset");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/generate.html#propdef-counter-reset",
+      "https://drafts.csswg.org/css-lists-3/#propdef-counter-reset");
     addValidators(ValidatorFactory.getCounterValidator());
   }
 

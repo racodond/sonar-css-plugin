@@ -19,14 +19,13 @@
  */
 package org.sonar.css.model.property.standard;
 
-import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 
 public class TextSizeAdjust extends StandardProperty {
 
   public TextSizeAdjust() {
-    addLinks("http://dev.w3.org/csswg/css-size-adjust/#text-size-adjust");
-    addVendors(Vendor.WEBKIT, Vendor.MICROSOFT);
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-size-adjust/#propdef-text-size-adjust");
   }
 
 }

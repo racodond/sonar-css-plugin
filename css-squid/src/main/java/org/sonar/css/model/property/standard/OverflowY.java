@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.valueelement.OverflowValidator;
 public class OverflowY extends StandardProperty {
 
   public OverflowY() {
-    addLinks("http://dev.w3.org/csswg/css-box-3/#overflow-y");
+    addLinks(
+      "https://drafts.csswg.org/css-overflow-3/#propdef-overflow-y",
+      "http://dev.w3.org/csswg/css-box-3/#overflow-y");
     addValidators(new OverflowValidator());
   }
 

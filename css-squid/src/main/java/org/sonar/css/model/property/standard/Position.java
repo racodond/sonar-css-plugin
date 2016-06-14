@@ -21,14 +21,19 @@ package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
+import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
 
 public class Position extends StandardProperty {
 
   public Position() {
     addLinks(
       "https://www.w3.org/TR/CSS22/visuren.html#propdef-position",
-      "https://drafts.csswg.org/css-position-3/#propdef-position");
-    addValidators(new IdentifierValidator("static", "relative", "absolute", "fixed", "sticky"));
+      "https://drafts.csswg.org/css-position-3/#propdef-position",
+      "https://drafts.csswg.org/css-gcpm-3/#running-elements",
+      "https://drafts.csswg.org/css-lists-3/#position-marker");
+    addValidators(
+      new IdentifierValidator("static", "relative", "absolute", "fixed", "sticky", "marker"),
+      new FunctionValidator("running"));
   }
 
 }

@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class Fallback extends StandardProperty {
 
   public Fallback() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-counter-styles-3/#descdef-counter-style-fallback");
     addValidators(ValidatorFactory.getAnyIdentifierValidator());
   }

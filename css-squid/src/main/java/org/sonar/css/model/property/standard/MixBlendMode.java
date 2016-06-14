@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.valueelement.BlendModeValidator;
 public class MixBlendMode extends StandardProperty {
 
   public MixBlendMode() {
+    setExperimental(true);
     addLinks("https://drafts.fxtf.org/compositing-1/#propdef-mix-blend-mode");
     addValidators(new BlendModeValidator());
   }

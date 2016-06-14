@@ -20,13 +20,12 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.property.line.LineStackingStrategyValidator;
 
 public class LineStackingStrategy extends StandardProperty {
 
   public LineStackingStrategy() {
+    setObsolete(true);
     addLinks("http://www.w3.org/TR/css3-linebox/#line-stacking-strategy");
-    addValidators(new LineStackingStrategyValidator());
   }
 
 }

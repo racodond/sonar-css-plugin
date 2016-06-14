@@ -27,8 +27,11 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class ColumnGap extends StandardProperty {
 
   public ColumnGap() {
-    addLinks("http://dev.w3.org/csswg/css-multicol-1/#propdef-column-gap");
-    addVendors(Vendor.WEBKIT, Vendor.MOZILLA, Vendor.MICROSOFT);
+    setExperimental(true);
+    addLinks(
+      "http://dev.w3.org/csswg/css-multicol-1/#propdef-column-gap",
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/column-gap");
+    addVendors(Vendor.MOZILLA);
     addValidators(
       new IdentifierValidator("normal"),
       ValidatorFactory.getPositiveLengthValidator());

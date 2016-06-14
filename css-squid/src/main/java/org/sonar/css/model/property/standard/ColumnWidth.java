@@ -28,10 +28,12 @@ import org.sonar.css.model.property.validator.valueelement.function.FunctionVali
 public class ColumnWidth extends StandardProperty {
 
   public ColumnWidth() {
+    setExperimental(true);
     addLinks(
       "https://drafts.csswg.org/css-multicol-1/#propdef-column-width",
-      "https://drafts.csswg.org/css-sizing-3/#column-sizing");
-    addVendors(Vendor.WEBKIT, Vendor.MOZILLA, Vendor.MICROSOFT);
+      "https://drafts.csswg.org/css-sizing-3/#column-sizing",
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/column-width");
+    addVendors(Vendor.MOZILLA);
     addValidators(
       ValidatorFactory.getAutoValidator(),
       ValidatorFactory.getPositiveLengthValidator(),

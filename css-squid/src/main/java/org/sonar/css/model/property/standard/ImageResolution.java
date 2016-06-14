@@ -24,6 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class ImageResolution extends StandardProperty {
 
   public ImageResolution() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-images-3/#propdef-image-resolution");
   }
 

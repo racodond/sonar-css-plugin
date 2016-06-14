@@ -25,7 +25,10 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class Float extends StandardProperty {
 
   public Float() {
-    addLinks("https://www.w3.org/TR/CSS22/visuren.html#propdef-float");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/visuren.html#propdef-float",
+      "https://drafts.csswg.org/css-gcpm-3/#footnote-types",
+      "https://drafts.csswg.org/css-page-floats/#propdef-float");
     addValidators(new IdentifierValidator("left", "right", "none"));
   }
 

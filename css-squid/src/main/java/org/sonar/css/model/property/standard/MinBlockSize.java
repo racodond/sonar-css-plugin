@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class MinBlockSize extends StandardProperty {
 
   public MinBlockSize() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-logical-props/#propdef-min-block-size");
     addValidators(ValidatorFactory.getSizeValidator());
   }

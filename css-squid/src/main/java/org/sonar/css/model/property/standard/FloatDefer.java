@@ -20,11 +20,15 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.ValidatorFactory;
+import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class FloatDefer extends StandardProperty {
 
   public FloatDefer() {
-    addLinks("http://dev.w3.org/csswg/css-page-floats/#propdef-float-defer");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-page-floats/#propdef-float-defer");
+    addValidators(ValidatorFactory.getIntegerValidator(), new IdentifierValidator("last", "none"));
   }
 
 }

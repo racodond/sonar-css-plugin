@@ -25,7 +25,10 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class ColorInterpolationFilters extends StandardProperty {
 
   public ColorInterpolationFilters() {
-    addLinks("https://www.w3.org/TR/SVG/painting.html#ColorInterpolationFiltersProperty");
+    setExperimental(true);
+    addLinks(
+      "https://www.w3.org/TR/SVG/painting.html#ColorInterpolationFiltersProperty",
+      "https://drafts.fxtf.org/filters/#propdef-color-interpolation-filters");
     addValidators(new IdentifierValidator("auto", "srgb", "linearrgb"));
   }
 

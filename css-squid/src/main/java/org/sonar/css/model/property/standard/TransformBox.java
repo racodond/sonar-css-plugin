@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class TransformBox extends StandardProperty {
 
   public TransformBox() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-transforms/#propdef-transform-box");
     addValidators(new IdentifierValidator("border-box", "fill-box", "view-box"));
   }

@@ -24,6 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class Range extends StandardProperty {
 
   public Range() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-counter-styles-3/#descdef-counter-style-range");
   }
 

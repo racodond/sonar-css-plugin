@@ -25,7 +25,10 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class LightingColor extends StandardProperty {
 
   public LightingColor() {
-    addLinks("https://www.w3.org/TR/SVG/filters.html#LightingColorProperty");
+    setExperimental(true);
+    addLinks(
+      "https://www.w3.org/TR/SVG/filters.html#LightingColorProperty",
+      "https://drafts.fxtf.org/filters/#propdef-lighting-color");
     addValidators(ValidatorFactory.getColorValidator());
   }
 

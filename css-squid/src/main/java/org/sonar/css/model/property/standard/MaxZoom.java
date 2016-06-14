@@ -25,7 +25,8 @@ import org.sonar.css.model.property.validator.valueelement.ZoomValidator;
 public class MaxZoom extends StandardProperty {
 
   public MaxZoom() {
-    addLinks("http://dev.w3.org/csswg/css-device-adapt/#descdef-viewport-max-zoom");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-device-adapt/#descdef-viewport-max-zoom");
     addValidators(new ZoomValidator());
   }
 

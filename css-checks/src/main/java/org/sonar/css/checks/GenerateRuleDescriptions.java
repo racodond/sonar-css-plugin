@@ -120,7 +120,7 @@ public class GenerateRuleDescriptions {
     description.append("<table border=1>\n")
       .append("  <thead>\n")
       .append("  <tr align=center>\n")
-      .append("    <th>Name</th>\n")
+      .append("    <th>Property</th>\n")
       .append("    <th>Validator</th>\n")
       .append("    <th>Status</th>\n")
       .append("  </tr>\n")
@@ -270,7 +270,7 @@ public class GenerateRuleDescriptions {
       if (property.isExperimental()) {
         description.append("Experimental");
       } else {
-        description.append("Standard");
+        description.append("Supported");
       }
       description.append("</td>\n")
         .append("  </tr>\n");

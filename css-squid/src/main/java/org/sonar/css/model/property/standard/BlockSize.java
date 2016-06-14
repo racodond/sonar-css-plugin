@@ -25,7 +25,8 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class BlockSize extends StandardProperty {
 
   public BlockSize() {
-    addLinks("http://dev.w3.org/csswg/css-logical-props/#propdef-block-size");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-logical-props/#propdef-block-size");
     addValidators(ValidatorFactory.getSizeValidator());
   }
 

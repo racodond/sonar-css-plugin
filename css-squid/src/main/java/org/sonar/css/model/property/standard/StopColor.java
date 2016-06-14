@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class StopColor extends StandardProperty {
 
   public StopColor() {
+    setExperimental(true);
     addLinks("https://www.w3.org/TR/SVG/pservers.html#StopColorProperty");
     addValidators(ValidatorFactory.getColorValidator());
   }

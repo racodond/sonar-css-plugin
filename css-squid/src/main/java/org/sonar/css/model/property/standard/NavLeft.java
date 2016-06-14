@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.property.NavValidator;
 public class NavLeft extends StandardProperty {
 
   public NavLeft() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-ui/#propdef-nav-left");
     addValidators(new NavValidator());
   }

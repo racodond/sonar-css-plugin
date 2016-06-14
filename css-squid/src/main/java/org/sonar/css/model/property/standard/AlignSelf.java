@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class AlignSelf extends StandardProperty {
 
   public AlignSelf() {
-    addLinks("http://dev.w3.org/csswg/css-flexbox-1/#propdef-align-self");
+    addLinks(
+      "http://dev.w3.org/csswg/css-flexbox-1/#propdef-align-self",
+      "https://drafts.csswg.org/css-align-3/#propdef-align-self");
     addValidators(new IdentifierValidator("auto", "flex-start", "flex-end", "center", "baseline", "stretch"));
   }
 

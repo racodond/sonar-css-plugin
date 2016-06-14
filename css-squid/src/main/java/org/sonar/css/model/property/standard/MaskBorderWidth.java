@@ -26,6 +26,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class MaskBorderWidth extends StandardProperty {
 
   public MaskBorderWidth() {
+    setExperimental(true);
     addLinks("https://drafts.fxtf.org/masking/#propdef-mask-border-width");
     addValidators(
       new MultiplierValidator(

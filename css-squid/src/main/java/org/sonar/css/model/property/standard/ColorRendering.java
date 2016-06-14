@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class ColorRendering extends StandardProperty {
 
   public ColorRendering() {
+    setExperimental(true);
     addLinks("https://www.w3.org/TR/SVG/painting.html#ColorRenderingProperty");
     addValidators(new IdentifierValidator("auto", "optimizespeed", "optimizequality"));
   }

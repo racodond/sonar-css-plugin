@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class MarkerStart extends StandardProperty {
 
   public MarkerStart() {
+    setExperimental(true);
     addLinks("https://www.w3.org/TR/SVG/painting.html#MarkerStartProperty");
     addValidators(ValidatorFactory.getNoneValidator(), ValidatorFactory.getUriValidator());
   }

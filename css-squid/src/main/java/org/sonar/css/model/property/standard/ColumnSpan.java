@@ -25,7 +25,10 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class ColumnSpan extends StandardProperty {
 
   public ColumnSpan() {
-    addLinks("http://dev.w3.org/csswg/css-multicol-1/#propdef-column-span");
+    setExperimental(true);
+    addLinks(
+      "http://dev.w3.org/csswg/css-multicol-1/#propdef-column-span",
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/column-span");
     addValidators(new IdentifierValidator("all", "none"));
   }
 

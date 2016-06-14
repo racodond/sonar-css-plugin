@@ -25,7 +25,10 @@ import org.sonar.css.model.property.validator.valueelement.numeric.NumberRangeVa
 public class FloodOpacity extends StandardProperty {
 
   public FloodOpacity() {
-    addLinks("https://www.w3.org/TR/SVG/filters.html#FloodOpacityProperty");
+    setExperimental(true);
+    addLinks(
+      "https://www.w3.org/TR/SVG/filters.html#FloodOpacityProperty",
+      "https://drafts.fxtf.org/filters/#propdef-flood-opacity");
     addValidators(new NumberRangeValidator(0, 1));
   }
 

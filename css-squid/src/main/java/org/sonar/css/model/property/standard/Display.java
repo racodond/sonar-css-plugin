@@ -28,8 +28,10 @@ public class Display extends StandardProperty {
     addLinks(
       "https://www.w3.org/TR/CSS22/visuren.html#propdef-display",
       "https://drafts.csswg.org/css-display/#propdef-display",
-      "https://drafts.csswg.org/css-flexbox-1/#flex-containers");
-    // TODO: Update display validator to comply with https://drafts.csswg.org/css-display/#propdef-display
+      "https://drafts.csswg.org/css-flexbox-1/#flex-containers",
+      "https://drafts.csswg.org/css-grid-1/#grid-containers",
+      "https://drafts.csswg.org/css-lists-3/#ref-for-valdef-display-inline-list-item-2",
+      "https://drafts.csswg.org/css-ruby-1/#propdef-display");
     addValidators(new IdentifierValidator(
       "inline", "block", "list-item", "inline-block", "table",
       "inline-table", "table-row-group", "table-header-group", "table-footer-group", "table-row",

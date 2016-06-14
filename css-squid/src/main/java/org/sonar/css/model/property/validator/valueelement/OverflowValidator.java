@@ -22,7 +22,7 @@ package org.sonar.css.model.property.validator.valueelement;
 public class OverflowValidator extends IdentifierValidator {
 
   public OverflowValidator() {
-    super("visible", "hidden", "scroll", "auto", "no-display", "no-content");
+    super("visible", "hidden", "clip", "scroll", "auto");
   }
 
 }

@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class TextDecorationColor extends StandardProperty {
 
   public TextDecorationColor() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-text-decor-3/#propdef-text-decoration-color");
     addValidators(ValidatorFactory.getColorValidator());
   }

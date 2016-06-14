@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class ShapeRendering extends StandardProperty {
 
   public ShapeRendering() {
+    setExperimental(true);
     addLinks("https://www.w3.org/TR/SVG/painting.html#ShapeRenderingProperty");
     addValidators(new IdentifierValidator("auto", "optimizespeed", "crispedges", "geometricprecision"));
   }

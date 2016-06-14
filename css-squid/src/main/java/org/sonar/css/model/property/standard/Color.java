@@ -27,7 +27,8 @@ public class Color extends StandardProperty {
   public Color() {
     addLinks(
       "https://www.w3.org/TR/CSS22/colors.html#propdef-color",
-      "https://drafts.csswg.org/css-color-3/#color0");
+      "https://drafts.csswg.org/css-color-3/#color0",
+      "https://drafts.csswg.org/mediaqueries-4/#descdef-media-color");
     addValidators(ValidatorFactory.getColorValidator());
   }
 

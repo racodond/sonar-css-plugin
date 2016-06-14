@@ -27,6 +27,7 @@ public class GlyphOrientationVertical extends StandardProperty {
 
   public GlyphOrientationVertical() {
     // TODO: Validator should restrict angles to 0, 90, 180, 270 degrees
+    setExperimental(true);
     addLinks(
       "https://drafts.csswg.org/css-writing-modes-3/#propdef-glyph-orientation-vertical",
       "https://www.w3.org/TR/SVG/text.html#GlyphOrientationVerticalProperty");

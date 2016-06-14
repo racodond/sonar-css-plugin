@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class BorderInlineStart extends StandardProperty {
 
   public BorderInlineStart() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-logical-props/#propdef-border-inline-start");
     addValidators(ValidatorFactory.getBorderValidator());
   }

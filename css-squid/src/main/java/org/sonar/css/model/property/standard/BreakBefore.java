@@ -25,10 +25,13 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class BreakBefore extends StandardProperty {
 
   public BreakBefore() {
-    addLinks("https://drafts.csswg.org/css-break-3/#propdef-break-before");
+    setExperimental(true);
+    addLinks(
+      "https://drafts.csswg.org/css-break-3/#propdef-break-before",
+      "https://drafts.csswg.org/css-regions-1/#propdef-break-before");
     addValidators(
       new IdentifierValidator("auto", "avoid", "avoid-page", "page", "left", "right", "recto", "verso",
-        "avoid-column", "column", "avoid-region", "region"));
+        "avoid-column", "column", "avoid-region", "region", "always"));
   }
 
 }

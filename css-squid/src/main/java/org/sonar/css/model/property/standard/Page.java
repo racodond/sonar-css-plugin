@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class Page extends StandardProperty {
 
   public Page() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-page-3/#propdef-page");
     addValidators(ValidatorFactory.getAutoValidator(), ValidatorFactory.getAnyIdentifierValidator());
   }

@@ -19,13 +19,16 @@
  */
 package org.sonar.css.model.property.standard;
 
+import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class ImageRendering extends StandardProperty {
 
   public ImageRendering() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-images-3/#propdef-image-rendering");
+    addVendors(Vendor.MOZILLA);
     addValidators(new IdentifierValidator("auto", "crisp-edges", "pixelated"));
   }
 

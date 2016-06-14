@@ -27,7 +27,8 @@ public class WhiteSpace extends StandardProperty {
   public WhiteSpace() {
     addLinks(
       "https://www.w3.org/TR/CSS22/text.html#propdef-white-space",
-      "https://drafts.csswg.org/css-text-3/#propdef-white-space");
+      "https://drafts.csswg.org/css-text-3/#propdef-white-space",
+      "https://drafts.csswg.org/css-text-4/#propdef-white-space");
     addValidators(new IdentifierValidator("normal", "pre", "nowrap", "pre-wrap", "pre-line"));
   }
 

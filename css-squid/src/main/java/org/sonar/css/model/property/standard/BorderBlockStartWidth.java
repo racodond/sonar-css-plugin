@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class BorderBlockStartWidth extends StandardProperty {
 
   public BorderBlockStartWidth() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-logical-props/#propdef-border-block-start-width");
     addValidators(ValidatorFactory.getBorderWidthValidator());
   }

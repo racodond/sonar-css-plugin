@@ -24,6 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class MaskClip extends StandardProperty {
 
   public MaskClip() {
+    setExperimental(true);
     addLinks("https://drafts.fxtf.org/masking/#propdef-mask-clip");
   }
 

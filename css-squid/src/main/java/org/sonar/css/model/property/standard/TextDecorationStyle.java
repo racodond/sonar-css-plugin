@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.valueelement.TextDecorationStyleVa
 public class TextDecorationStyle extends StandardProperty {
 
   public TextDecorationStyle() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-text-decor-3/#propdef-text-decoration-style");
     addValidators(new TextDecorationStyleValidator());
   }

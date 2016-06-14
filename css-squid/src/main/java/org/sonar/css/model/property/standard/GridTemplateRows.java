@@ -24,6 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class GridTemplateRows extends StandardProperty {
 
   public GridTemplateRows() {
+    setExperimental(true);
     addLinks("http://www.w3.org/TR/css-grid-1/#propdef-grid-template-rows");
   }
 

@@ -24,7 +24,10 @@ import org.sonar.css.model.property.StandardProperty;
 public class StringSet extends StandardProperty {
 
   public StringSet() {
-    addLinks("http://www.w3.org/TR/css-gcpm-3/#propdef-string-set");
+    setExperimental(true);
+    addLinks(
+      "https://drafts.csswg.org/css-gcpm-3/#propdef-string-set",
+      "https://www.w3.org/TR/css-content-3/#propdef-string-set");
   }
 
 }

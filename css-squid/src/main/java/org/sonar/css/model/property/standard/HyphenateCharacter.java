@@ -24,8 +24,8 @@ import org.sonar.css.model.property.StandardProperty;
 public class HyphenateCharacter extends StandardProperty {
 
   public HyphenateCharacter() {
-    addLinks("http://www.w3.org/TR/2010/WD-css3-gcpm-20100608/#hyphenate-character");
-    setObsolete(true);
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-text-4/#propdef-hyphenate-character");
   }
 
 }

@@ -25,7 +25,8 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class BookmarkLevel extends StandardProperty {
 
   public BookmarkLevel() {
-    addLinks("http://www.w3.org/TR/css-gcpm-3/#propdef-bookmark-level");
+    setExperimental(true);
+    addLinks("https://www.w3.org/TR/css-content-3/#propdef-bookmark-level");
     addValidators(ValidatorFactory.getNoneValidator(), ValidatorFactory.getPositiveIntegerValidator()); // TODO: 0 is invalid
   }
 

@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class MaskBorderSource extends StandardProperty {
 
   public MaskBorderSource() {
+    setExperimental(true);
     addLinks("https://drafts.fxtf.org/masking/#propdef-mask-border-source");
     addValidators(
       ValidatorFactory.getNoneValidator(),

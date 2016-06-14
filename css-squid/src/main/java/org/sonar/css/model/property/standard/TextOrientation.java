@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class TextOrientation extends StandardProperty {
 
   public TextOrientation() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-writing-modes-3/#propdef-text-orientation");
     addValidators(new IdentifierValidator("mixed", "upright", "sideways"));
   }

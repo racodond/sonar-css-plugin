@@ -25,8 +25,9 @@ import org.sonar.css.model.property.StandardProperty;
 public class TransformOrigin extends StandardProperty {
 
   public TransformOrigin() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-transforms/#propdef-transform-origin");
-    addVendors(Vendor.WEBKIT, Vendor.MOZILLA, Vendor.MICROSOFT, Vendor.OPERA);
+    addVendors(Vendor.WEBKIT);
   }
 
 }

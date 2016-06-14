@@ -25,7 +25,10 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class AlignmentBaseline extends StandardProperty {
 
   public AlignmentBaseline() {
-    addLinks("http://www.w3.org/TR/css3-linebox/#alignment-baseline");
+    setExperimental(true);
+    addLinks(
+      "http://www.w3.org/TR/css3-linebox/#alignment-baseline",
+      "https://drafts.csswg.org/css-inline/#propdef-alignment-baseline");
     addValidators(new IdentifierValidator("auto", "baseline", "use-script", "before-edge", "text-before-edge",
       "after-edge", "text-after-edge", "central", "middle", "ideographic", "alphabetic", "hanging", "mathematical"));
   }

@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.valueelement.numeric.NumberRangeVa
 public class StopOpacity extends StandardProperty {
 
   public StopOpacity() {
+    setExperimental(true);
     addLinks("https://www.w3.org/TR/SVG/pservers.html#StopOpacityProperty");
     addValidators(new NumberRangeValidator(0, 1));
   }

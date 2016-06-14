@@ -20,11 +20,14 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class RubyPosition extends StandardProperty {
 
   public RubyPosition() {
-    addLinks("http://dev.w3.org/csswg/css-ruby/#propdef-ruby-position");
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-ruby-1/#propdef-ruby-position");
+    addValidators(new IdentifierValidator("over", "under", "inter-character"));
   }
 
 }

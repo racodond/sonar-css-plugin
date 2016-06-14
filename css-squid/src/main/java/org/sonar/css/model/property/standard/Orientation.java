@@ -25,7 +25,10 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class Orientation extends StandardProperty {
 
   public Orientation() {
-    addLinks("http://dev.w3.org/csswg/css-device-adapt/#descdef-viewport-orientation");
+    setExperimental(true);
+    addLinks(
+      "https://drafts.csswg.org/css-device-adapt/#descdef-viewport-orientation",
+      "https://drafts.csswg.org/mediaqueries-4/#descdef-media-orientation");
     addValidators(new IdentifierValidator("auto", "portrait", "landscape"));
   }
 

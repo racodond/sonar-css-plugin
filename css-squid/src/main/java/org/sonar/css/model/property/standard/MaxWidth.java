@@ -27,7 +27,8 @@ public class MaxWidth extends StandardProperty {
   public MaxWidth() {
     addLinks(
       "https://www.w3.org/TR/CSS22/visudet.html#propdef-max-width",
-      "https://drafts.csswg.org/css-sizing-3/#width-height-keywords");
+      "https://drafts.csswg.org/css-sizing-3/#width-height-keywords",
+      "https://drafts.csswg.org/css-device-adapt/#descdef-viewport-max-width");
     addValidators(ValidatorFactory.getMaxWidthHeightValidator());
   }
 

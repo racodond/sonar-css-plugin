@@ -19,11 +19,14 @@
  */
 package org.sonar.css.model.property.standard;
 
+import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 
 public class TextEmphasis extends StandardProperty {
 
   public TextEmphasis() {
+    setExperimental(true);
+    addVendors(Vendor.WEBKIT);
     addLinks("http://www.w3.org/TR/css-text-decor-3/#text-emphasis");
   }
 

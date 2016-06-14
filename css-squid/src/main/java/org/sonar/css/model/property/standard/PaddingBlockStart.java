@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class PaddingBlockStart extends StandardProperty {
 
   public PaddingBlockStart() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-logical-props/#propdef-padding-block-start");
     addValidators(ValidatorFactory.getPaddingWidthValidator());
   }

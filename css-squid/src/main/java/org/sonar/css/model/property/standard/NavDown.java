@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.property.NavValidator;
 public class NavDown extends StandardProperty {
 
   public NavDown() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-ui/#propdef-nav-down");
     addValidators(new NavValidator());
   }

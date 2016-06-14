@@ -19,12 +19,15 @@
  */
 package org.sonar.css.model.property.standard;
 
+import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.property.TextEmphasisPositionValidator;
 
 public class TextEmphasisPosition extends StandardProperty {
 
   public TextEmphasisPosition() {
+    setExperimental(true);
+    addVendors(Vendor.WEBKIT);
     addLinks("https://drafts.csswg.org/css-text-decor-3/#propdef-text-emphasis-position");
     addValidators(new TextEmphasisPositionValidator());
   }

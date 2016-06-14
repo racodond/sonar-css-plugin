@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.valueelement.numeric.NumberRangeVa
 public class ShapeImageThreshold extends StandardProperty {
 
   public ShapeImageThreshold() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-shapes/#propdef-shape-image-threshold");
     addValidators(new NumberRangeValidator(0.0, 1.0));
   }

@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class MaxInlineSize extends StandardProperty {
 
   public MaxInlineSize() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-logical-props/#propdef-max-inline-size");
     addValidators(ValidatorFactory.getSizeValidator());
   }

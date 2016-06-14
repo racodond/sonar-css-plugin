@@ -26,6 +26,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class MaskBorderRepeat extends StandardProperty {
 
   public MaskBorderRepeat() {
+    setExperimental(true);
     addLinks("https://drafts.fxtf.org/masking/#propdef-mask-border-repeat");
     addValidators(new MultiplierValidator(2, new IdentifierValidator("stretch", "repeat", "round", "space")));
   }

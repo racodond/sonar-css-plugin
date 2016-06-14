@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class StrokeLinejoin extends StandardProperty {
 
   public StrokeLinejoin() {
+    setExperimental(true);
     addLinks("https://www.w3.org/TR/SVG/painting.html#StrokeLinejoinProperty");
     addValidators(new IdentifierValidator("miter", "round", "bevel"));
   }

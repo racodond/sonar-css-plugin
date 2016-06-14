@@ -24,7 +24,8 @@ import org.sonar.css.model.property.StandardProperty;
 public class BookmarkLabel extends StandardProperty {
 
   public BookmarkLabel() {
-    addLinks("http://www.w3.org/TR/css3-gcpm/#propdef-bookmark-label");
+    setExperimental(true);
+    addLinks("https://www.w3.org/TR/css-content-3/#propdef-bookmark-label");
   }
 
 }

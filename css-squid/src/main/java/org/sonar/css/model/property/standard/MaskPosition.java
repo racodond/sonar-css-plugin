@@ -24,6 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class MaskPosition extends StandardProperty {
 
   public MaskPosition() {
+    setExperimental(true);
     addLinks("https://drafts.fxtf.org/masking/#propdef-mask-position");
   }
 

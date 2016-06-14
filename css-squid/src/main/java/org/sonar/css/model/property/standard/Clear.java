@@ -25,7 +25,9 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class Clear extends StandardProperty {
 
   public Clear() {
-    addLinks("https://www.w3.org/TR/CSS22/visuren.html#propdef-clear");
+    addLinks(
+      "https://www.w3.org/TR/CSS22/visuren.html#propdef-clear",
+      "https://drafts.csswg.org/css-page-floats/#propdef-clear");
     addValidators(new IdentifierValidator("none", "left", "right", "both"));
   }
 

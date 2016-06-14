@@ -25,9 +25,10 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class DominantBaseline extends StandardProperty {
 
   public DominantBaseline() {
-    addLinks("http://dev.w3.org/csswg/css-inline/#propdef-dominant-baseline");
-    addValidators(new IdentifierValidator("auto", "use-script", "no-change", "reset-size", "alphabetic", "hanging",
-      "ideographic", "mathematical", "central", "middle", "text-after-edge", "text-before-edge"));
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-inline/#propdef-dominant-baseline");
+    addValidators(new IdentifierValidator(
+      "auto", "text-bottom", "alphabetic", "ideographic", "middle", "central", "mathematical", "hanging", "text-top"));
   }
 
 }

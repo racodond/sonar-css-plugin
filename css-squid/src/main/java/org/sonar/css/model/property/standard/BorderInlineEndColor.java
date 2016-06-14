@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class BorderInlineEndColor extends StandardProperty {
 
   public BorderInlineEndColor() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-logical-props/#propdef-border-inline-end-style");
     addValidators(ValidatorFactory.getColorValidator());
   }

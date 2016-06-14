@@ -25,6 +25,7 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class OutlineOffset extends StandardProperty {
 
   public OutlineOffset() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-ui/#propdef-outline-offset");
     addValidators(ValidatorFactory.getLengthValidator());
   }

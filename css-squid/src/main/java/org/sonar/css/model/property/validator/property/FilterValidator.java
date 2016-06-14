@@ -37,7 +37,7 @@ public class FilterValidator implements ValueValidator {
     "glow", "icmfilter", "light", "maskfilter", "matrix", "motionblur", "redirect", "revealtrans", "shadow", "wave", "xray");
 
   @Override
-  public boolean isValid(@Nonnull Value value) {
+  public boolean isValid(Value value) {
     List<CssValueElement> valueElements = value.getValueElements();
     if (ValidatorFactory.getNoneValidator().isValid(valueElements.get(0)) && value.getNumberOfValueElements() == 1) {
       return true;
