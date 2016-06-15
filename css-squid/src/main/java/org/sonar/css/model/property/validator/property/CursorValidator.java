@@ -68,7 +68,7 @@ public class CursorValidator implements ValueValidator {
   @Nonnull
   @Override
   public String getValidatorFormat() {
-    return "[[ <uri> [<x> <y>]?,]* [" + identifierValidator.getValidatorFormat() + "]";
+    return "[[ <uri> [<number> <number>]?,]* [" + identifierValidator.getValidatorFormat() + "]";
   }
 
   private List<List<CssValueElement>> buildCursorList(Value value) {

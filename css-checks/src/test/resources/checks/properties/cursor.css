@@ -40,7 +40,7 @@
   cursor: url(http://mybox) 0 32, url(http://mybox) 0 32, grabbing;
   cursor: url(http://mybox) 0 32, url(http://mybox) 0 32,  url(http://mybox) 0 32, grabbing;
   cursor: url(http://mybox) 0 32, url(http://mybox) 0 32,  url(http://mybox) 0 32, grabbing;
-  cursor: grabbing, grabbing; /* Noncompliant !{Update the invalid value of property "cursor". Expected format: [[ <uri> [<x> <y>]?,]* [auto | default | none | context-menu | help | pointer | progress | wait | cell | crosshair | text | vertical-text | alias | copy | move | no-drop | not-allowed | e-resize | n-resize | ne-resize | nw-resize | s-resize | se-resize | sw-resize | w-resize | ew-resize | ns-resize | nesw-resize | nwse-resize | col-resize | row-resize | all-scroll | zoom-in | zoom-out | grab | grabbing]}! */
+  cursor: grabbing, grabbing; /* Noncompliant !{Update the invalid value of property "cursor". Expected format: [[ <uri> [<number> <number>]?,]* [auto | default | none | context-menu | help | pointer | progress | wait | cell | crosshair | text | vertical-text | alias | copy | move | no-drop | not-allowed | e-resize | n-resize | ne-resize | nw-resize | s-resize | se-resize | sw-resize | w-resize | ew-resize | ns-resize | nesw-resize | nwse-resize | col-resize | row-resize | all-scroll | zoom-in | zoom-out | grab | grabbing]}! */
   cursor: url(http://mybox); /* Noncompliant */
   cursor: url(http://mybox) 10; /* Noncompliant */
   cursor: url(http://mybox) 10, pointer; /* Noncompliant */
