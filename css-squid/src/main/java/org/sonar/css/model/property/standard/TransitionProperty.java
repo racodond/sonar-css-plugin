@@ -26,7 +26,7 @@ public class TransitionProperty extends StandardProperty {
 
   public TransitionProperty() {
     addLinks("https://drafts.csswg.org/css-transitions-1/#propdef-transition-property");
-    addVendors(Vendor.WEBKIT, Vendor.MOZILLA, Vendor.OPERA);
+    addVendors(Vendor.WEBKIT, Vendor.MOZILLA);
   }
 
 }

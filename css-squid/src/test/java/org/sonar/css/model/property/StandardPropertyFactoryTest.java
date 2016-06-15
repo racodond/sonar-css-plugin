@@ -72,10 +72,9 @@ public class StandardPropertyFactoryTest {
     assertEquals(property.getLinks().size(), 1);
     assertEquals(property.getLinks().get(0), "https://drafts.csswg.org/css-backgrounds-3/#border-image");
     assertEquals(property.getValidators().size(), 0);
-    assertEquals(property.getVendors().size(), 3);
+    assertEquals(property.getVendors().size(), 2);
     assertEquals(property.getVendors().contains(Vendor.WEBKIT), true);
     assertEquals(property.getVendors().contains(Vendor.MOZILLA), true);
-    assertEquals(property.getVendors().contains(Vendor.OPERA), true);
     assertEquals(property.getVendors().contains(Vendor.MICROSOFT), false);
     assertEquals(property.isObsolete(), false);
   }
