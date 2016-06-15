@@ -114,8 +114,8 @@ public class RuleDescriptionsGenerator {
     .put("[[obsoleteFunctions]]", generateHtmlTable(getStandardCssObjects(StandardFunction.class, o -> o.isObsolete())))
     .put("[[obsoleteAtRules]]", generateHtmlTable(getStandardCssObjects(StandardAtRule.class, o -> o.isObsolete())))
     .put("[[vendors]]", generateListOfVendors())
-    .put("[[vendorPrefixedProperties]]", generateHtmlTable(getStandardCssObjects(StandardProperty.class, o -> o.hasVendors())))
-    .put("[[propertyValidators]]", generateValidatePropertyRuleDescription())
+    .put("[[vendorPrefixedProperties]]", generateVendorPrefixedPropertiesHtmlTable())
+    .put("[[propertyValidators]]", generateValidatorsHtmlTable())
     .build();
 
   public void generateHtmlRuleDescription(String templatePath, String outputPath) throws IOException {
@@ -129,7 +129,7 @@ public class RuleDescriptionsGenerator {
     }
   }
 
-  private String generateValidatePropertyRuleDescription() {
+  private String generateValidatorsHtmlTable() {
     StringBuilder description = new StringBuilder();
 
     StandardProperty property;
@@ -160,21 +160,50 @@ public class RuleDescriptionsGenerator {
       } else {
         description.append("Supported");
       }
-      description.append("</td>\n")
+      description
+        .append("</td>\n")
         .append("  </tr>\n");
     }
-    description.append("</table>\n");
+    return description.toString();
+  }
+
+  private String generateVendorPrefixedPropertiesHtmlTable() {
+    StringBuilder description = new StringBuilder();
+
+    StandardProperty property;
+    for (StandardCssObject cssObject : getStandardCssObjects(StandardProperty.class, o -> o.hasVendors())) {
+      property = (StandardProperty) cssObject;
+      description.append("  <tr>\n").append("    <td nowrap=\"nowrap\">");
+      if (!property.getLinks().isEmpty()) {
+        description.append("<a target=\"_blank\" href=\"").append(property.getLinks().get(0)).append("\">");
+      }
+      description.append("<code>").append(property.getName()).append("</code>");
+      if (!property.getLinks().isEmpty()) {
+        description.append("</a>");
+      }
+      for (int i = 1; i < property.getLinks().size(); i++) {
+        description.append("&nbsp;&nbsp;<a target=\"_blank\" href=\"").append(property.getLinks().get(i)).append("\">#").append(i + 1).append("</a>");
+      }
+      description
+        .append("</td>\n")
+        .append("<td>\n");
+      for (Vendor vendor : property.getVendors().stream().sorted((o1, o2) -> o1.getPrefix().compareTo(o2.getPrefix())).collect(Collectors.toList())) {
+        description.append("<code>").append(vendor.getPrefix()).append("</code>").append("&nbsp;&nbsp;");
+      }
+      description
+        .append("</td>\n")
+        .append("</tr>\n");
+    }
     return description.toString();
   }
 
   private List<StandardCssObject> getStandardCssObjects(Class<? extends StandardCssObject> type, Predicate<StandardCssObject> filteringFunction) {
-    List<StandardCssObject> cssObjects = StandardCssObjectFactory
+    return StandardCssObjectFactory
       .createAll(type)
       .stream()
       .filter(filteringFunction)
+      .sorted((o1, o2) -> o1.getName().compareTo(o2.getName()))
       .collect(Collectors.toList());
-    Collections.sort(cssObjects, (o1, o2) -> o1.getName().compareTo(o2.getName()));
-    return cssObjects;
   }
 
   private String generateListOfVendors() {
