@@ -1,8 +1,8 @@
 <p>
     Experimental CSS properties are typically implemented using vendor prefixes until the final behavior has been
     established and agreed upon. Most CSS3 properties have vendor-prefixed equivalents for multiple vendors, including
-    Firefox (<code>-moz-</code>), Safari/Chrome (<code>-webkit-</code>), Opera (<code>-o-</code>) and Internet Explorer
-    (<code>-ms-</code>). It's easy to forget to include the vendor prefixed version of a property when there are so many
+    Firefox (<code>-moz-</code>), Safari/Chrome (<code>-webkit-</code>) and Internet Explorer (<code>-ms-</code>). It's
+    easy to forget to include the vendor prefixed version of a property when there are so many
     to keep track of.
 </p>
 <p>The following properties have multiple vendor-prefixed versions:</p>
@@ -15,25 +15,24 @@
 <ul>
     <li>Firefox (<code>-moz-</code>)</li>
     <li>Safari/Chrome (<code>-webkit-</code>)</li>
-    <li>Opera (<code>-o-</code>)</li>
     <li>Internet Explorer (<code>-ms-</code>)</li>
 </ul>
-<p>Konqueror (<code>-khtml-</code>) for example is not.</p>
+<p>Opera (<code>-o-</code>) for example is not.</p>
 
 <h2>Noncompliant Code Example</h2>
 <pre>
-/* Noncompliant: Missing -moz-, -ms-, and -o- */
+/* Noncompliant: Missing -ms- */
 .mybox {
-  -webkit-transform: translate(50px, 100px);
+  -webkit-hyphens: none;
+  hyphens: none;
 }
 </pre>
 
 <h2>Compliant Solution</h2>
 <pre>
 .mybox {
-  -webkit-transform: translate(50px, 100px);
-  -moz-transform: translate(50px, 100px);
-  -ms-transform: translate(50px, 100px);
-  -o-transform: translate(50px, 100px);
+  -ms-hyphens: none;
+  -webkit-hyphens: none;
+  hyphens: none;
 }
 </pre>
