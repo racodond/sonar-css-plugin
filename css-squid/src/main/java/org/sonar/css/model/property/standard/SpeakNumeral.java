@@ -27,7 +27,6 @@ public class SpeakNumeral extends StandardProperty {
   public SpeakNumeral() {
     setObsolete(true);
     addLinks("https://www.w3.org/TR/CSS22/aural.html#propdef-speak-numeral");
-    addValidators(new IdentifierValidator("digits", "continuous"));
   }
 
 }

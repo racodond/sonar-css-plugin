@@ -7,14 +7,14 @@ a {
   -moz-foo: bar;
 }
 
-.mybox { /* Noncompliant  ![sc=1;ec=7;el=+0]! !{Define the missing vendor prefixes: -webkit- for the "border-radius" property.}! */
-  -moz-border-radius: 5px;
+.mybox { /* Noncompliant  ![sc=1;ec=7;el=+0]! !{Define the missing vendor prefixes: -ms- -webkit- for the "user-select" property.}! */
+  -moz-user-select: 5px;
 }
 
-.mybox { /* Noncompliant ![sc=1;ec=7;el=+0]! !{Define the missing vendor prefixes: -webkit- for the "border-radius" property.}! */
-  -MOZ-border-radius: 5px;
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0]! !{Define the missing vendor prefixes: -ms- -webkit- for the "user-select" property.}! */
+  -MOZ-user-select: 5px;
 }
 
-  { /* Noncompliant ![sc=3;ec=4;el=+0]! !{Define the missing vendor prefixes: -webkit- for the "border-radius" property.}! */
-  -MOZ-border-radius: 5px;
+  { /* Noncompliant ![sc=3;ec=4;el=+0]! !{Define the missing vendor prefixes: -ms- -webkit- for the "user-select" property.}! */
+  -MOZ-user-select: 5px;
 }

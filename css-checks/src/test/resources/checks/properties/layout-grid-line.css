@@ -1,0 +1,10 @@
+.mybox {
+  layout-grid-line: inherit;
+  layout-grid-line: none;
+  layout-grid-line: auto;
+  layout-grid-line: 10px;
+  layout-grid-line: -10px;
+  layout-grid-line: abc; /* Noncompliant !{Update the invalid value of property "layout-grid-line". Expected format: none | auto | <length>}! */
+  layout-grid-line: 10; /* Noncompliant */
+  layout-grid-line: 10%; /* Noncompliant */
+}

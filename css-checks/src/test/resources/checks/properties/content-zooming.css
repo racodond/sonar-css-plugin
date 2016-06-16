@@ -1,0 +1,7 @@
+.mybox {
+  content-zooming: inherit;
+  content-zooming: none;
+  content-zooming: zoom;
+  content-zooming: abc; /* Noncompliant !{Update the invalid value of property "content-zooming". Expected format: none | zoom}! */
+  content-zooming: 10; /* Noncompliant */
+}

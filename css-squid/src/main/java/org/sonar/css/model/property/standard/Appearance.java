@@ -20,18 +20,12 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class Appearance extends StandardProperty {
 
   public Appearance() {
     addLinks("http://www.w3.org/TR/2004/CR-css3-ui-20040511/#appearance0");
     setObsolete(true);
-    addValidators(
-      new IdentifierValidator("normal", "icon", "window", "desktop", "workspace", "document", "tooltip", "dialog", "button",
-        "push-button", "hyperlink", "radio-button", "checkbox", "menu-item", "tab", "menu", "menubar", "pull-down-menu",
-        "pop-up-menu", "list-menu", "radio-group", "checkbox-group", "outline-tree", "range", "field", "combo-box", "signature",
-        "password"));
   }
 
 }

@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.property.border.BorderRadiusPropertyValidator;
 
@@ -27,7 +26,6 @@ public class BorderRadius extends StandardProperty {
 
   public BorderRadius() {
     addLinks("https://drafts.csswg.org/css-backgrounds-3/#border-radius");
-    addVendors(Vendor.WEBKIT);
     addValidators(new BorderRadiusPropertyValidator());
   }
 

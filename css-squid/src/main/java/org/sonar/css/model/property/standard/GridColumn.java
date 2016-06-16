@@ -19,6 +19,7 @@
  */
 package org.sonar.css.model.property.standard;
 
+import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 
 public class GridColumn extends StandardProperty {
@@ -26,6 +27,7 @@ public class GridColumn extends StandardProperty {
   public GridColumn() {
     setExperimental(true);
     addLinks("http://www.w3.org/TR/css-grid-1/#propdef-grid-column");
+    addVendors(Vendor.MICROSOFT);
   }
 
 }

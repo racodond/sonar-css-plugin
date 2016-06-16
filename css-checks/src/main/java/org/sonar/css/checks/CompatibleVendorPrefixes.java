@@ -23,6 +23,7 @@ import com.sonar.sslr.api.AstNode;
 
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -34,9 +35,6 @@ import org.sonar.css.model.property.StandardPropertyFactory;
 import org.sonar.css.parser.CssGrammar;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-/**
- * https://github.com/stubbornella/csslint/wiki/Require-compatible-vendor-prefixes
- */
 @Rule(
   key = "compatible-vendor-prefixes",
   name = "Missing vendor prefixes should be added to experimental properties",
@@ -77,14 +75,15 @@ public class CompatibleVendorPrefixes extends CssCheck {
     if (astNode.is(CssGrammar.RULESET)) {
       for (Entry<String, Set<Vendor>> props : properties.entrySet()) {
         StandardProperty p = StandardPropertyFactory.createStandardProperty(props.getKey());
-        missingVendorPrefixes = new ArrayList<>();
-        for (Vendor vendor : p.getVendors()) {
-          if (!props.getValue().contains(vendor)) {
-            missingVendorPrefixes.add(vendor.getPrefix());
-          }
-        }
+        missingVendorPrefixes = p.getVendors()
+          .stream()
+          .filter(vendor -> !props.getValue().contains(vendor))
+          .map(Vendor::getPrefix)
+          .sorted()
+          .collect(Collectors.toList());
+
         if (!missingVendorPrefixes.isEmpty()) {
-          createIssue(p.getName(), missingVendorPrefixes, astNode);
+          createIssue(p.getName(), missingVendorPrefixes.stream().sorted().collect(Collectors.toList()), astNode);
         }
       }
     }

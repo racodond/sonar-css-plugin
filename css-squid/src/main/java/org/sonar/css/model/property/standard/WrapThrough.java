@@ -19,6 +19,7 @@
  */
 package org.sonar.css.model.property.standard;
 
+import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 
 public class WrapThrough extends StandardProperty {
@@ -26,6 +27,7 @@ public class WrapThrough extends StandardProperty {
   public WrapThrough() {
     setExperimental(true);
     addLinks("https://drafts.csswg.org/css-exclusions-1/#propdef-wrap-through");
+    addVendors(Vendor.MICROSOFT);
   }
 
 }

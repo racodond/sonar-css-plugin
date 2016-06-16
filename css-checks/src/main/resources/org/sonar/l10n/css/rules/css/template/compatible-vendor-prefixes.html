@@ -5,9 +5,6 @@
     easy to forget to include the vendor prefixed version of a property when there are so many
     to keep track of.
 </p>
-<p>The following properties have multiple vendor-prefixed versions:</p>
-[[vendorPrefixedProperties]]
-
 <p>
     This rule is intended to raise an issue when a vendor-prefixed property is missing. Note that only the following
     main vendors are checked by this rule:
@@ -18,6 +15,16 @@
     <li>Internet Explorer (<code>-ms-</code>)</li>
 </ul>
 <p>Opera (<code>-o-</code>) for example is not.</p>
+<p>The following properties have multiple vendor-prefixed versions:</p>
+<table border=1>
+    <thead>
+    <tr align=center>
+        <th>Property</th>
+        <th>Vendor Prefixes</th>
+    </tr>
+    </thead>
+    [[vendorPrefixedProperties]]
+</table>
 
 <h2>Noncompliant Code Example</h2>
 <pre>

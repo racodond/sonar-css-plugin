@@ -19,6 +19,7 @@
  */
 package org.sonar.css.model.property.standard;
 
+import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 
 public class Columns extends StandardProperty {
@@ -28,6 +29,7 @@ public class Columns extends StandardProperty {
     addLinks(
       "http://dev.w3.org/csswg/css-multicol-1/#propdef-columns",
       "https://developer.mozilla.org/en-US/docs/Web/CSS/columns");
+    addVendors(Vendor.MICROSOFT);
   }
 
 }

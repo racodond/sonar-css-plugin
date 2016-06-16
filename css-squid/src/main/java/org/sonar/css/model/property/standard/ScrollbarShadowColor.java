@@ -19,12 +19,15 @@
  */
 package org.sonar.css.model.property.standard;
 
+import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 
 public class ScrollbarShadowColor extends StandardProperty {
 
   public ScrollbarShadowColor() {
-    setObsolete(true);
+    setExperimental(true);
+    addLinks("https://msdn.microsoft.com/en-us/library/ms531158(v=vs.85).aspx");
+    addVendors(Vendor.MICROSOFT);
   }
 
 }

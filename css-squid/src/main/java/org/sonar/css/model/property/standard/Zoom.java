@@ -19,6 +19,7 @@
  */
 package org.sonar.css.model.property.standard;
 
+import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.ZoomValidator;
 
@@ -28,6 +29,7 @@ public class Zoom extends StandardProperty {
     setExperimental(true);
     addLinks("https://drafts.csswg.org/css-device-adapt/#descdef-viewport-zoomN");
     addValidators(new ZoomValidator());
+    addVendors(Vendor.MICROSOFT);
   }
 
 }

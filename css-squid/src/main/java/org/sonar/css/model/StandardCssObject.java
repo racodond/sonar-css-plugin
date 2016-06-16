@@ -23,7 +23,9 @@ import com.google.common.base.CaseFormat;
 import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.Nonnull;
 
 public class StandardCssObject {
@@ -31,14 +33,21 @@ public class StandardCssObject {
   private String name;
   private boolean obsolete;
   private boolean experimental;
-  private final List<Vendor> vendors;
+
+  /*
+   * See:
+   * - Mozilla: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference
+   * - Microsoft: https://developer.microsoft.com/en-us/microsoft-edge/platform/documentation/apireference/cssstyles/
+   */
+  private final Set<Vendor> vendors;
+
   private final List<String> links;
 
   public StandardCssObject() {
     name = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, this.getClass().getSimpleName());
     obsolete = false;
     experimental = false;
-    vendors = new ArrayList<>();
+    vendors = new HashSet<>();
     links = new ArrayList<>();
   }
 
@@ -80,7 +89,7 @@ public class StandardCssObject {
   }
 
   @Nonnull
-  public List<Vendor> getVendors() {
+  public Set<Vendor> getVendors() {
     return vendors;
   }
 

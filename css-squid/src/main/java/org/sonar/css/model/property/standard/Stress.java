@@ -27,7 +27,6 @@ public class Stress extends StandardProperty {
   public Stress() {
     setObsolete(true);
     addLinks("https://www.w3.org/TR/CSS22/aural.html#propdef-stress");
-    addValidators(ValidatorFactory.getNumberValidator());
   }
 
 }

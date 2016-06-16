@@ -19,6 +19,7 @@
  */
 package org.sonar.css.model.property.standard;
 
+import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -28,6 +29,7 @@ public class TextJustify extends StandardProperty {
     setExperimental(true);
     addLinks("https://drafts.csswg.org/css-text-3/#propdef-text-justify");
     addValidators(new IdentifierValidator("auto", "none", "inter-word", "inter-character"));
+    addVendors(Vendor.MICROSOFT);
   }
 
 }

@@ -27,7 +27,6 @@ public class Richness extends StandardProperty {
   public Richness() {
     setObsolete(true);
     addLinks("https://www.w3.org/TR/CSS22/aural.html#propdef-richness");
-    addValidators(ValidatorFactory.getNumberValidator());
   }
 
 }

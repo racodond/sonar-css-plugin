@@ -19,6 +19,7 @@
  */
 package org.sonar.css.model.property.standard;
 
+import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 
 public class HyphenateLimitChars extends StandardProperty {
@@ -26,6 +27,7 @@ public class HyphenateLimitChars extends StandardProperty {
   public HyphenateLimitChars() {
     setExperimental(true);
     addLinks("https://drafts.csswg.org/css-text-4/#propdef-hyphenate-limit-chars");
+    addVendors(Vendor.MICROSOFT);
   }
 
 }

@@ -1,0 +1,7 @@
+.mybox {
+  layout-flow: inherit;
+  layout-flow: horizontal;
+  layout-flow: vertical-ideographic;
+  layout-flow: abc; /* Noncompliant !{Update the invalid value of property "layout-flow". Expected format: horizontal | vertical-ideographic}! */
+  layout-flow: 10; /* Noncompliant */
+}
