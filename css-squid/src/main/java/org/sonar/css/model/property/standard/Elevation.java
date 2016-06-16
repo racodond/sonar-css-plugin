@@ -20,8 +20,6 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.ValidatorFactory;
-import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class Elevation extends StandardProperty {
 
@@ -30,9 +28,6 @@ public class Elevation extends StandardProperty {
     addLinks(
       "https://www.w3.org/TR/CSS22/aural.html#propdef-elevation",
       "https://drafts.csswg.org/css-speech-1/#voice-balance");
-    addValidators(
-      ValidatorFactory.getAngleValidator(),
-      new IdentifierValidator("below", "level", "above", "higher", "lower"));
 
   }
 

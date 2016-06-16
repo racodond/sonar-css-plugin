@@ -20,14 +20,12 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class SpeakPunctuation extends StandardProperty {
 
   public SpeakPunctuation() {
     setObsolete(true);
     addLinks("https://www.w3.org/TR/CSS22/aural.html#propdef-speak-punctuation");
-    addValidators(new IdentifierValidator("code", "none"));
   }
 
 }

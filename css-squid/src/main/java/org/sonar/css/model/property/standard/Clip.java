@@ -26,7 +26,6 @@ import org.sonar.css.model.property.validator.valueelement.function.FunctionVali
 public class Clip extends StandardProperty {
 
   public Clip() {
-    setObsolete(true);
     addLinks(
       "https://www.w3.org/TR/CSS22/visufx.html#propdef-clip",
       "https://drafts.fxtf.org/masking/#propdef-clip");

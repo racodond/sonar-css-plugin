@@ -25,8 +25,9 @@ import org.sonar.css.model.property.StandardProperty;
 public class TransitionProperty extends StandardProperty {
 
   public TransitionProperty() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-transitions-1/#propdef-transition-property");
-    addVendors(Vendor.WEBKIT, Vendor.MOZILLA);
+    addVendors(Vendor.WEBKIT);
   }
 
 }

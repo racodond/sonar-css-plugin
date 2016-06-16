@@ -59,4 +59,8 @@ public class StandardProperty extends StandardCssObject {
     return format.toString();
   }
 
+  public boolean hasValidators() {
+    return !validators.isEmpty();
+  }
+
 }

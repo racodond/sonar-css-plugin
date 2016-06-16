@@ -19,11 +19,13 @@
  */
 package org.sonar.css.model.property;
 
+import java.util.stream.Collectors;
+
 import org.junit.Test;
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.standard.Border;
 import org.sonar.css.model.property.standard.BorderEnd;
-import org.sonar.css.model.property.standard.BorderImage;
+import org.sonar.css.model.property.standard.TransitionProperty;
 
 import static org.junit.Assert.assertEquals;
 
@@ -65,16 +67,15 @@ public class StandardPropertyFactoryTest {
   }
 
   @Test
-  public void should_return_a_valid_border_image_property_object() {
-    StandardProperty property = StandardPropertyFactory.createStandardProperty("border-image");
-    assertEquals(BorderImage.class, property.getClass());
-    assertEquals(property.getName(), "border-image");
+  public void should_return_a_valid_transition_property_object() {
+    StandardProperty property = StandardPropertyFactory.createStandardProperty("transition-property");
+    assertEquals(TransitionProperty.class, property.getClass());
+    assertEquals(property.getName(), "transition-property");
     assertEquals(property.getLinks().size(), 1);
-    assertEquals(property.getLinks().get(0), "https://drafts.csswg.org/css-backgrounds-3/#border-image");
+    assertEquals(property.getLinks().get(0), "https://drafts.csswg.org/css-transitions-1/#propdef-transition-property");
     assertEquals(property.getValidators().size(), 0);
-    assertEquals(property.getVendors().size(), 2);
+    assertEquals(property.getVendors().size(), 1);
     assertEquals(property.getVendors().contains(Vendor.WEBKIT), true);
-    assertEquals(property.getVendors().contains(Vendor.MOZILLA), true);
     assertEquals(property.getVendors().contains(Vendor.MICROSOFT), false);
     assertEquals(property.isObsolete(), false);
   }
@@ -93,6 +94,54 @@ public class StandardPropertyFactoryTest {
   @Test
   public void number_of_standard_properties() {
     assertEquals(569, StandardPropertyFactory.createAll().size());
+  }
+
+  @Test
+  public void should_not_find_any_property_set_to_both_obsolete_and_experimental() {
+    assertEquals(
+      0,
+      StandardPropertyFactory
+        .createAll()
+        .stream()
+        .filter(p -> p.isExperimental() && p.isObsolete())
+        .collect(Collectors.toList())
+        .size());
+  }
+
+  @Test
+  public void should_not_find_any_property_set_to_obsolete_with_vendors() {
+    assertEquals(
+      0,
+      StandardPropertyFactory
+        .createAll()
+        .stream()
+        .filter(p -> p.isObsolete() && p.hasVendors())
+        .collect(Collectors.toList())
+        .size());
+  }
+
+  @Test
+  public void should_not_find_any_property_not_set_to_experimental_with_vendors() {
+    assertEquals(
+      0,
+      StandardPropertyFactory
+        .createAll()
+        .stream()
+        .filter(p -> !p.isExperimental() && p.hasVendors())
+        .collect(Collectors.toList())
+        .size());
+  }
+
+  @Test
+  public void should_not_find_any_property_set_to_obsolete_with_validators() {
+    assertEquals(
+      0,
+      StandardPropertyFactory
+        .createAll()
+        .stream()
+        .filter(p -> p.isObsolete() && ((StandardProperty) p).hasValidators())
+        .collect(Collectors.toList())
+        .size());
   }
 
 }

@@ -19,14 +19,12 @@
  */
 package org.sonar.css.model.property.standard;
 
-import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 
 public class BorderImage extends StandardProperty {
 
   public BorderImage() {
     addLinks("https://drafts.csswg.org/css-backgrounds-3/#border-image");
-    addVendors(Vendor.WEBKIT, Vendor.MOZILLA);
   }
 
 }
