@@ -19,6 +19,7 @@
  */
 package org.sonar.css.model.property.standard;
 
+import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 
 public class FlowInto extends StandardProperty {
@@ -26,6 +27,7 @@ public class FlowInto extends StandardProperty {
   public FlowInto() {
     setExperimental(true);
     addLinks("https://drafts.csswg.org/css-regions-1/#propdef-flow-into");
+    addVendors(Vendor.MICROSOFT);
   }
 
 }

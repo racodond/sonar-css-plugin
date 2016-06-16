@@ -19,12 +19,15 @@
  */
 package org.sonar.css.model.property.standard;
 
+import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 
 public class ScrollbarTrackColor extends StandardProperty {
 
   public ScrollbarTrackColor() {
-    setObsolete(true);
+    setExperimental(true);
+    addLinks("https://msdn.microsoft.com/en-us/library/ms531158(v=vs.85).aspx");
+    addVendors(Vendor.MICROSOFT);
   }
 
 }

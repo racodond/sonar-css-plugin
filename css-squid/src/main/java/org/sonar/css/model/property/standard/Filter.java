@@ -28,7 +28,7 @@ public class Filter extends StandardProperty {
   public Filter() {
     setExperimental(true);
     addLinks("http://dev.w3.org/fxtf/filters/#propdef-filter");
-    addVendors(Vendor.WEBKIT);
+    addVendors(Vendor.WEBKIT, Vendor.MICROSOFT);
     addValidators(new FilterValidator());
   }
 

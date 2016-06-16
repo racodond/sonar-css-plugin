@@ -19,6 +19,7 @@
  */
 package org.sonar.css.model.property.standard;
 
+import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 
 public class WrapFlow extends StandardProperty {
@@ -26,6 +27,7 @@ public class WrapFlow extends StandardProperty {
   public WrapFlow() {
     setExperimental(true);
     addLinks("https://drafts.csswg.org/css-exclusions-1/#propdef-wrap-flow");
+    addVendors(Vendor.MICROSOFT);
   }
 
 }

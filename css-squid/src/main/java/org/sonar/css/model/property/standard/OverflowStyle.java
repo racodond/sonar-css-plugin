@@ -19,12 +19,17 @@
  */
 package org.sonar.css.model.property.standard;
 
+import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class OverflowStyle extends StandardProperty {
 
   public OverflowStyle() {
-    setObsolete(true);
+    setExperimental(true);
+    addLinks("https://msdn.microsoft.com/en-us/library/hh771902(v=vs.85).aspx");
+    addVendors(Vendor.MICROSOFT);
+    addValidators(new IdentifierValidator("auto", "none", "scrollbar", "-ms-autohiding-scrollbar"));
   }
 
 }

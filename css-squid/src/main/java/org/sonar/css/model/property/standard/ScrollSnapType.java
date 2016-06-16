@@ -19,6 +19,7 @@
  */
 package org.sonar.css.model.property.standard;
 
+import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -26,7 +27,9 @@ public class ScrollSnapType extends StandardProperty {
 
   public ScrollSnapType() {
     setExperimental(true);
-    addLinks("https://drafts.csswg.org/css-scroll-snap/#propdef-scroll-snap-type");
+    addLinks("https://msdn.microsoft.com/en-us/library/ms530719(v=vs.85).aspx");
+    addVendors(Vendor.MICROSOFT);
+    addValidators(new IdentifierValidator("none", "proximity", "mandatory"));
   }
 
 }

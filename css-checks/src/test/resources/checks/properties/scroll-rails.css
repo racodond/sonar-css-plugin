@@ -1,0 +1,7 @@
+.mybox {
+  scroll-rails: inherit;
+  scroll-rails: none;
+  scroll-rails: railed;
+  scroll-rails: abc; /* Noncompliant !{Update the invalid value of property "scroll-rails". Expected format: none | railed}! */
+  scroll-rails: 10%; /* Noncompliant */
+}

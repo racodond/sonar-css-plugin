@@ -19,6 +19,7 @@
  */
 package org.sonar.css.model.property.standard;
 
+import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
@@ -30,6 +31,7 @@ public class ColumnSpan extends StandardProperty {
       "http://dev.w3.org/csswg/css-multicol-1/#propdef-column-span",
       "https://developer.mozilla.org/en-US/docs/Web/CSS/column-span");
     addValidators(new IdentifierValidator("all", "none"));
+    addVendors(Vendor.MICROSOFT);
   }
 
 }

@@ -19,6 +19,7 @@
  */
 package org.sonar.css.model.atrule.standard;
 
+import org.sonar.css.model.Vendor;
 import org.sonar.css.model.atrule.StandardAtRule;
 
 public class Viewport extends StandardAtRule {
@@ -26,6 +27,7 @@ public class Viewport extends StandardAtRule {
   public Viewport() {
     setExperimental(true);
     addLinks("https://drafts.csswg.org/css-device-adapt/#atviewport-rule");
+    addVendors(Vendor.MICROSOFT);
   }
 
 }

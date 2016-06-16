@@ -1,0 +1,9 @@
+.mybox {
+  scroll-snap-points-x: inherit;
+  scroll-snap-points-x: snapInterval(10%, 10%);
+  scroll-snap-points-x: snapinterval(10%, 10%);
+  scroll-snap-points-x: snapList(10%);
+  scroll-snap-points-x: snaplist(10%);
+  scroll-snap-points-x: abc; /* Noncompliant !{Update the invalid value of property "scroll-snap-points-x". Expected format: <function>(snapinterval | snaplist)}! */
+  scroll-snap-points-x: 10%; /* Noncompliant */
+}
