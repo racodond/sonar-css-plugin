@@ -26,6 +26,7 @@ public class ScrollSnapMargin extends StandardProperty {
   public ScrollSnapMargin() {
     setExperimental(true);
     addLinks("https://drafts.csswg.org/css-scroll-snap/#propdef-scroll-snap-margin");
+    addShorthandFor("scroll-snap-margin-top", "scroll-snap-margin-right", "scroll-snap-margin-bottom", "scroll-snap-margin-left");
   }
 
 }

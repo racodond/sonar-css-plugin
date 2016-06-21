@@ -30,6 +30,7 @@ public class ColumnRule extends StandardProperty {
       "http://dev.w3.org/csswg/css-multicol-1/#propdef-column-rule",
       "https://developer.mozilla.org/en-US/docs/Web/CSS/column-rule");
     addVendors(Vendor.MOZILLA);
+    addShorthandFor("column-rule-color", "column-rule-style", "column-rule-width");
   }
 
 }

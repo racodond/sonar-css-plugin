@@ -30,6 +30,7 @@ public class BorderWidth extends StandardProperty {
       "https://www.w3.org/TR/CSS22/box.html#propdef-border-width",
       "https://drafts.csswg.org/css-backgrounds-3/#border-width");
     addValidators(new MultiplierValidator(4, ValidatorFactory.getBorderWidthValidator()));
+    addShorthandFor("border-top-width", "border-right-width", "border-bottom-width", "border-left-width");
   }
 
 }

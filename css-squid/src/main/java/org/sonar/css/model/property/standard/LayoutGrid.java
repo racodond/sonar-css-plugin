@@ -28,6 +28,7 @@ public class LayoutGrid extends StandardProperty {
     setExperimental(true);
     addLinks("https://msdn.microsoft.com/en-us/library/ms530770(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT);
+    addShorthandFor("layout-grid-mode", "layout-grid-type", "layout-grid-line", "layout-grid-char");
   }
 
 }

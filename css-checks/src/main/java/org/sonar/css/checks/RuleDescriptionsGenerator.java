@@ -23,10 +23,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 
 import java.io.*;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.apache.commons.io.FileUtils;
@@ -37,6 +35,7 @@ import org.sonar.css.model.Vendor;
 import org.sonar.css.model.atrule.StandardAtRule;
 import org.sonar.css.model.function.StandardFunction;
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.StandardPropertyFactory;
 
 public class RuleDescriptionsGenerator {
 
@@ -104,18 +103,19 @@ public class RuleDescriptionsGenerator {
     .build();
 
   private final Map<String, String> tags = ImmutableMap.<String, String>builder()
-    .put("[[allProperties]]", generateHtmlTable(getStandardCssObjects(StandardProperty.class, o -> true)))
-    .put("[[allFunctions]]", generateHtmlTable(getStandardCssObjects(StandardFunction.class, o -> true)))
-    .put("[[allAtRules]]", generateHtmlTable(getStandardCssObjects(StandardAtRule.class, o -> true)))
-    .put("[[experimentalProperties]]", generateHtmlTable(getStandardCssObjects(StandardProperty.class, o -> o.isExperimental())))
-    .put("[[experimentalFunctions]]", generateHtmlTable(getStandardCssObjects(StandardFunction.class, o -> o.isExperimental())))
-    .put("[[experimentalAtRules]]", generateHtmlTable(getStandardCssObjects(StandardAtRule.class, o -> o.isExperimental())))
-    .put("[[obsoleteProperties]]", generateHtmlTable(getStandardCssObjects(StandardProperty.class, o -> o.isObsolete())))
-    .put("[[obsoleteFunctions]]", generateHtmlTable(getStandardCssObjects(StandardFunction.class, o -> o.isObsolete())))
-    .put("[[obsoleteAtRules]]", generateHtmlTable(getStandardCssObjects(StandardAtRule.class, o -> o.isObsolete())))
+    .put("[[allProperties]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardProperty.class, o -> true)))
+    .put("[[allFunctions]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardFunction.class, o -> true)))
+    .put("[[allAtRules]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardAtRule.class, o -> true)))
+    .put("[[experimentalProperties]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardProperty.class, o -> o.isExperimental())))
+    .put("[[experimentalFunctions]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardFunction.class, o -> o.isExperimental())))
+    .put("[[experimentalAtRules]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardAtRule.class, o -> o.isExperimental())))
+    .put("[[obsoleteProperties]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardProperty.class, o -> o.isObsolete())))
+    .put("[[obsoleteFunctions]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardFunction.class, o -> o.isObsolete())))
+    .put("[[obsoleteAtRules]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardAtRule.class, o -> o.isObsolete())))
     .put("[[vendors]]", generateListOfVendors())
     .put("[[vendorPrefixedProperties]]", generateVendorPrefixedPropertiesHtmlTable())
     .put("[[propertyValidators]]", generateValidatorsHtmlTable())
+    .put("[[shorthandProperties]]", generateShorthandPropertiesHtmlTable())
     .build();
 
   public void generateHtmlRuleDescription(String templatePath, String outputPath) throws IOException {
@@ -133,7 +133,7 @@ public class RuleDescriptionsGenerator {
     StringBuilder description = new StringBuilder();
 
     StandardProperty property;
-    for (StandardCssObject cssObject : getStandardCssObjects(StandardProperty.class, o -> !o.isObsolete())) {
+    for (StandardCssObject cssObject : StandardCssObjectFactory.getStandardCssObjects(StandardProperty.class, o -> !o.isObsolete())) {
       property = (StandardProperty) cssObject;
       description.append("  <tr>\n").append("    <td nowrap=\"nowrap\">");
       if (!property.getLinks().isEmpty()) {
@@ -171,7 +171,7 @@ public class RuleDescriptionsGenerator {
     StringBuilder description = new StringBuilder();
 
     StandardProperty property;
-    for (StandardCssObject cssObject : getStandardCssObjects(StandardProperty.class, o -> o.hasVendors())) {
+    for (StandardCssObject cssObject : StandardCssObjectFactory.getStandardCssObjects(StandardProperty.class, o -> o.hasVendors())) {
       property = (StandardProperty) cssObject;
       description.append("  <tr>\n").append("    <td nowrap=\"nowrap\">");
       if (!property.getLinks().isEmpty()) {
@@ -197,13 +197,38 @@ public class RuleDescriptionsGenerator {
     return description.toString();
   }
 
-  private List<StandardCssObject> getStandardCssObjects(Class<? extends StandardCssObject> type, Predicate<StandardCssObject> filteringFunction) {
-    return StandardCssObjectFactory
-      .createAll(type)
+  private String generateShorthandPropertiesHtmlTable() {
+    StringBuilder description = new StringBuilder();
+
+    List<StandardProperty> shorthandProperties = StandardPropertyFactory.getAll()
       .stream()
-      .filter(filteringFunction)
+      .filter(StandardProperty::isShorthand)
       .sorted((o1, o2) -> o1.getName().compareTo(o2.getName()))
       .collect(Collectors.toList());
+
+    for (StandardProperty property : shorthandProperties) {
+      description.append("  <tr>\n").append("    <td nowrap=\"nowrap\">");
+      if (!property.getLinks().isEmpty()) {
+        description.append("<a target=\"_blank\" href=\"").append(property.getLinks().get(0)).append("\">");
+      }
+      description.append("<code>").append(property.getName()).append("</code>");
+      if (!property.getLinks().isEmpty()) {
+        description.append("</a>");
+      }
+      for (int i = 1; i < property.getLinks().size(); i++) {
+        description.append("&nbsp;&nbsp;<a target=\"_blank\" href=\"").append(property.getLinks().get(i)).append("\">#").append(i + 1).append("</a>");
+      }
+      description
+        .append("</td>\n")
+        .append("<td>\n");
+      for (String shorthandFor : property.getShorthandForPropertyNames().stream().sorted().collect(Collectors.toList())) {
+        description.append("<code>").append(shorthandFor).append("</code>").append("<br>");
+      }
+      description
+        .append("</td>\n")
+        .append("</tr>\n");
+    }
+    return description.toString();
   }
 
   private String generateListOfVendors() {

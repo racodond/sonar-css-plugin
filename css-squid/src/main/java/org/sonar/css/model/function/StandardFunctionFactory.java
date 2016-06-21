@@ -19,52 +19,43 @@
  */
 package org.sonar.css.model.function;
 
-import com.google.common.base.CaseFormat;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
-import org.sonar.css.model.StandardCssObject;
 import org.sonar.css.model.atrule.standard.Annotation;
 
 public class StandardFunctionFactory {
 
-  private StandardFunctionFactory() {
-  }
+  private static Map<String, StandardFunction> ALL = new HashMap<>();
 
-  public static StandardFunction createStandardFunction(String functionName) {
+  static {
     try {
-      String className = getClassNameFromFunctionName(functionName);
-      Class clazz = Class.forName("org.sonar.css.model.function.standard." + className);
-      return (StandardFunction) clazz.newInstance();
-    } catch (ClassNotFoundException e) {
-      return new UnknownFunction(functionName);
-    } catch (IllegalAccessException | InstantiationException e) {
-      throw new IllegalStateException("CSS function for '" + functionName + "' cannot be created.", e);
-    }
-  }
-
-  public static List<StandardCssObject> createAll() {
-    try {
-      List<StandardCssObject> standardFunctions = new ArrayList<>();
       ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(Annotation.class.getClassLoader()).getTopLevelClasses("org.sonar.css.model.function.standard");
+      StandardFunction standardFunction;
       for (ClassPath.ClassInfo classInfo : classInfos) {
         if (!"org.sonar.css.model.function.standard.package-info".equals(classInfo.getName())) {
-          standardFunctions.add((StandardFunction) Class.forName(classInfo.getName()).newInstance());
+          standardFunction = (StandardFunction) Class.forName(classInfo.getName()).newInstance();
+          ALL.put(standardFunction.getName(), standardFunction);
         }
       }
-      return standardFunctions;
     } catch (ClassNotFoundException | IOException | InstantiationException | IllegalAccessException e) {
       throw new IllegalStateException("CSS functions full list cannot be created.", e);
     }
   }
 
-  private static String getClassNameFromFunctionName(String functionName) {
-    return CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, functionName.toLowerCase(Locale.ENGLISH));
+  private StandardFunctionFactory() {
+  }
+
+  public static StandardFunction getByName(String functionName) {
+    StandardFunction function = ALL.get(functionName.toLowerCase(Locale.ENGLISH));
+    return function != null ? function : new UnknownFunction(functionName.toLowerCase(Locale.ENGLISH));
+  }
+
+  public static List<StandardFunction> getAll() {
+    return new ArrayList<>(ALL.values());
   }
 
 }

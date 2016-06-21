@@ -20,15 +20,14 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.property.PausePropertyValidator;
+import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
-public class Pause extends StandardProperty {
+public class Caret extends StandardProperty {
 
-  public Pause() {
+  public Caret() {
     setExperimental(true);
-    addLinks("https://drafts.csswg.org/css-speech-1/#pause");
-    addValidators(new PausePropertyValidator());
-    addShorthandFor("pause-before", "pause-after");
+    addLinks("https://drafts.csswg.org/css-ui-4/#caret");
+    addShorthandFor("caret-color", "caret-shape");
   }
 
 }

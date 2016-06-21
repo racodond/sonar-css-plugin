@@ -28,6 +28,10 @@ public class Grid extends StandardProperty {
     addLinks(
       "https://drafts.csswg.org/css-grid-1/#propdef-grid",
       "https://drafts.csswg.org/mediaqueries-4/#descdef-media-grid");
+
+    addShorthandFor("grid-template-rows", "grid-template-columns", "grid-template-areas",
+      "grid-auto-rows", "grid-auto-columns", "grid-auto-flow",
+      "grid-column-gap", "grid-row-gap");
   }
 
 }

@@ -28,6 +28,7 @@ public class GridRow extends StandardProperty {
     setExperimental(true);
     addLinks("http://www.w3.org/TR/css-grid-1/#propdef-grid-row");
     addVendors(Vendor.MICROSOFT);
+    addShorthandFor("grid-row-start", "grid-row-end");
   }
 
 }

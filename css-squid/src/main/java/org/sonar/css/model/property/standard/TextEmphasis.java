@@ -28,6 +28,7 @@ public class TextEmphasis extends StandardProperty {
     setExperimental(true);
     addVendors(Vendor.WEBKIT);
     addLinks("http://www.w3.org/TR/css-text-decor-3/#text-emphasis");
+    addShorthandFor("text-emphasis-color", "text-emphasis-style");
   }
 
 }

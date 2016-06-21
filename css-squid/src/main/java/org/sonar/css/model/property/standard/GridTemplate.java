@@ -26,6 +26,7 @@ public class GridTemplate extends StandardProperty {
   public GridTemplate() {
     setExperimental(true);
     addLinks("http://www.w3.org/TR/css-grid-1/#propdef-grid-template");
+    addShorthandFor("grid-template-rows", "grid-template-columns", "grid-template-areas");
   }
 
 }

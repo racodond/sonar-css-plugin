@@ -28,6 +28,7 @@ public class ContentZoomSnap extends StandardProperty {
     setExperimental(true);
     addLinks("https://msdn.microsoft.com/en-us/library/ms530719(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT);
+    addShorthandFor("content-zoom-snap-points", "content-zoom-snap-type");
   }
 
 }

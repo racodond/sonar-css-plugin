@@ -29,6 +29,7 @@ public class BorderTop extends StandardProperty {
       "https://www.w3.org/TR/CSS22/box.html#propdef-border-top",
       "https://drafts.csswg.org/css-backgrounds-3/#border-top");
     addValidators(ValidatorFactory.getBorderValidator());
+    addShorthandFor("border-top-width", "border-top-color", "border-top-style");
   }
 
 }

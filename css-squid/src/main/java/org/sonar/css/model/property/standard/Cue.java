@@ -28,6 +28,7 @@ public class Cue extends StandardProperty {
     setExperimental(true);
     addLinks("https://drafts.csswg.org/css-speech-1/#cue");
     addValidators(new CuePropertyValidator());
+    addShorthandFor("cue-before", "cue-after");
   }
 
 }

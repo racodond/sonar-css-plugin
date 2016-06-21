@@ -26,6 +26,7 @@ public class MaskBorder extends StandardProperty {
   public MaskBorder() {
     setExperimental(true);
     addLinks("https://drafts.fxtf.org/masking/#propdef-mask-border");
+    addShorthandFor("mask-border-source", "mask-border-slice", "mask-border-width", "mask-border-outset", "mask-border-repeat");
   }
 
 }

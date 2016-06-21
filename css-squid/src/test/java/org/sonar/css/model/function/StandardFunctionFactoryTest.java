@@ -29,7 +29,7 @@ public class StandardFunctionFactoryTest {
 
   @Test
   public void should_return_a_valid_rotatex_function_object() {
-    StandardFunction function = StandardFunctionFactory.createStandardFunction("rotatex");
+    StandardFunction function = StandardFunctionFactory.getByName("rotatex");
     assertEquals(Rotatex.class, function.getClass());
     assertEquals(function.getName(), "rotatex");
     assertEquals(function.getLinks().size(), 1);
@@ -38,7 +38,7 @@ public class StandardFunctionFactoryTest {
 
   @Test
   public void should_return_a_valid_rotatex_function_object_uppercase_test() {
-    StandardFunction function = StandardFunctionFactory.createStandardFunction("ROTATEX");
+    StandardFunction function = StandardFunctionFactory.getByName("ROTATEX");
     assertEquals(Rotatex.class, function.getClass());
     assertEquals(function.getName(), "rotatex");
     assertEquals(function.getLinks().size(), 1);
@@ -49,7 +49,7 @@ public class StandardFunctionFactoryTest {
 
   @Test
   public void should_return_a_valid_rotatex_function_object_mix_uppercase_lowercase_test() {
-    StandardFunction function = StandardFunctionFactory.createStandardFunction("rotateX");
+    StandardFunction function = StandardFunctionFactory.getByName("rotateX");
     assertEquals(Rotatex.class, function.getClass());
     assertEquals(function.getName(), "rotatex");
     assertEquals(function.getLinks().size(), 1);
@@ -60,7 +60,7 @@ public class StandardFunctionFactoryTest {
 
   @Test
   public void should_return_a_valid_repeating_linear_gradient_function_object() {
-    StandardFunction function = StandardFunctionFactory.createStandardFunction("repeating-linear-gradient");
+    StandardFunction function = StandardFunctionFactory.getByName("repeating-linear-gradient");
     assertEquals(RepeatingLinearGradient.class, function.getClass());
     assertEquals(function.getName(), "repeating-linear-gradient");
     assertEquals(function.getLinks().size(), 1);
@@ -70,7 +70,7 @@ public class StandardFunctionFactoryTest {
 
   @Test
   public void should_return_a_valid_repeating_linear_gradient_function_object_mix_uppercase_lowercase_test() {
-    StandardFunction function = StandardFunctionFactory.createStandardFunction("repEating-Linear-gradient");
+    StandardFunction function = StandardFunctionFactory.getByName("repEating-Linear-gradient");
     assertEquals(RepeatingLinearGradient.class, function.getClass());
     assertEquals(function.getName(), "repeating-linear-gradient");
     assertEquals(function.getLinks().size(), 1);
@@ -80,7 +80,7 @@ public class StandardFunctionFactoryTest {
 
   @Test
   public void number_of_standard_functions() {
-    assertEquals(106, StandardFunctionFactory.createAll().size());
+    assertEquals(106, StandardFunctionFactory.getAll().size());
   }
 
 }

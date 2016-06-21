@@ -26,6 +26,7 @@ public class GridArea extends StandardProperty {
   public GridArea() {
     setExperimental(true);
     addLinks("https://drafts.csswg.org/css-grid-1/#propdef-grid-area");
+    addShorthandFor("grid-row-start", "grid-row-end", "grid-column-start", "grid-column-end");
   }
 
 }

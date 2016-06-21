@@ -74,7 +74,7 @@ public class CompatibleVendorPrefixes extends CssCheck {
     List<String> missingVendorPrefixes;
     if (astNode.is(CssGrammar.RULESET)) {
       for (Entry<String, Set<Vendor>> props : properties.entrySet()) {
-        StandardProperty p = StandardPropertyFactory.createStandardProperty(props.getKey());
+        StandardProperty p = StandardPropertyFactory.getByName(props.getKey());
         missingVendorPrefixes = p.getVendors()
           .stream()
           .filter(vendor -> !props.getValue().contains(vendor))

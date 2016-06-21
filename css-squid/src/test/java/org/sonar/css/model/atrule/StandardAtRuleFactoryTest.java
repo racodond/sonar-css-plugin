@@ -30,7 +30,7 @@ public class StandardAtRuleFactoryTest {
 
   @Test
   public void should_return_a_valid_charset_at_rule_object() {
-    StandardAtRule atRule = StandardAtRuleFactory.createStandardAtRule("charset");
+    StandardAtRule atRule = StandardAtRuleFactory.getByName("charset");
     assertEquals(Charset.class, atRule.getClass());
     assertEquals(atRule.getName(), "charset");
     assertEquals(atRule.getLinks().size(), 1);
@@ -41,7 +41,7 @@ public class StandardAtRuleFactoryTest {
 
   @Test
   public void should_return_a_valid_charset_at_rule_object_uppercase_test() {
-    StandardAtRule atRule = StandardAtRuleFactory.createStandardAtRule("CHARSET");
+    StandardAtRule atRule = StandardAtRuleFactory.getByName("CHARSET");
     assertEquals(Charset.class, atRule.getClass());
     assertEquals(atRule.getName(), "charset");
     assertEquals(atRule.getLinks().size(), 1);
@@ -52,7 +52,7 @@ public class StandardAtRuleFactoryTest {
 
   @Test
   public void should_return_a_valid_character_variant_at_rule_object() {
-    StandardAtRule atRule = StandardAtRuleFactory.createStandardAtRule("character-variant");
+    StandardAtRule atRule = StandardAtRuleFactory.getByName("character-variant");
     assertEquals(CharacterVariant.class, atRule.getClass());
     assertEquals(atRule.getName(), "character-variant");
     assertEquals(atRule.getLinks().size(), 2);
@@ -64,7 +64,7 @@ public class StandardAtRuleFactoryTest {
 
   @Test
   public void should_return_a_valid_keyframes_at_rule_object() {
-    StandardAtRule atRule = StandardAtRuleFactory.createStandardAtRule("keyframes");
+    StandardAtRule atRule = StandardAtRuleFactory.getByName("keyframes");
     assertEquals(Keyframes.class, atRule.getClass());
     assertEquals(atRule.getName(), "keyframes");
     assertEquals(atRule.getLinks().size(), 1);
@@ -74,7 +74,7 @@ public class StandardAtRuleFactoryTest {
 
   @Test
   public void number_of_standard_at_rules() {
-    assertEquals(19, StandardAtRuleFactory.createAll().size());
+    assertEquals(19, StandardAtRuleFactory.getAll().size());
   }
 
 }

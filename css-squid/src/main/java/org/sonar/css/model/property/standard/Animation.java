@@ -27,6 +27,8 @@ public class Animation extends StandardProperty {
   public Animation() {
     addLinks("http://www.w3.org/TR/css3-animations/#animation");
     addValidators(new AnimationValidator());
+    addShorthandFor("animation-name", "animation-duration", "animation-timing-function", "animation-delay",
+      "animation-iteration-count", "animation-direction", "animation-fill-mode", "animation-play-state");
   }
 
 }

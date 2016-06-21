@@ -28,6 +28,7 @@ public class Margin extends StandardProperty {
   public Margin() {
     addLinks("https://www.w3.org/TR/CSS22/box.html#propdef-margin");
     addValidators(new MultiplierValidator(4, ValidatorFactory.getMarginWidthValidator()));
+    addShorthandFor("margin-top", "margin-right", "margin-bottom", "margin-left");
   }
 
 }

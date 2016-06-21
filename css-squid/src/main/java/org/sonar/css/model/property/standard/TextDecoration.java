@@ -30,6 +30,7 @@ public class TextDecoration extends StandardProperty {
       "https://www.w3.org/TR/CSS22/text.html#propdef-text-decoration",
       "https://drafts.csswg.org/css-text-decor-3/#propdef-text-decoration");
     addValidators(new IdentifierValidator("none", "underline", "overline", "line-through", "blink"));
+    addShorthandFor("text-decoration-line", "text-decoration-color", "text-decoration-style");
     // TODO: Move to CSS3 validator
   }
 

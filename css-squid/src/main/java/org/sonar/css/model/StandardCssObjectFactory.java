@@ -20,6 +20,8 @@
 package org.sonar.css.model;
 
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.sonar.css.model.atrule.StandardAtRule;
 import org.sonar.css.model.atrule.StandardAtRuleFactory;
@@ -33,19 +35,24 @@ public class StandardCssObjectFactory {
   private StandardCssObjectFactory() {
   }
 
-  public static List<StandardCssObject> createAll(Class<? extends StandardCssObject> clazz) {
+  public static List<StandardCssObject> getStandardCssObjects(Class<? extends StandardCssObject> type, Predicate<StandardCssObject> filteringFunction) {
     try {
-      if (clazz.newInstance() instanceof StandardProperty) {
-        return StandardPropertyFactory.createAll();
-      } else if (clazz.newInstance() instanceof StandardAtRule) {
-        return StandardAtRuleFactory.createAll();
-      } else if (clazz.newInstance() instanceof StandardFunction) {
-        return StandardFunctionFactory.createAll();
+      List<? extends StandardCssObject> all;
+      if (type.newInstance() instanceof StandardProperty) {
+        all = StandardPropertyFactory.getAll();
+      } else if (type.newInstance() instanceof StandardAtRule) {
+        all = StandardAtRuleFactory.getAll();
+      } else if (type.newInstance() instanceof StandardFunction) {
+        all = StandardFunctionFactory.getAll();
       } else {
-        throw new IllegalArgumentException("Cannot get all Standard CSS Elements of type " + clazz.getName() + ". Unknown Standard CSS Element.");
+        throw new IllegalArgumentException("Cannot get all CSS Standard Elements of type " + type.getName() + ". Unknown Standard CSS object");
       }
-    } catch (InstantiationException | IllegalAccessException e) {
-      throw new IllegalArgumentException("Cannot get all Standard CSS Elements of type " + clazz.getName(), e);
+      return all
+        .stream()
+        .filter(filteringFunction).sorted((o1, o2) -> o1.getName().compareTo(o2.getName()))
+        .collect(Collectors.toList());
+    } catch (IllegalAccessException | InstantiationException e) {
+      throw new IllegalArgumentException("Unknown Standard CSS object", e);
     }
   }
 

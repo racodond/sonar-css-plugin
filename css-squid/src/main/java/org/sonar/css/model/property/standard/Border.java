@@ -29,6 +29,7 @@ public class Border extends StandardProperty {
       "https://www.w3.org/TR/CSS22/box.html#propdef-border",
       "https://drafts.csswg.org/css-backgrounds-3/#border");
     addValidators(new BorderPropertyValidator());
+    addShorthandFor("border-top", "border-right", "border-bottom", "border-left");
   }
 
 }

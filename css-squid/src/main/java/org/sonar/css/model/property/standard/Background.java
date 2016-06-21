@@ -27,6 +27,7 @@ public class Background extends StandardProperty {
     addLinks(
       "https://www.w3.org/TR/CSS22/colors.html#propdef-background",
       "https://drafts.csswg.org/css-backgrounds-3/#background");
+    addShorthandFor("background-image", "background-position", "background-size", "background-repeat", "background-origin", "background-clip", "background-attachment");
   }
 
 }

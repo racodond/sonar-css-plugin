@@ -27,6 +27,7 @@ public class FlexFlow extends StandardProperty {
   public FlexFlow() {
     addLinks("http://dev.w3.org/csswg/css-flexbox-1/#propdef-flex-flow");
     addValidators(new FlexFlowValidator());
+    addShorthandFor("flex-direction", "flex-wrap");
   }
 
 }

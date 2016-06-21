@@ -25,6 +25,7 @@ public class Flex extends StandardProperty {
 
   public Flex() {
     addLinks("https://drafts.csswg.org/css-flexbox-1/#propdef-flex");
+    addShorthandFor("flex-grow", "flex-shrink", "flex-basis");
   }
 
 }

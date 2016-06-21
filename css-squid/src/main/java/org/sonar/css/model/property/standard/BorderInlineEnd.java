@@ -28,6 +28,7 @@ public class BorderInlineEnd extends StandardProperty {
     setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-logical-props/#propdef-border-inline-end-style");
     addValidators(ValidatorFactory.getBorderValidator());
+    addShorthandFor("border-inline-end-width", "border-inline-end-style", "border-inline-end-color");
   }
 
 }

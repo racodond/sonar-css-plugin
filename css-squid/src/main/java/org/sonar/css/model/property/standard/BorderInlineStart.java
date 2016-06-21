@@ -28,6 +28,7 @@ public class BorderInlineStart extends StandardProperty {
     setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-logical-props/#propdef-border-inline-start");
     addValidators(ValidatorFactory.getBorderValidator());
+    addShorthandFor("border-inline-start-width", "border-inline-start-style", "border-inline-start-color");
   }
 
 }

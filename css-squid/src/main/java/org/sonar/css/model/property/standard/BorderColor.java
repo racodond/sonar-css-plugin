@@ -30,6 +30,7 @@ public class BorderColor extends StandardProperty {
       "https://www.w3.org/TR/CSS22/box.html#propdef-border-color",
       "https://drafts.csswg.org/css-backgrounds-3/#border-color");
     addValidators(new MultiplierValidator(4, ValidatorFactory.getColorValidator()));
+    addShorthandFor("border-top-color", "border-right-color", "border-bottom-color", "border-left-color");
   }
 
 }

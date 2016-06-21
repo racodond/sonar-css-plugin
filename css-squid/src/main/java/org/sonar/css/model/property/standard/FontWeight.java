@@ -31,7 +31,7 @@ public class FontWeight extends StandardProperty {
       "https://drafts.csswg.org/css-fonts-3/#propdef-font-weight");
     addValidators(
       new IdentifierValidator("normal", "bold", "bolder", "lighter"),
-      new IntegerSetValidator(new int[] {100, 200, 300, 400, 500, 600, 700, 800, 900}));
+      new IntegerSetValidator(100, 200, 300, 400, 500, 600, 700, 800, 900));
   }
 
 }

@@ -28,6 +28,7 @@ public class BorderBlockStart extends StandardProperty {
     setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-logical-props/#propdef-border-block-start");
     addValidators(ValidatorFactory.getBorderValidator());
+    addShorthandFor("border-block-start-width", "border-block-start-style", "border-block-start-color");
   }
 
 }

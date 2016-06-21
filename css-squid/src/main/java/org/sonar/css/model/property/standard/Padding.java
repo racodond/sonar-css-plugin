@@ -28,6 +28,7 @@ public class Padding extends StandardProperty {
   public Padding() {
     addLinks("https://www.w3.org/TR/CSS22/box.html#propdef-padding");
     addValidators(new MultiplierValidator(4, ValidatorFactory.getPaddingWidthValidator()));
+    addShorthandFor("padding-top", "padding-right", "padding-bottom", "padding-left");
   }
 
 }

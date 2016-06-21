@@ -30,6 +30,7 @@ public class BorderStyle extends StandardProperty {
       "https://www.w3.org/TR/CSS22/box.html#propdef-border-style",
       "https://drafts.csswg.org/css-backgrounds-3/#border-style");
     addValidators(new MultiplierValidator(4, ValidatorFactory.getBorderStyleValidator()));
+    addShorthandFor("border-top-style", "border-right-style", "border-bottom-style", "border-left-style");
   }
 
 }

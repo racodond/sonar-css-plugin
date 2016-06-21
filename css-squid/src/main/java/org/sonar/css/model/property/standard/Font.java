@@ -27,6 +27,7 @@ public class Font extends StandardProperty {
     addLinks(
       "https://www.w3.org/TR/CSS22/fonts.html#propdef-font",
       "https://drafts.csswg.org/css-fonts-3/#propdef-font");
+    addShorthandFor("font-style", "font-variant", "font-weight", "font-stretch", "font-size", "line-height", "font-family");
   }
 
 }

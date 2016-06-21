@@ -90,7 +90,7 @@ public class Property {
     if (isVendorPrefixed()) {
       propertyName = propertyName.substring(vendorPrefix.getPrefix().length());
     }
-    return StandardPropertyFactory.createStandardProperty(propertyName);
+    return StandardPropertyFactory.getByName(propertyName);
   }
 
 }

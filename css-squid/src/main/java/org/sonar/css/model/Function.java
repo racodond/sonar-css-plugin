@@ -61,7 +61,7 @@ public class Function {
     if (isVendorPrefixed()) {
       functionName = functionName.substring(vendorPrefix.getPrefix().length());
     }
-    return StandardFunctionFactory.createStandardFunction(functionName);
+    return StandardFunctionFactory.getByName(functionName);
   }
 
 }

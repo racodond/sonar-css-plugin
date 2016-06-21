@@ -19,25 +19,27 @@
  */
 package org.sonar.css.model.property.validator.valueelement.numeric;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 
-import com.google.common.base.Joiner;
 import org.sonar.css.model.value.CssValueElement;
 import org.sonar.css.model.value.valueelement.NumberValueElement;
 
 public class IntegerSetValidator extends IntegerValidator {
 
-  private final int[] set;
+  private final List<Integer> values;
 
-  public IntegerSetValidator(int[] set) {
-    this.set = set;
+  public IntegerSetValidator(Integer... values) {
+    this.values = Arrays.asList(values);
   }
 
   @Override
   public boolean isValid(CssValueElement cssValueElement) {
     if (super.isValid(cssValueElement)) {
       int value = ((NumberValueElement) cssValueElement).getValue().intValue();
-      for (int v : set) {
+      for (int v : values) {
         if (value == v) {
           return true;
         }
@@ -49,14 +51,7 @@ public class IntegerSetValidator extends IntegerValidator {
   @Override
   @Nonnull
   public String getValidatorFormat() {
-    StringBuilder format = new StringBuilder();
-    for (int v : set) {
-      if (format.length() != 0) {
-        format.append(" | ");
-      }
-      format.append(v);
-    }
-    return format.toString();
+    return values.stream().map(p -> p.toString()).collect(Collectors.joining(" | "));
   }
 
 }

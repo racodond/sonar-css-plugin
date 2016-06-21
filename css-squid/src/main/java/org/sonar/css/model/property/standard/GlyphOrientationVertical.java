@@ -20,21 +20,14 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.ValidatorFactory;
-import org.sonar.css.model.property.validator.valueelement.numeric.IntegerSetValidator;
 
 public class GlyphOrientationVertical extends StandardProperty {
 
   public GlyphOrientationVertical() {
-    // TODO: Validator should restrict angles to 0, 90, 180, 270 degrees
-    setExperimental(true);
+    setObsolete(true);
     addLinks(
       "https://drafts.csswg.org/css-writing-modes-3/#propdef-glyph-orientation-vertical",
       "https://www.w3.org/TR/SVG/text.html#GlyphOrientationVerticalProperty");
-    addValidators(
-      ValidatorFactory.getAutoValidator(),
-      ValidatorFactory.getAngleValidator(),
-      new IntegerSetValidator(new int[] {0, 90}));
   }
 
 }

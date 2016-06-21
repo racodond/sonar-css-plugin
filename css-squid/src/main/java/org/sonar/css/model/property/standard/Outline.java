@@ -29,6 +29,7 @@ public class Outline extends StandardProperty {
       "https://www.w3.org/TR/CSS22/ui.html#propdef-outline",
       "https://drafts.csswg.org/css-ui/#propdef-outline");
     addValidators(new OutlineValidator());
+    addShorthandFor("outline-style", "outline-color", "outline-width");
   }
 
 }

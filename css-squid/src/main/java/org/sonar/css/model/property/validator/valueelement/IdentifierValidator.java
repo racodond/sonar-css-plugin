@@ -56,14 +56,7 @@ public class IdentifierValidator implements ValueElementValidator {
     if (allowedValues.isEmpty()) {
       return "<identifier>";
     } else {
-      StringBuilder format = new StringBuilder();
-      for (String allowedValue : allowedValues) {
-        if (format.length() != 0) {
-          format.append(" | ");
-        }
-        format.append(allowedValue);
-      }
-      return format.toString();
+      return String.join(" | ", allowedValues);
     }
   }
 }

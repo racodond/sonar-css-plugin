@@ -19,52 +19,43 @@
  */
 package org.sonar.css.model.atrule;
 
-import com.google.common.base.CaseFormat;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
-import org.sonar.css.model.StandardCssObject;
 import org.sonar.css.model.atrule.standard.Annotation;
 
 public class StandardAtRuleFactory {
 
-  private StandardAtRuleFactory() {
-  }
+  private static Map<String, StandardAtRule> ALL = new HashMap<>();
 
-  public static StandardAtRule createStandardAtRule(String atRuleName) {
+  static {
     try {
-      String className = getClassNameFromAtRuleName(atRuleName);
-      Class clazz = Class.forName("org.sonar.css.model.atrule.standard." + className);
-      return (StandardAtRule) clazz.newInstance();
-    } catch (ClassNotFoundException e) {
-      return new UnknownAtRule(atRuleName);
-    } catch (IllegalAccessException | InstantiationException e) {
-      throw new IllegalStateException("CSS at-rule for '" + atRuleName + "' cannot be created.", e);
-    }
-  }
-
-  public static List<StandardCssObject> createAll() {
-    try {
-      List<StandardCssObject> standardAtRules = new ArrayList<>();
       ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(Annotation.class.getClassLoader()).getTopLevelClasses("org.sonar.css.model.atrule.standard");
+      StandardAtRule standardAtRule;
       for (ClassPath.ClassInfo classInfo : classInfos) {
         if (!"org.sonar.css.model.atrule.standard.package-info".equals(classInfo.getName())) {
-          standardAtRules.add((StandardAtRule) Class.forName(classInfo.getName()).newInstance());
+          standardAtRule = (StandardAtRule) Class.forName(classInfo.getName()).newInstance();
+          ALL.put(standardAtRule.getName(), standardAtRule);
         }
       }
-      return standardAtRules;
     } catch (ClassNotFoundException | IOException | InstantiationException | IllegalAccessException e) {
       throw new IllegalStateException("CSS at-rules full list cannot be created.", e);
     }
   }
 
-  private static String getClassNameFromAtRuleName(String atRuleName) {
-    return CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, atRuleName.toLowerCase(Locale.ENGLISH));
+  private StandardAtRuleFactory() {
+  }
+
+  public static StandardAtRule getByName(String atRuleName) {
+    StandardAtRule atRule = ALL.get(atRuleName.toLowerCase(Locale.ENGLISH));
+    return atRule != null ? atRule : new UnknownAtRule(atRuleName.toLowerCase(Locale.ENGLISH));
+  }
+
+  public static List<StandardAtRule> getAll() {
+    return new ArrayList<>(ALL.values());
   }
 
 }

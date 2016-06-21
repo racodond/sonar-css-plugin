@@ -29,6 +29,7 @@ public class BorderBottom extends StandardProperty {
       "https://www.w3.org/TR/CSS22/box.html#propdef-border-bottom",
       "https://drafts.csswg.org/css-backgrounds-3/#border-bottom");
     addValidators(ValidatorFactory.getBorderValidator());
+    addShorthandFor("border-bottom-width", "border-bottom-color", "border-bottom-style");
   }
 
 }

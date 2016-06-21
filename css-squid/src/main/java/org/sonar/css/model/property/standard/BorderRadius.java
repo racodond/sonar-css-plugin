@@ -27,6 +27,7 @@ public class BorderRadius extends StandardProperty {
   public BorderRadius() {
     addLinks("https://drafts.csswg.org/css-backgrounds-3/#border-radius");
     addValidators(new BorderRadiusPropertyValidator());
+    addShorthandFor("border-top-left-radius", "border-top-right-radius", "border-bottom-right-radius", "border-bottom-left-radius");
   }
 
 }

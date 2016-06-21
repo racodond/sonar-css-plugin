@@ -28,6 +28,7 @@ public class GridColumn extends StandardProperty {
     setExperimental(true);
     addLinks("http://www.w3.org/TR/css-grid-1/#propdef-grid-column");
     addVendors(Vendor.MICROSOFT);
+    addShorthandFor("grid-column-start", "grid-column-end");
   }
 
 }

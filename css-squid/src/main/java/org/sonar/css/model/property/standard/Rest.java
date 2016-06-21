@@ -28,6 +28,7 @@ public class Rest extends StandardProperty {
     setExperimental(true);
     addLinks("https://drafts.csswg.org/css-speech-1/#rest");
     addValidators(new PausePropertyValidator());
+    addShorthandFor("rest-before", "rest-after");
   }
 
 }

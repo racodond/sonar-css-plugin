@@ -19,52 +19,43 @@
  */
 package org.sonar.css.model.property;
 
-import com.google.common.base.CaseFormat;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
-import org.sonar.css.model.StandardCssObject;
 import org.sonar.css.model.property.standard.Border;
 
 public class StandardPropertyFactory {
 
-  private StandardPropertyFactory() {
-  }
+  private static Map<String, StandardProperty> ALL = new HashMap<>();
 
-  public static StandardProperty createStandardProperty(String propertyName) {
+  static {
     try {
-      String className = getClassNameFromPropertyName(propertyName);
-      Class clazz = Class.forName("org.sonar.css.model.property.standard." + className);
-      return (StandardProperty) clazz.newInstance();
-    } catch (ClassNotFoundException e) {
-      return new UnknownProperty(propertyName);
-    } catch (IllegalAccessException | InstantiationException e) {
-      throw new IllegalStateException("CSS property for '" + propertyName + "' cannot be created.", e);
-    }
-  }
-
-  public static List<StandardCssObject> createAll() {
-    try {
-      List<StandardCssObject> standardProperties = new ArrayList<>();
       ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(Border.class.getClassLoader()).getTopLevelClasses("org.sonar.css.model.property.standard");
+      StandardProperty standardProperty;
       for (ClassPath.ClassInfo classInfo : classInfos) {
         if (!"org.sonar.css.model.property.standard.package-info".equals(classInfo.getName())) {
-          standardProperties.add((StandardProperty) Class.forName(classInfo.getName()).newInstance());
+          standardProperty = (StandardProperty) Class.forName(classInfo.getName()).newInstance();
+          ALL.put(standardProperty.getName(), standardProperty);
         }
       }
-      return standardProperties;
     } catch (ClassNotFoundException | IOException | InstantiationException | IllegalAccessException e) {
       throw new IllegalStateException("CSS properties full list cannot be created.", e);
     }
   }
 
-  private static String getClassNameFromPropertyName(String propertyName) {
-    return CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, propertyName.toLowerCase(Locale.ENGLISH));
+  private StandardPropertyFactory() {
+  }
+
+  public static StandardProperty getByName(String propertyName) {
+    StandardProperty property = ALL.get(propertyName.toLowerCase(Locale.ENGLISH));
+    return property != null ? property : new UnknownProperty(propertyName.toLowerCase(Locale.ENGLISH));
+  }
+
+  public static List<StandardProperty> getAll() {
+    return new ArrayList<>(ALL.values());
   }
 
 }

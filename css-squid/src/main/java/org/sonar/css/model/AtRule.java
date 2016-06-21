@@ -60,7 +60,7 @@ public class AtRule {
     if (isVendorPrefixed()) {
       atRuleName = atRuleName.substring(vendorPrefix.getPrefix().length());
     }
-    return StandardAtRuleFactory.createStandardAtRule(atRuleName);
+    return StandardAtRuleFactory.getByName(atRuleName);
   }
 
 }

@@ -29,6 +29,7 @@ public class BorderLeft extends StandardProperty {
       "https://www.w3.org/TR/CSS22/box.html#propdef-border-left",
       "https://drafts.csswg.org/css-backgrounds-3/#border-left");
     addValidators(ValidatorFactory.getBorderValidator());
+    addShorthandFor("border-left-width", "border-left-color", "border-left-style");
   }
 
 }

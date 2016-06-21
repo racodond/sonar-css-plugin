@@ -25,6 +25,7 @@ public class Transition extends StandardProperty {
 
   public Transition() {
     addLinks("https://drafts.csswg.org/css-transitions-1/#propdef-transition");
+    addShorthandFor("transition-property", "transition-duration", "transition-timing-function", "transition-delay");
   }
 
 }

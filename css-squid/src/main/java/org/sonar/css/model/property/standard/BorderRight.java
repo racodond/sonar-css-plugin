@@ -29,6 +29,7 @@ public class BorderRight extends StandardProperty {
       "https://www.w3.org/TR/CSS22/box.html#propdef-border-right",
       "https://drafts.csswg.org/css-backgrounds-3/#border-right");
     addValidators(ValidatorFactory.getBorderValidator());
+    addShorthandFor("border-right-width", "border-right-color", "border-right-style");
   }
 
 }

@@ -28,6 +28,7 @@ public class BorderBlockEnd extends StandardProperty {
     setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-logical-props/#propdef-border-block-end");
     addValidators(ValidatorFactory.getBorderValidator());
+    addShorthandFor("border-block-end-width", "border-block-end-style", "border-block-end-color");
   }
 
 }

@@ -26,6 +26,7 @@ public class ScrollSnapPadding extends StandardProperty {
   public ScrollSnapPadding() {
     setExperimental(true);
     addLinks("https://drafts.csswg.org/css-scroll-snap/#propdef-scroll-snap-padding");
+    addShorthandFor("scroll-snap-padding-top", "scroll-snap-padding-right", "scroll-snap-padding-bottom", "scroll-snap-padding-left");
   }
 
 }

@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Set;
 import javax.annotation.Nonnull;
 
-public class StandardCssObject {
+public abstract class StandardCssObject {
 
   private String name;
   private boolean obsolete;

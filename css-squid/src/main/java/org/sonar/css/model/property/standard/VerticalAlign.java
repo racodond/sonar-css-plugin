@@ -33,6 +33,7 @@ public class VerticalAlign extends StandardProperty {
       new IdentifierValidator("baseline", "sub", "super", "top", "text-top", "middle", "bottom", "text-bottom"),
       ValidatorFactory.getPercentageValidator(),
       ValidatorFactory.getLengthValidator());
+    addShorthandFor("baseline-shift", "alignment-baseline");
   }
 
 }

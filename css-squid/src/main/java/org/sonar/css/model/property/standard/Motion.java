@@ -26,6 +26,7 @@ public class Motion extends StandardProperty {
   public Motion() {
     setExperimental(true);
     addLinks("https://drafts.fxtf.org/motion-1/#propdef-motion");
+    addShorthandFor("motion-path", "motion-offset", "motion-rotation");
   }
 
 }

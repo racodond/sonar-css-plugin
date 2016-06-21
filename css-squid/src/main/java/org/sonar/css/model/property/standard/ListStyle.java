@@ -29,6 +29,7 @@ public class ListStyle extends StandardProperty {
       "https://www.w3.org/TR/CSS22/generate.html#propdef-list-style",
       "https://drafts.csswg.org/css-lists-3/#propdef-list-style");
     addValidators(new ListStyleValidator());
+    addShorthandFor("list-style-type", "list-style-position", "list-style-image");
   }
 
 }

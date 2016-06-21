@@ -26,6 +26,7 @@ public class GridGap extends StandardProperty {
   public GridGap() {
     setExperimental(true);
     addLinks("https://drafts.csswg.org/css-grid-1/#propdef-grid-gap");
+    addShorthandFor("grid-row-gap", "grid-column-gap");
   }
 
 }

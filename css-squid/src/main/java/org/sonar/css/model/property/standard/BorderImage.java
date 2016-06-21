@@ -25,6 +25,7 @@ public class BorderImage extends StandardProperty {
 
   public BorderImage() {
     addLinks("https://drafts.csswg.org/css-backgrounds-3/#border-image");
+    addShorthandFor("border-image-source", "border-image-slice", "border-image-width", "border-image-outset", "border-image-repeat");
   }
 
 }

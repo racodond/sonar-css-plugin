@@ -26,6 +26,7 @@ public class Mask extends StandardProperty {
   public Mask() {
     setExperimental(true);
     addLinks("https://drafts.fxtf.org/masking/#propdef-mask");
+    addShorthandFor("mask-image", "mask-mode", "mask-repeat", "mask-position", "mask-clip", "mask-origin", "mask-size", "mask-composite");
   }
 
 }

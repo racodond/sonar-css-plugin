@@ -30,6 +30,7 @@ public class FontVariant extends StandardProperty {
       "https://drafts.csswg.org/css-fonts-3/#descdef-font-variant");
     // TODO: Update validator to comply with https://drafts.csswg.org/css-fonts-3/#descdef-font-variant
     addValidators(new IdentifierValidator("normal", "small-caps"));
+    addShorthandFor("font-variant-caps", "font-variant-numeric", "font-variant-alternates", "font-variant-ligatures", "font-variant-east-asian");
   }
 
 }

@@ -30,6 +30,7 @@ public class Columns extends StandardProperty {
       "http://dev.w3.org/csswg/css-multicol-1/#propdef-columns",
       "https://developer.mozilla.org/en-US/docs/Web/CSS/columns");
     addVendors(Vendor.MICROSOFT);
+    addShorthandFor("column-count", "column-width");
   }
 
 }
