@@ -24,11 +24,11 @@ import java.io.File;
 import org.junit.Test;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
-public class ShorthandPropertiesTest {
+public class UseShorthandPropertiesCheckTest {
 
   @Test
   public void test() {
-    CssCheckVerifier.verify(new ShorthandProperties(), new File("src/test/resources/checks/shorthand.css"));
+    CssCheckVerifier.verify(new UseShorthandPropertiesCheck(), new File("src/test/resources/checks/shorthand.css"));
   }
 
 }

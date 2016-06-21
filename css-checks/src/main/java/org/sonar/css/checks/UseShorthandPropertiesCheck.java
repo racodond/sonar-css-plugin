@@ -41,11 +41,10 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 @Rule(
   key = "shorthand",
   name = "Shorthand properties should be used whenever possible",
-  priority = Priority.MAJOR,
+  priority = Priority.MINOR,
   tags = {Tags.PERFORMANCE, Tags.CONVENTION})
 @SqaleConstantRemediation("5min")
-@ActivatedByDefault
-public class ShorthandProperties extends CssCheck {
+public class UseShorthandPropertiesCheck extends CssCheck {
 
   private static final List<StandardProperty> SHORTHAND_PROPERTIES = StandardPropertyFactory.getAll()
     .stream()

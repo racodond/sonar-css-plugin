@@ -83,7 +83,7 @@ public final class CheckList {
       SelectorNumberThreshold.class,
       SelectorNamingConventionCheck.class,
       SemicolonDeclarationCheck.class,
-      ShorthandProperties.class,
+      UseShorthandPropertiesCheck.class,
       TabCharacterCheck.class,
       TrailingWhitespaceCheck.class,
       TodoTagPresenceCheck.class,
