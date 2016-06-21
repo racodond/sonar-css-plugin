@@ -21,15 +21,17 @@ package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.ValidatorFactory;
+import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class UserSelect extends StandardProperty {
 
   public UserSelect() {
     setExperimental(true);
-    addLinks("https://drafts.csswg.org/css-ui-4/#propdef-user-select");
+    addLinks(
+      "https://drafts.csswg.org/css-ui-4/#propdef-user-select",
+      "https://msdn.microsoft.com/en-us/library/hh781492(v=vs.85).aspx");
     addVendors(Vendor.WEBKIT, Vendor.MOZILLA, Vendor.MICROSOFT);
-    addValidators(ValidatorFactory.getNoneValidator());
+    addValidators(new IdentifierValidator("auto", "text", "none", "contain", "all"));
   }
 
 }
