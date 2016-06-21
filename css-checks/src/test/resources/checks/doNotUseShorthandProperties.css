@@ -1,0 +1,9 @@
+.mybox {
+  margin: left; /* Noncompliant ![sc=3;ec=9;el=+0]! !{Replace this "margin" shorthand property with its longhand properties: margin-bottom, margin-left, margin-right, margin-top}! */
+  padding: 10px; /* Noncompliant */
+  *margin: left; /* Noncompliant */
+  *padding: 10px; /* Noncompliant */
+  Margin: left; /* Noncompliant */
+  Padding: 10px; /* Noncompliant */
+  color: red;
+}

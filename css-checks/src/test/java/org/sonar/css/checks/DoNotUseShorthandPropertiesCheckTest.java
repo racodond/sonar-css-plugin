@@ -17,19 +17,18 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.model.property.standard;
+package org.sonar.css.checks;
 
-import org.sonar.css.model.Vendor;
-import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
+import java.io.File;
 
-public class ContentZoomSnapType extends StandardProperty {
+import org.junit.Test;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
-  public ContentZoomSnapType() {
-    setExperimental(true);
-    addLinks("https://msdn.microsoft.com/en-us/library/hh771896(v=vs.85).aspx");
-    addVendors(Vendor.MICROSOFT);
-    addValidators(new IdentifierValidator("none", "proximity", "mandatory"));
+public class DoNotUseShorthandPropertiesCheckTest {
+
+  @Test
+  public void test() {
+    CssCheckVerifier.verify(new DoNotUseShorthandPropertiesCheck(), new File("src/test/resources/checks/doNotUseShorthandProperties.css"));
   }
 
 }

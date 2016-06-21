@@ -29,7 +29,7 @@ import org.sonar.css.model.property.standard.Border;
 
 public class StandardPropertyFactory {
 
-  private static Map<String, StandardProperty> ALL = new HashMap<>();
+  private static final Map<String, StandardProperty> ALL = new HashMap<>();
 
   static {
     try {

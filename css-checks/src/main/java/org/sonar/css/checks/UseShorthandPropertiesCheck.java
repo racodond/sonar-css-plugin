@@ -35,14 +35,13 @@ import org.sonar.css.model.Property;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.StandardPropertyFactory;
 import org.sonar.css.parser.CssGrammar;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 @Rule(
   key = "shorthand",
   name = "Shorthand properties should be used whenever possible",
   priority = Priority.MINOR,
-  tags = {Tags.PERFORMANCE, Tags.CONVENTION})
+  tags = {Tags.PERFORMANCE})
 @SqaleConstantRemediation("5min")
 public class UseShorthandPropertiesCheck extends CssCheck {
 

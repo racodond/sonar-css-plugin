@@ -59,6 +59,7 @@ public final class CheckList {
       DisallowUnitsForZeroValues.class,
       DisallowUniversalSelector.class,
       DisplayPropertyGrouping.class,
+      DoNotUseShorthandPropertiesCheck.class,
       DuplicatedProperties.class,
       EmptyDeclarationCheck.class,
       ExperimentalFunctionUsageCheck.class,

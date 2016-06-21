@@ -29,7 +29,7 @@ import org.sonar.css.model.atrule.standard.Annotation;
 
 public class StandardFunctionFactory {
 
-  private static Map<String, StandardFunction> ALL = new HashMap<>();
+  private static final Map<String, StandardFunction> ALL = new HashMap<>();
 
   static {
     try {

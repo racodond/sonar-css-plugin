@@ -29,7 +29,7 @@ import org.sonar.css.model.atrule.standard.Annotation;
 
 public class StandardAtRuleFactory {
 
-  private static Map<String, StandardAtRule> ALL = new HashMap<>();
+  private static final Map<String, StandardAtRule> ALL = new HashMap<>();
 
   static {
     try {

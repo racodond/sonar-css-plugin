@@ -28,6 +28,7 @@ public class Tags {
   public static final String FORMAT = "format";
   public static final String PERFORMANCE = "performance";
   public static final String PITFALL = "pitfall";
+  public static final String UNDERSTANDABILITY = "understandability";
 
   private Tags() {
     // This class only defines constants

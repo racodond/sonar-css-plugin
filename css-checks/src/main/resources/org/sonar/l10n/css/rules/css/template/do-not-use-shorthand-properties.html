@@ -1,0 +1,70 @@
+<p>
+    Even if shorthand properties are convenient to use, there are a few edge cases to keep in mind when using them:
+</p>
+<ul>
+    <li>A value which is not specified is set to its initial value. That sounds anecdotal, but it really means that it
+        overrides previously set values. Therefore:
+<pre>
+  background-color: red;
+  background: url(images/bg.gif) no-repeat top right;
+</pre>
+        will not set the color of the background to red but to background-color's default, transparent, as the second
+        rule has precedence.<br><br>
+    </li>
+    <li>
+        Shorthand properties try not to force a specific order for the values of the properties they replace. This works
+        well when these properties use values of different types, as the order has no importance. But this does not work
+        as easily when several properties can have identical values and it may be confusing or hard to understand such
+        as in:
+<pre>
+  margin: 10px 5px 8px 5px;
+</pre>
+    </li>
+</ul>
+<p>
+    Therefore, shorthand properties should be sparsely used.
+</p>
+<p>
+    This rule raises an issue each time a shorthand property is declared.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+.mybox {
+  margin-top: 10px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  color: red;
+}
+</pre>
+
+
+<h2>Compliant Solution</h2>
+<pre>
+.mybox {
+  margin: 10px 5px 10px 5px; /* Noncompliant */
+  color: red;
+}
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Shorthand_properties">MDN Shorthand Properties</a>
+    </li>
+    <li>
+        Related rule: {rule:css:shorthand}
+    </li>
+</ul>
+
+<h2>Shorthand Properties</h2>
+<table border=1>
+    <thead>
+    <tr align=center>
+        <th>Property</th>
+        <th>Shorthand For</th>
+    </tr>
+    </thead>
+    [[shorthandProperties]]
+</table>

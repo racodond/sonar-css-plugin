@@ -21,7 +21,6 @@ package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class ScrollSnapX extends StandardProperty {
 
