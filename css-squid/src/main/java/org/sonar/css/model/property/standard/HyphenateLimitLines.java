@@ -26,7 +26,9 @@ public class HyphenateLimitLines extends StandardProperty {
 
   public HyphenateLimitLines() {
     setExperimental(true);
-    addLinks("https://drafts.csswg.org/css-text-4/#propdef-hyphenate-limit-lines");
+    addLinks(
+      "https://drafts.csswg.org/css-text-4/#propdef-hyphenate-limit-lines",
+      "https://msdn.microsoft.com/en-us/library/hh771867(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT);
   }
 

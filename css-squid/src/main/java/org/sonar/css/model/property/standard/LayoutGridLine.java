@@ -28,7 +28,7 @@ public class LayoutGridLine extends StandardProperty {
 
   public LayoutGridLine() {
     setExperimental(true);
-    addLinks("https://msdn.microsoft.com/en-us/library/ms530770(v=vs.85).aspx");
+    addLinks("https://msdn.microsoft.com/en-us/library/ms530773(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT);
     addValidators(
       new IdentifierValidator("none", "auto"),

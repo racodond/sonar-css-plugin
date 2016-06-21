@@ -26,7 +26,7 @@ public class ScrollSnapY extends StandardProperty {
 
   public ScrollSnapY() {
     setExperimental(true);
-    addLinks("https://msdn.microsoft.com/en-us/library/ms530719(v=vs.85).aspx");
+    addLinks("https://msdn.microsoft.com/en-us/library/hh772040(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT);
   }
 

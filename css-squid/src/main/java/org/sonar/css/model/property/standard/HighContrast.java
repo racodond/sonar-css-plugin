@@ -27,7 +27,7 @@ public class HighContrast extends StandardProperty {
 
   public HighContrast() {
     setExperimental(true);
-    addLinks("https://msdn.microsoft.com/en-us/library/hh869403(v=vs.85).aspx");
+    addLinks("https://msdn.microsoft.com/en-us/library/hh771863(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT);
     addValidators(new IdentifierValidator("active", "black-on-white", "white-on-black"));
   }

@@ -27,7 +27,7 @@ public class ContentZoomLimitMax extends StandardProperty {
 
   public ContentZoomLimitMax() {
     setExperimental(true);
-    addLinks("https://msdn.microsoft.com/en-us/library/ms530719(v=vs.85).aspx");
+    addLinks("https://msdn.microsoft.com/en-us/library/jj127331(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT);
     addValidators(ValidatorFactory.getPercentageValidator());
   }

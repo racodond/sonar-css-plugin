@@ -26,7 +26,9 @@ public class HyphenateLimitChars extends StandardProperty {
 
   public HyphenateLimitChars() {
     setExperimental(true);
-    addLinks("https://drafts.csswg.org/css-text-4/#propdef-hyphenate-limit-chars");
+    addLinks(
+      "https://drafts.csswg.org/css-text-4/#propdef-hyphenate-limit-chars",
+      "https://msdn.microsoft.com/en-us/library/hh771865(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT);
   }
 

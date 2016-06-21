@@ -27,7 +27,7 @@ public class LayoutGridType extends StandardProperty {
 
   public LayoutGridType() {
     setExperimental(true);
-    addLinks("https://msdn.microsoft.com/en-us/library/ms530770(v=vs.85).aspx");
+    addLinks("https://msdn.microsoft.com/en-us/library/ms530775(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT);
     addValidators(new IdentifierValidator("loose", "strict", "fixed"));
   }

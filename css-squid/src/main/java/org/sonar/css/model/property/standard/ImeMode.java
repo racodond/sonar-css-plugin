@@ -24,7 +24,9 @@ import org.sonar.css.model.property.StandardProperty;
 public class ImeMode extends StandardProperty {
 
   public ImeMode() {
-    addLinks("http://dev.w3.org/csswg/css-ui-3/#input-method-editor");
+    addLinks(
+      "http://dev.w3.org/csswg/css-ui-3/#input-method-editor",
+      "https://msdn.microsoft.com/en-us/library/ms530767(v=vs.85).aspx");
     setObsolete(true);
   }
 

@@ -27,7 +27,7 @@ public class ScrollSnapPointsX extends StandardProperty {
 
   public ScrollSnapPointsX() {
     setExperimental(true);
-    addLinks("https://msdn.microsoft.com/en-us/library/ms530719(v=vs.85).aspx");
+    addLinks("https://msdn.microsoft.com/en-us/library/hh772036(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT);
     addValidators(new FunctionValidator("snapinterval", "snaplist"));
   }

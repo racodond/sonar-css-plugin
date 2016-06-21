@@ -26,7 +26,7 @@ public class ScrollbarShadowColor extends StandardProperty {
 
   public ScrollbarShadowColor() {
     setExperimental(true);
-    addLinks("https://msdn.microsoft.com/en-us/library/ms531158(v=vs.85).aspx");
+    addLinks("https://msdn.microsoft.com/en-us/library/ms531159(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT);
   }
 

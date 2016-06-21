@@ -27,7 +27,7 @@ public class ScrollTranslation extends StandardProperty {
 
   public ScrollTranslation() {
     setExperimental(true);
-    addLinks("https://msdn.microsoft.com/en-us/library/dn337005(v=vs.85).aspx");
+    addLinks("https://msdn.microsoft.com/en-us/library/hh973361(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT);
     addValidators(new IdentifierValidator("none", "vertical-to-horizontal"));
   }

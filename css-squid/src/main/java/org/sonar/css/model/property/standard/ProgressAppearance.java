@@ -24,7 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class ProgressAppearance extends StandardProperty {
 
   public ProgressAppearance() {
-    addLinks("https://msdn.microsoft.com/en-us/library/hh869403(v=vs.85).aspx");
+    addLinks("https://msdn.microsoft.com/en-us/library/hh781491(v=vs.85).aspx");
     setObsolete(true);
   }
 

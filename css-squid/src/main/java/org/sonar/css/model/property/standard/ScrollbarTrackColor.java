@@ -26,7 +26,7 @@ public class ScrollbarTrackColor extends StandardProperty {
 
   public ScrollbarTrackColor() {
     setExperimental(true);
-    addLinks("https://msdn.microsoft.com/en-us/library/ms531158(v=vs.85).aspx");
+    addLinks("https://msdn.microsoft.com/en-us/library/ms531160(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT);
   }
 

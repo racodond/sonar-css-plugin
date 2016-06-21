@@ -27,7 +27,7 @@ public class BlockProgression extends StandardProperty {
 
   public BlockProgression() {
     setExperimental(true);
-    addLinks("https://msdn.microsoft.com/en-us/library/ms530719(v=vs.85).aspx");
+    addLinks("https://msdn.microsoft.com/en-us/library/dd229917(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT);
     addValidators(new IdentifierValidator("tb", "rl", "bt", "lr"));
   }

@@ -28,7 +28,7 @@ public class ContentZoomLimit extends StandardProperty {
 
   public ContentZoomLimit() {
     setExperimental(true);
-    addLinks("https://msdn.microsoft.com/en-us/library/ms530719(v=vs.85).aspx");
+    addLinks("https://msdn.microsoft.com/en-us/library/jj127330(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT);
     addValidators(new MultiplierValidator(2, ValidatorFactory.getPercentageValidator()));
     addShorthandFor("content-zoom-limit-max", "content-zoom-limit-min");

@@ -27,7 +27,7 @@ public class ScrollLimitXMax extends StandardProperty {
 
   public ScrollLimitXMax() {
     setExperimental(true);
-    addLinks("https://msdn.microsoft.com/en-us/library/ms530719(v=vs.85).aspx");
+    addLinks("https://msdn.microsoft.com/en-us/library/jj127337(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT);
     addValidators(ValidatorFactory.getAutoValidator(), ValidatorFactory.getLengthValidator());
   }

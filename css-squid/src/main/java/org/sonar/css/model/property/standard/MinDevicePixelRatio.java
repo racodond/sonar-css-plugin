@@ -28,7 +28,7 @@ public class MinDevicePixelRatio extends StandardProperty {
   public MinDevicePixelRatio() {
     setExperimental(true);
     addLinks(
-      "https://msdn.microsoft.com/en-us/library/hh869403(v=vs.85).aspx",
+      "https://msdn.microsoft.com/en-us/library/dn760733(v=vs.85).aspx",
       "https://developer.mozilla.org/fr/docs/Web/CSS/Media_queries#-moz-device-pixel-ratio");
     addVendors(Vendor.WEBKIT);
     addValidators(ValidatorFactory.getNumberValidator());

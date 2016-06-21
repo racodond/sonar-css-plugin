@@ -27,7 +27,7 @@ public class Accelerator extends StandardProperty {
 
   public Accelerator() {
     setExperimental(true);
-    addLinks("https://msdn.microsoft.com/en-us/library/hh869403(v=vs.85).aspx");
+    addLinks("https://msdn.microsoft.com/en-us/library/ms530713(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT);
     addValidators(new IdentifierValidator("true", "false"));
   }

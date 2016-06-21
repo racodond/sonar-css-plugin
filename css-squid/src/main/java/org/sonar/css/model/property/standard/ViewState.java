@@ -25,7 +25,7 @@ public class ViewState extends StandardProperty {
 
   public ViewState() {
     setObsolete(true);
-    addLinks("https://msdn.microsoft.com/en-us/library/hh869403(v=vs.85).aspx");
+    addLinks("https://msdn.microsoft.com/en-us/library/hh771842(v=vs.85).aspx");
   }
 
 }

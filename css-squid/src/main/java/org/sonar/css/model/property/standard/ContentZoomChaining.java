@@ -27,7 +27,7 @@ public class ContentZoomChaining extends StandardProperty {
 
   public ContentZoomChaining() {
     setExperimental(true);
-    addLinks("https://msdn.microsoft.com/en-us/library/ms530719(v=vs.85).aspx");
+    addLinks("https://msdn.microsoft.com/en-us/library/hh771889(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT);
     addValidators(new IdentifierValidator("none", "chained"));
   }

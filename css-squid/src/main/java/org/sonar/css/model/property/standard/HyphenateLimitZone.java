@@ -26,7 +26,9 @@ public class HyphenateLimitZone extends StandardProperty {
 
   public HyphenateLimitZone() {
     setExperimental(true);
-    addLinks("https://drafts.csswg.org/css-text-4/#propdef-hyphenate-limit-zone");
+    addLinks(
+      "https://drafts.csswg.org/css-text-4/#propdef-hyphenate-limit-zone",
+      "https://msdn.microsoft.com/en-us/library/hh771869(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT);
   }
 

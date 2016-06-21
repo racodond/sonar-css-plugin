@@ -26,7 +26,7 @@ public class TextAutoSpace extends StandardProperty {
 
   public TextAutoSpace() {
     setExperimental(true);
-    addLinks("https://msdn.microsoft.com/en-us/library/dn337005(v=vs.85).aspx");
+    addLinks("https://msdn.microsoft.com/en-us/library/ms531164(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT);
   }
 

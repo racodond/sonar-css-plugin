@@ -27,7 +27,9 @@ public class Hyphens extends StandardProperty {
 
   public Hyphens() {
     setExperimental(true);
-    addLinks("https://drafts.csswg.org/css-text-3/#propdef-hyphens");
+    addLinks(
+      "https://drafts.csswg.org/css-text-3/#propdef-hyphens",
+      "https://msdn.microsoft.com/en-us/library/hh771871(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT, Vendor.WEBKIT);
     addValidators(new IdentifierValidator("none", "manual", "auto"));
   }

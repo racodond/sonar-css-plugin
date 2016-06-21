@@ -28,7 +28,7 @@ public class BackgroundPositionY extends StandardProperty {
 
   public BackgroundPositionY() {
     setExperimental(true);
-    addLinks("https://msdn.microsoft.com/en-us/library/ms530719(v=vs.85).aspx");
+    addLinks("https://msdn.microsoft.com/en-us/library/ms530720(v=vs.85).aspx");
     addVendors(Vendor.MICROSOFT);
     addValidators(
       ValidatorFactory.getLengthValidator(),

@@ -25,7 +25,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class Scrollbar3dlightColor extends StandardProperty {
 
   public Scrollbar3dlightColor() {
-    addLinks("https://msdn.microsoft.com/en-us/library/hh869403(v=vs.85).aspx");
+    addLinks("https://msdn.microsoft.com/en-us/library/ms531153(v=vs.85).aspx");
     setExperimental(true);
     addVendors(Vendor.MICROSOFT);
   }
