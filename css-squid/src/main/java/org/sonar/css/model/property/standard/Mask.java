@@ -19,6 +19,7 @@
  */
 package org.sonar.css.model.property.standard;
 
+import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 
 public class Mask extends StandardProperty {
@@ -27,6 +28,7 @@ public class Mask extends StandardProperty {
     setExperimental(true);
     addLinks("https://drafts.fxtf.org/masking/#propdef-mask");
     addShorthandFor("mask-image", "mask-mode", "mask-repeat", "mask-position", "mask-clip", "mask-origin", "mask-size", "mask-composite");
+    addVendors(Vendor.WEBKIT);
   }
 
 }

@@ -19,12 +19,15 @@
  */
 package org.sonar.css.model.property.standard;
 
+import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 
 public class PerspectiveOrigin extends StandardProperty {
 
   public PerspectiveOrigin() {
+    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-transforms/#propdef-perspective-origin");
+    addVendors(Vendor.WEBKIT);
   }
 
 }

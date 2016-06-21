@@ -27,7 +27,8 @@ public class GlyphOrientationVertical extends StandardProperty {
     setObsolete(true);
     addLinks(
       "https://drafts.csswg.org/css-writing-modes-3/#propdef-glyph-orientation-vertical",
-      "https://www.w3.org/TR/SVG/text.html#GlyphOrientationVerticalProperty");
+      "https://www.w3.org/TR/SVG/text.html#GlyphOrientationVerticalProperty",
+      "https://www.chromestatus.com/features/6002704107175936");
   }
 
 }

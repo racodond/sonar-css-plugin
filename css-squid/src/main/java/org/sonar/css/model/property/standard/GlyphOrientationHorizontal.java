@@ -20,15 +20,14 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.ValidatorFactory;
 
 public class GlyphOrientationHorizontal extends StandardProperty {
 
   public GlyphOrientationHorizontal() {
-    // TODO: Validator should restrict angles to 0, 90, 180, and 270 degrees
-    setExperimental(true);
-    addLinks("https://www.w3.org/TR/SVG/text.html#GlyphOrientationHorizontalProperty");
-    addValidators(ValidatorFactory.getAngleValidator());
+    setObsolete(true);
+    addLinks(
+      "https://www.w3.org/TR/SVG/text.html#GlyphOrientationHorizontalProperty",
+      "https://www.chromestatus.com/features/6002704107175936");
   }
 
 }

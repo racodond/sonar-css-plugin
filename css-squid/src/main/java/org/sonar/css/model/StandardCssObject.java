@@ -37,7 +37,9 @@ public abstract class StandardCssObject {
   /*
    * See:
    * - Mozilla: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference
+   * - Mozilla: https://developer.mozilla.org/en-US/docs/Web/CSS/Mozilla_Extensions
    * - Microsoft: https://developer.microsoft.com/en-us/microsoft-edge/platform/documentation/apireference/cssstyles/
+   * - Webkit: https://developer.mozilla.org/en-US/docs/Web/CSS/Webkit_Extensions
    */
   private final Set<Vendor> vendors;
 
