@@ -130,14 +130,4 @@ public class PreciseIssue implements Issue {
     issue.save();
   }
 
-  private static String fileContent(File file, Charset charset) {
-    String fileContent;
-    try {
-      fileContent = Files.toString(file, charset);
-    } catch (IOException e) {
-      throw new IllegalStateException("Could not read " + file, e);
-    }
-    return fileContent;
-  }
-
 }
