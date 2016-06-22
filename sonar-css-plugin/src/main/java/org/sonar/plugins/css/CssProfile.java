@@ -19,7 +19,6 @@
  */
 package org.sonar.plugins.css;
 
-import org.sonar.api.batch.rule.ActiveRules;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.RuleFinder;
@@ -30,18 +29,17 @@ import org.sonar.squidbridge.annotations.AnnotationBasedProfileBuilder;
 
 public class CssProfile extends ProfileDefinition {
 
-    private final RuleFinder ruleFinder;
+  private final RuleFinder ruleFinder;
 
-    public static final String SONAR_WAY_PROFILE_NAME = "Sonar way";
+  public static final String SONAR_WAY_PROFILE_NAME = "SonarQube Way";
 
-    public CssProfile(RuleFinder ruleFinder) {
-        this.ruleFinder = ruleFinder;
-    }
+  public CssProfile(RuleFinder ruleFinder) {
+    this.ruleFinder = ruleFinder;
+  }
 
-    @Override
-    public RulesProfile createProfile(ValidationMessages messages) {
-
-        AnnotationBasedProfileBuilder annotationBasedProfileBuilder = new AnnotationBasedProfileBuilder(ruleFinder);
-        return annotationBasedProfileBuilder.build(CheckList.REPOSITORY_KEY, SONAR_WAY_PROFILE_NAME, CssLanguage.KEY, CheckList.getChecks(), messages);
-    }
+  @Override
+  public RulesProfile createProfile(ValidationMessages messages) {
+    AnnotationBasedProfileBuilder annotationBasedProfileBuilder = new AnnotationBasedProfileBuilder(ruleFinder);
+    return annotationBasedProfileBuilder.build(CheckList.REPOSITORY_KEY, SONAR_WAY_PROFILE_NAME, CssLanguage.KEY, CheckList.getChecks(), messages);
+  }
 }
