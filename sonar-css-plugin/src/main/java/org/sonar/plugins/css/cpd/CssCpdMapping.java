@@ -25,7 +25,7 @@ import net.sourceforge.pmd.cpd.Tokenizer;
 import org.sonar.api.batch.AbstractCpdMapping;
 import org.sonar.api.resources.Language;
 import org.sonar.api.scan.filesystem.ModuleFileSystem;
-import org.sonar.plugins.css.core.CssLanguage;
+import org.sonar.plugins.css.CssLanguage;
 
 public class CssCpdMapping extends AbstractCpdMapping {
 

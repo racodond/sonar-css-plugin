@@ -24,7 +24,6 @@ import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.css.checks.CheckList;
-import org.sonar.plugins.css.core.CssLanguage;
 import org.sonar.squidbridge.annotations.AnnotationBasedProfileBuilder;
 
 public class CssProfile extends ProfileDefinition {

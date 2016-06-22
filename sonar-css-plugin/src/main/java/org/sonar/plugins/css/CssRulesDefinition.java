@@ -21,7 +21,6 @@ package org.sonar.plugins.css;
 
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.css.checks.CheckList;
-import org.sonar.plugins.css.core.CssLanguage;
 import org.sonar.squidbridge.annotations.AnnotationBasedRulesDefinition;
 
 public class CssRulesDefinition implements RulesDefinition {

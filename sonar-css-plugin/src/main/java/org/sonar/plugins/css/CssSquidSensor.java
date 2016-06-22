@@ -42,7 +42,6 @@ import org.sonar.css.api.CssMetric;
 import org.sonar.css.checks.CheckList;
 import org.sonar.css.issue.Issue;
 import org.sonar.css.issue.PreciseIssue;
-import org.sonar.plugins.css.core.CssLanguage;
 import org.sonar.squidbridge.AstScanner;
 import org.sonar.squidbridge.SquidAstVisitor;
 import org.sonar.squidbridge.api.SourceCode;

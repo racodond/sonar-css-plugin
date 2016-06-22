@@ -17,31 +17,37 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.plugins.css.core;
+package org.sonar.plugins.css;
 
-import org.apache.commons.lang.StringUtils;
+import org.junit.Test;
 import org.sonar.api.config.Settings;
-import org.sonar.api.resources.AbstractLanguage;
-import org.sonar.plugins.css.CssPlugin;
+import org.sonar.plugins.css.CssLanguage;
 
-public class CssLanguage extends AbstractLanguage {
+import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
-  public static final String KEY = "css";
+public class CssLanguageTest {
 
-  private final Settings settings;
-
-  public CssLanguage(Settings settings) {
-    super(KEY, "CSS");
-    this.settings = settings;
+  @Test
+  public void language_key_and_name() {
+    CssLanguage css = new CssLanguage(mock(Settings.class));
+    assertThat(css.getKey()).isEqualTo("css");
+    assertThat(css.getName()).isEqualTo("CSS");
   }
 
-  @Override
-  public String[] getFileSuffixes() {
-    String[] suffixes = settings.getStringArray(CssPlugin.FILE_SUFFIXES_KEY);
-    if (suffixes == null || suffixes.length == 0) {
-      suffixes = StringUtils.split(CssPlugin.FILE_SUFFIXES_DEFVALUE, ",");
-    }
-    return suffixes;
+  @Test
+  public void default_suffixes() {
+    CssLanguage css = new CssLanguage(mock(Settings.class));
+    assertThat(css.getFileSuffixes()).containsOnly("css");
+  }
+
+  @Test
+  public void custom_suffixes() {
+    Settings settings = new Settings();
+    settings.setProperty("sonar.css.file.suffixes", ".foo,bar");
+
+    CssLanguage css = new CssLanguage(settings);
+    assertThat(css.getFileSuffixes()).containsOnly(".foo", "bar");
   }
 
 }

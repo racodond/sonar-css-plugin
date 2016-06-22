@@ -30,7 +30,7 @@ import org.mockito.Mockito;
 import org.sonar.api.config.Settings;
 import org.sonar.api.scan.filesystem.FileQuery;
 import org.sonar.api.scan.filesystem.ModuleFileSystem;
-import org.sonar.plugins.css.core.CssLanguage;
+import org.sonar.plugins.css.CssLanguage;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;

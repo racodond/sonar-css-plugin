@@ -22,7 +22,6 @@ package org.sonar.plugins.css;
 import org.sonar.api.Plugin;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
-import org.sonar.plugins.css.core.CssLanguage;
 import org.sonar.plugins.css.cpd.CssCpdMapping;
 
 @Properties({
