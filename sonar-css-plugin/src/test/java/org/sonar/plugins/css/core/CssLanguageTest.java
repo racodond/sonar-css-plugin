@@ -25,7 +25,7 @@ import org.sonar.api.config.Settings;
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
-public class CssTest {
+public class CssLanguageTest {
 
   @Test
   public void language_key_and_name() {
