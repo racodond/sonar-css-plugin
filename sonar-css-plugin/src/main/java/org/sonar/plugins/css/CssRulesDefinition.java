@@ -31,7 +31,7 @@ public class CssRulesDefinition implements RulesDefinition {
       .createRepository(CheckList.REPOSITORY_KEY, CssLanguage.KEY)
       .setName(CheckList.REPOSITORY_NAME);
 
-    new AnnotationBasedRulesDefinition(repository, "css").addRuleClasses(false, CheckList.getChecks());
+    new AnnotationBasedRulesDefinition(repository, CssLanguage.KEY).addRuleClasses(false, CheckList.getChecks());
     repository.done();
   }
 
