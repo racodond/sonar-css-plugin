@@ -20,9 +20,13 @@
 package org.sonar.css.checks;
 
 import com.sonar.sslr.api.AstNode;
+
+import java.util.*;
+
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.CssCheck;
+import org.sonar.css.issue.PreciseIssue;
 import org.sonar.css.model.Property;
 import org.sonar.css.model.property.UnknownProperty;
 import org.sonar.css.parser.CssGrammar;
@@ -41,21 +45,51 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 @ActivatedByDefault
 public class VendorPrefixWithStandard extends CssCheck {
 
+  private final Map<String, List<AstNode>> missingStandardProperties = new HashMap<>();
+
   @Override
   public void init() {
-    subscribeTo(CssGrammar.DECLARATION);
+    subscribeTo(CssGrammar.DECLARATION, CssGrammar.SUP_DECLARATION);
   }
 
   @Override
-  public void leaveNode(AstNode declarationNode) {
-    Property property = new Property(declarationNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue());
-    if (!(property.getStandardProperty() instanceof UnknownProperty)
-      && property.isVendorPrefixed()
-      && !isNonPrefixedPropertyDefined(declarationNode, property)) {
-      addIssue(
-        this,
-        "Define the standard property after this vendor-prefixed property.",
-        declarationNode.getFirstChild(CssGrammar.PROPERTY));
+  public void visitNode(AstNode node) {
+    if (node.is(CssGrammar.SUP_DECLARATION)) {
+      missingStandardProperties.clear();
+    } else {
+      AstNode propertyNode = node.getFirstChild(CssGrammar.PROPERTY);
+      Property property = new Property(propertyNode.getTokenValue());
+      if (!(property.getStandardProperty() instanceof UnknownProperty)
+        && property.isVendorPrefixed()
+        && !isNonPrefixedPropertyDefined(node, property)) {
+        if (missingStandardProperties.get(property.getStandardProperty().getName()) != null) {
+          missingStandardProperties.get(property.getStandardProperty().getName()).add(propertyNode);
+        } else {
+          missingStandardProperties.put(
+            property.getStandardProperty().getName(),
+            new ArrayList<>(Arrays.asList(propertyNode)));
+
+        }
+      }
+    }
+  }
+
+  @Override
+  public void leaveNode(AstNode node) {
+    if (node.is(CssGrammar.SUP_DECLARATION)) {
+      for (Map.Entry<String, List<AstNode>> missingStandardProperty : missingStandardProperties.entrySet()) {
+        createIssue(missingStandardProperty.getKey(), missingStandardProperty.getValue());
+      }
+    }
+  }
+
+  private void createIssue(String missingStandardProperty, List<AstNode> vendorPrefixProperties) {
+    PreciseIssue issue = addIssue(
+      this,
+      "Define the standard property after this vendor-prefixed property.",
+      vendorPrefixProperties.get(0));
+    for (int i = 1; i < vendorPrefixProperties.size(); i++) {
+      issue.addSecondaryLocation("Missing standard " + missingStandardProperty + " property", vendorPrefixProperties.get(i));
     }
   }
 
