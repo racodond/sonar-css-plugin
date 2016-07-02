@@ -23,8 +23,8 @@ import java.nio.charset.Charset;
 
 import net.sourceforge.pmd.cpd.Tokenizer;
 import org.sonar.api.batch.AbstractCpdMapping;
+import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.resources.Language;
-import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.plugins.css.CssLanguage;
 
 public class CssCpdMapping extends AbstractCpdMapping {
@@ -32,9 +32,9 @@ public class CssCpdMapping extends AbstractCpdMapping {
   private final CssLanguage language;
   private final Charset charset;
 
-  public CssCpdMapping(CssLanguage language, ModuleFileSystem fs) {
+  public CssCpdMapping(CssLanguage language, FileSystem fs) {
     this.language = language;
-    this.charset = fs.sourceCharset();
+    this.charset = fs.encoding();
   }
 
   @Override

@@ -22,37 +22,43 @@ package org.sonar.plugins.css.cpd;
 import com.google.common.base.Charsets;
 
 import java.io.File;
-import java.util.Collections;
+import java.io.IOException;
 
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.Mockito;
-import org.sonar.api.config.Settings;
-import org.sonar.api.scan.filesystem.FileQuery;
-import org.sonar.api.scan.filesystem.ModuleFileSystem;
+import org.junit.rules.TemporaryFolder;
+import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.batch.fs.internal.DefaultFileSystem;
+import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.plugins.css.CssLanguage;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class CssCpdMappingTest {
 
-  private CssCpdMapping mapping;
+  private File file;
+  private DefaultInputFile inputFile;
 
-  @Before
-  public void setup() {
-    ModuleFileSystem fileSystem = mock(ModuleFileSystem.class);
-    when(fileSystem.sourceCharset()).thenReturn(Charsets.UTF_8);
-    when(fileSystem.files(Mockito.any(FileQuery.class))).thenReturn(Collections.singletonList(new File("src/test/resources/org/sonar/plugins/css/cssProject/css/boxSizing.css")));
-    mapping = new CssCpdMapping(
-      new CssLanguage(new Settings()), fileSystem);
-  }
+  @Rule
+  public final TemporaryFolder tempFolder = new TemporaryFolder();
 
   @Test
-  public void test() {
-    assertThat(mapping.getLanguage().getKey()).isEqualTo(CssLanguage.KEY);
-    assertThat(mapping.getTokenizer()).isNotNull();
+  public void test() throws IOException {
+    DefaultFileSystem fileSystem = new DefaultFileSystem(tempFolder.getRoot());
+    fileSystem.setEncoding(Charsets.UTF_8);
+    file = tempFolder.newFile();
+    inputFile = new DefaultInputFile("moduleKey", file.getName())
+      .setLanguage(CssLanguage.KEY)
+      .setType(InputFile.Type.MAIN);
+    fileSystem.add(inputFile);
+
+    CssLanguage cssLanguage = mock(CssLanguage.class);
+
+    CssCpdMapping mapping = new CssCpdMapping(cssLanguage, fileSystem);
+
+    assertThat(mapping.getLanguage()).isSameAs(cssLanguage);
+    assertThat(mapping.getTokenizer()).isInstanceOf(CssTokenizer.class);
   }
 
 }

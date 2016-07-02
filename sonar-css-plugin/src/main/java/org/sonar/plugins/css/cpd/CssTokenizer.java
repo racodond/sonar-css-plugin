@@ -48,9 +48,7 @@ public class CssTokenizer implements Tokenizer {
   public final void tokenize(SourceCode source, Tokens cpdTokens) {
     try {
       String filename = source.getFileName();
-
       AstNode result = parser.parse(new File(filename));
-
       for (Token token : result.getTokens()) {
         TokenEntry cpdToken = new TokenEntry(getTokenImage(token), filename, token.getLine());
         cpdTokens.add(cpdToken);
@@ -58,7 +56,6 @@ public class CssTokenizer implements Tokenizer {
     } catch (RecognitionException e) {
       // Do nothing, the parse error is already properly reported by the Squid phase
     }
-
     cpdTokens.add(TokenEntry.getEOF());
   }
 
