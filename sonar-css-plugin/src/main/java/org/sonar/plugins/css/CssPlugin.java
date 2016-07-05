@@ -31,6 +31,12 @@ import org.sonar.plugins.css.cpd.CssCpdMapping;
     name = "File Suffixes",
     description = "Comma-separated list of suffixes for files to analyze. To not filter, leave the list empty.",
     global = true, project = true),
+  @Property(
+    key = "sonar.cpd.css.minimumTokens",
+    defaultValue = "70",
+    name = "Minimum number of tokens to start detecting duplication",
+    description = "Set a value lower than the default one set in SonarQube (100) because CSS is less verbose than other languages.",
+    global = false, project = false),
 })
 public class CssPlugin implements Plugin {
 
