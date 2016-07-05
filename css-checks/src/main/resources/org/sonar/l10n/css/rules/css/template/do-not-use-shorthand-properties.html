@@ -25,26 +25,25 @@
     Therefore, shorthand properties should be sparsely used.
 </p>
 <p>
-    This rule raises an issue each time a shorthand property is declared.
+    This rule raises an issue each time a shorthand property is declared and its value contains more than one element.
 </p>
 
 <h2>Noncompliant Code Example</h2>
 <pre>
 .mybox {
-  margin-top: 10px;
-  margin-right: 5px;
-  margin-bottom: 10px;
-  margin-left: 5px;
-  color: red;
+  margin: 10px 5px 15px; /* Noncompliant */
+  border-color: green; /* Compliant: value is a single element */
 }
 </pre>
-
 
 <h2>Compliant Solution</h2>
 <pre>
 .mybox {
-  margin: 10px 5px 10px 5px; /* Noncompliant */
-  color: red;
+  margin-top: 10px;
+  margin-right: 5px;
+  margin-bottom: 15px;
+  margin-left: 5px;
+  border-color: green;
 }
 </pre>
 

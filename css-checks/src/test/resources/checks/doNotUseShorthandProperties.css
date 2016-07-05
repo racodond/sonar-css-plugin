@@ -1,9 +1,11 @@
 .mybox {
-  margin: left; /* Noncompliant ![sc=3;ec=9;el=+0]! !{Replace this "margin" shorthand property with its longhand properties: margin-bottom, margin-left, margin-right, margin-top}! */
-  padding: 10px; /* Noncompliant */
-  *margin: left; /* Noncompliant */
-  *padding: 10px; /* Noncompliant */
-  Margin: left; /* Noncompliant */
-  Padding: 10px; /* Noncompliant */
+  margin: 10px 5px; /* Noncompliant ![sc=3;ec=9;el=+0]! !{Replace this "margin" shorthand property with its longhand properties: margin-bottom, margin-left, margin-right, margin-top}! */
+  padding: 10px 5px; /* Noncompliant */
+  *margin: 10px 5px; /* Noncompliant */
+  *padding: 10px 5px; /* Noncompliant */
+  Margin: 10px 5px; /* Noncompliant */
+  Padding: 10px 5px; /* Noncompliant */
+  margin: 10px; /* Compliant: value is one single element */
+  padding: 10px; /* Compliant: value is one single element */
   color: red;
 }

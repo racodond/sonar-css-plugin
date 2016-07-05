@@ -28,6 +28,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.CssCheck;
 import org.sonar.css.model.Property;
+import org.sonar.css.model.Value;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.StandardPropertyFactory;
 import org.sonar.css.parser.CssGrammar;
@@ -49,18 +50,20 @@ public class DoNotUseShorthandPropertiesCheck extends CssCheck {
 
   @Override
   public void init() {
-    subscribeTo(CssGrammar.PROPERTY);
+    subscribeTo(CssGrammar.DECLARATION);
   }
 
   @Override
-  public void visitNode(AstNode propertyNode) {
-    Property property = new Property(propertyNode.getTokenValue());
-    if (SHORTHAND_PROPERTIES.contains(property.getStandardProperty().getName())) {
+  public void visitNode(AstNode declarationNode) {
+    Property property = new Property(declarationNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue());
+    Value value = new Value(declarationNode.getFirstChild(CssGrammar.VALUE));
+    if (SHORTHAND_PROPERTIES.contains(property.getStandardProperty().getName())
+      && value.getNumberOfValueElements() > 1) {
       addIssue(
         this,
         "Replace this \"" + property.getStandardProperty().getName() + "\" shorthand property with its longhand properties: "
           + String.join(", ", property.getStandardProperty().getShorthandForPropertyNames().stream().sorted().collect(Collectors.toList())),
-        propertyNode);
+        declarationNode.getFirstChild(CssGrammar.PROPERTY));
     }
   }
 
