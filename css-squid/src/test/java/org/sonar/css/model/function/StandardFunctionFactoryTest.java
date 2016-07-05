@@ -80,7 +80,7 @@ public class StandardFunctionFactoryTest {
 
   @Test
   public void number_of_standard_functions() {
-    assertEquals(106, StandardFunctionFactory.getAll().size());
+    assertEquals(109, StandardFunctionFactory.getAll().size());
   }
 
 }
