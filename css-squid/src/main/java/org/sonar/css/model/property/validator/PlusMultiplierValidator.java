@@ -63,7 +63,7 @@ public class PlusMultiplierValidator implements ValueValidator {
     StringBuilder format = new StringBuilder();
 
     String joinedValidatorsFormat = validators.stream()
-      .map(v -> v.getValidatorFormat())
+      .map(Validator::getValidatorFormat)
       .collect(Collectors.joining(" | "));
 
     if (joinedValidatorsFormat.contains(" | ")) {

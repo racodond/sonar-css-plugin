@@ -37,9 +37,6 @@ import static org.mockito.Mockito.mock;
 
 public class CssCpdMappingTest {
 
-  private File file;
-  private DefaultInputFile inputFile;
-
   @Rule
   public final TemporaryFolder tempFolder = new TemporaryFolder();
 
@@ -47,8 +44,8 @@ public class CssCpdMappingTest {
   public void test() throws IOException {
     DefaultFileSystem fileSystem = new DefaultFileSystem(tempFolder.getRoot());
     fileSystem.setEncoding(Charsets.UTF_8);
-    file = tempFolder.newFile();
-    inputFile = new DefaultInputFile("moduleKey", file.getName())
+    File file = tempFolder.newFile();
+    DefaultInputFile inputFile = new DefaultInputFile("moduleKey", file.getName())
       .setLanguage(CssLanguage.KEY)
       .setType(InputFile.Type.MAIN);
     fileSystem.add(inputFile);

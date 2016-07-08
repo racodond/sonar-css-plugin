@@ -30,7 +30,7 @@ import org.sonar.css.model.value.valueelement.DelimiterValueElement;
 
 public class ValueElementListValidator implements ValueValidator {
 
-  private List<ValueElementValidator> validators;
+  private final List<ValueElementValidator> validators;
 
   public ValueElementListValidator(ValueElementValidator... validators) {
     this.validators = Arrays.asList(validators);
@@ -60,7 +60,7 @@ public class ValueElementListValidator implements ValueValidator {
   @Nonnull
   public String getValidatorFormat() {
     String joinedValidatorsFormat = validators.stream()
-      .map(v -> v.getValidatorFormat())
+      .map(Validator::getValidatorFormat)
       .collect(Collectors.joining(" | "));
 
     return joinedValidatorsFormat + " [, " + joinedValidatorsFormat + "]*";

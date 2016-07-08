@@ -27,6 +27,9 @@ import java.nio.charset.Charset;
 
 public class FileUtils {
 
+  private FileUtils() {
+  }
+
   public static boolean startsWithBOM(File file, Charset charset) {
     return fileContent(file, charset).startsWith(Character.toString('\uFEFF'));
   }

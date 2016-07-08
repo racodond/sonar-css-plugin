@@ -28,7 +28,7 @@ import org.sonar.css.model.value.CssValueElement;
 
 public class ValueElementMultiValidator implements ValueElementValidator {
 
-  private List<ValueElementValidator> validators;
+  private final List<ValueElementValidator> validators;
 
   public ValueElementMultiValidator(ValueElementValidator... validators) {
     this.validators = Arrays.asList(validators);
@@ -48,7 +48,7 @@ public class ValueElementMultiValidator implements ValueElementValidator {
   @Nonnull
   public String getValidatorFormat() {
     return validators.stream()
-      .map(v -> v.getValidatorFormat())
+      .map(Validator::getValidatorFormat)
       .collect(Collectors.joining(" | "));
   }
 

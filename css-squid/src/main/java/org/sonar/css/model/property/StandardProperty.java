@@ -54,7 +54,7 @@ public class StandardProperty extends StandardCssObject {
   public String getValidatorFormat() {
     return validators
       .stream()
-      .map(p -> p.getValidatorFormat())
+      .map(Validator::getValidatorFormat)
       .collect(Collectors.joining(" | "));
   }
 

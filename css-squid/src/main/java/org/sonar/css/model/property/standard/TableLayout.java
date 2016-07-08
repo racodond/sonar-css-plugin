@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 

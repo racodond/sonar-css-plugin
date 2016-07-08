@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.validator;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.css.model.property.validator.property.CounterValidator;
 import org.sonar.css.model.property.validator.property.border.BorderRadiusValidator;
 import org.sonar.css.model.property.validator.property.border.BorderValidator;

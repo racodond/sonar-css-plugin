@@ -51,9 +51,6 @@ public final class CssAstScanner {
   private CssAstScanner() {
   }
 
-  /**
-   * Helper methods for testing checks without having to deploy them on a SonarQube instance.
-   */
   @VisibleForTesting
   public static SourceFile scanSingleFile(File file, SquidAstVisitor<LexerlessGrammar>... visitors) {
     return scanSingleFileWithCustomConfiguration(file, null, new CssConfiguration(Charsets.UTF_8), visitors);

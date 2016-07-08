@@ -20,7 +20,6 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.ValidatorFactory;
 
 public class Stress extends StandardProperty {
 
