@@ -169,7 +169,6 @@ public enum CssGrammar implements GrammarRuleKey {
       size: 30em;
       weight: bold;
       } here */
-      // --> add sass @extend, @import rule here:DONE
       CLOSE_CURLY_BRACE);
 
     b.rule(atRuleBlock).is(
