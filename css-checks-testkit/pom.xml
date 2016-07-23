@@ -10,21 +10,8 @@
   </parent>
 
   <artifactId>css-checks-testkit</artifactId>
-
   <name>SonarQube CSS Plugin :: Check Test Toolkit</name>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <configuration>
-          <destFile>${sonar.jacoco.reportPath}</destFile>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-  
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
@@ -56,4 +43,17 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <configuration>
+          <destFile>${sonar.jacoco.reportPath}</destFile>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>

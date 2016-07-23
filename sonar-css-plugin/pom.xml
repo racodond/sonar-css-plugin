@@ -17,9 +17,9 @@
   <url>https://github.com/SonarCommunity/sonar-css</url>
 
   <properties>
-    <sonar.pluginKey>css</sonar.pluginKey>
     <sonar.pluginName>CSS</sonar.pluginName>
     <sonar.pluginClass>org.sonar.plugins.css.CssPlugin</sonar.pluginClass>
+    <sonar.skipDependenciesPackaging>true</sonar.skipDependenciesPackaging>
   </properties>
 
   <dependencies>
@@ -63,14 +63,31 @@
   </dependencies>
 
   <build>
-    <finalName>${project.artifactId}</finalName>
     <plugins>
       <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <configuration>
-          <destFile>${sonar.jacoco.reportPath}</destFile>
-        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <shadedArtifactAttached>false</shadedArtifactAttached>
+              <minimizeJar>true</minimizeJar>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
+              <filters>
+                <filter>
+                  <artifact>cglib:cglib-nodep</artifact>
+                  <includes>
+                    <include>**</include>
+                  </includes>
+                </filter>
+              </filters>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
 
       <plugin>
@@ -86,8 +103,8 @@
             <configuration>
               <rules>
                 <requireFilesSize>
-                  <maxsize>4200000</maxsize>
-                  <minsize>3900000</minsize>
+                  <maxsize>2300000</maxsize>
+                  <minsize>2100000</minsize>
                   <files>
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                   </files>
@@ -96,6 +113,14 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <configuration>
+          <destFile>${sonar.jacoco.reportPath}</destFile>
+        </configuration>
       </plugin>
     </plugins>
   </build>
