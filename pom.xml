@@ -44,7 +44,7 @@
   </developers>
 
   <modules>
-    <module>css-squid</module>
+    <module>css-frontend</module>
     <module>css-checks</module>
     <module>sonar-css-plugin</module>
     <module>css-checks-testkit</module>
@@ -78,7 +78,7 @@
     <dependencies>
       <dependency>
         <groupId>${project.groupId}</groupId>
-        <artifactId>css-squid</artifactId>
+        <artifactId>css-frontend</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>

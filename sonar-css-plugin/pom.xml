@@ -25,7 +25,7 @@
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>css-squid</artifactId>
+      <artifactId>css-frontend</artifactId>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>

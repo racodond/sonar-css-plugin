@@ -8,8 +8,8 @@
     <version>2.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>css-squid</artifactId>
-  <name>SonarQube CSS Plugin :: Squid</name>
+  <artifactId>css-frontend</artifactId>
+  <name>SonarQube CSS Plugin :: Frontend</name>
 
   <dependencies>
     <dependency>
