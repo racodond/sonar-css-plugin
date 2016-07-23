@@ -45,7 +45,6 @@
 
   <modules>
     <module>css-squid</module>
-    <module>sslr-css-toolkit</module>
     <module>css-checks</module>
     <module>sonar-css-plugin</module>
     <module>css-checks-testkit</module>
