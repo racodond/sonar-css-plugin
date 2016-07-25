@@ -20,22 +20,23 @@
 package org.sonar.css.model.property.validator.property.border;
 
 import java.util.List;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueValidator;
-import org.sonar.css.model.value.CssValueElement;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 public class BorderSpacingValidator implements ValueValidator {
 
   @Override
-  public boolean isValid(Value value) {
-    List<CssValueElement> valueElements = value.getValueElements();
-    if (value.getNumberOfValueElements() > 2) {
+  public boolean isValid(ValueTree valueTree) {
+    List<Tree> valueElements = valueTree.sanitizedValueElements();
+    int numberOfValueElements = valueElements.size();
+
+    if (numberOfValueElements > 2) {
       return false;
     }
-    for (CssValueElement valueElement : valueElements) {
+    for (Tree valueElement : valueElements) {
       if (!ValidatorFactory.getPositiveLengthValidator().isValid(valueElement)) {
         return false;
       }
@@ -43,7 +44,6 @@ public class BorderSpacingValidator implements ValueValidator {
     return true;
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "<length>(>=0) <length>(>=0)?";

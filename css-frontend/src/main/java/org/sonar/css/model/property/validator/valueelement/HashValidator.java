@@ -19,21 +19,18 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import javax.annotation.Nonnull;
-
 import org.sonar.css.model.property.validator.ValueElementValidator;
-import org.sonar.css.model.value.CssValueElement;
-import org.sonar.css.model.value.valueelement.HashValueElement;
+import org.sonar.plugins.css.api.tree.HashTree;
+import org.sonar.plugins.css.api.tree.Tree;
 
 public class HashValidator implements ValueElementValidator {
 
   @Override
-  public boolean isValid(CssValueElement cssValueElement) {
-    return cssValueElement instanceof HashValueElement && ((HashValueElement) cssValueElement).getValue().matches("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
+  public boolean isValid(Tree tree) {
+    return tree instanceof HashTree && ((HashTree) tree).value().text().matches("^([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
   }
 
   @Override
-  @Nonnull
   public String getValidatorFormat() {
     return "";
   }

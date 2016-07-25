@@ -19,10 +19,10 @@
  */
 package org.sonar.css.model.property.validator;
 
-import org.sonar.css.model.Value;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 public interface ValueValidator extends Validator {
 
-  boolean isValid(Value value);
+  boolean isValid(ValueTree tree);
 
 }

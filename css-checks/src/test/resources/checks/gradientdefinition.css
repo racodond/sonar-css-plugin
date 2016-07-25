@@ -28,6 +28,6 @@
 /* Missing old and new -webkit */
  { /* Noncompliant ![sc=2;ec=3;el=+0]! !{Add missing gradient definitions: -webkit-(linear|radial)-gradient.*, -webkit-gradient.*}! */
   background: -moz-linear-gradient(top,  #1e5799 0%, #7db9e8 100%);
-  background: -o-linear-gradient(top,  #1e5799 0%,#7db9e8 100%);
+  background: -o-LINEAR-gradient(top,  #1e5799 0%,#7db9e8 100%);
   background: -ms-linear-gradient(top,  #1e5799 0%,#7db9e8 100%);
 }

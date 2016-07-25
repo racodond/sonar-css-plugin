@@ -19,48 +19,58 @@
  */
 package org.sonar.css.checks;
 
-import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.api.GenericTokenType;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.CssCheck;
-import org.sonar.css.parser.CssGrammar;
+import org.sonar.plugins.css.api.tree.*;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 @Rule(
   key = "case",
-  name = "Properties, functions and variables should be lower case",
+  name = "Properties, functions, @rule keywords and variables should be lower case",
   priority = Priority.MINOR,
   tags = {Tags.CONVENTION})
 @SqaleConstantRemediation("2min")
 @ActivatedByDefault
-public class CaseCheck extends CssCheck {
+public class CaseCheck extends DoubleDispatchVisitorCheck {
 
   @Override
-  public void init() {
-    subscribeTo(CssGrammar.PROPERTY, CssGrammar.FUNCTION, CssGrammar.VARIABLE);
-  }
-
-  @Override
-  public void leaveNode(AstNode astNode) {
-    if (astNode.is(CssGrammar.PROPERTY)
-      && containsUpperCaseCharacter(astNode.getTokenValue())) {
-      createIssue(astNode, "property", astNode.getTokenValue());
-    } else if (astNode.is(CssGrammar.FUNCTION)
-      && containsUpperCaseCharacter(astNode.getTokenValue())) {
-      createIssue(astNode.getFirstChild(CssGrammar.IDENT), "function", astNode.getTokenValue());
-    } else if (astNode.is(CssGrammar.VARIABLE)
-      && containsUpperCaseCharacter(astNode.getFirstChild(GenericTokenType.IDENTIFIER).getTokenValue())) {
-      createIssue(astNode, "variable", astNode.getFirstChild(GenericTokenType.IDENTIFIER).getTokenValue());
+  public void visitVariable(VariableTree tree) {
+    if (containsUpperCaseCharacter(tree.variableName())) {
+      addIssue(tree, "variable", tree.variableName());
     }
+    super.visitVariable(tree);
   }
 
-  private void createIssue(AstNode astNode, String nodeType, String value) {
-    addIssue(
-      this,
-      "Write " + nodeType + " \"" + value + "\" in lowercase.",
-      astNode);
+  @Override
+  public void visitProperty(PropertyTree tree) {
+    if (containsUpperCaseCharacter(tree.property().text())) {
+      addIssue(tree, "property", tree.property().text());
+    }
+    super.visitProperty(tree);
+  }
+
+  @Override
+  public void visitAtKeyword(AtKeywordTree tree) {
+    if (containsUpperCaseCharacter(tree.keyword().text())) {
+      addIssue(tree, "@rule keyword", tree.keyword().text());
+    }
+    super.visitAtKeyword(tree);
+  }
+
+  @Override
+  public void visitFunction(FunctionTree tree) {
+    if (containsUpperCaseCharacter(tree.function().text())) {
+      addIssue(tree.function(), "function", tree.function().text());
+    }
+    super.visitFunction(tree);
+  }
+
+  private void addIssue(Tree tree, String treeType, String value) {
+    addPreciseIssue(
+      tree,
+      "Write " + treeType + " \"" + value + "\" in lowercase.");
   }
 
   private boolean containsUpperCaseCharacter(String value) {

@@ -22,10 +22,9 @@ package org.sonar.css.model.property.validator.valueelement.numeric;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.value.CssValueElement;
-import org.sonar.css.model.value.valueelement.NumberValueElement;
+import org.sonar.plugins.css.api.tree.NumberTree;
+import org.sonar.plugins.css.api.tree.Tree;
 
 public class IntegerSetValidator extends IntegerValidator {
 
@@ -36,10 +35,10 @@ public class IntegerSetValidator extends IntegerValidator {
   }
 
   @Override
-  public boolean isValid(CssValueElement cssValueElement) {
-    if (super.isValid(cssValueElement)) {
-      int value = ((NumberValueElement) cssValueElement).getValue().intValue();
-      for (int v : values) {
+  public boolean isValid(Tree tree) {
+    if (super.isValid(tree)) {
+      long value = ((NumberTree) tree).integerValue();
+      for (long v : values) {
         if (value == v) {
           return true;
         }
@@ -49,9 +48,8 @@ public class IntegerSetValidator extends IntegerValidator {
   }
 
   @Override
-  @Nonnull
   public String getValidatorFormat() {
-    return values.stream().map(p -> p.toString()).collect(Collectors.joining(" | "));
+    return values.stream().map(Object::toString).collect(Collectors.joining(" | "));
   }
 
 }

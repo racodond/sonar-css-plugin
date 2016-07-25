@@ -20,14 +20,13 @@
 package org.sonar.css.model.property.validator.property;
 
 import java.util.List;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
 import org.sonar.css.model.property.validator.ValueValidator;
 import org.sonar.css.model.property.validator.valueelement.OutlineColorValidator;
 import org.sonar.css.model.property.validator.valueelement.OutlineStyleValidator;
 import org.sonar.css.model.property.validator.valueelement.OutlineWidthValidator;
-import org.sonar.css.model.value.CssValueElement;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 public class OutlineValidator implements ValueValidator {
 
@@ -36,12 +35,14 @@ public class OutlineValidator implements ValueValidator {
   private static final OutlineStyleValidator outlineStyleValidator = new OutlineStyleValidator();
 
   @Override
-  public boolean isValid(Value value) {
-    List<CssValueElement> valueElements = value.getValueElements();
-    if (value.getNumberOfValueElements() > 3) {
+  public boolean isValid(ValueTree valueTree) {
+    List<Tree> valueElements = valueTree.sanitizedValueElements();
+    int numberOfValueElements = valueElements.size();
+
+    if (numberOfValueElements > 3) {
       return false;
     }
-    for (CssValueElement valueElement : valueElements) {
+    for (Tree valueElement : valueElements) {
       if (!OUTLINE_COLOR_VALIDATOR.isValid(valueElement)
         && !OUTLINE_WIDTH_VALIDATOR.isValid(valueElement)
         && !outlineStyleValidator.isValid(valueElement)) {
@@ -51,7 +52,6 @@ public class OutlineValidator implements ValueValidator {
     return true;
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "<outline-width> || <outline-style> || <outline-color>";

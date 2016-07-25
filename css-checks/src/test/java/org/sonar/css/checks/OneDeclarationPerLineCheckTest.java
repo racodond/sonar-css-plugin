@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks;
 
-import java.io.File;
-
 import org.junit.Test;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
@@ -28,7 +26,7 @@ public class OneDeclarationPerLineCheckTest {
 
   @Test
   public void test() {
-    CssCheckVerifier.verify(new OneDeclarationPerLineCheck(), new File("src/test/resources/checks/oneDeclarationPerLine.css"));
+    CssCheckVerifier.verify(new OneDeclarationPerLineCheck(), CheckTestUtils.getTestFile("oneDeclarationPerLine.css"));
   }
 
 }

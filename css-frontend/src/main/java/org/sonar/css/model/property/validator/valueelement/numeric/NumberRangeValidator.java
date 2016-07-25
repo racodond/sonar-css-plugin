@@ -20,10 +20,9 @@
 package org.sonar.css.model.property.validator.valueelement.numeric;
 
 import java.util.Locale;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.value.CssValueElement;
-import org.sonar.css.model.value.valueelement.NumberValueElement;
+import org.sonar.plugins.css.api.tree.NumberTree;
+import org.sonar.plugins.css.api.tree.Tree;
 
 public class NumberRangeValidator extends NumberValidator {
 
@@ -43,9 +42,9 @@ public class NumberRangeValidator extends NumberValidator {
   }
 
   @Override
-  public boolean isValid(CssValueElement cssValueElement) {
-    if (super.isValid(cssValueElement)) {
-      double value = ((NumberValueElement) cssValueElement).getValue();
+  public boolean isValid(Tree tree) {
+    if (super.isValid(tree)) {
+      double value = ((NumberTree) tree).doubleValue();
       if (max != null) {
         return value >= min && value <= max;
       } else {
@@ -56,7 +55,6 @@ public class NumberRangeValidator extends NumberValidator {
   }
 
   @Override
-  @Nonnull
   public String getValidatorFormat() {
     String format = "<number>(" + String.format(Locale.ENGLISH, "%.1f", min) + ",";
     if (max != null) {

@@ -20,35 +20,35 @@
 package org.sonar.css.model.property.validator.property;
 
 import java.util.List;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.ValueValidator;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
-import org.sonar.css.model.value.CssValueElement;
-import org.sonar.css.model.value.valueelement.IdentifierValueElement;
+import org.sonar.plugins.css.api.tree.IdentifierTree;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 public class TextCombineUprightValidator implements ValueValidator {
 
   private static final ValueElementValidator IDENTIFIER_VALIDATOR = new IdentifierValidator("none", "all", "digits");
 
   @Override
-  public boolean isValid(@Nonnull Value value) {
-    List<CssValueElement> valueElements = value.getValueElements();
-    if (value.getNumberOfValueElements() == 1) {
+  public boolean isValid(ValueTree valueTree) {
+    List<Tree> valueElements = valueTree.sanitizedValueElements();
+    int numberOfValueElements = valueElements.size();
+
+    if (numberOfValueElements == 1) {
       return IDENTIFIER_VALIDATOR.isValid(valueElements.get(0));
     }
-    if (value.getNumberOfValueElements() == 2) {
-      return (valueElements.get(0) instanceof IdentifierValueElement)
-        && "digits".equals(((IdentifierValueElement) valueElements.get(0)).getName())
+    if (numberOfValueElements == 2) {
+      return (valueElements.get(0) instanceof IdentifierTree)
+        && "digits".equals(((IdentifierTree) valueElements.get(0)).text())
         && ValidatorFactory.getIntegerValidator().isValid(valueElements.get(1));
     }
     return false;
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "none | all | [ digits <integer>? ]";

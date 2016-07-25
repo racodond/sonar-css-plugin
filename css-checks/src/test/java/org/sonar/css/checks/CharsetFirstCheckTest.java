@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks;
 
-import java.io.File;
-
 import org.junit.Test;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
@@ -28,17 +26,17 @@ public class CharsetFirstCheckTest {
 
   @Test
   public void test_charset_first() {
-    CssCheckVerifier.verify(new CharsetFirstCheck(), new File("src/test/resources/checks/charset/charsetFirst.css"));
+    CssCheckVerifier.verify(new CharsetFirstCheck(), CheckTestUtils.getTestFile("charset/charsetFirst.css"));
   }
 
   @Test
   public void test_charset_not_first() {
-    CssCheckVerifier.verify(new CharsetFirstCheck(), new File("src/test/resources/checks/charset/charsetNotFirst.css"));
+    CssCheckVerifier.verify(new CharsetFirstCheck(), CheckTestUtils.getTestFile("charset/charsetNotFirst.css"));
   }
 
   @Test
   public void test_charset_first_with_BOM() {
-    CssCheckVerifier.verify(new CharsetFirstCheck(), new File("src/test/resources/checks/charset/charsetFirstWithBOM.css"));
+    CssCheckVerifier.verify(new CharsetFirstCheck(), CheckTestUtils.getTestFile("charset/charsetFirstWithBOM.css"));
   }
 
 }

@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.annotation.Nonnull;
 
 public abstract class StandardCssObject {
 
@@ -73,7 +72,6 @@ public abstract class StandardCssObject {
     links.addAll(Lists.newArrayList(allLinks));
   }
 
-  @Nonnull
   public String getName() {
     return name;
   }
@@ -90,12 +88,10 @@ public abstract class StandardCssObject {
     return !vendors.isEmpty();
   }
 
-  @Nonnull
   public Set<Vendor> getVendors() {
     return vendors;
   }
 
-  @Nonnull
   public List<String> getLinks() {
     return links;
   }

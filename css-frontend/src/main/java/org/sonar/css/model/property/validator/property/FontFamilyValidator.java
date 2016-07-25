@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.property;
 
-import javax.annotation.Nonnull;
-
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementListValidator;
 
@@ -32,7 +30,6 @@ public class FontFamilyValidator extends ValueElementListValidator {
       ValidatorFactory.getStringValidator());
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "[<family-name> | <generic-family>] [, <family-name>| <generic-family>]*";

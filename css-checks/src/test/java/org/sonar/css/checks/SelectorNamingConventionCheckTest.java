@@ -19,25 +19,38 @@
  */
 package org.sonar.css.checks;
 
-import java.io.File;
-
 import org.junit.Test;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
+import static org.fest.assertions.Assertions.assertThat;
+
 public class SelectorNamingConventionCheckTest {
+
+  private final SelectorNamingConventionCheck check = new SelectorNamingConventionCheck();
 
   @Test
   public void test_with_default_format() {
-    SelectorNamingConventionCheck check = new SelectorNamingConventionCheck();
     check.setFormat("^[a-z][-a-z0-9]*$");
-    CssCheckVerifier.verify(check, new File("src/test/resources/checks/selectorNamingConvention.css"));
+    CssCheckVerifier.verify(check, CheckTestUtils.getTestFile("selectorNamingConvention.css"));
   }
 
   @Test
   public void test_with_custom_format() {
-    SelectorNamingConventionCheck check = new SelectorNamingConventionCheck();
     check.setFormat("^[-a-z]+$");
-    CssCheckVerifier.verify(check, new File("src/test/resources/checks/selectorNamingConventionCustomFormat.css"));
+    CssCheckVerifier.verify(check, CheckTestUtils.getTestFile("selectorNamingConventionCustomFormat.css"));
+  }
+
+  @Test
+  public void should_throw_an_illegal_state_exception_as_the_format_parameter_is_not_valid() {
+    try {
+      check.setFormat("(");
+
+      CssCheckVerifier.issues(check, CheckTestUtils.getTestFile("selectorNamingConvention.css")).noMore();
+
+    } catch (IllegalStateException e) {
+      assertThat(e.getMessage()).isEqualTo("Check css:selector-naming-convention (Selectors should follow a naming convention): "
+        + "format parameter \"(\" is not a valid regular expression.");
+    }
   }
 
 }

@@ -20,16 +20,17 @@
 package org.sonar.css.checks;
 
 import com.google.common.io.Files;
-import com.sonar.sslr.api.AstNode;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.regex.Pattern;
-import javax.annotation.Nullable;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.CssCheck;
+import org.sonar.css.visitors.CharsetAwareVisitor;
+import org.sonar.plugins.css.api.tree.StyleSheetTree;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 @Rule(
@@ -38,23 +39,31 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   priority = Priority.MINOR,
   tags = {Tags.FORMAT})
 @SqaleConstantRemediation("1min")
-public class TrailingWhitespaceCheck extends CssCheck {
+public class TrailingWhitespaceCheck extends DoubleDispatchVisitorCheck implements CharsetAwareVisitor {
 
   private static final String WHITESPACE = "\\t\\u000B\\f\\u0020\\u00A0\\uFEFF\\p{Zs}";
+  private Charset charset;
 
   @Override
-  public void visitFile(@Nullable AstNode astNode) {
+  public void visitStyleSheet(StyleSheetTree tree) {
     List<String> lines;
     try {
-      lines = Files.readLines(getContext().getFile(), getCharset());
+      lines = Files.readLines(getContext().getFile(), charset);
     } catch (IOException e) {
-      throw new IllegalStateException("Rule S1131 - cannot read file", e);
+      throw new IllegalStateException("Check css:" + this.getClass().getAnnotation(Rule.class).key()
+        + ": Error while reading " + getContext().getFile().getName(), e);
     }
     for (int i = 0; i < lines.size(); i++) {
       String line = lines.get(i);
       if (line.length() > 0 && Pattern.matches("[" + WHITESPACE + "]", line.subSequence(line.length() - 1, line.length()))) {
-        addLineIssue(this, "Remove the useless trailing whitespaces at the end of this line.", i + 1);
+        addLineIssue(i + 1, "Remove the useless trailing whitespaces at the end of this line.");
       }
     }
   }
+
+  @Override
+  public void setCharset(Charset charset) {
+    this.charset = charset;
+  }
+
 }

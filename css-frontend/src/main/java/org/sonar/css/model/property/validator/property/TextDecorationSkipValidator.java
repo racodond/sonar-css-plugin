@@ -21,34 +21,35 @@ package org.sonar.css.model.property.validator.property;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.ValueValidator;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
-import org.sonar.css.model.value.CssValueElement;
-import org.sonar.css.model.value.valueelement.IdentifierValueElement;
+import org.sonar.plugins.css.api.tree.IdentifierTree;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 public class TextDecorationSkipValidator implements ValueValidator {
 
   private static final ValueElementValidator IDENTIFIER_VALIDATOR = new IdentifierValidator("objects", "spaces", "ink", "edges", "box-decoration");
 
   @Override
-  public boolean isValid(Value value) {
-    List<CssValueElement> valueElements = value.getValueElements();
-    if (value.getNumberOfValueElements() > 5) {
+  public boolean isValid(ValueTree valueTree) {
+    List<Tree> valueElements = valueTree.sanitizedValueElements();
+    int numberOfValueElements = valueElements.size();
+
+    if (numberOfValueElements > 5) {
       return false;
     }
     List<String> listTextDecorationSkip = new ArrayList<>();
     for (int i = 0; i < valueElements.size(); i++) {
       if (i == 0 && (ValidatorFactory.getNoneValidator().isValid(valueElements.get(i)) && valueElements.size() == 1 || IDENTIFIER_VALIDATOR.isValid(valueElements.get(i)))) {
-        listTextDecorationSkip.add(((IdentifierValueElement) valueElements.get(i)).getName());
+        listTextDecorationSkip.add(((IdentifierTree) valueElements.get(i)).text());
         continue;
       }
-      if (i != 0 && IDENTIFIER_VALIDATOR.isValid(valueElements.get(i)) && !listTextDecorationSkip.contains(((IdentifierValueElement) valueElements.get(i)).getName())) {
-        listTextDecorationSkip.add(((IdentifierValueElement) valueElements.get(i)).getName());
+      if (i != 0 && IDENTIFIER_VALIDATOR.isValid(valueElements.get(i)) && !listTextDecorationSkip.contains(((IdentifierTree) valueElements.get(i)).text())) {
+        listTextDecorationSkip.add(((IdentifierTree) valueElements.get(i)).text());
         continue;
       }
       return false;
@@ -56,7 +57,6 @@ public class TextDecorationSkipValidator implements ValueValidator {
     return true;
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "none | [ objects || spaces || ink || edges || box-decoration ]";

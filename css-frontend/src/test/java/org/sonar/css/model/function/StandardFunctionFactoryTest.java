@@ -80,7 +80,17 @@ public class StandardFunctionFactoryTest {
 
   @Test
   public void number_of_standard_functions() {
-    assertEquals(109, StandardFunctionFactory.getAll().size());
+    assertEquals(122, StandardFunctionFactory.getAll().size());
+  }
+
+  @Test
+  public void number_of_pseudo_functions() {
+    assertEquals(13, StandardFunctionFactory.getAll().stream().filter(StandardFunction::isPseudo).count());
+  }
+
+  @Test
+  public void number_of_ie_static_filters() {
+    assertEquals(20, StandardFunctionFactory.getAll().stream().filter(StandardFunction::isIeStaticFilter).count());
   }
 
 }

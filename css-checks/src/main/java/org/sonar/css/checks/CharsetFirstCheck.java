@@ -19,17 +19,14 @@
  */
 package org.sonar.css.checks;
 
-import com.sonar.sslr.api.AstNode;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.CssCheck;
-import org.sonar.css.model.AtRule;
 import org.sonar.css.model.atrule.standard.Charset;
-import org.sonar.css.parser.CssGrammar;
+import org.sonar.plugins.css.api.tree.AtRuleTree;
+import org.sonar.plugins.css.api.tree.SyntaxToken;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-
-import javax.annotation.Nullable;
 
 @Rule(
   key = "charset-first",
@@ -38,37 +35,19 @@ import javax.annotation.Nullable;
   tags = {Tags.BUG})
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
-public class CharsetFirstCheck extends CssCheck {
-
-  private int offset;
+public class CharsetFirstCheck extends DoubleDispatchVisitorCheck {
 
   @Override
-  public void init() {
-    subscribeTo(CssGrammar.AT_RULE, CssGrammar.BOM);
-  }
-
-  @Override
-  public void visitFile(@Nullable AstNode astNode) {
-    offset = 0;
-  }
-
-  @Override
-  public void visitNode(AstNode astNode) {
-    if (astNode.is(CssGrammar.BOM)) {
-      offset = 1;
-    } else {
-      AtRule atRule = new AtRule(astNode.getFirstChild(CssGrammar.AT_KEYWORD).getFirstChild(CssGrammar.IDENT).getTokenValue());
-      if (atRule.getStandardAtRule() instanceof Charset && !isFirst(astNode.getFirstChild(CssGrammar.AT_KEYWORD))) {
-        addIssue(
-          this,
-          "Move the @charset rule to the beginning of the style sheet.",
-          astNode.getFirstChild(CssGrammar.AT_KEYWORD));
-      }
+  public void visitAtRule(AtRuleTree tree) {
+    if (tree.standardAtRule() instanceof Charset && !isFirst(tree.atKeyword().atSymbol())) {
+      addPreciseIssue(
+        tree.atKeyword(),
+        "Move the @charset rule to the very beginning of the style sheet.");
     }
   }
 
-  private boolean isFirst(AstNode astNode) {
-    return astNode.getTokenLine() == 1 && astNode.getToken().getColumn() == offset;
+  private boolean isFirst(SyntaxToken atSymbol) {
+    return atSymbol.line() == 1 && atSymbol.column() == 0;
   }
 
 }

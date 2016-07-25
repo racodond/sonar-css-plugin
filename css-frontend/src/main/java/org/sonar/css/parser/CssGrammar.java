@@ -19,360 +19,412 @@
  */
 package org.sonar.css.parser;
 
-import com.sonar.sslr.api.GenericTokenType;
-import org.sonar.sslr.grammar.GrammarRuleKey;
-import org.sonar.sslr.grammar.LexerlessGrammarBuilder;
-import org.sonar.sslr.parser.LexerlessGrammar;
+import com.sonar.sslr.api.typed.GrammarBuilder;
+import org.sonar.css.tree.impl.InternalSyntaxToken;
+import org.sonar.css.tree.impl.SelectorCombinationList;
+import org.sonar.css.tree.impl.SyntaxList;
+import org.sonar.plugins.css.api.tree.*;
 
-/**
- * CSS grammar based on http://www.w3.org/TR/CSS2/syndata.html
- * + http://www.w3.org/TR/css3-syntax/
- *
- * block: http://www.w3.org/TR/CSS2/syndata.html#block is not supported, it will
- * be handled as declaration block
- *
- * There are problems with comments+whitespaces...
- */
+public class CssGrammar {
 
-/***
- *  TODO THIS IS PARSED INCORRECTLY:
- *
-.heart-icon {
-    background: url(sprite.png) -16px 0 no-repeat;
-}
- * TODO: check http://www.w3.org/TR/css3-values/
- */
-public enum CssGrammar implements GrammarRuleKey {
+  private final GrammarBuilder<InternalSyntaxToken> b;
+  private final TreeFactory f;
 
-  STYLESHEET,
-  STATEMENT,
-  AT_RULE,
-  BLOCK,
-  RULESET,
-  SELECTOR,
-  SUB_SELECTOR,
-
-  SUP_DECLARATION,
-  DECLARATION,
-  VARIABLE_DECLARATION,
-  PROPERTY,
-  VALUE,
-  ANY,
-
-  IDENT,
-  AT_KEYWORD,
-  VARIABLE,
-  STRING,
-  HASH,
-  NUMBER,
-  PERCENTAGE,
-  PERCENTAGE_SIGN,
-  DIMENSION,
-  URI,
-  UNICODE_RANGE,
-  BOM,
-
-  COLON,
-  SEMICOLON,
-  OPEN_CURLY_BRACE,
-  CLOSE_CURLY_BRACE,
-  OPEN_PARENTHESIS,
-  CLOSE_PARENTHESIS,
-  OPEN_BRACKET,
-  CLOSE_BRACKET,
-
-  WHITESPACE,
-  WHITESPACES,
-  FUNCTION,
-  FUNCTION_PSEUDO,
-  INCLUDES,
-  DASH_MATCH,
-  EQ,
-  CONTAINS,
-  STARTS_WITH,
-  ENDS_WITH,
-  IMPORTANT,
-  DELIM,
-
-  SIMPLE_SELECTOR,
-  TYPE_SELECTOR,
-  UNIVERSAL_SELECTOR,
-
-  SUB_S,
-
-  ATTRIBUTE_SELECTOR,
-  CLASS_SELECTOR,
-  ID_SELECTOR,
-  PSEUDO,
-
-  COMBINATORS,
-  DESCENDANT_COMB,
-  CHILD_COMB,
-  ADJACENT_COMB,
-  PRECEDED_COMB,
-
-  NAMESPACE,
-
-  _IDENT,
-  _NAME,
-  _NMSTART,
-  _NONASCII,
-  _UNICODE,
-  _ESCAPE,
-  _NMCHAR,
-  _NUM,
-  _STRING,
-  _STRING1,
-  _STRING2,
-  _NL,
-  _W,
-
-  eof, animationEvent, unit, parameters, comma, parameter, to, from, atRuleBlock, identNoWS, _URI_CONTENT;
-
-  private static final String NMCHAR_REGEX = "(?i)[_a-z0-9-]";
-  private static final String NONASCII_REGEX = "[^\\x00-\\xED]";
-  private static final String NMSTART_REGEX = "(?i)[_a-z]";
-  public static final String WHITESPACE_REGEX = "[ \\t\\r\\n\\f]+";
-  public static final String IDENTIFIER_REGEX = NMSTART_REGEX + NMCHAR_REGEX.replace("\\(\\?i\\)", "") + "*";
-  public static final String LITERAL_REGEX = "\"[^\"]*?\"|'[^']*?'";
-  public static final String COMMENT_REGEX = "(?:/\\*[\\s\\S]*?\\*/)";
-  public static final String COMMENT2_REGEX = "(?:\\<\\!--[\\s\\S]*?--\\>)";
-
-  public static LexerlessGrammar createGrammar() {
-    return createGrammarBuilder().build();
+  public CssGrammar(GrammarBuilder<InternalSyntaxToken> b, TreeFactory f) {
+    this.b = b;
+    this.f = f;
   }
 
-  public static LexerlessGrammarBuilder createGrammarBuilder() {
-    LexerlessGrammarBuilder b = LexerlessGrammarBuilder.create();
-    macros(b);
-    tokens(b);
-    syntax(b);
-    b.setRootRule(STYLESHEET);
-
-    return b;
-  }
-
-  private static void syntax(LexerlessGrammarBuilder b) {
-    b.rule(STYLESHEET).is(b.optional(BOM), WHITESPACES, b.zeroOrMore(STATEMENT), eof);
-    b.rule(STATEMENT).is(b.firstOf(AT_RULE, RULESET));
-    b.rule(AT_RULE).is(AT_KEYWORD,
-      addSpacing(b.zeroOrMore(ANY), b),
-      b.firstOf(
-        SEMICOLON,
-        atRuleBlock));
-
-    b.rule(BLOCK).is(
-      OPEN_CURLY_BRACE,
-      b.optional(SUP_DECLARATION),
-      /*--> add nested properties (font: 2px/3px {
-      family: fantasy;
-      size: 30em;
-      weight: bold;
-      } here */
-      CLOSE_CURLY_BRACE);
-
-    b.rule(atRuleBlock).is(
-      OPEN_CURLY_BRACE,
-      b.zeroOrMore(
-        b.firstOf(AT_RULE, RULESET, SUP_DECLARATION)),
-      CLOSE_CURLY_BRACE);
-
-    b.rule(RULESET).is(
-      addSpacing(b.optional(SELECTOR), b),
-      BLOCK);
-
-    b.rule(SELECTOR).is(SUB_SELECTOR, b.zeroOrMore(b.sequence(comma, SUB_SELECTOR)));
-    b.rule(SUB_SELECTOR).is(b.sequence(
-      SIMPLE_SELECTOR,
-      b.zeroOrMore(COMBINATORS, SIMPLE_SELECTOR),
-      b.optional(WHITESPACES, b.next(b.firstOf(comma, eof)))));
-    b.rule(COMBINATORS).is(b.firstOf(DESCENDANT_COMB, ADJACENT_COMB, PRECEDED_COMB, CHILD_COMB)).skip();
-    b.rule(DESCENDANT_COMB).is(WHITESPACES, b.nextNot(b.firstOf(">", "+", "~")), b.next(SIMPLE_SELECTOR));
-    b.rule(CHILD_COMB).is(addSpacing(">", b));
-    b.rule(ADJACENT_COMB).is(addSpacing("+", b));
-    b.rule(PRECEDED_COMB).is(addSpacing("~", b));
-
-    b.rule(NAMESPACE).is(b.optional(identNoWS), "|");
-
-    b.rule(SIMPLE_SELECTOR).is(
-      b.firstOf(UNIVERSAL_SELECTOR, TYPE_SELECTOR, animationEvent),
-      b.optional(WHITESPACES, b.next(COMBINATORS)));
-    b.rule(TYPE_SELECTOR).is(b.optional(NAMESPACE), identNoWS, b.zeroOrMore(SUB_S));
-    b.rule(UNIVERSAL_SELECTOR).is(
-      b.firstOf(
-        b.sequence(b.optional(NAMESPACE), addSpacing("*", b), b.nextNot(IDENT), b.zeroOrMore(SUB_S)),
-        b.oneOrMore(SUB_S)));
-    b.rule(animationEvent).is(b.firstOf(from, to, PERCENTAGE));
-
-    b.rule(SUB_S).is(b.firstOf(ATTRIBUTE_SELECTOR, ID_SELECTOR, CLASS_SELECTOR, PSEUDO)).skip();
-    b.rule(ATTRIBUTE_SELECTOR).is(b.firstOf(
-      b.oneOrMore(OPEN_BRACKET, IDENT,
-        b.optional(b.firstOf(DASH_MATCH, INCLUDES, EQ, CONTAINS, STARTS_WITH, ENDS_WITH), ANY),
-        "]"),
-      b.oneOrMore(OPEN_BRACKET, b.optional(NAMESPACE), IDENT,
-        b.optional(b.firstOf(DASH_MATCH, INCLUDES, EQ, CONTAINS, STARTS_WITH, ENDS_WITH), ANY),
-        "]")));
-    b.rule(CLASS_SELECTOR).is(b.oneOrMore(".", identNoWS));
-    b.rule(ID_SELECTOR).is("#", identNoWS);
-    b.rule(PSEUDO).is(
-      b.firstOf("::", ":"),
-      b.firstOf(FUNCTION_PSEUDO, identNoWS));
-    b.rule(SUP_DECLARATION).is(
-      b.oneOrMore(b.firstOf(SEMICOLON, b.firstOf(VARIABLE_DECLARATION, DECLARATION))));
-    b.rule(DECLARATION).is(PROPERTY, COLON, VALUE);
-    b.rule(VARIABLE_DECLARATION).is(VARIABLE, COLON, VALUE);
-    b.rule(PROPERTY).is(addSpacing(IDENT, b));
-    b.rule(VALUE).is(
-      b.oneOrMore(b.firstOf(ANY, BLOCK, AT_KEYWORD)));
-    b.rule(ANY)
-      .is(
-        b.firstOf(
-          URI,
-          FUNCTION,
-          b.sequence(OPEN_PARENTHESIS, b.zeroOrMore(ANY), CLOSE_PARENTHESIS),
-          b.sequence(OPEN_BRACKET, b.zeroOrMore(ANY), CLOSE_BRACKET),
-          PERCENTAGE,
-          DIMENSION,
-          NUMBER,
-          STRING,
-          HASH,
-          UNICODE_RANGE,
-          INCLUDES,
-          DASH_MATCH,
-          addSpacing(IDENT, b),
-          IMPORTANT,
-          COLON,
-          addSpacing(DELIM, b)))
-      .skipIfOneChild();
-    b.rule(eof).is(b.token(GenericTokenType.EOF, b.endOfInput())).skip();
-
-  }
-
-  private static void tokens(LexerlessGrammarBuilder b) {
-    b.rule(BOM).is("\ufeff");
-    b.rule(IDENT).is(addSpacing(_IDENT, b));
-    b.rule(VARIABLE).is(addSpacing(b.sequence("--", _IDENT), b));
-    b.rule(identNoWS).is(_IDENT);
-    b.rule(AT_KEYWORD).is(addSpacing(b.sequence("@", IDENT), b));
-    b.rule(STRING).is(addSpacing(_STRING, b));
-    b.rule(HASH).is(addSpacing(b.sequence("#", _NAME), b));
-    b.rule(NUMBER).is(addSpacing(_NUM, b));
-    b.rule(PERCENTAGE).is(addSpacing(b.sequence(_NUM, PERCENTAGE_SIGN), b));
-    b.rule(PERCENTAGE_SIGN).is("%");
-    b.rule(DIMENSION).is(addSpacing(b.sequence(_NUM, unit), b));
-    b.rule(unit).is(b.firstOf(
-      matchCaseInsensitive(b, "em"),
-      matchCaseInsensitive(b, "ex"),
-      matchCaseInsensitive(b, "ch"),
-      matchCaseInsensitive(b, "rem"),
-      matchCaseInsensitive(b, "vw"),
-      matchCaseInsensitive(b, "vh"),
-      matchCaseInsensitive(b, "vmin"),
-      matchCaseInsensitive(b, "vmax"),
-      matchCaseInsensitive(b, "cm"),
-      matchCaseInsensitive(b, "mm"),
-      matchCaseInsensitive(b, "in"),
-      matchCaseInsensitive(b, "px"),
-      matchCaseInsensitive(b, "pt"),
-      matchCaseInsensitive(b, "pc"),
-      matchCaseInsensitive(b, "ms"),
-      matchCaseInsensitive(b, "s"),
-      matchCaseInsensitive(b, "Hz"),
-      matchCaseInsensitive(b, "dB"),
-      matchCaseInsensitive(b, "kHz"),
-      matchCaseInsensitive(b, "deg"),
-      matchCaseInsensitive(b, "grad"),
-      matchCaseInsensitive(b, "rad"),
-      matchCaseInsensitive(b, "turn"),
-      matchCaseInsensitive(b, "dpi"),
-      matchCaseInsensitive(b, "dpcm"),
-      matchCaseInsensitive(b, "dppx")));
-    b.rule(URI).is(
-      addSpacing(
-        b.sequence(matchCaseInsensitive(b, "url\\("), _URI_CONTENT, CLOSE_PARENTHESIS), b));
-    b.rule(_URI_CONTENT).is(
-      b.sequence(_W, b.firstOf(
-        STRING,
+  public StyleSheetTree STYLESHEET() {
+    return b.<StyleSheetTree>nonterminal(CssLexicalGrammar.STYLESHEET).is(
+      f.stylesheet(
+        b.optional(b.token(CssLexicalGrammar.BOM)),
         b.zeroOrMore(
           b.firstOf(
-            b.regexp("[!#$%&*-\\[\\]-~]+"),
-            _NONASCII,
-            _ESCAPE))),
-        _W));
-    b.rule(UNICODE_RANGE)
-      .is(addSpacing(b.regexp("u\\+[0-9a-f?]{1,6}(-[0-9a-f]{1,6})?"), b));
-    b.rule(COLON).is(addSpacing(":", b));
-    b.rule(SEMICOLON).is(addSpacing(";", b));
-    b.rule(OPEN_CURLY_BRACE).is(addSpacing("{", b));
-    b.rule(CLOSE_CURLY_BRACE).is(addSpacing("}", b));
-    b.rule(OPEN_PARENTHESIS).is(addSpacing("(", b));
-    b.rule(CLOSE_PARENTHESIS).is(addSpacing(")", b));
-    b.rule(OPEN_BRACKET).is(addSpacing("[", b));
-    b.rule(CLOSE_BRACKET).is(addSpacing("]", b));
-    b.rule(comma).is(addSpacing(",", b));
-    b.rule(WHITESPACE).is(b.regexp(WHITESPACE_REGEX)).skip();
-    b.rule(WHITESPACES).is(b.zeroOrMore(
+            AT_RULE(),
+            RULESET())),
+        b.token(CssLexicalGrammar.EOF)));
+  }
+
+  public AtRuleTree AT_RULE() {
+    return b.<AtRuleTree>nonterminal(CssLexicalGrammar.AT_RULE).is(
+      f.atRule(
+        AT_KEYWORD(),
+        b.zeroOrMore(ANY()),
+        b.optional(AT_RULE_BLOCK()),
+        b.optional(b.token(CssLexicalGrammar.SEMICOLON))));
+  }
+
+  public RulesetTree RULESET() {
+    return b.<RulesetTree>nonterminal(CssLexicalGrammar.RULESET).is(
+      f.ruleset(
+        b.optional(b.token(CssLexicalGrammar.SPACING)),
+        b.optional(SELECTORS()),
+        RULESET_BLOCK()));
+  }
+
+  public AtRuleBlockTree AT_RULE_BLOCK() {
+    return b.<AtRuleBlockTree>nonterminal(CssLexicalGrammar.AT_RULE_BLOCK).is(
+      f.atRuleBlock(
+        b.token(CssLexicalGrammar.OPEN_CURLY_BRACE),
+        b.optional(
+          b.firstOf(
+            DECLARATIONS(),
+            b.oneOrMore(
+              b.firstOf(
+                AT_RULE(),
+                RULESET())))),
+        b.token(CssLexicalGrammar.CLOSE_CURLY_BRACE)));
+  }
+
+  public RulesetBlockTree RULESET_BLOCK() {
+    return b.<RulesetBlockTree>nonterminal(CssLexicalGrammar.RULESET_BLOCK).is(
+      f.rulesetBlock(
+        b.token(CssLexicalGrammar.OPEN_CURLY_BRACE),
+        b.optional(DECLARATIONS()),
+        b.token(CssLexicalGrammar.CLOSE_CURLY_BRACE)));
+  }
+
+  public ValueTree VALUE() {
+    return b.<ValueTree>nonterminal(CssLexicalGrammar.VALUE).is(
+      f.value(
+        b.oneOrMore(
+          b.firstOf(
+            ANY(),
+            RULESET_BLOCK(),
+            AT_KEYWORD()))));
+  }
+
+  public Tree ANY() {
+    return b.<Tree>nonterminal().is(
       b.firstOf(
-        b.skippedTrivia(WHITESPACE),
-        b.commentTrivia(b.regexp("(?:" + COMMENT_REGEX + "|" + COMMENT2_REGEX + ")")))))
-      .skip();
-    b.rule(FUNCTION).is(addSpacing(b.sequence(IDENT, OPEN_PARENTHESIS), b), b.zeroOrMore(parameters), CLOSE_PARENTHESIS);
-    b.rule(FUNCTION_PSEUDO).is(addSpacing(b.sequence(IDENT, OPEN_PARENTHESIS), b), b.zeroOrMore(parameters), ")");
-    b.rule(parameters).is(parameter, b.zeroOrMore(comma, parameter));
-    b.rule(parameter).is(addSpacing(b.oneOrMore(ANY), b));
-    b.rule(INCLUDES).is(addSpacing("~=", b));
-    b.rule(DASH_MATCH).is(addSpacing("|=", b));
-    b.rule(EQ).is(addSpacing("=", b));
-    b.rule(CONTAINS).is(addSpacing("*=", b));
-    b.rule(STARTS_WITH).is(addSpacing("^=", b));
-    b.rule(ENDS_WITH).is(addSpacing("$=", b));
-
-    b.rule(from).is(addSpacing(matchCaseInsensitive(b, "from"), b));
-    b.rule(to).is(addSpacing(matchCaseInsensitive(b, "to"), b));
-    b.rule(IMPORTANT).is(addSpacing(b.sequence("!", b.optional(WHITESPACE), matchCaseInsensitive(b, "important")), b));
-    /**
-     * TODO: How to cover this: any other character not matched by the above
-     * rules, and neither a single nor a double quote
-     */
-    b.rule(DELIM).is(b.regexp("[^\"'\\{\\}\\(\\)\\[\\]:; \t\r\n\f]"));
-
+        URI(),
+        FUNCTION(),
+        PARENTHESIS_BLOCK(),
+        BRACKET_BLOCK(),
+        PERCENTAGE(),
+        DIMENSION(),
+        NUMBER(),
+        STRING(),
+        HASH(),
+        UNICODE_RANGE(),
+        IDENTIFIER(),
+        IMPORTANT(),
+        b.token(CssLexicalGrammar.COLON),
+        DELIMITER()));
   }
 
-  private static void macros(LexerlessGrammarBuilder b) {
-    b.rule(_IDENT).is(b.token(GenericTokenType.IDENTIFIER, b.sequence(_NMSTART, b.zeroOrMore(_NMCHAR)))).skip();
-    b.rule(_NAME).is(b.token(GenericTokenType.LITERAL, b.oneOrMore(_NMCHAR))).skip();
-    b.rule(_NMSTART).is(
-      b.firstOf(b.regexp(NMSTART_REGEX), "-", "*", _NONASCII, _ESCAPE)).skip();
-    b.rule(_NONASCII).is(b.regexp(NONASCII_REGEX)).skip();
-    b.rule(_UNICODE).is(
-      b.regexp("\\\\[0-9a-f]{1,6}(\\r\\n|[ \\n\\r\\t\\f])?")).skip();
-    b.rule(_ESCAPE).is(
-      b.firstOf(_UNICODE, b.regexp("\\\\[^\\n\\r\\f0-9a-f]"))).skip();
-    b.rule(_NMCHAR).is(
-      b.firstOf(b.regexp(NMCHAR_REGEX), _NONASCII, _ESCAPE)).skip();
-    b.rule(_NUM).is(b.token(GenericTokenType.LITERAL, b.sequence(b.optional(b.firstOf("-", "+")),
-      b.firstOf(b.regexp("[0-9]*\\.[0-9]+"), b.regexp("[0-9]+"))))).skip();
-    b.rule(_STRING).is(b.token(GenericTokenType.LITERAL, b.firstOf(_STRING1, _STRING2))).skip();
-    b.rule(_STRING1).is(
-      "\"",
-      b.zeroOrMore(b.firstOf(b.regexp("[^\\n\\r\\f\\\\\"]"),
-        b.sequence("\\", _NL), _ESCAPE)),
-      "\"").skip();
-    b.rule(_STRING2).is(
-      "'",
-      b.zeroOrMore(b.firstOf(b.regexp("[^\\n\\r\\f\\\\']"),
-        b.sequence("\\", _NL), _ESCAPE)),
-      "'").skip();
-    b.rule(_NL).is(b.firstOf("\n", "\r\n", "\r", "\f")).skip();
-    b.rule(_W).is(b.regexp("[ \\t\\r\\n\\f]*")).skip();
+  public ParenthesisBlockTree PARENTHESIS_BLOCK() {
+    return b.<ParenthesisBlockTree>nonterminal(CssLexicalGrammar.PARENTHESIS_BLOCK_TREE).is(
+      f.parenthesisBlock(
+        b.token(CssLexicalGrammar.OPEN_PARENTHESIS),
+        b.zeroOrMore(ANY()),
+        b.token(CssLexicalGrammar.CLOSE_PARENTHESIS)));
   }
 
-  static Object addSpacing(Object value, LexerlessGrammarBuilder b) {
-    return b.sequence(value, WHITESPACES);
+  public BracketBlockTree BRACKET_BLOCK() {
+    return b.<BracketBlockTree>nonterminal(CssLexicalGrammar.BRACKET_BLOCK_TREE).is(
+      f.bracketBlock(
+        b.token(CssLexicalGrammar.OPEN_BRACKET),
+        b.zeroOrMore(ANY()),
+        b.token(CssLexicalGrammar.CLOSE_BRACKET)));
   }
 
-  private static Object matchCaseInsensitive(LexerlessGrammarBuilder b, String value) {
-    return b.regexp("(?i)" + value);
+  public DeclarationsTree DECLARATIONS() {
+    return b.<DeclarationsTree>nonterminal(CssLexicalGrammar.DECLARATIONS).is(
+      f.declarations(DECLARATION_LIST()));
+  }
+
+  public SyntaxList<DeclarationTree> DECLARATION_LIST() {
+    return b.<SyntaxList<DeclarationTree>>nonterminal().is(
+      b.firstOf(
+        f.declarationList(DECLARATION(), b.token(CssLexicalGrammar.SEMICOLON), DECLARATION_LIST()),
+        f.declarationList(DECLARATION(), b.token(CssLexicalGrammar.SEMICOLON)),
+        f.declarationList(b.token(CssLexicalGrammar.SEMICOLON), DECLARATION_LIST()),
+        f.declarationList(b.token(CssLexicalGrammar.SEMICOLON)),
+        f.declarationList(DECLARATION())));
+  }
+
+  public DeclarationTree DECLARATION() {
+    return b.<DeclarationTree>nonterminal(CssLexicalGrammar.DECLARATION).is(
+      b.firstOf(
+        VARIABLE_DECLARATION(),
+        PROPERTY_DECLARATION()));
+  }
+
+  public PropertyDeclarationTree PROPERTY_DECLARATION() {
+    return b.<PropertyDeclarationTree>nonterminal(CssLexicalGrammar.PROPERTY_DECLARATION).is(
+      f.propertyDeclaration(
+        PROPERTY(),
+        b.token(CssLexicalGrammar.COLON),
+        VALUE()));
+  }
+
+  public VariableDeclarationTree VARIABLE_DECLARATION() {
+    return b.<VariableDeclarationTree>nonterminal(CssLexicalGrammar.VARIABLE_DECLARATION).is(
+      f.variableDeclaration(
+        VARIABLE(),
+        b.token(CssLexicalGrammar.COLON),
+        VALUE()));
+  }
+
+  public PropertyTree PROPERTY() {
+    return b.<PropertyTree>nonterminal(CssLexicalGrammar.PROPERTY).is(
+      f.property(IDENTIFIER()));
+  }
+
+  public FunctionTree FUNCTION() {
+    return b.<FunctionTree>nonterminal(CssLexicalGrammar.FUNCTION).is(
+      f.function(
+        IDENTIFIER(),
+        b.token(CssLexicalGrammar.OPEN_PARENTHESIS_NO_WS),
+        b.optional(b.oneOrMore(ANY())),
+        b.token(CssLexicalGrammar.CLOSE_PARENTHESIS)));
+  }
+
+  public NamespaceTree NAMESPACE() {
+    return b.<NamespaceTree>nonterminal(CssLexicalGrammar.NAMESPACE).is(
+      f.namespace(
+        b.optional(IDENTIFIER_NO_WS()),
+        b.token(CssLexicalGrammar.PIPE)));
+  }
+
+  public SelectorsTree SELECTORS() {
+    return b.<SelectorsTree>nonterminal(CssLexicalGrammar.SELECTORS).is(
+      f.selectors(SELECTOR_LIST()));
+  }
+
+  public SyntaxList<SelectorTree> SELECTOR_LIST() {
+    return b.<SyntaxList<SelectorTree>>nonterminal().is(
+      b.firstOf(
+        f.selectorList(SELECTOR(), b.token(CssLexicalGrammar.COMMA), SELECTOR_LIST()),
+        f.selectorList(SELECTOR())));
+  }
+
+  public SelectorTree SELECTOR() {
+    return b.<SelectorTree>nonterminal(CssLexicalGrammar.SELECTOR).is(
+      f.selector(SELECTOR_COMBINATION_LIST()));
+  }
+
+  public SelectorCombinationList SELECTOR_COMBINATION_LIST() {
+    return b.<SelectorCombinationList>nonterminal().is(
+      b.firstOf(
+        f.selectorCombinationList(
+          COMPOUND_SELECTOR(),
+          SELECTOR_COMBINATOR(),
+          SELECTOR_COMBINATION_LIST()),
+        f.selectorCombinationList(COMPOUND_SELECTOR())));
+  }
+
+  public SelectorCombinatorTree SELECTOR_COMBINATOR() {
+    return b.<SelectorCombinatorTree>nonterminal(CssLexicalGrammar.SELECTOR_COMBINATOR).is(
+      f.selectorCombinator(
+        b.firstOf(
+          b.token(CssLexicalGrammar.DESCENDANT_COMBINATOR),
+          b.token(CssLexicalGrammar.CHILD_COMBINATOR),
+          b.token(CssLexicalGrammar.COLUMN_COMBINATOR),
+          b.token(CssLexicalGrammar.NEXT_SIBLING_COMBINATOR),
+          b.token(CssLexicalGrammar.FOLLOWING_SIBLING_COMBINATOR),
+          b.token(CssLexicalGrammar.DESCENDANT_COMBINATOR_WS))));
+  }
+
+  // Gap with the grammar that should not lead to side effects: do not check that there should be zero or more
+  // type selector and if one that it should be the first one. Same for keyframes selectors.
+  public CompoundSelectorTree COMPOUND_SELECTOR() {
+    return b.<CompoundSelectorTree>nonterminal(CssLexicalGrammar.COMPOUND_SELECTOR).is(
+      f.compoundSelector(
+        b.oneOrMore(
+          b.firstOf(
+            KEYFRAMES_SELECTOR(),
+            CLASS_SELECTOR(),
+            ID_SELECTOR(),
+            PSEUDO_SELECTOR(),
+            ATTRIBUTE_SELECTOR(),
+            TYPE_SELECTOR()))));
+  }
+
+  public ClassSelectorTree CLASS_SELECTOR() {
+    return b.<ClassSelectorTree>nonterminal(CssLexicalGrammar.CLASS_SELECTOR).is(
+      f.classSelector(
+        b.token(CssLexicalGrammar.DOT),
+        IDENTIFIER_NO_WS()));
+  }
+
+  public KeyframesSelectorTree KEYFRAMES_SELECTOR() {
+    return b.<KeyframesSelectorTree>nonterminal(CssLexicalGrammar.KEYFRAMES_SELECTOR).is(
+      f.keyframesSelector(
+        b.firstOf(
+          b.token(CssLexicalGrammar.FROM),
+          b.token(CssLexicalGrammar.TO),
+          PERCENTAGE())));
+  }
+
+  public TypeSelectorTree TYPE_SELECTOR() {
+    return b.<TypeSelectorTree>nonterminal(CssLexicalGrammar.TYPE_SELECTOR).is(
+      f.typeSelector(
+        b.optional(NAMESPACE()),
+        IDENTIFIER_NO_WS()));
+  }
+
+  public IdSelectorTree ID_SELECTOR() {
+    return b.<IdSelectorTree>nonterminal(CssLexicalGrammar.ID_SELECTOR).is(
+      f.idSelector(b.token(CssLexicalGrammar.HASH_SYMBOL_NO_WS), IDENTIFIER_NO_WS()));
+  }
+
+  public AttributeSelectorTree ATTRIBUTE_SELECTOR() {
+    return b.<AttributeSelectorTree>nonterminal(CssLexicalGrammar.ATTRIBUTE_SELECTOR).is(
+      b.firstOf(
+        f.attributeSelector(
+          b.token(CssLexicalGrammar.OPEN_BRACKET_NO_WS),
+          IDENTIFIER(),
+          b.optional(ATTRIBUTE_MATCHER_EXPRESSION()),
+          b.token(CssLexicalGrammar.CLOSE_BRACKET)),
+        f.attributeSelector(
+          b.token(CssLexicalGrammar.OPEN_BRACKET_NO_WS),
+          b.token(CssLexicalGrammar.SPACING),
+          NAMESPACE(),
+          IDENTIFIER_NO_WS(),
+          b.optional(ATTRIBUTE_MATCHER_EXPRESSION()),
+          b.token(CssLexicalGrammar.CLOSE_BRACKET))));
+  }
+
+  public AttributeMatcherExpressionTree ATTRIBUTE_MATCHER_EXPRESSION() {
+    return b.<AttributeMatcherExpressionTree>nonterminal(CssLexicalGrammar.ATTRIBUTE_MATCHER_EXPRESSION).is(
+      f.attributeMatcherExpression(
+        ATTRIBUTE_MATCHER(),
+        b.firstOf(STRING(), IDENTIFIER()),
+        b.optional(CASE_INSENSITIVE_FLAG())));
+  }
+
+  public AttributeMatcherTree ATTRIBUTE_MATCHER() {
+    return b.<AttributeMatcherTree>nonterminal(CssLexicalGrammar.ATTRIBUTE_MATCHER).is(
+      f.attributeMatcher(
+        b.firstOf(
+          b.token(CssLexicalGrammar.DASH_ATTRIBUTE_MATCHER),
+          b.token(CssLexicalGrammar.INCLUDE_ATTRIBUTE_MATCHER),
+          b.token(CssLexicalGrammar.EQUALS_ATTRIBUTE_MATCHER),
+          b.token(CssLexicalGrammar.SUBSTRING_ATTRIBUTE_MATCHER),
+          b.token(CssLexicalGrammar.PREFIX_ATTRIBUTE_MATCHER),
+          b.token(CssLexicalGrammar.SUFFIX_ATTRIBUTE_MATCHER))));
+  }
+
+  public PseudoSelectorTree PSEUDO_SELECTOR() {
+    return b.<PseudoSelectorTree>nonterminal(CssLexicalGrammar.PSEUDO_SELECTOR).is(
+      f.pseudoSelector(
+        b.firstOf(
+          PSEUDO_FUNCTION(),
+          PSEUDO_IDENTIFIER())));
+  }
+
+  public PseudoFunctionTree PSEUDO_FUNCTION() {
+    return b.<PseudoFunctionTree>nonterminal(CssLexicalGrammar.PSEUDO_FUNCTION).is(
+      f.pseudoFunction(
+        b.token(CssLexicalGrammar.PSEUDO_PREFIX),
+        IDENTIFIER_NO_WS(),
+        b.token(CssLexicalGrammar.OPEN_PARENTHESIS_NO_WS),
+        b.optional(b.oneOrMore(ANY())),
+        b.token(CssLexicalGrammar.CLOSE_PARENTHESIS)));
+  }
+
+  public PseudoIdentifierTree PSEUDO_IDENTIFIER() {
+    return b.<PseudoIdentifierTree>nonterminal(CssLexicalGrammar.PSEUDO_IDENTIFIER).is(
+      f.pseudoIdentifier(
+        b.token(CssLexicalGrammar.PSEUDO_PREFIX),
+        IDENTIFIER_NO_WS()));
+  }
+
+  public ImportantTree IMPORTANT() {
+    return b.<ImportantTree>nonterminal(CssLexicalGrammar.IMPORTANT).is(
+      f.important(
+        b.token(CssLexicalGrammar.EXCLAMATION_MARK),
+        b.token(CssLexicalGrammar.IMPORTANT_KEYWORD)));
+  }
+
+  public VariableTree VARIABLE() {
+    return b.<VariableTree>nonterminal(CssLexicalGrammar.VARIABLE).is(
+      f.variable(
+        b.token(CssLexicalGrammar.VARIABLE_PREFIX),
+        IDENTIFIER_NO_WS()));
+  }
+
+  public UriTree URI() {
+    return b.<UriTree>nonterminal(CssLexicalGrammar.URI).is(
+      f.uri(
+        b.token(CssLexicalGrammar.URL_FUNCTION_NAME),
+        b.token(CssLexicalGrammar.OPEN_PARENTHESIS_NO_WS),
+        URI_CONTENT(),
+        b.token(CssLexicalGrammar.CLOSE_PARENTHESIS)));
+  }
+
+  public UriContentTree URI_CONTENT() {
+    return b.<UriContentTree>nonterminal(CssLexicalGrammar.URI_CONTENT).is(
+      b.firstOf(
+        f.uriContent(STRING()),
+        f.uriContent(b.token(CssLexicalGrammar.URI_CONTENT_LITERAL))));
+  }
+
+  public UnicodeRangeTree UNICODE_RANGE() {
+    return b.<UnicodeRangeTree>nonterminal(CssLexicalGrammar.UNICODE_RANGE).is(
+      f.unicodeRange(b.token(CssLexicalGrammar.UNICODE_RANGE_LITERAL)));
+  }
+
+  public PercentageTree PERCENTAGE() {
+    return b.<PercentageTree>nonterminal(CssLexicalGrammar.PERCENTAGE).is(
+      f.percentage(NUMBER(), b.token(CssLexicalGrammar.PERCENTAGE_SYMBOL)));
+  }
+
+  public DimensionTree DIMENSION() {
+    return b.<DimensionTree>nonterminal(CssLexicalGrammar.DIMENSION).is(
+      f.dimension(NUMBER(), UNIT()));
+  }
+
+  public UnitTree UNIT() {
+    return b.<UnitTree>nonterminal(CssLexicalGrammar.UNIT).is(
+      f.unit(b.token(CssLexicalGrammar.UNIT_LITERAL)));
+  }
+
+  public HashTree HASH() {
+    return b.<HashTree>nonterminal(CssLexicalGrammar.HASH).is(
+      f.hash(
+        b.token(CssLexicalGrammar.HASH_SYMBOL),
+        b.token(CssLexicalGrammar.NAME)));
+  }
+
+  public AtKeywordTree AT_KEYWORD() {
+    return b.<AtKeywordTree>nonterminal(CssLexicalGrammar.AT_KEYWORD).is(
+      f.atKeyword(
+        b.token(CssLexicalGrammar.AT_SYMBOL),
+        IDENTIFIER_NO_WS()));
+  }
+
+  public IdentifierTree IDENTIFIER() {
+    return b.<IdentifierTree>nonterminal(CssLexicalGrammar.IDENTIFIER).is(
+      f.identifier(b.token(CssLexicalGrammar.IDENT_IDENTIFIER)));
+  }
+
+  public IdentifierTree IDENTIFIER_NO_WS() {
+    return b.<IdentifierTree>nonterminal(CssLexicalGrammar.IDENTIFIER_NO_WS).is(
+      f.identifierNoWs(b.token(CssLexicalGrammar.IDENT_IDENTIFIER_NO_WS)));
+  }
+
+  public StringTree STRING() {
+    return b.<StringTree>nonterminal(CssLexicalGrammar.STRING).is(
+      f.string(b.token(CssLexicalGrammar.STRING_LITERAL)));
+  }
+
+  public NumberTree NUMBER() {
+    return b.<NumberTree>nonterminal(CssLexicalGrammar.NUMBER).is(
+      f.number(b.token(CssLexicalGrammar.NUMBER_LITERAL)));
+  }
+
+  public DelimiterTree DELIMITER() {
+    return b.<DelimiterTree>nonterminal(CssLexicalGrammar.DELIMITER).is(
+      f.delimiter(b.token(CssLexicalGrammar.DELIM)));
+  }
+
+  public CaseInsensitiveFlagTree CASE_INSENSITIVE_FLAG() {
+    return b.<CaseInsensitiveFlagTree>nonterminal(CssLexicalGrammar.CASE_INSENSITIVE_FLAG).is(
+      f.caseInsensitiveFlag(b.token(CssLexicalGrammar.CASE_INSENSITIVE_FLAG_LITERAL)));
   }
 
 }

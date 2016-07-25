@@ -20,13 +20,12 @@
 package org.sonar.css.model.property.validator.property;
 
 import java.util.List;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueValidator;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
-import org.sonar.css.model.value.CssValueElement;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 public class TouchActionValidator implements ValueValidator {
 
@@ -35,26 +34,27 @@ public class TouchActionValidator implements ValueValidator {
   private static final IdentifierValidator MANIPULATION_VALIDATOR = new IdentifierValidator("manipulation");
 
   @Override
-  public boolean isValid(@Nonnull Value value) {
-    List<CssValueElement> valueElements = value.getValueElements();
-    if (value.getNumberOfValueElements() > 2) {
+  public boolean isValid(ValueTree valueTree) {
+    List<Tree> valueElements = valueTree.sanitizedValueElements();
+    int numberOfValueElements = valueElements.size();
+
+    if (numberOfValueElements > 2) {
       return false;
     }
-    if (value.getNumberOfValueElements() == 1) {
+    if (numberOfValueElements == 1) {
       return ValidatorFactory.getNoneValidator().isValid(valueElements.get(0))
         || ValidatorFactory.getAutoValidator().isValid(valueElements.get(0))
         || MANIPULATION_VALIDATOR.isValid(valueElements.get(0))
         || PANX_VALIDATOR.isValid(valueElements.get(0))
         || PANY_VALIDATOR.isValid(valueElements.get(0));
     }
-    if (value.getNumberOfValueElements() == 2) {
+    if (numberOfValueElements == 2) {
       return PANX_VALIDATOR.isValid(valueElements.get(0)) && PANY_VALIDATOR.isValid(valueElements.get(1))
         || PANX_VALIDATOR.isValid(valueElements.get(1)) && PANY_VALIDATOR.isValid(valueElements.get(0));
     }
     return false;
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "auto | none | [pan-x || pan-y] | manipulation";

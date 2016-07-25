@@ -20,12 +20,11 @@
 package org.sonar.css.model.property.validator.property.liststyle;
 
 import java.util.List;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.ValueValidator;
-import org.sonar.css.model.value.CssValueElement;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 public class ListStyleValidator implements ValueValidator {
 
@@ -34,12 +33,14 @@ public class ListStyleValidator implements ValueValidator {
   private static final ValueElementValidator LIST_STYLE_IMAGE_VALIDATOR = new ListStyleImageValidator();
 
   @Override
-  public boolean isValid(Value value) {
-    List<CssValueElement> valueElements = value.getValueElements();
-    if (value.getNumberOfValueElements() > 3) {
+  public boolean isValid(ValueTree valueTree) {
+    List<Tree> valueElements = valueTree.sanitizedValueElements();
+    int numberOfValueElements = valueElements.size();
+
+    if (numberOfValueElements > 3) {
       return false;
     }
-    for (CssValueElement valueElement : valueElements) {
+    for (Tree valueElement : valueElements) {
       if (!LIST_STYLE_TYPE_VALIDATOR.isValid(valueElement)
         && !LIST_STYLE_POSITION_VALIDATOR.isValid(valueElement)
         && !LIST_STYLE_IMAGE_VALIDATOR.isValid(valueElement)) {
@@ -49,7 +50,6 @@ public class ListStyleValidator implements ValueValidator {
     return true;
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "<list-style-type> || <list-style-position> || <list-style-image>";

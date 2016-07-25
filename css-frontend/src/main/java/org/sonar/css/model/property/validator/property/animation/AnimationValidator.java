@@ -20,11 +20,10 @@
 package org.sonar.css.model.property.validator.property.animation;
 
 import java.util.List;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
 import org.sonar.css.model.property.validator.ValueValidator;
-import org.sonar.css.model.value.CssValueElement;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 public class AnimationValidator implements ValueValidator {
 
@@ -38,12 +37,14 @@ public class AnimationValidator implements ValueValidator {
   private static final AnimationTimingFunctionValidator ANIMATION_TIMING_FUNCTION_VALIDATOR = new AnimationTimingFunctionValidator();
 
   @Override
-  public boolean isValid(Value value) {
-    List<CssValueElement> valueElements = value.getValueElements();
-    if (value.getNumberOfValueElements() > 8) {
+  public boolean isValid(ValueTree valueTree) {
+    List<Tree> valueElements = valueTree.sanitizedValueElements();
+    int numberOfValueElements = valueElements.size();
+
+    if (numberOfValueElements > 8) {
       return false;
     }
-    for (CssValueElement valueElement : valueElements) {
+    for (Tree valueElement : valueElements) {
       if (!ANIMATION_DELAY_VALIDATOR.isValid(valueElement)
         && !ANIMATION_DIRECTION_VALIDATOR.isValid(valueElement)
         && !ANIMATION_DURATION_VALIDATOR.isValid(valueElement)
@@ -58,7 +59,6 @@ public class AnimationValidator implements ValueValidator {
     return true;
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "<time> || <single-timing-function> || <time> || <single-animation-iteration-count> || <single-animation-direction> || <single-animation-fill-mode> || <single-animation-play-state> || <single-animation-name>";

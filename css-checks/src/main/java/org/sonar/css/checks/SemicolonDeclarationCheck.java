@@ -19,14 +19,12 @@
  */
 package org.sonar.css.checks;
 
-import com.sonar.sslr.api.AstNode;
-
-import java.util.List;
-
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.CssCheck;
-import org.sonar.css.parser.CssGrammar;
+import org.sonar.css.tree.impl.SyntaxList;
+import org.sonar.plugins.css.api.tree.DeclarationTree;
+import org.sonar.plugins.css.api.tree.DeclarationsTree;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
@@ -37,21 +35,30 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   tags = {Tags.CONVENTION, Tags.PITFALL})
 @ActivatedByDefault
 @SqaleConstantRemediation("2min")
-public class SemicolonDeclarationCheck extends CssCheck {
+public class SemicolonDeclarationCheck extends DoubleDispatchVisitorCheck {
 
   @Override
-  public void init() {
-    subscribeTo(CssGrammar.SUP_DECLARATION);
+  public void visitDeclarations(DeclarationsTree tree) {
+    if (tree.declarationSyntaxList() != null && missingSemicolon(tree)) {
+      addPreciseIssue(lastDeclaration(tree), "Add a semicolon at the end of this declaration.");
+    }
+    super.visitDeclarations(tree);
   }
 
-  @Override
-  public void leaveNode(AstNode astNode) {
-    List<AstNode> declarations = astNode.getChildren(CssGrammar.DECLARATION, CssGrammar.VARIABLE_DECLARATION);
-    for (AstNode declaration : declarations) {
-      if (declaration.getNextSibling() == null) {
-        addIssue(this, "Add a semicolon at the end of this declaration.", declaration);
-      }
+  private boolean missingSemicolon(DeclarationsTree tree) {
+    SyntaxList<DeclarationTree> currentDeclaration = tree.declarationSyntaxList();
+    while (currentDeclaration.next() != null) {
+      currentDeclaration = currentDeclaration.next();
     }
+    return currentDeclaration.separatorToken() == null;
+  }
+
+  private DeclarationTree lastDeclaration(DeclarationsTree tree) {
+    SyntaxList<DeclarationTree> currentDeclaration = tree.declarationSyntaxList();
+    while (currentDeclaration.next() != null) {
+      currentDeclaration = currentDeclaration.next();
+    }
+    return currentDeclaration.element();
   }
 
 }

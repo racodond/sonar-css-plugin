@@ -14,7 +14,7 @@
 
   <name>SonarQube CSS Plugin :: Plugin</name>
   <description>Enables analysis of CSS files.</description>
-  <url>https://github.com/SonarCommunity/sonar-css</url>
+  <url>https://github.com/SonarQubeCommunity/sonar-css</url>
 
   <properties>
     <sonar.pluginName>CSS</sonar.pluginName>

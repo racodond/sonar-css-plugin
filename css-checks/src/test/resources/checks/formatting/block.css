@@ -12,8 +12,6 @@
 }
 
 .mybox {  color: red; /* Noncompliant !{Move the code following the opening curly brace to the next line.}! */
-} .mybox { /* Noncompliant !{Move the code following the closing curly brace to the next line.}! */
-  color: blue;
 }
 
 .mybox {
@@ -32,8 +30,6 @@
 }
 
 {  color: red; /* Noncompliant !{Move the code following the opening curly brace to the next line.}! */
-} { /* Noncompliant !{Move the code following the closing curly brace to the next line.}! */
-  color: blue;
 }
 
 {

@@ -1,4 +1,8 @@
-<p>To make sure that properties do not get accidentally duplicated in a rule, they should be alphabetically ordered. Note that vendor-prefixed properties are expected to be ordered without taking into account their prefix.</p>
+<p>
+    To make sure that properties do not get accidentally duplicated in a rule, they should be alphabetically ordered.
+    Note that vendor-prefixed properties are expected to be ordered without taking into account their prefix.
+</p>
+
 <h2>Noncompliant Code Example</h2>
 <pre>
 /* Noncompliant: 'color' should be defined after 'border-color' */
@@ -31,6 +35,7 @@
   -ms-background-color: 10px;
 }
 </pre>
+
 <h2>Compliant Solution</h2>
 <pre>
 .mybox {

@@ -22,11 +22,10 @@ package org.sonar.css.model.property.validator;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
-import org.sonar.css.model.value.CssValueElement;
-import org.sonar.css.model.value.valueelement.DelimiterValueElement;
+import org.sonar.plugins.css.api.tree.DelimiterTree;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 public class ValueElementListValidator implements ValueValidator {
 
@@ -37,11 +36,11 @@ public class ValueElementListValidator implements ValueValidator {
   }
 
   @Override
-  public boolean isValid(Value value) {
+  public boolean isValid(ValueTree value) {
     boolean valid;
-    for (CssValueElement valueElement : value.getValueElements()) {
+    for (Tree valueElement : value.sanitizedValueElements()) {
       valid = false;
-      if (!(valueElement instanceof DelimiterValueElement)) {
+      if (!(valueElement instanceof DelimiterTree)) {
         for (ValueElementValidator validator : validators) {
           if (validator.isValid(valueElement)) {
             valid = true;
@@ -57,7 +56,6 @@ public class ValueElementListValidator implements ValueValidator {
   }
 
   @Override
-  @Nonnull
   public String getValidatorFormat() {
     String joinedValidatorsFormat = validators.stream()
       .map(Validator::getValidatorFormat)

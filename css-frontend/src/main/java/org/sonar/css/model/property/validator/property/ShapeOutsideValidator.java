@@ -20,14 +20,13 @@
 package org.sonar.css.model.property.validator.property;
 
 import java.util.List;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueValidator;
 import org.sonar.css.model.property.validator.valueelement.ShapeBoxValidator;
 import org.sonar.css.model.property.validator.valueelement.function.BasicShapeValidator;
-import org.sonar.css.model.value.CssValueElement;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 public class ShapeOutsideValidator implements ValueValidator {
 
@@ -35,25 +34,26 @@ public class ShapeOutsideValidator implements ValueValidator {
   private static final ShapeBoxValidator SHAPE_BOX_VALIDATOR = new ShapeBoxValidator();
 
   @Override
-  public boolean isValid(Value value) {
-    List<CssValueElement> valueElements = value.getValueElements();
-    if (value.getNumberOfValueElements() > 2) {
+  public boolean isValid(ValueTree valueTree) {
+    List<Tree> valueElements = valueTree.sanitizedValueElements();
+    int numberOfValueElements = valueElements.size();
+
+    if (numberOfValueElements > 2) {
       return false;
     }
-    if (value.getNumberOfValueElements() == 1) {
+    if (numberOfValueElements == 1) {
       return ValidatorFactory.getNoneValidator().isValid(valueElements.get(0))
         || ValidatorFactory.getImageValidator().isValid(valueElements.get(0))
         || SHAPE_BOX_VALIDATOR.isValid(valueElements.get(0))
         || BASIC_SHAPE_VALIDATOR.isValid(valueElements.get(0));
     }
-    if (value.getNumberOfValueElements() == 2) {
+    if (numberOfValueElements == 2) {
       return SHAPE_BOX_VALIDATOR.isValid(valueElements.get(0)) && BASIC_SHAPE_VALIDATOR.isValid(valueElements.get(1))
         || SHAPE_BOX_VALIDATOR.isValid(valueElements.get(1)) && BASIC_SHAPE_VALIDATOR.isValid(valueElements.get(0));
     }
     return false;
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "none | [<basic-shape> || <shape-box>] | <image>";

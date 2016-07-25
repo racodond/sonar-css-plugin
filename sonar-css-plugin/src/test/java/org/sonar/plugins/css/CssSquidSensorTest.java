@@ -20,6 +20,7 @@
 package org.sonar.plugins.css;
 
 import java.io.File;
+import java.util.Collection;
 
 import org.junit.Test;
 import org.sonar.api.batch.fs.InputFile;
@@ -30,6 +31,7 @@ import org.sonar.api.batch.rule.CheckFactory;
 import org.sonar.api.batch.rule.internal.ActiveRulesBuilder;
 import org.sonar.api.batch.sensor.internal.DefaultSensorDescriptor;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
+import org.sonar.api.batch.sensor.issue.Issue;
 import org.sonar.api.internal.google.common.base.Charsets;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
@@ -58,22 +60,43 @@ public class CssSquidSensorTest {
   public void should_execute_and_compute_valid_measures() {
     String relativePath = "measures.css";
     inputFile(relativePath);
-
     createCssSquidSensor().execute(context);
-
-    String key = "moduleKey:" + relativePath;
-
-    assertThat(context.measure(key, CoreMetrics.NCLOC).value()).isEqualTo(31);
-    assertThat(context.measure(key, CoreMetrics.STATEMENTS).value()).isEqualTo(21);
-    assertThat(context.measure(key, CoreMetrics.COMMENT_LINES).value()).isEqualTo(6);
+    assertMeasures("moduleKey:" + relativePath);
   }
 
   @Test
-  public void should_execute_and_save_issues() throws Exception {
-    inputFile("issues.css");
+  public void should_execute_and_compute_valid_measures_on_file_starting_with_BOM() {
+    String relativePath = "measuresWithBOM.css";
+    inputFile(relativePath);
+    createCssSquidSensor().execute(context);
+    assertMeasures("moduleKey:" + relativePath);
+  }
+
+  private void assertMeasures(String key) {
+    assertThat(context.measure(key, CoreMetrics.NCLOC).value()).isEqualTo(17);
+    assertThat(context.measure(key, CoreMetrics.STATEMENTS).value()).isEqualTo(11);
+    assertThat(context.measure(key, CoreMetrics.COMMENT_LINES).value()).isEqualTo(4);
+    assertThat(context.measure(key, CoreMetrics.STATEMENTS).value()).isEqualTo(11);
+    assertThat(context.measure(key, CoreMetrics.FUNCTIONS).value()).isEqualTo(6);
+    assertThat(context.measure(key, CoreMetrics.COMPLEXITY).value()).isEqualTo(7);
+    assertThat(context.measure(key, CoreMetrics.COMPLEXITY_IN_FUNCTIONS).value()).isEqualTo(7);
+  }
+
+  @Test
+  public void should_execute_and_save_issues_on_file_not_starting_with_BOM() {
+    should_execute_and_save_issues("issues.css");
+  }
+
+  @Test
+  public void should_execute_and_save_issues_on_file_starting_with_BOM() {
+    should_execute_and_save_issues("issuesWithBOM.css");
+  }
+
+  private void should_execute_and_save_issues(String fileName) {
+    inputFile(fileName);
 
     ActiveRules activeRules = (new ActiveRulesBuilder())
-      .create(RuleKey.of(CheckList.REPOSITORY_KEY, "formatting"))
+      .create(RuleKey.of(CheckList.REPOSITORY_KEY, "S1135"))
       .activate()
       .create(RuleKey.of(CheckList.REPOSITORY_KEY, "important"))
       .activate()
@@ -83,6 +106,38 @@ public class CssSquidSensorTest {
     createCssSquidSensor().execute(context);
 
     assertThat(context.allIssues()).hasSize(3);
+  }
+
+  @Test
+  public void should_raise_an_issue_because_the_parsing_error_rule_is_activated() {
+    inputFile("parsingError.css");
+
+    ActiveRules activeRules = (new ActiveRulesBuilder())
+      .create(RuleKey.of(CheckList.REPOSITORY_KEY, "S2260"))
+      .activate()
+      .build();
+
+    checkFactory = new CheckFactory(activeRules);
+
+    context.setActiveRules(activeRules);
+    createCssSquidSensor().execute(context);
+    Collection<Issue> issues = context.allIssues();
+    assertThat(issues).hasSize(1);
+    Issue issue = issues.iterator().next();
+    assertThat(issue.primaryLocation().textRange().start().line()).isEqualTo(1);
+  }
+
+  @Test
+  public void should_not_raise_any_issue_because_the_parsing_error_rule_is_not_activated() {
+    inputFile("parsingError.css");
+
+    ActiveRules activeRules = new ActiveRulesBuilder().build();
+    checkFactory = new CheckFactory(activeRules);
+
+    context.setActiveRules(activeRules);
+    createCssSquidSensor().execute(context);
+    Collection<Issue> issues = context.allIssues();
+    assertThat(issues).hasSize(0);
   }
 
   private CssSquidSensor createCssSquidSensor() {

@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks;
 
-import java.io.File;
-
 import org.junit.Test;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
@@ -28,7 +26,7 @@ public class NosonarTagPresenceCheckTest {
 
   @Test
   public void test() {
-    CssCheckVerifier.verify(new NosonarTagPresenceCheck(), new File("src/test/resources/checks/nosonarTagPresence.css"));
+    CssCheckVerifier.verify(new NoSonarTagPresenceCheck(), CheckTestUtils.getTestFile("nosonarTagPresence.css"));
   }
 
 }

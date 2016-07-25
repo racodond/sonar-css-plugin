@@ -22,11 +22,10 @@ package org.sonar.css.model.property.validator.valueelement.function;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
 
 import org.sonar.css.model.property.validator.ValueElementValidator;
-import org.sonar.css.model.value.CssValueElement;
-import org.sonar.css.model.value.valueelement.FunctionValueElement;
+import org.sonar.plugins.css.api.tree.FunctionTree;
+import org.sonar.plugins.css.api.tree.Tree;
 
 public class FunctionValidator implements ValueElementValidator {
 
@@ -37,13 +36,12 @@ public class FunctionValidator implements ValueElementValidator {
   }
 
   @Override
-  public boolean isValid(CssValueElement cssValueElement) {
-    return cssValueElement instanceof FunctionValueElement
-      && allowedFunctions.contains(((FunctionValueElement) cssValueElement).getFunction().getStandardFunction().getName());
+  public boolean isValid(Tree tree) {
+    return tree instanceof FunctionTree
+      && allowedFunctions.contains(((FunctionTree) tree).standardFunction().getName());
   }
 
   @Override
-  @Nonnull
   public String getValidatorFormat() {
     return "<function>(" + allowedFunctions.stream().collect(Collectors.joining(" | ")) + ")";
   }

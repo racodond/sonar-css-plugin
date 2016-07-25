@@ -20,12 +20,11 @@
 package org.sonar.css.model.property.validator.property;
 
 import java.util.List;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
 import org.sonar.css.model.property.validator.ValueValidator;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
-import org.sonar.css.model.value.CssValueElement;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 public class HangingPunctuationValidator implements ValueValidator {
 
@@ -35,32 +34,33 @@ public class HangingPunctuationValidator implements ValueValidator {
   private static final IdentifierValidator FORCE_END_ALLOW_END_VALIDATOR = new IdentifierValidator("force-end", "allow-end");
 
   @Override
-  public boolean isValid(@Nonnull Value value) {
-    List<CssValueElement> valueElements = value.getValueElements();
-    if (value.getNumberOfValueElements() > 3) {
+  public boolean isValid(ValueTree valueTree) {
+    List<Tree> valueElements = valueTree.sanitizedValueElements();
+    int numberOfValueElements = valueElements.size();
+
+    if (numberOfValueElements > 3) {
       return false;
     }
-    if (value.getNumberOfValueElements() == 1) {
+    if (numberOfValueElements == 1) {
       return SINGLE_ELEMENT_VALIDATOR.isValid(valueElements.get(0));
     }
-    if (value.getNumberOfValueElements() > 1) {
+    if (numberOfValueElements > 1) {
       return validateMultiElementValue(valueElements);
     }
     return false;
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "none | [ first || [ force-end | allow-end ] || last ]";
   }
 
-  private boolean validateMultiElementValue(List<CssValueElement> valueElements) {
+  private boolean validateMultiElementValue(List<Tree> valueElements) {
     int first = 0;
     int forceEndAllowEnd = 0;
     int last = 0;
 
-    for (CssValueElement valueElement : valueElements) {
+    for (Tree valueElement : valueElements) {
       if (FIRST_VALIDATOR.isValid(valueElement)) {
         first++;
       } else if (LAST_VALIDATOR.isValid(valueElement)) {

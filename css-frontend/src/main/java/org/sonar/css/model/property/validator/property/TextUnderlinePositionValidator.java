@@ -20,36 +20,37 @@
 package org.sonar.css.model.property.validator.property;
 
 import java.util.List;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.ValueValidator;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
-import org.sonar.css.model.value.CssValueElement;
-import org.sonar.css.model.value.valueelement.IdentifierValueElement;
+import org.sonar.plugins.css.api.tree.IdentifierTree;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 public class TextUnderlinePositionValidator implements ValueValidator {
 
   private static final ValueElementValidator IDENTIFIER_VALIDATOR = new IdentifierValidator("auto", "under", "left", "right");
 
   @Override
-  public boolean isValid(@Nonnull Value value) {
-    List<CssValueElement> valueElements = value.getValueElements();
-    if (value.getNumberOfValueElements() == 1) {
+  public boolean isValid(ValueTree valueTree) {
+    List<Tree> valueElements = valueTree.sanitizedValueElements();
+    int numberOfValueElements = valueElements.size();
+
+    if (numberOfValueElements == 1) {
       return IDENTIFIER_VALIDATOR.isValid(valueElements.get(0));
     }
-    if (value.getNumberOfValueElements() == 2) {
+    if (numberOfValueElements == 2) {
       int count = 0;
-      for (CssValueElement valueElement : valueElements) {
-        if (!(valueElement instanceof IdentifierValueElement)) {
+      for (Tree valueElement : valueElements) {
+        if (!(valueElement instanceof IdentifierTree)) {
           return false;
         }
-        if ("under".equals(((IdentifierValueElement) valueElement).getName())) {
+        if ("under".equals(((IdentifierTree) valueElement).text())) {
           // Do nothing
-        } else if ("right".equals(((IdentifierValueElement) valueElement).getName())) {
+        } else if ("right".equals(((IdentifierTree) valueElement).text())) {
           count++;
-        } else if ("left".equals(((IdentifierValueElement) valueElement).getName())) {
+        } else if ("left".equals(((IdentifierTree) valueElement).text())) {
           count++;
         } else {
           return false;
@@ -60,7 +61,6 @@ public class TextUnderlinePositionValidator implements ValueValidator {
     return false;
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "auto | [ under || [ left | right ] ]";

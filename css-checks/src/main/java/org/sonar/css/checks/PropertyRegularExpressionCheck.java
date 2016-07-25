@@ -19,12 +19,14 @@
  */
 package org.sonar.css.checks;
 
-import com.sonar.sslr.api.AstNode;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
-import org.sonar.css.CssCheck;
-import org.sonar.css.parser.CssGrammar;
+import org.sonar.plugins.css.api.tree.PropertyTree;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.NoSqale;
 import org.sonar.squidbridge.annotations.RuleTemplate;
 
@@ -34,14 +36,14 @@ import org.sonar.squidbridge.annotations.RuleTemplate;
   priority = Priority.MAJOR)
 @RuleTemplate
 @NoSqale
-public class PropertyRegularExpressionCheck extends CssCheck {
+public class PropertyRegularExpressionCheck extends DoubleDispatchVisitorCheck {
 
   private static final String DEFAULT_REGULAR_EXPRESSION = "";
   private static final String DEFAULT_MESSAGE = "The regular expression matches this property.";
 
   @RuleProperty(
     key = "regularExpression",
-    description = "The regular expression",
+    description = "The regular expression. See " + CheckUtils.LINK_TO_JAVA_REGEX_PATTERN_DOC + " for detailed regular expression syntax.",
     defaultValue = DEFAULT_REGULAR_EXPRESSION)
   private String regularExpression = DEFAULT_REGULAR_EXPRESSION;
 
@@ -52,14 +54,9 @@ public class PropertyRegularExpressionCheck extends CssCheck {
   private String message = DEFAULT_MESSAGE;
 
   @Override
-  public void init() {
-    subscribeTo(CssGrammar.PROPERTY);
-  }
-
-  @Override
-  public void leaveNode(AstNode propertyNode) {
-    if (propertyNode.getTokenValue().matches(regularExpression)) {
-      addIssue(this, message, propertyNode);
+  public void visitProperty(PropertyTree tree) {
+    if (tree.property().text().matches(regularExpression)) {
+      addPreciseIssue(tree, message);
     }
   }
 
@@ -67,8 +64,23 @@ public class PropertyRegularExpressionCheck extends CssCheck {
     this.regularExpression = regularExpression;
   }
 
-  public void setMessage(String messsge) {
-    this.message = messsge;
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  @Override
+  public void validateParameters() {
+    try {
+      Pattern.compile(regularExpression);
+    } catch (PatternSyntaxException exception) {
+      throw new IllegalStateException(paramsErrorMessage(), exception);
+    }
+  }
+
+  private String paramsErrorMessage() {
+    return CheckUtils.paramsErrorMessage(
+      this.getClass(),
+      "regularExpression parameter \"" + regularExpression + "\" is not a valid regular expression.");
   }
 
 }

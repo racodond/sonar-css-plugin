@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import javax.annotation.Nonnull;
-
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementMultiValidator;
 
@@ -31,7 +29,6 @@ public class ShapeBoxValidator extends ValueElementMultiValidator {
   }
 
   @Override
-  @Nonnull
   public String getValidatorFormat() {
     return "<shape-box>";
   }

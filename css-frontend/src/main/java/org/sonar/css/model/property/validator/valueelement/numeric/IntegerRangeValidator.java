@@ -19,10 +19,8 @@
  */
 package org.sonar.css.model.property.validator.valueelement.numeric;
 
-import javax.annotation.Nonnull;
-
-import org.sonar.css.model.value.CssValueElement;
-import org.sonar.css.model.value.valueelement.NumberValueElement;
+import org.sonar.plugins.css.api.tree.NumberTree;
+import org.sonar.plugins.css.api.tree.Tree;
 
 public class IntegerRangeValidator extends IntegerValidator {
 
@@ -36,14 +34,13 @@ public class IntegerRangeValidator extends IntegerValidator {
   }
 
   @Override
-  public boolean isValid(CssValueElement cssValueElement) {
-    return super.isValid(cssValueElement)
-      && ((NumberValueElement) cssValueElement).getIntegerValue() >= min
-      && ((NumberValueElement) cssValueElement).getIntegerValue() <= max;
+  public boolean isValid(Tree tree) {
+    return super.isValid(tree)
+      && ((NumberTree) tree).integerValue() >= min
+      && ((NumberTree) tree).integerValue() <= max;
   }
 
   @Override
-  @Nonnull
   public String getValidatorFormat() {
     return "<number>(" + min + "," + max + ")";
   }

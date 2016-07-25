@@ -22,9 +22,8 @@ package org.sonar.css.model.property.validator;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.value.CssValueElement;
+import org.sonar.plugins.css.api.tree.Tree;
 
 public class ValueElementMultiValidator implements ValueElementValidator {
 
@@ -35,9 +34,9 @@ public class ValueElementMultiValidator implements ValueElementValidator {
   }
 
   @Override
-  public boolean isValid(CssValueElement cssValueElement) {
+  public boolean isValid(Tree tree) {
     for (ValueElementValidator validator : validators) {
-      if (validator.isValid(cssValueElement)) {
+      if (validator.isValid(tree)) {
         return true;
       }
     }
@@ -45,7 +44,6 @@ public class ValueElementMultiValidator implements ValueElementValidator {
   }
 
   @Override
-  @Nonnull
   public String getValidatorFormat() {
     return validators.stream()
       .map(Validator::getValidatorFormat)

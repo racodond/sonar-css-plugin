@@ -19,26 +19,23 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import javax.annotation.Nonnull;
-
 import org.sonar.css.model.Color;
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
-import org.sonar.css.model.value.CssValueElement;
+import org.sonar.plugins.css.api.tree.Tree;
 
 public class ColorValidator implements ValueElementValidator {
 
   @Override
-  public boolean isValid(CssValueElement cssValueElement) {
-    return new IdentifierValidator(Color.SVG_COLORS).isValid(cssValueElement)
-      || new IdentifierValidator(Color.CSS4_COLORS).isValid(cssValueElement)
-      || new IdentifierValidator(Color.CSS2_SYSTEM_COLORS).isValid(cssValueElement)
-      || new IdentifierValidator("transparent", "currentcolor").isValid(cssValueElement)
-      || new FunctionValidator("rgb", "rgba", "hsl", "hsla").isValid(cssValueElement)
-      || new HashValidator().isValid(cssValueElement);
+  public boolean isValid(Tree valueElement) {
+    return new IdentifierValidator(Color.SVG_COLORS).isValid(valueElement)
+      || new IdentifierValidator(Color.CSS4_COLORS).isValid(valueElement)
+      || new IdentifierValidator(Color.CSS2_SYSTEM_COLORS).isValid(valueElement)
+      || new IdentifierValidator("transparent", "currentcolor").isValid(valueElement)
+      || new FunctionValidator("rgb", "rgba", "hsl", "hsla").isValid(valueElement)
+      || new HashValidator().isValid(valueElement);
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "<color>";

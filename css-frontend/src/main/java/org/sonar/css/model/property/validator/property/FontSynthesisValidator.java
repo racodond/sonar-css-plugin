@@ -20,33 +20,34 @@
 package org.sonar.css.model.property.validator.property;
 
 import java.util.List;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.ValueValidator;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
-import org.sonar.css.model.value.CssValueElement;
-import org.sonar.css.model.value.valueelement.IdentifierValueElement;
+import org.sonar.plugins.css.api.tree.IdentifierTree;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 public class FontSynthesisValidator implements ValueValidator {
 
   private static final ValueElementValidator IDENTIFIER_VALIDATOR = new IdentifierValidator("none", "weight", "style");
 
   @Override
-  public boolean isValid(@Nonnull Value value) {
-    List<CssValueElement> valueElements = value.getValueElements();
-    if (value.getNumberOfValueElements() == 1) {
+  public boolean isValid(ValueTree valueTree) {
+    List<Tree> valueElements = valueTree.sanitizedValueElements();
+    int numberOfValueElements = valueElements.size();
+
+    if (numberOfValueElements == 1) {
       return IDENTIFIER_VALIDATOR.isValid(valueElements.get(0));
-    } else if (value.getNumberOfValueElements() == 2) {
+    } else if (numberOfValueElements == 2) {
       boolean isWeightFound = false;
       boolean isStyleFound = false;
-      for (CssValueElement valueElement : valueElements) {
-        if (!(valueElement instanceof IdentifierValueElement)) {
+      for (Tree valueElement : valueElements) {
+        if (!(valueElement instanceof IdentifierTree)) {
           return false;
-        } else if ("weight".equals(((IdentifierValueElement) valueElement).getName())) {
+        } else if ("weight".equals(((IdentifierTree) valueElement).text())) {
           isWeightFound = true;
-        } else if ("style".equals(((IdentifierValueElement) valueElement).getName())) {
+        } else if ("style".equals(((IdentifierTree) valueElement).text())) {
           isStyleFound = true;
         }
       }
@@ -55,7 +56,6 @@ public class FontSynthesisValidator implements ValueValidator {
     return false;
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "none | [ weight || style ]";

@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks;
 
-import java.io.File;
-
 import org.junit.Test;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
@@ -28,17 +26,17 @@ public class FormattingCheckTest {
 
   @Test
   public void block() {
-    CssCheckVerifier.verify(new FormattingCheck(), new File("src/test/resources/checks/formatting/block.css"));
+    CssCheckVerifier.verify(new FormattingCheck(), CheckTestUtils.getTestFile("formatting/block.css"));
   }
 
   @Test
   public void declaration() {
-    CssCheckVerifier.verify(new FormattingCheck(), new File("src/test/resources/checks/formatting/declaration.css"));
+    CssCheckVerifier.verify(new FormattingCheck(), CheckTestUtils.getTestFile("formatting/declaration.css"));
   }
 
   @Test
   public void important() {
-    CssCheckVerifier.verify(new FormattingCheck(), new File("src/test/resources/checks/formatting/important.css"));
+    CssCheckVerifier.verify(new FormattingCheck(), CheckTestUtils.getTestFile("formatting/important.css"));
   }
 
 }

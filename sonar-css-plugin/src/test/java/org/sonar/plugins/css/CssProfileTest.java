@@ -20,8 +20,6 @@
 package org.sonar.plugins.css;
 
 import org.junit.Test;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleFinder;
@@ -36,12 +34,12 @@ import static org.mockito.Mockito.when;
 public class CssProfileTest {
 
   @Test
-  public void should_create_sonar_way_profile() {
+  public void should_create_sonarqube_way_profile() {
     ValidationMessages validation = ValidationMessages.create();
     CssProfile definition = new CssProfile(universalRuleFinder());
     RulesProfile profile = definition.createProfile(validation);
 
-    assertThat(profile.getName()).isEqualTo(CssProfile.SONAR_WAY_PROFILE_NAME);
+    assertThat(profile.getName()).isEqualTo(CssProfile.SONARQUBE_WAY_PROFILE_NAME);
     assertThat(profile.getLanguage()).isEqualTo(CssLanguage.KEY);
     assertThat(profile.getActiveRulesByRepository(CheckList.REPOSITORY_KEY)).hasSize(49);
     assertThat(validation.hasErrors()).isFalse();
@@ -49,12 +47,8 @@ public class CssProfileTest {
 
   private RuleFinder universalRuleFinder() {
     RuleFinder ruleFinder = mock(RuleFinder.class);
-    when(ruleFinder.findByKey(anyString(), anyString())).thenAnswer(new Answer<Rule>() {
-      @Override
-      public Rule answer(InvocationOnMock iom) throws Throwable {
-        return Rule.create((String) iom.getArguments()[0], (String) iom.getArguments()[1], (String) iom.getArguments()[1]);
-      }
-    });
+    when(ruleFinder.findByKey(anyString(), anyString())).thenAnswer(
+      iom -> Rule.create((String) iom.getArguments()[0], (String) iom.getArguments()[1], (String) iom.getArguments()[1]));
 
     return ruleFinder;
   }

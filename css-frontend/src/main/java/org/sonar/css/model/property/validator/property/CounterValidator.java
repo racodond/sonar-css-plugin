@@ -20,21 +20,20 @@
 package org.sonar.css.model.property.validator.property;
 
 import java.util.List;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueValidator;
-import org.sonar.css.model.value.CssValueElement;
-import org.sonar.css.model.value.valueelement.IdentifierValueElement;
+import org.sonar.plugins.css.api.tree.IdentifierTree;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 public class CounterValidator implements ValueValidator {
 
   @Override
-  public boolean isValid(Value value) {
-    List<CssValueElement> valueElements = value.getValueElements();
+  public boolean isValid(ValueTree valueTree) {
+    List<Tree> valueElements = valueTree.sanitizedValueElements();
     for (int i = 0; i < valueElements.size(); i++) {
-      if (!(valueElements.get(i) instanceof IdentifierValueElement) && !(ValidatorFactory.getIntegerValidator().isValid(valueElements.get(i)))) {
+      if (!(valueElements.get(i) instanceof IdentifierTree) && !(ValidatorFactory.getIntegerValidator().isValid(valueElements.get(i)))) {
         return false;
       }
       if (i == 0 && ValidatorFactory.getIntegerValidator().isValid(valueElements.get(i))) {
@@ -45,7 +44,7 @@ public class CounterValidator implements ValueValidator {
           return false;
         }
         if (ValidatorFactory.getIntegerValidator().isValid(valueElements.get(i)) &&
-          (!(valueElements.get(i - 1) instanceof IdentifierValueElement) || ValidatorFactory.getNoneValidator().isValid(valueElements.get(i - 1)))) {
+          (!(valueElements.get(i - 1) instanceof IdentifierTree) || ValidatorFactory.getNoneValidator().isValid(valueElements.get(i - 1)))) {
           return false;
         }
       }
@@ -53,7 +52,6 @@ public class CounterValidator implements ValueValidator {
     return true;
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "[ <identifier> <integer>? ]+ | none";

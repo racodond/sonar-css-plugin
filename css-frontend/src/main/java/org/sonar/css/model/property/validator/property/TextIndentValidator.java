@@ -20,13 +20,12 @@
 package org.sonar.css.model.property.validator.property;
 
 import java.util.List;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueValidator;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
-import org.sonar.css.model.value.CssValueElement;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 public class TextIndentValidator implements ValueValidator {
 
@@ -34,34 +33,35 @@ public class TextIndentValidator implements ValueValidator {
   private static final IdentifierValidator EACH_LINE_VALIDATOR = new IdentifierValidator("each-line");
 
   @Override
-  public boolean isValid(@Nonnull Value value) {
-    List<CssValueElement> valueElements = value.getValueElements();
-    if (value.getNumberOfValueElements() > 3) {
+  public boolean isValid(ValueTree valueTree) {
+    List<Tree> valueElements = valueTree.sanitizedValueElements();
+    int numberOfValueElements = valueElements.size();
+
+    if (numberOfValueElements > 3) {
       return false;
     }
-    if (value.getNumberOfValueElements() == 1) {
+    if (numberOfValueElements == 1) {
       return ValidatorFactory.getLengthValidator().isValid(valueElements.get(0))
         || ValidatorFactory.getPercentageValidator().isValid(valueElements.get(0));
     }
-    if (value.getNumberOfValueElements() > 1) {
+    if (numberOfValueElements > 1) {
       return validateMultiElementValue(valueElements);
     }
     return false;
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "[ <length> | <percentage> ] && hanging? && each-line?";
   }
 
-  private boolean validateMultiElementValue(List<CssValueElement> valueElements) {
+  private boolean validateMultiElementValue(List<Tree> valueElements) {
     int hanging = 0;
     int eachLine = 0;
     int lengthPercentage = 0;
     boolean isValid = true;
 
-    for (CssValueElement valueElement : valueElements) {
+    for (Tree valueElement : valueElements) {
       if (ValidatorFactory.getLengthValidator().isValid(valueElement) || ValidatorFactory.getPercentageValidator().isValid(valueElement)) {
         lengthPercentage++;
       } else if (HANGING_VALIDATOR.isValid(valueElement)) {

@@ -19,21 +19,18 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import javax.annotation.Nonnull;
-
 import org.sonar.css.model.property.validator.ValueElementValidator;
-import org.sonar.css.model.value.CssValueElement;
-import org.sonar.css.model.value.valueelement.UriValueElement;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.UriTree;
 
 public class UriValidator implements ValueElementValidator {
 
   @Override
-  public boolean isValid(CssValueElement cssValueElement) {
-    return cssValueElement instanceof UriValueElement;
+  public boolean isValid(Tree tree) {
+    return tree instanceof UriTree;
   }
 
   @Override
-  @Nonnull
   public String getValidatorFormat() {
     return "<uri>";
   }

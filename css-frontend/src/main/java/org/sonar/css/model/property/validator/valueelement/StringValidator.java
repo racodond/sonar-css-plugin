@@ -19,21 +19,18 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import javax.annotation.Nonnull;
-
 import org.sonar.css.model.property.validator.ValueElementValidator;
-import org.sonar.css.model.value.CssValueElement;
-import org.sonar.css.model.value.valueelement.StringValueElement;
+import org.sonar.plugins.css.api.tree.StringTree;
+import org.sonar.plugins.css.api.tree.Tree;
 
 public class StringValidator implements ValueElementValidator {
 
   @Override
-  public boolean isValid(CssValueElement cssValueElement) {
-    return cssValueElement instanceof StringValueElement;
+  public boolean isValid(Tree tree) {
+    return tree instanceof StringTree;
   }
 
   @Override
-  @Nonnull
   public String getValidatorFormat() {
     return "<string>";
   }

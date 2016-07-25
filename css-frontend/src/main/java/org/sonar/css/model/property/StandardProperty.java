@@ -26,7 +26,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
 
 import org.sonar.css.model.StandardCssObject;
 import org.sonar.css.model.property.validator.Validator;
@@ -45,12 +44,10 @@ public class StandardProperty extends StandardCssObject {
     validators.addAll(Lists.newArrayList(allValidators));
   }
 
-  @Nonnull
   public List<Validator> getValidators() {
     return validators;
   }
 
-  @Nonnull
   public String getValidatorFormat() {
     return validators
       .stream()
@@ -68,12 +65,10 @@ public class StandardProperty extends StandardCssObject {
     }
   }
 
-  @Nonnull
   public Set<StandardProperty> getShorthandFor() {
     return shorthandFor;
   }
 
-  @Nonnull
   public Set<String> getShorthandForPropertyNames() {
     return shorthandFor.stream().map(StandardProperty::getName).collect(Collectors.toSet());
   }

@@ -20,14 +20,13 @@
 package org.sonar.css.model.property.validator.property;
 
 import java.util.List;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.ValueValidator;
 import org.sonar.css.model.property.validator.valueelement.flex.FlexDirectionValidator;
 import org.sonar.css.model.property.validator.valueelement.flex.FlexWrapValidator;
-import org.sonar.css.model.value.CssValueElement;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 public class FlexFlowValidator implements ValueValidator {
 
@@ -35,14 +34,16 @@ public class FlexFlowValidator implements ValueValidator {
   private static final ValueElementValidator FLEX_WRAP_VALIDATOR = new FlexWrapValidator();
 
   @Override
-  public boolean isValid(@Nonnull Value value) {
-    List<CssValueElement> valueElements = value.getValueElements();
-    if (value.getNumberOfValueElements() > 2) {
+  public boolean isValid(ValueTree valueTree) {
+    List<Tree> valueElements = valueTree.sanitizedValueElements();
+    int numberOfValueElements = valueElements.size();
+
+    if (numberOfValueElements > 2) {
       return false;
     }
     int countFlexWrap = 0;
     int countFlexDirection = 0;
-    for (CssValueElement valueElement : valueElements) {
+    for (Tree valueElement : valueElements) {
       if (!FLEX_WRAP_VALIDATOR.isValid(valueElement)
         && !FLEX_DIRECTION_VALIDATOR.isValid(valueElement)) {
         return false;
@@ -58,7 +59,6 @@ public class FlexFlowValidator implements ValueValidator {
     return true;
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "<flex-direction> || <flex-wrap>";

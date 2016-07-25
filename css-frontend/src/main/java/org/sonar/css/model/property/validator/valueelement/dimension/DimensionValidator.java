@@ -23,9 +23,9 @@ import java.util.List;
 
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
-import org.sonar.css.model.value.CssValueElement;
-import org.sonar.css.model.value.valueelement.DimensionValueElement;
-import org.sonar.css.model.value.valueelement.NumberValueElement;
+import org.sonar.plugins.css.api.tree.DimensionTree;
+import org.sonar.plugins.css.api.tree.NumberTree;
+import org.sonar.plugins.css.api.tree.Tree;
 
 public abstract class DimensionValidator implements ValueElementValidator {
 
@@ -42,21 +42,21 @@ public abstract class DimensionValidator implements ValueElementValidator {
   }
 
   @Override
-  public boolean isValid(CssValueElement cssValueElement) {
+  public boolean isValid(Tree tree) {
 
-    if (cssValueElement instanceof DimensionValueElement) {
-      if (!units.contains(((DimensionValueElement) cssValueElement).getUnit())) {
+    if (tree instanceof DimensionTree) {
+      if (!units.contains(((DimensionTree) tree).unit().text())) {
         return false;
       }
-      return isPositiveOnly() ? ((DimensionValueElement) cssValueElement).isPositive() : true;
+      return isPositiveOnly() ? ((DimensionTree) tree).value().isPositive() : true;
     }
 
-    if (new FunctionValidator("calc").isValid(cssValueElement)) {
+    if (new FunctionValidator("calc").isValid(tree)) {
       return true;
     }
 
-    if (cssValueElement instanceof NumberValueElement) {
-      return ((NumberValueElement) cssValueElement).isZero();
+    if (tree instanceof NumberTree) {
+      return ((NumberTree) tree).isZero();
     }
 
     return false;

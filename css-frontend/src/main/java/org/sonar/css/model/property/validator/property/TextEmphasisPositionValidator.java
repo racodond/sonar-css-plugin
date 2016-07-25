@@ -20,13 +20,12 @@
 package org.sonar.css.model.property.validator.property;
 
 import java.util.List;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.ValueValidator;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
-import org.sonar.css.model.value.CssValueElement;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 public class TextEmphasisPositionValidator implements ValueValidator {
 
@@ -34,8 +33,8 @@ public class TextEmphasisPositionValidator implements ValueValidator {
   private static final ValueElementValidator RIGHT_LEFT_VALIDATOR = new IdentifierValidator("right", "left");
 
   @Override
-  public boolean isValid(Value value) {
-    List<CssValueElement> valueElements = value.getValueElements();
+  public boolean isValid(ValueTree valueTree) {
+    List<Tree> valueElements = valueTree.sanitizedValueElements();
     if (valueElements.size() != 2) {
       return false;
     } else {
@@ -44,7 +43,6 @@ public class TextEmphasisPositionValidator implements ValueValidator {
     }
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "[ over | under ] && [ right | left ]";

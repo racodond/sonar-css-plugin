@@ -13,3 +13,5 @@
   --ABC: red; /* Noncompliant ![sc=3;ec=8;el=+0]! !{Write variable "ABC" in lowercase.}! */
   --abc-DEF: red; /* Noncompliant ![sc=3;ec=12;el=+0]! !{Write variable "abc-DEF" in lowercase.}! */
 }
+
+@KEYFRAMES keyframes {} /* Noncompliant ![sc=1;ec=11;el=+0]! !{Write @rule keyword "KEYFRAMES" in lowercase.}! */

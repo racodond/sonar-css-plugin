@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import javax.annotation.Nonnull;
-
 public class BoxValidator extends IdentifierValidator {
 
   public BoxValidator() {
@@ -28,7 +26,6 @@ public class BoxValidator extends IdentifierValidator {
   }
 
   @Override
-  @Nonnull
   public String getValidatorFormat() {
     return "<box>";
   }

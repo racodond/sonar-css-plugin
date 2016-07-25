@@ -28,7 +28,7 @@ import static org.fest.assertions.Assertions.assertThat;
 public class CssPluginTest {
 
   @Test
-  public void should_get_the_right_version() throws Exception {
+  public void should_get_the_right_version() {
     Context context = new Context(Version.create(5, 6));
     new CssPlugin().define(context);
     assertThat(context.getSonarQubeVersion().major()).isEqualTo(5);
@@ -36,10 +36,10 @@ public class CssPluginTest {
   }
 
   @Test
-  public void should_get_the_right_number_of_extensions() throws Exception {
+  public void should_get_the_right_number_of_extensions() {
     Context context = new Context(Version.create(5, 6));
     new CssPlugin().define(context);
-    assertThat(context.getExtensions()).hasSize(5);
+    assertThat(context.getExtensions()).hasSize(4);
   }
 
 }

@@ -20,49 +20,45 @@
 package org.sonar.css.model.property.validator.property;
 
 import java.util.List;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueValidator;
-import org.sonar.css.model.value.CssValueElement;
-import org.sonar.css.model.value.valueelement.HashValueElement;
-import org.sonar.css.model.value.valueelement.IdentifierValueElement;
-import org.sonar.css.model.value.valueelement.StringValueElement;
+import org.sonar.plugins.css.api.tree.*;
 
 public class NavValidator implements ValueValidator {
 
   @Override
-  public boolean isValid(Value value) {
-    List<CssValueElement> valueElements = value.getValueElements();
-    if (value.getNumberOfValueElements() > 2) {
+  public boolean isValid(ValueTree valueTree) {
+    List<Tree> valueElements = valueTree.sanitizedValueElements();
+    int numberOfValueElements = valueElements.size();
+
+    if (numberOfValueElements > 2) {
       return false;
     }
-    if (value.getNumberOfValueElements() == 1) {
+    if (numberOfValueElements == 1) {
       return ValidatorFactory.getAutoValidator().isValid(valueElements.get(0)) || isID(valueElements.get(0));
     }
-    if (value.getNumberOfValueElements() == 2) {
+    if (numberOfValueElements == 2) {
       return isID(valueElements.get(0)) && isValidTargetName(valueElements.get(1));
     }
     return false;
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "auto | <id> [ current | root | <target-name> ]?";
   }
 
-  private boolean isID(CssValueElement valueElement) {
-    return valueElement instanceof HashValueElement && ((HashValueElement) valueElement).getValue().startsWith("#");
+  private boolean isID(Tree valueElement) {
+    return valueElement instanceof HashTree;
   }
 
-  private boolean isValidTargetName(CssValueElement valueElement) {
-    if (valueElement instanceof IdentifierValueElement) {
-      String identifier = ((IdentifierValueElement) valueElement).getName();
+  private boolean isValidTargetName(Tree valueElement) {
+    if (valueElement instanceof IdentifierTree) {
+      String identifier = ((IdentifierTree) valueElement).text();
       return "current".equals(identifier) || "root".equals(identifier);
-    } else if (valueElement instanceof StringValueElement) {
-      String value = ((StringValueElement) valueElement).getValue();
+    } else if (valueElement instanceof StringTree) {
+      String value = ((StringTree) valueElement).actualText();
       return !value.startsWith("_");
     } else {
       return false;

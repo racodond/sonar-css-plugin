@@ -21,15 +21,14 @@ package org.sonar.css.model.property.validator.property;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.ValueValidator;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 import org.sonar.css.model.property.validator.valueelement.numeric.IntegerRangeValidator;
-import org.sonar.css.model.value.CssValueElement;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 public class CursorValidator implements ValueValidator {
 
@@ -42,8 +41,8 @@ public class CursorValidator implements ValueValidator {
   private final ValueElementValidator positiveIntegerValidator = new IntegerRangeValidator(0, 32);
 
   @Override
-  public boolean isValid(Value value) {
-    List<List<CssValueElement>> cursorList = buildCursorList(value);
+  public boolean isValid(ValueTree valueTree) {
+    List<List<Tree>> cursorList = buildCursorList(valueTree);
     if (cursorList.size() == 1) {
       if (cursorList.get(0).size() != 1
         || cursorList.get(0).size() == 1 && !identifierValidator.isValid(cursorList.get(0).get(0))) {
@@ -65,17 +64,16 @@ public class CursorValidator implements ValueValidator {
     return true;
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "[[ <uri> [<number> <number>]?,]* [" + identifierValidator.getValidatorFormat() + "]";
   }
 
-  private List<List<CssValueElement>> buildCursorList(Value value) {
-    List<List<CssValueElement>> cursorList = new ArrayList<>();
+  private List<List<Tree>> buildCursorList(ValueTree valueTree) {
+    List<List<Tree>> cursorList = new ArrayList<>();
     cursorList.add(new ArrayList<>());
     int listIndex = 0;
-    for (CssValueElement valueElement : value.getValueElements()) {
+    for (Tree valueElement : valueTree.sanitizedValueElements()) {
       if (ValidatorFactory.getCommaDelimiterValidator().isValid(valueElement)) {
         cursorList.add(new ArrayList<>());
         listIndex++;

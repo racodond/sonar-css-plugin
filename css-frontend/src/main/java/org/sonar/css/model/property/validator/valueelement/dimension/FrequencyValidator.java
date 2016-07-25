@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.valueelement.dimension;
 
-import javax.annotation.Nonnull;
-
 import org.sonar.css.model.Unit;
 
 public class FrequencyValidator extends DimensionValidator {
@@ -30,7 +28,6 @@ public class FrequencyValidator extends DimensionValidator {
   }
 
   @Override
-  @Nonnull
   public String getValidatorFormat() {
     return "<frequency>";
   }

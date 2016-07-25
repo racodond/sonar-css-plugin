@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.property.liststyle;
 
-import javax.annotation.Nonnull;
-
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementMultiValidator;
 import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
@@ -35,7 +33,6 @@ public class ListStyleTypeValidator extends ValueElementMultiValidator {
   }
 
   @Override
-  @Nonnull
   public String getValidatorFormat() {
     return "<counter-style> | <string> | none";
   }

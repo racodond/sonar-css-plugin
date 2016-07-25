@@ -11,24 +11,21 @@
 }
 
 .icons {
-    background: url(sprite2.png) no-repeat;
+  background: url(sprite2.png) no-repeat;
 }
 
 .heart-icon {
-    background-position: -16px 0;
+  background-position: -16px 0;
 }
 
 .task-icon {
-    background-position: -32px 0;
+  background-position: -32px 0;
 }
 
-.cl2
-{
-background-image:url('paper.gif'); /* Noncompliant ![sc=18;ec=34;el=+0;secondary=+5]! !{Keep only one definition of those duplicated background images.}! */
+.cl2 {
+  background-image:url('paper.gif'); /* Noncompliant ![sc=20;ec=36;el=+0;secondary=+4]! !{Keep only one definition of those duplicated background images.}! */
 }
 
-.cl1
-{
-background-image:url("paper.gif");
+.cl1 {
+  background-image:url("paper.gif");
 }
-

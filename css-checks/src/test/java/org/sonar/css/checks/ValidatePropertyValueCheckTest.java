@@ -29,20 +29,20 @@ import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class ValidatePropertyValueCheckTest {
 
+  private static final File TEST_DIRECTORY = new File("src/test/resources/checks/properties");
+
   @Test
   public void test_validate_properties() {
-    File testDirectory = new File("src/test/resources/checks/properties");
-    testDirectory = Preconditions.checkNotNull(testDirectory);
-    for (File file : testDirectory.listFiles()) {
+    Preconditions.checkNotNull(TEST_DIRECTORY);
+    for (File file : TEST_DIRECTORY.listFiles()) {
       CssCheckVerifier.verify(new ValidatePropertyValueCheck(), file);
     }
   }
 
   @Test
   public void test_number_of_validated_properties() {
-    File testDirectory = new File("src/test/resources/checks/properties");
-    testDirectory = Preconditions.checkNotNull(testDirectory);
-    Assert.assertEquals(300, testDirectory.listFiles().length);
+    Preconditions.checkNotNull(TEST_DIRECTORY);
+    Assert.assertEquals(300, TEST_DIRECTORY.listFiles().length);
   }
 
 }

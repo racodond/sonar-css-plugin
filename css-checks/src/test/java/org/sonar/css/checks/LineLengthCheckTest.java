@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks;
 
-import java.io.File;
-
 import org.junit.Test;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
@@ -30,19 +28,19 @@ public class LineLengthCheckTest {
 
   @Test
   public void should_not_find_any_line_longer_than_the_default_value_120() {
-    CssCheckVerifier.verify(check, new File("src/test/resources/checks/lineLength.css"));
+    CssCheckVerifier.verify(check, CheckTestUtils.getTestFile("lineLength.css"));
   }
 
   @Test
   public void should_find_one_line_longer_than_50_characters_and_raise_an_issue() {
     check.setMaximumLineLength(50);
-    CssCheckVerifier.verify(check, new File("src/test/resources/checks/lineLength50.css"));
+    CssCheckVerifier.verify(check, CheckTestUtils.getTestFile("lineLength50.css"));
   }
 
   @Test
   public void should_find_two_lines_longer_than_30_characters_and_raise_issues() {
     check.setMaximumLineLength(30);
-    CssCheckVerifier.verify(check, new File("src/test/resources/checks/lineLength30.css"));
+    CssCheckVerifier.verify(check, CheckTestUtils.getTestFile("lineLength30.css"));
   }
 
 }

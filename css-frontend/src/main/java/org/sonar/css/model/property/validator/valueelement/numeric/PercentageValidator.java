@@ -19,11 +19,9 @@
  */
 package org.sonar.css.model.property.validator.valueelement.numeric;
 
-import javax.annotation.Nonnull;
-
 import org.sonar.css.model.property.validator.ValueElementValidator;
-import org.sonar.css.model.value.CssValueElement;
-import org.sonar.css.model.value.valueelement.PercentageValueElement;
+import org.sonar.plugins.css.api.tree.PercentageTree;
+import org.sonar.plugins.css.api.tree.Tree;
 
 public class PercentageValidator implements ValueElementValidator {
 
@@ -34,10 +32,10 @@ public class PercentageValidator implements ValueElementValidator {
   }
 
   @Override
-  public boolean isValid(CssValueElement cssValueElement) {
-    if (cssValueElement instanceof PercentageValueElement) {
+  public boolean isValid(Tree tree) {
+    if (tree instanceof PercentageTree) {
       if (positiveOnly) {
-        return ((PercentageValueElement) cssValueElement).isPositive();
+        return ((PercentageTree) tree).value().isPositive();
       }
       return true;
     }
@@ -45,7 +43,6 @@ public class PercentageValidator implements ValueElementValidator {
   }
 
   @Override
-  @Nonnull
   public String getValidatorFormat() {
     return positiveOnly ? "<percentage>(>=0)" : "<percentage>";
   }

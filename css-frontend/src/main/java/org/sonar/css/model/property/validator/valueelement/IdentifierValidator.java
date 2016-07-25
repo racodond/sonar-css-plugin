@@ -21,11 +21,10 @@ package org.sonar.css.model.property.validator.valueelement;
 
 import java.util.Arrays;
 import java.util.List;
-import javax.annotation.Nonnull;
 
 import org.sonar.css.model.property.validator.ValueElementValidator;
-import org.sonar.css.model.value.CssValueElement;
-import org.sonar.css.model.value.valueelement.IdentifierValueElement;
+import org.sonar.plugins.css.api.tree.IdentifierTree;
+import org.sonar.plugins.css.api.tree.Tree;
 
 public class IdentifierValidator implements ValueElementValidator {
 
@@ -40,18 +39,17 @@ public class IdentifierValidator implements ValueElementValidator {
   }
 
   @Override
-  public boolean isValid(CssValueElement cssValueElement) {
-    if (cssValueElement instanceof IdentifierValueElement) {
+  public boolean isValid(Tree tree) {
+    if (tree instanceof IdentifierTree) {
       if (allowedValues.isEmpty()) {
         return true;
       }
-      return allowedValues.contains(((IdentifierValueElement) cssValueElement).getName().toLowerCase());
+      return allowedValues.contains(((IdentifierTree) tree).text().toLowerCase());
     }
     return false;
   }
 
   @Override
-  @Nonnull
   public String getValidatorFormat() {
     if (allowedValues.isEmpty()) {
       return "<identifier>";

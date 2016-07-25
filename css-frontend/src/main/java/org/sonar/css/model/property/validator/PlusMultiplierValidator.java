@@ -22,10 +22,9 @@ package org.sonar.css.model.property.validator;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
-import org.sonar.css.model.value.CssValueElement;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 /**
  * Validator to check property values than can be multiplied: [xxx]+
@@ -40,9 +39,9 @@ public class PlusMultiplierValidator implements ValueValidator {
   }
 
   @Override
-  public boolean isValid(Value value) {
+  public boolean isValid(ValueTree valueTree) {
     boolean isValid;
-    for (CssValueElement valueElement : value.getValueElements()) {
+    for (Tree valueElement : valueTree.sanitizedValueElements()) {
       isValid = false;
       for (ValueElementValidator validator : validators) {
         if (validator.isValid(valueElement)) {
@@ -58,7 +57,6 @@ public class PlusMultiplierValidator implements ValueValidator {
   }
 
   @Override
-  @Nonnull
   public String getValidatorFormat() {
     StringBuilder format = new StringBuilder();
 

@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.valueelement.flex;
 
-import javax.annotation.Nonnull;
-
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementMultiValidator;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
@@ -31,7 +29,6 @@ public class FlexBasisValidator extends ValueElementMultiValidator {
     super(new IdentifierValidator("content"), ValidatorFactory.getWidthHeightValidator());
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "content | <width>";

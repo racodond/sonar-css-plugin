@@ -19,11 +19,9 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import javax.annotation.Nonnull;
-
 import org.sonar.css.model.property.validator.ValueElementValidator;
-import org.sonar.css.model.value.CssValueElement;
-import org.sonar.css.model.value.valueelement.DelimiterValueElement;
+import org.sonar.plugins.css.api.tree.DelimiterTree;
+import org.sonar.plugins.css.api.tree.Tree;
 
 public class DelimiterValidator implements ValueElementValidator {
 
@@ -34,13 +32,12 @@ public class DelimiterValidator implements ValueElementValidator {
   }
 
   @Override
-  public boolean isValid(CssValueElement cssValueElement) {
-    return cssValueElement instanceof DelimiterValueElement
-      && separator.equals(((DelimiterValueElement) cssValueElement).getType());
+  public boolean isValid(Tree tree) {
+    return tree instanceof DelimiterTree
+      && separator.equals(((DelimiterTree) tree).text());
   }
 
   @Override
-  @Nonnull
   public String getValidatorFormat() {
     return separator;
   }

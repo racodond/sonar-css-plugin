@@ -19,16 +19,13 @@
  */
 package org.sonar.css.checks;
 
-import com.sonar.sslr.api.AstNode;
-
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.CssCheck;
-import org.sonar.css.parser.CssGrammar;
+import org.sonar.plugins.css.api.tree.DeclarationTree;
+import org.sonar.plugins.css.api.tree.DeclarationsTree;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
@@ -39,28 +36,17 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   tags = {Tags.FORMAT})
 @ActivatedByDefault
 @SqaleConstantRemediation("2min")
-public class OneDeclarationPerLineCheck extends CssCheck {
+public class OneDeclarationPerLineCheck extends DoubleDispatchVisitorCheck {
 
   @Override
-  public void init() {
-    subscribeTo(CssGrammar.SUP_DECLARATION);
-  }
-
-  @Override
-  public void leaveNode(AstNode astNode) {
-    for (AstNode declarationsOnSameLine : getDeclarationsOnSameLine(astNode.getChildren(CssGrammar.DECLARATION, CssGrammar.VARIABLE_DECLARATION))) {
-      addIssue(this, "Define this declaration on a separate line.", declarationsOnSameLine);
-    }
-  }
-
-  private Set<AstNode> getDeclarationsOnSameLine(List<AstNode> declarations) {
-    Set<AstNode> declarationsOnSameLine = new HashSet<>();
-    for (int i = 0; i < declarations.size() - 1; i++) {
-      if (declarations.get(i).getTokenLine() == declarations.get(i + 1).getTokenLine()) {
-        declarationsOnSameLine.add(declarations.get(i + 1));
+  public void visitDeclarations(DeclarationsTree tree) {
+    List<DeclarationTree> allDeclarations = tree.allDeclarations();
+    for (int i = 1; i < allDeclarations.size(); i++) {
+      if (allDeclarations.get(i).colon().line() == allDeclarations.get(i - 1).colon().line()) {
+        addPreciseIssue(allDeclarations.get(i), "Define this declaration on a separate line.");
       }
     }
-    return declarationsOnSameLine;
+    super.visitDeclarations(tree);
   }
 
 }

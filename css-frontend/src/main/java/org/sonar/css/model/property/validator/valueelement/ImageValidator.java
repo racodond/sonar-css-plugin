@@ -19,8 +19,6 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
-import javax.annotation.Nonnull;
-
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementMultiValidator;
 import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
@@ -33,7 +31,6 @@ public class ImageValidator extends ValueElementMultiValidator {
         "repeating-linear-gradient", "repeating-radial-gradient"));
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "<image>";

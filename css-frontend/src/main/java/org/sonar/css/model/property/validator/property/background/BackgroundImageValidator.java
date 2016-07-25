@@ -21,18 +21,17 @@ package org.sonar.css.model.property.validator.property.background;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueValidator;
-import org.sonar.css.model.value.CssValueElement;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 public class BackgroundImageValidator implements ValueValidator {
 
   @Override
-  public boolean isValid(Value value) {
-    List<CssValueElement> valueElements = value.getValueElements();
+  public boolean isValid(ValueTree valueTree) {
+    List<Tree> valueElements = valueTree.sanitizedValueElements();
     for (int i = 0; i < valueElements.size(); i++) {
       if (ValidatorFactory.getNoneValidator().isValid(valueElements.get(i)) && i != 0) {
         return false;
@@ -41,20 +40,19 @@ public class BackgroundImageValidator implements ValueValidator {
         return false;
       }
     }
-    return checkRepeatStyleList(buildBackgroundImageList(value));
+    return checkRepeatStyleList(buildBackgroundImageList(valueTree));
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "none | <image> [, <image>]*";
   }
 
-  private List<List<CssValueElement>> buildBackgroundImageList(Value value) {
-    List<List<CssValueElement>> backgroundImageList = new ArrayList<>();
+  private List<List<Tree>> buildBackgroundImageList(ValueTree valueTree) {
+    List<List<Tree>> backgroundImageList = new ArrayList<>();
     backgroundImageList.add(new ArrayList<>());
     int listIndex = 0;
-    for (CssValueElement valueElement : value.getValueElements()) {
+    for (Tree valueElement : valueTree.sanitizedValueElements()) {
       if (ValidatorFactory.getCommaDelimiterValidator().isValid(valueElement)) {
         backgroundImageList.add(new ArrayList<>());
         listIndex++;
@@ -66,8 +64,8 @@ public class BackgroundImageValidator implements ValueValidator {
     return backgroundImageList;
   }
 
-  private boolean checkRepeatStyleList(List<List<CssValueElement>> repeatStyleList) {
-    for (List<CssValueElement> elementList : repeatStyleList) {
+  private boolean checkRepeatStyleList(List<List<Tree>> repeatStyleList) {
+    for (List<Tree> elementList : repeatStyleList) {
       if (elementList.size() != 1) {
         return false;
       }

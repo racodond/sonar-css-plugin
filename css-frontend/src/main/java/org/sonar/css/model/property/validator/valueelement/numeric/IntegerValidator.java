@@ -19,11 +19,9 @@
  */
 package org.sonar.css.model.property.validator.valueelement.numeric;
 
-import javax.annotation.Nonnull;
-
 import org.sonar.css.model.property.validator.ValueElementValidator;
-import org.sonar.css.model.value.CssValueElement;
-import org.sonar.css.model.value.valueelement.NumberValueElement;
+import org.sonar.plugins.css.api.tree.NumberTree;
+import org.sonar.plugins.css.api.tree.Tree;
 
 public class IntegerValidator implements ValueElementValidator {
 
@@ -38,10 +36,10 @@ public class IntegerValidator implements ValueElementValidator {
   }
 
   @Override
-  public boolean isValid(CssValueElement cssValueElement) {
-    if (cssValueElement instanceof NumberValueElement && ((NumberValueElement) cssValueElement).isInteger()) {
+  public boolean isValid(Tree tree) {
+    if (tree instanceof NumberTree && ((NumberTree) tree).isInteger()) {
       if (positiveOnly) {
-        return ((NumberValueElement) cssValueElement).isPositive();
+        return ((NumberTree) tree).isPositive();
       }
       return true;
     }
@@ -49,7 +47,6 @@ public class IntegerValidator implements ValueElementValidator {
   }
 
   @Override
-  @Nonnull
   public String getValidatorFormat() {
     return positiveOnly ? "<integer>(>=0)" : "<integer>";
   }

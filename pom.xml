@@ -15,8 +15,8 @@
   <packaging>pom</packaging>
 
   <name>SonarQube CSS Plugin</name>
-  <description>Parent POM of the SonarQube CSS Plugin</description>
-  <url/>
+  <description>Enables analysis of CSS files in SonarQube</description>
+  <url>https://github.com/SonarQubeCommunity/sonar-css</url>
   <inceptionYear>2013</inceptionYear>
   <organization>
     <name>Tamas Kende and David RACODON</name>

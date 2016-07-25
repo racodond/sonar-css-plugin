@@ -20,34 +20,34 @@
 package org.sonar.css.model.property.validator.property.border;
 
 import java.util.List;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueValidator;
-import org.sonar.css.model.value.CssValueElement;
-import org.sonar.css.model.value.valueelement.DelimiterValueElement;
+import org.sonar.plugins.css.api.tree.DelimiterTree;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 public class BorderRadiusPropertyValidator implements ValueValidator {
 
   @Override
-  public boolean isValid(Value value) {
-    List<CssValueElement> valueElements = value.getValueElements();
+  public boolean isValid(ValueTree valueTree) {
+    List<Tree> valueElements = valueTree.sanitizedValueElements();
+    int numberOfValueElements = valueElements.size();
 
-    if (valueElements.size() > 9) {
+    if (numberOfValueElements > 9) {
       return false;
     }
 
     int numberDelimiters = 0;
     int positionDelimiter = 0;
-    for (int i = 0; i < valueElements.size(); i++) {
+    for (int i = 0; i < numberOfValueElements; i++) {
       if (!ValidatorFactory.getPositivePercentageValidator().isValid(valueElements.get(i))
         && !ValidatorFactory.getPositiveLengthValidator().isValid(valueElements.get(i))
-        && !(valueElements.get(i) instanceof DelimiterValueElement)) {
+        && !(valueElements.get(i) instanceof DelimiterTree)) {
         return false;
       }
-      if (valueElements.get(i) instanceof DelimiterValueElement) {
-        if (!"/".equals(((DelimiterValueElement) valueElements.get(i)).getType())) {
+      if (valueElements.get(i) instanceof DelimiterTree) {
+        if (!"/".equals(((DelimiterTree) valueElements.get(i)).text())) {
           return false;
         }
         numberDelimiters++;
@@ -56,16 +56,15 @@ public class BorderRadiusPropertyValidator implements ValueValidator {
     }
 
     if (numberDelimiters > 1
-      || (numberDelimiters == 1 && (positionDelimiter == 0 || positionDelimiter == valueElements.size() - 1 || positionDelimiter > 4))
-      || (numberDelimiters == 0 && valueElements.size() > 4)
-      || (numberDelimiters == 1 && (valueElements.size() - positionDelimiter) > 5)) {
+      || (numberDelimiters == 1 && (positionDelimiter == 0 || positionDelimiter == numberOfValueElements - 1 || positionDelimiter > 4))
+      || (numberDelimiters == 0 && numberOfValueElements > 4)
+      || (numberDelimiters == 1 && (numberOfValueElements - positionDelimiter) > 5)) {
       return false;
     }
 
     return true;
   }
 
-  @Nonnull
   @Override
   public String getValidatorFormat() {
     return "[ <length>(>=0) | <percentage>(>=0) ]{1,4} [ / [ <length>(>=0) | <percentage>(>=0) ]{1,4} ]?";

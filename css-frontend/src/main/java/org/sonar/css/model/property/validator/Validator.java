@@ -19,11 +19,8 @@
  */
 package org.sonar.css.model.property.validator;
 
-import javax.annotation.Nonnull;
-
 public interface Validator {
 
-  @Nonnull
   String getValidatorFormat();
 
 }

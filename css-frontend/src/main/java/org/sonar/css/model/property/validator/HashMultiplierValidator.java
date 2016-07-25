@@ -22,11 +22,10 @@ package org.sonar.css.model.property.validator;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
 
-import org.sonar.css.model.Value;
 import org.sonar.css.model.property.validator.valueelement.DelimiterValidator;
-import org.sonar.css.model.value.CssValueElement;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.ValueTree;
 
 /**
  * Validator to check property values than can be multiplied (comma-separated list): [xxx]#
@@ -42,10 +41,10 @@ public class HashMultiplierValidator implements ValueValidator {
   }
 
   @Override
-  public boolean isValid(Value value) {
+  public boolean isValid(ValueTree valueTree) {
     boolean isValid;
     boolean isCommaSeparatorExpected = false;
-    for (CssValueElement valueElement : value.getValueElements()) {
+    for (Tree valueElement : valueTree.sanitizedValueElements()) {
       isValid = false;
       if (isCommaSeparatorExpected) {
         if (!COMMA_VALIDATOR.isValid(valueElement)) {
@@ -69,7 +68,6 @@ public class HashMultiplierValidator implements ValueValidator {
   }
 
   @Override
-  @Nonnull
   public String getValidatorFormat() {
     StringBuilder format = new StringBuilder();
 
