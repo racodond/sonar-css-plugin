@@ -1,7 +1,7 @@
 SonarQube CSS Plugin
 ====================
-[![Build Status](https://api.travis-ci.org/SonarQubeCommunity/sonar-css.svg)](https://travis-ci.org/SonarQubeCommunity/sonar-css)
-[![Nemo Quality Gate status](https://sonarqube.com/api/badges/gate?key=org.codehaus.sonar-plugins.css%3Acss)](https://sonarqube.com/overview?id=org.codehaus.sonar-plugins.css%3Acss)
+[![Build Status](https://api.travis-ci.org/SonarQubeCommunity/sonar-css.svg?branch=master)](https://travis-ci.org/SonarQubeCommunity/sonar-css)
+[![Quality Gate status](https://sonarqube.com/api/badges/gate?key=org.codehaus.sonar-plugins.css%3Acss)](https://sonarqube.com/overview?id=org.codehaus.sonar-plugins.css%3Acss)
 
 Plugin versions and compatibility with SonarQube versions:
 http://docs.sonarqube.org/display/PLUG/Plugin+Version+Matrix
