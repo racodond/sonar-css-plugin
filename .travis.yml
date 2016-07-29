@@ -1,26 +1,16 @@
 language: java
-sudo: false
 
 jdk:
-- oraclejdk8
+  - oraclejdk8
+
 addons:
+  sonarqube: true
   apt:
     packages:
       - oracle-java8-installer
 
-install: true
-script: ./travis.sh
 env:
-  - TESTS=CI
-  - TESTS=IT-DEV
-  - TESTS=IT-LTS
+  global:
+    - secure: "nAZPE4kysMbIPCSAOqxFLteSJDkRVAhgPsCBzWdIEFCnqEcqHqZCLKe61ulvymO8LmpsmD4aT//eKVuhANIGaiD4wig1wO8oImPev/cyBTG6XiZuHJtRHoGf3ZiCN19fgyQwEUHdcLWKK0mB9862tTxeFEdr1rDtgibLf+0LtqNJxdH3DZ8HOOcAiizUiM5qIxdpCePPnDSiprayiAow5kygdd3ElaGaARkLN5+7aeVjaHoFPDasGccMxC2sSZKjevI1L2dbWKeAmwktRb39f0PY5QnTx+VgIGCI6wpFwQQdxOVQVKqNufQolCVV/YXBzvgV0evDzKD8Val51F4wdZcOTWzAWui622jddmt32TYzq5CwWhOlFBsDzlwgkiQ6gYa4KGbW/MCQ/eBT+FP+3rbL6YZdKiQiyuvnGLaqW6k0brKqJcz0MkDidHLzzCzfaCSNKqgXW9N2AqDKStbMso7ZnvZey6VQW6KOAy99SRuhOLodcds9uAgF+2p9omFT3JTcvL9/pLFscuBbBNeFKF74NJ6FXe1H2FbZTPOuiRVdBGfKRSX2HrTCIMfwcmTBR3Iu1ZmrYYg/0HjJE2bxd+41GER7TL07/H9krhtW0EKgUK4WjCmUwJaIxaqMLhNvH0grYKpXkhhHcZKm4d5rWWbWR5F57Y05PzxfQ/78FrQ="
 
-matrix:
-  fast_finish: true
-
-cache:
-  directories:
-    - '$HOME/.m2/repository'
-
-notifications:
-  email: false
+script: ./travis.sh
