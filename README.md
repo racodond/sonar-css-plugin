@@ -1,6 +1,7 @@
 SonarQube CSS Plugin
 ====================
 [![Build Status](https://api.travis-ci.org/SonarQubeCommunity/sonar-css.svg?branch=master)](https://travis-ci.org/SonarQubeCommunity/sonar-css)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/tc9bonqa7v0x4scb/branch/master?svg=true)](https://ci.appveyor.com/project/racodond/sonar-css/branch/master)
 [![Quality Gate status](https://sonarqube.com/api/badges/gate?key=org.codehaus.sonar-plugins.css%3Acss)](https://sonarqube.com/overview?id=org.codehaus.sonar-plugins.css%3Acss)
 
 Plugin versions and compatibility with SonarQube versions:
