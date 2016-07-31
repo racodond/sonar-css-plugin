@@ -1,0 +1,17 @@
+version: "{build}"
+
+cache:
+  - C:\Users\appveyor\.m2
+
+install:
+  - SET JAVA_HOME=C:\Program Files\Java\jdk1.8.0
+  - SET PATH=C:\maven\apache-maven-3.3.9\bin;%JAVA_HOME%\bin;%PATH%
+
+  - appveyor DownloadFile http://www.us.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.zip
+  - 7z x apache-maven-3.3.9-bin.zip -oC:\maven
+
+build_script:
+  - mvn clean package -DskipTests -B -U
+
+test_script:
+  - mvn clean install -B -U
