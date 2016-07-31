@@ -5,12 +5,13 @@ jdk:
 
 addons:
   sonarqube: true
-  apt:
-    packages:
-      - oracle-java8-installer
 
 env:
   global:
     - secure: "X7Tuf9A30zkr4E3v1MlYdcHKJanfAKslLeHXd2SWMKuhSFqJCMaxh5IQw5qjiQNimx5EFIXki0shMW2qtK43Lh83Eyq3YHaXAGnQQxYnETYR5bGOecctzHC7U6tKkB3RK8sIukgnBwoKOjqK5uvzIzxHGjNEO9+ivtGlPwfVtDk="
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
 
 script: ./travis.sh
