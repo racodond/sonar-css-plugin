@@ -1,5 +1,14 @@
-<p>The list of supported CSS properties is growing quite large, and it's very easy to miss a typo in a single property when the property name isn't checked.</p>
-<p>This rule checks each property name to make sure that it is a known CSS property. All vendor-prefixed properties are ignored because vendors may add in their own properties at any point in time, and there are no canonical lists of these properties. This behavior is different than a CSS validator, which warns when a vendor-prefixed property is used.</p>
+<p>
+    The list of supported CSS properties is growing quite large, and it's very easy to miss a typo in a single property
+    when the property name isn't checked.
+</p>
+
+<p>This rule checks each property name to make sure that it is a known CSS property. All vendor-prefixed properties are
+    ignored because vendors may add in their own properties at any point in time, and there are no canonical lists of
+    these properties. This behavior is different than a CSS validator, which warns when a vendor-prefixed property is
+    used.
+</p>
+
 <h2>Noncompliant Code Example</h2>
 <pre>
 /* Noncompliant: 'clr' isn't a known property */
@@ -7,7 +16,9 @@ a {
   clr: red;
 }
 </pre>
+
 <h2>See</h2>
 <ul>
-  <li><a href="https://github.com/stubbornella/csslint/wiki/Require-use-of-known-properties">CSSLint rule documentation</a></li>
+    <li><a href="https://github.com/stubbornella/csslint/wiki/Require-use-of-known-properties">CSSLint rule
+        documentation</a></li>
 </ul>

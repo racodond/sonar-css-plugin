@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks;
 
-import java.io.File;
-
 import org.junit.Test;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
@@ -28,7 +26,7 @@ public class DisplayPropertyGroupingTest {
 
   @Test
   public void test() {
-    CssCheckVerifier.verify(new DisplayPropertyGrouping(), new File("src/test/resources/checks/displayProperty.css"));
+    CssCheckVerifier.verify(new DisplayPropertyGroupingCheck(), CheckTestUtils.getTestFile("displayProperty.css"));
   }
 
 }

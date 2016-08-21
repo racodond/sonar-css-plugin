@@ -1,5 +1,5 @@
 h1 {
- font-size: 0.9em; /* Noncompliant ![sc=13;ec=18;el=+0]! !{Remove the leading zero.}! */
+ font-size: 0.9em; /* Noncompliant ![sc=13;ec=16;el=+0]! !{Remove the leading zero.}! */
 }
 
 /* Compliant */

@@ -19,23 +19,18 @@
  */
 package org.sonar.css.checks;
 
-import com.sonar.sslr.api.AstNode;
-
 import java.util.HashSet;
 import java.util.Set;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.CssCheck;
-import org.sonar.css.issue.PreciseIssue;
-import org.sonar.css.model.AtRule;
 import org.sonar.css.model.atrule.standard.Charset;
 import org.sonar.css.model.atrule.standard.Import;
-import org.sonar.css.parser.CssGrammar;
+import org.sonar.plugins.css.api.tree.*;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
+import org.sonar.plugins.css.api.visitors.issue.PreciseIssue;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-
-import javax.annotation.Nullable;
 
 @Rule(
   key = "import-first",
@@ -44,48 +39,35 @@ import javax.annotation.Nullable;
   tags = {Tags.BUG})
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
-public class ImportFirstCheck extends CssCheck {
+public class ImportFirstCheck extends DoubleDispatchVisitorCheck {
 
-  private Set<AstNode> precedingRules;
-
-  @Override
-  public void init() {
-    subscribeTo(CssGrammar.AT_RULE, CssGrammar.RULESET);
-  }
+  private Set<Tree> precedingRules = new HashSet<>();
 
   @Override
-  public void visitFile(@Nullable AstNode astNode) {
-    precedingRules = new HashSet<>();
-  }
+  public void visitStyleSheet(StyleSheetTree tree) {
+    precedingRules.clear();
 
-  @Override
-  public void visitNode(AstNode astNode) {
-    if (astNode.is(CssGrammar.AT_RULE)) {
-      AtRule atRule = new AtRule(astNode.getFirstChild(CssGrammar.AT_KEYWORD).getFirstChild(CssGrammar.IDENT).getTokenValue());
-      if (atRule.getStandardAtRule() instanceof Import) {
+    super.visitStyleSheet(tree);
+
+    for (StatementTree statementTree : tree.statements()) {
+      if (statementTree instanceof RulesetTree) {
+        precedingRules.add(CheckUtils.rulesetIssueLocation((RulesetTree) statementTree));
+      } else if (((AtRuleTree) statementTree).standardAtRule() instanceof Import) {
         if (!precedingRules.isEmpty()) {
-          createIssue(astNode);
+          createIssue(((AtRuleTree) statementTree).atKeyword());
         }
-      } else if (!(atRule.getStandardAtRule() instanceof Charset)) {
-        precedingRules.add(astNode.getFirstChild(CssGrammar.AT_KEYWORD));
-      }
-    } else {
-      if (astNode.getFirstChild(CssGrammar.SELECTOR) != null) {
-        precedingRules.add(astNode.getFirstChild(CssGrammar.SELECTOR));
-      } else {
-        precedingRules.add(astNode.getFirstChild(CssGrammar.BLOCK).getFirstChild(CssGrammar.OPEN_CURLY_BRACE));
+      } else if (!(((AtRuleTree) statementTree).standardAtRule() instanceof Charset)) {
+        precedingRules.add(statementTree);
       }
     }
   }
 
-  private void createIssue(AstNode atRuleNode) {
-    PreciseIssue issue = addIssue(
-      this,
-      "Move this @import rule before all the other at-rules and style rules.",
-      atRuleNode.getFirstChild(CssGrammar.AT_KEYWORD));
-    for (AstNode ruleNode : precedingRules) {
-      issue.addSecondaryLocation("Preceding rule", ruleNode);
-    }
+  private void createIssue(AtKeywordTree tree) {
+    PreciseIssue issue = addPreciseIssue(
+      tree,
+      "Move this @import rule before all the other at-rules and style rules.");
+
+    precedingRules.stream().forEach(t -> issue.secondary(t, "Preceding rule"));
   }
 
 }

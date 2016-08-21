@@ -15,8 +15,8 @@
   <packaging>pom</packaging>
 
   <name>SonarQube CSS Plugin</name>
-  <description>Parent POM of the SonarQube CSS Plugin</description>
-  <url/>
+  <description>Enables analysis of CSS files in SonarQube</description>
+  <url>https://github.com/SonarQubeCommunity/sonar-css</url>
   <inceptionYear>2013</inceptionYear>
   <organization>
     <name>Tamas Kende and David RACODON</name>
@@ -44,8 +44,7 @@
   </developers>
 
   <modules>
-    <module>css-squid</module>
-    <module>sslr-css-toolkit</module>
+    <module>css-frontend</module>
     <module>css-checks</module>
     <module>sonar-css-plugin</module>
     <module>css-checks-testkit</module>
@@ -70,42 +69,16 @@
     <license.title>SonarQube CSS Plugin</license.title>
     <license.mailto>mailto: kende.tamas@gmail.com and david.racodon@gmail.com</license.mailto>
     <license.owner>Tamas Kende and David RACODON</license.owner>
-
-    <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
-
     <sonar.version>5.6</sonar.version>
     <sslr.version>1.21</sslr.version>
-
     <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
   </properties>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.7.6.201602180812</version>
-        <configuration>
-          <destFile>${sonar.jacoco.reportPath}</destFile>
-          <append>true</append>
-        </configuration>
-        <executions>
-          <execution>
-            <id>agent</id>
-            <goals>
-              <goal>prepare-agent</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
 
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>${project.groupId}</groupId>
-        <artifactId>css-squid</artifactId>
+        <artifactId>css-frontend</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -234,5 +207,37 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.5.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.7.6.201602180812</version>
+        <configuration>
+          <destFile>${sonar.jacoco.reportPath}</destFile>
+          <append>true</append>
+        </configuration>
+        <executions>
+          <execution>
+            <id>agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>

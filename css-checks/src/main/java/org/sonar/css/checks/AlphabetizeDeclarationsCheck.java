@@ -19,20 +19,20 @@
  */
 package org.sonar.css.checks;
 
-import com.sonar.sslr.api.AstNode;
+import com.google.common.collect.ImmutableList;
 
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.Nullable;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.CssCheck;
-import org.sonar.css.issue.PreciseIssue;
-import org.sonar.css.model.Property;
-import org.sonar.css.parser.CssGrammar;
+import org.sonar.plugins.css.api.tree.AtRuleTree;
+import org.sonar.plugins.css.api.tree.PropertyTree;
+import org.sonar.plugins.css.api.tree.RulesetTree;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.visitors.SubscriptionVisitorCheck;
+import org.sonar.plugins.css.api.visitors.issue.PreciseIssue;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 @Rule(
@@ -41,56 +41,51 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   priority = Priority.MINOR,
   tags = {Tags.CONVENTION})
 @SqaleConstantRemediation("2min")
-public class AlphabetizeDeclarationsCheck extends CssCheck {
+public class AlphabetizeDeclarationsCheck extends SubscriptionVisitorCheck {
 
-  private List<Map.Entry<Property, AstNode>> properties = new ArrayList<>();
+  private List<PropertyTree> properties = new ArrayList<>();
 
   @Override
-  public void init() {
-    subscribeTo(CssGrammar.RULESET, CssGrammar.AT_RULE, CssGrammar.DECLARATION);
+  public List<Tree.Kind> nodesToVisit() {
+    return ImmutableList.of(
+      Tree.Kind.RULESET,
+      Tree.Kind.AT_RULE,
+      Tree.Kind.PROPERTY);
   }
 
   @Override
-  public void leaveNode(AstNode astNode) {
-    if (astNode.is(CssGrammar.DECLARATION)) {
-      Map.Entry<Property, AstNode> propertyNodeTuple = new AbstractMap.SimpleEntry<>(
-        new Property(astNode.getFirstChild(CssGrammar.PROPERTY).getTokenValue()),
-        astNode.getFirstChild(CssGrammar.PROPERTY));
-      properties.add(propertyNodeTuple);
-    } else if (astNode.is(CssGrammar.RULESET) || astNode.is(CssGrammar.AT_RULE)) {
-      AstNode firstUnsortedPropertyNode = getFirstUnsortedProperty(properties);
-      if (firstUnsortedPropertyNode != null) {
-        addIssue(astNode, firstUnsortedPropertyNode);
+  public void leaveNode(Tree tree) {
+    if (tree.is(Tree.Kind.PROPERTY)) {
+      properties.add((PropertyTree) tree);
+    } else {
+      PropertyTree firstUnsortedProperty = firstUnsortedProperty(properties);
+      if (firstUnsortedProperty != null) {
+        addIssue(tree, firstUnsortedProperty);
       }
-      properties = new ArrayList<>();
-
+      properties.clear();
     }
   }
 
   @Nullable
   // TODO : check unsorted with Guava? Ordering.natural().onResultOf(
-  private AstNode getFirstUnsortedProperty(List<Map.Entry<Property, AstNode>> propertyNodeTuple) {
-    for (int i = 0; i < propertyNodeTuple.size() - 1; i++) {
-      if (propertyNodeTuple.get(i).getKey().getStandardProperty().getName().compareTo(propertyNodeTuple.get(i + 1).getKey().getStandardProperty().getName()) > 0) {
-        return propertyNodeTuple.get(i + 1).getValue();
+  private PropertyTree firstUnsortedProperty(List<PropertyTree> propertyTrees) {
+    for (int i = 0; i < propertyTrees.size() - 1; i++) {
+      if (propertyTrees.get(i).standardProperty().getName().compareTo(propertyTrees.get(i + 1).standardProperty().getName()) > 0) {
+        return propertyTrees.get(i + 1);
       }
     }
     return null;
   }
 
-  private void addIssue(AstNode astNode, AstNode unsortedPropertyNode) {
-    AstNode primaryIssueLocationNode;
-    if (astNode.is(CssGrammar.RULESET)) {
-      if (astNode.getFirstChild(CssGrammar.SELECTOR) != null) {
-        primaryIssueLocationNode = astNode.getFirstChild(CssGrammar.SELECTOR);
-      } else {
-        primaryIssueLocationNode = astNode.getFirstChild(CssGrammar.BLOCK).getFirstChild(CssGrammar.OPEN_CURLY_BRACE);
-      }
+  private void addIssue(Tree statementTree, PropertyTree propertyTree) {
+    Tree primaryIssueLocation;
+    if (statementTree.is(Tree.Kind.RULESET)) {
+      primaryIssueLocation = CheckUtils.rulesetIssueLocation((RulesetTree) statementTree);
     } else {
-      primaryIssueLocationNode = astNode.getFirstChild(CssGrammar.AT_KEYWORD);
+      primaryIssueLocation = ((AtRuleTree) statementTree).atKeyword();
     }
-    PreciseIssue issue = addIssue(this, "Alphabetically order these rule's properties.", primaryIssueLocationNode);
-    issue.addSecondaryLocation("First unproperly ordered property", unsortedPropertyNode);
+    PreciseIssue issue = addPreciseIssue(primaryIssueLocation, "Alphabetically order these rule's properties.");
+    issue.secondary(propertyTree, "First unproperly ordered property");
   }
 
 }

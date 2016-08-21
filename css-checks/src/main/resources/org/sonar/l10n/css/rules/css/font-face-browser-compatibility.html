@@ -1,6 +1,7 @@
 <p>
     While using the <code>@font-face</code> rule, lots of browser compatibility issues arise. This rules performs some
     checks regarding browser compatibility. The browser support level can be set to either:
+</p>
 <ul>
     <li>Deepest Possible Browser Support (deepest)</li>
     <li>Slightly Deeper Browser Support (deep)</li>
@@ -8,7 +9,8 @@
 </ul>
 
 <h3>Deepest Browser Support (deepest)</h3>
-The following definition supports most of the browsers still in use:
+<p>The following definition supports most of the browsers still in use:</p>
+
 <pre>
 @font-face {
   font-family: 'MyWebFont';
@@ -20,7 +22,8 @@ The following definition supports most of the browsers still in use:
        url('myfont.svg#svgFontName') format('svg');           /* Legacy iOS */
 }
 </pre>
-The rule checks the following:
+
+<p>The rule checks the following:</p>
 <ul>
     <li>At least two <code>src</code> properties.</li>
     <li>The second to last <code>src</code> property only defines an <code>.eot</code> file with no format.</li>
@@ -31,7 +34,7 @@ The rule checks the following:
 </ul>
 
 <h3>Slightly Deeper Browser Support (deep)</h3>
-The following definition is compatible with:
+<p>The following definition is compatible with:</p>
 <table>
     <tr>
         <th>Chrome</th>
@@ -52,6 +55,7 @@ The following definition is compatible with:
         <td>4.3+</td>
     </tr>
 </table>
+
 <pre>
 @font-face {
   font-family: 'MyWebFont';
@@ -60,7 +64,8 @@ The following definition is compatible with:
        url('myfont.ttf') format('truetype');
 }
 </pre>
-The rule checks the last <code>src</code> property as follows:
+
+<p>The rule checks the last <code>src</code> property as follows:</p>
 <ul>
     <li>Defines at least <code>woff2</code>, <code>woff</code> and <code>truetype</code> formats in this order.</li>
     <li>Additional formats can be defined but only after the <code>truetype</code> format. An exception though, an
@@ -68,9 +73,9 @@ The rule checks the last <code>src</code> property as follows:
         a Deepest Browser Support syntax is found, it should not raise any issue.
     </li>
 </ul>
-.
+
 <h3>Practical Level of Browser Support (basic)</h3>
-The following definition is compatible with:
+<p>The following definition is compatible with:</p>
 <table>
     <tr>
         <th>Chrome</th>
@@ -91,6 +96,7 @@ The following definition is compatible with:
         <td>5.1+</td>
     </tr>
 </table>
+
 <pre>
 @font-face {
   font-family: 'MyWebFont';
@@ -98,7 +104,8 @@ The following definition is compatible with:
        url('myfont.woff') format('woff');
 }
 </pre>
-The rule checks the last <code>src</code> property as follows:
+
+<p>The rule checks the last <code>src</code> property as follows:</p>
 <ul>
     <li>Defines at least <code>woff2</code> and <code>woff</code> formats in this order.</li>
     <li>Additional formats can be defined but only after the <code>woff</code> format. An exception though, an

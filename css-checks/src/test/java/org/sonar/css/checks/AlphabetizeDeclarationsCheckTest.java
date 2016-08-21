@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks;
 
-import java.io.File;
-
 import org.junit.Test;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
@@ -28,7 +26,7 @@ public class AlphabetizeDeclarationsCheckTest {
 
   @Test
   public void test() {
-    CssCheckVerifier.verify(new AlphabetizeDeclarationsCheck(), new File("src/test/resources/checks/alphabetizeDeclarations.css"));
+    CssCheckVerifier.verify(new AlphabetizeDeclarationsCheck(), CheckTestUtils.getTestFile("alphabetizeDeclarations.css"));
   }
 
 }

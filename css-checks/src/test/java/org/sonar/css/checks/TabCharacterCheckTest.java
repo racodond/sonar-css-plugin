@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks;
 
-import java.io.File;
-
 import org.junit.Test;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
@@ -30,12 +28,12 @@ public class TabCharacterCheckTest {
 
   @Test
   public void should_find_tab_characters_and_raise_an_issue() {
-    CssCheckVerifier.verify(check, new File("src/test/resources/checks/tabcharacter.css"));
+    CssCheckVerifier.verify(check, CheckTestUtils.getTestFile("tabcharacter.css"));
   }
 
   @Test
   public void should_not_find_tab_characters_and_not_raise_an_issue() {
-    CssCheckVerifier.verify(check, new File("src/test/resources/checks/notabcharacter.css"));
+    CssCheckVerifier.verify(check, CheckTestUtils.getTestFile("notabcharacter.css"));
   }
 
 }

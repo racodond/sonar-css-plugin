@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks;
 
-import java.io.File;
-
 import org.junit.Test;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
@@ -28,7 +26,7 @@ public class EmptyDeclarationCheckTest {
 
   @Test
   public void test() {
-    CssCheckVerifier.verify(new EmptyDeclarationCheck(), new File("src/test/resources/checks/emptyDeclaration.css"));
+    CssCheckVerifier.verify(new EmptyDeclarationCheck(), CheckTestUtils.getTestFile("emptyDeclaration.css"));
   }
 
 }

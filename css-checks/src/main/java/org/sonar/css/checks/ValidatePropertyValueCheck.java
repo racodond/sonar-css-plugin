@@ -19,15 +19,12 @@
  */
 package org.sonar.css.checks;
 
-import com.sonar.sslr.api.AstNode;
-
 import java.text.MessageFormat;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.CssCheck;
-import org.sonar.css.model.Declaration;
-import org.sonar.css.parser.CssGrammar;
+import org.sonar.plugins.css.api.tree.PropertyDeclarationTree;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
@@ -38,24 +35,17 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   tags = {Tags.BUG})
 @ActivatedByDefault
 @SqaleConstantRemediation("10min")
-public class ValidatePropertyValueCheck extends CssCheck {
+public class ValidatePropertyValueCheck extends DoubleDispatchVisitorCheck {
 
   @Override
-  public void init() {
-    subscribeTo(CssGrammar.DECLARATION);
-  }
-
-  @Override
-  public void leaveNode(AstNode declarationNode) {
-    Declaration declaration = new Declaration(declarationNode);
-    if (!declaration.getProperty().isVendorPrefixed() && !declaration.isValid()) {
-      addIssue(
-        this,
+  public void visitPropertyDeclaration(PropertyDeclarationTree tree) {
+    if (!tree.property().isVendorPrefixed() && !tree.isValid()) {
+      addPreciseIssue(
+        tree,
         MessageFormat.format(
           "Update the invalid value of property \"{0}\". Expected format: {1}",
-          declaration.getProperty().getStandardProperty().getName(),
-          declaration.getProperty().getStandardProperty().getValidatorFormat()),
-        declarationNode);
+          tree.property().standardProperty().getName(),
+          tree.property().standardProperty().getValidatorFormat()));
     }
   }
 

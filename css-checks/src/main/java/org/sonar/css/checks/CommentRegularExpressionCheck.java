@@ -19,13 +19,16 @@
  */
 package org.sonar.css.checks;
 
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.plugins.css.api.tree.SyntaxTrivia;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.NoSqale;
 import org.sonar.squidbridge.annotations.RuleTemplate;
-import org.sonar.squidbridge.checks.AbstractCommentRegularExpressionCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "comment-regular-expression",
@@ -33,14 +36,14 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   priority = Priority.MAJOR)
 @RuleTemplate
 @NoSqale
-public class CommentRegularExpressionCheck extends AbstractCommentRegularExpressionCheck<LexerlessGrammar> {
+public class CommentRegularExpressionCheck extends DoubleDispatchVisitorCheck {
 
   private static final String DEFAULT_REGULAR_EXPRESSION = ".*";
   private static final String DEFAULT_MESSAGE = "The regular expression matches this comment.";
 
   @RuleProperty(
     key = "regularExpression",
-    description = "The regular expression",
+    description = "The regular expression. See " + CheckUtils.LINK_TO_JAVA_REGEX_PATTERN_DOC + " for detailed regular expression syntax.",
     defaultValue = DEFAULT_REGULAR_EXPRESSION)
   public String regularExpression = DEFAULT_REGULAR_EXPRESSION;
 
@@ -51,13 +54,25 @@ public class CommentRegularExpressionCheck extends AbstractCommentRegularExpress
   public String message = DEFAULT_MESSAGE;
 
   @Override
-  public String getRegularExpression() {
-    return regularExpression;
+  public void visitComment(SyntaxTrivia trivia) {
+    if (trivia.text().matches(regularExpression)) {
+      addPreciseIssue(trivia, message);
+    }
   }
 
   @Override
-  public String getMessage() {
-    return message;
+  public void validateParameters() {
+    try {
+      Pattern.compile(regularExpression);
+    } catch (PatternSyntaxException exception) {
+      throw new IllegalStateException(paramsErrorMessage(), exception);
+    }
+  }
+
+  private String paramsErrorMessage() {
+    return CheckUtils.paramsErrorMessage(
+      this.getClass(),
+      "regularExpression parameter \"" + regularExpression + "\" is not a valid regular expression.");
   }
 
 }

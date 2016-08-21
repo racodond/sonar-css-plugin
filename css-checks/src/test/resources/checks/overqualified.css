@@ -30,3 +30,5 @@ div.test2 {}
 #abc .test3 {}
 [target=_blank] .test4 {}
 li:hover .test5 {}
+
+table {}

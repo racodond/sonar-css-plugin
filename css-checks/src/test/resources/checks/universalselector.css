@@ -15,3 +15,8 @@
   color: red;
 }
 
+/* Compliant: Universal selector is not key */
+.selected * a[div=abc] {
+  color: red;
+}
+

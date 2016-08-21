@@ -22,8 +22,7 @@ h1 {
   color: green;
 }
 
-/* Noncompliant ![sl=27]! */
-/* Noncompliant ![sl=27]! */
+/* Noncompliant ![sl=+1]! */
 /* todo:
    todo
 */

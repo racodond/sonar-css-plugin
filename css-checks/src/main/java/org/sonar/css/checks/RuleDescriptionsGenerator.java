@@ -171,7 +171,7 @@ public class RuleDescriptionsGenerator {
     StringBuilder description = new StringBuilder();
 
     StandardProperty property;
-    for (StandardCssObject cssObject : StandardCssObjectFactory.getStandardCssObjects(StandardProperty.class, o -> o.hasVendors())) {
+    for (StandardCssObject cssObject : StandardCssObjectFactory.getStandardCssObjects(StandardProperty.class, StandardCssObject::hasVendors)) {
       property = (StandardProperty) cssObject;
       description.append("  <tr>\n").append("    <td nowrap=\"nowrap\">");
       if (!property.getLinks().isEmpty()) {

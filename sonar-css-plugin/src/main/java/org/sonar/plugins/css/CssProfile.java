@@ -30,7 +30,7 @@ public class CssProfile extends ProfileDefinition {
 
   private final RuleFinder ruleFinder;
 
-  public static final String SONAR_WAY_PROFILE_NAME = "SonarQube Way";
+  public static final String SONARQUBE_WAY_PROFILE_NAME = "SonarQube Way";
 
   public CssProfile(RuleFinder ruleFinder) {
     this.ruleFinder = ruleFinder;
@@ -39,6 +39,12 @@ public class CssProfile extends ProfileDefinition {
   @Override
   public RulesProfile createProfile(ValidationMessages messages) {
     AnnotationBasedProfileBuilder annotationBasedProfileBuilder = new AnnotationBasedProfileBuilder(ruleFinder);
-    return annotationBasedProfileBuilder.build(CheckList.REPOSITORY_KEY, SONAR_WAY_PROFILE_NAME, CssLanguage.KEY, CheckList.getChecks(), messages);
+    return annotationBasedProfileBuilder.build(
+      CheckList.REPOSITORY_KEY,
+      SONARQUBE_WAY_PROFILE_NAME,
+      CssLanguage.KEY,
+      CheckList.getChecks(),
+      messages);
   }
+
 }

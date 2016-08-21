@@ -20,15 +20,16 @@
 package org.sonar.css.checks;
 
 import com.google.common.io.Files;
-import com.sonar.sslr.api.AstNode;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.List;
-import javax.annotation.Nullable;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.CssCheck;
+import org.sonar.css.visitors.CharsetAwareVisitor;
+import org.sonar.plugins.css.api.tree.StyleSheetTree;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
@@ -39,22 +40,30 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   tags = {Tags.CONVENTION})
 @ActivatedByDefault
 @SqaleConstantRemediation("2min")
-public class TabCharacterCheck extends CssCheck {
+public class TabCharacterCheck extends DoubleDispatchVisitorCheck implements CharsetAwareVisitor {
+
+  private Charset charset;
 
   @Override
-  public void visitFile(@Nullable AstNode astNode) {
+  public void visitStyleSheet(StyleSheetTree tree) {
     List<String> lines;
     try {
-      lines = Files.readLines(getContext().getFile(), getCharset());
+      lines = Files.readLines(getContext().getFile(), charset);
     } catch (IOException e) {
-      throw new IllegalStateException("Rule tab-character - cannot read file", e);
+      throw new IllegalStateException("Check css:" + this.getClass().getAnnotation(Rule.class).key()
+        + ": Error while reading " + getContext().getFile().getName(), e);
     }
     for (String line : lines) {
       if (line.contains("\t")) {
-        addFileIssue(this, "Replace all tab characters in this file by sequences of white-spaces.");
+        addFileIssue("Replace all tab characters in this file by sequences of whitespaces.");
         break;
       }
     }
+  }
+
+  @Override
+  public void setCharset(Charset charset) {
+    this.charset = charset;
   }
 
 }

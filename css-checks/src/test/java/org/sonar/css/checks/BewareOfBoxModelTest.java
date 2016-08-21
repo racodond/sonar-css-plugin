@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks;
 
-import java.io.File;
-
 import org.junit.Test;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
@@ -28,7 +26,7 @@ public class BewareOfBoxModelTest {
 
   @Test
   public void test() {
-    CssCheckVerifier.verify(new BewareOfBoxModel(), new File("src/test/resources/checks/boxSizing.css"));
+    CssCheckVerifier.verify(new BewareOfBoxModelCheck(), CheckTestUtils.getTestFile("boxSizing.css"));
   }
 
 }

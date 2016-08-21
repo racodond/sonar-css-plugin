@@ -21,7 +21,6 @@ package org.sonar.plugins.css;
 
 import org.junit.Test;
 import org.sonar.api.config.Settings;
-import org.sonar.plugins.css.CssLanguage;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -36,18 +35,18 @@ public class CssLanguageTest {
   }
 
   @Test
-  public void default_suffixes() {
+  public void default_file_suffix() {
     CssLanguage css = new CssLanguage(mock(Settings.class));
     assertThat(css.getFileSuffixes()).containsOnly("css");
   }
 
   @Test
-  public void custom_suffixes() {
+  public void custom_file_suffixes() {
     Settings settings = new Settings();
-    settings.setProperty("sonar.css.file.suffixes", ".foo,bar");
+    settings.setProperty("sonar.css.file.suffixes", "foo,bar");
 
     CssLanguage css = new CssLanguage(settings);
-    assertThat(css.getFileSuffixes()).containsOnly(".foo", "bar");
+    assertThat(css.getFileSuffixes()).containsOnly("foo", "bar");
   }
 
 }

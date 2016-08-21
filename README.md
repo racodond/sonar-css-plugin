@@ -4,21 +4,43 @@ SonarQube CSS Plugin
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/tc9bonqa7v0x4scb/branch/master?svg=true)](https://ci.appveyor.com/project/racodond/sonar-css/branch/master)
 [![Quality Gate status](https://sonarqube.com/api/badges/gate?key=org.codehaus.sonar-plugins.css%3Acss)](https://sonarqube.com/overview?id=org.codehaus.sonar-plugins.css%3Acss)
 
-Plugin versions and compatibility with SonarQube versions:
-http://docs.sonarqube.org/display/PLUG/Plugin+Version+Matrix
 
 ## Description
 This plugin enables code QA analysis of CSS files within [SonarQube](http://www.sonarqube.org):
 
- * Computes metrics: lines of code, number of CSS rules, complexity, etc.
- * Validates your CSS code, [browse the list of implemented validators](http://htmlpreview.github.io/?https://github.com/SonarCommunity/sonar-css/blob/master/doc/validators.html) 
+ * Computes metrics: lines of code, number of rules, complexity, etc.
+ * Validates your CSS code
  * Performs more than [50 checks](#available-checks)
  * Provides the ability to write your own checks
+
  
 ## Usage
 1. [Download and install](http://docs.sonarqube.org/display/SONAR/Setup+and+Upgrade) SonarQube
 2. Install the CSS plugin either by a [direct download](https://github.com/SonarQubeCommunity/sonar-css/releases) or through the [update center](http://docs.sonarqube.org/display/SONAR/Update+Center).
-3. Install your [favorite analyzer](http://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code#AnalyzingSourceCode-RunningAnalysis) (SonarQube Scanner, Maven, Ant, etc.) and analyze your code.
+3. Install your [favorite analyzer](http://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code#AnalyzingSourceCode-RunningAnalysis) (SonarQube Scanner, Maven, Ant, etc.) and analyze your code. Note that starting at version 2.0, Java 8 is required to run an analysis.
+
+Plugin versions and compatibility with SonarQube versions: http://docs.sonarqube.org/display/PLUG/Plugin+Version+Matrix
+
+
+## Metrics
+
+### Functions
+Number of rules.
+
+### Complexity
+The following elements increment the complexity by one:
+
+* Class selector
+* ID selector
+* Attribute selector
+* Type selector
+* Pseudo selector
+* Keyframes selector
+* At-rule
+
+### Complexity/function
+It computes the complexity/rule, meaning the average number of selectors per rule. It gives a measurement on how specific the selectors are.
+
 
 ## Available Checks
 
@@ -84,21 +106,11 @@ This plugin enables code QA analysis of CSS files within [SonarQube](http://www.
 Regular expression on comment
 Regular expression on property
 
-## Metrics
-### Functions
-Number of rules.
 
-### Complexity
-The following elements increment the complexity by one:
+## Custom Checks
 
-* Class selector
-* ID selector
-* Attribute selector
-* Type selector
-* Pseudo-class selector
-* At-rule
+You're thinking of new valuable rules? Version 2.1 or greater provides an API to write your own custom checks.
+A sample plugin with detailed explanations is available [here](https://github.com/racodond/sonar-css-custom-rules-plugin).
+If your custom rules may benefit the community, feel free to create a pull request in order to make the rule available in the CSS plugin.
 
-### Complexity/function
-It computes the complexity/rule, meaning the average number of selectors per rule.
-
-It gives a measurement on how specific the selectors are.
+You're thinking of new rules that may benefit the community but don't have the time or the skills to write them? Feel free to create an [issue](https://github.com/SonarQubeCommunity/sonar-css/issues) for your rules to be taken under consideration.

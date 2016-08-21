@@ -19,11 +19,11 @@
  */
 package org.sonar.css.checks;
 
-import com.sonar.sslr.api.AstNode;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.CssCheck;
-import org.sonar.css.parser.CssGrammar;
+import org.sonar.plugins.css.api.tree.ImportantTree;
+import org.sonar.plugins.css.api.tree.ValueTree;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
@@ -34,21 +34,16 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   tags = {Tags.BUG})
 @ActivatedByDefault
 @SqaleConstantRemediation("5min")
-public class ImportantPositionCheck extends CssCheck {
+public class ImportantPositionCheck extends DoubleDispatchVisitorCheck {
 
   @Override
-  public void init() {
-    subscribeTo(CssGrammar.IMPORTANT);
-  }
-
-  @Override
-  public void leaveNode(AstNode astNode) {
-    if (astNode.getNextSibling() != null) {
-      addIssue(
-        this,
-        "Move the \"!important\" annotation to the end of the declaration, just before the semi-colon.",
-        astNode);
+  public void visitValue(ValueTree tree) {
+    for (int i = 0; i < tree.valueElements().size() - 1; i++) {
+      if (tree.valueElements().get(i) instanceof ImportantTree) {
+        addPreciseIssue(tree.valueElements().get(i), "Move the \"!important\" annotation to the end of the declaration.");
+      }
     }
+    super.visitValue(tree);
   }
 
 }

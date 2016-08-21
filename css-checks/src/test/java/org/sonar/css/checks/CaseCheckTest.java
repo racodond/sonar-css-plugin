@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks;
 
-import java.io.File;
-
 import org.junit.Test;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
@@ -28,7 +26,7 @@ public class CaseCheckTest {
 
   @Test
   public void test() {
-    CssCheckVerifier.verify(new CaseCheck(), new File("src/test/resources/checks/case.css"));
+    CssCheckVerifier.verify(new CaseCheck(), CheckTestUtils.getTestFile("case.css"));
   }
 
 }

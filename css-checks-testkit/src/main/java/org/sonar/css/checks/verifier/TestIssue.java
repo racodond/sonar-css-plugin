@@ -19,11 +19,12 @@
  */
 package org.sonar.css.checks.verifier;
 
+import com.google.common.primitives.Ints;
+
 import java.util.List;
+import javax.annotation.Nullable;
 
-import org.sonar.css.issue.Issue;
-
-class TestIssue implements Issue {
+class TestIssue {
 
   private String message;
   private int line;
@@ -33,13 +34,13 @@ class TestIssue implements Issue {
   private Integer endLine = null;
   private List<Integer> secondaryLines = null;
 
-  public TestIssue(int line) {
+  private TestIssue(@Nullable String message, int line) {
+    this.message = message;
     this.line = line;
   }
 
-  public TestIssue line(int line) {
-    this.line = line;
-    return this;
+  public static TestIssue create(@Nullable String message, int lineNumber) {
+    return new TestIssue(message, lineNumber);
   }
 
   public TestIssue message(String message) {
@@ -62,9 +63,18 @@ class TestIssue implements Issue {
     return this;
   }
 
+  public TestIssue startLine(int startLine) {
+    this.line = startLine;
+    return this;
+  }
+
   public TestIssue endLine(int endLine) {
     this.endLine = endLine;
     return this;
+  }
+
+  public TestIssue secondary(int... lines) {
+    return secondary(Ints.asList(lines));
   }
 
   public TestIssue secondary(List<Integer> secondaryLines) {

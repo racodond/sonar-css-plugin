@@ -20,11 +20,14 @@
 package org.sonar.css.checks;
 
 import com.google.common.base.Charsets;
-import com.sonar.sslr.api.AstNode;
+
+import java.nio.charset.Charset;
+
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.CssCheck;
-import org.sonar.css.parser.CssGrammar;
+import org.sonar.css.visitors.CharsetAwareVisitor;
+import org.sonar.plugins.css.api.tree.StyleSheetTree;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
@@ -35,18 +38,20 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   tags = {Tags.PITFALL})
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
-public class BOMCheck extends CssCheck {
+public class BOMCheck extends DoubleDispatchVisitorCheck implements CharsetAwareVisitor {
+
+  private Charset charset;
 
   @Override
-  public void init() {
-    if (Charsets.UTF_8.equals(getCharset())) {
-      subscribeTo(CssGrammar.BOM);
+  public void visitStyleSheet(StyleSheetTree tree) {
+    if (Charsets.UTF_8.equals(charset) && tree.hasByteOrderMark()) {
+      addFileIssue("Remove the Byte Order Mark (BOM).");
     }
   }
 
   @Override
-  public void visitNode(AstNode node) {
-    addFileIssue(this, "Remove the Byte Order Mark (BOM).");
+  public void setCharset(Charset charset) {
+    this.charset = charset;
   }
 
 }

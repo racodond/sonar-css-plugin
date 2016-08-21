@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks;
 
-import java.io.File;
-
 import org.junit.Test;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
@@ -28,7 +26,7 @@ public class TrailingWhitespaceCheckTest {
 
   @Test
   public void test() {
-    CssCheckVerifier.verify(new TrailingWhitespaceCheck(), new File("src/test/resources/checks/trailingWhitespace.css"));
+    CssCheckVerifier.verify(new TrailingWhitespaceCheck(), CheckTestUtils.getTestFile("trailingWhitespace.css"));
   }
 
 }

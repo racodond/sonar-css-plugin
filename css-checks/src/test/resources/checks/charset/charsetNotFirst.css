@@ -1,1 +1,1 @@
- @charset "UTF-8"; /* Noncompliant ![sc=2;ec=10;el=+0]! !{Move the @charset rule to the beginning of the style sheet.}! */
+ @charset "UTF-8"; /* Noncompliant ![sc=2;ec=10;el=+0]! !{Move the @charset rule to the very beginning of the style sheet.}! */

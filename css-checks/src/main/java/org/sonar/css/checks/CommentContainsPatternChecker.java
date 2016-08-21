@@ -19,38 +19,29 @@
  */
 package org.sonar.css.checks;
 
-import com.sonar.sslr.api.Token;
-import com.sonar.sslr.api.Trivia;
 import org.apache.commons.lang.StringUtils;
-import org.sonar.css.CssCheck;
+import org.sonar.plugins.css.api.tree.SyntaxTrivia;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 
-public class CommentContainsPatternChecker {
-  private final CssCheck check;
+public class CommentContainsPatternChecker extends DoubleDispatchVisitorCheck {
+
   private final String pattern;
   private final String message;
 
-  public CommentContainsPatternChecker(CssCheck check, String pattern, String message) {
-    this.check = check;
+  public CommentContainsPatternChecker(String pattern, String message) {
     this.pattern = pattern;
     this.message = message;
   }
 
-  public void visitToken(Token token) {
-    for (Trivia trivia : token.getTrivia()) {
-      String comment = trivia.getToken().getOriginalValue();
-      if (StringUtils.containsIgnoreCase(comment, pattern)) {
-        String[] lines = comment.split("\r\n?|\n");
-
-        for (String line : lines) {
-          if (StringUtils.containsIgnoreCase(line, pattern) && !isLetterAround(line, pattern)) {
-            check.addLineIssue(check, message, trivia.getToken().getLine());
-          }
-        }
-      }
+  @Override
+  public void visitComment(SyntaxTrivia trivia) {
+    String comment = trivia.text();
+    if (StringUtils.containsIgnoreCase(comment, pattern) && !isLetterAround(comment, pattern)) {
+      addPreciseIssue(trivia, message);
     }
   }
 
-  private boolean isLetterAround(String line, String pattern) {
+  private static boolean isLetterAround(String line, String pattern) {
     int start = StringUtils.indexOfIgnoreCase(line, pattern);
     int end = start + pattern.length();
 

@@ -19,15 +19,9 @@
  */
 package org.sonar.css.checks;
 
-import com.sonar.sslr.api.RecognitionException;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.CssCheck;
-import org.sonar.squidbridge.AstScannerExceptionHandler;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
@@ -38,18 +32,5 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   tags = {Tags.BUG})
 @ActivatedByDefault
 @SqaleConstantRemediation("30min")
-public class ParsingErrorCheck extends CssCheck implements AstScannerExceptionHandler {
-
-  @Override
-  public void processException(Exception e) {
-    StringWriter exception = new StringWriter();
-    e.printStackTrace(new PrintWriter(exception)); // NOSONAR
-    addFileIssue(this, exception.toString());
-  }
-
-  @Override
-  public void processRecognitionException(RecognitionException e) {
-    addLineIssue(this, e.getMessage(), e.getLine());
-  }
-
+public class ParsingErrorCheck extends DoubleDispatchVisitorCheck {
 }

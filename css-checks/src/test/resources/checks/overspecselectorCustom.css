@@ -1,0 +1,29 @@
+.mybox {
+    color: red !important;
+}
+
+ul l p a {
+}
+
+ul:hover a.id #class a {
+}
+
+ul > div + a +li {
+}
+
+/* Noncompliant ![sl=+1;sc=1;ec=2;el=+2;secondary=+0,+0,+0,+1,+1,+2]! !{Simplify this over-specified selector. Maximum allowed depth: 5. Actual depth: 6}! */
+ul:hover #class a
+l p
+a {
+}
+
+/* Noncompliant ![sl=+1;sc=1;ec=4;el=+1;secondary=+0,+0,+0,+0,+1,+1]! !{Simplify this over-specified selector. Maximum allowed depth: 5. Actual depth: 6}! */
+ul:hover #class a l
+p a {
+}
+
+ul > div +li {
+}
+
+.button.class,.link.class,.button.class2:active,.link.class3:active {
+}

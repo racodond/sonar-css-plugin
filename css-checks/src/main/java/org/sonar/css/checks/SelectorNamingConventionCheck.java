@@ -20,15 +20,18 @@
 package org.sonar.css.checks;
 
 import com.google.common.annotations.VisibleForTesting;
-import com.sonar.sslr.api.AstNode;
 
 import java.text.MessageFormat;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
-import org.sonar.css.CssCheck;
-import org.sonar.css.parser.CssGrammar;
+import org.sonar.plugins.css.api.tree.ClassSelectorTree;
+import org.sonar.plugins.css.api.tree.IdSelectorTree;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
@@ -39,32 +42,57 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   tags = {Tags.CONVENTION})
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
-public class SelectorNamingConventionCheck extends CssCheck {
+public class SelectorNamingConventionCheck extends DoubleDispatchVisitorCheck {
 
   private static final String DEFAULT_FORMAT = "^[a-z][-a-z0-9]*$";
   @RuleProperty(
     key = "Format",
-    description = "Regular expression used to check the selector names against",
-    defaultValue = "" + DEFAULT_FORMAT)
+    description = "Regular expression used to check the selector names against. See " + CheckUtils.LINK_TO_JAVA_REGEX_PATTERN_DOC + " for detailed regular expression syntax.",
+    defaultValue = DEFAULT_FORMAT)
   private String format = DEFAULT_FORMAT;
 
   @Override
-  public void init() {
-    subscribeTo(CssGrammar.ID_SELECTOR, CssGrammar.CLASS_SELECTOR);
+  public void visitClassSelector(ClassSelectorTree tree) {
+    if (!tree.className().text().matches(format)) {
+      addIssue(tree.className(), tree.className().text());
+    }
+    super.visitClassSelector(tree);
   }
 
   @Override
-  public void leaveNode(AstNode selectorNode) {
-    if (!selectorNode.getFirstChild(CssGrammar.identNoWS).getTokenValue().matches(format)) {
-      addIssue(
-        this,
-        MessageFormat.format("Rename selector \"{0}\" to match the regular expression: {1}", selectorNode.getFirstChild(CssGrammar.identNoWS).getTokenValue(), format),
-        selectorNode.getFirstChild(CssGrammar.identNoWS));
+  public void visitIdSelector(IdSelectorTree tree) {
+    if (!tree.text().matches(format)) {
+      addIssue(tree.identifier(), tree.text());
     }
+    super.visitIdSelector(tree);
   }
 
   @VisibleForTesting
   public void setFormat(String format) {
     this.format = format;
   }
+
+  @Override
+  public void validateParameters() {
+    try {
+      Pattern.compile(format);
+    } catch (PatternSyntaxException exception) {
+      throw new IllegalStateException(paramsErrorMessage(), exception);
+    }
+  }
+
+  private String paramsErrorMessage() {
+    return CheckUtils.paramsErrorMessage(
+      this.getClass(),
+      "format parameter \"" + format + "\" is not a valid regular expression.");
+  }
+
+  private void addIssue(Tree tree, String value) {
+    addPreciseIssue(
+      tree,
+      MessageFormat.format(
+        "Rename selector \"{0}\" to match the regular expression: {1}",
+        value, format));
+  }
+
 }

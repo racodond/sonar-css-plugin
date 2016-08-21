@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks;
 
-import java.io.File;
-
 import org.junit.Test;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
@@ -28,7 +26,7 @@ public class ImportantPositionCheckTest {
 
   @Test
   public void test() {
-    CssCheckVerifier.verify(new ImportantPositionCheck(), new File("src/test/resources/checks/importantPosition.css"));
+    CssCheckVerifier.verify(new ImportantPositionCheck(), CheckTestUtils.getTestFile("importantPosition.css"));
   }
 
 }

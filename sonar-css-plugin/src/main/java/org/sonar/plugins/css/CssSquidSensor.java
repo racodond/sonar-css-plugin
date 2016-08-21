@@ -19,53 +19,79 @@
  */
 package org.sonar.plugins.css;
 
+import com.google.common.base.Throwables;
 import com.google.common.collect.Lists;
+import com.sonar.sslr.api.RecognitionException;
+import com.sonar.sslr.api.typed.ActionParser;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.io.File;
+import java.io.InterruptedIOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import javax.annotation.Nullable;
 
 import org.sonar.api.batch.fs.FilePredicate;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.InputFile.Type;
 import org.sonar.api.batch.rule.CheckFactory;
-import org.sonar.api.batch.rule.Checks;
 import org.sonar.api.batch.sensor.Sensor;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
+import org.sonar.api.batch.sensor.issue.NewIssue;
+import org.sonar.api.batch.sensor.issue.NewIssueLocation;
 import org.sonar.api.issue.NoSonarFilter;
-import org.sonar.api.measures.CoreMetrics;
-import org.sonar.css.CssAstScanner;
-import org.sonar.css.CssConfiguration;
-import org.sonar.css.api.CssMetric;
+import org.sonar.api.rule.RuleKey;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 import org.sonar.css.checks.CheckList;
-import org.sonar.css.issue.Issue;
-import org.sonar.css.issue.PreciseIssue;
-import org.sonar.squidbridge.AstScanner;
-import org.sonar.squidbridge.SquidAstVisitor;
-import org.sonar.squidbridge.api.SourceCode;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.squidbridge.indexer.QueryByType;
-import org.sonar.sslr.parser.LexerlessGrammar;
+import org.sonar.css.checks.ParsingErrorCheck;
+import org.sonar.css.parser.CssParserBuilder;
+import org.sonar.css.tree.impl.CssTree;
+import org.sonar.css.visitors.CharsetAwareVisitor;
+import org.sonar.css.visitors.CssVisitorContext;
+import org.sonar.css.visitors.cpd.CpdVisitor;
+import org.sonar.css.visitors.highlighter.SyntaxHighlighterVisitor;
+import org.sonar.css.visitors.metrics.MetricsVisitor;
+import org.sonar.plugins.css.api.CssCheck;
+import org.sonar.plugins.css.api.CustomCssRulesDefinition;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.visitors.TreeVisitor;
+import org.sonar.plugins.css.api.visitors.issue.Issue;
+import org.sonar.squidbridge.ProgressReport;
+import org.sonar.squidbridge.api.AnalysisException;
 
 public class CssSquidSensor implements Sensor {
 
-  private final CheckFactory checkFactory;
+  private static final Logger LOG = Loggers.get(CssSquidSensor.class);
+
   private final FileSystem fileSystem;
+  private final CssChecks checks;
+  private final ActionParser<Tree> parser;
   private final FilePredicate mainFilePredicate;
   private final NoSonarFilter noSonarFilter;
-
-  private SensorContext sensorContext;
+  private IssueSaver issueSaver;
+  private RuleKey parsingErrorRuleKey = null;
 
   public CssSquidSensor(FileSystem fileSystem, CheckFactory checkFactory, NoSonarFilter noSonarFilter) {
-    this.checkFactory = checkFactory;
+    this(fileSystem, checkFactory, noSonarFilter, null);
+  }
+
+  public CssSquidSensor(FileSystem fileSystem, CheckFactory checkFactory, NoSonarFilter noSonarFilter, @Nullable CustomCssRulesDefinition[] customRulesDefinition) {
     this.fileSystem = fileSystem;
-    this.noSonarFilter = noSonarFilter;
+
     this.mainFilePredicate = fileSystem.predicates().and(
       fileSystem.predicates().hasType(InputFile.Type.MAIN),
       fileSystem.predicates().hasLanguage(CssLanguage.KEY));
+
+    this.parser = CssParserBuilder.createParser(fileSystem.encoding());
+
+    this.checks = CssChecks.createCssChecks(checkFactory)
+      .addChecks(CheckList.REPOSITORY_KEY, CheckList.getChecks())
+      .addCustomChecks(customRulesDefinition);
+
+    this.noSonarFilter = noSonarFilter;
   }
 
   @Override
@@ -77,79 +103,109 @@ public class CssSquidSensor implements Sensor {
   }
 
   @Override
-  public void execute(SensorContext context) {
-    this.sensorContext = context;
+  public void execute(SensorContext sensorContext) {
+    List<TreeVisitor> treeVisitors = Lists.newArrayList();
+    treeVisitors.addAll(checks.visitorChecks());
+    treeVisitors.add(new SyntaxHighlighterVisitor(sensorContext));
+    treeVisitors.add(new CpdVisitor(sensorContext));
+    treeVisitors.add(new MetricsVisitor(sensorContext, noSonarFilter));
 
-    CssConfiguration cssConfiguration = new CssConfiguration(fileSystem.encoding());
+    setParsingErrorCheckIfActivated(treeVisitors);
 
-    Checks<SquidCheck> checks = checkFactory.<SquidCheck>create(CheckList.REPOSITORY_KEY).addAnnotatedChecks((Iterable) CheckList.getChecks());
-    Collection<SquidCheck> checkList = checks.all();
+    ProgressReport progressReport = new ProgressReport("Report about progress of CSS analyzer", TimeUnit.SECONDS.toMillis(10));
+    progressReport.start(Lists.newArrayList(fileSystem.files(mainFilePredicate)));
 
-    Set<Issue> issues = new HashSet<>();
+    issueSaver = new IssueSaver(sensorContext, checks);
+    List<Issue> issues = new ArrayList<>();
 
-    AstScanner<LexerlessGrammar> scanner = CssAstScanner.create(sensorContext, cssConfiguration, issues, checkList.toArray(new SquidAstVisitor[checkList.size()]));
-    scanner.scanFiles(Lists.newArrayList(fileSystem.files(mainFilePredicate)));
-
-    Collection<SourceCode> squidSourceFiles = scanner.getIndex().search(new QueryByType(SourceFile.class));
-    save(squidSourceFiles, checks, issues);
-  }
-
-  private void save(Collection<SourceCode> squidSourceFiles, Checks<SquidCheck> checks, Set<Issue> issues) {
-    for (SourceCode squidSourceFile : squidSourceFiles) {
-      SourceFile squidFile = (SourceFile) squidSourceFile;
-      InputFile sonarFile = fileSystem.inputFile(fileSystem.predicates().hasAbsolutePath(squidFile.getKey()));
-      noSonarFilter.noSonarInFile(sonarFile, squidFile.getNoSonarTagLines());
-      saveMeasures(sonarFile, squidFile);
-    }
-    saveIssues(checks, issues);
-  }
-
-  private void saveMeasures(InputFile sonarFile, SourceFile squidFile) {
-    sensorContext.<Integer>newMeasure()
-      .on(sonarFile)
-      .forMetric(CoreMetrics.NCLOC)
-      .withValue(squidFile.getInt(CssMetric.LINES_OF_CODE))
-      .save();
-
-    sensorContext.<Integer>newMeasure()
-      .on(sonarFile)
-      .forMetric(CoreMetrics.STATEMENTS)
-      .withValue(squidFile.getInt(CssMetric.STATEMENTS))
-      .save();
-
-    sensorContext.<Integer>newMeasure()
-      .on(sonarFile)
-      .forMetric(CoreMetrics.COMMENT_LINES)
-      .withValue(squidFile.getInt(CssMetric.COMMENT_LINES))
-      .save();
-
-    sensorContext.<Integer>newMeasure()
-      .on(sonarFile)
-      .forMetric(CoreMetrics.FUNCTIONS)
-      .withValue(squidFile.getInt(CssMetric.FUNCTIONS))
-      .save();
-
-    sensorContext.<Integer>newMeasure()
-      .on(sonarFile)
-      .forMetric(CoreMetrics.COMPLEXITY)
-      .withValue(squidFile.getInt(CssMetric.COMPLEXITY))
-      .save();
-
-    sensorContext.<Integer>newMeasure()
-      .on(sonarFile)
-      .forMetric(CoreMetrics.COMPLEXITY_IN_FUNCTIONS)
-      .withValue(squidFile.getInt(CssMetric.COMPLEXITY_IN_FUNCTIONS))
-      .save();
-  }
-
-  private void saveIssues(Checks<SquidCheck> checks, Set<Issue> issues) {
-    // TODO: Try and remove TestIssue to avoid this ugly if
-    for (Issue issue : issues) {
-      if (issue instanceof PreciseIssue) {
-        ((PreciseIssue) issue).save(checks, sensorContext);
-      } else {
-        throw new IllegalStateException("Unsupported type of issue to be saved.");
+    boolean success = false;
+    try {
+      for (InputFile inputFile : fileSystem.inputFiles(mainFilePredicate)) {
+        issues.addAll(analyzeFile(sensorContext, inputFile, treeVisitors));
+        progressReport.nextFile();
       }
+      saveSingleFileIssues(issues);
+      success = true;
+    } finally {
+      stopProgressReport(progressReport, success);
+    }
+  }
+
+  private List<Issue> analyzeFile(SensorContext sensorContext, InputFile inputFile, List<TreeVisitor> visitors) {
+    try {
+      CssTree cssTree = (CssTree) parser.parse(new File(inputFile.absolutePath()));
+      return scanFile(inputFile, cssTree, visitors);
+
+    } catch (RecognitionException e) {
+      checkInterrupted(e);
+      LOG.error("Unable to parse file: " + inputFile.absolutePath());
+      LOG.error(e.getMessage());
+      processRecognitionException(e, sensorContext, inputFile);
+
+    } catch (Exception e) {
+      checkInterrupted(e);
+      throw new AnalysisException("Unable to analyze file: " + inputFile.absolutePath(), e);
+    }
+    return new ArrayList<>();
+  }
+
+  private List<Issue> scanFile(InputFile inputFile, CssTree tree, List<TreeVisitor> visitors) {
+    CssVisitorContext context = new CssVisitorContext(tree, inputFile.file());
+    List<Issue> issues = new ArrayList<>();
+    for (TreeVisitor visitor : visitors) {
+      if (visitor instanceof CharsetAwareVisitor) {
+        ((CharsetAwareVisitor) visitor).setCharset(fileSystem.encoding());
+      }
+      if (visitor instanceof CssCheck) {
+        issues.addAll(((CssCheck) visitor).scanFile(context));
+      } else {
+        visitor.scanTree(context);
+      }
+    }
+    return issues;
+  }
+
+  private void saveSingleFileIssues(List<Issue> issues) {
+    issues.forEach(issueSaver::saveIssue);
+  }
+
+  private void processRecognitionException(RecognitionException e, SensorContext sensorContext, InputFile inputFile) {
+    if (parsingErrorRuleKey != null) {
+      NewIssue newIssue = sensorContext.newIssue();
+
+      NewIssueLocation primaryLocation = newIssue.newLocation()
+        .message(e.getMessage())
+        .on(inputFile)
+        .at(inputFile.selectLine(e.getLine()));
+
+      newIssue
+        .forRule(parsingErrorRuleKey)
+        .at(primaryLocation)
+        .save();
+    }
+  }
+
+  private void setParsingErrorCheckIfActivated(List<TreeVisitor> treeVisitors) {
+    for (TreeVisitor check : treeVisitors) {
+      if (check instanceof ParsingErrorCheck) {
+        parsingErrorRuleKey = checks.ruleKeyFor((CssCheck) check);
+        break;
+      }
+    }
+  }
+
+  private static void stopProgressReport(ProgressReport progressReport, boolean success) {
+    if (success) {
+      progressReport.stop();
+    } else {
+      progressReport.cancel();
+    }
+  }
+
+  private static void checkInterrupted(Exception e) {
+    Throwable cause = Throwables.getRootCause(e);
+    if (cause instanceof InterruptedException || cause instanceof InterruptedIOException) {
+      throw new AnalysisException("Analysis cancelled", e);
     }
   }
 

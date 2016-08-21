@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks;
 
-import java.io.File;
-
 import org.junit.Test;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
@@ -28,7 +26,7 @@ public class SemicolonDeclarationCheckTest {
 
   @Test
   public void test() {
-    CssCheckVerifier.verify(new SemicolonDeclarationCheck(), new File("src/test/resources/checks/semicolonDeclaration.css"));
+    CssCheckVerifier.verify(new SemicolonDeclarationCheck(), CheckTestUtils.getTestFile("semicolonDeclaration.css"));
   }
 
 }

@@ -24,14 +24,33 @@ import java.io.File;
 import org.junit.Test;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
+import static org.fest.assertions.Assertions.assertThat;
+
 public class PropertyRegularExpressionCheckTest {
 
+  private static final File FILE = CheckTestUtils.getTestFile("commentRegularExpression.css");
+  private final PropertyRegularExpressionCheck check = new PropertyRegularExpressionCheck();
+
   @Test
-  public void test() {
-    PropertyRegularExpressionCheck check = new PropertyRegularExpressionCheck();
+  public void should_match_some_properties_and_raise_issues() {
     check.setRegularExpression("(?i).*animation.*");
     check.setMessage("Remove this \"animation\" property...");
-    CssCheckVerifier.verify(check, new File("src/test/resources/checks/propertyRegularExpression.css"));
+
+    CssCheckVerifier.verify(check, FILE);
+  }
+
+  @Test
+  public void should_throw_an_illegal_state_exception_as_the_regular_expression_parameter_is_not_valid() {
+    try {
+      check.setRegularExpression("(");
+      check.setMessage("blabla");
+
+      CssCheckVerifier.issues(check, FILE).noMore();
+
+    } catch (IllegalStateException e) {
+      assertThat(e.getMessage()).isEqualTo("Check css:property-regular-expression (Regular expression on property): "
+        + "regularExpression parameter \"(\" is not a valid regular expression.");
+    }
   }
 
 }

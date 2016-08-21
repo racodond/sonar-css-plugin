@@ -11,12 +11,14 @@ ul:hover a.id #class a {  /* Noncompliant ![sc=1;ec=23;el=+0;secondary=+0,+0,+0,
 ul > div + a +li {  /* Noncompliant ![sc=1;ec=17;el=+0;secondary=+0,+0,+0,+0]! !{Simplify this over-specified selector. Maximum allowed depth: 3. Actual depth: 4}! */
 }
 
-ul:hover #class a /* Noncompliant ![sc=1;ec=2;el=+2;secondary=+0,+0,+0,+1,+1,+2]! !{Simplify this over-specified selector. Maximum allowed depth: 3. Actual depth: 6}! */
+/* Noncompliant ![sl=+1;sc=1;ec=2;el=+2;secondary=+0,+0,+0,+1,+1,+2]! !{Simplify this over-specified selector. Maximum allowed depth: 3. Actual depth: 6}! */
+ul:hover #class a
 l p
 a {
 }
 
-ul:hover #class a l /* Noncompliant ![sc=1;ec=4;el=+1;secondary=+0,+0,+0,+0,+1,+1]! !{Simplify this over-specified selector. Maximum allowed depth: 3. Actual depth: 6}! */
+/* Noncompliant ![sl=+1;sc=1;ec=4;el=+1;secondary=+0,+0,+0,+0,+1,+1]! !{Simplify this over-specified selector. Maximum allowed depth: 3. Actual depth: 6}! */
+ul:hover #class a l
 p a {
 }
 

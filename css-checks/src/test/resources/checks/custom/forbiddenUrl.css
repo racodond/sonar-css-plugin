@@ -1,0 +1,12 @@
+.mybox {
+  color: green;
+  background-image: url(paper.gif); /* Noncompliant ![sc=25;ec=34]! !{Remove this usage of the forbidden "paper.gif" URL.}! */
+
+}
+
+.mybox2 {
+  background-color: blue;
+  color: red;
+  background-image: url("paper.gif"); /* Noncompliant ![sc=25;ec=36]! !{Remove this usage of the forbidden "paper.gif" URL.}! */
+  background-image: url("blabla.gif");
+}

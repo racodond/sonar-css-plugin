@@ -19,14 +19,10 @@
  */
 package org.sonar.css.checks;
 
-import com.sonar.sslr.api.AstNode;
-
-import java.util.List;
-
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.CssCheck;
-import org.sonar.css.parser.CssGrammar;
+import org.sonar.plugins.css.api.tree.DeclarationsTree;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
@@ -37,29 +33,15 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   tags = {Tags.PITFALL})
 @SqaleConstantRemediation("2min")
 @ActivatedByDefault
-public class EmptyDeclarationCheck extends CssCheck {
-
-  private static final String MESSAGE = "Remove this empty declaration.";
+public class EmptyDeclarationCheck extends DoubleDispatchVisitorCheck {
 
   @Override
-  public void init() {
-    subscribeTo(CssGrammar.SUP_DECLARATION);
+  public void visitDeclarations(DeclarationsTree tree) {
+    tree.emptyDeclarations()
+      .stream()
+      .forEach(d -> addPreciseIssue(d, "Remove this empty declaration."));
+
+    super.visitDeclarations(tree);
   }
 
-  @Override
-  public void leaveNode(AstNode astNode) {
-    if (astNode.getChildren() != null && !astNode.getChildren().isEmpty()) {
-      List<AstNode> node = astNode.getChildren();
-      if (CssGrammar.SEMICOLON.equals(node.get(0).getType())) {
-        addIssue(this, MESSAGE, node.get(0));
-      }
-      for (int i = 1; i < astNode.getChildren().size(); i++) {
-        if (CssGrammar.SEMICOLON.equals(node.get(i).getType())
-          && !CssGrammar.DECLARATION.equals(node.get(i - 1).getType())
-          && !CssGrammar.VARIABLE_DECLARATION.equals(node.get(i - 1).getType())) {
-          addIssue(this, MESSAGE, node.get(i));
-        }
-      }
-    }
-  }
 }

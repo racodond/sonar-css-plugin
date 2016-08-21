@@ -20,12 +20,11 @@
 package org.sonar.css.checks;
 
 import com.google.common.base.Preconditions;
-import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.api.GenericTokenType;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.CssCheck;
-import org.sonar.css.parser.CssGrammar;
+import org.sonar.css.tree.impl.CssTree;
+import org.sonar.plugins.css.api.tree.*;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
@@ -36,119 +35,139 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   tags = {Tags.FORMAT})
 @SqaleConstantRemediation("2min")
 @ActivatedByDefault
-public class FormattingCheck extends CssCheck {
+public class FormattingCheck extends DoubleDispatchVisitorCheck {
 
   @Override
-  public void init() {
-    subscribeTo(
-      CssGrammar.IMPORTANT,
-      CssGrammar.DECLARATION,
-      CssGrammar.VARIABLE_DECLARATION,
-      CssGrammar.OPEN_CURLY_BRACE,
-      CssGrammar.CLOSE_CURLY_BRACE);
-  }
-
-  @Override
-  public void leaveNode(AstNode node) {
-    checkBlock(node);
-    checkDeclaration(node);
-    checkImportant(node);
-  }
-
-  private void checkBlock(AstNode node) {
-    checkOpeningCurlyBraceLastTokenOnTheLine(node);
-    checkClosingCurlyBraceOnlyTokenOnTheLine(node);
-  }
-
-  private void checkDeclaration(AstNode node) {
-    if (node.is(CssGrammar.DECLARATION) || node.is(CssGrammar.VARIABLE_DECLARATION)) {
-      checkPropertyAndValueOnSameLine(node);
-      checkWhitespacesInDeclaration(node);
+  public void visitImportant(ImportantTree tree) {
+    if (tree.exclamationMark().endColumn() != tree.importantKeyword().column()) {
+      addPreciseIssue(tree, "Remove the whitespaces between \"!\" and \"important\".");
     }
+    super.visitImportant(tree);
   }
 
-  private void checkImportant(AstNode node) {
-    if (node.is(CssGrammar.IMPORTANT)) {
-      for (int i = 0; i < node.getChildren().size(); i++) {
-        if ("important".equals(node.getChildren().get(i).getTokenValue()) && !"!".equals(node.getChildren().get(i - 1).getTokenValue())) {
-          addIssue(this, "Remove the whitespaces between \"!\" and \"important\".", node);
-          break;
+  @Override
+  public void visitPropertyDeclaration(PropertyDeclarationTree tree) {
+    if (!isOnSameLine(tree.property(), tree.colon(), tree.value())) {
+      addPreciseIssue(tree, "Move the property, colon and value to the same line.");
+    }
+
+    if (isOnSameLine(tree.property(), tree.colon()) && nbWhitespacesBetween(tree.property(), tree.colon()) > 0) {
+      addPreciseIssue(tree.colon(), "Remove the whitespaces between the property and the colon.");
+    }
+
+    if (isOnSameLine(tree.colon(), tree.value())) {
+      if (nbWhitespacesBetween(tree.colon(), tree.value()) == 0) {
+        addPreciseIssue(tree.colon(), "Add one whitespace between the colon and the value.");
+
+      } else if (nbWhitespacesBetween(tree.colon(), tree.value()) > 1) {
+        addPreciseIssue(tree.colon(), "Leave only one whitespace between the colon and the value.");
+      }
+    }
+
+    super.visitPropertyDeclaration(tree);
+  }
+
+  @Override
+  public void visitVariableDeclaration(VariableDeclarationTree tree) {
+    if (!isOnSameLine(tree.variable(), tree.colon(), tree.value())) {
+      addPreciseIssue(tree, "Move the variable, colon and value to the same line.");
+    }
+
+    if (isOnSameLine(tree.variable(), tree.colon()) && nbWhitespacesBetween(tree.variable(), tree.colon()) > 0) {
+      addPreciseIssue(tree.colon(), "Remove the whitespaces between the variable and the colon.");
+    }
+
+    if (isOnSameLine(tree.colon(), tree.value())) {
+      if (nbWhitespacesBetween(tree.colon(), tree.value()) == 0) {
+        addPreciseIssue(tree.colon(), "Add one whitespace between the colon and the value.");
+
+      } else if (nbWhitespacesBetween(tree.colon(), tree.value()) > 1) {
+        addPreciseIssue(tree.colon(), "Leave only one whitespace between the colon and the value.");
+      }
+    }
+
+    super.visitVariableDeclaration(tree);
+  }
+
+  @Override
+  public void visitRuleset(RulesetTree tree) {
+
+    if (tree.block().declarations() != null && isOnSameLine(tree.block().openCurlyBrace(), tree.block().declarations())) {
+      addPreciseIssue(tree.block().openCurlyBrace(), "Move the code following the opening curly brace to the next line.");
+    }
+
+    if (tree.selectors() != null && !isOnSameLine(tree.selectors().lastSelector(), tree.block().openCurlyBrace())) {
+      addPreciseIssue(tree.block().openCurlyBrace(), "Move the opening curly brace to the previous line.");
+    }
+
+    if (tree.block().declarations() != null && isOnSameLine(tree.block().declarations(), tree.block().closeCurlyBrace())) {
+      addPreciseIssue(tree.block().closeCurlyBrace(), "Move the closing curly brace to the next line.");
+    }
+
+    super.visitRuleset(tree);
+  }
+
+  @Override
+  public void visitAtRule(AtRuleTree tree) {
+    if (tree.block() != null) {
+
+      if (!isOnSameLine(tree.atKeyword(), tree.block().openCurlyBrace())) {
+        addPreciseIssue(tree.block().openCurlyBrace(), "Move the opening curly brace to the previous line.");
+      }
+
+      Tree content = null;
+      if (tree.block().declarations() != null) {
+        content = tree.block().declarations();
+      } else if (!tree.block().statements().isEmpty()) {
+        content = tree.block().statements().get(0);
+      }
+
+      if (content != null) {
+        if (isOnSameLine(tree.block().openCurlyBrace(), content)) {
+          addPreciseIssue(tree.block().openCurlyBrace(), "Move the code following the opening curly brace to the next line.");
+        }
+        if (isOnSameLine(content, tree.block().closeCurlyBrace())) {
+          addPreciseIssue(tree.block().closeCurlyBrace(), "Move the closing curly brace to the next line.");
         }
       }
     }
+
+    super.visitAtRule(tree);
   }
 
-  private void checkPropertyAndValueOnSameLine(AstNode node) {
-    if (node.is(CssGrammar.DECLARATION) && !isOnSameLine(node.getFirstChild(CssGrammar.PROPERTY), node.getFirstChild(CssGrammar.COLON), node.getFirstChild(CssGrammar.VALUE))) {
-      addIssue(this, "Move the property, colon and value to the same line.", node);
+  private boolean isOnSameLine(Tree... trees) {
+    Preconditions.checkArgument(trees.length > 1);
+    int lineRef;
+    if (trees[0] instanceof CssTree) {
+      lineRef = ((CssTree) trees[0]).getFirstToken().line();
+    } else {
+      lineRef = ((SyntaxToken) trees[0]).line();
     }
-    if (node.is(CssGrammar.VARIABLE_DECLARATION)
-      && !isOnSameLine(node.getFirstChild(CssGrammar.VARIABLE), node.getFirstChild(CssGrammar.COLON), node.getFirstChild(CssGrammar.VALUE))) {
-      addIssue(this, "Move the variable, colon and value to the same line.", node);
-    }
-  }
-
-  private void checkWhitespacesInDeclaration(AstNode node) {
-    if (node.is(CssGrammar.DECLARATION) && isOnSameLine(node.getFirstChild(CssGrammar.PROPERTY), node.getFirstChild(CssGrammar.COLON))
-      && getNbWhitespacesBetween(node.getFirstChild(CssGrammar.PROPERTY), node.getFirstChild(CssGrammar.COLON)) > 0) {
-      addIssue(this, "Remove the whitespaces between the property and the colon.", node);
-    }
-    if (node.is(CssGrammar.VARIABLE_DECLARATION) && isOnSameLine(node.getFirstChild(CssGrammar.VARIABLE), node.getFirstChild(CssGrammar.COLON))
-      && getNbWhitespacesBetween(node.getFirstChild(CssGrammar.VARIABLE).getFirstChild(GenericTokenType.IDENTIFIER), node.getFirstChild(CssGrammar.COLON)) > 0) {
-      addIssue(this, "Remove the whitespaces between the variable and the colon.", node);
-    }
-    if (isOnSameLine(node.getFirstChild(CssGrammar.COLON), node.getFirstChild(CssGrammar.VALUE))
-      && getNbWhitespacesBetween(node.getFirstChild(CssGrammar.COLON), node.getFirstChild(CssGrammar.VALUE)) == 0) {
-      addIssue(this, "Add one whitespace between the colon and the value.", node);
-    }
-    if (isOnSameLine(node.getFirstChild(CssGrammar.COLON), node.getFirstChild(CssGrammar.VALUE))
-      && getNbWhitespacesBetween(node.getFirstChild(CssGrammar.COLON), node.getFirstChild(CssGrammar.VALUE)) > 1) {
-      addIssue(this, "Leave only one whitespace between the colon and the value.", node);
-    }
-  }
-
-  private void checkOpeningCurlyBraceLastTokenOnTheLine(AstNode node) {
-    if (node.is(CssGrammar.OPEN_CURLY_BRACE)) {
-      if (isOnSameLine(node, node.getNextAstNode())) {
-        addIssue(this, "Move the code following the opening curly brace to the next line.", node);
-      }
-      if (!isRuleSetWithoutSelector(node) && !isOnSameLine(node, node.getPreviousAstNode().getLastChild())) {
-        addIssue(this, "Move the opening curly brace to the previous line.", node);
-      }
-    }
-  }
-
-  private void checkClosingCurlyBraceOnlyTokenOnTheLine(AstNode node) {
-    if (node.is(CssGrammar.CLOSE_CURLY_BRACE)) {
-      if (isOnSameLine(node, node.getPreviousAstNode())) {
-        addIssue(this, "Move the closing curly brace to the next line.", node);
-      }
-      if (!node.getNextAstNode().is(GenericTokenType.EOF) && isOnSameLine(node, node.getNextAstNode())) {
-        addIssue(this, "Move the code following the closing curly brace to the next line.", node);
-      }
-    }
-  }
-
-  private boolean isOnSameLine(AstNode... nodes) {
-    Preconditions.checkArgument(nodes.length > 1);
-    int lineRef = nodes[0].getTokenLine();
-    for (AstNode node : nodes) {
-      if (node.getTokenLine() != lineRef) {
+    for (Tree tree : trees) {
+      if (tree instanceof CssTree && ((CssTree) tree).getFirstToken().line() != lineRef
+        || tree instanceof SyntaxToken && ((SyntaxToken) tree).line() != lineRef) {
         return false;
       }
     }
     return true;
   }
 
-  private int getNbWhitespacesBetween(AstNode node1, AstNode node2) {
-    return node2.getToken().getColumn() - node1.getToken().getColumn() - node1.getTokenValue().length();
-  }
+  private int nbWhitespacesBetween(Tree tree1, Tree tree2) {
+    int endColumnTree1;
+    if (tree1 instanceof CssTree) {
+      endColumnTree1 = ((CssTree) tree1).getLastToken().endColumn();
+    } else {
+      endColumnTree1 = ((SyntaxToken) tree1).endColumn();
+    }
 
-  private boolean isRuleSetWithoutSelector(AstNode openCurlyBraceNode) {
-    return openCurlyBraceNode.getParent().getType().equals(CssGrammar.BLOCK)
-      && openCurlyBraceNode.getParent().getParent() != null
-      && openCurlyBraceNode.getParent().getParent().getType().equals(CssGrammar.RULESET)
-      && openCurlyBraceNode.getParent().getParent().getFirstChild(CssGrammar.SELECTOR) == null;
+    int startColumnTree2;
+    if (tree2 instanceof CssTree) {
+      startColumnTree2 = ((CssTree) tree2).getFirstToken().column();
+    } else {
+      startColumnTree2 = ((SyntaxToken) tree2).column();
+    }
+
+    return startColumnTree2 - endColumnTree1;
   }
 
 }

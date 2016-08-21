@@ -21,137 +21,300 @@ package org.sonar.css.checks.verifier;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Function;
+import com.google.common.base.Splitter;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Ordering;
 
 import java.io.File;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 
-import org.sonar.css.CssAstScanner;
-import org.sonar.css.CssCheck;
-import org.sonar.css.CssConfiguration;
-import org.sonar.css.issue.Issue;
-import org.sonar.css.issue.PreciseIssue;
-import org.sonar.css.issue.PreciseIssueLocation;
+import org.sonar.css.parser.CssParserBuilder;
+import org.sonar.css.tree.impl.CssTree;
+import org.sonar.css.visitors.CharsetAwareVisitor;
+import org.sonar.css.visitors.CssVisitorContext;
+import org.sonar.plugins.css.api.CssCheck;
+import org.sonar.plugins.css.api.tree.SyntaxToken;
+import org.sonar.plugins.css.api.tree.SyntaxTrivia;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.visitors.SubscriptionVisitorCheck;
+import org.sonar.plugins.css.api.visitors.issue.*;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
-public class CssCheckVerifier {
+/**
+ * To unit test checks.
+ */
+public class CssCheckVerifier extends SubscriptionVisitorCheck {
 
-  private CssCheckVerifier() {
+  private final List<TestIssue> expectedIssues = new ArrayList<>();
+
+  /**
+   * Check issues
+   * @param check Check to test
+   * @param file File to test
+   *
+   * Example:
+   * <pre>
+   * CssCheckVerifier.issues(new MyCheck(), myFile, Charsets.UTF_8))
+   *    .next().atLine(2).withMessage("This is message for line 2.")
+   *    .next().atLine(3).withMessage("This is message for line 3.").withCost(2.)
+   *    .next().atLine(8)
+   *    .noMore();
+   * </pre>
+   */
+  public static CheckMessagesVerifier issues(CssCheck check, File file) {
+    return issues(check, file, Charsets.UTF_8);
   }
 
+  /**
+   * See {@link CssCheckVerifier#issues(CssCheck, File)}
+   * @param charset Charset of the file to test.
+   */
+  public static CheckMessagesVerifier issues(CssCheck check, File file, Charset charset) {
+    if (check instanceof CharsetAwareVisitor) {
+      ((CharsetAwareVisitor) check).setCharset(charset);
+    }
+    return CheckMessagesVerifier.verify(TreeCheckTest.getIssues(file.getAbsolutePath(), check, charset));
+  }
+
+  /**
+   * To unit tests checks. Expected issues should be provided as comments in the source file.
+   * Expected issue details should be provided on the line of the actual issue.
+   * For example:
+   * <pre>
+   * color: green; /* Noncompliant !{Error message for the issue on this line}!
+   *
+   * /* Noncompliant ![sc=2;ec=6;secondary=+2,+4]! !{Error message}!
+   * ...
+   * </pre>
+   *
+   * How to write these comments:
+   * <ul>
+   *   <li>Put a comment starting with "Noncompliant" if you expect an issue on the line.</li>
+   *   <li>Optional - In ![...]! provide the precise issue location <code>sl, sc, ec, el</code> keywords respectively for start line, start column, end column and end line. <code>sl=+1</code> by default.</li>
+   *   <li>Optional - In ![...]! provide secondary locations with the <code>secondary</code> keyword.</li>
+   *   <li>Optional - In ![...]! provide expected effort to fix (cost) with the <code>effortToFix</code> keyword.</li>
+   *   <li>Optional - In <code>!{MESSAGE}!</code> provide the expected message.</li>
+   *   <li>To specify the line you can use relative location by putting <code>+</code> or <code>-</code>.</li>
+   *   <li>Note that the order matters: Noncompliant => Parameters => Error message</li>
+   * </ul>
+   *
+   * Example of call:
+   * <pre>
+   * CssCheckVerifier.verify(new MyCheck(), myFile));
+   * </pre>
+   */
   public static void verify(CssCheck check, File file) {
-    verify(check, file, new CssConfiguration(Charsets.UTF_8));
+    verify(check, file, Charsets.UTF_8);
   }
 
-  public static void verify(CssCheck check, File file, CssConfiguration configuration) {
-    CssAstScanner.scanSingleFileWithCustomConfiguration(file, null, configuration, check);
-    Iterator<Issue> actualIssues = getActualIssues(check);
+  /**
+   * See {@link CssCheckVerifier#verify(CssCheck, File)}
+   * @param charset Charset of the file to test.
+   */
+  public static void verify(CssCheck check, File file, Charset charset) {
+    CssTree tree = (CssTree) CssParserBuilder.createParser(charset).parse(file);
+    CssVisitorContext context = new CssVisitorContext(tree, file);
 
-    TestIssueCheck testIssueCheck = new TestIssueCheck();
-    CssAstScanner.scanSingleFileWithCustomConfiguration(file, null, configuration, testIssueCheck);
-    List<TestIssue> expectedIssues = getExpectedIssues(testIssueCheck);
+    CssCheckVerifier checkVerifier = new CssCheckVerifier();
+    checkVerifier.scanFile(context);
+
+    List<TestIssue> expectedIssues = checkVerifier.expectedIssues
+      .stream()
+      .sorted((i1, i2) -> Integer.compare(i1.line(), i2.line()))
+      .collect(Collectors.toList());
+
+    if (check instanceof CharsetAwareVisitor) {
+      ((CharsetAwareVisitor) check).setCharset(charset);
+    }
+    Iterator<Issue> actualIssues = getActualIssues(check, context);
 
     for (TestIssue expected : expectedIssues) {
       if (actualIssues.hasNext()) {
-        verifyIssue(expected, actualIssues.next(), file);
+        verifyIssue(expected, actualIssues.next());
       } else {
-        throw new AssertionError(fullMessage("Missing issue at line " + expected.line(), file));
+        throw new AssertionError("Missing issue at line " + expected.line());
       }
     }
 
     if (actualIssues.hasNext()) {
       Issue issue = actualIssues.next();
-      throw new AssertionError(fullMessage("Unexpected issue at line " + line(issue) + ": \"" + message(issue) + "\"", file));
+      throw new AssertionError("Unexpected issue at line " + line(issue) + ": \"" + message(issue) + "\"");
     }
   }
 
-  private static List<TestIssue> getExpectedIssues(TestIssueCheck check) {
-    Set<TestIssue> issues = check.getTestIssues();
-    return Ordering.natural().onResultOf(new IssueToLine()).sortedCopy(issues);
-  }
-
-  private static Iterator<Issue> getActualIssues(CssCheck check) {
-    Set<Issue> issues = check.getIssues();
+  private static Iterator<Issue> getActualIssues(CssCheck check, CssVisitorContext context) {
+    List<Issue> issues = check.scanFile(context);
     List<Issue> sortedIssues = Ordering.natural().onResultOf(new IssueToLine()).sortedCopy(issues);
     return sortedIssues.iterator();
   }
 
-  private static void verifyIssue(TestIssue expected, Issue actual, File file) {
+  private static void verifyIssue(TestIssue expected, Issue actual) {
     if (line(actual) > expected.line()) {
-      fail(fullMessage("Missing issue at line " + expected.line(), file));
+      fail("Missing issue at line " + expected.line());
     }
     if (line(actual) < expected.line()) {
-      fail(fullMessage("Unexpected issue at line " + line(actual) + ": \"" + message(actual) + "\"", file));
+      fail("Unexpected issue at line " + line(actual) + ": \"" + message(actual) + "\"");
     }
     if (expected.message() != null) {
-      assertThat(message(actual)).as(fullMessage("Bad message at line " + expected.line(), file)).isEqualTo(expected.message());
+      assertThat(message(actual)).as("Bad message at line " + expected.line()).isEqualTo(expected.message());
     }
     if (expected.effortToFix() != null) {
-      assertThat(((PreciseIssue) actual).getEffortToFix()).as(fullMessage("Bad effortToFix at line " + expected.line(), file)).isEqualTo(expected.effortToFix());
+      assertThat(actual.cost()).as("Bad effortToFix at line " + expected.line()).isEqualTo(expected.effortToFix());
     }
     if (expected.startColumn() != null) {
-      assertThat(((PreciseIssue) actual).getPrimaryLocation().getStartColumn() + 1).as(fullMessage("Bad start column at line " + expected.line(), file))
-        .isEqualTo(expected.startColumn());
+      assertThat(((PreciseIssue) actual).primaryLocation().startLineOffset() + 1).as("Bad start column at line " + expected.line()).isEqualTo(expected.startColumn());
     }
     if (expected.endColumn() != null) {
-      assertThat(((PreciseIssue) actual).getPrimaryLocation().getEndColumn() + 1).as(fullMessage("Bad end column at line " + expected.line(), file))
-        .isEqualTo(expected.endColumn());
+      assertThat(((PreciseIssue) actual).primaryLocation().endLineOffset() + 1).as("Bad end column at line " + expected.line()).isEqualTo(expected.endColumn());
     }
     if (expected.endLine() != null) {
-      assertThat(((PreciseIssue) actual).getPrimaryLocation().getEndLine()).as(fullMessage("Bad end line at line " + expected.line(), file)).isEqualTo(expected.endLine());
+      assertThat(((PreciseIssue) actual).primaryLocation().endLine()).as("Bad end line at line " + expected.line()).isEqualTo(expected.endLine());
     }
     if (expected.secondaryLines() != null) {
-      assertThat(secondary(actual)).as(fullMessage("Bad secondary locations at line " + expected.line(), file)).isEqualTo(expected.secondaryLines());
+      assertThat(secondary(actual)).as("Bad secondary locations at line " + expected.line()).isEqualTo(expected.secondaryLines());
     }
+  }
+
+  @Override
+  public List<Tree.Kind> nodesToVisit() {
+    return ImmutableList.of(Tree.Kind.TOKEN);
+  }
+
+  @Override
+  public void visitNode(Tree tree) {
+    SyntaxToken token = (SyntaxToken) tree;
+    for (SyntaxTrivia trivia : token.trivias()) {
+
+      String text = trivia.text().substring(3).trim();
+      String marker = "Noncompliant";
+
+      if (text.startsWith(marker)) {
+        TestIssue issue = issue(null, trivia.line());
+        String paramsAndMessage = text.substring(marker.length()).trim();
+        if (paramsAndMessage.startsWith("![")) {
+          int endIndex = paramsAndMessage.indexOf("]!");
+          addParams(issue, paramsAndMessage.substring(2, endIndex));
+          paramsAndMessage = paramsAndMessage.substring(endIndex + 2).trim();
+        }
+        if (paramsAndMessage.startsWith("!{")) {
+          int endIndex = paramsAndMessage.indexOf("}!");
+          String message = paramsAndMessage.substring(2, endIndex);
+          issue.message(message);
+        }
+        expectedIssues.add(issue);
+      }
+    }
+  }
+
+  private static void addParams(TestIssue issue, String params) {
+    for (String param : Splitter.on(';').split(params)) {
+      int equalIndex = param.indexOf('=');
+      if (equalIndex == -1) {
+        throw new IllegalStateException("Invalid param at line 1: " + param);
+      }
+      String name = param.substring(0, equalIndex);
+      String value = param.substring(equalIndex + 1);
+
+      if ("effortToFix".equalsIgnoreCase(name)) {
+        issue.effortToFix(Integer.valueOf(value));
+
+      } else if ("sc".equalsIgnoreCase(name)) {
+        issue.startColumn(Integer.valueOf(value));
+
+      } else if ("sl".equalsIgnoreCase(name)) {
+        issue.startLine(lineValue(issue.line(), value));
+
+      } else if ("ec".equalsIgnoreCase(name)) {
+        issue.endColumn(Integer.valueOf(value));
+
+      } else if ("el".equalsIgnoreCase(name)) {
+        issue.endLine(lineValue(issue.line(), value));
+
+      } else if ("secondary".equalsIgnoreCase(name)) {
+        addSecondaryLines(issue, value);
+
+      } else {
+        throw new IllegalStateException("Invalid param at line 1: " + name);
+      }
+    }
+  }
+
+  private static void addSecondaryLines(TestIssue issue, String value) {
+    List<Integer> secondaryLines = new ArrayList<>();
+    if (!"".equals(value)) {
+      for (String secondary : Splitter.on(',').split(value)) {
+        secondaryLines.add(lineValue(issue.line(), secondary));
+      }
+    }
+    issue.secondary(secondaryLines);
+  }
+
+  private static int lineValue(int baseLine, String shift) {
+    if (shift.startsWith("+")) {
+      return baseLine + Integer.valueOf(shift.substring(1));
+    }
+    if (shift.startsWith("-")) {
+      return baseLine - Integer.valueOf(shift.substring(1));
+    }
+    return Integer.valueOf(shift);
+  }
+
+  private static TestIssue issue(@Nullable String message, int lineNumber) {
+    return TestIssue.create(message, lineNumber);
   }
 
   private static class IssueToLine implements Function<Issue, Integer> {
     @Override
-    public Integer apply(@Nullable Issue issue) {
+    public Integer apply(Issue issue) {
       return line(issue);
     }
   }
 
   private static int line(Issue issue) {
-    if (issue instanceof TestIssue) {
-      return ((TestIssue) issue).line();
-    } else if (issue instanceof PreciseIssue) {
-      return ((PreciseIssue) issue).getPrimaryLocation().getStartLine();
+    if (issue instanceof PreciseIssue) {
+      return ((PreciseIssue) issue).primaryLocation().startLine();
+    } else if (issue instanceof FileIssue) {
+      return 0;
+    } else if (issue instanceof LineIssue) {
+      return ((LineIssue) issue).line();
     } else {
-      throw new IllegalStateException("Unsupported type of issue.");
+      throw new IllegalStateException("Unknown type of issue.");
     }
   }
 
   private static String message(Issue issue) {
-    if (issue instanceof TestIssue) {
-      return ((TestIssue) issue).message();
-    } else if (issue instanceof PreciseIssue) {
-      return ((PreciseIssue) issue).getPrimaryLocation().getMessage();
+    if (issue instanceof PreciseIssue) {
+      return ((PreciseIssue) issue).primaryLocation().message();
+    } else if (issue instanceof FileIssue) {
+      return ((FileIssue) issue).message();
+    } else if (issue instanceof LineIssue) {
+      return ((LineIssue) issue).message();
     } else {
-      throw new IllegalStateException("Unsupported type of issue.");
+      throw new IllegalStateException("Unknown type of issue.");
     }
   }
 
   private static List<Integer> secondary(Issue issue) {
     List<Integer> result = new ArrayList<>();
+
     if (issue instanceof PreciseIssue) {
-      for (PreciseIssueLocation issueLocation : ((PreciseIssue) issue).getSecondaryLocations()) {
-        result.add(issueLocation.getStartLine());
-      }
-    } else {
-      throw new IllegalStateException("Unsupported type of issue.");
+      result.addAll(((PreciseIssue) issue).secondaryLocations().stream()
+        .map(IssueLocation::startLine)
+        .collect(Collectors.toList()));
+    } else if (issue instanceof FileIssue) {
+      result.addAll(((FileIssue) issue).secondaryLocations().stream()
+        .map(IssueLocation::startLine)
+        .collect(Collectors.toList()));
     }
     return Ordering.natural().sortedCopy(result);
-  }
-
-  private static String fullMessage(String message, File file) {
-    return message + " on file " + file.getPath();
   }
 
 }
