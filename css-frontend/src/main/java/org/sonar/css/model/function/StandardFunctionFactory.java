@@ -20,28 +20,147 @@
 package org.sonar.css.model.function;
 
 import com.google.common.collect.ImmutableSet;
-import com.google.common.reflect.ClassPath;
 
-import java.io.IOException;
 import java.util.*;
 
-import org.sonar.css.model.atrule.standard.Annotation;
+import org.sonar.css.model.function.standard.*;
 
 public class StandardFunctionFactory {
+
+  private static final Set<Class> ALL_FUNCTION_CLASSES = ImmutableSet.of(
+    Alpha.class,
+    Annotation.class,
+    Attr.class,
+    Basicimage.class,
+    Blendtrans.class,
+    Blur.class,
+    Brightness.class,
+    Calc.class,
+    CharacterVariant.class,
+    Chroma.class,
+    Circle.class,
+    ColorStop.class,
+    Compositor.class,
+    ConicGradient.class,
+    Contrast.class,
+    Counter.class,
+    Counters.class,
+    CrossFade.class,
+    CubicBezier.class,
+    Current.class,
+    Dir.class,
+    Domain.class,
+    Drop.class,
+    DropShadow.class,
+    Ease.class,
+    EaseIn.class,
+    EaseInOut.class,
+    EaseOut.class,
+    Element.class,
+    Ellipse.class,
+    Emboss.class,
+    Engrave.class,
+    FitContent.class,
+    Fliph.class,
+    Flipv.class,
+    Format.class,
+    From.class,
+    Glow.class,
+    Gray.class,
+    Grayscale.class,
+    Has.class,
+    Hsl.class,
+    Hsla.class,
+    HueRotate.class,
+    Icmfilter.class,
+    Image.class,
+    ImageSet.class,
+    Inset.class,
+    Invert.class,
+    Lang.class,
+    Light.class,
+    Linear.class,
+    LinearGradient.class,
+    Local.class,
+    MaskFilter.class,
+    Matches.class,
+    Matrix.class,
+    Matrix3d.class,
+    Max.class,
+    Min.class,
+    Minmax.class,
+    Motionblur.class,
+    Not.class,
+    NthChild.class,
+    NthColumn.class,
+    NthLastChild.class,
+    NthLastColumn.class,
+    NthLastOfType.class,
+    NthOfType.class,
+    Opacity.class,
+    Ornaments.class,
+    Perspective.class,
+    Polygon.class,
+    RadialGradient.class,
+    Rect.class,
+    Redirect.class,
+    Regexp.class,
+    RepeatingConicGradient.class,
+    RepeatingLinearGradient.class,
+    RepeatingRadialGradient.class,
+    Revealtrans.class,
+    Rgb.class,
+    Rgba.class,
+    Rotate.class,
+    Rotate3d.class,
+    Rotatex.class,
+    Rotatey.class,
+    Rotatez.class,
+    Running.class,
+    Saturate.class,
+    Scale.class,
+    Scale3d.class,
+    Scalex.class,
+    Scaley.class,
+    Scalez.class,
+    Sepia.class,
+    Shadow.class,
+    Skew.class,
+    Skewx.class,
+    Skewy.class,
+    Snapinterval.class,
+    Snaplist.class,
+    StepEnd.class,
+    Steps.class,
+    StepStart.class,
+    Styleset.class,
+    Stylistic.class,
+    Supports.class,
+    Swash.class,
+    Symbols.class,
+    To.class,
+    Toggle.class,
+    Translate.class,
+    Translate3d.class,
+    Translatex.class,
+    Translatey.class,
+    Translatez.class,
+    Url.class,
+    UrlPrefix.class,
+    Var.class,
+    Wave.class,
+    Xray.class);
 
   private static final Map<String, StandardFunction> ALL = new HashMap<>();
 
   static {
     try {
-      ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(Annotation.class.getClassLoader()).getTopLevelClasses("org.sonar.css.model.function.standard");
       StandardFunction standardFunction;
-      for (ClassPath.ClassInfo classInfo : classInfos) {
-        if (!"org.sonar.css.model.function.standard.package-info".equals(classInfo.getName())) {
-          standardFunction = (StandardFunction) Class.forName(classInfo.getName()).newInstance();
-          ALL.put(standardFunction.getName(), standardFunction);
-        }
+      for (Class clazz : ALL_FUNCTION_CLASSES) {
+        standardFunction = (StandardFunction) clazz.newInstance();
+        ALL.put(standardFunction.getName(), standardFunction);
       }
-    } catch (ClassNotFoundException | IOException | InstantiationException | IllegalAccessException e) {
+    } catch (InstantiationException | IllegalAccessException e) {
       throw new IllegalStateException("CSS functions full list cannot be created.", e);
     }
   }

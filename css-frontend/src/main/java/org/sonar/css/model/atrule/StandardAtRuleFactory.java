@@ -20,28 +20,44 @@
 package org.sonar.css.model.atrule;
 
 import com.google.common.collect.ImmutableSet;
-import com.google.common.reflect.ClassPath;
 
-import java.io.IOException;
 import java.util.*;
 
-import org.sonar.css.model.atrule.standard.Annotation;
+import org.sonar.css.model.atrule.standard.*;
 
 public class StandardAtRuleFactory {
+
+  private static final Set<Class> ALL_AT_RULE_CLASSES = ImmutableSet.of(
+    Annotation.class,
+    CharacterVariant.class,
+    Charset.class,
+    CounterStyle.class,
+    CustomMedia.class,
+    Document.class,
+    FontFace.class,
+    FontFeatureValues.class,
+    Import.class,
+    Keyframes.class,
+    Media.class,
+    Namespace.class,
+    Ornaments.class,
+    Page.class,
+    Styleset.class,
+    Stylistic.class,
+    Supports.class,
+    Swash.class,
+    Viewport.class);
 
   private static final Map<String, StandardAtRule> ALL = new HashMap<>();
 
   static {
     try {
-      ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(Annotation.class.getClassLoader()).getTopLevelClasses("org.sonar.css.model.atrule.standard");
       StandardAtRule standardAtRule;
-      for (ClassPath.ClassInfo classInfo : classInfos) {
-        if (!"org.sonar.css.model.atrule.standard.package-info".equals(classInfo.getName())) {
-          standardAtRule = (StandardAtRule) Class.forName(classInfo.getName()).newInstance();
-          ALL.put(standardAtRule.getName(), standardAtRule);
-        }
+      for (Class clazz : ALL_AT_RULE_CLASSES) {
+        standardAtRule = (StandardAtRule) clazz.newInstance();
+        ALL.put(standardAtRule.getName(), standardAtRule);
       }
-    } catch (ClassNotFoundException | IOException | InstantiationException | IllegalAccessException e) {
+    } catch (InstantiationException | IllegalAccessException e) {
       throw new IllegalStateException("CSS at-rules full list cannot be created.", e);
     }
   }
