@@ -39,6 +39,7 @@ public final class CheckList {
       AlphabetizeDeclarationsCheck.class,
       BOMCheck.class,
       BewareOfBoxModelCheck.class,
+      CaseInsensitiveFlagCheck.class,
       CaseCheck.class,
       CharsetFirstCheck.class,
       CommentRegularExpressionCheck.class,
