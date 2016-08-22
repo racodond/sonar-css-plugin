@@ -70,11 +70,13 @@ public class NumberOfRulesPerSheetCheck extends DoubleDispatchVisitorCheck {
   @Override
   public void visitAtRule(AtRuleTree tree) {
     ruleTrees.add(tree);
+    super.visitAtRule(tree);
   }
 
   @Override
   public void visitRuleset(RulesetTree tree) {
     ruleTrees.add(tree);
+    super.visitRuleset(tree);
   }
 
   private void addIssue() {

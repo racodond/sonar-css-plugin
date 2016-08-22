@@ -59,6 +59,7 @@ public class TrailingWhitespaceCheck extends DoubleDispatchVisitorCheck implemen
         addLineIssue(i + 1, "Remove the useless trailing whitespaces at the end of this line.");
       }
     }
+    super.visitStyleSheet(tree);
   }
 
   @Override

@@ -50,8 +50,8 @@ public class InliningFontFileCheck extends DoubleDispatchVisitorCheck {
   @Override
   public void visitAtRule(AtRuleTree tree) {
     if (tree.standardAtRule() instanceof FontFace
-        && tree.block() != null
-        && tree.block().declarations() != null) {
+      && tree.block() != null
+      && tree.block().declarations() != null) {
 
       getAllUriTrees(tree.block().declarations())
         .stream()

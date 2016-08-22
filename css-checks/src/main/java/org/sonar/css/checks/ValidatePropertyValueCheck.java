@@ -47,6 +47,7 @@ public class ValidatePropertyValueCheck extends DoubleDispatchVisitorCheck {
           tree.property().standardProperty().getName(),
           tree.property().standardProperty().getValidatorFormat()));
     }
+    super.visitPropertyDeclaration(tree);
   }
 
 }

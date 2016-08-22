@@ -69,6 +69,7 @@ public class TooManyWebFontsCheck extends DoubleDispatchVisitorCheck {
     if ("font-face".equalsIgnoreCase(tree.keyword().text())) {
       fontFaceTrees.add(tree);
     }
+    super.visitAtKeyword(tree);
   }
 
   @VisibleForTesting

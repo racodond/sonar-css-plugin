@@ -59,6 +59,7 @@ public class DisplayPropertyGroupingCheck extends DoubleDispatchVisitorCheck {
     if (propertiesToNotUse != null) {
       addIssues(declarationsTree.propertyDeclarations(), propertiesToNotUse);
     }
+    super.visitDeclarations(declarationsTree);
   }
 
   private void setPropertiesToNotUse(List<PropertyDeclarationTree> propertyDeclarationTrees) {

@@ -56,6 +56,7 @@ public class VendorPrefixWithStandardCheck extends DoubleDispatchVisitorCheck {
         addPreciseIssue(currentProperty, "Define the standard property right after this vendor-prefixed property.");
       }
     }
+    super.visitDeclarations(tree);
   }
 
   private boolean isNextPropertyValid(@Nullable PropertyDeclarationTree nextDeclaration, PropertyTree currentProperty) {

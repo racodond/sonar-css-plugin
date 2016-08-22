@@ -39,6 +39,7 @@ public class CommentContainsPatternChecker extends DoubleDispatchVisitorCheck {
     if (StringUtils.containsIgnoreCase(comment, pattern) && !isLetterAround(comment, pattern)) {
       addPreciseIssue(trivia, message);
     }
+    super.visitComment(trivia);
   }
 
   private static boolean isLetterAround(String line, String pattern) {

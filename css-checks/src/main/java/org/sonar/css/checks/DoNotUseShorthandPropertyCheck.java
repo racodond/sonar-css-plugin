@@ -56,6 +56,8 @@ public class DoNotUseShorthandPropertyCheck extends DoubleDispatchVisitorCheck {
         "Replace this \"" + propertyName + "\" shorthand property with its longhand properties: "
           + standardProperty.getShorthandForPropertyNames().stream().sorted().collect(Collectors.joining(", ")));
     }
+
+    super.visitPropertyDeclaration(tree);
   }
 
 }

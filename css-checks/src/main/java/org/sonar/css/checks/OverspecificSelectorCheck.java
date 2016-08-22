@@ -65,6 +65,8 @@ public class OverspecificSelectorCheck extends DoubleDispatchVisitorCheck {
         issue.secondary(compoundSelector, "+1");
       }
     }
+
+    super.visitSelector(tree);
   }
 
   @VisibleForTesting

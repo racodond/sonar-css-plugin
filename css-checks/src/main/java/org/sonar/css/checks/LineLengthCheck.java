@@ -69,6 +69,7 @@ public class LineLengthCheck extends DoubleDispatchVisitorCheck implements Chars
         addLineIssue(i + 1, issueMessage(line.length()));
       }
     }
+    super.visitStyleSheet(tree);
   }
 
   @Override

@@ -53,6 +53,7 @@ public class UnitForZeroValueCheck extends DoubleDispatchVisitorCheck {
     if (isZeroValue(tree.value())) {
       addIssue(tree.percentageSymbol());
     }
+    super.visitPercentage(tree);
   }
 
   @Override
@@ -60,6 +61,7 @@ public class UnitForZeroValueCheck extends DoubleDispatchVisitorCheck {
     if (isZeroValue(tree.value()) && isLength(tree)) {
       addIssue(tree.unit());
     }
+    super.visitDimension(tree);
   }
 
   private void addIssue(Tree tree) {

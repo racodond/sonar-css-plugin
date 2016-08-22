@@ -58,6 +58,7 @@ public class PropertyRegularExpressionCheck extends DoubleDispatchVisitorCheck {
     if (tree.property().text().matches(regularExpression)) {
       addPreciseIssue(tree, message);
     }
+    super.visitProperty(tree);
   }
 
   public void setRegularExpression(String regularExpression) {

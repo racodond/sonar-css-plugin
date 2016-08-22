@@ -42,6 +42,8 @@ public class DeprecatedSystemColorCheck extends DoubleDispatchVisitorCheck {
     valueTree.valueElementsOfType(IdentifierTree.class).stream()
       .filter(t -> Color.CSS2_SYSTEM_COLORS.contains(t.text().toLowerCase()))
       .forEach(t -> addPreciseIssue(t, "Remove this usage of the deprecated \"" + t.text() + "\" system color."));
+
+    super.visitValue(valueTree);
   }
 
 }

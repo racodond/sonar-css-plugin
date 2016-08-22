@@ -59,6 +59,7 @@ public class TabCharacterCheck extends DoubleDispatchVisitorCheck implements Cha
         break;
       }
     }
+    super.visitStyleSheet(tree);
   }
 
   @Override

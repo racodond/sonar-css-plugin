@@ -43,6 +43,7 @@ public class UnknownPropertyCheck extends DoubleDispatchVisitorCheck {
         tree,
         "Remove this usage of the unknown \"" + tree.standardProperty().getName() + "\" property.");
     }
+    super.visitProperty(tree);
   }
 
 }

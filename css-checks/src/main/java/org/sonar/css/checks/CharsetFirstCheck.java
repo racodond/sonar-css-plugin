@@ -44,6 +44,7 @@ public class CharsetFirstCheck extends DoubleDispatchVisitorCheck {
         tree.atKeyword(),
         "Move the @charset rule to the very beginning of the style sheet.");
     }
+    super.visitAtRule(tree);
   }
 
   private boolean isFirst(SyntaxToken atSymbol) {

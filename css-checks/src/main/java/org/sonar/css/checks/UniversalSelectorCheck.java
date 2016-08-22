@@ -49,6 +49,7 @@ public class UniversalSelectorCheck extends DoubleDispatchVisitorCheck {
         ((TypeSelectorTree) lastCompoundSelector.get(0)).identifier(),
         "Remove this usage of the universal selector as key part.");
     }
+    super.visitSelector(tree);
   }
 
 }

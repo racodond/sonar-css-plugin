@@ -40,6 +40,7 @@ public class LeadingZeroCheck extends DoubleDispatchVisitorCheck {
     if (tree.text().startsWith("0.")) {
       addPreciseIssue(tree, "Remove the leading zero.");
     }
+    super.visitNumber(tree);
   }
 
 }

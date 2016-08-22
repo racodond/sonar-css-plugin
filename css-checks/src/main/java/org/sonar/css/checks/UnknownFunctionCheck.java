@@ -43,6 +43,7 @@ public class UnknownFunctionCheck extends DoubleDispatchVisitorCheck {
         tree.function(),
         "Remove this usage of the unknown \"" + tree.standardFunction().getName() + "\" function.");
     }
+    super.visitFunction(tree);
   }
 
 }

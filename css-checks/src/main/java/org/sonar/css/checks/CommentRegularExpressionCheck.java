@@ -58,6 +58,7 @@ public class CommentRegularExpressionCheck extends DoubleDispatchVisitorCheck {
     if (trivia.text().matches(regularExpression)) {
       addPreciseIssue(trivia, message);
     }
+    super.visitComment(trivia);
   }
 
   @Override

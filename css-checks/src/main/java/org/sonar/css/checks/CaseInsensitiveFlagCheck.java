@@ -38,6 +38,7 @@ public class CaseInsensitiveFlagCheck extends DoubleDispatchVisitorCheck {
   @Override
   public void visitCaseInsensitiveFlag(CaseInsensitiveFlagTree tree) {
     addPreciseIssue(tree, "Remove this usage of the case-insensitive flag.");
+    super.visitCaseInsensitiveFlag(tree);
   }
 
 }
