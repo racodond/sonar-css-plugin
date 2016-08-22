@@ -46,3 +46,17 @@
   color: green;
   border: 1px solid blue;
 }
+
+.mybox {
+  -ms-border: 1px solid black;
+  border: 1px solid blue; /* Noncompliant ![sc=3;ec=9;el=+0;secondary=+2]! !{Keep only one declaration of "border" property.}! */
+  color: green;
+  border: 1px solid blue;
+}
+
+.mybox {
+  -ms-border: 1px solid black;
+  -webkit-border: 1px solid blue;
+  color: green;
+  border: 1px solid blue;
+}

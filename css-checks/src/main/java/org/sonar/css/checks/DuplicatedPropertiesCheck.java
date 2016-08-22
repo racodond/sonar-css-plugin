@@ -55,8 +55,11 @@ public class DuplicatedPropertiesCheck extends DoubleDispatchVisitorCheck {
 
     for (int i = 0; i < propertyDeclarations.size() - 1; i++) {
       current = propertyDeclarations.get(i);
+      if (current.property().isVendorPrefixed()) {
+        continue;
+      }
       if (alreadyChecked.contains(current.property().standardProperty().getClass())) {
-        break;
+        continue;
       }
       alreadyChecked.add(current.property().standardProperty().getClass());
       nextSameProperty = true;
