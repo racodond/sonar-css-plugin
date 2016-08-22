@@ -6,4 +6,5 @@ p {
 .mybox {
   background-image: -webkit-gradient(linear, left top, right top, from(red), to(#f06d06)); /* Noncompliant */ /* Noncompliant */
   background-image: -webkit-gradient(linear, left top, right top, from(red), color-stop(0%,#9d2d64)); /* Noncompliant */ /* Noncompliant */
+  color: expression(); /* Noncompliant */
 }

@@ -60,6 +60,7 @@ public class StandardFunctionFactory {
     Ellipse.class,
     Emboss.class,
     Engrave.class,
+    Expression.class,
     FitContent.class,
     Fliph.class,
     Flipv.class,

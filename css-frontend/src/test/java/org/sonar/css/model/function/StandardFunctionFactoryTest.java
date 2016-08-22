@@ -80,7 +80,12 @@ public class StandardFunctionFactoryTest {
 
   @Test
   public void number_of_standard_functions() {
-    assertEquals(122, StandardFunctionFactory.getAll().size());
+    assertEquals(123, StandardFunctionFactory.getAll().size());
+  }
+
+  @Test
+  public void number_of_obsolete_functions() {
+    assertEquals(6, StandardFunctionFactory.getAll().stream().filter(StandardFunction::isObsolete).count());
   }
 
   @Test
