@@ -249,7 +249,7 @@
   grid-column-end: green;
 }
 
-.mybox { /* Noncompliant */ /* Noncompliant */
+.mybox { /* Noncompliant */ /* Noncompliant */ /* Noncompliant */
   abc: 10px;
   grid-row-start: green;
   grid-row-end: green;
@@ -277,7 +277,7 @@
 }
 
 
-.mybox { /* Noncompliant */ /* Noncompliant */
+.mybox { /* Noncompliant */ /* Noncompliant */ /* Noncompliant */
   abc: 10px;
   grid-template-rows: green;
   grid-template-columns: green;

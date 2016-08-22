@@ -19,18 +19,14 @@
  */
 package org.sonar.css.checks;
 
-import com.google.common.collect.Lists;
-
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.css.api.tree.DeclarationsTree;
 import org.sonar.plugins.css.api.tree.PropertyDeclarationTree;
-import org.sonar.plugins.css.api.tree.PropertyTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.plugins.css.api.visitors.issue.PreciseIssue;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
@@ -50,81 +46,44 @@ public class DuplicatedPropertiesCheck extends DoubleDispatchVisitorCheck {
   @Override
   public void visitDeclarations(DeclarationsTree declarationsTree) {
     propertyDeclarations = declarationsTree.propertyDeclarations();
-    Map<String, List<PropertyDeclarationTree>> propertiesMap = getPropertiesMap(propertyDeclarations);
 
-    Iterator<PropertyDeclarationTree> iterator = propertyDeclarations.iterator();
-    while (iterator.hasNext()) {
-      PropertyDeclarationTree propertyDeclarationToCompare = iterator.next();
-      iterator.remove();
-      PropertyTree propertyToCompare = propertyDeclarationToCompare.property();
-      String propertyToCompareName = propertyToCompare.unhackedFullName();
-      if (propertiesMap.containsKey(propertyToCompareName)
-        && (existSamePropertyWithSameValue(propertyDeclarationToCompare)
-          || existSamePropertyWithDifferentValue(propertyDeclarationToCompare))) {
+    PropertyDeclarationTree current;
+    PropertyDeclarationTree next;
+    Set<PropertyDeclarationTree> duplicates = new HashSet<>();
+    Set<Class> alreadyChecked = new HashSet<>();
+    boolean nextSameProperty;
 
-        PreciseIssue issue = addPreciseIssue(
-          propertiesMap.get(propertyToCompareName).get(0),
-          "Keep only one declaration of \"" + propertyToCompareName + "\" property.");
+    for (int i = 0; i < propertyDeclarations.size() - 1; i++) {
+      current = propertyDeclarations.get(i);
+      if (alreadyChecked.contains(current.property().standardProperty().getClass())) {
+        break;
+      }
+      alreadyChecked.add(current.property().standardProperty().getClass());
+      nextSameProperty = true;
+      duplicates.clear();
 
-        for (int i = 1; i < propertiesMap.get(propertyToCompareName).size(); i++) {
-          issue.secondary(propertiesMap.get(propertyToCompareName).get(i), "Duplicated property");
+      for (int j = i + 1; j < propertyDeclarations.size(); j++) {
+        next = propertyDeclarations.get(j);
+
+        if (current.property().standardProperty().getClass() == next.property().standardProperty().getClass()) {
+          if (current.value().treeValue().equalsIgnoreCase(next.value().treeValue()) || !nextSameProperty) {
+            duplicates.add(next);
+          }
+        } else {
+          nextSameProperty = false;
         }
-        propertiesMap.remove(propertyToCompareName);
+      }
+
+      if (!duplicates.isEmpty()) {
+        PreciseIssue issue = addPreciseIssue(
+          current.property(),
+          "Keep only one declaration of \"" + current.property().standardProperty().getName() + "\" property.");
+
+        duplicates.stream().forEach(d -> issue.secondary(d.property(), "Duplicated property"));
       }
     }
-  }
 
-  private Map<String, List<PropertyDeclarationTree>> getPropertiesMap(List<PropertyDeclarationTree> declarations) {
-    Map<String, List<PropertyDeclarationTree>> propertiesMap = new HashMap<>();
-    String propertyName;
-    for (PropertyDeclarationTree declaration : declarations) {
-      propertyName = declaration.property().unhackedFullName();
-      if (propertiesMap.containsKey(propertyName)) {
-        propertiesMap.get(propertyName).add(declaration);
-      } else {
-        propertiesMap.put(propertyName, Lists.newArrayList(declaration));
-      }
-    }
-    return propertiesMap;
-  }
-
-  private boolean existSamePropertyWithSameValue(PropertyDeclarationTree declarationToCompare) {
-    PropertyTree propertyToCompare = declarationToCompare.property();
-    PropertyTree currentProperty;
-    for (PropertyDeclarationTree currentDeclaration : propertyDeclarations) {
-      currentProperty = currentDeclaration.property();
-      if (propertyToCompare.unhackedFullName().equals(currentProperty.unhackedFullName())
-        && declarationToCompare.treeValue().equalsIgnoreCase(currentDeclaration.treeValue())) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  private boolean existSamePropertyWithDifferentValue(PropertyDeclarationTree declarationToCompare) {
-    PropertyTree propertyToCompare = declarationToCompare.property();
-    PropertyTree currentProperty;
-    PropertyDeclarationTree previousDeclaration = declarationToCompare;
-    for (PropertyDeclarationTree currentDeclaration : propertyDeclarations) {
-      currentProperty = currentDeclaration.property();
-      if (propertyToCompare.unhackedFullName().equals(currentProperty.unhackedFullName())
-        && !declarationToCompare.treeValue().equalsIgnoreCase(currentDeclaration.treeValue())
-        && !beforeSameProperty(previousDeclaration, currentDeclaration)) {
-        return true;
-      }
-      previousDeclaration = currentDeclaration;
-    }
-    return false;
-  }
-
-  private boolean beforeSameProperty(PropertyDeclarationTree previousDeclaration, PropertyDeclarationTree currentDeclaration) {
-    if (!propertyDeclarations.isEmpty()) {
-      PropertyTree propertyToCompare = previousDeclaration.property();
-      PropertyTree currentProperty = currentDeclaration.property();
-      return propertyToCompare.unhackedFullName().equals(currentProperty.unhackedFullName());
-    } else {
-      return false;
-    }
+    super.visitDeclarations(declarationsTree);
   }
 
 }

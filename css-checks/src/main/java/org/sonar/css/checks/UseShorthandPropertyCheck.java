@@ -95,7 +95,6 @@ public class UseShorthandPropertyCheck extends SubscriptionVisitorCheck {
       Map.Entry<String, PropertyTree> entry = it.next();
       if (shorthandProperty.getShorthandForPropertyNames().contains(entry.getKey())) {
         issue.secondary(entry.getValue(), "\"" + shorthandProperty.getName() + "\" property");
-        it.remove();
       }
     }
   }
