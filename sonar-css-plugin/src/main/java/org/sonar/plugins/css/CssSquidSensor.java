@@ -121,7 +121,11 @@ public class CssSquidSensor implements Sensor {
     boolean success = false;
     try {
       for (InputFile inputFile : fileSystem.inputFiles(mainFilePredicate)) {
-        issues.addAll(analyzeFile(sensorContext, inputFile, treeVisitors));
+        if (isExcluded(inputFile.file())) {
+          LOG.info("File " + inputFile.file().getAbsolutePath() + " is excluded from the analysis.");
+        } else {
+          issues.addAll(analyzeFile(sensorContext, inputFile, treeVisitors));
+        }
         progressReport.nextFile();
       }
       saveSingleFileIssues(issues);
@@ -167,6 +171,10 @@ public class CssSquidSensor implements Sensor {
 
   private void saveSingleFileIssues(List<Issue> issues) {
     issues.forEach(issueSaver::saveIssue);
+  }
+
+  private boolean isExcluded(File file) {
+    return file.getName().endsWith("-min.css") || file.getName().endsWith(".min.css");
   }
 
   private void processRecognitionException(RecognitionException e, SensorContext sensorContext, InputFile inputFile) {

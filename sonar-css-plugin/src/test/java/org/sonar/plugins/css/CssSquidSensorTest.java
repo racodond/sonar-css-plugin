@@ -140,6 +140,19 @@ public class CssSquidSensorTest {
     assertThat(issues).hasSize(0);
   }
 
+  @Test
+  public void should_not_analyze_minified_files() {
+    inputFile("minified/test.min.css");
+    inputFile("minified/test-min.css");
+    inputFile("minified/testmin.css");
+
+    createCssSquidSensor().execute(context);
+
+    assertThat(context.measure("moduleKey:minified/testmin.css", CoreMetrics.NCLOC)).isNotNull();
+    assertThat(context.measure("moduleKey:minified/test.min.css", CoreMetrics.NCLOC)).isNull();
+    assertThat(context.measure("moduleKey:minified/test-min.css", CoreMetrics.NCLOC)).isNull();
+  }
+
   private CssSquidSensor createCssSquidSensor() {
     return new CssSquidSensor(context.fileSystem(), checkFactory, new NoSonarFilter());
   }
