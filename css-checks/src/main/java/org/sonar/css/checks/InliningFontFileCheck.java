@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.model.atrule.standard.FontFace;
 import org.sonar.css.model.property.standard.Src;
 import org.sonar.plugins.css.api.tree.AtRuleTree;
 import org.sonar.plugins.css.api.tree.DeclarationsTree;
@@ -48,7 +49,10 @@ public class InliningFontFileCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitAtRule(AtRuleTree tree) {
-    if ("font-face".equalsIgnoreCase(tree.atKeyword().keyword().text())) {
+    if (tree.standardAtRule() instanceof FontFace
+        && tree.block() != null
+        && tree.block().declarations() != null) {
+
       getAllUriTrees(tree.block().declarations())
         .stream()
         .forEach(this::checkUriTreeForInliningFont);
