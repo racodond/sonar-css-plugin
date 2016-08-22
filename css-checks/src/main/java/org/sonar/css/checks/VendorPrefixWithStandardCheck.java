@@ -53,7 +53,7 @@ public class VendorPrefixWithStandardCheck extends DoubleDispatchVisitorCheck {
         && currentProperty.isVendorPrefixed()
         && !isNextPropertyValid(nextDeclaration, currentProperty)) {
 
-        addPreciseIssue(currentProperty, "Define the standard property after this vendor-prefixed property.");
+        addPreciseIssue(currentProperty, "Define the standard property right after this vendor-prefixed property.");
       }
     }
   }
