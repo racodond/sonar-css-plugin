@@ -111,9 +111,7 @@ public class FormattingCheck extends DoubleDispatchVisitorCheck {
   public void visitAtRule(AtRuleTree tree) {
     if (tree.block() != null) {
 
-      if (!isOnSameLine(tree.atKeyword(), tree.block().openCurlyBrace())) {
-        addPreciseIssue(tree.block().openCurlyBrace(), "Move the opening curly brace to the previous line.");
-      }
+      checkAtRuleOpeningCurlyBrace(tree);
 
       Tree content = null;
       if (tree.block().declarations() != null) {
@@ -135,20 +133,34 @@ public class FormattingCheck extends DoubleDispatchVisitorCheck {
     super.visitAtRule(tree);
   }
 
+  private void checkAtRuleOpeningCurlyBrace(AtRuleTree tree) {
+    Preconditions.checkNotNull(tree.block());
+
+    Tree tree1 = tree.preludes() != null ? tree.preludes().get(tree.preludes().size() - 1) : tree.atKeyword();
+    Tree tree2 = tree.block().openCurlyBrace();
+
+    if (!isOnSameLine(tree1, tree2)) {
+      addPreciseIssue(tree2, "Move the opening curly brace to the previous line.");
+    }
+  }
+
   private boolean isOnSameLine(Tree... trees) {
     Preconditions.checkArgument(trees.length > 1);
+
     int lineRef;
     if (trees[0] instanceof CssTree) {
-      lineRef = ((CssTree) trees[0]).getFirstToken().line();
+      lineRef = ((CssTree) trees[0]).getLastToken().line();
     } else {
       lineRef = ((SyntaxToken) trees[0]).line();
     }
-    for (Tree tree : trees) {
-      if (tree instanceof CssTree && ((CssTree) tree).getFirstToken().line() != lineRef
-        || tree instanceof SyntaxToken && ((SyntaxToken) tree).line() != lineRef) {
+
+    for (int i = 1; i < trees.length; i++) {
+      if (trees[i] instanceof CssTree && ((CssTree) trees[i]).getFirstToken().line() != lineRef
+        || trees[i] instanceof SyntaxToken && ((SyntaxToken) trees[i]).line() != lineRef) {
         return false;
       }
     }
+
     return true;
   }
 

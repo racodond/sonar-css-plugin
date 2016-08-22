@@ -34,3 +34,12 @@
 
 {
   color: red;} /* Noncompliant !{Move the closing curly brace to the next line.}! */
+
+@supports ( (perspective: 10px) or (-moz-perspective: 10px) or
+            (-ms-perspective: 10px) or (-o-perspective: 10px) ) {
+}
+
+@supports ( (perspective: 10px) or (-moz-perspective: 10px) or
+            (-ms-perspective: 10px) or (-o-perspective: 10px) )
+{ /* Noncompliant !{Move the opening curly brace to the previous line.}! */
+}
