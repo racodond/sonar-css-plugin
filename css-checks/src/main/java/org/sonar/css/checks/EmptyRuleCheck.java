@@ -25,6 +25,7 @@ import java.util.List;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.model.atrule.standard.*;
 import org.sonar.plugins.css.api.tree.AtRuleTree;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.visitors.SubscriptionVisitorCheck;
@@ -40,12 +41,12 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 @ActivatedByDefault
 public class EmptyRuleCheck extends SubscriptionVisitorCheck {
 
-  private static final ImmutableList<String> AT_RULES_NOT_REQUIRING_DECLARATION_BLOCK = ImmutableList.of(
-    "charset",
-    "custom-media",
-    "import",
-    "namespace",
-    "viewport");
+  private static final ImmutableList<Class> AT_RULES_NOT_REQUIRING_DECLARATION_BLOCK = ImmutableList.of(
+    Charset.class,
+    CustomMedia.class,
+    Import.class,
+    Namespace.class,
+    Viewport.class);
 
   int counter;
 
@@ -76,6 +77,7 @@ public class EmptyRuleCheck extends SubscriptionVisitorCheck {
 
   private boolean isAtRuleRequiringBlock(Tree tree) {
     return tree.is(Tree.Kind.AT_RULE)
-      && !AT_RULES_NOT_REQUIRING_DECLARATION_BLOCK.contains(((AtRuleTree) tree).atKeyword().keyword().text().toLowerCase());
+      && !AT_RULES_NOT_REQUIRING_DECLARATION_BLOCK.contains(((AtRuleTree) tree).standardAtRule().getClass());
   }
+
 }
