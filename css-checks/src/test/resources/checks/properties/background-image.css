@@ -17,5 +17,5 @@
   background-image: repeating-radial-gradient(), element(), url(http://mybox);
   background-image: abc(); /* Noncompliant */
   background-image: -moz-linear-gradient();
-  background-image: -moz-abc(); /* Noncompliant */
+  background-image: -moz-abc();
 }

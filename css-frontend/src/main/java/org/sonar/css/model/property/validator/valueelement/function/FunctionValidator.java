@@ -43,7 +43,8 @@ public class FunctionValidator implements ValueElementValidator {
   @Override
   public boolean isValid(Tree tree) {
     return tree instanceof FunctionTree
-      && (allowedFunctions.contains(((FunctionTree) tree).standardFunction().getClass())
+      && (((FunctionTree) tree).isVendorPrefixed()
+        || allowedFunctions.contains(((FunctionTree) tree).standardFunction().getClass())
         || alwaysAllowedFunctions.contains(((FunctionTree) tree).standardFunction().getClass()));
   }
 
