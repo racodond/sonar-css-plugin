@@ -35,76 +35,100 @@ public class AtRuleBlockTreeTest extends TreeTest {
     AtRuleBlockTree tree;
 
     tree = checkParsed("{}");
-    assertThat(tree.declarations()).isNull();
+    assertThat(tree.propertyDeclarations()).hasSize(0);
+    assertThat(tree.variableDeclarations()).hasSize(0);
     assertThat(tree.rulesets()).hasSize(0);
     assertThat(tree.atRules()).hasSize(0);
 
     tree = checkParsed(" {}");
-    assertThat(tree.declarations()).isNull();
+    assertThat(tree.propertyDeclarations()).hasSize(0);
+    assertThat(tree.variableDeclarations()).hasSize(0);
     assertThat(tree.rulesets()).hasSize(0);
     assertThat(tree.atRules()).hasSize(0);
 
     tree = checkParsed(" { }");
-    assertThat(tree.declarations()).isNull();
+    assertThat(tree.propertyDeclarations()).hasSize(0);
+    assertThat(tree.variableDeclarations()).hasSize(0);
     assertThat(tree.rulesets()).hasSize(0);
     assertThat(tree.atRules()).hasSize(0);
 
     tree = checkParsed("{color:green}");
-    assertThat(tree.declarations()).isNotNull();
-    assertThat(tree.declarations().propertyDeclarations()).hasSize(1);
+    assertThat(tree.propertyDeclarations()).hasSize(1);
+    assertThat(tree.variableDeclarations()).hasSize(0);
     assertThat(tree.rulesets()).hasSize(0);
     assertThat(tree.atRules()).hasSize(0);
 
     tree = checkParsed(" { color : green; }");
-    assertThat(tree.declarations()).isNotNull();
-    assertThat(tree.declarations().propertyDeclarations()).hasSize(1);
+    assertThat(tree.propertyDeclarations()).hasSize(1);
+    assertThat(tree.variableDeclarations()).hasSize(0);
     assertThat(tree.rulesets()).hasSize(0);
     assertThat(tree.atRules()).hasSize(0);
 
     tree = checkParsed(" { color : green; --var: var; }");
-    assertThat(tree.declarations()).isNotNull();
-    assertThat(tree.declarations().propertyDeclarations()).hasSize(1);
-    assertThat(tree.declarations().variableDeclarations()).hasSize(1);
+    assertThat(tree.propertyDeclarations()).hasSize(1);
+    assertThat(tree.variableDeclarations()).hasSize(1);
     assertThat(tree.rulesets()).hasSize(0);
     assertThat(tree.atRules()).hasSize(0);
 
     tree = checkParsed(" { h1, h1 {color : green;} }");
-    assertThat(tree.declarations()).isNull();
+    assertThat(tree.propertyDeclarations()).hasSize(0);
+    assertThat(tree.variableDeclarations()).hasSize(0);
     assertThat(tree.rulesets()).hasSize(1);
     assertThat(tree.atRules()).hasSize(0);
 
     tree = checkParsed(" { @import; }");
-    assertThat(tree.declarations()).isNull();
+    assertThat(tree.propertyDeclarations()).hasSize(0);
+    assertThat(tree.variableDeclarations()).hasSize(0);
     assertThat(tree.rulesets()).hasSize(0);
     assertThat(tree.atRules()).hasSize(1);
 
     tree = checkParsed(" { @import url(\"fineprint.css\") print; }");
-    assertThat(tree.declarations()).isNull();
+    assertThat(tree.propertyDeclarations()).hasSize(0);
+    assertThat(tree.variableDeclarations()).hasSize(0);
     assertThat(tree.rulesets()).hasSize(0);
     assertThat(tree.atRules()).hasSize(1);
 
     tree = checkParsed("{"
-        + "font-family: 'MyFontFamily';"
-        + "src: url('myfont-webfont.eot') format('embedded-opentype'),"
-        + "     url('myfont-webfont.woff') format('woff'), "
-        + "     url('myfont-webfont.ttf')  format('truetype'),"
-        + "     url('myfont-webfont.svg#svgFontName') format('svg');"
-        + "}");
-    assertThat(tree.declarations()).isNotNull();
-    assertThat(tree.declarations().propertyDeclarations()).hasSize(2);
-    assertThat(tree.declarations().variableDeclarations()).hasSize(0);
+      + "font-family: 'MyFontFamily';"
+      + "src: url('myfont-webfont.eot') format('embedded-opentype'),"
+      + "     url('myfont-webfont.woff') format('woff'), "
+      + "     url('myfont-webfont.ttf')  format('truetype'),"
+      + "     url('myfont-webfont.svg#svgFontName') format('svg');"
+      + "}");
+    assertThat(tree.propertyDeclarations()).hasSize(2);
+    assertThat(tree.variableDeclarations()).hasSize(0);
     assertThat(tree.rulesets()).hasSize(0);
     assertThat(tree.atRules()).hasSize(0);
 
     tree = checkParsed("{ @styleset { nice-style: 4; } @styleset { nice-style: 4; } }");
-    assertThat(tree.declarations()).isNull();
+    assertThat(tree.propertyDeclarations()).hasSize(0);
+    assertThat(tree.variableDeclarations()).hasSize(0);
     assertThat(tree.rulesets()).hasSize(0);
     assertThat(tree.atRules()).hasSize(2);
 
     tree = checkParsed(" { h1, h1 {color : green;} h3 {} }");
-    assertThat(tree.declarations()).isNull();
+    assertThat(tree.propertyDeclarations()).hasSize(0);
+    assertThat(tree.variableDeclarations()).hasSize(0);
     assertThat(tree.rulesets()).hasSize(2);
     assertThat(tree.atRules()).hasSize(0);
+
+    tree = checkParsed("{\n" +
+      "  margin: 10%;\n" +
+      "  --myvar: 10%;\n" +
+      "\n" +
+      "  @top-left {\n" +
+      "    content: \"Hamlet\";\n" +
+      "  }\n" +
+      "  @top-right {\n" +
+      "    content: \"Page \" counter(page);\n" +
+      "  }\n" +
+      "  size: 8.5in 11in;\n" +
+      "h1 {color : green;}" +
+      "}");
+    assertThat(tree.propertyDeclarations()).hasSize(2);
+    assertThat(tree.variableDeclarations()).hasSize(1);
+    assertThat(tree.rulesets()).hasSize(1);
+    assertThat(tree.atRules()).hasSize(2);
   }
 
   @Test
@@ -118,6 +142,10 @@ public class AtRuleBlockTreeTest extends TreeTest {
     assertThat(tree).isNotNull();
     assertThat(tree.openCurlyBrace()).isNotNull();
     assertThat(tree.closeCurlyBrace()).isNotNull();
+    assertThat(tree.propertyDeclarations()).isNotNull();
+    assertThat(tree.variableDeclarations()).isNotNull();
+    assertThat(tree.rulesets()).isNotNull();
+    assertThat(tree.atRules()).isNotNull();
     return tree;
   }
 

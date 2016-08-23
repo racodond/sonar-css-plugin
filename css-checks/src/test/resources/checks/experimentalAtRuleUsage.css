@@ -78,6 +78,9 @@
 }
 
 @page {
+  size: 8.5in 11in;
+  margin: 10%;
+
   @top-left { /* Noncompliant ![sc=3;ec=12;el=+0]! !{Remove this usage of the experimental "top-left" @-rule.}! */
     content: "Hamlet";
   }

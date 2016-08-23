@@ -33,29 +33,22 @@ public class AtRuleBlockTreeImpl extends CssTree implements AtRuleBlockTree {
 
   private final SyntaxToken openCurlyBrace;
   private final SyntaxToken closeCurlyBrace;
-  private final Object content;
-  private DeclarationsTree declarations;
+  private final List<Tree> content;
+  private final List<PropertyDeclarationTree> propertyDeclarations;
+  private final List<VariableDeclarationTree> variableDeclarations;
   private final List<AtRuleTree> atRules;
   private final List<RulesetTree> rulesets;
-  private final List<StatementTree> statements;
 
-  public AtRuleBlockTreeImpl(SyntaxToken openCurlyBrace, @Nullable Object content, SyntaxToken closeCurlyBrace) {
+  public AtRuleBlockTreeImpl(SyntaxToken openCurlyBrace, @Nullable List<Tree> content, SyntaxToken closeCurlyBrace) {
     this.openCurlyBrace = openCurlyBrace;
     this.closeCurlyBrace = closeCurlyBrace;
     this.content = content;
 
-    declarations = null;
+    propertyDeclarations = new ArrayList<>();
+    variableDeclarations = new ArrayList<>();
     atRules = new ArrayList<>();
     rulesets = new ArrayList<>();
-    statements = new ArrayList<>();
-
-    if (content != null) {
-      if (content instanceof DeclarationsTree) {
-        declarations = (DeclarationsTree) content;
-      } else {
-        buildLists((List<StatementTree>) content);
-      }
-    }
+    buildLists(content);
   }
 
   @Override
@@ -66,14 +59,10 @@ public class AtRuleBlockTreeImpl extends CssTree implements AtRuleBlockTree {
   @Override
   public Iterator<Tree> childrenIterator() {
     if (content != null) {
-      if (content instanceof DeclarationsTree) {
-        return Iterators.forArray(openCurlyBrace, (DeclarationsTree) content, closeCurlyBrace);
-      } else {
-        return Iterators.concat(
-          Iterators.singletonIterator(openCurlyBrace),
-          ((List) content).iterator(),
-          Iterators.singletonIterator(closeCurlyBrace));
-      }
+      return Iterators.concat(
+        Iterators.singletonIterator(openCurlyBrace),
+        content.iterator(),
+        Iterators.singletonIterator(closeCurlyBrace));
     } else {
       return Iterators.forArray(openCurlyBrace, closeCurlyBrace);
     }
@@ -95,9 +84,13 @@ public class AtRuleBlockTreeImpl extends CssTree implements AtRuleBlockTree {
   }
 
   @Override
-  @Nullable
-  public DeclarationsTree declarations() {
-    return declarations;
+  public List<PropertyDeclarationTree> propertyDeclarations() {
+    return propertyDeclarations;
+  }
+
+  @Override
+  public List<VariableDeclarationTree> variableDeclarations() {
+    return variableDeclarations;
   }
 
   @Override
@@ -106,23 +99,28 @@ public class AtRuleBlockTreeImpl extends CssTree implements AtRuleBlockTree {
   }
 
   @Override
+  @Nullable
+  public List<Tree> content() {
+    return content;
+  }
+
+  @Override
   public List<RulesetTree> rulesets() {
     return rulesets;
   }
 
-  @Override
-  public List<StatementTree> statements() {
-    return statements;
-  }
-
-  private void buildLists(List<StatementTree> content) {
-    for (StatementTree tree : content) {
-      if (tree instanceof AtRuleTree) {
-        atRules.add((AtRuleTree) tree);
-      } else if (tree instanceof RulesetTree) {
-        rulesets.add((RulesetTree) tree);
+  private void buildLists(@Nullable List<Tree> content) {
+    if (content != null) {
+      for (Tree tree : content) {
+        if (tree instanceof AtRuleTree) {
+          atRules.add((AtRuleTree) tree);
+        } else if (tree instanceof RulesetTree) {
+          rulesets.add((RulesetTree) tree);
+        } else if (tree instanceof DeclarationsTree) {
+          propertyDeclarations.addAll(((DeclarationsTree) tree).propertyDeclarations());
+          variableDeclarations.addAll(((DeclarationsTree) tree).variableDeclarations());
+        }
       }
-      statements.add(tree);
     }
   }
 

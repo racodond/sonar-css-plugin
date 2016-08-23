@@ -23,7 +23,6 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -72,10 +71,7 @@ public class FontFaceBrowserCompatibilityCheck extends DoubleDispatchVisitorChec
       return;
     }
 
-    List<PropertyDeclarationTree> declarations = new ArrayList<>();
-    if (tree.block().declarations() != null) {
-      declarations = tree.block().declarations().propertyDeclarations();
-    }
+    List<PropertyDeclarationTree> declarations = tree.block().propertyDeclarations();
 
     if (DEEPEST_LEVEL.equals(browserSupportLevel)) {
       if (getSecondToLastSrcPropertyDeclaration(declarations) == null) {
@@ -96,12 +92,12 @@ public class FontFaceBrowserCompatibilityCheck extends DoubleDispatchVisitorChec
 
   private boolean isFontFaceRuleToBeChecked(AtRuleTree tree) {
     return "font-face".equalsIgnoreCase(tree.atKeyword().keyword().text())
-      && tree.block().declarations() != null
-      && definesScrPropertyWithUrl(tree.block().declarations());
+      && tree.block() != null
+      && definesScrPropertyWithUrl(tree.block().propertyDeclarations());
   }
 
-  private boolean definesScrPropertyWithUrl(DeclarationsTree declarationsTree) {
-    for (PropertyDeclarationTree declaration : declarationsTree.propertyDeclarations())
+  private boolean definesScrPropertyWithUrl(List<PropertyDeclarationTree> declarations) {
+    for (PropertyDeclarationTree declaration : declarations)
       if (declaration.property().standardProperty() instanceof Src) {
         if (!declaration.value().valueElementsOfType(UriTree.class).isEmpty()) {
           return true;

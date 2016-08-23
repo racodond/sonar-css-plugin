@@ -26,14 +26,16 @@ public interface AtRuleBlockTree extends Tree {
 
   SyntaxToken openCurlyBrace();
 
-  @Nullable
-  DeclarationsTree declarations();
+  List<PropertyDeclarationTree> propertyDeclarations();
+
+  List<VariableDeclarationTree> variableDeclarations();
 
   List<RulesetTree> rulesets();
 
   List<AtRuleTree> atRules();
 
-  List<StatementTree> statements();
+  @Nullable
+  List<Tree> content();
 
   SyntaxToken closeCurlyBrace();
 

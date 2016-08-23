@@ -29,7 +29,7 @@ import org.sonar.check.Rule;
 import org.sonar.css.model.atrule.standard.FontFace;
 import org.sonar.css.model.property.standard.Src;
 import org.sonar.plugins.css.api.tree.AtRuleTree;
-import org.sonar.plugins.css.api.tree.DeclarationsTree;
+import org.sonar.plugins.css.api.tree.PropertyDeclarationTree;
 import org.sonar.plugins.css.api.tree.UriTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -49,21 +49,19 @@ public class InliningFontFileCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitAtRule(AtRuleTree tree) {
-    if (tree.standardAtRule() instanceof FontFace
-      && tree.block() != null
-      && tree.block().declarations() != null) {
+    if (tree.standardAtRule() instanceof FontFace && tree.block() != null) {
 
-      getAllUriTrees(tree.block().declarations())
+      getAllUriTrees(tree.block().propertyDeclarations())
         .stream()
         .forEach(this::checkUriTreeForInliningFont);
     }
     super.visitAtRule(tree);
   }
 
-  private List<UriTree> getAllUriTrees(DeclarationsTree declarations) {
+  private List<UriTree> getAllUriTrees(List<PropertyDeclarationTree> declarations) {
     List<UriTree> uris = new ArrayList<>();
 
-    declarations.propertyDeclarations().stream()
+    declarations.stream()
       .filter(d -> d.property().standardProperty() instanceof Src)
       .forEach(d -> uris.addAll(
         d.value().valueElementsOfType(UriTree.class).stream()

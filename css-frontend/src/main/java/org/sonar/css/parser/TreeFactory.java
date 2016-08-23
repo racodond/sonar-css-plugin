@@ -36,7 +36,7 @@ public class TreeFactory {
     return new AtRuleTreeImpl(atKeyword, prelude.orNull(), block.orNull(), semicolon.orNull());
   }
 
-  public AtRuleBlockTree atRuleBlock(SyntaxToken openCurlyBrace, Optional<Object> content, SyntaxToken closeCurlyBrace) {
+  public AtRuleBlockTree atRuleBlock(SyntaxToken openCurlyBrace, Optional<List<Tree>> content, SyntaxToken closeCurlyBrace) {
     return new AtRuleBlockTreeImpl(openCurlyBrace, content.orNull(), closeCurlyBrace);
   }
 

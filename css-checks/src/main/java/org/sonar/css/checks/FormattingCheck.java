@@ -113,18 +113,11 @@ public class FormattingCheck extends DoubleDispatchVisitorCheck {
 
       checkAtRuleOpeningCurlyBrace(tree);
 
-      Tree content = null;
-      if (tree.block().declarations() != null) {
-        content = tree.block().declarations();
-      } else if (!tree.block().statements().isEmpty()) {
-        content = tree.block().statements().get(0);
-      }
-
-      if (content != null) {
-        if (isOnSameLine(tree.block().openCurlyBrace(), content)) {
+      if (tree.block().content() != null) {
+        if (isOnSameLine(tree.block().openCurlyBrace(), tree.block().content().get(0))) {
           addPreciseIssue(tree.block().openCurlyBrace(), "Move the code following the opening curly brace to the next line.");
         }
-        if (isOnSameLine(content, tree.block().closeCurlyBrace())) {
+        if (isOnSameLine(tree.block().content().get(0), tree.block().closeCurlyBrace())) {
           addPreciseIssue(tree.block().closeCurlyBrace(), "Move the closing curly brace to the next line.");
         }
       }

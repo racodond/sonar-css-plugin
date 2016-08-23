@@ -67,13 +67,11 @@ public class CssGrammar {
     return b.<AtRuleBlockTree>nonterminal(CssLexicalGrammar.AT_RULE_BLOCK).is(
       f.atRuleBlock(
         b.token(CssLexicalGrammar.OPEN_CURLY_BRACE),
-        b.optional(
+        b.zeroOrMore(
           b.firstOf(
             DECLARATIONS(),
-            b.oneOrMore(
-              b.firstOf(
-                AT_RULE(),
-                RULESET())))),
+            AT_RULE(),
+            RULESET())),
         b.token(CssLexicalGrammar.CLOSE_CURLY_BRACE)));
   }
 
