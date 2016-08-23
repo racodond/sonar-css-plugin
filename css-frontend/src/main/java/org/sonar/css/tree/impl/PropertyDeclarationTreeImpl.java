@@ -80,7 +80,6 @@ public class PropertyDeclarationTreeImpl extends CssTree implements PropertyDecl
     List<Tree> valueElements = value.sanitizedValueElements();
     int numberOfValueElements = valueElements.size();
 
-
     if (validators.isEmpty()) {
       return true;
     }
@@ -105,7 +104,8 @@ public class PropertyDeclarationTreeImpl extends CssTree implements PropertyDecl
     }
 
     return new IdentifierValidator("inherit", "initial", "unset").isValid(valueElements.get(0))
-      || new FunctionValidator("var").isValid(valueElements.get(0));
+      || new FunctionValidator("var").isValid(valueElements.get(0))
+      || new FunctionValidator("expression").isValid(valueElements.get(0));
   }
 
   private boolean hasOnlyPropertyValueElementValidators() {
