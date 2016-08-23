@@ -19,5 +19,15 @@
  */
 package org.sonar.plugins.css.api.tree;
 
+import javax.annotation.Nullable;
+
+import org.sonar.css.model.Vendor;
+
 public interface IdentifierTree extends LiteralTree {
+
+  boolean isVendorPrefixed();
+
+  @Nullable
+  Vendor vendor();
+
 }

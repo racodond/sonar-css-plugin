@@ -19,14 +19,20 @@
  */
 package org.sonar.css.tree.impl;
 
+import java.util.Locale;
+
+import org.sonar.css.model.Vendor;
 import org.sonar.plugins.css.api.tree.IdentifierTree;
 import org.sonar.plugins.css.api.tree.SyntaxToken;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 public class IdentifierTreeImpl extends LiteralTreeImpl implements IdentifierTree {
 
+  private final Vendor vendor;
+
   public IdentifierTreeImpl(SyntaxToken ident) {
     super(ident);
+    this.vendor = setVendorPrefix();
   }
 
   @Override
@@ -37,6 +43,25 @@ public class IdentifierTreeImpl extends LiteralTreeImpl implements IdentifierTre
   @Override
   public void accept(DoubleDispatchVisitor visitor) {
     visitor.visitIdentifier(this);
+  }
+
+  @Override
+  public boolean isVendorPrefixed() {
+    return vendor != null;
+  }
+
+  @Override
+  public Vendor vendor() {
+    return vendor;
+  }
+
+  private Vendor setVendorPrefix() {
+    for (Vendor vendor : Vendor.values()) {
+      if (text().toLowerCase(Locale.ENGLISH).startsWith(vendor.getPrefix())) {
+        return vendor;
+      }
+    }
+    return null;
   }
 
 }

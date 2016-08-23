@@ -20,6 +20,7 @@
 package org.sonar.css.parser;
 
 import org.junit.Test;
+import org.sonar.css.model.Vendor;
 import org.sonar.plugins.css.api.tree.IdentifierTree;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -32,13 +33,22 @@ public class IdentifierTreeTest extends TreeTest {
 
   @Test
   public void ident() {
+    IdentifierTree tree;
+
     checkParsed("abc");
     checkParsed("p");
     checkParsed(" p", "p");
     checkParsed("b\\&W\\?");
     checkParsed("B\\&W\\?");
-    checkParsed("-moz-box-sizing");
-    checkParsed("_dunno-what");
+
+    tree = checkParsed("-moz-box-sizing");
+    assertThat(tree.isVendorPrefixed()).isTrue();
+    assertThat(tree.vendor()).isEqualTo(Vendor.MOZILLA);
+
+    tree = checkParsed("_dunno-what");
+    assertThat(tree.isVendorPrefixed()).isFalse();
+    assertThat(tree.vendor()).isNull();
+
     checkParsed("*");
   }
 
@@ -51,14 +61,15 @@ public class IdentifierTreeTest extends TreeTest {
     checkNotParsed("123px");
   }
 
-  private void checkParsed(String toParse, String expectedIdent) {
+  private IdentifierTree checkParsed(String toParse, String expectedIdent) {
     IdentifierTree tree = (IdentifierTree) parser().parse(toParse);
     assertThat(tree.value()).isNotNull();
     assertThat(tree.text()).isEqualTo(expectedIdent);
+    return tree;
   }
 
-  private void checkParsed(String toParse) {
-    checkParsed(toParse, toParse);
+  private IdentifierTree checkParsed(String toParse) {
+    return checkParsed(toParse, toParse);
   }
 
 }

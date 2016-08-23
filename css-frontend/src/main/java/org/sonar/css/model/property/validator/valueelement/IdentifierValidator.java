@@ -41,7 +41,7 @@ public class IdentifierValidator implements ValueElementValidator {
   @Override
   public boolean isValid(Tree tree) {
     if (tree instanceof IdentifierTree) {
-      if (allowedValues.isEmpty()) {
+      if (allowedValues.isEmpty() || ((IdentifierTree) tree).isVendorPrefixed()) {
         return true;
       }
       return allowedValues.contains(((IdentifierTree) tree).text().toLowerCase());
