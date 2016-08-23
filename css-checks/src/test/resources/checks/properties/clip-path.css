@@ -10,7 +10,7 @@
   clip-path: padding-box;
   clip-path: border-box;
   clip-path: margin-box;
-  clip-path: url; /* Noncompliant !{Update the invalid value of property "clip-path". Expected format: none | <uri> | <shape-box> | <function>(inset | circle | ellipse | polygon)}! */
+  clip-path: url; /* Noncompliant !{Update the invalid value of property "clip-path". Expected format: none | <uri> | <shape-box> | <function>(circle | ellipse | inset | polygon)}! */
   clip-path: 10%; /* Noncompliant */
   clip-path: 10px; /* Noncompliant */
   clip-path: abc(); /* Noncompliant */

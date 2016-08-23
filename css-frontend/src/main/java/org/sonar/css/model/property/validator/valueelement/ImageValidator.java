@@ -19,6 +19,7 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
+import org.sonar.css.model.function.standard.*;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementMultiValidator;
 import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
@@ -27,8 +28,8 @@ public class ImageValidator extends ValueElementMultiValidator {
   public ImageValidator() {
     super(
       ValidatorFactory.getUriValidator(),
-      new FunctionValidator("image", "image-set", "cross-fade", "element", "linear-gradient", "radial-gradient",
-        "repeating-linear-gradient", "repeating-radial-gradient"));
+      new FunctionValidator(Image.class, ImageSet.class, CrossFade.class, Element.class, LinearGradient.class,
+        RadialGradient.class, RepeatingLinearGradient.class, RepeatingRadialGradient.class));
   }
 
   @Override

@@ -19,10 +19,15 @@
  */
 package org.sonar.css.model.property.validator.valueelement.function;
 
+import org.sonar.css.model.function.standard.Circle;
+import org.sonar.css.model.function.standard.Ellipse;
+import org.sonar.css.model.function.standard.Inset;
+import org.sonar.css.model.function.standard.Polygon;
+
 public class BasicShapeValidator extends FunctionValidator {
 
   public BasicShapeValidator() {
-    super("inset", "circle", "ellipse", "polygon");
+    super(Inset.class, Circle.class, Ellipse.class, Polygon.class);
   }
 
 }

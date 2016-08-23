@@ -19,6 +19,8 @@
  */
 package org.sonar.css.model.property.standard;
 
+import org.sonar.css.model.function.standard.CubicBezier;
+import org.sonar.css.model.function.standard.Steps;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.HashMultiplierValidator;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
@@ -30,7 +32,7 @@ public class TransitionTimingFunction extends StandardProperty {
     addLinks("https://drafts.csswg.org/css-transitions-1/#propdef-transition-timing-function");
     addValidators(new HashMultiplierValidator(
       new IdentifierValidator("ease", "linear", "ease-in", "ease-out", "ease-in-out", "step-start", "step-end"),
-      new FunctionValidator("steps", "cubic-bezier")));
+      new FunctionValidator(Steps.class, CubicBezier.class)));
   }
 
 }

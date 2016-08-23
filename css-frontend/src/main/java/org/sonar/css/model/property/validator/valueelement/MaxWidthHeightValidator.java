@@ -19,6 +19,7 @@
  */
 package org.sonar.css.model.property.validator.valueelement;
 
+import org.sonar.css.model.function.standard.FitContent;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementMultiValidator;
 import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
@@ -31,7 +32,7 @@ public class MaxWidthHeightValidator extends ValueElementMultiValidator {
       ValidatorFactory.getLengthValidator(),
       ValidatorFactory.getPercentageValidator(),
       new IdentifierValidator("fill", "max-content", "min-content", "fit-content"),
-      new FunctionValidator("fit-content"));
+      new FunctionValidator(FitContent.class));
   }
 
 }

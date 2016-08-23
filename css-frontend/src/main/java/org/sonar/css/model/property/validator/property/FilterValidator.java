@@ -21,6 +21,7 @@ package org.sonar.css.model.property.validator.property;
 
 import java.util.List;
 
+import org.sonar.css.model.function.standard.*;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.ValueValidator;
@@ -31,9 +32,11 @@ import org.sonar.plugins.css.api.tree.ValueTree;
 public class FilterValidator implements ValueValidator {
 
   private static final ValueElementValidator FUNCTION_VALIDATOR = new FunctionValidator(
-    "blur", "brightness", "contrast", "drop-shadow", "grayscale", "hue-rotate", "invert", "opacity", "saturate", "sepia",
-    "alpha", "basicimage", "blendtrans", "chroma", "compositor", "dropshadow", "emboss", "engrave", "fliph", "flipv",
-    "glow", "icmfilter", "light", "maskfilter", "matrix", "motionblur", "redirect", "revealtrans", "shadow", "wave", "xray");
+    Blur.class, Brightness.class, Contrast.class, DropShadow.class, Grayscale.class, HueRotate.class, Invert.class,
+    Opacity.class, Saturate.class, Sepia.class, Alpha.class, Basicimage.class, Blendtrans.class, Chroma.class,
+    Compositor.class, DropShadow.class, Emboss.class, Engrave.class, Fliph.class, Flipv.class, Glow.class,
+    Icmfilter.class, Light.class, MaskFilter.class, Matrix.class, Motionblur.class, Redirect.class, Revealtrans.class,
+    Shadow.class, Wave.class, Xray.class);
 
   @Override
   public boolean isValid(ValueTree valueTree) {

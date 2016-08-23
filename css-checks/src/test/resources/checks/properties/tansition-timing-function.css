@@ -9,7 +9,7 @@
   transition-timing-function: step-end;
   transition-timing-function: steps(3, start);
   transition-timing-function: cubic-bezier(1,2,3,4);
-  transition-timing-function: 10s; /* Noncompliant !{Update the invalid value of property "transition-timing-function". Expected format: [ ease | linear | ease-in | ease-out | ease-in-out | step-start | step-end | <function>(steps | cubic-bezier) ]#}! */
+  transition-timing-function: 10s; /* Noncompliant !{Update the invalid value of property "transition-timing-function". Expected format: [ ease | linear | ease-in | ease-out | ease-in-out | step-start | step-end | <function>(cubic-bezier | steps) ]#}! */
   transition-timing-function: 10; /* Noncompliant */
   transition-timing-function: 10.5; /* Noncompliant */
   transition-timing-function: abc; /* Noncompliant */

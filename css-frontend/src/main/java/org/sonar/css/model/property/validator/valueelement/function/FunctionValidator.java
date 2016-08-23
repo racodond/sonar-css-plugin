@@ -19,31 +19,48 @@
  */
 package org.sonar.css.model.property.validator.valueelement.function;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.sonar.css.model.function.StandardFunction;
+import org.sonar.css.model.function.standard.Expression;
+import org.sonar.css.model.function.standard.Var;
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.plugins.css.api.tree.FunctionTree;
 import org.sonar.plugins.css.api.tree.Tree;
 
 public class FunctionValidator implements ValueElementValidator {
 
-  private final List<String> allowedFunctions;
+  private final List<Class<? extends StandardFunction>> allowedFunctions = new ArrayList<>();
+  private final List<Class<? extends StandardFunction>> alwaysAllowedFunctions = Arrays.asList(Var.class, Expression.class);
 
-  public FunctionValidator(String... allowedFunctions) {
-    this.allowedFunctions = Arrays.asList(allowedFunctions);
+  public FunctionValidator(Class<? extends StandardFunction>... allowedFunctions) {
+    this.allowedFunctions.addAll(Arrays.asList(allowedFunctions));
   }
 
   @Override
   public boolean isValid(Tree tree) {
     return tree instanceof FunctionTree
-      && allowedFunctions.contains(((FunctionTree) tree).standardFunction().getName());
+      && (allowedFunctions.contains(((FunctionTree) tree).standardFunction().getClass())
+        || alwaysAllowedFunctions.contains(((FunctionTree) tree).standardFunction().getClass()));
   }
 
   @Override
   public String getValidatorFormat() {
-    return "<function>(" + allowedFunctions.stream().collect(Collectors.joining(" | ")) + ")";
+    return "<function>("
+      + allowedFunctions.stream()
+        .map(c -> {
+          try {
+            return c.newInstance().getName();
+          } catch (IllegalAccessException | InstantiationException e) {
+            throw new IllegalStateException("Cannot create instance of function " + c.getName(), e);
+          }
+        })
+        .sorted()
+        .collect(Collectors.joining(" | "))
+      + ")";
   }
 
 }

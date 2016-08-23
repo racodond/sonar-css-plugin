@@ -19,6 +19,10 @@
  */
 package org.sonar.css.model.property.standard;
 
+import org.sonar.css.model.function.standard.Circle;
+import org.sonar.css.model.function.standard.Ellipse;
+import org.sonar.css.model.function.standard.Inset;
+import org.sonar.css.model.function.standard.Polygon;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.valueelement.ShapeBoxValidator;
@@ -34,7 +38,7 @@ public class ClipPath extends StandardProperty {
       ValidatorFactory.getNoneValidator(),
       ValidatorFactory.getUriValidator(),
       new ShapeBoxValidator(),
-      new FunctionValidator("inset", "circle", "ellipse", "polygon"));
+      new FunctionValidator(Inset.class, Circle.class, Ellipse.class, Polygon.class));
   }
 
 }

@@ -21,6 +21,7 @@ package org.sonar.css.model.property.validator.property;
 
 import java.util.List;
 
+import org.sonar.css.model.function.standard.*;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.ValueValidator;
@@ -31,8 +32,9 @@ import org.sonar.plugins.css.api.tree.ValueTree;
 public class TransformValidator implements ValueValidator {
 
   private static final ValueElementValidator FUNCTION_VALIDATOR = new FunctionValidator(
-    "matrix", "translate", "translatex", "translatey", "scale", "scalex", "scaley", "rotate", "skew", "skewx", "skewy", "matrix3d",
-    "translate3d", "translatez", "scale3d", "scalez", "rotate3d", "rotatex", "rotatey", "rotatez", "perspective");
+    Matrix.class, Translate.class, Translatex.class, Translatey.class, Scale.class, Scalex.class, Scaley.class,
+    Rotate.class, Skew.class, Skewx.class, Skewy.class, Matrix3d.class, Translate3d.class, Translatez.class,
+    Scale3d.class, Scalez.class, Rotate3d.class, Rotatex.class, Rotatey.class, Rotatez.class, Perspective.class);
 
   @Override
   public boolean isValid(ValueTree valueTree) {

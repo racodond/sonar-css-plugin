@@ -20,6 +20,10 @@
 package org.sonar.css.model.property.validator.valueelement;
 
 import org.sonar.css.model.Color;
+import org.sonar.css.model.function.standard.Hsl;
+import org.sonar.css.model.function.standard.Hsla;
+import org.sonar.css.model.function.standard.Rgb;
+import org.sonar.css.model.function.standard.Rgba;
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
 import org.sonar.plugins.css.api.tree.Tree;
@@ -32,7 +36,7 @@ public class ColorValidator implements ValueElementValidator {
       || new IdentifierValidator(Color.CSS4_COLORS).isValid(valueElement)
       || new IdentifierValidator(Color.CSS2_SYSTEM_COLORS).isValid(valueElement)
       || new IdentifierValidator("transparent", "currentcolor").isValid(valueElement)
-      || new FunctionValidator("rgb", "rgba", "hsl", "hsla").isValid(valueElement)
+      || new FunctionValidator(Rgb.class, Rgba.class, Hsl.class, Hsla.class).isValid(valueElement)
       || new HashValidator().isValid(valueElement);
   }
 

@@ -20,6 +20,7 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.Vendor;
+import org.sonar.css.model.function.standard.FitContent;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
@@ -38,7 +39,7 @@ public class ColumnWidth extends StandardProperty {
       ValidatorFactory.getAutoValidator(),
       ValidatorFactory.getPositiveLengthValidator(),
       new IdentifierValidator("fill", "max-content", "min-content", "fit-content"),
-      new FunctionValidator("fit-content"));
+      new FunctionValidator(FitContent.class));
   }
 
 }

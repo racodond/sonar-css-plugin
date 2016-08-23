@@ -21,6 +21,7 @@ package org.sonar.css.model.property.validator.valueelement.dimension;
 
 import java.util.List;
 
+import org.sonar.css.model.function.standard.Calc;
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
 import org.sonar.plugins.css.api.tree.DimensionTree;
@@ -51,7 +52,7 @@ public abstract class DimensionValidator implements ValueElementValidator {
       return isPositiveOnly() ? ((DimensionTree) tree).value().isPositive() : true;
     }
 
-    if (new FunctionValidator("calc").isValid(tree)) {
+    if (new FunctionValidator(Calc.class).isValid(tree)) {
       return true;
     }
 

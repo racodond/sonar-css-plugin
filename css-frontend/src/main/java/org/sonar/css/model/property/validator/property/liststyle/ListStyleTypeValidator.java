@@ -19,6 +19,7 @@
  */
 package org.sonar.css.model.property.validator.property.liststyle;
 
+import org.sonar.css.model.function.standard.Symbols;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementMultiValidator;
 import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
@@ -28,7 +29,7 @@ public class ListStyleTypeValidator extends ValueElementMultiValidator {
   public ListStyleTypeValidator() {
     super(
       ValidatorFactory.getStringValidator(),
-      new FunctionValidator("symbols"),
+      new FunctionValidator(Symbols.class),
       ValidatorFactory.getAnyIdentifierValidator());
   }
 

@@ -24,6 +24,8 @@ import com.google.common.collect.Iterators;
 import java.util.Iterator;
 import java.util.List;
 
+import org.sonar.css.model.function.standard.Expression;
+import org.sonar.css.model.function.standard.Var;
 import org.sonar.css.model.property.validator.Validator;
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.ValueValidator;
@@ -104,8 +106,7 @@ public class PropertyDeclarationTreeImpl extends CssTree implements PropertyDecl
     }
 
     return new IdentifierValidator("inherit", "initial", "unset").isValid(valueElements.get(0))
-      || new FunctionValidator("var").isValid(valueElements.get(0))
-      || new FunctionValidator("expression").isValid(valueElements.get(0));
+      || new FunctionValidator(Var.class, Expression.class).isValid(valueElements.get(0));
   }
 
   private boolean hasOnlyPropertyValueElementValidators() {

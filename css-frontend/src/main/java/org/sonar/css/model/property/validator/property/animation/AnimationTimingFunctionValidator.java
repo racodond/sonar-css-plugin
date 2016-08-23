@@ -19,6 +19,8 @@
  */
 package org.sonar.css.model.property.validator.property.animation;
 
+import org.sonar.css.model.function.standard.CubicBezier;
+import org.sonar.css.model.function.standard.Steps;
 import org.sonar.css.model.property.validator.ValueElementMultiValidator;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
@@ -28,7 +30,7 @@ public class AnimationTimingFunctionValidator extends ValueElementMultiValidator
   public AnimationTimingFunctionValidator() {
     super(
       new IdentifierValidator("ease", "linear", "ease-in", "ease-out", "ease-in-out", "step-start", "step-end"),
-      new FunctionValidator("steps", "cubic-bezier"));
+      new FunctionValidator(Steps.class, CubicBezier.class));
   }
 
 }
