@@ -19,12 +19,14 @@
  */
 package org.sonar.css.model.atrule;
 
+import java.util.stream.Collectors;
+
 import org.junit.Test;
 import org.sonar.css.model.atrule.standard.CharacterVariant;
 import org.sonar.css.model.atrule.standard.Charset;
 import org.sonar.css.model.atrule.standard.Keyframes;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class StandardAtRuleFactoryTest {
 
@@ -68,13 +70,35 @@ public class StandardAtRuleFactoryTest {
     assertEquals(Keyframes.class, atRule.getClass());
     assertEquals(atRule.getName(), "keyframes");
     assertEquals(atRule.getLinks().size(), 1);
-    assertEquals(atRule.isObsolete(), false);
-    assertEquals(atRule.isExperimental(), true);
+    assertFalse(atRule.isObsolete());
+    assertTrue(atRule.isExperimental());
   }
 
   @Test
   public void number_of_standard_at_rules() {
-    assertEquals(19, StandardAtRuleFactory.getAll().size());
+    assertEquals(35, StandardAtRuleFactory.getAll().size());
+  }
+
+  @Test
+  public void number_of_experimental_standard_at_rules() {
+    assertEquals(
+      28,
+      StandardAtRuleFactory.getAll()
+        .stream()
+        .filter(StandardAtRule::isExperimental)
+        .collect(Collectors.toList())
+        .size());
+  }
+
+  @Test
+  public void number_of_obsolete_standard_at_rules() {
+    assertEquals(
+      0,
+      StandardAtRuleFactory.getAll()
+        .stream()
+        .filter(StandardAtRule::isObsolete)
+        .collect(Collectors.toList())
+        .size());
   }
 
 }

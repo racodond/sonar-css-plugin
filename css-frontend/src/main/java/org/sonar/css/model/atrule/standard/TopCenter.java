@@ -21,12 +21,11 @@ package org.sonar.css.model.atrule.standard;
 
 import org.sonar.css.model.atrule.StandardAtRule;
 
-public class Page extends StandardAtRule {
+public class TopCenter extends StandardAtRule {
 
-  public Page() {
-    addLinks(
-      "https://www.w3.org/TR/CSS2/page.html#page-box",
-      "https://drafts.csswg.org/css-page-3/#at-page-rule");
+  public TopCenter() {
+    setExperimental(true);
+    addLinks("https://drafts.csswg.org/css-page-3/");
   }
 
 }

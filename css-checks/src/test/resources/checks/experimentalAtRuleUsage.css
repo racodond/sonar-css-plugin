@@ -76,3 +76,12 @@
             (-ms-perspective: 10px) or (-o-perspective: 10px) ) {
   /* specific CSS applied when 3D transforms, eventually prefixed, are supported */
 }
+
+@page {
+  @top-left { /* Noncompliant ![sc=3;ec=12;el=+0]! !{Remove this usage of the experimental "top-left" @-rule.}! */
+    content: "Hamlet";
+  }
+  @top-right { /* Noncompliant ![sc=3;ec=13;el=+0]! !{Remove this usage of the experimental "top-right" @-rule.}! */
+    content: "Page " counter(page);
+  }
+}

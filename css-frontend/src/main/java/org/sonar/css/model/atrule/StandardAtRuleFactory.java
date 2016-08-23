@@ -29,6 +29,11 @@ public class StandardAtRuleFactory {
 
   private static final Set<Class> ALL_AT_RULE_CLASSES = ImmutableSet.of(
     Annotation.class,
+    BottomCenter.class,
+    BottomLeft.class,
+    BottomLeftCorner.class,
+    BottomRight.class,
+    BottomRightCorner.class,
     CharacterVariant.class,
     Charset.class,
     CounterStyle.class,
@@ -38,14 +43,25 @@ public class StandardAtRuleFactory {
     FontFeatureValues.class,
     Import.class,
     Keyframes.class,
+    LeftBottom.class,
+    LeftMiddle.class,
+    LeftTop.class,
     Media.class,
     Namespace.class,
     Ornaments.class,
     Page.class,
+    RightBottom.class,
+    RightMiddle.class,
+    RightTop.class,
     Styleset.class,
     Stylistic.class,
     Supports.class,
     Swash.class,
+    TopCenter.class,
+    TopLeft.class,
+    TopLeftCorner.class,
+    TopRight.class,
+    TopRightCorner.class,
     Viewport.class);
 
   private static final Map<String, StandardAtRule> ALL = new HashMap<>();

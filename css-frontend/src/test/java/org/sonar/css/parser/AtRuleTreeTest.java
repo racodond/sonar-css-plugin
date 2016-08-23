@@ -165,6 +165,9 @@ public class AtRuleTreeTest extends TreeTest {
     assertThat(tree.standardAtRule()).isInstanceOf(Page.class);
     assertThat(tree.isVendorPrefixed()).isFalse();
 
+    checkParsed("@page :blank {\n"
+      + "@top-center { content: \"This page is intentionally left blank\" }\n"
+      + "}");
   }
 
   @Test
