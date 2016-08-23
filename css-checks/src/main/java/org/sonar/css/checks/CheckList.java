@@ -54,6 +54,7 @@ public final class CheckList {
       EmptyRuleCheck.class,
       ExperimentalAtRuleCheck.class,
       ExperimentalFunctionCheck.class,
+      ExperimentalIdentifierCheck.class,
       ExperimentalPropertyCheck.class,
       FixmeTagCheck.class,
       FontFaceBrowserCompatibilityCheck.class,
