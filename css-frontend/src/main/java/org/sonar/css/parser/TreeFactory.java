@@ -160,6 +160,10 @@ public class TreeFactory {
     return new IdSelectorTreeImpl(hash, identifier);
   }
 
+  public PseudoSelectorTree pseudoSelector(Optional<SyntaxToken> spacing, PseudoComponentTree pseudo) {
+    return new PseudoSelectorTreeImpl(pseudo);
+  }
+
   public PseudoSelectorTree pseudoSelector(PseudoComponentTree pseudo) {
     return new PseudoSelectorTreeImpl(pseudo);
   }

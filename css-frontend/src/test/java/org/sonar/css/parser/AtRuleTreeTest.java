@@ -23,6 +23,7 @@ import org.junit.Test;
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.atrule.UnknownAtRule;
 import org.sonar.css.model.atrule.standard.Import;
+import org.sonar.css.model.atrule.standard.Page;
 import org.sonar.plugins.css.api.tree.AtRuleTree;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -155,6 +156,14 @@ public class AtRuleTreeTest extends TreeTest {
     checkParsed("@font-face {;;}");
     checkParsed("@font-face {;font-family:Icons;}");
     checkParsed("@font-face {}");
+
+    tree = checkParsed("@page :first {}");
+    assertThat(tree.preludes()).isNotNull();
+    assertThat(tree.block()).isNotNull();
+    assertThat(tree.semicolon()).isNull();
+    assertThat(tree.standardAtRule().getName()).isEqualTo("page");
+    assertThat(tree.standardAtRule()).isInstanceOf(Page.class);
+    assertThat(tree.isVendorPrefixed()).isFalse();
 
   }
 

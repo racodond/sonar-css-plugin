@@ -100,6 +100,7 @@ public class CssGrammar {
       b.firstOf(
         URI(),
         FUNCTION(),
+        PSEUDO_SELECTOR(),
         PARENTHESIS_BLOCK(),
         BRACKET_BLOCK(),
         PERCENTAGE(),
@@ -238,7 +239,7 @@ public class CssGrammar {
             KEYFRAMES_SELECTOR(),
             CLASS_SELECTOR(),
             ID_SELECTOR(),
-            PSEUDO_SELECTOR(),
+            PSEUDO_SELECTOR_NO_WS(),
             ATTRIBUTE_SELECTOR(),
             TYPE_SELECTOR()))));
   }
@@ -310,6 +311,15 @@ public class CssGrammar {
 
   public PseudoSelectorTree PSEUDO_SELECTOR() {
     return b.<PseudoSelectorTree>nonterminal(CssLexicalGrammar.PSEUDO_SELECTOR).is(
+      f.pseudoSelector(
+        b.optional(b.token(CssLexicalGrammar.SPACING)),
+        b.firstOf(
+          PSEUDO_FUNCTION(),
+          PSEUDO_IDENTIFIER())));
+  }
+
+  public PseudoSelectorTree PSEUDO_SELECTOR_NO_WS() {
+    return b.<PseudoSelectorTree>nonterminal(CssLexicalGrammar.PSEUDO_SELECTOR_NO_WS).is(
       f.pseudoSelector(
         b.firstOf(
           PSEUDO_FUNCTION(),

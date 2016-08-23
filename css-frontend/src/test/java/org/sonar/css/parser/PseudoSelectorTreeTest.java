@@ -70,16 +70,12 @@ public class PseudoSelectorTreeTest extends TreeTest {
 
   @Test
   public void notPseudoSelector() {
-    checkNotParsed(" :abc");
-    checkNotParsed(" ::abc");
     checkNotParsed(": abc");
     checkNotParsed(":: abc");
 
     checkNotParsed(": abc(param)");
-    checkNotParsed(" :abc(param)");
     checkNotParsed(":: abc()");
     checkNotParsed(":: abc(param)");
-    checkNotParsed(" ::abc(param)");
   }
 
   private PseudoSelectorTree checkParsed(String toParse) {
