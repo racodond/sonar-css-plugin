@@ -57,6 +57,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Box model size should be carefully reviewed
 * Branches should have sufficient coverage by unit tests
 * Byte Order Mark (BOM) should not be used for UTF-8 files
+* Case-sensitive flag should not be used
 * Deprecated Internet Explorer static filters should be removed
 * Deprecated system colors should not be used
 * Duplicated background images should be removed
@@ -66,6 +67,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Empty rules should be removed
 * Experimental @-rules should not be used
 * Experimental functions should not be used
+* Experimental identifiers should not be used
 * Experimental properties should not be used
 * Font files inlining should not be used
 * Gradient definitions should be set for all vendors
@@ -101,6 +103,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Unknown @-rules should be removed
 * Unknown functions should be removed
 * Unknown properties should be removed
+* Unknown pseudo-functions should be removed
 
 ### Templates
 Regular expression on comment

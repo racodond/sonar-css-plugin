@@ -20,6 +20,10 @@
 package org.sonar.css.parser;
 
 import org.junit.Test;
+import org.sonar.css.model.Vendor;
+import org.sonar.css.model.pseudo.pseudofunction.UnknownPseudoFunction;
+import org.sonar.css.model.pseudo.pseudofunction.standard.Lang;
+import org.sonar.css.model.pseudo.pseudofunction.standard.NthLastChild;
 import org.sonar.plugins.css.api.tree.PseudoFunctionTree;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -32,9 +36,33 @@ public class PseudoFunctionTreeTest extends TreeTest {
 
   @Test
   public void pseudoFunction() {
-    checkParsed(":lang(en)", ":", "lang");
-    checkParsed(":nth-last-child(2)", ":", "nth-last-child");
-    checkParsed(":nth-last-child( 2 )", ":", "nth-last-child");
+    PseudoFunctionTree tree;
+
+    tree = checkParsed(":lang(en)", ":", "lang");
+    assertThat(tree.isVendorPrefixed()).isFalse();
+    assertThat(tree.parameterElements()).hasSize(1);
+    assertThat(tree.standardFunction()).isInstanceOf(Lang.class);
+
+    tree = checkParsed(":nth-last-child(2)", ":", "nth-last-child");
+    assertThat(tree.isVendorPrefixed()).isFalse();
+    assertThat(tree.parameterElements()).hasSize(1);
+    assertThat(tree.standardFunction()).isInstanceOf(NthLastChild.class);
+
+    tree = checkParsed(":nth-last-child( 2 )", ":", "nth-last-child");
+    assertThat(tree.isVendorPrefixed()).isFalse();
+    assertThat(tree.parameterElements()).hasSize(1);
+    assertThat(tree.standardFunction()).isInstanceOf(NthLastChild.class);
+
+    tree = checkParsed(":-moz-nth-last-child( 2 )", ":", "-moz-nth-last-child");
+    assertThat(tree.isVendorPrefixed()).isTrue();
+    assertThat(tree.vendor()).isEqualTo(Vendor.MOZILLA);
+    assertThat(tree.parameterElements()).hasSize(1);
+    assertThat(tree.standardFunction()).isInstanceOf(NthLastChild.class);
+
+    tree = checkParsed(":abc( 2 )", ":", "abc");
+    assertThat(tree.isVendorPrefixed()).isFalse();
+    assertThat(tree.parameterElements()).hasSize(1);
+    assertThat(tree.standardFunction()).isInstanceOf(UnknownPseudoFunction.class);
   }
 
   @Test
@@ -54,8 +82,11 @@ public class PseudoFunctionTreeTest extends TreeTest {
     assertThat(tree).isNotNull();
     assertThat(tree.prefix()).isNotNull();
     assertThat(tree.prefix().text()).isEqualTo(expectedPrefix);
-    assertThat(tree.pseudoFunctionName()).isNotNull();
-    assertThat(tree.pseudoFunctionName().text()).isEqualTo(expectedPseudoFunctionName);
+    assertThat(tree.function()).isNotNull();
+    assertThat(tree.standardFunction()).isNotNull();
+    assertThat(tree.openParenthesis()).isNotNull();
+    assertThat(tree.closeParenthesis()).isNotNull();
+    assertThat(tree.function().text()).isEqualTo(expectedPseudoFunctionName);
     return tree;
   }
 

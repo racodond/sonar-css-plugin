@@ -19,8 +19,20 @@
  */
 package org.sonar.plugins.css.api.tree;
 
+import javax.annotation.Nullable;
+
+import org.sonar.css.model.Vendor;
+import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
+
 public interface PseudoIdentifierTree extends PseudoComponentTree {
 
   IdentifierTree identifier();
+
+  StandardPseudoIdentifier standardPseudoIdentifier();
+
+  boolean isVendorPrefixed();
+
+  @Nullable
+  Vendor vendor();
 
 }

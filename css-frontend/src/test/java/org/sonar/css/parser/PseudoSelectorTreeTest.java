@@ -54,15 +54,15 @@ public class PseudoSelectorTreeTest extends TreeTest {
     assertThat(tree.component()).isInstanceOf(PseudoFunctionTree.class);
     assertThat(tree.component().prefix()).isNotNull();
     assertThat(tree.component().prefix().text()).isEqualTo(":");
-    assertThat(((PseudoFunctionTree) tree.component()).pseudoFunctionName()).isNotNull();
-    assertThat(((PseudoFunctionTree) tree.component()).pseudoFunctionName().text()).isEqualTo("lang");
+    assertThat(((PseudoFunctionTree) tree.component()).function()).isNotNull();
+    assertThat(((PseudoFunctionTree) tree.component()).function().text()).isEqualTo("lang");
 
     tree = checkParsed(":nth-last-child(2)");
     assertThat(tree.component()).isInstanceOf(PseudoFunctionTree.class);
     assertThat(tree.component().prefix()).isNotNull();
     assertThat(tree.component().prefix().text()).isEqualTo(":");
-    assertThat(((PseudoFunctionTree) tree.component()).pseudoFunctionName()).isNotNull();
-    assertThat(((PseudoFunctionTree) tree.component()).pseudoFunctionName().text()).isEqualTo("nth-last-child");
+    assertThat(((PseudoFunctionTree) tree.component()).function()).isNotNull();
+    assertThat(((PseudoFunctionTree) tree.component()).function().text()).isEqualTo("nth-last-child");
 
     checkParsed(":nth-last-child( 2 )");
     checkParsed("::nth-last-child( 2 )");

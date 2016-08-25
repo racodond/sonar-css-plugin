@@ -34,6 +34,8 @@ public class StandardFunctionFactoryTest {
     assertEquals(function.getName(), "rotatex");
     assertEquals(function.getLinks().size(), 1);
     assertEquals(function.getLinks().get(0), "https://drafts.csswg.org/css-transforms/#three-d-transform-functions");
+    assertEquals(function.isExperimental(), false);
+    assertEquals(function.isObsolete(), false);
   }
 
   @Test
@@ -80,7 +82,7 @@ public class StandardFunctionFactoryTest {
 
   @Test
   public void number_of_standard_functions() {
-    assertEquals(123, StandardFunctionFactory.getAll().size());
+    assertEquals(110, StandardFunctionFactory.getAll().size());
   }
 
   @Test
@@ -89,8 +91,8 @@ public class StandardFunctionFactoryTest {
   }
 
   @Test
-  public void number_of_pseudo_functions() {
-    assertEquals(13, StandardFunctionFactory.getAll().stream().filter(StandardFunction::isPseudo).count());
+  public void number_of_experimental_functions() {
+    assertEquals(15, StandardFunctionFactory.getAll().stream().filter(StandardFunction::isExperimental).count());
   }
 
   @Test

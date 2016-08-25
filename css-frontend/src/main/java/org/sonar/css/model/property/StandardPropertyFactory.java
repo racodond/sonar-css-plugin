@@ -655,7 +655,7 @@ public class StandardPropertyFactory {
         ALL.put(standardProperty.getName(), standardProperty);
       }
     } catch (InstantiationException | IllegalAccessException e) {
-      throw new IllegalStateException("CSS properties full list cannot be created.", e);
+      throw new IllegalStateException("CSS property full list cannot be created.", e);
     }
   }
 
@@ -663,8 +663,8 @@ public class StandardPropertyFactory {
   }
 
   public static StandardProperty getByName(String propertyName) {
-    StandardProperty property = ALL.get(propertyName.toLowerCase(Locale.ENGLISH));
-    return property != null ? property : new UnknownProperty(propertyName.toLowerCase(Locale.ENGLISH));
+    StandardProperty standardProperty = ALL.get(propertyName.toLowerCase(Locale.ENGLISH));
+    return standardProperty != null ? standardProperty : new UnknownProperty(propertyName);
   }
 
   public static List<StandardProperty> getAll() {

@@ -36,6 +36,7 @@ import org.sonar.css.model.atrule.StandardAtRule;
 import org.sonar.css.model.function.StandardFunction;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.StandardPropertyFactory;
+import org.sonar.css.model.pseudo.StandardPseudoComponent;
 
 public class RuleDescriptionsGenerator {
 
@@ -105,6 +106,7 @@ public class RuleDescriptionsGenerator {
   private final Map<String, String> tags = ImmutableMap.<String, String>builder()
     .put("[[allProperties]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardProperty.class, o -> true)))
     .put("[[allFunctions]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardFunction.class, o -> true)))
+    .put("[[allPseudos]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardPseudoComponent.class, o -> true)))
     .put("[[allAtRules]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardAtRule.class, o -> true)))
     .put("[[experimentalProperties]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardProperty.class, StandardCssObject::isExperimental)))
     .put("[[experimentalFunctions]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardFunction.class, StandardCssObject::isExperimental)))

@@ -92,6 +92,7 @@ public final class CheckList {
       UnknownAtRuleCheck.class,
       UnknownFunctionCheck.class,
       UnknownPropertyCheck.class,
+      UnknownPseudoCheck.class,
       UseShorthandPropertyCheck.class,
       ValidatePropertyValueCheck.class,
       VendorPrefixWithStandardCheck.class);

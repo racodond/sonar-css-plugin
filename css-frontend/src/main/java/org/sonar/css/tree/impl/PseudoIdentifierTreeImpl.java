@@ -22,7 +22,11 @@ package org.sonar.css.tree.impl;
 import com.google.common.collect.Iterators;
 
 import java.util.Iterator;
+import java.util.Locale;
 
+import org.sonar.css.model.Vendor;
+import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
+import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifierFactory;
 import org.sonar.plugins.css.api.tree.IdentifierTree;
 import org.sonar.plugins.css.api.tree.PseudoIdentifierTree;
 import org.sonar.plugins.css.api.tree.SyntaxToken;
@@ -33,10 +37,15 @@ public class PseudoIdentifierTreeImpl extends CssTree implements PseudoIdentifie
 
   private final SyntaxToken prefix;
   private final IdentifierTree identifier;
+  private final Vendor vendor;
+  private final StandardPseudoIdentifier standardPseudoIdentifier;
 
   public PseudoIdentifierTreeImpl(SyntaxToken prefix, IdentifierTree identifier) {
     this.prefix = prefix;
     this.identifier = identifier;
+
+    this.vendor = setVendor();
+    this.standardPseudoIdentifier = setStandardPseudoIdentifier();
   }
 
   @Override
@@ -62,6 +71,38 @@ public class PseudoIdentifierTreeImpl extends CssTree implements PseudoIdentifie
   @Override
   public IdentifierTree identifier() {
     return identifier;
+  }
+
+  @Override
+  public StandardPseudoIdentifier standardPseudoIdentifier() {
+    return standardPseudoIdentifier;
+  }
+
+  @Override
+  public boolean isVendorPrefixed() {
+    return vendor != null;
+  }
+
+  @Override
+  public Vendor vendor() {
+    return vendor;
+  }
+
+  private Vendor setVendor() {
+    for (Vendor vendor : Vendor.values()) {
+      if (identifier.text().toLowerCase(Locale.ENGLISH).startsWith(vendor.getPrefix())) {
+        return vendor;
+      }
+    }
+    return null;
+  }
+
+  private StandardPseudoIdentifier setStandardPseudoIdentifier() {
+    String name = identifier.text();
+    if (isVendorPrefixed()) {
+      name = name.substring(vendor.getPrefix().length());
+    }
+    return StandardPseudoIdentifierFactory.getByName(name);
   }
 
 }

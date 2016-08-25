@@ -19,8 +19,26 @@
  */
 package org.sonar.plugins.css.api.tree;
 
+import java.util.List;
+import javax.annotation.Nullable;
+
+import org.sonar.css.model.Vendor;
+import org.sonar.css.model.pseudo.pseudofunction.StandardPseudoFunction;
+
 public interface PseudoFunctionTree extends PseudoComponentTree {
 
-  IdentifierTree pseudoFunctionName();
+  IdentifierTree function();
 
+  StandardPseudoFunction standardFunction();
+
+  SyntaxToken openParenthesis();
+
+  SyntaxToken closeParenthesis();
+
+  List<Tree> parameterElements();
+
+  boolean isVendorPrefixed();
+
+  @Nullable
+  Vendor vendor();
 }
