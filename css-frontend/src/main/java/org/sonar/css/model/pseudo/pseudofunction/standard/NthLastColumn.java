@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudofunction.StandardPseudoFunction;
 public class NthLastColumn extends StandardPseudoFunction {
 
   public NthLastColumn() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/selectors-4/#overview");
   }
 

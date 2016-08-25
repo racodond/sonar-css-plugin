@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 public class SpellingError extends StandardPseudoIdentifier {
 
   public SpellingError() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-pseudo-4/#highlight-selectors");
   }
 

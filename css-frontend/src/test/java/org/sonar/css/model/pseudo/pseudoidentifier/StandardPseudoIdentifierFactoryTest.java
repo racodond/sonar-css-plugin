@@ -71,7 +71,7 @@ public class StandardPseudoIdentifierFactoryTest {
 
   @Test
   public void number_of_experimental_pseudo_identifiers() {
-    assertEquals(0, StandardPseudoIdentifierFactory.getAll().stream().filter(StandardPseudoIdentifier::isObsolete).count());
+    assertEquals(27, StandardPseudoIdentifierFactory.getAll().stream().filter(StandardPseudoIdentifier::isExperimental).count());
   }
 
 }

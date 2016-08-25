@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudofunction.StandardPseudoFunction;
 public class Has extends StandardPseudoFunction {
 
   public Has() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/selectors-4/#overview");
   }
 

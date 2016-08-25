@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudofunction.StandardPseudoFunction;
 public class Current extends StandardPseudoFunction {
 
   public Current() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/selectors-4/#overview");
   }
 

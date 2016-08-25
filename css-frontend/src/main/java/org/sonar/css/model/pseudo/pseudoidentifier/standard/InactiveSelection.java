@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 public class InactiveSelection extends StandardPseudoIdentifier {
 
   public InactiveSelection() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-pseudo-4/#highlight-selectors");
   }
 

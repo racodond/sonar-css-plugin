@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 public class Backdrop extends StandardPseudoIdentifier {
 
   public Backdrop() {
+    setExperimental(true);
     addLinks("https://fullscreen.spec.whatwg.org/#::backdrop-pseudo-element");
   }
 

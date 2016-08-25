@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudofunction.StandardPseudoFunction;
 public class Any extends StandardPseudoFunction {
 
   public Any() {
+    setObsolete(true);
     addLinks("https://developer.mozilla.org/en-US/docs/Web/CSS/:any");
   }
 

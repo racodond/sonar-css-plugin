@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 public class Future extends StandardPseudoIdentifier {
 
   public Future() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/selectors-4/#future-pseudo");
   }
 

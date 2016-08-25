@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 public class First extends StandardPseudoIdentifier {
 
   public First() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-page-3/#valdef-page-first");
   }
 

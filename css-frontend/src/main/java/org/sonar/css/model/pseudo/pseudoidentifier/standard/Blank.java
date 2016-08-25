@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 public class Blank extends StandardPseudoIdentifier {
 
   public Blank() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/selectors-4/#blank-pseudo");
   }
 

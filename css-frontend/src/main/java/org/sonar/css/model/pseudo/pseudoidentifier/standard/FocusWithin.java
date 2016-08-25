@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 public class FocusWithin extends StandardPseudoIdentifier {
 
   public FocusWithin() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/selectors-4/#focus-within-pseudo");
   }
 

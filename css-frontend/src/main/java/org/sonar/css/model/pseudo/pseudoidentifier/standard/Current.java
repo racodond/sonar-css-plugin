@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 public class Current extends StandardPseudoIdentifier {
 
   public Current() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/selectors-4/#current-pseudo");
   }
 

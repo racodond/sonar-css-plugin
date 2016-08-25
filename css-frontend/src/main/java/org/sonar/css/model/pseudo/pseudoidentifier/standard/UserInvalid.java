@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 public class UserInvalid extends StandardPseudoIdentifier {
 
   public UserInvalid() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/selectors-4/#user-error-pseudo");
   }
 

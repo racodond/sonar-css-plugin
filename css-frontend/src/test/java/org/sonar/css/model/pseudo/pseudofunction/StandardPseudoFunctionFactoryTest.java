@@ -33,7 +33,7 @@ public class StandardPseudoFunctionFactoryTest {
     assertEquals(function.getName(), "has");
     assertEquals(function.getLinks().size(), 1);
     assertEquals(function.getLinks().get(0), "https://drafts.csswg.org/selectors-4/#overview");
-    assertEquals(function.isExperimental(), false);
+    assertEquals(function.isExperimental(), true);
     assertEquals(function.isObsolete(), false);
   }
 
@@ -44,7 +44,7 @@ public class StandardPseudoFunctionFactoryTest {
     assertEquals(function.getName(), "has");
     assertEquals(function.getLinks().size(), 1);
     assertEquals(function.getLinks().get(0), "https://drafts.csswg.org/selectors-4/#overview");
-    assertEquals(function.isExperimental(), false);
+    assertEquals(function.isExperimental(), true);
     assertEquals(function.isObsolete(), false);
   }
 
@@ -55,7 +55,7 @@ public class StandardPseudoFunctionFactoryTest {
     assertEquals(function.getName(), "has");
     assertEquals(function.getLinks().size(), 1);
     assertEquals(function.getLinks().get(0), "https://drafts.csswg.org/selectors-4/#overview");
-    assertEquals(function.isExperimental(), false);
+    assertEquals(function.isExperimental(), true);
     assertEquals(function.isObsolete(), false);
   }
 
@@ -66,12 +66,12 @@ public class StandardPseudoFunctionFactoryTest {
 
   @Test
   public void number_of_obsolete_pseudo_functions() {
-    assertEquals(0, StandardPseudoFunctionFactory.getAll().stream().filter(StandardPseudoFunction::isObsolete).count());
+    assertEquals(1, StandardPseudoFunctionFactory.getAll().stream().filter(StandardPseudoFunction::isObsolete).count());
   }
 
   @Test
   public void number_of_experimental_pseudo_functions() {
-    assertEquals(0, StandardPseudoFunctionFactory.getAll().stream().filter(StandardPseudoFunction::isObsolete).count());
+    assertEquals(7, StandardPseudoFunctionFactory.getAll().stream().filter(StandardPseudoFunction::isExperimental).count());
   }
 
 }

@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 public class Scope extends StandardPseudoIdentifier {
 
   public Scope() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/selectors-4/#scope-pseudo");
   }
 

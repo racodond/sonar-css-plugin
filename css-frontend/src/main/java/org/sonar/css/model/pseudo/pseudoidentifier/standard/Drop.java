@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 public class Drop extends StandardPseudoIdentifier {
 
   public Drop() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/selectors-4/#selectordef-drop");
   }
 

@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 public class OutOfRange extends StandardPseudoIdentifier {
 
   public OutOfRange() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/selectors-4/#out-of-range-pseudo");
   }
 

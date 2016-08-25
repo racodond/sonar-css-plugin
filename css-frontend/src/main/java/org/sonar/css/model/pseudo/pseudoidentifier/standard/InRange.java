@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 public class InRange extends StandardPseudoIdentifier {
 
   public InRange() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/selectors-4/#in-range-pseudo");
   }
 

@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 public class Fullscreen extends StandardPseudoIdentifier {
 
   public Fullscreen() {
+    setExperimental(true);
     addLinks("https://fullscreen.spec.whatwg.org/#:fullscreen-pseudo-class");
   }
 

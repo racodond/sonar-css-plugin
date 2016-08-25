@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 public class Default extends StandardPseudoIdentifier {
 
   public Default() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/selectors-4/#default-pseudo");
   }
 

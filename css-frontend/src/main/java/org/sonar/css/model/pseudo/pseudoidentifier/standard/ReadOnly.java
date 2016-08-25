@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 public class ReadOnly extends StandardPseudoIdentifier {
 
   public ReadOnly() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/selectors-4/#read-only-pseudo");
   }
 

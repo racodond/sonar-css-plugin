@@ -17,15 +17,16 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.model.pseudo.pseudoidentifier.standard;
+package org.sonar.css.checks;
 
-import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
+import org.junit.Test;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
-public class ReadWrite extends StandardPseudoIdentifier {
+public class ExperimentalPseudoCheckTest {
 
-  public ReadWrite() {
-    setExperimental(true);
-    addLinks("https://drafts.csswg.org/selectors-4/#read-write-pseudo");
+  @Test
+  public void test() {
+    CssCheckVerifier.verify(new ExperimentalPseudoCheck(), CheckTestUtils.getTestFile("experimentalPseudoUsage.css"));
   }
 
 }

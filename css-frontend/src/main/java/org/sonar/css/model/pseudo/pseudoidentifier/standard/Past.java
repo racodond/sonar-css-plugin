@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 public class Past extends StandardPseudoIdentifier {
 
   public Past() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/selectors-4/#past-pseudo");
   }
 

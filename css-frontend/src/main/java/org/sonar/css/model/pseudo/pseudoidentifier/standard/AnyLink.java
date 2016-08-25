@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 public class AnyLink extends StandardPseudoIdentifier {
 
   public AnyLink() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/selectors-4/#the-any-link-pseudo");
   }
 

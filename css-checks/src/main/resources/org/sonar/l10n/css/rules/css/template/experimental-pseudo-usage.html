@@ -1,0 +1,24 @@
+<p>
+    Even though vendor-specific pseudo-elements and pseudo-classes are guaranteed not to cause conflicts, it should be
+    recognized that these extensions may also be subject to change at the vendor’s whim, as they don’t form part of the
+    CSS specifications, even though they often mimic the proposed behavior of existing or forthcoming CSS pseudos. Thus,
+    it is not recommended to use them in production code.
+</p>
+
+<p>The rule raises an issue when one of the following prefixes is found:</p>
+[[vendors]]
+
+<p>This rule also raises an issue when one of the following experimental pseudos is found:</p>
+[[experimentalPseudos]]
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+::-moz-selection {  /* Noncompliant: vendor-prefixed pseudo-element */
+  background: rgba(255,0,0,0.9);
+  color: white;
+}
+
+#id:fullscreen > h1 { /* Noncompliant: experimental pseudo-class */
+  color: red;
+}
+</pre>

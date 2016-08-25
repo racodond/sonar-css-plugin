@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 public class Left extends StandardPseudoIdentifier {
 
   public Left() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-page-3/#valdef-page-left");
   }
 

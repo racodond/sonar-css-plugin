@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 public class PlaceholderShown extends StandardPseudoIdentifier {
 
   public PlaceholderShown() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/selectors-4/#placeholder-shown-pseudo");
   }
 

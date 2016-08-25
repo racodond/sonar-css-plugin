@@ -24,6 +24,7 @@ import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 public class Marker extends StandardPseudoIdentifier {
 
   public Marker() {
+    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-pseudo-4/#selectordef-marker");
   }
 
