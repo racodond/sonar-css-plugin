@@ -47,10 +47,7 @@ public class StandardFunctionFactory {
     Counters.class,
     CrossFade.class,
     CubicBezier.class,
-    Current.class,
-    Dir.class,
     Domain.class,
-    Drop.class,
     DropShadow.class,
     Ease.class,
     EaseIn.class,
@@ -69,7 +66,6 @@ public class StandardFunctionFactory {
     Glow.class,
     Gray.class,
     Grayscale.class,
-    Has.class,
     Hsl.class,
     Hsla.class,
     HueRotate.class,
@@ -78,26 +74,17 @@ public class StandardFunctionFactory {
     ImageSet.class,
     Inset.class,
     Invert.class,
-    Lang.class,
     Light.class,
     Linear.class,
     LinearGradient.class,
     Local.class,
     MaskFilter.class,
-    Matches.class,
     Matrix.class,
     Matrix3d.class,
     Max.class,
     Min.class,
     Minmax.class,
     Motionblur.class,
-    Not.class,
-    NthChild.class,
-    NthColumn.class,
-    NthLastChild.class,
-    NthLastColumn.class,
-    NthLastOfType.class,
-    NthOfType.class,
     Opacity.class,
     Ornaments.class,
     Perspective.class,
@@ -162,7 +149,7 @@ public class StandardFunctionFactory {
         ALL.put(standardFunction.getName(), standardFunction);
       }
     } catch (InstantiationException | IllegalAccessException e) {
-      throw new IllegalStateException("CSS functions full list cannot be created.", e);
+      throw new IllegalStateException("CSS function full list cannot be created.", e);
     }
   }
 
@@ -170,8 +157,8 @@ public class StandardFunctionFactory {
   }
 
   public static StandardFunction getByName(String functionName) {
-    StandardFunction function = ALL.get(functionName.toLowerCase(Locale.ENGLISH));
-    return function != null ? function : new UnknownFunction(functionName.toLowerCase(Locale.ENGLISH));
+    StandardFunction standardFunction = ALL.get(functionName.toLowerCase(Locale.ENGLISH));
+    return standardFunction != null ? standardFunction : new UnknownFunction(functionName);
   }
 
   public static List<StandardFunction> getAll() {

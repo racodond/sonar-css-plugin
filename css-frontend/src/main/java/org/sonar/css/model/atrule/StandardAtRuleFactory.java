@@ -74,7 +74,7 @@ public class StandardAtRuleFactory {
         ALL.put(standardAtRule.getName(), standardAtRule);
       }
     } catch (InstantiationException | IllegalAccessException e) {
-      throw new IllegalStateException("CSS at-rules full list cannot be created.", e);
+      throw new IllegalStateException("CSS at-rule full list cannot be created.", e);
     }
   }
 
@@ -82,8 +82,8 @@ public class StandardAtRuleFactory {
   }
 
   public static StandardAtRule getByName(String atRuleName) {
-    StandardAtRule atRule = ALL.get(atRuleName.toLowerCase(Locale.ENGLISH));
-    return atRule != null ? atRule : new UnknownAtRule(atRuleName.toLowerCase(Locale.ENGLISH));
+    StandardAtRule standardAtRule = ALL.get(atRuleName.toLowerCase(Locale.ENGLISH));
+    return standardAtRule != null ? standardAtRule : new UnknownAtRule(atRuleName);
   }
 
   public static List<StandardAtRule> getAll() {

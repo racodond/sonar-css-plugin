@@ -23,8 +23,12 @@ import com.google.common.collect.Iterators;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import javax.annotation.Nullable;
 
+import org.sonar.css.model.Vendor;
+import org.sonar.css.model.pseudo.pseudofunction.StandardPseudoFunction;
+import org.sonar.css.model.pseudo.pseudofunction.StandardPseudoFunctionFactory;
 import org.sonar.plugins.css.api.tree.IdentifierTree;
 import org.sonar.plugins.css.api.tree.PseudoFunctionTree;
 import org.sonar.plugins.css.api.tree.SyntaxToken;
@@ -34,18 +38,23 @@ import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 public class PseudoFunctionTreeImpl extends CssTree implements PseudoFunctionTree {
 
   private final SyntaxToken prefix;
-  private final IdentifierTree pseudoFunctionName;
+  private final IdentifierTree function;
   private final SyntaxToken openParenthesis;
   private final List<Tree> parameterElements;
   private final SyntaxToken closeParenthesis;
+  private final Vendor vendor;
+  private final StandardPseudoFunction standardFunction;
 
-  public PseudoFunctionTreeImpl(SyntaxToken prefix, IdentifierTree pseudoFunctionName, SyntaxToken openParenthesis, @Nullable List<Tree> parameterElements,
+  public PseudoFunctionTreeImpl(SyntaxToken prefix, IdentifierTree function, SyntaxToken openParenthesis, @Nullable List<Tree> parameterElements,
     SyntaxToken closeParenthesis) {
     this.prefix = prefix;
-    this.pseudoFunctionName = pseudoFunctionName;
+    this.function = function;
     this.openParenthesis = openParenthesis;
     this.parameterElements = parameterElements;
     this.closeParenthesis = closeParenthesis;
+
+    this.vendor = setVendor();
+    this.standardFunction = setStandardFunction();
   }
 
   @Override
@@ -57,11 +66,11 @@ public class PseudoFunctionTreeImpl extends CssTree implements PseudoFunctionTre
   public Iterator<Tree> childrenIterator() {
     if (parameterElements != null) {
       return Iterators.concat(
-        Iterators.forArray(prefix, pseudoFunctionName, openParenthesis),
+        Iterators.forArray(prefix, function, openParenthesis),
         parameterElements.iterator(),
         Iterators.singletonIterator(closeParenthesis));
     } else {
-      return Iterators.forArray(prefix, pseudoFunctionName, openParenthesis, closeParenthesis);
+      return Iterators.forArray(prefix, function, openParenthesis, closeParenthesis);
     }
   }
 
@@ -76,8 +85,55 @@ public class PseudoFunctionTreeImpl extends CssTree implements PseudoFunctionTre
   }
 
   @Override
-  public IdentifierTree pseudoFunctionName() {
-    return pseudoFunctionName;
+  public IdentifierTree function() {
+    return function;
+  }
+
+  @Override
+  public boolean isVendorPrefixed() {
+    return vendor != null;
+  }
+
+  @Override
+  public Vendor vendor() {
+    return vendor;
+  }
+
+  @Override
+  public StandardPseudoFunction standardFunction() {
+    return standardFunction;
+  }
+
+  @Override
+  public SyntaxToken openParenthesis() {
+    return openParenthesis;
+  }
+
+  @Override
+  public SyntaxToken closeParenthesis() {
+    return closeParenthesis;
+  }
+
+  @Override
+  public List<Tree> parameterElements() {
+    return parameterElements;
+  }
+
+  private Vendor setVendor() {
+    for (Vendor vendor : Vendor.values()) {
+      if (function.text().toLowerCase(Locale.ENGLISH).startsWith(vendor.getPrefix())) {
+        return vendor;
+      }
+    }
+    return null;
+  }
+
+  private StandardPseudoFunction setStandardFunction() {
+    String name = function.text();
+    if (isVendorPrefixed()) {
+      name = name.substring(vendor.getPrefix().length());
+    }
+    return StandardPseudoFunctionFactory.getByName(name);
   }
 
 }

@@ -24,27 +24,17 @@ import org.sonar.css.model.StandardCssObject;
 public class StandardFunction extends StandardCssObject {
 
   private boolean ieStaticFilter;
-  private boolean pseudo;
 
   public StandardFunction() {
     ieStaticFilter = false;
-    pseudo = false;
   }
 
   public void setIeStaticFilter(boolean ieStaticFilter) {
     this.ieStaticFilter = ieStaticFilter;
   }
 
-  public void setPseudo(boolean pseudo) {
-    this.pseudo = pseudo;
-  }
-
   public boolean isIeStaticFilter() {
     return ieStaticFilter;
-  }
-
-  public boolean isPseudo() {
-    return pseudo;
   }
 
 }

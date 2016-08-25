@@ -29,6 +29,10 @@ import org.sonar.css.model.function.StandardFunction;
 import org.sonar.css.model.function.StandardFunctionFactory;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.StandardPropertyFactory;
+import org.sonar.css.model.pseudo.StandardPseudoComponent;
+import org.sonar.css.model.pseudo.StandardPseudoComponentFactory;
+import org.sonar.css.model.pseudo.pseudofunction.StandardPseudoFunction;
+import org.sonar.css.model.pseudo.pseudofunction.StandardPseudoFunctionFactory;
 
 public class StandardCssObjectFactory {
 
@@ -44,6 +48,10 @@ public class StandardCssObjectFactory {
         all = StandardAtRuleFactory.getAll();
       } else if (type.newInstance() instanceof StandardFunction) {
         all = StandardFunctionFactory.getAll();
+      } else if (type.newInstance() instanceof StandardPseudoFunction) {
+        all = StandardPseudoFunctionFactory.getAll();
+      } else if (type.newInstance() instanceof StandardPseudoComponent) {
+        all = StandardPseudoComponentFactory.getAll();
       } else {
         throw new IllegalArgumentException("Cannot get all CSS Standard Elements of type " + type.getName() + ". Unknown Standard CSS object");
       }

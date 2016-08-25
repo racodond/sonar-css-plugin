@@ -1,0 +1,36 @@
+<p>
+    The list of supported CSS pseudo-elements and pseudo-classes is growing quite large, and it's very easy to miss a
+    typo.
+</p>
+<p>
+    This rule checks each pseudo-element and pseudo-class name to make sure that it is a known CSS pseudo. All
+    vendor-prefixed pseudos are ignored because vendors may add in their own pseudos at any point in time.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+section:hello(1) { /* Noncompliant: 'hello' isn't a known pseudo-class */
+}
+
+section::abc { /* Noncompliant: 'abc' isn't a known pseudo-element */
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+section:has(h1, h2, h3, h4, h5, h6) {
+}
+
+p::first-line {
+  text-transform: uppercase;
+}
+
+section:-moz-hello(1) { /* Compliant: 'hello' is a vendor-prefixed pseudo-class */
+}
+
+section::-moz-abc { /* Compliant: 'hello' is a vendor-prefixed pseudo-element */
+}
+</pre>
+
+<h2>List of Known Pseudo-Elements and Pseudo-Classes</h2>
+[[allPseudos]]
