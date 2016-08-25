@@ -70,6 +70,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Experimental identifiers should not be used
 * Experimental properties should not be used
 * Experimental pseudo-elements and pseudo-classes should not be used
+* Experimental selector combinators should not be used
 * Font files inlining should not be used
 * Gradient definitions should be set for all vendors
 * IDs in selectors should be removed

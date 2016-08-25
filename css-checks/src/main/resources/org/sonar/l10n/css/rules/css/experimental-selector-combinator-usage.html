@@ -1,0 +1,21 @@
+<p>
+    Experimental column combinator (<code>||</code>) and descendant combinator (<code>&gt;&gt;</code>) should not be used in
+    production code.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+div >> p {
+}
+
+col.selected || td {
+}
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://drafts.csswg.org/selectors-4/#the-column-combinator">W3C Selectors Level 4 Specifications:
+        Column combinator</a></li>
+    <li><a href="https://drafts.csswg.org/selectors-4/#descendant-combinators">W3C Selectors Level 4 Specifications:
+        Descendant combinator</a></li>
+</ul>
