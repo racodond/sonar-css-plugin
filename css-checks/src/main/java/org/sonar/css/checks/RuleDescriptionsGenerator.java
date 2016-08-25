@@ -115,6 +115,7 @@ public class RuleDescriptionsGenerator {
     .put("[[obsoleteProperties]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardProperty.class, StandardCssObject::isObsolete)))
     .put("[[obsoleteFunctions]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardFunction.class, StandardCssObject::isObsolete)))
     .put("[[obsoleteAtRules]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardAtRule.class, StandardCssObject::isObsolete)))
+    .put("[[obsoletePseudos]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardPseudoComponent.class, StandardCssObject::isObsolete)))
     .put("[[vendors]]", generateListOfVendors())
     .put("[[vendorPrefixedProperties]]", generateVendorPrefixedPropertiesHtmlTable())
     .put("[[propertyValidators]]", generateValidatorsHtmlTable())

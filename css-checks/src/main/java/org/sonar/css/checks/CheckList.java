@@ -73,6 +73,7 @@ public final class CheckList {
       NumberOfRulesPerSheetCheck.class,
       ObsoleteFunctionCheck.class,
       ObsoletePropertieCheck.class,
+      ObsoletePseudoCheck.class,
       OneDeclarationPerLineCheck.class,
       OverqualifiedElementCheck.class,
       OverspecificSelectorCheck.class,

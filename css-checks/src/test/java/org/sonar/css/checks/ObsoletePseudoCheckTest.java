@@ -17,17 +17,16 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.model.pseudo.pseudofunction.standard;
+package org.sonar.css.checks;
 
-import org.sonar.css.model.pseudo.pseudofunction.StandardPseudoFunction;
+import org.junit.Test;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
-public class Any extends StandardPseudoFunction {
+public class ObsoletePseudoCheckTest {
 
-  public Any() {
-    setObsolete(true);
-    addLinks(
-      "https://developer.mozilla.org/en-US/docs/Web/CSS/:any",
-      "http://caniuse.com/#feat=css-matches-pseudo");
+  @Test
+  public void test() {
+    CssCheckVerifier.verify(new ObsoletePseudoCheck(), CheckTestUtils.getTestFile("obsoletePseudos.css"));
   }
 
 }

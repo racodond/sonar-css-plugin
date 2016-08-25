@@ -80,6 +80,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Name of overqualified element should be removed
 * Obsolete functions should not be used
 * Obsolete properties should not be used
+* Obsolete pseudo-elements and pseudo-classes should not be used
 * Over-specified selectors should be simplified
 * Properties that do not work with the "display" property should be removed
 * Properties, functions and variables should be lower case
