@@ -98,10 +98,9 @@ public class FontFaceBrowserCompatibilityCheck extends DoubleDispatchVisitorChec
 
   private boolean definesScrPropertyWithUrl(List<PropertyDeclarationTree> declarations) {
     for (PropertyDeclarationTree declaration : declarations)
-      if (declaration.property().standardProperty() instanceof Src) {
-        if (!declaration.value().valueElementsOfType(UriTree.class).isEmpty()) {
-          return true;
-        }
+      if (declaration.property().standardProperty() instanceof Src
+        && !declaration.value().valueElementsOfType(UriTree.class).isEmpty()) {
+        return true;
       }
     return false;
   }

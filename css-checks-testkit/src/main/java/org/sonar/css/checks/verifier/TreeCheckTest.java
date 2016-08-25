@@ -43,8 +43,8 @@ class TreeCheckTest {
   public static Collection<CheckMessage> getIssues(String relativePath, CssCheck check, Charset charset) {
     File file = new File(relativePath);
 
-    CssTree CssTree = (CssTree) CssParserBuilder.createParser(charset).parse(file);
-    CssVisitorContext context = new CssVisitorContext(CssTree, file);
+    CssTree tree = (CssTree) CssParserBuilder.createParser(charset).parse(file);
+    CssVisitorContext context = new CssVisitorContext(tree, file);
     List<Issue> issues = check.scanFile(context);
 
     return getCheckMessages(issues);

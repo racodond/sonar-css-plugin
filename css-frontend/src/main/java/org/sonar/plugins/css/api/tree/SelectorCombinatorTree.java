@@ -32,6 +32,13 @@ public interface SelectorCombinatorTree extends Tree {
     FOLLOWING_SIBLING("~"),
     COLUMN("||");
 
+    private static final Map<String, COMBINATOR> LOOKUP = new HashMap<>();
+
+    static {
+      for (COMBINATOR combinator : COMBINATOR.values())
+        LOOKUP.put(combinator.getValue(), combinator);
+    }
+
     private String value;
 
     COMBINATOR(String value) {
@@ -42,17 +49,9 @@ public interface SelectorCombinatorTree extends Tree {
       return value;
     }
 
-    private static final Map<String, COMBINATOR> LOOKUP = new HashMap<>();
-
-    static {
-      for (COMBINATOR combinator : COMBINATOR.values())
-        LOOKUP.put(combinator.getValue(), combinator);
-    }
-
     public static COMBINATOR getType(String value) {
       return LOOKUP.get(value.trim());
     }
-
   }
 
   SyntaxToken combinator();

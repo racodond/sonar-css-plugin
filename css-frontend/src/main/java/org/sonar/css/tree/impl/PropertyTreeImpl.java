@@ -105,9 +105,9 @@ public class PropertyTreeImpl extends CssTree implements PropertyTree {
   }
 
   private Vendor setVendorPrefix() {
-    for (Vendor vendor : Vendor.values()) {
-      if (property.text().toLowerCase(Locale.ENGLISH).startsWith(vendor.getPrefix())) {
-        return vendor;
+    for (Vendor v : Vendor.values()) {
+      if (property.text().toLowerCase(Locale.ENGLISH).startsWith(v.getPrefix())) {
+        return v;
       }
     }
     return null;

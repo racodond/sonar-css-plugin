@@ -112,9 +112,9 @@ public class FunctionTreeImpl extends CssTree implements FunctionTree {
   }
 
   private Vendor setVendor() {
-    for (Vendor vendor : Vendor.values()) {
-      if (function.text().toLowerCase(Locale.ENGLISH).startsWith(vendor.getPrefix())) {
-        return vendor;
+    for (Vendor v : Vendor.values()) {
+      if (function.text().toLowerCase(Locale.ENGLISH).startsWith(v.getPrefix())) {
+        return v;
       }
     }
     return null;

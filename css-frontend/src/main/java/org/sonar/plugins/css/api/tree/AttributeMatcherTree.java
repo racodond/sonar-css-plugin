@@ -32,6 +32,13 @@ public interface AttributeMatcherTree extends Tree {
     PREFIX("^="),
     SUFFIX("$=");
 
+    private static final Map<String, MATCHER> LOOKUP = new HashMap<>();
+
+    static {
+      for (MATCHER matcher : MATCHER.values())
+        LOOKUP.put(matcher.getValue(), matcher);
+    }
+
     private String value;
 
     MATCHER(String value) {
@@ -42,17 +49,9 @@ public interface AttributeMatcherTree extends Tree {
       return value;
     }
 
-    private static final Map<String, MATCHER> LOOKUP = new HashMap<>();
-
-    static {
-      for (MATCHER matcher : MATCHER.values())
-        LOOKUP.put(matcher.getValue(), matcher);
-    }
-
     public static MATCHER getType(String value) {
       return LOOKUP.get(value);
     }
-
   }
 
   SyntaxToken attributeMatcher();

@@ -52,6 +52,7 @@ public abstract class CssTree implements Tree {
    */
   public abstract Iterator<Tree> childrenIterator();
 
+  @Override
   public String treeValue() {
     StringBuilder value = new StringBuilder();
     Iterator<Tree> children = childrenIterator();

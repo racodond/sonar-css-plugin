@@ -64,6 +64,7 @@ public class ValueTreeImpl extends CssTree implements ValueTree {
     return allValueElements;
   }
 
+  @Override
   public <T extends Tree> List<T> valueElementsOfType(Class<T> treeType) {
     return allValueElements.stream()
       .filter(e -> treeType.isAssignableFrom(e.getClass()))
@@ -71,6 +72,7 @@ public class ValueTreeImpl extends CssTree implements ValueTree {
       .collect(Collectors.toList());
   }
 
+  @Override
   public <T extends Tree> Optional<T> firstValueElementOfType(Class<T> treeType) {
     return allValueElements.stream()
       .filter(e -> treeType.isAssignableFrom(e.getClass()))

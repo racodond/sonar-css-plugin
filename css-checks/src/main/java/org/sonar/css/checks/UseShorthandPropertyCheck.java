@@ -54,6 +54,7 @@ public class UseShorthandPropertyCheck extends SubscriptionVisitorCheck {
 
   private final Map<String, PropertyTree> declaredProperties = new HashMap<>();
 
+  @Override
   public List<Tree.Kind> nodesToVisit() {
     return ImmutableList.of(
       Tree.Kind.RULESET,

@@ -286,13 +286,13 @@ public enum CssLexicalGrammar implements GrammarRuleKey {
   }
 
   private static void spacing(LexerlessGrammarBuilder b) {
-    String COMMENT_REGEX = "(?:/\\*[\\s\\S]*?\\*/)";
-    String COMMENT2_REGEX = "(?:\\<\\!--[\\s\\S]*?--\\>)";
+    String commentRegex1 = "(?:/\\*[\\s\\S]*?\\*/)";
+    String commentRegex2 = "(?:\\<\\!--[\\s\\S]*?--\\>)";
 
     b.rule(SPACING).is(
       b.skippedTrivia(b.regexp("(?<!\\\\)[\\s]*+")),
       b.zeroOrMore(
-        b.commentTrivia(b.regexp("(?:" + COMMENT_REGEX + "|" + COMMENT2_REGEX + ")")),
+        b.commentTrivia(b.regexp("(?:" + commentRegex1 + "|" + commentRegex2 + ")")),
         b.skippedTrivia(b.regexp("(?<!\\\\)[\\s]*+"))));
   }
 

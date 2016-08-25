@@ -51,9 +51,9 @@ public class CommentLinesVisitor extends SubscriptionVisitor {
   public void visitNode(Tree tree) {
     for (SyntaxTrivia trivia : ((SyntaxToken) tree).trivias()) {
       if (!commentAnalyser.isBlank(commentAnalyser.getContents(trivia.text()))) {
-        String[] commentLines = commentAnalyser.getContents(trivia.text()).split("(\r)?\n|\r", -1);
+        String[] comments = commentAnalyser.getContents(trivia.text()).split("(\r)?\n|\r", -1);
         int lineNumber = trivia.line();
-        for (String commentLine : commentLines) {
+        for (String commentLine : comments) {
           if (commentLine.contains("NOSONAR")) {
             noSonarLines.add(lineNumber);
           } else if (!commentAnalyser.isBlank(commentLine)) {

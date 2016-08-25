@@ -25,8 +25,6 @@ public interface SyntaxToken extends Tree {
 
   String text();
 
-  String treeValue();
-
   List<SyntaxTrivia> trivias();
 
   int line();
