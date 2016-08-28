@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<profile>
+  <name>zero-units-only-profile</name>
+  <language>css</language>
+  <rules>
+    <rule>
+      <repositoryKey>css</repositoryKey>
+      <key>zero-units</key>
+      <priority>MAJOR</priority>
+    </rule>
+  </rules>
+</profile>
