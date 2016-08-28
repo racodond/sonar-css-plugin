@@ -9,6 +9,7 @@ addons:
 env:
   global:
     - secure: "X7Tuf9A30zkr4E3v1MlYdcHKJanfAKslLeHXd2SWMKuhSFqJCMaxh5IQw5qjiQNimx5EFIXki0shMW2qtK43Lh83Eyq3YHaXAGnQQxYnETYR5bGOecctzHC7U6tKkB3RK8sIukgnBwoKOjqK5uvzIzxHGjNEO9+ivtGlPwfVtDk="
+    - secure: "saVuC7Dv2yhGjbybnndzuz2PZ9TvDhBygrD1cEZYW5g5kYGQFXkGSy8nNPGLhwWBBC0mdMmbyWs9v027tVxGj9CgNWaznZ5O8vEPULvnSz/s1PVEmFB36jmm8GhWNutxTpGwQ+gzxgWXCP/mtAAv+nIt+3CYASYnDObacrOYdB4="
   matrix:
     - SQ_VERSION=LTS
     - SQ_VERSION=LATEST_RELEASE
