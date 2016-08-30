@@ -1,0 +1,10 @@
+.mybox {
+  animation-delay: inherit;
+  animation-delay: 10s;
+  animation-delay: 0;
+  animation-delay: -10s;
+  animation-delay: +10ms;
+  animation-delay: 10; /* Noncompliant !{Update the invalid value of property "animation-delay". Expected format: <time>}! */
+  animation-delay: 10.5; /* Noncompliant */
+  animation-delay: abc; /* Noncompliant */
+}

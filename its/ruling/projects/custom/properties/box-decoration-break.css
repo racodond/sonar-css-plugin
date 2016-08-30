@@ -1,0 +1,7 @@
+.mybox {
+  box-decoration-break: inherit;
+  box-decoration-break: clone;
+  box-decoration-break: slice;
+  box-decoration-break: abc; /* Noncompliant !{Update the invalid value of property "box-decoration-break". Expected format: slice | clone}!*/
+  box-decoration-break: 10; /* Noncompliant */
+}

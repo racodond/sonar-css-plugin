@@ -1,0 +1,8 @@
+.mybox {
+  wrap-margin: inherit;
+  wrap-margin: 10px;
+  wrap-margin: -10px;
+  wrap-margin: 0;
+  wrap-margin: abc; /* Noncompliant !{Update the invalid value of property "wrap-margin". Expected format: <length>}! */
+  wrap-margin: 10; /* Noncompliant */
+}

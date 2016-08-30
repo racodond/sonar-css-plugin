@@ -1,0 +1,20 @@
+.mybox {
+  color: inherit;
+  color: red;
+  color: darkgrey;
+  color: #f03;
+  color: #F03;
+  color: #ff0033;
+  color: #FF0033;
+  color: rgb(255, 0,51);
+  color: rgba(255, 0,51,0.5);
+  color: hsl(0,100%,15%);
+  color: hsla(0,100%,15%,0.5);
+  color: transparent;
+  color: currentColor;
+  color: currentcolor;
+  color: Background; /* Noncompliant ![sc=10;ec=20;el=+0]! !{Remove this usage of the deprecated "Background" system color.}! */
+  color: background; /* Noncompliant ![sc=10;ec=20;el=+0]! !{Remove this usage of the deprecated "background" system color.}! */
+  color: ThreeDShadow; /* Noncompliant ![sc=10;ec=22;el=+0]! !{Remove this usage of the deprecated "ThreeDShadow" system color.}! */
+  color: threedshadow; /* Noncompliant ![sc=10;ec=22;el=+0]! !{Remove this usage of the deprecated "threedshadow" system color.}! */
+}

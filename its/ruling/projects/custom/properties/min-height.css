@@ -1,0 +1,15 @@
+.mybox {
+  min-height: inherit;
+  min-height: auto;
+  min-height: 100%;
+  min-height: -100%;
+  min-height: 10px;
+  min-height: -10px;
+  min-height: 10; /* Noncompliant !{Update the invalid value of property "min-height". Expected format: auto | <length> | <percentage> | fill | max-content | min-content | fit-content | <function>(fit-content)}! */
+  min-height: none; /* Noncompliant */
+  min-height: fill;
+  min-height: max-content;
+  min-height: min-content;
+  min-height: fit-content;
+  min-height: fit-content(10%);
+}

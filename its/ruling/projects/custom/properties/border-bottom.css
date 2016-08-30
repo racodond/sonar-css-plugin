@@ -1,0 +1,32 @@
+.mybox {
+  border-bottom: inherit;
+  border-bottom: dotted;
+  border-bottom: dotted thin;
+  border-bottom: dotted thin green;
+  border-bottom: thin green;
+  border-bottom: 10px green;
+  border-bottom: rgb(25,25,25) 10px;
+  border-bottom: dotted thin green green; /* Noncompliant !{Update the invalid value of property "border-bottom". Expected format: <border-width> || <border-style> || <color>}! */
+  border-bottom: dotted abc green; /* Noncompliant */
+  border-bottom: dotted -10px green; /* Noncompliant */
+  border-bottom: 2px groove threedface;
+}
+
+.mybox {
+  border-bottom: 0 solid #AAA;
+}
+
+.mybox {
+  border: inherit;
+  border: dotted;
+  border: dotted thin;
+  border: dotted thin green;
+  border: thin green;
+  border: 10px green;
+  border: rgb(25,25,25) 10px;
+  border: dotted abc green; /* Noncompliant !{Update the invalid value of property "border". Expected format: <border-width>{1,4} || <border-style>{1,4} || <color>}! */
+  border: dotted -10px green; /* Noncompliant */
+  border: 2px groove threedface;
+  border: 2px 2px groove threedface;
+  border: 2px 2px 2px 2px 2px groove groove groove groove green; /* Noncompliant */
+}

@@ -1,0 +1,7 @@
+.mybox {
+  azimuth: 30deg; /* Noncompliant ![sc=3;ec=10;el=+0]! !{Remove this usage of the obsolete / not on W3C Standards track "azimuth" property.}! */
+  Azimuth: 30deg; /* Noncompliant ![sc=3;ec=10;el=+0]! !{Remove this usage of the obsolete / not on W3C Standards track "azimuth" property.}! */
+  appearance: normal; /* Noncompliant ![sc=3;ec=13;el=+0]! !{Remove this usage of the obsolete / not on W3C Standards track "appearance" property.}! */
+  Appearance: normal; /* Noncompliant ![sc=3;ec=13;el=+0]! !{Remove this usage of the obsolete / not on W3C Standards track "appearance" property.}! */
+  background-color: red;
+}

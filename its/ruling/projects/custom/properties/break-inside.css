@@ -1,0 +1,11 @@
+.mybox {
+  break-inside: inherit;
+  break-inside: auto;
+  break-inside: avoid;
+  break-inside: avoid-page;
+  break-inside: avoid-region;
+  break-inside: avoid-column;
+  break-inside: 10; /* Noncompliant !{Update the invalid value of property "break-inside". Expected format: auto | avoid | avoid-page | avoid-column | avoid-region}! */
+  break-inside: none; /* Noncompliant */
+  break-inside: 10px; /* Noncompliant */
+}

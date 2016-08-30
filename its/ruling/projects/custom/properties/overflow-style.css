@@ -1,0 +1,10 @@
+.mybox {
+  overflow-style: inherit;
+  overflow-style: auto;
+  overflow-style: none;
+  overflow-style: scrollbar;
+  overflow-style: -ms-autohiding-scrollbar;
+  overflow-style: abc; /* Noncompliant !{Update the invalid value of property "overflow-style". Expected format: auto | none | scrollbar | -ms-autohiding-scrollbar}! */
+  overflow-style: 10; /* Noncompliant */
+  overflow-style: 10%; /* Noncompliant */
+}

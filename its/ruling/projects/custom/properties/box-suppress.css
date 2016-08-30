@@ -1,0 +1,9 @@
+.mybox {
+  box-suppress: inherit;
+  box-suppress: show;
+  box-suppress: discard;
+  box-suppress: hide;
+  box-suppress: none; /* Noncompliant !{Update the invalid value of property "box-suppress". Expected format: show | discard | hide}!
+  box-suppress: 0; /* Noncompliant */
+  box-suppress: 0px; /* Noncompliant */
+}

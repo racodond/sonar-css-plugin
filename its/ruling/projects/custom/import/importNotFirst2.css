@@ -1,0 +1,12 @@
+.mybox {
+}
+
+  {
+}
+
+@import "mystyle.css"; /* Noncompliant ![sc=1;ec=8;el=+0;secondary=1,4]! !{Move this @import rule before all the other at-rules and style rules.}! */
+
+.mybox {
+}
+
+@import "mystyle2.css"; /* Noncompliant ![sc=1;ec=8;el=+0;secondary=1,4,9]! !{Move this @import rule before all the other at-rules and style rules.}! */

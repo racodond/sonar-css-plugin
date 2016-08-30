@@ -1,0 +1,9 @@
+.mybox {
+  font-variant-position: inherit;
+  font-variant-position: normal;
+  font-variant-position: sub;
+  font-variant-position: super;
+  font-variant-position: 10%; /* Noncompliant !{Update the invalid value of property "font-variant-position". Expected format: normal | sub | super}! */
+  font-variant-position: none; /* Noncompliant */
+  font-variant-position: 10; /* Noncompliant */
+}

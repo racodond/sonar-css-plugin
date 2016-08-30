@@ -1,0 +1,17 @@
+{
+'project:custom/charset/charsetNotFirst.css':[
+1,
+],
+'project:custom/emptyRule.css':[
+53,
+54,
+55,
+],
+'project:custom/experimentalAtRuleUsage.css':[
+53,
+],
+'project:custom/unknownAtRules.css':[
+13,
+14,
+],
+}

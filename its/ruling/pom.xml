@@ -9,12 +9,11 @@
     <version>2.2-SNAPSHOT</version>
   </parent>
 
-  <artifactId>css-its-plugin</artifactId>
-  <name>SonarQube CSS Plugin :: Integration Tests :: Plugin</name>
+  <artifactId>css-its-ruling</artifactId>
+  <name>SonarQube CSS Plugin :: Integration Tests :: Ruling</name>
   <packaging>pom</packaging>
 
   <modules>
-    <module>plugins</module>
     <module>tests</module>
   </modules>
 

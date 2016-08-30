@@ -1,0 +1,14 @@
+.mybox {
+  counter-increment: inherit;
+  counter-increment: none;
+  counter-increment: abc;
+  counter-increment: abc 2;
+  counter-increment: abc -2;
+  counter-increment: abc 2 def;
+  counter-increment: abc 2 def 2;
+  counter-increment: abc def ghi;
+  counter-increment: none none; /* Noncompliant !{Update the invalid value of property "counter-increment". Expected format: [ <identifier> <integer>? ]+ | none}! */
+  counter-increment: none 2; /* Noncompliant */
+  counter-increment: 2; /* Noncompliant */
+  counter-increment: abc 2 2 abc; /* Noncompliant */
+}

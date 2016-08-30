@@ -1,0 +1,13 @@
+.mybox {
+  background-position-x: inherit;
+  background-position-x: 10px;
+  background-position-x: -10px;
+  background-position-x: 0;
+  background-position-x: 10%;
+  background-position-x: -10%;
+  background-position-x: left;
+  background-position-x: right;
+  background-position-x: center;
+  background-position-x: abc; /* Noncompliant !{Update the invalid value of property "background-position-x". Expected format: <length> | <percentage> | left | center | right}! */
+  background-position-x: 10; /* Noncompliant */
+}

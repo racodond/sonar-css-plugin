@@ -1,0 +1,7 @@
+.mybox {
+  display: flex;
+  -ms-display: flex;
+  display: -aa-flex;
+  display: -moz-flex !important; /* Noncompliant ![sc=12;ec=21;el=+0]! !{Remove this usage of the experimental "-moz-flex" identifier.}! */
+  display: -MS-flex; /* Noncompliant ![sc=12;ec=20;el=+0]! !{Remove this usage of the experimental "-MS-flex" identifier.}! */
+}

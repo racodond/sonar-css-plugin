@@ -1,0 +1,42 @@
+/* Compliant: Both vendor-prefix and standard properties */
+.mybox {
+  -moz-user-select: 5px;
+  user-select: 5px;
+}
+
+/* Compliant: Both vendor-prefix and standard properties */
+.mybox {
+  -moz-user-select: 5px;
+  -ms-user-select: 5px;
+  -webkit-user-select: 5px;
+  user-select: 5px;
+}
+
+/* Missing standard property */
+.mybox {
+  -moz-user-select: 5px; /* Noncompliant ![sc=3;ec=19;el=+0]! !{Define the standard property right after this vendor-prefixed property.}! */
+}
+
+/* Standard property should come after vendor-prefixed property */
+.mybox {
+  user-select: 5px;
+  -webkit-user-select: 5px; /* Noncompliant ![sc=3;ec=22;el=+0]! !{Define the standard property right after this vendor-prefixed property.}! */
+}
+
+/* Standard property should come after all vendor-prefixed properties */
+.mybox {
+  user-select: 5px;
+  -webkit-user-select: 5px;
+  -ms-user-select: 5px; /* Noncompliant ![sc=3;ec=18;el=+0]! !{Define the standard property right after this vendor-prefixed property.}! */
+  color: green;
+  -moz-user-select: 5px; /* Noncompliant ![sc=3;ec=19;el=+0]! !{Define the standard property right after this vendor-prefixed property.}! */
+}
+
+/* Standard property should come after all vendor-prefixed properties */
+.mybox {
+  -ms-user-select: 5px;
+  user-select: 5px;
+  -webkit-user-select: 5px; /* Noncompliant ![sc=3;ec=22;el=+0]! !{Define the standard property right after this vendor-prefixed property.}! */
+  color: green;
+  -moz-user-select: 5px; /* Noncompliant ![sc=3;ec=19;el=+0]! !{Define the standard property right after this vendor-prefixed property.}! */
+}

@@ -1,0 +1,13 @@
+.mybox {
+  voice-stress: inherit;
+  voice-stress: normal;
+  voice-stress: strong;
+  voice-stress: moderate;
+  voice-stress: none;
+  voice-stress: reduced;
+  voice-stress: 3s; /* Noncompliant !{Update the invalid value of property "voice-stress". Expected format: normal | strong | moderate | none | reduced}! */
+  voice-stress: -3s; /* Noncompliant */
+  voice-stress: 50.5%; /* Noncompliant */
+  voice-stress: abc; /* Noncompliant */
+  voice-stress: 10px; /* Noncompliant */
+}

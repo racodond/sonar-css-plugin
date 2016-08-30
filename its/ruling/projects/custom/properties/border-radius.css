@@ -1,0 +1,18 @@
+.mybox {
+  border-radius: inherit;
+  border-radius: 10px;
+  border-radius: 10px 10px;
+  border-radius: 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  border-radius: 10px / 10px;
+  border-radius: 10px / 10px 10px;
+  border-radius: 10px / 10px 10px 10px;
+  border-radius: 10px / 10px 10px 10px 10px;
+  border-radius: 10px 10px/ 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px;
+  border-radius: 10px 10px -10px 10px / 10px 10px 10px 10px; /* Noncompliant !{Update the invalid value of property "border-radius". Expected format: [ <length>(>=0) | <percentage>(>=0) ]{1,4} [ / [ <length>(>=0) | <percentage>(>=0) ]{1,4} ]?}! */
+  border-radius: 10px 10px -10px 10px / 10px -10px 10px 10px; /* Noncompliant */
+  border-radius: 10px 10px 10px 10px 10px; /* Noncompliant */
+  border-radius: 10px / 10px 10px 10px 10px 10px; /* Noncompliant */
+  border-radius: abc; /* Noncompliant */
+}

@@ -1,0 +1,24 @@
+.mybox {
+  column-rule-color: inherit;
+  column-rule-color: red;
+  column-rule-color: darkgrey;
+  column-rule-color: #f03;
+  column-rule-color: #F03;
+  column-rule-color: #ff0033;
+  column-rule-color: #FF0033;
+  column-rule-color: #GF0033; /* Noncompliant !{Update the invalid value of property "column-rule-color". Expected format: <color>}!*/
+  column-rule-color: #FF04033; /* Noncompliant */
+  column-rule-color: abc; /* Noncompliant */
+  column-rule-color: rgb(255, 0,51);
+  column-rule-color: rgba(255, 0,51,0.5);
+  column-rule-color: hsl(0,100%,15%);
+  column-rule-color: hsla(0,100%,15%,0.5);
+  column-rule-color: hello(); /* Noncompliant */
+  column-rule-color: transparent;
+  column-rule-color: currentColor;
+  column-rule-color: currentcolor;
+  column-rule-color: Background;
+  column-rule-color: background;
+  column-rule-color: ThreeDShadow;
+  column-rule-color: threedshadow;
+}

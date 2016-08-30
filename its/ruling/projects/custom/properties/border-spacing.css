@@ -1,0 +1,8 @@
+.mybox {
+  border-spacing: inherit;
+  border-spacing: 10px;
+  border-spacing: 10pt 10pt;
+  border-spacing: -10px; /* Noncompliant !{Update the invalid value of property "border-spacing". Expected format: <length>(>=0) <length>(>=0)?}! */
+  border-spacing: 10pt -10pt; /* Noncompliant */
+  border-spacing: 10pt 10pt 10pt; /* Noncompliant */
+}

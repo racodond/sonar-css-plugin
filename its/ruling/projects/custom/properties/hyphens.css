@@ -1,0 +1,8 @@
+.mybox {
+  hyphens: inherit;
+  hyphens: none;
+  hyphens: manual;
+  hyphens: auto;
+  hyphens: top; /* Noncompliant !{Update the invalid value of property "hyphens". Expected format: none | manual | auto}! */
+  hyphens: Opx; /* Noncompliant */
+}

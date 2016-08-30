@@ -1,0 +1,9 @@
+.mybox {
+  font-language-override: inherit;
+  font-language-override: normal;
+  font-language-override: "abc";
+  font-language-override: 'abc';
+  font-language-override: 10%; /* Noncompliant !{Update the invalid value of property "font-language-override". Expected format: normal | <string>}! */
+  font-language-override: none; /* Noncompliant */
+  font-language-override: 10; /* Noncompliant */
+}

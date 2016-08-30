@@ -1,0 +1,9 @@
+.mybox {
+  clear: inherit;
+  clear: none;
+  clear: left;
+  clear: right;
+  clear: both;
+  clear: abc; /* Noncompliant !{Update the invalid value of property "clear". Expected format: none | left | right | both}! */
+  clear: 10; /* Noncompliant */
+}

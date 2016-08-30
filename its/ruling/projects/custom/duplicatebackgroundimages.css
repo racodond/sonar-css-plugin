@@ -1,0 +1,31 @@
+.heart-icon {
+  background: url(sprite.png) -16px 0 no-repeat; /* Noncompliant ![sc=15;ec=30;el=+0;secondary=+4,+8,+8]! !{Keep only one definition of those duplicated background images.}! */
+}
+
+.task-icon {
+  background: url(sprite.png) -32px 0 no-repeat;
+}
+
+.task-icon {
+  background: url(sprite.png) url(sprite.png) 0 no-repeat;
+}
+
+.icons {
+  background: url(sprite2.png) no-repeat;
+}
+
+.heart-icon {
+  background-position: -16px 0;
+}
+
+.task-icon {
+  background-position: -32px 0;
+}
+
+.cl2 {
+  background-image:url('paper.gif'); /* Noncompliant ![sc=20;ec=36;el=+0;secondary=+4]! !{Keep only one definition of those duplicated background images.}! */
+}
+
+.cl1 {
+  background-image:url("paper.gif");
+}

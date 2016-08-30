@@ -1,0 +1,10 @@
+.mybox {
+  offset-after: inherit;
+  offset-after: auto;
+  offset-after: 10px;
+  offset-after: -10px;
+  offset-after: 3%;
+  offset-after: -3%;
+  offset-after: abc; /* Noncompliant !{Update the invalid value of property "offset-after". Expected format: auto | <length> | <percentage>}! */
+  offset-after: 0.5; /* Noncompliant */
+}

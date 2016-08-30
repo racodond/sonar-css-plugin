@@ -1,0 +1,14 @@
+.mybox {
+  font-synthesis: inherit;
+  font-synthesis: none;
+  font-synthesis: weight;
+  font-synthesis: style;
+  font-synthesis: weight style;
+  font-synthesis: style weight;
+  font-synthesis: abc; /* Noncompliant !{Update the invalid value of property "font-synthesis". Expected format: none | [ weight || style ]}! */
+  font-synthesis: 0; /* Noncompliant */
+  font-synthesis: 0px; /* Noncompliant */
+  font-synthesis: none weight; /* Noncompliant */
+  font-synthesis: weight none; /* Noncompliant */
+  font-synthesis: weight abc; /* Noncompliant */
+}

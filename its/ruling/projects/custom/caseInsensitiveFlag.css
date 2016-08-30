@@ -1,0 +1,7 @@
+[frame=hsides i] { /* Noncompliant ![sc=15;ec=16;el=+0]! !{Remove this usage of the case-insensitive flag.}! */
+  border-style: solid none;
+}
+
+[frame=hsides] {
+  border-style: solid none;
+}

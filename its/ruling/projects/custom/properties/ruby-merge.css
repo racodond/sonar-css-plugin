@@ -1,0 +1,9 @@
+.mybox {
+  ruby-merge: inherit;
+  ruby-merge: separate;
+  ruby-merge: collapse;
+  ruby-merge: auto;
+  ruby-merge: 10; /* Noncompliant !{Update the invalid value of property "ruby-merge". Expected format: separate | collapse | auto}! */
+  ruby-merge: none; /* Noncompliant */
+  ruby-merge: 10px; /* Noncompliant */
+}

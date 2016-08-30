@@ -1,0 +1,8 @@
+.mybox {
+  scroll-snap-type: inherit;
+  scroll-snap-type: none;
+  scroll-snap-type: proximity;
+  scroll-snap-type: mandatory;
+  scroll-snap-type: abc; /* Noncompliant !{Update the invalid value of property "scroll-snap-type". Expected format: none | proximity | mandatory}! */
+  scroll-snap-type: 10%; /* Noncompliant */
+}

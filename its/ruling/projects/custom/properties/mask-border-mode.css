@@ -1,0 +1,7 @@
+.mybox {
+  mask-border-mode: inherit;
+  mask-border-mode: luminance;
+  mask-border-mode: alpha;
+  mask-border-mode: abc; /* Noncompliant !{Update the invalid value of property "mask-border-mode". Expected format: luminance | alpha}! */
+  mask-border-mode: 10; /* Noncompliant */
+}

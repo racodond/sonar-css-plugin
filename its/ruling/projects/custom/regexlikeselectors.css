@@ -1,0 +1,31 @@
+.mybox[class~=xxx] { /* Noncompliant ![sc=13;ec=15;el=+0]! !{Remove this regular expression like selector.}! */
+  color: red;
+}
+
+.mybox[class^=xxx] { /* Noncompliant ![sc=13;ec=15;el=+0]! !{Remove this regular expression like selector.}! */
+  color: red;
+}
+
+.mybox[class=xxx] {
+  color: red;
+}
+
+.mybox[class] {
+  color: red;
+}
+
+.mybox[class|=xxx] { /* Noncompliant ![sc=13;ec=15;el=+0]! !{Remove this regular expression like selector.}! */
+  color: red;
+}
+
+.mybox[class$=xxx] { /* Noncompliant ![sc=13;ec=15;el=+0]! !{Remove this regular expression like selector.}! */
+  color: red;
+}
+
+.mybox2[class*=xxx] { /* Noncompliant ![sc=14;ec=16;el=+0]! !{Remove this regular expression like selector.}! */
+  color: red;
+}
+
+.mybox[class$=xxx] .mybox[class*=xxx] { /* Noncompliant */ /* Noncompliant */
+  color: red;
+}

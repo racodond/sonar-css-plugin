@@ -1,0 +1,8 @@
+.mybox {
+  visibility: inherit;
+  visibility: visible;
+  visibility: hidden;
+  visibility: collapse;
+  visibility: abc; /* Noncompliant !{Update the invalid value of property "visibility". Expected format: visible | hidden | collapse}! */
+  visibility: 10; /* Noncompliant */
+}

@@ -1,0 +1,45 @@
+{
+  color: red;
+}
+
+.mybox {  /* Compliant */
+  color: red;
+} /* Compliant */
+
+.mybox
+{ /* Noncompliant !{Move the opening curly brace to the previous line.}! */
+  color: red;
+}
+
+.mybox {  color: red; /* Noncompliant !{Move the code following the opening curly brace to the next line.}! */
+}
+
+.mybox {
+  color: red;} /* Noncompliant !{Move the closing curly brace to the next line.}! */
+
+.mybox,
+.mybox2 { /* Compliant */
+  color: red;
+}
+
+
+.mybox,
+.mybox2
+{ /* Noncompliant !{Move the opening curly brace to the previous line.}! */
+  color: red;
+}
+
+{  color: red; /* Noncompliant !{Move the code following the opening curly brace to the next line.}! */
+}
+
+{
+  color: red;} /* Noncompliant !{Move the closing curly brace to the next line.}! */
+
+@supports ( (perspective: 10px) or (-moz-perspective: 10px) or
+            (-ms-perspective: 10px) or (-o-perspective: 10px) ) {
+}
+
+@supports ( (perspective: 10px) or (-moz-perspective: 10px) or
+            (-ms-perspective: 10px) or (-o-perspective: 10px) )
+{ /* Noncompliant !{Move the opening curly brace to the previous line.}! */
+}

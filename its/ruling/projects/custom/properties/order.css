@@ -1,0 +1,8 @@
+.mybox {
+  order: inherit;
+  order: 10;
+  order: -10;
+  order: 10px; /* Noncompliant !{Update the invalid value of property "order". Expected format: <integer>}!*/
+  order: 10.5; /* Noncompliant */
+  order: auto; /* Noncompliant */
+}

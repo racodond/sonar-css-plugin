@@ -1,0 +1,7 @@
+.mybox {
+  content-zoom-limit-min: inherit;
+  content-zoom-limit-min: 10%;
+  content-zoom-limit-min: -10%;
+  content-zoom-limit-min: abc; /* Noncompliant !{Update the invalid value of property "content-zoom-limit-min". Expected format: <percentage>}! */
+  content-zoom-limit-min: 10% 10%; /* Noncompliant */
+}

@@ -1,0 +1,20 @@
+.mybox { /* Compliant */
+}
+
+#my-box { /* Compliant */
+}
+
+div { /* Compliant */
+}
+
+.MYbOx { /* Noncompliant ![sc=2;ec=7;el=+0]! !{Rename selector "MYbOx" to match the regular expression: ^[-a-z]+$}! */
+}
+
+.ab_cd { /* Noncompliant ![sc=2;ec=7;el=+0]! !{Rename selector "ab_cd" to match the regular expression: ^[-a-z]+$}! */
+}
+
+.abcd #rrr div { /* Compliant */
+}
+
+.abcd #r8r #r7r div { /* Noncompliant */ /* Noncompliant */
+}

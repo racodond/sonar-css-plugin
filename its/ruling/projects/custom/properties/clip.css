@@ -1,0 +1,7 @@
+.mybox {
+  clip: inherit;
+  clip: rect(10px,10px,10px,10px);
+  clip: auto;
+  clip: abc; /* Noncompliant !{Update the invalid value of property "clip". Expected format: <function>(rect) | auto}!*/
+  clip: 10px; /* Noncompliant */
+}

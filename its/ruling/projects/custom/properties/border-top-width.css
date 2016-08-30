@@ -1,0 +1,9 @@
+.mybox {
+  border-top-width: inherit;
+  border-top-width: thin;
+  border-top-width: medium;
+  border-top-width: thick;
+  border-top-width: 10px;
+  border-top-width: -10px; /* Noncompliant !{Update the invalid value of property "border-top-width". Expected format: thin | medium | thick | <length>(>=0)}! */
+  border-top-width: abc; /* Noncompliant */
+}

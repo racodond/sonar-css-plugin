@@ -1,0 +1,7 @@
+.mybox {
+  border-left-color: inherit;
+  border-left-color: red;
+  border-left-color: rgb(25,25,25);
+  border-left-color: 10px; /* Noncompliant !{Update the invalid value of property "border-left-color". Expected format: <color>}! */
+  border-left-color: abc; /* Noncompliant */
+}

@@ -1,0 +1,20 @@
+.mybox {
+  transition-timing-function: inherit;
+  transition-timing-function: ease;
+  transition-timing-function: linear;
+  transition-timing-function: ease-in;
+  transition-timing-function: ease-out;
+  transition-timing-function: ease-in-out;
+  transition-timing-function: step-start;
+  transition-timing-function: step-end;
+  transition-timing-function: steps(3, start);
+  transition-timing-function: cubic-bezier(1,2,3,4);
+  transition-timing-function: 10s; /* Noncompliant !{Update the invalid value of property "transition-timing-function". Expected format: [ ease | linear | ease-in | ease-out | ease-in-out | step-start | step-end | <function>(cubic-bezier | steps) ]#}! */
+  transition-timing-function: 10; /* Noncompliant */
+  transition-timing-function: 10.5; /* Noncompliant */
+  transition-timing-function: abc; /* Noncompliant */
+  transition-timing-function: ease, linear;
+  transition-timing-function: ease, steps(3, start);
+  transition-timing-function: ease, linear, linear;
+  transition-timing-function: ease, linear, abc; /* Noncompliant */
+}
