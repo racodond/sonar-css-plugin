@@ -64,6 +64,7 @@ public class StandardFunctionFactory {
     Format.class,
     From.class,
     Glow.class,
+    Gradient.class,
     Gray.class,
     Grayscale.class,
     Hsl.class,
