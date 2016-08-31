@@ -7,4 +7,5 @@ p {
   background-image: -webkit-gradient(linear, left top, right top, from(red), to(#f06d06)); /* Noncompliant */ /* Noncompliant */
   background-image: -webkit-gradient(linear, left top, right top, from(red), color-stop(0%,#9d2d64)); /* Noncompliant */ /* Noncompliant */
   color: expression(); /* Noncompliant */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#000000', GradientType=1); /* Noncompliant ![sc=11;ec=53;el=+0]! !{Remove this usage of the obsolete / not on W3C Standards track "progid:dximagetransform.microsoft.gradient" function.}! */
 }

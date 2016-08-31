@@ -82,22 +82,17 @@ public class StandardFunctionFactoryTest {
 
   @Test
   public void number_of_standard_functions() {
-    assertEquals(110, StandardFunctionFactory.getAll().size());
+    assertEquals(153, StandardFunctionFactory.getAll().size());
   }
 
   @Test
   public void number_of_obsolete_functions() {
-    assertEquals(6, StandardFunctionFactory.getAll().stream().filter(StandardFunction::isObsolete).count());
+    assertEquals(69, StandardFunctionFactory.getAll().stream().filter(StandardFunction::isObsolete).count());
   }
 
   @Test
   public void number_of_experimental_functions() {
     assertEquals(15, StandardFunctionFactory.getAll().stream().filter(StandardFunction::isExperimental).count());
-  }
-
-  @Test
-  public void number_of_ie_static_filters() {
-    assertEquals(20, StandardFunctionFactory.getAll().stream().filter(StandardFunction::isIeStaticFilter).count());
   }
 
 }

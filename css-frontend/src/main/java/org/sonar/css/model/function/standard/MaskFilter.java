@@ -25,7 +25,7 @@ public class MaskFilter extends StandardFunction {
 
   public MaskFilter() {
     setExperimental(true);
-    setIeStaticFilter(true);
+    setObsolete(true);
     addLinks("https://msdn.microsoft.com/en-us/library/ms673539(v=vs.85).aspx");
   }
 

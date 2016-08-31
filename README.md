@@ -58,7 +58,6 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Branches should have sufficient coverage by unit tests
 * Byte Order Mark (BOM) should not be used for UTF-8 files
 * Case-sensitive flag should not be used
-* Deprecated Internet Explorer static filters should be removed
 * Deprecated system colors should not be used
 * Duplicated background images should be removed
 * Duplicated properties should be removed

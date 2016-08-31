@@ -297,7 +297,11 @@ public enum CssLexicalGrammar implements GrammarRuleKey {
   }
 
   private static void macros(LexerlessGrammarBuilder b) {
-    b.rule(_IDENT).is(b.sequence(_NMSTART, b.zeroOrMore(_NMCHAR))).skip();
+    b.rule(_IDENT).is(
+      b.firstOf(
+        b.regexp("(?i)(progid:DXImageTransform\\.Microsoft\\.[a-z]+)"),
+        b.sequence(_NMSTART, b.zeroOrMore(_NMCHAR))))
+      .skip();
 
     b.rule(_NMSTART).is(
       b.firstOf(b.regexp("(?i)[_a-z]"), "-", "*", _NONASCII, _ESCAPE)).skip();

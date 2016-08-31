@@ -17,16 +17,16 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.checks;
+package org.sonar.css.model.function.standard;
 
-import org.junit.Test;
-import org.sonar.css.checks.verifier.CssCheckVerifier;
+import org.sonar.css.model.function.StandardFunction;
 
-public class DeprecatedIEStaticFilterCheckTest {
+public class MicrosoftFilterMaskFilter extends StandardFunction {
 
-  @Test
-  public void test() {
-    CssCheckVerifier.verify(new DeprecatedIEStaticFilterCheck(), CheckTestUtils.getTestFile("ieStaticFilters.css"));
+  public MicrosoftFilterMaskFilter() {
+    setName("progid:dximagetransform.microsoft.maskfilter");
+    setObsolete(true);
+    addLinks("https://msdn.microsoft.com/en-us/library/ms533013(v=vs.85).aspx");
   }
 
 }
