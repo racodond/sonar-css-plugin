@@ -1,12 +1,12 @@
 {
-'project:custom/experimentalIdentifierUsage.css':[
+'project:custom/common/experimentalIdentifierUsage.css':[
 5,
 6,
 ],
-'project:custom/properties/display.css':[
+'project:custom/common/properties/display.css':[
 28,
 ],
-'project:custom/properties/overflow-style.css':[
+'project:custom/common/properties/overflow-style.css':[
 6,
 ],
 }

@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -31,9 +31,11 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+  CssDuplicationsTest.class,
+  CssMetricsTest.class,
   CustomRulesTest.class,
-  DuplicationsTest.class,
-  MetricsTest.class,
+  LessDuplicationsTest.class,
+  LessMetricsTest.class,
   MinifiedTest.class,
   IssuesTest.class,
 })
@@ -44,8 +46,11 @@ public class Tests {
     .addPlugin(FileLocation.byWildcardFilename(new File("../../../sonar-css-plugin/target"), "sonar-css-plugin-*-SNAPSHOT.jar"))
     .addPlugin(FileLocation.byWildcardFilename(new File("../plugins/css-custom-rules-plugin/target"), "css-custom-rules-plugin-*-SNAPSHOT.jar"))
     .restoreProfileAtStartup(FileLocation.ofClasspath("/org/sonar/css/profiles/zero-units-only-profile.xml"))
-    .restoreProfileAtStartup(FileLocation.ofClasspath("/org/sonar/css/profiles/empty-profile.xml"))
+    .restoreProfileAtStartup(FileLocation.ofClasspath("/org/sonar/css/profiles/less-variable-naming-convention-only-profile.xml"))
+    .restoreProfileAtStartup(FileLocation.ofClasspath("/org/sonar/css/profiles/css-empty-profile.xml"))
+    .restoreProfileAtStartup(FileLocation.ofClasspath("/org/sonar/css/profiles/less-empty-profile.xml"))
     .restoreProfileAtStartup(FileLocation.ofClasspath("/org/sonar/css/profiles/css-custom-rules-profile.xml"))
+    .restoreProfileAtStartup(FileLocation.ofClasspath("/org/sonar/css/profiles/less-custom-rules-profile.xml"))
     .build();
 
   public static SonarScanner createSonarScannerBuild() {
@@ -56,8 +61,12 @@ public class Tests {
     return build;
   }
 
-  public static void setProfile(String profileName, String projectKey) {
+  public static void setCssProfile(String profileName, String projectKey) {
     ORCHESTRATOR.getServer().associateProjectToQualityProfile(projectKey, "css", profileName);
+  }
+
+  public static void setLessProfile(String profileName, String projectKey) {
+    ORCHESTRATOR.getServer().associateProjectToQualityProfile(projectKey, "less", profileName);
   }
 
 }

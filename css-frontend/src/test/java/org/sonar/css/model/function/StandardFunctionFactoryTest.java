@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -81,8 +81,13 @@ public class StandardFunctionFactoryTest {
   }
 
   @Test
-  public void number_of_standard_functions() {
-    assertEquals(154, StandardFunctionFactory.getAll().size());
+  public void number_of_standard_css_functions() {
+    assertEquals(154, StandardFunctionFactory.getAll().stream().filter(StandardFunction::isCss).count());
+  }
+
+  @Test
+  public void number_of_standard_less_functions() {
+    assertEquals(83, StandardFunctionFactory.getAll().stream().filter(StandardFunction::isLess).count());
   }
 
   @Test
@@ -92,7 +97,7 @@ public class StandardFunctionFactoryTest {
 
   @Test
   public void number_of_experimental_functions() {
-    assertEquals(15, StandardFunctionFactory.getAll().stream().filter(StandardFunction::isExperimental).count());
+    assertEquals(14, StandardFunctionFactory.getAll().stream().filter(StandardFunction::isExperimental).count());
   }
 
 }

@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -23,12 +23,17 @@ import com.sonar.sslr.api.typed.Optional;
 
 import java.util.List;
 
-import org.sonar.css.tree.impl.*;
-import org.sonar.plugins.css.api.tree.*;
+import org.sonar.css.tree.impl.SyntaxList;
+import org.sonar.css.tree.impl.TreeImpl;
+import org.sonar.css.tree.impl.css.*;
+import org.sonar.css.tree.impl.less.*;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.*;
+import org.sonar.plugins.css.api.tree.less.*;
 
 public class TreeFactory {
 
-  public StyleSheetTree stylesheet(Optional<SyntaxToken> byteOrderMark, Optional<List<StatementTree>> statements, SyntaxToken eof) {
+  public StyleSheetTree stylesheet(Optional<SyntaxToken> byteOrderMark, Optional<List<Tree>> statements, SyntaxToken eof) {
     return new StyleSheetTreeImpl(byteOrderMark.orNull(), statements.orNull(), eof);
   }
 
@@ -44,32 +49,8 @@ public class TreeFactory {
     return new RulesetTreeImpl(selectors.orNull(), block);
   }
 
-  public RulesetBlockTree rulesetBlock(SyntaxToken openCurlyBrace, Optional<DeclarationsTree> declarations, SyntaxToken closeCurlyBrace) {
-    return new RulesetBlockTreeImpl(openCurlyBrace, declarations.orNull(), closeCurlyBrace);
-  }
-
-  public DeclarationsTree declarations(SyntaxList<DeclarationTree> declarations) {
-    return new DeclarationsTreeImpl(declarations);
-  }
-
-  public SyntaxList<DeclarationTree> declarationList(DeclarationTree declaration) {
-    return new SyntaxList<>(declaration, null, null);
-  }
-
-  public SyntaxList<DeclarationTree> declarationList(DeclarationTree declaration, SyntaxToken semicolon) {
-    return new SyntaxList<>(declaration, semicolon, null);
-  }
-
-  public SyntaxList<DeclarationTree> declarationList(DeclarationTree declaration, SyntaxToken semicolon, SyntaxList<DeclarationTree> next) {
-    return new SyntaxList<>(declaration, semicolon, next);
-  }
-
-  public SyntaxList<DeclarationTree> declarationList(SyntaxToken semicolon, SyntaxList<DeclarationTree> next) {
-    return new SyntaxList<>(null, semicolon, next);
-  }
-
-  public SyntaxList<DeclarationTree> declarationList(SyntaxToken semicolon) {
-    return new SyntaxList<>(null, semicolon, null);
+  public RulesetBlockTree rulesetBlock(SyntaxToken openCurlyBrace, Optional<List<Tree>> content, SyntaxToken closeCurlyBrace) {
+    return new RulesetBlockTreeImpl(openCurlyBrace, content.orNull(), closeCurlyBrace);
   }
 
   public ParenthesisBlockTree parenthesisBlock(SyntaxToken openParenthesis, Optional<List<Tree>> content, SyntaxToken closeParenthesis) {
@@ -92,16 +73,20 @@ public class TreeFactory {
     return new UriContentTreeImpl(string);
   }
 
-  public PropertyDeclarationTree propertyDeclaration(PropertyTree property, SyntaxToken colon, ValueTree value) {
-    return new PropertyDeclarationTreeImpl(property, colon, value);
+  public PropertyDeclarationTree propertyDeclaration(PropertyTree property, SyntaxToken colon, ValueTree value, Optional<SyntaxToken> semicolon) {
+    return new PropertyDeclarationTreeImpl(property, colon, value, semicolon.orNull());
   }
 
-  public VariableDeclarationTree variableDeclaration(VariableTree variable, SyntaxToken colon, ValueTree value) {
-    return new VariableDeclarationTreeImpl(variable, colon, value);
+  public VariableDeclarationTree variableDeclaration(VariableTree variable, SyntaxToken colon, ValueTree value, Optional<SyntaxToken> semicolon) {
+    return new VariableDeclarationTreeImpl(variable, colon, value, semicolon.orNull());
+  }
+
+  public EmptyStatementTree emptyStatement(SyntaxToken semicolon) {
+    return new EmptyStatementTreeImpl(semicolon);
   }
 
   public PropertyTree property(IdentifierTree property) {
-    return new PropertyTreeImpl(property);
+    return new PropertyTreeImpl(property, null);
   }
 
   public ValueTree value(List<Tree> valueElements) {
@@ -182,7 +167,7 @@ public class TreeFactory {
     return new AttributeSelectorTreeImpl(openBracket, null, attribute, matcherExpression.orNull(), closeBracket);
   }
 
-  public AttributeSelectorTree attributeSelector(SyntaxToken openBracket, CssTree spacing, NamespaceTree namespace, IdentifierTree attribute,
+  public AttributeSelectorTree attributeSelector(SyntaxToken openBracket, TreeImpl spacing, NamespaceTree namespace, IdentifierTree attribute,
     Optional<AttributeMatcherExpressionTree> matcherExpression, SyntaxToken closeBracket) {
     return new AttributeSelectorTreeImpl(openBracket, namespace, attribute, matcherExpression.orNull(), closeBracket);
   }
@@ -208,7 +193,7 @@ public class TreeFactory {
   }
 
   public IdentifierTree identifierNoWs(SyntaxToken identifier) {
-    return new IdentifierTreeImpl(identifier);
+    return identifier(identifier);
   }
 
   public AtKeywordTree atKeyword(SyntaxToken atSymbol, IdentifierTree keyword) {
@@ -228,6 +213,10 @@ public class TreeFactory {
   }
 
   public StringTree string(SyntaxToken string) {
+    return new StringTreeImpl(string);
+  }
+
+  public StringTree stringNoWs(SyntaxToken string) {
     return new StringTreeImpl(string);
   }
 
@@ -253,6 +242,100 @@ public class TreeFactory {
 
   public UnitTree unit(SyntaxToken unit) {
     return new UnitTreeImpl(unit);
+  }
+
+  // ---------------------------------
+  // Less
+  // ---------------------------------
+
+  public PropertyTree property(IdentifierTree property, Optional<SyntaxToken> merge) {
+    return new PropertyTreeImpl(property, merge.orNull());
+  }
+
+  public SelectorsTree lessSelectors(SyntaxList<SelectorTree> selectors, Optional<SyntaxToken> comma) {
+    return new SelectorsTreeImpl(selectors, comma.orNull());
+  }
+
+  public SelectorTree lessSelector(Optional<SelectorCombinatorTree> parentCombinator, SelectorCombinationList selectorCombinationList, Optional<LessExtendTree> extend,
+    Optional<LessMixinParametersTree> parameters, Optional<LessMixinGuardTree> guard) {
+    return new SelectorTreeImpl(parentCombinator.orNull(), selectorCombinationList, extend.orNull(), parameters.orNull(), guard.orNull());
+  }
+
+  public LessVariableDeclarationTree lessVariableDeclaration(LessVariableTree variable, SyntaxToken colon, ValueTree value, Optional<SyntaxToken> semicolon) {
+    return new LessVariableDeclarationTreeImpl(variable, colon, value, semicolon.orNull());
+  }
+
+  public LessVariableTree lessVariable(SyntaxToken variablePrefix, IdentifierTree variable) {
+    return new LessVariableTreeImpl(variablePrefix, variable);
+  }
+
+  public IdentifierTree lessInterpolatedIdentifier(SyntaxToken identifier) {
+    return identifier(identifier);
+  }
+
+  public IdentifierTree lessInterpolatedIdentifierNoWs(SyntaxToken identifier) {
+    return identifier(identifier);
+  }
+
+  public IdentifierTree lessIdentifierNoWsNorWhen(SyntaxToken identifier) {
+    return identifier(identifier);
+  }
+
+  public LessExtendTree lessExtend(SyntaxToken extendKeyword, SyntaxToken openParenthesis, List<Tree> parameterElements, SyntaxToken closeParenthesis) {
+    return new LessExtendTreeImpl(extendKeyword, openParenthesis, parameterElements, closeParenthesis);
+  }
+
+  public LessParentSelectorTree lessParentSelector(SyntaxToken parentSelector) {
+    return new LessParentSelectorTreeImpl(parentSelector);
+  }
+
+  public SelectorCombinatorTree lessParentSelectorCombinator(SyntaxToken combinator) {
+    return new SelectorCombinatorTreeImpl(combinator);
+  }
+
+  public LessMixinCallTree lessMixinCall(Optional<SelectorCombinatorTree> parentCombinator, Optional<SyntaxToken> spacing, SelectorTree selector, Optional<ImportantTree> important,
+    Optional<SyntaxToken> semicolon) {
+    return new LessMixinCallTreeImpl(parentCombinator.orNull(), selector, important.orNull(), semicolon.orNull());
+  }
+
+  public LessMixinGuardTree lessMixinGuard(SyntaxToken when, Optional<SyntaxToken> not, SyntaxList<ParenthesisBlockTree> conditions) {
+    return new LessMixinGuardTreeImpl(when, not.orNull(), conditions);
+  }
+
+  public SyntaxList<ParenthesisBlockTree> lessMixinGuardConditionList(ParenthesisBlockTree condition, SyntaxToken comma, SyntaxList<ParenthesisBlockTree> next) {
+    return new SyntaxList<>(condition, comma, next);
+  }
+
+  public SyntaxList<ParenthesisBlockTree> lessMixinGuardConditionList(ParenthesisBlockTree condition) {
+    return new SyntaxList<>(condition, null, null);
+  }
+
+  public LessMixinParametersTree lessMixinParameters(SyntaxToken openParenthesis, Optional<SyntaxList<LessMixinParameterTree>> parameters, SyntaxToken closeParenthesis) {
+    return new LessMixinParametersTreeImpl(openParenthesis, parameters.orNull(), closeParenthesis);
+  }
+
+  public SyntaxList<LessMixinParameterTree> lessMixinParameterList(LessMixinParameterTree parameter) {
+    return new SyntaxList<>(parameter, null, null);
+  }
+
+  public SyntaxList<LessMixinParameterTree> lessMixinParameterList(LessMixinParameterTree parameter, SyntaxToken separator) {
+    return new SyntaxList<>(parameter, separator, null);
+  }
+
+  public SyntaxList<LessMixinParameterTree> lessMixinParameterList(LessMixinParameterTree parameter, SyntaxToken separator, SyntaxList<LessMixinParameterTree> next) {
+    return new SyntaxList<>(parameter, separator, next);
+  }
+
+  public LessMixinParameterTree lessMixinParameter(LessVariableTree variable, Optional<SyntaxToken> colon, Optional<ValueTree> value) {
+    return new LessMixinParameterTreeImpl(variable, colon.orNull(), value.orNull());
+  }
+
+  public LessMixinParameterTree lessMixinParameter(ValueTree value) {
+    return new LessMixinParameterTreeImpl(null, null, value);
+  }
+
+  public LessEscapingTree lessEscaping(SyntaxToken escapingSymbol, StringTree string) {
+    return new LessEscapingTreeImpl(escapingSymbol, string);
   }
 
 }

@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -20,20 +20,58 @@
 package org.sonar.css.checks;
 
 import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
 
 public class GenerateRuleDescriptionsBatch {
 
-  private static final String TEMPLATE_DIRECTORY = "css-checks/src/main/resources/org/sonar/l10n/css/rules/css/template/";
-  private static final String TARGET_DIRECTORY = "css-checks/target/classes/org/sonar/l10n/css/rules/css/";
+  private static final String COMMON_TEMPLATE_DIRECTORY = "css-checks/src/main/resources/org/sonar/css/checks/l10n/common/template/";
+  private static final String LESS_TEMPLATE_DIRECTORY = "css-checks/src/main/resources/org/sonar/css/checks/l10n/less/template/";
+  private static final String CSS_TEMPLATE_DIRECTORY = "css-checks/src/main/resources/org/sonar/css/checks/l10n/css/template/";
+
+  private static final String COMMON_RESOURCE_DIRECTORY = "css-checks/src/main/resources/org/sonar/css/checks/l10n/common/";
+  private static final String CSS_RESSOURCE_DIRECTORY = "css-checks/src/main/resources/org/sonar/css/checks/l10n/css/";
+  private static final String LESS_RESSOURCE_DIRECTORY = "css-checks/src/main/resources/org/sonar/css/checks/l10n/less/";
+
+  private static final String COMMON_TARGET_DIRECTORY = "css-checks/target/classes/org/sonar/l10n/common/rules/common/";
+  private static final String CSS_TARGET_DIRECTORY = "css-checks/target/classes/org/sonar/l10n/css/rules/css/";
+  private static final String LESS_TARGET_DIRECTORY = "css-checks/target/classes/org/sonar/l10n/less/rules/less/";
+
+  private static final RuleDescriptionsGenerator RULE_DESCRIPTIONS_GENERATOR = new RuleDescriptionsGenerator();
 
   private GenerateRuleDescriptionsBatch() {
   }
 
   public static void main(String... args) throws Exception {
-    RuleDescriptionsGenerator ruleDescriptionsGenerator = new RuleDescriptionsGenerator();
-    File[] files = new File(TEMPLATE_DIRECTORY).listFiles();
+    if (!new File(COMMON_TARGET_DIRECTORY).mkdirs()) {
+      throw new IllegalStateException("Cannot create directory " + COMMON_TARGET_DIRECTORY);
+    }
+    if (!new File(CSS_TARGET_DIRECTORY).mkdirs()) {
+      throw new IllegalStateException("Cannot create directory " + CSS_TARGET_DIRECTORY);
+    }
+    if (!new File(LESS_TARGET_DIRECTORY).mkdirs()) {
+      throw new IllegalStateException("Cannot create directory " + LESS_TARGET_DIRECTORY);
+    }
+
+    generateRuleDescriptionsFromTemplates(COMMON_TEMPLATE_DIRECTORY, COMMON_TARGET_DIRECTORY);
+    generateRuleDescriptionsFromTemplates(LESS_TEMPLATE_DIRECTORY, LESS_TARGET_DIRECTORY);
+    generateRuleDescriptionsFromTemplates(CSS_TEMPLATE_DIRECTORY, CSS_TARGET_DIRECTORY);
+
+    FileUtils.copyDirectory(new File(COMMON_TARGET_DIRECTORY), new File(CSS_TARGET_DIRECTORY));
+    FileUtils.copyDirectory(new File(COMMON_TARGET_DIRECTORY), new File(LESS_TARGET_DIRECTORY));
+
+    FileUtils.copyDirectory(new File(COMMON_RESOURCE_DIRECTORY), new File(CSS_TARGET_DIRECTORY));
+    FileUtils.copyDirectory(new File(COMMON_RESOURCE_DIRECTORY), new File(LESS_TARGET_DIRECTORY));
+
+    FileUtils.copyDirectory(new File(CSS_RESSOURCE_DIRECTORY), new File(CSS_TARGET_DIRECTORY));
+    FileUtils.copyDirectory(new File(LESS_RESSOURCE_DIRECTORY), new File(LESS_TARGET_DIRECTORY));
+  }
+
+  private static void generateRuleDescriptionsFromTemplates(String templateDirectoryPath, String targetDirectoryPath) throws IOException {
+    File[] files = new File(templateDirectoryPath).listFiles();
     for (File file : files) {
-      ruleDescriptionsGenerator.generateHtmlRuleDescription(file.getPath(), TARGET_DIRECTORY + file.getName());
+      RULE_DESCRIPTIONS_GENERATOR.generateHtmlRuleDescription(file.getPath(), targetDirectoryPath + file.getName());
     }
   }
 

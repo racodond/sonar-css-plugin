@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -82,7 +82,6 @@ public class StandardFunctionFactory {
     MaskFilter.class,
     Matrix.class,
     Matrix3d.class,
-    Max.class,
     MicrosoftFilterAlpha.class,
     MicrosoftFilterBasicImage.class,
     MicrosoftFilterBlendTrans.class,
@@ -126,7 +125,6 @@ public class StandardFunctionFactory {
     MicrosoftTransitionStrips.class,
     MicrosoftTransitionWheel.class,
     MicrosoftTransitionZigzag.class,
-    Min.class,
     Minmax.class,
     Motionblur.class,
     Opacity.class,
@@ -181,7 +179,85 @@ public class StandardFunctionFactory {
     UrlPrefix.class,
     Var.class,
     Wave.class,
-    Xray.class);
+    Xray.class,
+
+    // Less
+    Abs.class,
+    Acos.class,
+    Argb.class,
+    Asin.class,
+    Atan.class,
+    Average.class,
+    Blue.class,
+    Ceil.class,
+    Color.class,
+    Convert.class,
+    Cos.class,
+    Darken.class,
+    DataUri.class,
+    Default.class,
+    Desaturate.class,
+    Difference.class,
+    E.class,
+    Escape.class,
+    Exclusion.class,
+    Extract.class,
+    Fade.class,
+    Fadein.class,
+    Fadeout.class,
+    Floor.class,
+    GetUnit.class,
+    Green.class,
+    Greyscale.class,
+    Hardlight.class,
+    Hsv.class,
+    Hsva.class,
+    Hsvhue.class,
+    Hsvsaturation.class,
+    Hsvvalue.class,
+    Hue.class,
+    ImageHeight.class,
+    ImageSize.class,
+    ImageWidth.class,
+    Iscolor.class,
+    Isem.class,
+    Iskeyword.class,
+    Isnumber.class,
+    Ispercentage.class,
+    Ispixel.class,
+    Isruleset.class,
+    Isstring.class,
+    Isunit.class,
+    Isurl.class,
+    Length.class,
+    Lighten.class,
+    Lightness.class,
+    Luma.class,
+    Luminance.class,
+    Max.class,
+    Min.class,
+    Mix.class,
+    Mod.class,
+    Multiply.class,
+    Negation.class,
+    Overlay.class,
+    Percentage.class,
+    Pi.class,
+    Pow.class,
+    Red.class,
+    Replace.class,
+    Round.class,
+    Saturation.class,
+    Screen.class,
+    Shade.class,
+    Sin.class,
+    Softlight.class,
+    Spin.class,
+    Sqrt.class,
+    SvgGradient.class,
+    Tan.class,
+    Tint.class,
+    Unit.class);
 
   private static final Map<String, StandardFunction> ALL = new HashMap<>();
 
@@ -193,7 +269,7 @@ public class StandardFunctionFactory {
         ALL.put(standardFunction.getName(), standardFunction);
       }
     } catch (InstantiationException | IllegalAccessException e) {
-      throw new IllegalStateException("CSS function full list cannot be created.", e);
+      throw new IllegalStateException("CSS/Less function full list cannot be created.", e);
     }
   }
 

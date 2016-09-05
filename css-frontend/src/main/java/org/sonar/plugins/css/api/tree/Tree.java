@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -19,6 +19,10 @@
  */
 package org.sonar.plugins.css.api.tree;
 
+import java.util.Iterator;
+
+import org.sonar.plugins.css.api.tree.css.*;
+import org.sonar.plugins.css.api.tree.less.*;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 import org.sonar.sslr.grammar.GrammarRuleKey;
 
@@ -28,18 +32,21 @@ public interface Tree {
 
   void accept(DoubleDispatchVisitor visitor);
 
+  Iterator<Tree> childrenIterator();
+
   String treeValue();
 
   enum Kind implements GrammarRuleKey {
 
+    // CSS
     STYLESHEET(StyleSheetTree.class),
     AT_RULE(AtRuleTree.class),
     RULESET(RulesetTree.class),
+    EMPTY_STATEMENT(EmptyStatementTree.class),
     RULESET_BLOCK(RulesetBlockTree.class),
     AT_RULE_BLOCK(AtRuleBlockTree.class),
     PARENTHESIS_BLOCK(ParenthesisBlockTree.class),
     BRACKET_BLOCK(BracketBlockTree.class),
-    DECLARATIONS(DeclarationsTree.class),
     PROPERTY_DECLARATION(PropertyDeclarationTree.class),
     VARIABLE_DECLARATION(VariableDeclarationTree.class),
     PROPERTY(PropertyTree.class),
@@ -77,7 +84,20 @@ public interface Tree {
     CASE_INSENSITIVE_FLAG(CaseInsensitiveFlagTree.class),
     TOKEN(SyntaxToken.class),
     TRIVIA(SyntaxTrivia.class),
-    SPACING(SyntaxSpacing.class);
+    SPACING(SyntaxSpacing.class),
+
+    // Less
+    LESS_VARIABLE_DECLARATION(LessVariableDeclarationTree.class),
+    LESS_VARIABLE(LessVariableTree.class),
+    LESS_EXTEND(LessExtendTree.class),
+    LESS_PARENT_SELECTOR(LessParentSelectorTree.class),
+    LESS_MIXIN_CALL(LessMixinCallTree.class),
+    LESS_MIXIN_GUARD(LessMixinGuardTree.class),
+    LESS_MIXIN_PARAMETERS(LessMixinParametersTree.class),
+    LESS_MIXIN_PARAMETER(LessMixinParameterTree.class),
+    LESS_ESCAPING(LessEscapingTree.class),
+
+    ;
 
     final Class<? extends Tree> associatedInterface;
 

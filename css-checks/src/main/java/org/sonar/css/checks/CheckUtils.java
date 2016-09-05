@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -20,7 +20,7 @@
 package org.sonar.css.checks;
 
 import org.sonar.check.Rule;
-import org.sonar.plugins.css.api.tree.RulesetTree;
+import org.sonar.plugins.css.api.tree.css.RulesetTree;
 import org.sonar.plugins.css.api.tree.Tree;
 
 public final class CheckUtils {
@@ -30,8 +30,8 @@ public final class CheckUtils {
   private CheckUtils() {
   }
 
-  public static String paramsErrorMessage(Class clazz, String message) {
-    return "Check css:" + ((Rule) clazz.getAnnotation(Rule.class)).key()
+  public static String paramsErrorMessage(Class clazz, String repository, String message) {
+    return "Check "+ repository + ":" + ((Rule) clazz.getAnnotation(Rule.class)).key()
       + " (" + ((Rule) clazz.getAnnotation(Rule.class)).name() + "): "
       + message;
   }

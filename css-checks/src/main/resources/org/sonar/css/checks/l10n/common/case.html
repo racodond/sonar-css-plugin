@@ -1,0 +1,50 @@
+<p>
+    Even though CSS syntax is case-insensitive (except for variables), sharing some style conventions is a key point to
+    make it possible for a team to efficiently collaborate.
+</p>
+<p>This rule allows to check that all properties, functions and variables are written in lowercase.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+@CHARSET "UTF-8"; /* Noncompliant @-rule keyword */
+
+.mybox {
+  COLOR: blue; /* Noncompliant property */
+}
+
+.mybox {
+  color: RGB(255,255,255); /* Noncompliant function */
+}
+
+:root {
+  --MyVar: red; /* Noncompliant variable */;
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+@charset "UTF-8";
+
+.mybox {
+  color: blue;
+}
+
+.mybox {
+  color: rgb(255,255,255);
+}
+
+:root {
+  --myvar: red;
+}
+</pre>
+
+<h2>Exceptions</h2>
+<p>
+    Less interpolated properties are not checked for lowercase. For instance, the following piece of code does not raise
+    an issue:
+</p>
+<pre>
+.mybox {
+  @{BG}-color: green;
+}
+</pre>

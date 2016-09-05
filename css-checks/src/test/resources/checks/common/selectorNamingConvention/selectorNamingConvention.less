@@ -1,0 +1,26 @@
+.mybox { /* Compliant */
+}
+
+#my-box { /* Compliant */
+}
+
+div { /* Compliant */
+}
+
+.MYbOx { /* Noncompliant ![sc=2;ec=7;el=+0]! !{Rename selector "MYbOx" to match the regular expression: ^[a-z][-a-z0-9]*$}! */
+}
+
+.ab_cd { /* Noncompliant ![sc=2;ec=7;el=+0]! !{Rename selector "ab_cd" to match the regular expression: ^[a-z][-a-z0-9]*$}! */
+}
+
+.abcd #rrr div { /* Compliant */
+}
+
+.abcd #-rrr div { /* Noncompliant ![sc=8;ec=12;el=+0]! !{Rename selector "-rrr" to match the regular expression: ^[a-z][-a-z0-9]*$}! */
+}
+
+#abc@{DEF}ghi { /* Compliant */
+}
+
+.abc@{DEF}ghi { /* Compliant */
+}

@@ -1,9 +1,9 @@
 {
-'project:custom/knownProperty.css':[
+'project:custom/common/knownProperty.css':[
 62,
 63,
 ],
-'project:custom/obsoleteProperties.css':[
+'project:custom/common/obsoleteProperties.css':[
 2,
 3,
 4,

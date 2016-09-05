@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -52,14 +52,15 @@ public class CustomRulesTest {
       .setProjectName(PROJECT_KEY);
 
     orchestrator.getServer().provisionProject(PROJECT_KEY, PROJECT_KEY);
-    Tests.setProfile("css-custom-rules-profile", PROJECT_KEY);
+    Tests.setCssProfile("css-custom-rules-profile", PROJECT_KEY);
+    Tests.setLessProfile("less-custom-rules-profile", PROJECT_KEY);
     orchestrator.executeBuild(build);
 
     issueClient = orchestrator.getServer().wsClient().issueClient();
   }
 
   @Test
-  public void issues_against_rule_forbidden_properties() {
+  public void issues_against_css_rule_forbidden_properties() {
     List<Issue> issues = issueClient.find(IssueQuery.create().rules("custom-css:forbidden-properties")).list();
 
     assertThat(issues).hasSize(1);
@@ -72,7 +73,7 @@ public class CustomRulesTest {
   }
 
   @Test
-  public void issues_against_rule_forbidden_url() {
+  public void issues_against_css_rule_forbidden_url() {
     List<Issue> issues = issueClient.find(IssueQuery.create().rules("custom-css:forbidden-url")).list();
 
     assertThat(issues).hasSize(1);
@@ -80,6 +81,19 @@ public class CustomRulesTest {
     Issue issue = issues.get(0);
     assertThat(issue.line()).isEqualTo(3);
     assertThat(issue.message()).isEqualTo("Remove this usage of the forbidden \"paper.gif\" URL.");
+    assertThat(issue.debt()).isEqualTo("5min");
+    assertThat(issue.severity()).isEqualTo("CRITICAL");
+  }
+
+  @Test
+  public void issues_against_less_rule_interpolated_properties() {
+    List<Issue> issues = issueClient.find(IssueQuery.create().rules("custom-less:interpolated-properties")).list();
+
+    assertThat(issues).hasSize(2);
+
+    Issue issue = issues.get(0);
+    assertThat(issue.line()).isEqualTo(8);
+    assertThat(issue.message()).isEqualTo("Remove this usage of the \"@{my-var}-color\" interpolated property.");
     assertThat(issue.debt()).isEqualTo("5min");
     assertThat(issue.severity()).isEqualTo("CRITICAL");
   }

@@ -10,7 +10,7 @@
   </parent>
 
   <artifactId>css-checks-testkit</artifactId>
-  <name>SonarQube CSS Plugin :: Check Test Toolkit</name>
+  <name>SonarQube CSS / Less Plugin :: Check Test Toolkit</name>
 
   <dependencies>
     <dependency>

@@ -1,0 +1,18 @@
+<p>
+    Shared coding conventions allow teams to collaborate efficiently. This rule checks that all less variable names
+    match a provided regular expression.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+With format "^[a-z][-a-z0-9]*$":
+<pre>
+@myColor: green; /* Noncompliant */
+
+@my_color: green; /* Noncompliant */
+</pre>
+
+<h2>Compliant Solution</h2>
+With format "^[a-z][-a-z0-9]*$":
+<pre>
+@my-color: green;
+</pre>

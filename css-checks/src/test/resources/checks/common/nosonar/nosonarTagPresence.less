@@ -1,0 +1,13 @@
+h1 { /* NOSONAR: blabla */ /* Noncompliant */
+  color: green;
+}
+
+h1 {
+  color: green; /* [NOSONAR] blabla */ /* Noncompliant */
+}
+
+
+h1 {
+  /* Noncompliant ![sl=+1]! */
+  color: green; // [NOSONAR] blabla
+}

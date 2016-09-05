@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -25,8 +25,10 @@ import java.util.Iterator;
 import java.util.List;
 import javax.annotation.Nullable;
 
-import org.sonar.css.tree.impl.CssTree;
-import org.sonar.plugins.css.api.tree.*;
+import org.sonar.css.tree.impl.TreeImpl;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.*;
+import org.sonar.plugins.css.api.tree.less.*;
 
 public abstract class DoubleDispatchVisitor implements TreeVisitor {
 
@@ -51,7 +53,7 @@ public abstract class DoubleDispatchVisitor implements TreeVisitor {
   }
 
   protected void scanChildren(Tree tree) {
-    Iterator<Tree> childrenIterator = ((CssTree) tree).childrenIterator();
+    Iterator<Tree> childrenIterator = ((TreeImpl) tree).childrenIterator();
 
     Tree child;
 
@@ -95,15 +97,15 @@ public abstract class DoubleDispatchVisitor implements TreeVisitor {
     scanChildren(tree);
   }
 
-  public void visitDeclarations(DeclarationsTree tree) {
-    scanChildren(tree);
-  }
-
   public void visitPropertyDeclaration(PropertyDeclarationTree tree) {
     scanChildren(tree);
   }
 
   public void visitVariableDeclaration(VariableDeclarationTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitEmptyStatement(EmptyStatementTree tree) {
     scanChildren(tree);
   }
 
@@ -246,7 +248,47 @@ public abstract class DoubleDispatchVisitor implements TreeVisitor {
   }
 
   public void visitComment(SyntaxTrivia commentToken) {
-    // no sub-tree
+    // No sub-tree
+  }
+
+  // -------------------------------------------------------------------------
+  // Less
+  // -------------------------------------------------------------------------
+
+  public void visitLessVariableDeclaration(LessVariableDeclarationTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitLessVariable(LessVariableTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitLessExtend(LessExtendTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitLessParentSelector(LessParentSelectorTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitLessMixinCall(LessMixinCallTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitLessMixinGuard(LessMixinGuardTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitLessMixinParameters(LessMixinParametersTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitLessMixinParameter(LessMixinParameterTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitLessEscaping(LessEscapingTree tree) {
+    scanChildren(tree);
   }
 
 }

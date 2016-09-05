@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -19,8 +19,8 @@
  */
 package org.sonar.css;
 
-import org.sonar.css.checks.ForbiddenPropertiesCheck;
-import org.sonar.css.checks.ForbiddenUrlCheck;
+import org.sonar.css.checks.css.ForbiddenPropertiesCheck;
+import org.sonar.css.checks.css.ForbiddenUrlCheck;
 import org.sonar.plugins.css.api.CustomCssRulesDefinition;
 
 /**

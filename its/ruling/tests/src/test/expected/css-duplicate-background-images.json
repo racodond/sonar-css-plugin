@@ -1,12 +1,12 @@
 {
-'project:custom/custom/forbiddenUrl.css':[
-3,
-],
-'project:custom/duplicatebackgroundimages.css':[
+'project:custom/common/duplicatebackgroundimages.css':[
 2,
 26,
 ],
-'project:custom/properties/background-image.css':[
+'project:custom/common/properties/background-image.css':[
 4,
+],
+'project:custom/css/custom/forbiddenUrl.css':[
+3,
 ],
 }

@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -33,8 +33,8 @@ import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
-import org.sonar.css.parser.CssParserBuilder;
-import org.sonar.css.tree.impl.CssTree;
+import org.sonar.css.parser.css.CssParserBuilder;
+import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.duplications.internal.pmd.TokensLine;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.visitors.TreeVisitorContext;
@@ -79,7 +79,7 @@ public class CpdVisitorTest {
     inputFile.initMetadata(toParse);
     Tree tree = CssParserBuilder.createParser(Charsets.UTF_8).parse(toParse);
 
-    when(visitorContext.getTopTree()).thenReturn((CssTree) tree);
+    when(visitorContext.getTopTree()).thenReturn((TreeImpl) tree);
 
     com.google.common.io.Files.write(toParse, file, Charsets.UTF_8);
     cpdVisitor.scanTree(visitorContext);

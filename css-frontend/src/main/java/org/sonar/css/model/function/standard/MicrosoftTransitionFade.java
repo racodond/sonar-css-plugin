@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -26,6 +26,7 @@ public class MicrosoftTransitionFade extends StandardFunction {
   public MicrosoftTransitionFade() {
     setName("progid:dximagetransform.microsoft.fade");
     setObsolete(true);
+    setCss(true);
     addLinks("https://msdn.microsoft.com/en-us/library/ms532990(v=vs.85).aspx");
   }
 

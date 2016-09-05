@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -33,10 +33,10 @@ import org.sonar.plugins.css.api.visitors.issue.*;
 public class IssueSaver {
 
   private final SensorContext sensorContext;
-  private final CssChecks checks;
+  private final Checks checks;
   private final FileSystem fileSystem;
 
-  public IssueSaver(SensorContext sensorContext, CssChecks checks) {
+  public IssueSaver(SensorContext sensorContext, Checks checks) {
     this.sensorContext = sensorContext;
     this.fileSystem = sensorContext.fileSystem();
     this.checks = checks;

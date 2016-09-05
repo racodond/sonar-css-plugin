@@ -1,5 +1,5 @@
 {
-'project:custom/regexlikeselectors.css':[
+'project:custom/common/regexlikeselectors.css':[
 1,
 5,
 17,
@@ -8,7 +8,7 @@
 29,
 29,
 ],
-'project:custom/regexlikeselectorsStartingWithBOM.css':[
+'project:custom/common/regexlikeselectorsStartingWithBOM.css':[
 1,
 5,
 17,

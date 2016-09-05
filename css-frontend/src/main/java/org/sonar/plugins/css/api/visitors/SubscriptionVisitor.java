@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -25,7 +25,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.sonar.css.tree.impl.CssTree;
+import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 
 public abstract class SubscriptionVisitor implements TreeVisitor {
@@ -82,11 +82,11 @@ public abstract class SubscriptionVisitor implements TreeVisitor {
   }
 
   protected boolean isSubscribed(Tree tree) {
-    return nodesToVisit.contains(((CssTree) tree).getKind());
+    return nodesToVisit.contains(((TreeImpl) tree).getKind());
   }
 
   private void visitChildren(Tree tree) {
-    CssTree cssTree = (CssTree) tree;
+    TreeImpl cssTree = (TreeImpl) tree;
 
     if (!cssTree.isLeaf()) {
       for (Iterator<Tree> iter = cssTree.childrenIterator(); iter.hasNext();) {

@@ -1,8 +1,8 @@
 {
-'project:custom/tabcharacter.css':[
+'project:custom/common/tabcharacter.css':[
 0,
 ],
-'project:custom/trailingWhitespace.css':[
+'project:custom/common/trailingWhitespace.css':[
 0,
 ],
 }

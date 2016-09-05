@@ -1,0 +1,20 @@
+<p>
+    The <code>!important</code> statement must be placed at the end of the line, immediately before the semicolon,
+    otherwise it will not be taken into account by the browser.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+.mybox {
+  width: !important 100px;
+  border: 1px solid !important black;
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+.mybox {
+  width: 100px !important;
+  border: 1px solid black !important;
+}
+</pre>

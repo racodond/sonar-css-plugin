@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -19,16 +19,17 @@
  */
 package org.sonar.css.checks.verifier;
 
+import com.sonar.sslr.api.typed.ActionParser;
+
 import java.io.File;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.sonar.css.parser.CssParserBuilder;
-import org.sonar.css.tree.impl.CssTree;
+import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.css.visitors.CssVisitorContext;
 import org.sonar.plugins.css.api.CssCheck;
+import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.visitors.issue.FileIssue;
 import org.sonar.plugins.css.api.visitors.issue.Issue;
 import org.sonar.plugins.css.api.visitors.issue.LineIssue;
@@ -40,10 +41,10 @@ class TreeCheckTest {
   private TreeCheckTest() {
   }
 
-  public static Collection<CheckMessage> getIssues(String relativePath, CssCheck check, Charset charset) {
+  public static Collection<CheckMessage> getIssues(String relativePath, CssCheck check, ActionParser<Tree> parser) {
     File file = new File(relativePath);
 
-    CssTree tree = (CssTree) CssParserBuilder.createParser(charset).parse(file);
+    TreeImpl tree = (TreeImpl) parser.parse(file);
     CssVisitorContext context = new CssVisitorContext(tree, file);
     List<Issue> issues = check.scanFile(context);
 

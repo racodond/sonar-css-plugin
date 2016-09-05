@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -40,19 +40,19 @@ public class ProfileGenerator {
   private static Multimap<String, Parameter> parameters = ImmutableListMultimap.<String, Parameter>builder()
     .build();
 
-  public static void generateProfile(Orchestrator orchestrator) {
+  public static void generateProfile(Orchestrator orchestrator, String language) {
     try {
       StringBuilder sb = new StringBuilder()
         .append("<profile>")
         .append("<name>rules</name>")
-        .append("<language>css</language>")
+        .append("<language>").append(language).append("</language>")
         .append("<rules>");
 
-      Set<String> ruleKeys = getRuleKeysFromRepository(orchestrator);
+      Set<String> ruleKeys = getRuleKeysFromRepository(orchestrator, language);
 
       for (String key : ruleKeys) {
         sb.append("<rule>")
-          .append("<repositoryKey>css</repositoryKey>")
+          .append("<repositoryKey>").append(language).append("</repositoryKey>")
           .append("<key>").append(key).append("</key>")
           .append("<priority>INFO</priority>");
 
@@ -82,14 +82,14 @@ public class ProfileGenerator {
     }
   }
 
-  private static Set<String> getRuleKeysFromRepository(Orchestrator orchestrator) {
+  private static Set<String> getRuleKeysFromRepository(Orchestrator orchestrator, String language) {
     Set<String> ruleKeys = new HashSet<>();
     String json = new HttpRequestFactory(orchestrator.getServer().getUrl())
-      .get("/api/rules/search", ImmutableMap.<String, Object>of("languages", "css", "repositories", "css", "ps", "1000"));
+      .get("/api/rules/search", ImmutableMap.<String, Object>of("languages", language, "repositories", language, "ps", "1000"));
     @SuppressWarnings("unchecked")
     List<Map> jsonRules = (List<Map>) ((Map) JSONValue.parse(json)).get("rules");
     for (Map jsonRule : jsonRules) {
-      String key = ((String) jsonRule.get("key")).substring(4);
+      String key = ((String) jsonRule.get("key")).substring(language.length() + 1);
       ruleKeys.add(key);
     }
     return ruleKeys;

@@ -1,0 +1,5 @@
+.foo {
+  color: red;
+  color: red !important; /* Noncompliant ![sc=14;ec=24;el=+0]! !{Remove this usage of the "!important" annotation.}! */
+  bar() !important; /* Noncompliant ![sc=9;ec=19;el=+0]! !{Remove this usage of the "!important" annotation.}! */
+}

@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -21,6 +21,7 @@ package org.sonar.css.parser;
 
 import com.google.common.base.Charsets;
 import com.sonar.sslr.api.typed.ActionParser;
+import org.sonar.css.parser.css.CssParserBuilder;
 import org.sonar.plugins.css.api.tree.Tree;
 
 import static org.junit.Assert.fail;
@@ -29,7 +30,7 @@ public abstract class TreeTest {
 
   private final ActionParser<Tree> parser;
 
-  public TreeTest(CssLexicalGrammar ruleKey) {
+  public TreeTest(LexicalGrammar ruleKey) {
     parser = CssParserBuilder.createTestParser(Charsets.UTF_8, ruleKey);
   }
 

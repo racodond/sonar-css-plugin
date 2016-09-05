@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -23,11 +23,21 @@ import java.io.File;
 
 public class CheckTestUtils {
 
+  private static final String TEST_FILE_BASE_DIRECTORY_PATH = "src/test/resources/checks/";
+
   private CheckTestUtils() {
   }
 
-  public static File getTestFile(String relativePath) {
-    return new File("src/test/resources/checks/" + relativePath);
+  public static File getCommonTestFile(String relativePath) {
+    return new File(TEST_FILE_BASE_DIRECTORY_PATH + "common/" + relativePath);
+  }
+
+  public static File getCssTestFile(String relativePath) {
+    return new File(TEST_FILE_BASE_DIRECTORY_PATH + "css/" + relativePath);
+  }
+
+  public static File getLessTestFile(String relativePath) {
+    return new File(TEST_FILE_BASE_DIRECTORY_PATH + "less/" + relativePath);
   }
 
 }

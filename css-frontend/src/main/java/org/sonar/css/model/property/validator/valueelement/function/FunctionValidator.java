@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -28,7 +28,7 @@ import org.sonar.css.model.function.StandardFunction;
 import org.sonar.css.model.function.standard.Expression;
 import org.sonar.css.model.function.standard.Var;
 import org.sonar.css.model.property.validator.ValueElementValidator;
-import org.sonar.plugins.css.api.tree.FunctionTree;
+import org.sonar.plugins.css.api.tree.css.FunctionTree;
 import org.sonar.plugins.css.api.tree.Tree;
 
 public class FunctionValidator implements ValueElementValidator {
