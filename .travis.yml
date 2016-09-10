@@ -5,6 +5,9 @@ jdk:
 
 addons:
   sonarqube: true
+   apt:
+      packages:
+        - oracle-java8-installer
 
 env:
   global:
