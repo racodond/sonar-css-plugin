@@ -1,0 +1,94 @@
+/* Known property: color => Compliant */
+h1 {
+  color:red;
+}
+
+a {
+  clr:red; /* Noncompliant ![sc=3;ec=6;el=+0]! !{Remove this usage of the unknown "clr" property.}! */
+}
+
+/* Vendor-prefixed property: -moz- => Compliant */
+a {
+  -moz-foo: bar;
+}
+
+/* Known property with '*' hack: color => Compliant */
+a {
+  *color:red;
+}
+
+/* Known property with '_' hack: color => Compliant */
+a {
+  _color:red;
+}
+
+a {
+  *clr:red; /* Noncompliant ![sc=3;ec=7;el=+0]! !{Remove this usage of the unknown "clr" property.}! */
+}
+
+a {
+  _clr:red;  /* Noncompliant ![sc=3;ec=7;el=+0]! !{Remove this usage of the unknown "clr" property.}! */
+}
+
+/* Known properties */
+.mybox {
+  alignment-baseline: baseline;
+  baseline-shift: sub;
+  clip: auto;
+  clip-path: url("abc");
+  clip-rule: nonzero;
+  color: red;
+  color-interpolation: sRGB;
+  color-interpolation-filters: sRGB;
+  color-rendering: optimizeSpeed;
+  cursor: pointer;
+  direction: rtl;
+  display: compact;
+  enable-background: new;
+  filter: none;
+  fill: red;
+  fill-opacity: 0.5;
+  fill-rule: evenodd;
+  flood-color: red;
+  flood-opacity: 0.5;
+  font: sans-serif;
+  font-family: sans-serif;
+  font-size: 10%;
+  font-size-adjust: 2;
+  font-stretch: wider;
+  font-style: italic;
+  font-variant: normal;
+  font-weight: bold;
+  glyph-orientation-horizontal: auto;
+  glyph-orientation-vertical: 90deg;
+  image-rendering: optimizeSpeed;
+  kerning: auto;
+  letter-spacing: normal;
+  lighting-color: red;
+  marker: url("abc") url("abc") url("abc");
+  marker-end: url("abc");
+  marker-mid: url("abc");
+  marker-start: url("abc");
+  mask: none;
+  opacity: 0.5;
+  overflow: hidden;
+  pointer-events: visible;
+  shape-rendering: auto;
+  stop-color: red;
+  stop-opacity: 0.5;
+  stroke: red;
+  stroke-dasharray: 5 2,3 4;
+  stroke-dashoffset: 10%;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  stroke-miterlimit: 1.2;
+  stroke-opacity: 0.5;
+  stroke-width: 10%;
+  text-anchor: middle;
+  text-decoration: none;
+  text-rendering: auto;
+  unicode-bidi: embed;
+  visibility: hidden;
+  word-spacing: normal;
+  writing-mode: lr;
+}

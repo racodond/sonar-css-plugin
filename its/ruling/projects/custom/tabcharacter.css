@@ -1,0 +1,7 @@
+/* Noncompliant ![sl=0]! !{Replace all tab characters in this file by sequences of whitespaces.}! */
+h1 {
+    color: red;
+}
+h2 {
+	color: green;
+}

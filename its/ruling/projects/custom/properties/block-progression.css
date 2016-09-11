@@ -1,0 +1,9 @@
+.mybox {
+  block-progression: inherit;
+  block-progression: tb;
+  block-progression: rl;
+  block-progression: bt;
+  block-progression: lr;
+  block-progression: abc; /* Noncompliant !{Update the invalid value of property "block-progression". Expected format: tb | rl | bt | lr}! */
+  block-progression: 10; /* Noncompliant */
+}

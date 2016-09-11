@@ -1,0 +1,8 @@
+.mybox {
+  scroll-chaining: inherit;
+  scroll-chaining: none;
+  scroll-chaining: chained;
+  scroll-chaining: abc; /* Noncompliant !{Update the invalid value of property "scroll-chaining". Expected format: none | chained}! */
+  scroll-chaining: 10; /* Noncompliant */
+  scroll-chaining: 10%; /* Noncompliant */
+}

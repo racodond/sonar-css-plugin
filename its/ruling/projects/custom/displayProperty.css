@@ -1,0 +1,32 @@
+.mybox {
+  display: inline;
+  color: red;
+  height: 25px; /* Noncompliant ![sc=3;ec=15;el=+0;secondary=-2]! !{Remove this "height" declaration that does not work with the "display" declaration.}! */
+}
+
+.mybox {
+  float: left; /* Noncompliant ![sc=3;ec=14;el=+0;secondary=+2]! !{Remove this "float" declaration that does not work with the "display" declaration.}! */
+  color: red;
+  display: inline-block;
+}
+
+.mybox {
+  display: table-cell;
+  margin: 10px; /* Noncompliant ![sc=3;ec=15;el=+0;secondary=-1]! !{Remove this "margin" declaration that does not work with the "display" declaration.}! */
+}
+
+/* Compliant: inline with margin-left */
+.mybox {
+  display: inline;
+  margin-left: 10px;
+}
+
+/* Compliant: table and margin */
+.mybox {
+  display: table;
+  margin: 10px;
+}
+
+h1 {
+  color:red;
+}

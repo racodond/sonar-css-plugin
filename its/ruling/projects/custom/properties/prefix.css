@@ -1,0 +1,13 @@
+.mybox {
+  prefix: inherit;
+  prefix: none;
+  prefix: url(http://mybox);
+  prefix: image();
+  prefix: linear-gradient();
+  prefix: abc;
+  prefix: "abc";
+  prefix: 'abc';
+  prefix: 10px; /* Noncompliant !{Update the invalid value of property "prefix". Expected format: <string> | <image> | <identifier>}! */
+  prefix: 10; /* Noncompliant */
+  prefix: image() image(); /* Noncompliant */
+}

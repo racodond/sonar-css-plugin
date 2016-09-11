@@ -1,0 +1,10 @@
+.mybox {
+  offset-before: inherit;
+  offset-before: auto;
+  offset-before: 10px;
+  offset-before: -10px;
+  offset-before: 3%;
+  offset-before: -3%;
+  offset-before: abc; /* Noncompliant !{Update the invalid value of property "offset-before". Expected format: auto | <length> | <percentage>}! */
+  offset-before: 0.5; /* Noncompliant */
+}

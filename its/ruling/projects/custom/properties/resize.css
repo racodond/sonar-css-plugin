@@ -1,0 +1,9 @@
+.mybox {
+  resize: inherit;
+  resize: none;
+  resize: both;
+  resize: horizontal;
+  resize: vertical;
+  resize: abc; /* Noncompliant !{Update the invalid value of property "resize". Expected format: none | both | horizontal | vertical}! */
+  resize: 10px; /* Noncompliant */
+}

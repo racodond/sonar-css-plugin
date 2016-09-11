@@ -1,0 +1,11 @@
+.mybox {
+  flood-opacity: 0;
+  flood-opacity: 0.1;
+  flood-opacity: +0.1;
+  flood-opacity: 1.0;
+  flood-opacity: +1.0;
+  flood-opacity: -0.5; /* Noncompliant !{Update the invalid value of property "flood-opacity". Expected format: <number>(0.0,1.0)}! */
+  flood-opacity: +1.5; /* Noncompliant */
+  flood-opacity: 1.5; /* Noncompliant */
+  flood-opacity: inherit;
+}

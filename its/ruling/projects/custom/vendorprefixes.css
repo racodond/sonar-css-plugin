@@ -1,0 +1,20 @@
+h1 {
+  color:red;
+}
+
+/* The "foo" property is not defined in W3C standards, so it is ignored  */
+a {
+  -moz-foo: bar;
+}
+
+.mybox { /* Noncompliant  ![sc=1;ec=7;el=+0]! !{Define the missing vendor prefixes: -ms- -webkit- for the "user-select" property.}! */
+  -moz-user-select: 5px;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0]! !{Define the missing vendor prefixes: -ms- -webkit- for the "user-select" property.}! */
+  -MOZ-user-select: 5px;
+}
+
+  { /* Noncompliant ![sc=3;ec=4;el=+0]! !{Define the missing vendor prefixes: -ms- -webkit- for the "user-select" property.}! */
+  -MOZ-user-select: 5px;
+}

@@ -24,7 +24,7 @@ import org.sonar.css.model.function.StandardFunction;
 public class Emboss extends StandardFunction {
 
   public Emboss() {
-    setIeStaticFilter(true);
+    setObsolete(true);
     addLinks("https://msdn.microsoft.com/en-us/library/ms673539(v=vs.85).aspx");
   }
 

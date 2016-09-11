@@ -1,0 +1,13 @@
+.mybox {
+  border-top-style: inherit;
+  border-top-style: none;
+  border-top-style: hidden;
+  border-top-style: dashed;
+  border-top-style: double;
+  border-top-style: groove;
+  border-top-style: ridge;
+  border-top-style: inset;
+  border-top-style: outset;
+  border-top-style: 10px; /* Noncompliant !{Update the invalid value of property "border-top-style". Expected format: none | hidden | dotted | dashed | solid | double | groove | ridge | inset | outset}! */
+  border-top-style: abc; /* Noncompliant */
+}

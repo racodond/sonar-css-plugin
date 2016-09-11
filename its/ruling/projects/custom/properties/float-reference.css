@@ -1,0 +1,9 @@
+.mybox {
+  float-reference: inherit;
+  float-reference: inline;
+  float-reference: column;
+  float-reference: region;
+  float-reference: page;
+  float-reference: abc; /* Noncompliant !{Update the invalid value of property "float-reference". Expected format: inline | column | region | page}! */
+  float-reference: 10; /* Noncompliant */
+}

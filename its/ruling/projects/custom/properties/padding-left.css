@@ -1,0 +1,9 @@
+.mybox {
+  padding-left: inherit;
+  padding-left: 50%;
+  padding-left: -50%; /* Noncompliant !{Update the invalid value of property "padding-left". Expected format: <length>(>=0) | <percentage>(>=0)}! */
+  padding-left: 10pt;
+  padding-left: -10pt; /* Noncompliant */
+  padding-left: 10; /* Noncompliant */
+  padding-left: abc; /* Noncompliant */
+}

@@ -1,0 +1,10 @@
+.mybox {
+  user-select: auto;
+  user-select: text;
+  user-select: none;
+  user-select: contain;
+  user-select: all;
+  user-select: abc; /* Noncompliant !{Update the invalid value of property "user-select". Expected format: auto | text | none | contain | all}! */
+  user-select: 10; /* Noncompliant */
+  user-select: 10px; /* Noncompliant */
+}

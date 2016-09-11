@@ -1,0 +1,9 @@
+.mybox {
+  line-snap: inherit;
+  line-snap: none;
+  line-snap: baseline;
+  line-snap: contain;
+  line-snap: abc; /* Noncompliant !{Update the invalid value of property "line-snap". Expected format: none | baseline | contain}! */
+  line-snap: 10; /* Noncompliant */
+  line-snap: 10px; /* Noncompliant */
+}

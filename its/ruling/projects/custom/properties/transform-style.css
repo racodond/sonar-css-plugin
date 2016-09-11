@@ -1,0 +1,8 @@
+.mybox {
+  transform-style: inherit;
+  transform-style: auto;
+  transform-style: flat;
+  transform-style: preserve-3d;
+  transform-style: abc; /* Noncompliant !{Update the invalid value of property "transform-style". Expected format: auto | flat | preserve-3d}! */
+  transform-style: 10; /* Noncompliant */
+}

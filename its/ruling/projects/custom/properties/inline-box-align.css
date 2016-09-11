@@ -1,0 +1,9 @@
+.mybox {
+  inline-box-align: inherit;
+  inline-box-align: initial;
+  inline-box-align: last;
+  inline-box-align: 10;
+  inline-box-align: -10;
+  inline-box-align: 1.5; /* Noncompliant !{Update the invalid value of property "inline-box-align". Expected format: initial | last | <integer>}! */
+  inline-box-align: abc; /* Noncompliant */
+}

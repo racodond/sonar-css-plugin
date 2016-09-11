@@ -1,0 +1,9 @@
+.mybox {
+  color: green;
+}
+
+.mybox2 {
+  background-color: blue;
+  color: red;
+  background-image: url("paper.gif");
+}

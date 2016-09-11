@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<profile>
+  <name>css-custom-rules-profile</name>
+  <language>css</language>
+  <rules>
+    <rule>
+      <repositoryKey>custom-css</repositoryKey>
+      <key>forbidden-properties</key>
+      <priority>MAJOR</priority>
+      <parameters/>
+    </rule>
+    <rule>
+      <repositoryKey>custom-css</repositoryKey>
+      <key>forbidden-url</key>
+      <priority>CRITICAL</priority>
+      <parameters/>
+    </rule>
+  </rules>
+</profile>

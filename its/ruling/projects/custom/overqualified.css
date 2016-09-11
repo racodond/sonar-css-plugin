@@ -1,0 +1,34 @@
+div.mybox { /* Noncompliant !{Remove the name of this overqualified element.}! */
+    color: red;
+}
+
+.mybox li.active { /* Noncompliant !{Remove the name of this overqualified element.}! */
+    background: red;
+}
+
+/* Two different elements in different rules with the same class */
+li.active2 {
+    color: red;
+}
+
+p.active2 {
+    color: green;
+}
+
+.button:active,.link-goto:active {
+}
+
+.a-we,.z-b>a,.a-c>a{
+}
+
+p .test {}
+div.test {}  /* Noncompliant !{Remove the name of this overqualified element.}! */
+
+p.test2 {}
+div.test2 {}
+
+#abc .test3 {}
+[target=_blank] .test4 {}
+li:hover .test5 {}
+
+table {}

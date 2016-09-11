@@ -1,0 +1,14 @@
+.mybox {
+  padding: inherit;
+  padding: 50%;
+  padding: -50%; /* Noncompliant !{Update the invalid value of property "padding". Expected format: [ <length>(>=0) | <percentage>(>=0) ]{1,4}}! */
+  padding: 10pt;
+  padding: -10pt; /* Noncompliant */
+  padding: 10; /* Noncompliant */
+  padding: abc; /* Noncompliant */
+  padding: 50% 50%;
+  padding: 50% 50% 50%;
+  padding: 50% 50% 50% 50%;
+  padding: 50% 50% 50% 50% 50%; /* Noncompliant */
+  padding: 50% 50% abc 50%; /* Noncompliant */
+}

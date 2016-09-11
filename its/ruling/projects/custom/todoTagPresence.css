@@ -1,0 +1,40 @@
+/* TODO: blabla */ /* Noncompliant */
+h1 {
+  color: green;
+}
+
+/* [TODO] blabla */ /* Noncompliant */
+h1 {
+  color: green;
+}
+
+/* Noncompliant ![sl=12]! */
+/* TODO:
+    - blabla
+    - ...
+*/
+h1 {
+  color: green;
+}
+
+/* todo: blabla */ /* Noncompliant  */
+h1 {
+  color: green;
+}
+
+/* Noncompliant ![sl=+1]! */
+/* todo:
+   todo
+*/
+h1 {
+  color: green;
+}
+
+h1 {
+  color: green; /* TODO: blabla */ /* Noncompliant */
+}
+
+/* todoforthefirsttime */
+h1 {
+  color: green;
+}

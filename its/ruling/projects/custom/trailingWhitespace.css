@@ -1,0 +1,10 @@
+/* Noncompliant ![sl=4]! !{Remove the useless trailing whitespaces at the end of this line.}! */
+/* Noncompliant ![sl=7]! !{Remove the useless trailing whitespaces at the end of this line.}! */
+/* Noncompliant ![sl=9]! !{Remove the useless trailing whitespaces at the end of this line.}! */
+h1 {  
+  color:red;
+}
+  
+h2 {
+  color:green;	
+}

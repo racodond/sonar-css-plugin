@@ -1,0 +1,11 @@
+.mybox {
+   width: 100px !important;
+   width: 100px ! important; /* Noncompliant ![sc=17;ec=28;el=+0]! !{Remove the whitespaces between "!" and "important".}! */
+   width: 100px ! important ;  /* Noncompliant ![sc=17;ec=28;el=+0]! !{Remove the whitespaces between "!" and "important".}! */
+   width: 100px !important ;
+   border: 1px solid black !important;
+   width: !important 100px;
+   border: !  important 1px solid black;  /* Noncompliant ![sc=12;ec=24;el=+0]! !{Remove the whitespaces between "!" and "important".}! */
+   border: 1px solid !  important black; /* Noncompliant ![sc=22;ec=34;el=+0]! !{Remove the whitespaces between "!" and "important".}! */
+   border: 1px solid black !important
+}

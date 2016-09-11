@@ -1,0 +1,85 @@
+@abc { /* Noncompliant ![sc=1;ec=5;el=+0]! !{Remove this usage of the unknown "abc" @-rule.}! */
+  property: red;
+}
+
+@DEF { /* Noncompliant ![sc=1;ec=5;el=+0]! !{Remove this usage of the unknown "def" @-rule.}! */
+  property: red;
+}
+
+@-moz-vendoratrule {}
+
+@-moz-keyframes fade {}
+
+@charset "UTF-8";
+@CHARSET "UTF-8";
+
+@counter-style winners-list {
+  system: fixed;
+  symbols: url(gold-medal.svg) url(silver-medal.svg) url(bronze-medal.svg);
+  suffix: " ";
+}
+
+@custom-media --narrow-window (max-width: 30em);
+
+@document url(http://www.w3.org/),
+          url-prefix(http://www.w3.org/Style/),
+          domain(mozilla.org),
+          regexp("https:.*")
+{
+  body {
+    color: purple;
+    background: yellow;
+  }
+}
+
+@font-face {
+  font-family: MyHelvetica;
+  src: local("Helvetica Neue Bold"),
+       local("HelveticaNeue-Bold"),
+       url(MgOpenModernaBold.ttf);
+  font-weight: bold;
+}
+
+@font-feature-values Font One {
+  @swash {
+    nice-style: 12;
+  }
+  @ornaments {
+    nice-style: 12;
+  }
+  @annotation {
+    nice-style: 12;
+  }
+  @stylistic {
+    nice-style: 12;
+  }
+  @styleset {
+    nice-style: 12;
+  }
+  @character-variant {
+    nice-style: 12;
+  }
+}
+
+@import 'custom.css';
+
+@keyframes fade {}
+
+@media screen, print {
+  body { line-height: 1.2 }
+}
+
+@namespace url(http://www.w3.org/1999/xhtml);
+
+@page :pseudo-class {
+  margin:2in;
+}
+
+@supports ( (perspective: 10px) or (-moz-perspective: 10px) or (-webkit-perspective: 10px) or
+            (-ms-perspective: 10px) or (-o-perspective: 10px) ) {
+  /* specific CSS applied when 3D transforms, eventually prefixed, are supported */
+}
+
+@viewport {
+  max-width: 10px;
+}

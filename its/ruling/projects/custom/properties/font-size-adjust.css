@@ -1,0 +1,8 @@
+.mybox {
+  font-size-adjust: inherit;
+  font-size-adjust: none;
+  font-size-adjust: 0.5;
+  font-size-adjust: -0.5;
+  font-size-adjust: 10px; /* Noncompliant !{Update the invalid value of property "font-size-adjust". Expected format: none | <number>}!  */
+  font-size-adjust: abc; /* Noncompliant */
+}

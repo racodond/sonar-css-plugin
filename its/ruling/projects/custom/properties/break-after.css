@@ -1,0 +1,19 @@
+.mybox {
+  break-after: inherit;
+  break-after: auto;
+  break-after: always;
+  break-after: avoid;
+  break-after: left;
+  break-after: right;
+  break-after: page;
+  break-after: column;
+  break-after: region;
+  break-after: avoid-page;
+  break-after: avoid-region;
+  break-after: avoid-column;
+  break-after: recto;
+  break-after: verso;
+  break-after: 10; /* Noncompliant !{Update the invalid value of property "break-after". Expected format: auto | avoid | avoid-page | page | left | right | recto | verso | avoid-column | column | avoid-region | region | always}! */
+  break-after: none; /* Noncompliant */
+  break-after: 10px; /* Noncompliant */
+}

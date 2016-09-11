@@ -1,0 +1,8 @@
+@charset UTF-8;
+
+@import url(more.css); /* Noncompliant ![sc=1;ec=8;el=+0]! !{Remove this @import rule.}! */
+@import url(andmore.css); /* Noncompliant ![sc=1;ec=8;el=+0]! !{Remove this @import rule.}! */
+
+a {
+  color: black;
+}

@@ -1,0 +1,18 @@
+.mybox {
+  rest: inherit;
+  rest: 3s;
+  rest-before: none;
+  rest-before: x-weak;
+  rest-before: weak;
+  rest-before: medium;
+  rest-before: strong;
+  rest-before: x-strong;
+  rest: -3s; /* Noncompliant !{Update the invalid value of property "rest". Expected format: <pause-before> <pause-after>?}! */
+  rest: 50.5%; /* Noncompliant */
+  rest: abc; /* Noncompliant */
+  rest: 10px; /* Noncompliant */
+  rest: 3s 3s;
+  rest: weak medium;
+  rest: 3s 3s 3s; /* Noncompliant */
+  rest: 3s 10px; /* Noncompliant */
+}

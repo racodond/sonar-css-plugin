@@ -22,19 +22,4 @@ package org.sonar.css.model.function;
 import org.sonar.css.model.StandardCssObject;
 
 public class StandardFunction extends StandardCssObject {
-
-  private boolean ieStaticFilter;
-
-  public StandardFunction() {
-    ieStaticFilter = false;
-  }
-
-  public void setIeStaticFilter(boolean ieStaticFilter) {
-    this.ieStaticFilter = ieStaticFilter;
-  }
-
-  public boolean isIeStaticFilter() {
-    return ieStaticFilter;
-  }
-
 }

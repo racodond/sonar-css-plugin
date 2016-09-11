@@ -1,0 +1,17 @@
+.mybox {
+  font-stretch: inherit;
+  font-stretch: normal;
+  font-stretch: ultra-condensed;
+  font-stretch: extra-condensed;
+  font-stretch: condensed;
+  font-stretch: semi-condensed;
+  font-stretch: semi-expanded;
+  font-stretch: expanded;
+  font-stretch: extra-expanded;
+  font-stretch: ultra-expanded;
+  font-stretch: wider;
+  font-stretch: narrower;
+  font-stretch: abc; /* Noncompliant !{Update the invalid value of property "font-stretch". Expected format: normal | ultra-condensed | extra-condensed | condensed | semi-condensed | semi-expanded | expanded | extra-expanded | ultra-expanded | wider | narrower}! */
+  font-stretch: 10px; /* Noncompliant */
+  font-stretch: 0; /* Noncompliant */
+}

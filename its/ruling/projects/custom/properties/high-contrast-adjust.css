@@ -1,0 +1,7 @@
+.mybox {
+  high-contrast-adjust: inherit;
+  high-contrast-adjust: auto;
+  high-contrast-adjust: none;
+  high-contrast-adjust: abc; /* Noncompliant !{Update the invalid value of property "high-contrast-adjust". Expected format: auto | none}! */
+  high-contrast-adjust: 10; /* Noncompliant */
+}

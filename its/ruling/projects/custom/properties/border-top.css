@@ -1,0 +1,12 @@
+.mybox {
+  border-top: inherit;
+  border-top: dotted;
+  border-top: dotted thin;
+  border-top: dotted thin green;
+  border-top: thin green;
+  border-top: 10px green;
+  border-top: rgb(25,25,25) 10px;
+  border-top: dotted thin green green; /* Noncompliant !{Update the invalid value of property "border-top". Expected format: <border-width> || <border-style> || <color>}! */
+  border-top: dotted abc green; /* Noncompliant */
+  border-top: dotted -10px green; /* Noncompliant */
+}

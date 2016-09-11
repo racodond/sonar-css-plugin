@@ -1,0 +1,11 @@
+.mybox {
+  fill-opacity: 0;
+  fill-opacity: 0.1;
+  fill-opacity: +0.1;
+  fill-opacity: 1.0;
+  fill-opacity: +1.0;
+  fill-opacity: -0.5; /* Noncompliant !{Update the invalid value of property "fill-opacity". Expected format: <number>(0.0,1.0)}! */
+  fill-opacity: +1.5; /* Noncompliant */
+  fill-opacity: 1.5; /* Noncompliant */
+  fill-opacity: inherit;
+}

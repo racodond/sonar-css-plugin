@@ -1,0 +1,8 @@
+.mybox {
+  footnote-policy: inherit;
+  footnote-policy: auto;
+  footnote-policy: line;
+  footnote-policy: block;
+  footnote-policy: abc; /* Noncompliant !{Update the invalid value of property "footnote-policy". Expected format: auto | line | block}! */
+  footnote-policy: 10; /* Noncompliant */
+}

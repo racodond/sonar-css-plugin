@@ -24,7 +24,7 @@ import org.sonar.css.model.function.StandardFunction;
 public class Chroma extends StandardFunction {
 
   public Chroma() {
-    setIeStaticFilter(true);
+    setObsolete(true);
     addLinks("https://msdn.microsoft.com/en-us/library/ms673539(v=vs.85).aspx");
   }
 

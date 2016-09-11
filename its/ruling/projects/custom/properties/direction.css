@@ -1,0 +1,7 @@
+.mybox {
+  direction: inherit;
+  direction: rtl;
+  direction: ltr;
+  direction: abc; /* Noncompliant !{Update the invalid value of property "direction". Expected format: ltr | rtl}! */
+  direction: 0.5; /* Noncompliant */
+}

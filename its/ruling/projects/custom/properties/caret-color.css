@@ -1,0 +1,18 @@
+.mybox {
+  caret-color: inherit;
+  caret-color: red;
+  caret-color: darkgrey;
+  caret-color: #f03;
+  caret-color: #F03;
+  caret-color: #ff0033;
+  caret-color: #FF0033;
+  caret-color: #GF0033; /* Noncompliant !{Update the invalid value of property "caret-color". Expected format: auto | <color>}! */
+  caret-color: #FF04033; /* Noncompliant */
+  caret-color: abc; /* Noncompliant */
+  caret-color: rgb(255, 0,51);
+  caret-color: rgba(255, 0,51,0.5);
+  caret-color: hsl(0,100%,15%);
+  caret-color: hsla(0,100%,15%,0.5);
+  caret-color: hello(); /* Noncompliant */
+  caret-color: auto;
+}

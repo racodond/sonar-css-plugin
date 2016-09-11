@@ -1,0 +1,20 @@
+.mybox {
+  display: block;
+}
+
+div {
+  display: block;
+}
+
+#mybox { /* Noncompliant ![sc=1;ec=7;el=+0]! !{Remove ID "mybox" from this selector.}! */
+  display: block;
+}
+
+.mybox #go { /* Noncompliant ![sc=8;ec=11;el=+0]! !{Remove ID "go" from this selector.}! */
+  color: red;
+}
+
+.mybox #go, /* Noncompliant ![sc=8;ec=11;el=+0]! !{Remove ID "go" from this selector.}! */
+.mybox2 #abc { /* Noncompliant ![sc=9;ec=13;el=+0]! !{Remove ID "abc" from this selector.}! */
+  color: red;
+}

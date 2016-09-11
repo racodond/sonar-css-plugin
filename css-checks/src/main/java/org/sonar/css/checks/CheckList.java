@@ -44,7 +44,6 @@ public final class CheckList {
       CharsetFirstCheck.class,
       CommentRegularExpressionCheck.class,
       CompatibleVendorPrefixesCheck.class,
-      DeprecatedIEStaticFilterCheck.class,
       DeprecatedSystemColorCheck.class,
       DisplayPropertyGroupingCheck.class,
       DoNotUseShorthandPropertyCheck.class,

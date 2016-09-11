@@ -53,7 +53,8 @@ public class StandardCssObjectFactory {
       }
       return all
         .stream()
-        .filter(filteringFunction).sorted((o1, o2) -> o1.getName().compareTo(o2.getName()))
+        .filter(filteringFunction)
+        .sorted((o1, o2) -> o1.getName().compareTo(o2.getName()))
         .collect(Collectors.toList());
     } catch (IllegalAccessException | InstantiationException e) {
       throw new IllegalArgumentException("Unknown Standard CSS object", e);

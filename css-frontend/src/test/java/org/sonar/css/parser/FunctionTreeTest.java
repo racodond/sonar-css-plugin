@@ -22,6 +22,7 @@ package org.sonar.css.parser;
 import org.junit.Test;
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.function.UnknownFunction;
+import org.sonar.css.model.function.standard.MicrosoftFilterBlur;
 import org.sonar.css.model.function.standard.Min;
 import org.sonar.plugins.css.api.tree.FunctionTree;
 
@@ -63,6 +64,12 @@ public class FunctionTreeTest extends TreeTest {
     tree = checkParsed("-webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(100%,#7db9e8))");
     assertThat(tree.isVendorPrefixed()).isTrue();
     assertThat(tree.vendor()).isEqualTo(Vendor.WEBKIT);
+
+    tree = checkParsed("progid:DXImageTransform.Microsoft.Blur()");
+    assertThat(tree.standardFunction()).isInstanceOf(MicrosoftFilterBlur.class);
+
+    tree = checkParsed("progid:dximagetransform.microsoft.blur()");
+    assertThat(tree.standardFunction()).isInstanceOf(MicrosoftFilterBlur.class);
   }
 
   @Test

@@ -1,0 +1,10 @@
+.mybox {
+  text-decoration: inherit;
+  text-decoration: none;
+  text-decoration: underline;
+  text-decoration: overline;
+  text-decoration: line-through;
+  text-decoration: blink;
+  text-decoration: abc; /* Noncompliant !{Update the invalid value of property "text-decoration". Expected format: none | underline | overline | line-through | blink}! */
+  text-decoration: 10; /* Noncompliant */
+}

@@ -1,0 +1,8 @@
+.mybox {
+  line-grid: inherit;
+  line-grid: match-parent;
+  line-grid: create;
+  line-grid: abc; /* Noncompliant !{Update the invalid value of property "line-grid". Expected format: match-parent | create}! */
+  line-grid: 10; /* Noncompliant */
+  line-grid: 10px; /* Noncompliant */
+}

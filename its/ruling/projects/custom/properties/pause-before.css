@@ -1,0 +1,14 @@
+.mybox {
+  pause-before: inherit;
+  pause-before: 3s;
+  pause-before: none;
+  pause-before: x-weak;
+  pause-before: weak;
+  pause-before: medium;
+  pause-before: strong;
+  pause-before: x-strong;
+  pause-before: -3s; /* Noncompliant !{Update the invalid value of property "pause-before". Expected format: <time>(>=0) | none | x-weak | weak | medium | strong | x-strong}! */
+  pause-before: 50.5%; /* Noncompliant */
+  pause-before: abc; /* Noncompliant */
+  pause-before: 10px; /* Noncompliant */
+}

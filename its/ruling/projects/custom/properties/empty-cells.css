@@ -1,0 +1,7 @@
+.mybox {
+  empty-cells: inherit;
+  empty-cells: show;
+  empty-cells: hide;
+  empty-cells: abc; /* Noncompliant !{Update the invalid value of property "empty-cells". Expected format: show | hide}! */
+  empty-cells: 10; /* Noncompliant */
+}
