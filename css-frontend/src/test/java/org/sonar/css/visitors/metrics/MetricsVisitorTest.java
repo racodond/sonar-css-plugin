@@ -51,6 +51,7 @@ public class MetricsVisitorTest {
       .setType(InputFile.Type.MAIN);
 
     context.fileSystem().add(inputFile);
+    context.fileSystem().setEncoding(Charsets.UTF_8);
 
     MetricsVisitor metricsVisitor = new MetricsVisitor(context, mock(NoSonarFilter.class));
 

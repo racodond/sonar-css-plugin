@@ -19,6 +19,8 @@
  */
 package org.sonar.plugins.css;
 
+import com.google.common.base.Charsets;
+
 import java.io.File;
 import java.util.Collection;
 
@@ -32,7 +34,6 @@ import org.sonar.api.batch.rule.internal.ActiveRulesBuilder;
 import org.sonar.api.batch.sensor.internal.DefaultSensorDescriptor;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.api.batch.sensor.issue.Issue;
-import org.sonar.api.internal.google.common.base.Charsets;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.rule.RuleKey;
@@ -164,6 +165,7 @@ public class CssSquidSensorTest {
       .setLanguage(CssLanguage.KEY);
 
     context.fileSystem().add(inputFile);
+    context.fileSystem().setEncoding(Charsets.UTF_8);
 
     return inputFile.initMetadata(new FileMetadata().readMetadata(inputFile.file(), Charsets.UTF_8));
   }
