@@ -10,8 +10,20 @@ install:
   - appveyor DownloadFile http://www.us.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.zip
   - 7z x apache-maven-3.3.9-bin.zip -oC:\maven
 
+environment:
+  matrix:
+    - SQ_VERSION: "LTS"
+    - SQ_VERSION: "LATEST_RELEASE"
+    - SQ_VERSION: "DEV"
+
+platform:
+  - x86
+  - x64
+
 build_script:
   - mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B
 
 test_script:
   - mvn clean install -B
+  - cd its
+  - mvn -B clean install -Dsonar.runtimeVersion=%SQ_VERSION%
