@@ -1,0 +1,20 @@
+/* Compliant */
+.foo-1 {
+  margin-right: 0;
+  .foo-2 {
+    color: red;
+  }
+}
+
+.foo-1 {
+  margin-right: 0;
+  .foo-2 {
+    color: red;
+    .foo-3 { /* Noncompliant ![sc=5;ec=11;el=+0;secondary=-4,-2]! !{Refactor this code to not nest more than 2 rulesets.}! */
+      width: 100%;
+      .foo-4 {
+        background-color: blue;
+      }
+    }
+  }
+}

@@ -64,6 +64,7 @@ public final class CheckList {
         DeprecatedEscapingFunctionCheck.class,
         ExperimentalNotLessFunctionCheck.class,
         LessVariableNamingConventionCheck.class,
+        NestedRulesetsCheck.class,
         ObsoleteNotLessFunctionCheck.class,
         org.sonar.css.checks.less.ParsingErrorCheck.class,
         PreferSingleLineCommentsCheck.class,
