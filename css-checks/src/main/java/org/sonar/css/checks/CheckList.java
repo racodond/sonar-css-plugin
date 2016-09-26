@@ -27,10 +27,8 @@ import java.util.stream.Stream;
 
 import org.sonar.css.checks.common.*;
 import org.sonar.css.checks.css.*;
-import org.sonar.css.checks.less.ExperimentalNotLessFunctionCheck;
-import org.sonar.css.checks.less.LessVariableNamingConventionCheck;
-import org.sonar.css.checks.less.ObsoleteNotLessFunctionCheck;
-import org.sonar.css.checks.less.UnknownLessFunctionCheck;
+import org.sonar.css.checks.css.ParsingErrorCheck;
+import org.sonar.css.checks.less.*;
 
 public final class CheckList {
 
@@ -63,6 +61,7 @@ public final class CheckList {
     return Stream.concat(
       getCommonChecks().stream(),
       ImmutableList.of(
+        DeprecatedEscapingFunctionCheck.class,
         ExperimentalNotLessFunctionCheck.class,
         LessVariableNamingConventionCheck.class,
         ObsoleteNotLessFunctionCheck.class,

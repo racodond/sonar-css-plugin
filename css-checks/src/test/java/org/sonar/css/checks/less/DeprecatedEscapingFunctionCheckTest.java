@@ -17,22 +17,17 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.checks;
+package org.sonar.css.checks.less;
 
-public class Tags {
+import org.junit.Test;
+import org.sonar.css.checks.CheckTestUtils;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
-  public static final String BROWSER_COMPATIBILITY = "browser-compatibility";
-  public static final String BUG = "bug";
-  public static final String CONVENTION = "convention";
-  public static final String DESIGN = "design";
-  public static final String FORMAT = "format";
-  public static final String OBSOLETE = "obsolete";
-  public static final String PERFORMANCE = "performance";
-  public static final String PITFALL = "pitfall";
-  public static final String UNDERSTANDABILITY = "understandability";
+public class DeprecatedEscapingFunctionCheckTest {
 
-  private Tags() {
-    // This class only defines constants
+  @Test
+  public void test() {
+    CssCheckVerifier.verifyLessFile(new DeprecatedEscapingFunctionCheck(), CheckTestUtils.getLessTestFile("lessEscapingFunction.less"));
   }
 
 }
