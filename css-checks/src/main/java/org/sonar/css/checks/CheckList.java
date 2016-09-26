@@ -66,6 +66,7 @@ public final class CheckList {
         LessVariableNamingConventionCheck.class,
         ObsoleteNotLessFunctionCheck.class,
         org.sonar.css.checks.less.ParsingErrorCheck.class,
+        PreferSingleLineCommentsCheck.class,
         UnknownLessFunctionCheck.class).stream())
       .collect(Collectors.toList());
   }
