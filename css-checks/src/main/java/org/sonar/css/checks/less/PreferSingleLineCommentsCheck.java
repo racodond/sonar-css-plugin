@@ -28,7 +28,7 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 @Rule(
   key = "prefer-single-line-comments",
-  name = "Prefer single-line comments (//) over multi-line (/* ... */) ",
+  name = "Single-line comments (//) should be preferred over multi-line comments (/* ... */) ",
   priority = Priority.MINOR,
   tags = {Tags.CONVENTION, Tags.PERFORMANCE})
 @SqaleConstantRemediation("5min")
