@@ -53,7 +53,6 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * "TODO" tags should be handled
 * @charset should be the first element in the style sheet and not be preceded by any character
 * Box model size should be carefully reviewed
-* Branches should have sufficient coverage by unit tests
 * Byte Order Mark (BOM) should not be used for UTF-8 files
 * Case-sensitive flag should not be used
 * Deprecated system colors should not be used
@@ -83,6 +82,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Properties that do not work with the "display" property should be removed
 * Properties, functions and variables should be lower case
 * Property values should be valid
+* Protocol-relative URL should not be used
 * Regular expression like selectors should not be used
 * Rule properties should be alphabetically ordered
 * Selectors should follow a naming convention
@@ -91,7 +91,6 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Source code should comply with formatting standards
 * Standard properties should be specified along with vendor-prefixed properties
 * Star hack should not be used
-* Stylesheets should not "@import" too many other sheets
 * Stylesheets should not contain too many rules
 * Stylesheets should not contain too many selectors
 * Tabulation characters should not be used
@@ -104,12 +103,18 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Unknown functions should be removed
 * Unknown properties should be removed
 * Unknown pseudo-functions should be removed
+* URL should be quoted
 
 ### Specific to CSS
 * "@import" rule should not be used
 * @import rules should precede all other at-rules and style rules
+* Stylesheets should not "@import" too many other sheets
 
 ### Specific to Less
+* Deprecated "e" escaping function should be replaced with ~"value" syntax
+* Rulesets should not be nested too deeply
+* Single-line comments (//) should be preferred over multi-line comments (/* ... */)
+* Variables should be declared at the beginning of the block
 * Variables should follow a naming convention
 
 ### Templates
