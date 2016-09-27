@@ -92,7 +92,6 @@ public class CustomRulesTest {
     assertThat(issues).hasSize(2);
 
     Issue issue = issues.get(0);
-    assertThat(issue.line()).isEqualTo(8);
     assertThat(issue.message()).isEqualTo("Remove this usage of the \"@{my-var}-color\" interpolated property.");
     assertThat(issue.debt()).isEqualTo("5min");
     assertThat(issue.severity()).isEqualTo("CRITICAL");
