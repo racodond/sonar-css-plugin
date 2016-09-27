@@ -203,7 +203,6 @@ public enum LexicalGrammar implements GrammarRuleKey {
     macros(b);
     spacing(b, CSS_COMMENT_REGEX);
     tokens(b);
-    less(b);
     b.setRootRule(STYLESHEET);
     return b;
   }
@@ -235,7 +234,7 @@ public enum LexicalGrammar implements GrammarRuleKey {
 
     b.rule(NAME).is(b.token(GenericTokenType.LITERAL, b.oneOrMore(_NMCHAR)));
 
-    b.rule(PSEUDO_PREFIX).is(b.token(GenericTokenType.LITERAL, b.sequence(b.firstOf("::", ":"), b.nextNot(LESS_EXTEND_KEYWORD))));
+    b.rule(PSEUDO_PREFIX).is(b.token(GenericTokenType.LITERAL, b.sequence(b.firstOf("::", ":"), b.nextNot("extend"))));
 
     b.rule(URI_CONTENT_LITERAL).is(b.token(GenericTokenType.LITERAL,
       b.sequence(
