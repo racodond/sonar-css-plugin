@@ -61,8 +61,8 @@ public class TreeFactory {
     return new BracketBlockTreeImpl(openBracket, content.orNull(), closeBracket);
   }
 
-  public UriTree uri(SyntaxToken urlFunction, SyntaxToken openParenthesis, UriContentTree uriContent, SyntaxToken closeParenthesis) {
-    return new UriTreeImpl(urlFunction, openParenthesis, uriContent, closeParenthesis);
+  public UriTree uri(SyntaxToken urlFunction, SyntaxToken openParenthesis, Optional<UriContentTree> uriContent, SyntaxToken closeParenthesis) {
+    return new UriTreeImpl(urlFunction, openParenthesis, uriContent.orNull(), closeParenthesis);
   }
 
   public UriContentTree uriContent(SyntaxToken ident) {

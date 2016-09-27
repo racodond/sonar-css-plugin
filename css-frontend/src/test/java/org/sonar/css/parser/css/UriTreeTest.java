@@ -33,15 +33,34 @@ public class UriTreeTest extends CssTreeTest {
 
   @Test
   public void uri() {
-    checkParsed("url()");
-    checkParsed(" url()");
-    checkParsed("url(\"http://www.example.com/pinkish.png\")");
-    checkParsed("url(\"yellow\")");
-    checkParsed("URL(\"yellow\")");
-    checkParsed("Url(\"yellow\")");
-    checkParsed("url(base64,abc)");
+    UriTree tree;
 
-    checkParsed("url(\"@{image}/abc.png\")");
+    tree = checkParsed("url()");
+    assertThat(tree.uriContent()).isNull();
+
+    tree = checkParsed(" url()");
+    assertThat(tree.uriContent()).isNull();
+
+    tree = checkParsed(" url(  )");
+    assertThat(tree.uriContent()).isNull();
+
+    tree = checkParsed("url(\"http://www.example.com/pinkish.png\")");
+    assertThat(tree.uriContent()).isNotNull();
+
+    tree = checkParsed("url(\"yellow\")");
+    assertThat(tree.uriContent()).isNotNull();
+
+    tree = checkParsed("URL(\"yellow\")");
+    assertThat(tree.uriContent()).isNotNull();
+
+    tree = checkParsed("Url(\"yellow\")");
+    assertThat(tree.uriContent()).isNotNull();
+
+    tree = checkParsed("url(base64,abc)");
+    assertThat(tree.uriContent()).isNotNull();
+
+    tree = checkParsed("url(\"@{image}/abc.png\")");
+    assertThat(tree.uriContent()).isNotNull();
   }
 
   @Test
@@ -50,12 +69,12 @@ public class UriTreeTest extends CssTreeTest {
     checkNotParsed("url(base64, abc)");
   }
 
-  private void checkParsed(String toParse) {
+  private UriTree checkParsed(String toParse) {
     UriTree tree = (UriTree) parser().parse(toParse);
     assertThat(tree.openParenthesis()).isNotNull();
     assertThat(tree.closeParenthesis()).isNotNull();
     assertThat(tree.urlFunction()).isNotNull();
-    assertThat(tree.uriContent()).isNotNull();
+    return tree;
   }
 
 }

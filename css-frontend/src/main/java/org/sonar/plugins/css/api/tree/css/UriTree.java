@@ -19,6 +19,8 @@
  */
 package org.sonar.plugins.css.api.tree.css;
 
+import javax.annotation.Nullable;
+
 import org.sonar.plugins.css.api.tree.Tree;
 
 public interface UriTree extends Tree {
@@ -27,6 +29,7 @@ public interface UriTree extends Tree {
 
   SyntaxToken openParenthesis();
 
+  @Nullable
   UriContentTree uriContent();
 
   SyntaxToken closeParenthesis();

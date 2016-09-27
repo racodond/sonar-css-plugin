@@ -22,10 +22,11 @@ package org.sonar.css.tree.impl.css;
 import com.google.common.collect.Iterators;
 
 import java.util.Iterator;
+import javax.annotation.Nullable;
 
 import org.sonar.css.tree.impl.TreeImpl;
-import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.css.UriContentTree;
 import org.sonar.plugins.css.api.tree.css.UriTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
@@ -37,7 +38,7 @@ public class UriTreeImpl extends TreeImpl implements UriTree {
   private final UriContentTree uriContent;
   private final SyntaxToken closeParenthesis;
 
-  public UriTreeImpl(SyntaxToken urlFunction, SyntaxToken openParenthesis, UriContentTree uriContent, SyntaxToken closeParenthesis) {
+  public UriTreeImpl(SyntaxToken urlFunction, SyntaxToken openParenthesis, @Nullable UriContentTree uriContent, SyntaxToken closeParenthesis) {
     this.urlFunction = urlFunction;
     this.openParenthesis = openParenthesis;
     this.uriContent = uriContent;
@@ -51,7 +52,11 @@ public class UriTreeImpl extends TreeImpl implements UriTree {
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    return Iterators.forArray(urlFunction, openParenthesis, uriContent, closeParenthesis);
+    if (uriContent != null) {
+      return Iterators.forArray(urlFunction, openParenthesis, uriContent, closeParenthesis);
+    } else {
+      return Iterators.forArray(urlFunction, openParenthesis, closeParenthesis);
+    }
   }
 
   @Override
@@ -65,6 +70,7 @@ public class UriTreeImpl extends TreeImpl implements UriTree {
   }
 
   @Override
+  @Nullable
   public UriContentTree uriContent() {
     return uriContent;
   }

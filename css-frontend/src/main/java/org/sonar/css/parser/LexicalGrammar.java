@@ -239,7 +239,7 @@ public enum LexicalGrammar implements GrammarRuleKey {
     b.rule(URI_CONTENT_LITERAL).is(b.token(GenericTokenType.LITERAL,
       b.sequence(
         _W,
-        b.zeroOrMore(
+        b.oneOrMore(
           b.firstOf(
             b.regexp("[!#$%&*-\\[\\]-~]+"),
             _NONASCII,

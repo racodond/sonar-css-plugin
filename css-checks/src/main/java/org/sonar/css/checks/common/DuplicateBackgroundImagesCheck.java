@@ -62,7 +62,7 @@ public class DuplicateBackgroundImagesCheck extends DoubleDispatchVisitorCheck {
     StandardProperty standardProperty = tree.property().standardProperty();
     if (standardProperty instanceof Background || standardProperty instanceof BackgroundImage) {
       tree.value().valueElementsOfType(UriTree.class).stream()
-        .filter(t -> !t.uriContent().text().isEmpty())
+        .filter(t -> t.uriContent() != null && !t.uriContent().text().isEmpty())
         .forEach(t -> {
           String url = t.uriContent().text();
           if (urls.containsKey(url)) {

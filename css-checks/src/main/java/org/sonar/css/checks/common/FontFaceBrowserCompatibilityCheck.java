@@ -28,11 +28,11 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import org.sonar.css.checks.CheckList;
-import org.sonar.css.checks.CheckUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.css.checks.CheckList;
+import org.sonar.css.checks.CheckUtils;
 import org.sonar.css.checks.Tags;
 import org.sonar.css.model.property.standard.Src;
 import org.sonar.plugins.css.api.tree.css.*;
@@ -143,7 +143,7 @@ public class FontFaceBrowserCompatibilityCheck extends DoubleDispatchVisitorChec
     } else {
       String font = "";
       Optional<UriTree> uri = value.firstValueElementOfType(UriTree.class);
-      if (uri.isPresent() && uri.get().uriContent().string() != null) {
+      if (uri.isPresent() && uri.get().uriContent() != null) {
         font = uri.get().uriContent().text();
       }
 
@@ -162,7 +162,7 @@ public class FontFaceBrowserCompatibilityCheck extends DoubleDispatchVisitorChec
 
   private void checkLastSrcProperty(PropertyDeclarationTree declaration) {
     List<UriTree> uris = declaration.value().valueElementsOfType(UriTree.class).stream()
-      .filter(t -> !t.uriContent().text().isEmpty())
+      .filter(t -> t.uriContent() != null && !t.uriContent().text().isEmpty())
       .collect(Collectors.toList());
 
     if (uris.isEmpty()) {

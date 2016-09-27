@@ -53,7 +53,6 @@ public class InliningFontFileCheck extends DoubleDispatchVisitorCheck {
     if (tree.standardAtRule() instanceof FontFace && tree.block() != null) {
 
       getAllUriTrees(tree.block().propertyDeclarations())
-        .stream()
         .forEach(this::checkUriTreeForInliningFont);
     }
     super.visitAtRule(tree);
@@ -72,7 +71,7 @@ public class InliningFontFileCheck extends DoubleDispatchVisitorCheck {
   }
 
   private void checkUriTreeForInliningFont(UriTree tree) {
-    if (tree.uriContent().ident() != null && BASE64_PATTERN.matcher(tree.uriContent().ident().text()).matches()) {
+    if (tree.uriContent() != null && BASE64_PATTERN.matcher(tree.uriContent().text()).matches()) {
       addPreciseIssue(tree.uriContent(), "Remove this inline font file.");
     }
   }

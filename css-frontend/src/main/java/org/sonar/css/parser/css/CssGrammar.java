@@ -373,7 +373,7 @@ public class CssGrammar {
       f.uri(
         b.token(LexicalGrammar.URL_FUNCTION_NAME),
         b.token(LexicalGrammar.OPEN_PARENTHESIS_NO_WS),
-        URI_CONTENT(),
+        b.optional(URI_CONTENT()),
         b.token(LexicalGrammar.CLOSE_PARENTHESIS)));
   }
 

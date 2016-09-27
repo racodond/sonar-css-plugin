@@ -35,10 +35,9 @@ public class UriContentTreeTest extends CssTreeTest {
   public void uriContent() {
     UriContentTree tree;
 
-    tree = checkParsed("");
-    assertThat(tree.string()).isNull();
-    assertThat(tree.ident()).isNotNull();
-    assertThat(tree.ident().text()).isEqualTo("");
+    tree = checkParsed("''");
+    assertThat(tree.string()).isNotNull();
+    assertThat(tree.ident()).isNull();
     assertThat(tree.text()).isEqualTo("");
 
     tree = checkParsed("\"abc\"");
@@ -64,6 +63,11 @@ public class UriContentTreeTest extends CssTreeTest {
     assertThat(tree.ident()).isNotNull();
     assertThat(tree.ident().text()).isEqualTo(" base64,abc");
     assertThat(tree.text()).isEqualTo(" base64,abc");
+  }
+
+  @Test
+  public void notUriContent() {
+    checkNotParsed("");
   }
 
   private UriContentTree checkParsed(String toParse) {
