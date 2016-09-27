@@ -25,6 +25,10 @@
 'project:custom/less/experimentalFunctionUsage.less':[
 4,
 ],
+'project:custom/less/lessEscapingFunction.less':[
+3,
+4,
+],
 'project:custom/less/lessVariableNamingConvention.less':[
 3,
 4,
@@ -33,6 +37,16 @@
 3,
 4,
 5,
+],
+'project:custom/less/nestedRulesets/nestedRulesets.less':[
+18,
+31,
+47,
+53,
+69,
+],
+'project:custom/less/nestedRulesets/nestedRulesetsCustomThreshold.less':[
+13,
 ],
 'project:custom/less/obsoleteFunctions.less':[
 2,
