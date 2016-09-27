@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -22,8 +22,8 @@ package org.sonar.plugins.css.api.visitors.issue;
 import java.io.File;
 import javax.annotation.Nullable;
 
-import org.sonar.css.tree.impl.CssTree;
-import org.sonar.plugins.css.api.tree.SyntaxToken;
+import org.sonar.css.tree.impl.TreeImpl;
+import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.Tree;
 
 public class IssueLocation {
@@ -39,8 +39,8 @@ public class IssueLocation {
 
   public IssueLocation(File file, Tree firstTree, Tree lastTree, @Nullable String message) {
     this.file = file;
-    this.firstToken = ((CssTree) firstTree).getFirstToken();
-    this.lastToken = ((CssTree) lastTree).getLastToken();
+    this.firstToken = ((TreeImpl) firstTree).getFirstToken();
+    this.lastToken = ((TreeImpl) lastTree).getLastToken();
     this.message = message;
   }
 

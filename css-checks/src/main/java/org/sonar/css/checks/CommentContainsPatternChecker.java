@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -20,7 +20,7 @@
 package org.sonar.css.checks;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.plugins.css.api.tree.SyntaxTrivia;
+import org.sonar.plugins.css.api.tree.css.SyntaxTrivia;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 
 public class CommentContainsPatternChecker extends DoubleDispatchVisitorCheck {

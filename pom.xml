@@ -14,9 +14,9 @@
   <version>2.2-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>SonarQube CSS Plugin</name>
-  <description>Enables analysis of CSS files in SonarQube</description>
-  <url>https://github.com/SonarQubeCommunity/sonar-css</url>
+  <name>SonarQube CSS / Less Plugin</name>
+  <description>Enables analysis of CSS and Less files in SonarQube</description>
+  <url>https://github.com/racodond/sonar-css-plugin</url>
   <inceptionYear>2013</inceptionYear>
   <organization>
     <name>Tamas Kende and David RACODON</name>
@@ -51,22 +51,22 @@
   </modules>
 
   <scm>
-    <connection>scm:git:git@github.com:SonarQubeCommunity/sonar-css.git</connection>
-    <developerConnection>scm:git:git@github.com:SonarQubeCommunity/sonar-css.git</developerConnection>
-    <url>https://github.com/SonarQubeCommunity/sonar-css</url>
+    <connection>scm:git:git@github.com:racodond/sonar-css-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:racodond/sonar-css-plugin.git</developerConnection>
+    <url>https://github.com/racodond/sonar-css-plugin</url>
     <tag>HEAD</tag>
   </scm>
   <issueManagement>
     <system>GitHub Issues</system>
-    <url>https://github.com/SonarQubeCommunity/sonar-css/issues</url>
+    <url>https://github.com/racodond/sonar-css-plugin/issues</url>
   </issueManagement>
   <ciManagement>
     <system>Travis CI</system>
-    <url>https://travis-ci.org/SonarQubeCommunity/sonar-css</url>
+    <url>https://travis-ci.org/racodond/sonar-css-plugin</url>
   </ciManagement>
 
   <properties>
-    <license.title>SonarQube CSS Plugin</license.title>
+    <license.title>SonarQube CSS / Less Plugin</license.title>
     <license.mailto>mailto: kende.tamas@gmail.com and david.racodon@gmail.com</license.mailto>
     <license.owner>Tamas Kende and David RACODON</license.owner>
     <sonar.version>5.6</sonar.version>

@@ -10,7 +10,7 @@
   </parent>
 
   <artifactId>css-its-plugin-tests</artifactId>
-  <name>SonarQube CSS Plugin :: Integration Tests :: Plugin :: Tests</name>
+  <name>SonarQube CSS / Less Plugin :: Integration Tests :: Plugin :: Tests</name>
 
   <dependencies>
     <dependency>

@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -21,19 +21,60 @@ package org.sonar.css.checks;
 
 import com.google.common.collect.ImmutableList;
 
-import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.sonar.css.checks.common.*;
+import org.sonar.css.checks.css.*;
+import org.sonar.css.checks.css.ParsingErrorCheck;
+import org.sonar.css.checks.less.*;
 
 public final class CheckList {
 
-  public static final String REPOSITORY_KEY = "css";
+  public static final String CSS_REPOSITORY_KEY = "css";
+  public static final String CSS_REPOSITORY_NAME = "SonarQube";
 
-  public static final String REPOSITORY_NAME = "SonarQube";
+  public static final String LESS_REPOSITORY_KEY = "less";
+  public static final String LESS_REPOSITORY_NAME = "SonarQube";
 
   private CheckList() {
   }
 
   @SuppressWarnings("rawtypes")
-  public static Collection<Class> getChecks() {
+  public static List<Class> getCssChecks() {
+    return Stream.concat(
+      getCommonChecks().stream(),
+      ImmutableList.of(
+        ExperimentalCssFunctionCheck.class,
+        ImportFirstCheck.class,
+        ImportNumberCheck.class,
+        ImportUsageCheck.class,
+        ObsoleteCssFunctionCheck.class,
+        ParsingErrorCheck.class,
+        UnknownCssFunctionCheck.class).stream())
+      .collect(Collectors.toList());
+  }
+
+  @SuppressWarnings("rawtypes")
+  public static List<Class> getLessChecks() {
+    return Stream.concat(
+      getCommonChecks().stream(),
+      ImmutableList.of(
+        DeprecatedEscapingFunctionCheck.class,
+        ExperimentalNotLessFunctionCheck.class,
+        LessVariableNamingConventionCheck.class,
+        NestedRulesetsCheck.class,
+        ObsoleteNotLessFunctionCheck.class,
+        org.sonar.css.checks.less.ParsingErrorCheck.class,
+        PreferSingleLineCommentsCheck.class,
+        UnknownLessFunctionCheck.class,
+        VariableDeclarationFirstCheck.class).stream())
+      .collect(Collectors.toList());
+  }
+
+  @SuppressWarnings("rawtypes")
+  private static List<Class> getCommonChecks() {
     return ImmutableList.<Class>of(
       AllGradientDefinitionsCheck.class,
       AlphabetizeDeclarationsCheck.class,
@@ -52,7 +93,6 @@ public final class CheckList {
       EmptyDeclarationCheck.class,
       EmptyRuleCheck.class,
       ExperimentalAtRuleCheck.class,
-      ExperimentalFunctionCheck.class,
       ExperimentalIdentifierCheck.class,
       ExperimentalPropertyCheck.class,
       ExperimentalPseudoCheck.class,
@@ -63,22 +103,19 @@ public final class CheckList {
       IdInSelectorCheck.class,
       ImportantPositionCheck.class,
       ImportantUsageCheck.class,
-      ImportFirstCheck.class,
-      ImportNumberCheck.class,
-      ImportUsageCheck.class,
       InliningFontFileCheck.class,
       LeadingZeroCheck.class,
       LineLengthCheck.class,
       NoSonarTagPresenceCheck.class,
       NumberOfRulesPerSheetCheck.class,
-      ObsoleteFunctionCheck.class,
       ObsoletePropertieCheck.class,
       ObsoletePseudoCheck.class,
       OneDeclarationPerLineCheck.class,
       OverqualifiedElementCheck.class,
       OverspecificSelectorCheck.class,
-      ParsingErrorCheck.class,
       PropertyRegularExpressionCheck.class,
+      ProtocolRelativeUrlCheck.class,
+      QuotedUrlCheck.class,
       SelectorLikeRegExCheck.class,
       SelectorNamingConventionCheck.class,
       SelectorNumberCheck.class,
@@ -92,7 +129,6 @@ public final class CheckList {
       UnitForZeroValueCheck.class,
       UniversalSelectorCheck.class,
       UnknownAtRuleCheck.class,
-      UnknownFunctionCheck.class,
       UnknownPropertyCheck.class,
       UnknownPseudoCheck.class,
       UseShorthandPropertyCheck.class,

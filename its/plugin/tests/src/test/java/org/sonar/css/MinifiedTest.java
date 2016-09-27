@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -55,7 +55,7 @@ public class MinifiedTest {
       .setProjectName(PROJECT_KEY);
 
     orchestrator.getServer().provisionProject(PROJECT_KEY, PROJECT_KEY);
-    Tests.setProfile("zero-units-only-profile", PROJECT_KEY);
+    Tests.setCssProfile("zero-units-only-profile", PROJECT_KEY);
     orchestrator.executeBuild(build);
 
     wsClient = orchestrator.getServer().getWsClient();

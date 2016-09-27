@@ -1,11 +1,11 @@
 {
-'project:custom/charset/charsetFirstWithBOM.css':[
+'project:custom/common/charset/charsetFirstWithBOM.css':[
 0,
 ],
-'project:custom/regexlikeselectorsStartingWithBOM.css':[
+'project:custom/common/regexlikeselectorsStartingWithBOM.css':[
 0,
 ],
-'project:custom/utf8WithBom.css':[
+'project:custom/common/utf8WithBom.css':[
 0,
 ],
 }

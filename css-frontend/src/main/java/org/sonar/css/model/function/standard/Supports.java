@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -25,6 +25,7 @@ public class Supports extends StandardFunction {
 
   public Supports() {
     setExperimental(true);
+    setCss(true);
     addLinks("https://drafts.csswg.org/css-conditional-3/#the-css-interface");
   }
 

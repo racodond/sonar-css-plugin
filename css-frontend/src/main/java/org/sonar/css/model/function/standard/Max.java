@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -24,8 +24,11 @@ import org.sonar.css.model.function.StandardFunction;
 public class Max extends StandardFunction {
 
   public Max() {
+    setCss(true);
+    setLess(true);
     setObsolete(true);
     addLinks("https://www.w3.org/TR/2011/WD-css3-values-20110906/#max");
+    addLinks("http://lesscss.org/functions/#math-functions-max");
   }
 
 }

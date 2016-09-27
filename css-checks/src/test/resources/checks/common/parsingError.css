@@ -1,0 +1,4 @@
+/* Noncompliant ![sl=3]! !{Parsing error.}! */
+.heart-icon {
+  background: ;
+}

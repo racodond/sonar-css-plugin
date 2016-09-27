@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -25,18 +25,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.sonar.plugins.css.api.tree.SyntaxToken;
-import org.sonar.plugins.css.api.tree.SyntaxTrivia;
+import org.sonar.plugins.css.api.tree.css.SyntaxToken;
+import org.sonar.plugins.css.api.tree.css.SyntaxTrivia;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.visitors.SubscriptionVisitor;
+import org.sonar.squidbridge.CommentAnalyser;
 
 public class CommentLinesVisitor extends SubscriptionVisitor {
 
   private final Set<Integer> commentLines = new HashSet<>();
   private final Set<Integer> noSonarLines = new HashSet<>();
-  private final CssCommentAnalyser commentAnalyser = new CssCommentAnalyser();
+  private final CommentAnalyser commentAnalyser;
 
-  public CommentLinesVisitor(Tree tree) {
+  public CommentLinesVisitor(Tree tree, CommentAnalyser commentAnalyser) {
+    this.commentAnalyser = commentAnalyser;
     commentLines.clear();
     noSonarLines.clear();
     scanTree(tree);

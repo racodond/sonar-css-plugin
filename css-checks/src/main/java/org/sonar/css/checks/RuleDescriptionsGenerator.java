@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -34,6 +34,7 @@ import org.sonar.css.model.StandardCssObjectFactory;
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.atrule.StandardAtRule;
 import org.sonar.css.model.function.StandardFunction;
+import org.sonar.css.model.function.StandardFunctionFactory;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.StandardPropertyFactory;
 import org.sonar.css.model.pseudo.StandardPseudoComponent;
@@ -105,15 +106,25 @@ public class RuleDescriptionsGenerator {
 
   private final Map<String, String> tags = ImmutableMap.<String, String>builder()
     .put("[[allProperties]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardProperty.class, o -> true)))
-    .put("[[allFunctions]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardFunction.class, o -> true)))
+    .put("[[allCssFunctions]]", generateHtmlCssFunctionTable(
+      StandardFunctionFactory.getAll().stream().filter(StandardFunction::isCss).sorted((o1, o2) -> o1.getName().compareTo(o2.getName())).collect(Collectors.toList())))
+    .put("[[allLessFunctions]]", generateHtmlLessFunctionTable(
+      StandardFunctionFactory.getAll().stream().filter(StandardFunction::isLess).sorted((o1, o2) -> o1.getName().compareTo(o2.getName())).collect(Collectors.toList())))
     .put("[[allAtRules]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardAtRule.class, o -> true)))
     .put("[[allPseudos]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardPseudoComponent.class, o -> true)))
     .put("[[experimentalProperties]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardProperty.class, StandardCssObject::isExperimental)))
-    .put("[[experimentalFunctions]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardFunction.class, StandardCssObject::isExperimental)))
+    .put("[[experimentalCssFunctions]]", generateHtmlCssFunctionTable(
+      StandardFunctionFactory.getAll().stream().filter(f -> f.isCss() && f.isExperimental()).sorted((o1, o2) -> o1.getName().compareTo(o2.getName())).collect(Collectors.toList())))
+    .put("[[experimentalNotLessFunctions]]", generateHtmlCssFunctionTable(
+      StandardFunctionFactory.getAll().stream().filter(f -> !f.isLess() && f.isExperimental()).sorted((o1, o2) -> o1.getName().compareTo(o2.getName()))
+        .collect(Collectors.toList())))
     .put("[[experimentalAtRules]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardAtRule.class, StandardCssObject::isExperimental)))
     .put("[[experimentalPseudos]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardPseudoComponent.class, StandardCssObject::isExperimental)))
     .put("[[obsoleteProperties]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardProperty.class, StandardCssObject::isObsolete)))
-    .put("[[obsoleteFunctions]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardFunction.class, StandardCssObject::isObsolete)))
+    .put("[[obsoleteCssFunctions]]", generateHtmlCssFunctionTable(
+      StandardFunctionFactory.getAll().stream().filter(f -> f.isCss() && f.isObsolete()).sorted((o1, o2) -> o1.getName().compareTo(o2.getName())).collect(Collectors.toList())))
+    .put("[[obsoleteNotLessFunctions]]", generateHtmlCssFunctionTable(
+      StandardFunctionFactory.getAll().stream().filter(f -> !f.isLess() && f.isObsolete()).sorted((o1, o2) -> o1.getName().compareTo(o2.getName())).collect(Collectors.toList())))
     .put("[[obsoleteAtRules]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardAtRule.class, StandardCssObject::isObsolete)))
     .put("[[obsoletePseudos]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardPseudoComponent.class, StandardCssObject::isObsolete)))
     .put("[[vendors]]", generateListOfVendors())
@@ -246,6 +257,61 @@ public class RuleDescriptionsGenerator {
         .append("</li>\n");
     }
     html.append("</ul>\n");
+    return html.toString();
+  }
+
+  // TODO: refactor generateHtmlCssFunctionTable and generateHtmlLessFunctionTable
+  private String generateHtmlCssFunctionTable(List<StandardFunction> standardFunctions) {
+    StringBuilder html = new StringBuilder("<table style=\"border: 0;\">\n");
+    List<List<StandardFunction>> subLists = Lists.partition(standardFunctions, 3);
+    for (List<StandardFunction> subList : subLists) {
+      html.append("<tr>");
+      for (StandardFunction standardCssFunction : subList) {
+        List<String> links = standardCssFunction.getLinks().stream().filter(f -> !f.contains("lesscss.org")).collect(Collectors.toList());
+        html.append("<td style=\"border: 0; \">");
+        if (!links.isEmpty()) {
+          html.append("<a target=\"_blank\" href=\"").append(links.get(0)).append("\">");
+        }
+        html.append("<code>").append(standardCssFunction.getName()).append("</code>");
+        if (!links.isEmpty()) {
+          html.append("</a>");
+        }
+        html.append("</code>");
+        for (int i = 1; i < links.size(); i++) {
+          html.append("&nbsp;&nbsp;<a target=\"_blank\" href=\"").append(links.get(i)).append("\">#").append(i + 1).append("</a>");
+        }
+        html.append("</td>\n");
+      }
+      html.append("</tr>");
+    }
+    html.append("</table>\n");
+    return html.toString();
+  }
+
+  private String generateHtmlLessFunctionTable(List<StandardFunction> standardFunctions) {
+    StringBuilder html = new StringBuilder("<table style=\"border: 0;\">\n");
+    List<List<StandardFunction>> subLists = Lists.partition(standardFunctions, 3);
+    for (List<StandardFunction> subList : subLists) {
+      html.append("<tr>");
+      for (StandardFunction standardCssFunction : subList) {
+        List<String> links = standardCssFunction.getLinks().stream().filter(f -> f.contains("lesscss.org")).collect(Collectors.toList());
+        html.append("<td style=\"border: 0; \">");
+        if (!links.isEmpty()) {
+          html.append("<a target=\"_blank\" href=\"").append(links.get(0)).append("\">");
+        }
+        html.append("<code>").append(standardCssFunction.getName()).append("</code>");
+        if (!links.isEmpty()) {
+          html.append("</a>");
+        }
+        html.append("</code>");
+        for (int i = 1; i < links.size(); i++) {
+          html.append("&nbsp;&nbsp;<a target=\"_blank\" href=\"").append(links.get(i)).append("\">#").append(i + 1).append("</a>");
+        }
+        html.append("</td>\n");
+      }
+      html.append("</tr>");
+    }
+    html.append("</table>\n");
     return html.toString();
   }
 

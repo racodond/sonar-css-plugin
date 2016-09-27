@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -21,14 +21,14 @@ package org.sonar.plugins.css.api.visitors;
 
 import java.io.File;
 
-import org.sonar.css.tree.impl.CssTree;
+import org.sonar.css.tree.impl.TreeImpl;
 
 public interface TreeVisitorContext {
 
   /**
    * @return the top tree node of the current file AST representation.
    */
-  CssTree getTopTree();
+  TreeImpl getTopTree();
 
   /**
    * @return the current file

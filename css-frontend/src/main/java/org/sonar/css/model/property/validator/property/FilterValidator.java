@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -27,13 +27,13 @@ import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.ValueValidator;
 import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
 import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.ValueTree;
+import org.sonar.plugins.css.api.tree.css.ValueTree;
 
 public class FilterValidator implements ValueValidator {
 
   private static final ValueElementValidator FUNCTION_VALIDATOR = new FunctionValidator(
     Blur.class, Brightness.class, Contrast.class, DropShadow.class, Grayscale.class, HueRotate.class, Invert.class,
-    Opacity.class, Saturate.class, Sepia.class, Alpha.class, Basicimage.class, Blendtrans.class, Chroma.class,
+    Opacity.class, Saturate.class, Sepia.class, org.sonar.css.model.function.standard.Alpha.class, Basicimage.class, Blendtrans.class, Chroma.class,
     Compositor.class, DropShadow.class, Emboss.class, Engrave.class, Fliph.class, Flipv.class, Glow.class,
     Icmfilter.class, Light.class, MaskFilter.class, Matrix.class, Motionblur.class, Redirect.class, Revealtrans.class,
     Shadow.class, Wave.class, Xray.class);

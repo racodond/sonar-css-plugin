@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -24,8 +24,8 @@ import java.util.List;
 import org.sonar.css.model.function.standard.Calc;
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
-import org.sonar.plugins.css.api.tree.DimensionTree;
-import org.sonar.plugins.css.api.tree.NumberTree;
+import org.sonar.plugins.css.api.tree.css.DimensionTree;
+import org.sonar.plugins.css.api.tree.css.NumberTree;
 import org.sonar.plugins.css.api.tree.Tree;
 
 public abstract class DimensionValidator implements ValueElementValidator {

@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -26,7 +26,7 @@ import org.sonar.css.model.property.validator.valueelement.OutlineColorValidator
 import org.sonar.css.model.property.validator.valueelement.OutlineStyleValidator;
 import org.sonar.css.model.property.validator.valueelement.OutlineWidthValidator;
 import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.ValueTree;
+import org.sonar.plugins.css.api.tree.css.ValueTree;
 
 public class OutlineValidator implements ValueValidator {
 

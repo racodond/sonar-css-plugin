@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -25,6 +25,7 @@ public class Expression extends StandardFunction {
 
   public Expression() {
     setObsolete(true);
+    setCss(true);
     addLinks("https://msdn.microsoft.com/en-us/library/dn384050(v=vs.85).aspx");
   }
 

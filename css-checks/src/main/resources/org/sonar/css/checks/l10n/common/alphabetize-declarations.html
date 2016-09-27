@@ -1,0 +1,80 @@
+<p>
+    To make sure that properties do not get accidentally duplicated in a rule, they should be alphabetically ordered.
+    Note that vendor-prefixed properties are expected to be ordered without taking into account their prefix.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+/* Noncompliant: 'color' should be defined after 'border-color' */
+.mybox {
+  background-color: blue;
+  color: red;
+  border-color: green;
+}
+
+/* Noncompliant: '*color' should be defined after 'border-color' */
+.mybox {
+  background-color: blue;
+  *color: red;
+  border-color: green;
+}
+
+/* Noncompliant: '_color' should be defined after 'border-color' */
+.mybox {
+  background-color: blue;
+  _color: red;
+  border-color: green;
+}
+
+/* Noncompliant: '-xxx-background-color' properties should be defined before 'background-color' */
+.mybox {
+  all: unset;
+  background-color: blue;
+  color: red;
+  -moz-background-color: 10px;
+  -ms-background-color: 10px;
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+.mybox {
+  background-color: blue;
+  color: red;
+  color: green;
+}
+
+.mybox {
+  background-color: blue;
+  *color: red;
+  width: 10px;
+}
+
+.mybox {
+  background-color: blue;
+  _color: red;
+  width: 10px;
+}
+
+.mybox {
+  all: unset;
+  -moz-background-color: 10px;
+  -ms-background-color: 10px;
+  background-color: blue;
+  color: red;
+}
+</pre>
+
+<h2>Exceptions</h2>
+<p>
+    Less interpolated properties are not taken into account. For instance, the following piece of code does not raise an
+    issue:
+</p>
+<pre>
+.mybox {
+  @{foo}: blue;
+  color: white;
+  @{bar}: red;
+}
+</pre>
+

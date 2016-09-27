@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -22,7 +22,6 @@ package org.sonar.plugins.css.api;
 import com.google.common.collect.ImmutableList;
 import org.sonar.api.ExtensionPoint;
 import org.sonar.api.batch.BatchSide;
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.squidbridge.annotations.AnnotationBasedRulesDefinition;
 
 /**
@@ -30,7 +29,7 @@ import org.sonar.squidbridge.annotations.AnnotationBasedRulesDefinition;
  */
 @ExtensionPoint
 @BatchSide
-public abstract class CustomCssRulesDefinition implements RulesDefinition {
+public abstract class CustomCssRulesDefinition extends CustomRulesDefinition {
 
   /**
    * Defines rule repository with check metadata from check classes' annotations.
@@ -44,18 +43,4 @@ public abstract class CustomCssRulesDefinition implements RulesDefinition {
     repo.done();
   }
 
-  /**
-   * Name of the custom rule repository.
-   */
-  public abstract String repositoryName();
-
-  /**
-   * Key of the custom rule repository.
-   */
-  public abstract String repositoryKey();
-
-  /**
-   * Array of the custom rules classes.
-   */
-  public abstract Class[] checkClasses();
 }

@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -23,7 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.sonar.plugins.css.api.tree.NumberTree;
+import org.sonar.plugins.css.api.tree.css.NumberTree;
 import org.sonar.plugins.css.api.tree.Tree;
 
 public class IntegerSetValidator extends IntegerValidator {

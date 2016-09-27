@@ -1,0 +1,21 @@
+<p>Nesting too many rulesets makes the code hard to read, refactor and therefore maintain.
+
+<h2>Noncompliant Code Example</h2>
+<p>With the default threshold of 3:</p>
+<pre>
+.foo-1 {
+  // ...
+  .foo-2 {
+    // ...
+    .foo-3 {
+      // ...
+      .foo-4 {                    /* Noncompliant: depth = 4 */
+        background-color: blue;
+        .foo-5 {                  /* depth = 5, exceeding the limit, but issues are only reported on depth = 4 */
+          //...
+        }
+      }
+    }
+  }
+}
+</pre>

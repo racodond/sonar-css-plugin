@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -25,6 +25,7 @@ public class RepeatingConicGradient extends StandardFunction {
 
   public RepeatingConicGradient() {
     setExperimental(true);
+    setCss(true);
     addLinks("https://www.w3.org/TR/css4-images/#repeating-gradients");
   }
 

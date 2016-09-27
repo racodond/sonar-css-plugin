@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -24,6 +24,7 @@ import org.sonar.css.model.function.StandardFunction;
 public class Matrix3d extends StandardFunction {
 
   public Matrix3d() {
+    setCss(true);
     addLinks("https://drafts.csswg.org/css-transforms/#three-d-transform-functions");
   }
 

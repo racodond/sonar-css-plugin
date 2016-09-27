@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -24,7 +24,10 @@ import org.sonar.css.model.function.StandardFunction;
 public class Alpha extends StandardFunction {
 
   public Alpha() {
+    setCss(true);
+    setLess(true);
     setObsolete(true);
+    addLinks("http://lesscss.org/functions/#color-channel-alpha");
     addLinks("https://msdn.microsoft.com/en-us/library/ms673539(v=vs.85).aspx");
   }
 

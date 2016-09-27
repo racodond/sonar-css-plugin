@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -44,7 +44,8 @@ public class CssTest {
 
   @Before
   public void setUp() throws Exception {
-    ProfileGenerator.generateProfile(orchestrator);
+    ProfileGenerator.generateProfile(orchestrator, "css");
+    ProfileGenerator.generateProfile(orchestrator, "less");
   }
 
   @Test
@@ -52,11 +53,11 @@ public class CssTest {
     File litsDifferencesFile = FileLocation.of("target/differences").getFile();
     orchestrator.getServer().provisionProject("project", "project");
     orchestrator.getServer().associateProjectToQualityProfile("project", "css", "rules");
+    orchestrator.getServer().associateProjectToQualityProfile("project", "less", "rules");
     SonarScanner build = SonarScanner.create(FileLocation.of("../projects").getFile())
       .setProjectKey("project")
       .setProjectName("project")
       .setProjectVersion("1.0")
-      .setLanguage("css")
       .setSourceDirs("./")
       .setSourceEncoding("UTF-8")
       .setProperty("sonar.analysis.mode", "preview")

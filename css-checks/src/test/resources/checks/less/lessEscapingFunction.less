@@ -1,0 +1,6 @@
+.mybox {
+  color: green;
+  color: e("abc"); /* Noncompliant ![sc=10;ec=11;el=+0]! !{Replace deprecated "e" escaping function with ~"value" syntax.}! */
+  color: E("abc"); /* Noncompliant ![sc=10;ec=11;el=+0]! !{Replace deprecated "e" escaping function with ~"value" syntax.}! */
+  color: saturate();
+}

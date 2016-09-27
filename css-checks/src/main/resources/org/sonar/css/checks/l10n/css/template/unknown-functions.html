@@ -1,0 +1,26 @@
+<p>
+    The list of supported CSS functions is growing quite large, and it's very easy to miss a typo.
+</p>
+<p>
+    This rule checks each function name to make sure that it is a known CSS function. All vendor-prefixed functions are
+    ignored because vendors may add in their own functions at any point in time.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+.mybox {
+  color: rgb(255,0,51);
+  color: hello(100); /* Noncompliant: 'hello' isn't a known function */
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+.mybox {
+  color: rgb(255,0,51); /* Compliant: 'rgb' is a known function */
+  color: -moz-linear-gradient(top, hsl(0, 80%, 70%), #bada55); /* Compliant: '-moz-linear-gradient' is a vendor function */
+}
+</pre>
+
+<h2>List of Known Functions</h2>
+[[allCssFunctions]]

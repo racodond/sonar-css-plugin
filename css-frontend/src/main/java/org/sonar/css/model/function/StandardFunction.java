@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -22,4 +22,25 @@ package org.sonar.css.model.function;
 import org.sonar.css.model.StandardCssObject;
 
 public class StandardFunction extends StandardCssObject {
+
+  private boolean isCss;
+
+  private boolean isLess;
+
+  public void setCss(boolean isCss) {
+    this.isCss = isCss;
+  }
+
+  public boolean isCss() {
+    return isCss;
+  }
+
+  public void setLess(boolean isLess) {
+    this.isLess = isLess;
+  }
+
+  public boolean isLess() {
+    return isLess;
+  }
+
 }

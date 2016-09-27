@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -19,11 +19,14 @@
  */
 package org.sonar.css.tree.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Nullable;
 
-import org.sonar.plugins.css.api.tree.SyntaxToken;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 
-public class SyntaxList<T> {
+public class SyntaxList<T extends Tree> {
 
   private final T element;
   private final SyntaxToken separatorToken;
@@ -55,6 +58,30 @@ public class SyntaxList<T> {
   @Nullable
   public SyntaxList next() {
     return next;
+  }
+
+  public List<Tree> all() {
+    List<Tree> all = new ArrayList<>();
+
+    all.add(element);
+    if (separatorToken != null) {
+      all.add(separatorToken);
+    }
+
+    SyntaxList<T> nextSyntaxList = next;
+    while (nextSyntaxList != null) {
+      all.add(nextSyntaxList.element());
+      if (nextSyntaxList.separatorToken() != null) {
+        all.add(nextSyntaxList.separatorToken());
+      }
+      nextSyntaxList = nextSyntaxList.next();
+    }
+
+    return all;
+  }
+
+  public <T extends Tree> List<T> allElements(Class<T> treeType) {
+    return TreeListUtils.allElementsOfType(all(), treeType);
   }
 
 }

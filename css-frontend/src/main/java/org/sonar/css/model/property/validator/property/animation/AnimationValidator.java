@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.sonar.css.model.property.validator.ValueValidator;
 import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.ValueTree;
+import org.sonar.plugins.css.api.tree.css.ValueTree;
 
 public class AnimationValidator implements ValueValidator {
 

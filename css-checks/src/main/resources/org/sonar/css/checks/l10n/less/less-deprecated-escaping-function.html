@@ -1,0 +1,21 @@
+<p>Escaping <code>e</code> function is deprecated. <code>~"value"</code> should be used instead.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+.mybox {
+  filter: e("ms:alwaysHasItsOwnSyntax.For.Stuff()");
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+.mybox {
+  filter: ~"ms:alwaysHasItsOwnSyntax.For.Stuff()";
+}
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a target="_blank" href="http://lesscss.org/functions/#string-functions-e">Less escaping function
+        documentation</a></li>
+</ul>

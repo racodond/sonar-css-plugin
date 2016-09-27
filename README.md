@@ -1,4 +1,4 @@
-SonarQube CSS Plugin
+SonarQube CSS / Less Plugin
 ====================
 [![Build Status](https://api.travis-ci.org/racodond/sonar-css-plugin.svg?branch=master)](https://travis-ci.org/racodond/sonar-css-plugin)
 [![Build status](https://ci.appveyor.com/api/projects/status/36tt33b2wrfjgmo2/branch/master?svg=true)](https://ci.appveyor.com/project/racodond/sonar-css-plugin/branch/master)
@@ -6,7 +6,7 @@ SonarQube CSS Plugin
 
 
 ## Description
-This plugin enables code QA analysis of CSS files within [SonarQube](http://www.sonarqube.org):
+This plugin enables code QA analysis of CSS and Less files within [SonarQube](http://www.sonarqube.org):
 
  * Computes metrics: lines of code, number of rules, complexity, etc.
  * Validates your CSS code
@@ -16,7 +16,7 @@ This plugin enables code QA analysis of CSS files within [SonarQube](http://www.
  
 ## Usage
 1. [Download and install](http://docs.sonarqube.org/display/SONAR/Setup+and+Upgrade) SonarQube
-2. Install the CSS plugin either by a [direct download](https://github.com/SonarQubeCommunity/sonar-css/releases) or through the [update center](http://docs.sonarqube.org/display/SONAR/Update+Center).
+2. Install the CSS/Less plugin either by a [direct download](https://github.com/racodond/sonar-css-plugin/releases) or through the [update center](http://docs.sonarqube.org/display/SONAR/Update+Center).
 3. Install your [favorite analyzer](http://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code#AnalyzingSourceCode-RunningAnalysis) (SonarQube Scanner, Maven, Ant, etc.) and analyze your code. Note that starting at version 2.0, Java 8 is required to run an analysis.
 
 Plugin versions and compatibility with SonarQube versions: http://docs.sonarqube.org/display/PLUG/Plugin+Version+Matrix
@@ -44,16 +44,14 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 
 ## Available Checks
 
-### Checks
+### Common to CSS and Less
 * "!important" annotation should be placed at the end of the declaration
 * "!important" annotation should not be used
 * "@font-face" rule should be made compatible with the required browsers
-* "@import" rule should not be used
 * "FIXME" tags should be handled
 * "NOSONAR" tags should not be used to switch off issues
 * "TODO" tags should be handled
 * @charset should be the first element in the style sheet and not be preceded by any character
-* @import rules should precede all other at-rules and style rules
 * Box model size should be carefully reviewed
 * Branches should have sufficient coverage by unit tests
 * Byte Order Mark (BOM) should not be used for UTF-8 files
@@ -107,15 +105,22 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Unknown properties should be removed
 * Unknown pseudo-functions should be removed
 
+### Specific to CSS
+* "@import" rule should not be used
+* @import rules should precede all other at-rules and style rules
+
+### Specific to Less
+* Variables should follow a naming convention
+
 ### Templates
-Regular expression on comment
-Regular expression on property
+* Regular expression on comment
+* Regular expression on property
 
 
 ## Custom Checks
 
 You're thinking of new valuable rules? Version 2.1 or greater provides an API to write your own custom checks.
 A sample plugin with detailed explanations is available [here](https://github.com/racodond/sonar-css-custom-rules-plugin).
-If your custom rules may benefit the community, feel free to create a pull request in order to make the rule available in the CSS plugin.
+If your custom rules may benefit the community, feel free to create a pull request in order to make the rule available in the CSS/Less plugin.
 
-You're thinking of new rules that may benefit the community but don't have the time or the skills to write them? Feel free to create an [issue](https://github.com/SonarQubeCommunity/sonar-css/issues) for your rules to be taken under consideration.
+You're thinking of new rules that may benefit the community but don't have the time or the skills to write them? Feel free to create an [issue](https://github.com/racodond/sonar-css-plugin/issues) for your rules to be taken under consideration.

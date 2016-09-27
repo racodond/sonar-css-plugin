@@ -1,0 +1,6 @@
+@font-face {
+  src: url('//myfont-webfont.eot'); /* Noncompliant ![sc=12;ec=34;el=+0]! !{Remove this protocol-relative URL.}! */
+  src: url("//myfont-webfont.eot"); /* Noncompliant ![sc=12;ec=34;el=+0]! !{Remove this protocol-relative URL.}! */
+  src: url();
+  src: url(//myfont); /* Noncompliant ![sc=12;ec=20;el=+0]! !{Remove this protocol-relative URL.}! */
+}

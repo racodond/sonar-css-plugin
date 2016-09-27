@@ -1,0 +1,15 @@
+{
+'project:custom/common/validatePropertyValue.less':[
+2,
+3,
+],
+'project:custom/less/experimentalFunctionUsage.less':[
+23,
+],
+'project:custom/less/obsoleteFunctions.less':[
+6,
+],
+'project:custom/less/unknownFunctions.less':[
+2,
+],
+}

@@ -1,0 +1,11 @@
+.mybox {
+  color: blabla; /* Noncompliant */
+  color: black, green; /* Noncompliant */
+  color: desaturate(black);
+  color: @abc;
+  color: @abc black;
+  color: black @abc;
+  color: black, @abc;
+  color: (@abc + 2);
+  color: ~"ddd";
+}

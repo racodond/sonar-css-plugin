@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS Plugin
+ * SonarQube CSS / Less Plugin
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -26,8 +26,10 @@ public class Tags {
   public static final String CONVENTION = "convention";
   public static final String DESIGN = "design";
   public static final String FORMAT = "format";
+  public static final String OBSOLETE = "obsolete";
   public static final String PERFORMANCE = "performance";
   public static final String PITFALL = "pitfall";
+  public static final String SECURITY = "security";
   public static final String UNDERSTANDABILITY = "understandability";
 
   private Tags() {

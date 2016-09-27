@@ -1,10 +1,10 @@
 {
-'project:custom/selectorNamingConvention.css':[
+'project:custom/common/selectorNamingConvention/selectorNamingConvention.css':[
 10,
 13,
 19,
 ],
-'project:custom/selectorNamingConventionCustomFormat.css':[
+'project:custom/common/selectorNamingConvention/selectorNamingConventionCustomFormat.css':[
 10,
 13,
 ],
