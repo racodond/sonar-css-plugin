@@ -17,23 +17,31 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.checks;
+package org.sonar.css.checks.common;
 
-public class Tags {
+import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.css.checks.Tags;
+import org.sonar.plugins.css.api.tree.css.UriContentTree;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-  public static final String BROWSER_COMPATIBILITY = "browser-compatibility";
-  public static final String BUG = "bug";
-  public static final String CONVENTION = "convention";
-  public static final String DESIGN = "design";
-  public static final String FORMAT = "format";
-  public static final String OBSOLETE = "obsolete";
-  public static final String PERFORMANCE = "performance";
-  public static final String PITFALL = "pitfall";
-  public static final String SECURITY = "security";
-  public static final String UNDERSTANDABILITY = "understandability";
+@Rule(
+  key = "protocol-relative-url",
+  name = "Protocol-relative URL should not be used",
+  priority = Priority.MINOR,
+  tags = {Tags.SECURITY})
+@SqaleConstantRemediation("10min")
+@ActivatedByDefault
+public class ProtocolRelativeUrlCheck extends DoubleDispatchVisitorCheck {
 
-  private Tags() {
-    // This class only defines constants
+  @Override
+  public void visitUriContent(UriContentTree tree) {
+    if (tree.text().startsWith("//")) {
+      addPreciseIssue(tree, "Remove this protocol-relative URL.");
+    }
+    super.visitUriContent(tree);
   }
 
 }

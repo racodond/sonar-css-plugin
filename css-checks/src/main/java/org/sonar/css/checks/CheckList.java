@@ -113,6 +113,7 @@ public final class CheckList {
       OverqualifiedElementCheck.class,
       OverspecificSelectorCheck.class,
       PropertyRegularExpressionCheck.class,
+      ProtocolRelativeUrlCheck.class,
       QuotedUrlCheck.class,
       SelectorLikeRegExCheck.class,
       SelectorNamingConventionCheck.class,

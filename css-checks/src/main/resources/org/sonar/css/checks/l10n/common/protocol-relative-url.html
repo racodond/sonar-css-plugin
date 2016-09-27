@@ -1,0 +1,21 @@
+<p> For security reasons, protocol-relative URLs should not be used.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+@font-face {
+  src: url("//myfont");
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+@font-face {
+  src: url("https://myfont");
+}
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a target="_blank" href="https://www.paulirish.com/2010/the-protocol-relative-url/">Paul Irish blog post</a>
+    </li>
+</ul>

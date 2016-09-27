@@ -41,7 +41,7 @@ public class CssProfileTest {
 
     assertThat(profile.getName()).isEqualTo(CssProfile.SONARQUBE_WAY_PROFILE_NAME);
     assertThat(profile.getLanguage()).isEqualTo(CssLanguage.KEY);
-    assertThat(profile.getActiveRulesByRepository(CheckList.CSS_REPOSITORY_KEY)).hasSize(56);
+    assertThat(profile.getActiveRulesByRepository(CheckList.CSS_REPOSITORY_KEY)).hasSize(57);
     assertThat(validation.hasErrors()).isFalse();
   }
 
