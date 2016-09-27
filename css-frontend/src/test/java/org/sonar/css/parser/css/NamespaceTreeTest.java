@@ -20,13 +20,12 @@
 package org.sonar.css.parser.css;
 
 import org.junit.Test;
-import org.sonar.css.parser.TreeTest;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.NamespaceTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class NamespaceTreeTest extends TreeTest {
+public class NamespaceTreeTest extends CssTreeTest {
 
   public NamespaceTreeTest() {
     super(LexicalGrammar.NAMESPACE);

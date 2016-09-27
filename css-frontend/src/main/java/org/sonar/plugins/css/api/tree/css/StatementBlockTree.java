@@ -23,6 +23,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.less.LessMixinCallTree;
 import org.sonar.plugins.css.api.tree.less.LessVariableDeclarationTree;
 
 public interface StatementBlockTree extends Tree {
@@ -42,6 +43,10 @@ public interface StatementBlockTree extends Tree {
   List<RulesetTree> rulesets();
 
   List<AtRuleTree> atRules();
+
+  List<LessMixinCallTree> lessMixinCalls();
+
+  List<Tree> allStatements();
 
   @Nullable
   List<Tree> content();

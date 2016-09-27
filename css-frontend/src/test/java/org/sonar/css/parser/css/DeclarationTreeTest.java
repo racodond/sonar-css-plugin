@@ -20,7 +20,6 @@
 package org.sonar.css.parser.css;
 
 import org.junit.Test;
-import org.sonar.css.parser.TreeTest;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.DeclarationTree;
 import org.sonar.plugins.css.api.tree.css.PropertyDeclarationTree;
@@ -28,7 +27,7 @@ import org.sonar.plugins.css.api.tree.css.VariableDeclarationTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class DeclarationTreeTest extends TreeTest {
+public class DeclarationTreeTest extends CssTreeTest {
 
   public DeclarationTreeTest() {
     super(LexicalGrammar.DECLARATION);

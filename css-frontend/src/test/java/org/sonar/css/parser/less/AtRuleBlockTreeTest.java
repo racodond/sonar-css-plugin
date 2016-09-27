@@ -21,19 +21,19 @@ package org.sonar.css.parser.less;
 
 import org.junit.Test;
 import org.sonar.css.parser.LexicalGrammar;
-import org.sonar.plugins.css.api.tree.css.RulesetBlockTree;
+import org.sonar.plugins.css.api.tree.css.AtRuleBlockTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class RulesetBlockTreeTest extends LessTreeTest {
+public class AtRuleBlockTreeTest extends LessTreeTest {
 
-  public RulesetBlockTreeTest() {
-    super(LexicalGrammar.RULESET_BLOCK);
+  public AtRuleBlockTreeTest() {
+    super(LexicalGrammar.AT_RULE_BLOCK);
   }
 
   @Test
-  public void rulesetBlock() {
-    RulesetBlockTree tree;
+  public void atRuleBlock() {
+    AtRuleBlockTree tree;
 
     tree = checkParsed("{}");
     assertThat(tree.content()).isNull();
@@ -233,6 +233,7 @@ public class RulesetBlockTreeTest extends LessTreeTest {
     assertThat(tree.allDeclarations()).hasSize(3);
     assertThat(tree.allStatements()).hasSize(5);
 
+
     tree = checkParsed(" { \ncolor : green;\n#id();\n.class;\nh1 {}\ncolor: red;\nh1 {}\n@myvar: blabla;}");
     assertThat(tree.content()).isNotNull();
     assertThat(tree.propertyDeclarations()).hasSize(2);
@@ -285,12 +286,12 @@ public class RulesetBlockTreeTest extends LessTreeTest {
   }
 
   @Test
-  public void notRulesetBlock() {
+  public void notAtRuleBlock() {
     checkNotParsed("{color:}");
   }
 
-  private RulesetBlockTree checkParsed(String toParse) {
-    RulesetBlockTree tree = (RulesetBlockTree) parser().parse(toParse);
+  private AtRuleBlockTree checkParsed(String toParse) {
+    AtRuleBlockTree tree = (AtRuleBlockTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
     assertThat(tree.openCurlyBrace()).isNotNull();
     assertThat(tree.closeCurlyBrace()).isNotNull();
@@ -301,6 +302,7 @@ public class RulesetBlockTreeTest extends LessTreeTest {
     assertThat(tree.lessMixinCalls()).isNotNull();
     assertThat(tree.emptyStatements()).isNotNull();
     assertThat(tree.allDeclarations()).isNotNull();
+    assertThat(tree.allStatements()).isNotNull();
     return tree;
   }
 

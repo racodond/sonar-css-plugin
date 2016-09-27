@@ -20,13 +20,12 @@
 package org.sonar.css.parser.css;
 
 import org.junit.Test;
-import org.sonar.css.parser.TreeTest;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.AtRuleBlockTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class AtRuleBlockTreeTest extends TreeTest {
+public class AtRuleBlockTreeTest extends CssTreeTest {
 
   public AtRuleBlockTreeTest() {
     super(LexicalGrammar.AT_RULE_BLOCK);

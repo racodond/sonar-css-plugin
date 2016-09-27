@@ -20,7 +20,6 @@
 package org.sonar.css.parser.css;
 
 import org.junit.Test;
-import org.sonar.css.parser.TreeTest;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.AttributeSelectorTree;
 import org.sonar.plugins.css.api.tree.css.ClassSelectorTree;
@@ -29,7 +28,7 @@ import org.sonar.plugins.css.api.tree.css.SelectorTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class SelectorTreeTest extends TreeTest {
+public class SelectorTreeTest extends CssTreeTest {
 
   public SelectorTreeTest() {
     super(LexicalGrammar.SELECTOR);

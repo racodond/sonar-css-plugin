@@ -24,13 +24,12 @@ import org.sonar.css.model.Vendor;
 import org.sonar.css.model.atrule.UnknownAtRule;
 import org.sonar.css.model.atrule.standard.Import;
 import org.sonar.css.model.atrule.standard.Page;
-import org.sonar.css.parser.TreeTest;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.AtRuleTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class AtRuleTreeTest extends TreeTest {
+public class AtRuleTreeTest extends CssTreeTest {
 
   public AtRuleTreeTest() {
     super(LexicalGrammar.AT_RULE);

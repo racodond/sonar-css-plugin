@@ -19,12 +19,5 @@
  */
 package org.sonar.plugins.css.api.tree.css;
 
-import java.util.List;
-
-import org.sonar.plugins.css.api.tree.less.LessMixinCallTree;
-
 public interface RulesetBlockTree extends StatementBlockTree {
-
-  List<LessMixinCallTree> lessMixinCalls();
-
 }

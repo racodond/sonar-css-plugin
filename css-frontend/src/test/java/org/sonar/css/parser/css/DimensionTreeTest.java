@@ -20,13 +20,12 @@
 package org.sonar.css.parser.css;
 
 import org.junit.Test;
-import org.sonar.css.parser.TreeTest;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.DimensionTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class DimensionTreeTest extends TreeTest {
+public class DimensionTreeTest extends CssTreeTest {
 
   public DimensionTreeTest() {
     super(LexicalGrammar.DIMENSION);

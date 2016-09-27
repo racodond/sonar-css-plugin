@@ -19,49 +19,18 @@
  */
 package org.sonar.css.tree.impl.css;
 
-import com.google.common.collect.Iterators;
-
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.annotation.Nullable;
 
-import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.css.*;
-import org.sonar.plugins.css.api.tree.less.LessMixinCallTree;
-import org.sonar.plugins.css.api.tree.less.LessVariableDeclarationTree;
+import org.sonar.plugins.css.api.tree.css.RulesetBlockTree;
+import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
-public class RulesetBlockTreeImpl extends TreeImpl implements RulesetBlockTree {
-
-  private final SyntaxToken openCurlyBrace;
-  private final List<Tree> content;
-  private final List<PropertyDeclarationTree> propertyDeclarations;
-  private final List<VariableDeclarationTree> variableDeclarations;
-  private final List<LessVariableDeclarationTree> lessVariableDeclarations;
-  private final List<LessMixinCallTree> lessMixinCalls;
-  private final List<DeclarationTree> allDeclarations;
-  private final List<RulesetTree> rulesets;
-  private final List<AtRuleTree> atRules;
-  private final List<EmptyStatementTree> emptyStatements;
-  private final SyntaxToken closeCurlyBrace;
+public class RulesetBlockTreeImpl extends AbstractStatementBlockTreeImpl implements RulesetBlockTree {
 
   public RulesetBlockTreeImpl(SyntaxToken openCurlyBrace, @Nullable List<Tree> content, SyntaxToken closeCurlyBrace) {
-    this.openCurlyBrace = openCurlyBrace;
-    this.content = content;
-    this.closeCurlyBrace = closeCurlyBrace;
-
-    propertyDeclarations = new ArrayList<>();
-    variableDeclarations = new ArrayList<>();
-    lessVariableDeclarations = new ArrayList<>();
-    lessMixinCalls = new ArrayList<>();
-    allDeclarations = new ArrayList<>();
-    rulesets = new ArrayList<>();
-    atRules = new ArrayList<>();
-    emptyStatements = new ArrayList<>();
-
-    buildLists(content);
+    super(openCurlyBrace, content, closeCurlyBrace);
   }
 
   @Override
@@ -70,103 +39,8 @@ public class RulesetBlockTreeImpl extends TreeImpl implements RulesetBlockTree {
   }
 
   @Override
-  public Iterator<Tree> childrenIterator() {
-    if (content != null) {
-      return Iterators.concat(
-        Iterators.singletonIterator(openCurlyBrace),
-        content.iterator(),
-        Iterators.singletonIterator(closeCurlyBrace));
-    } else {
-      return Iterators.forArray(openCurlyBrace, closeCurlyBrace);
-    }
-  }
-
-  @Override
   public void accept(DoubleDispatchVisitor visitor) {
     visitor.visitRulesetBlock(this);
-  }
-
-  @Override
-  public SyntaxToken openCurlyBrace() {
-    return openCurlyBrace;
-  }
-
-  @Override
-  public SyntaxToken closeCurlyBrace() {
-    return closeCurlyBrace;
-  }
-
-  @Override
-  public List<PropertyDeclarationTree> propertyDeclarations() {
-    return propertyDeclarations;
-  }
-
-  @Override
-  public List<VariableDeclarationTree> variableDeclarations() {
-    return variableDeclarations;
-  }
-
-  @Override
-  public List<LessVariableDeclarationTree> lessVariableDeclarations() {
-    return lessVariableDeclarations;
-  }
-
-  @Override
-  public List<EmptyStatementTree> emptyStatements() {
-    return emptyStatements;
-  }
-
-  @Override
-  public List<DeclarationTree> allDeclarations() {
-    return allDeclarations;
-  }
-
-  @Override
-  public List<AtRuleTree> atRules() {
-    return atRules;
-  }
-
-  @Override
-  public List<RulesetTree> rulesets() {
-    return rulesets;
-  }
-
-  @Override
-  public List<LessMixinCallTree> lessMixinCalls() {
-    return lessMixinCalls;
-  }
-
-  @Override
-  @Nullable
-  public List<Tree> content() {
-    return content;
-  }
-
-  private void buildLists(@Nullable List<Tree> content) {
-    if (content != null) {
-      for (Tree tree : content) {
-        if (tree instanceof RulesetTree) {
-          rulesets.add((RulesetTree) tree);
-        } else if (tree instanceof AtRuleTree) {
-          atRules.add((AtRuleTree) tree);
-        } else if (tree instanceof EmptyStatementTree) {
-          emptyStatements.add((EmptyStatementTree) tree);
-        } else if (tree instanceof LessMixinCallTree) {
-          lessMixinCalls.add((LessMixinCallTree) tree);
-        } else if (tree instanceof DeclarationTree) {
-          if (tree instanceof PropertyDeclarationTree) {
-            propertyDeclarations.add((PropertyDeclarationTree) tree);
-          } else if (tree instanceof VariableDeclarationTree) {
-            variableDeclarations.add((VariableDeclarationTree) tree);
-          } else if (tree instanceof LessVariableDeclarationTree) {
-            lessVariableDeclarations.add((LessVariableDeclarationTree) tree);
-          }
-          allDeclarations.add((DeclarationTree) tree);
-        } else {
-          throw new IllegalStateException("Unexpected tree: " + tree.getClass());
-        }
-      }
-    }
   }
 
 }

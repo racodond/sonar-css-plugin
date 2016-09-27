@@ -21,13 +21,12 @@ package org.sonar.css.parser.css;
 
 import org.junit.Test;
 import org.sonar.css.model.Vendor;
-import org.sonar.css.parser.TreeTest;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.IdentifierTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class IdentifierTreeTest extends TreeTest {
+public class IdentifierTreeTest extends CssTreeTest {
 
   public IdentifierTreeTest() {
     super(LexicalGrammar.IDENTIFIER);

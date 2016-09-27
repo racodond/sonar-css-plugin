@@ -20,13 +20,12 @@
 package org.sonar.css.parser.css;
 
 import org.junit.Test;
-import org.sonar.css.parser.TreeTest;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.StringTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class StringTreeTest extends TreeTest {
+public class StringTreeTest extends CssTreeTest {
 
   public StringTreeTest() {
     super(LexicalGrammar.STRING);

@@ -20,13 +20,12 @@
 package org.sonar.css.parser.css;
 
 import org.junit.Test;
-import org.sonar.css.parser.TreeTest;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.UriContentTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class UriContentTreeTest extends TreeTest {
+public class UriContentTreeTest extends CssTreeTest {
 
   public UriContentTreeTest() {
     super(LexicalGrammar.URI_CONTENT);

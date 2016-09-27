@@ -20,7 +20,6 @@
 package org.sonar.css.parser.css;
 
 import org.junit.Test;
-import org.sonar.css.parser.TreeTest;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.AttributeMatcherExpressionTree;
 import org.sonar.plugins.css.api.tree.css.AttributeMatcherTree;
@@ -29,7 +28,7 @@ import org.sonar.plugins.css.api.tree.css.StringTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class AttributeMatcherExpressionTreeTest extends TreeTest {
+public class AttributeMatcherExpressionTreeTest extends CssTreeTest {
 
   public AttributeMatcherExpressionTreeTest() {
     super(LexicalGrammar.ATTRIBUTE_MATCHER_EXPRESSION);

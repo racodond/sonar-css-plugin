@@ -1,0 +1,33 @@
+@charset "UTF-8";
+@import "import.less";
+
+@var0: black;
+
+.mybox1 {
+  @var1: blue;
+  @var2: green;
+  color: @var1;
+
+  > .mybox2 {
+    @var3: black;
+    border-color: @var3;
+  }
+
+  background-color: @var2;
+}
+
+@var5: pink; /* Noncompliant ![sc=1;ec=13;el=+0]! !{Move this declaration to the beginning of the block.}! */
+
+.mybox1 {
+  color: @var1;
+  @var1: blue; /* Noncompliant ![sc=3;ec=15;el=+0]! !{Move this declaration to the beginning of the block.}! */
+  @var2: green; /* Noncompliant ![sc=3;ec=16;el=+0]! !{Move this declaration to the beginning of the block.}! */
+
+  > .mybox2 {
+    border-color: @var3;
+    @var3: black; /* Noncompliant ![sc=5;ec=18;el=+0]! !{Move this declaration to the beginning of the block.}! */
+  }
+
+  background-color: @var2;
+}
+

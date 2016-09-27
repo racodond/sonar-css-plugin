@@ -25,13 +25,12 @@ import com.google.common.io.Files;
 import java.io.File;
 
 import org.junit.Test;
-import org.sonar.css.parser.TreeTest;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.StyleSheetTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class StyleSheetTreeTest extends TreeTest {
+public class StyleSheetTreeTest extends CssTreeTest {
 
   public StyleSheetTreeTest() {
     super(LexicalGrammar.STYLESHEET);

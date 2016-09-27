@@ -20,13 +20,12 @@
 package org.sonar.css.parser.css;
 
 import org.junit.Test;
-import org.sonar.css.parser.TreeTest;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.TypeSelectorTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class TypeSelectorTreeTest extends TreeTest {
+public class TypeSelectorTreeTest extends CssTreeTest {
 
   public TypeSelectorTreeTest() {
     super(LexicalGrammar.TYPE_SELECTOR);

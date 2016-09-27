@@ -20,13 +20,12 @@
 package org.sonar.css.parser.css;
 
 import org.junit.Test;
-import org.sonar.css.parser.TreeTest;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.CaseInsensitiveFlagTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class CaseInsensitiveFlagTreeTest extends TreeTest {
+public class CaseInsensitiveFlagTreeTest extends CssTreeTest {
 
   public CaseInsensitiveFlagTreeTest() {
     super(LexicalGrammar.CASE_INSENSITIVE_FLAG);

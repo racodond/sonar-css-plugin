@@ -17,32 +17,17 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.parser.css;
+package org.sonar.css.checks.less;
 
 import org.junit.Test;
-import org.sonar.css.parser.LexicalGrammar;
-import org.sonar.plugins.css.api.tree.css.StyleSheetTree;
+import org.sonar.css.checks.CheckTestUtils;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
-import static org.fest.assertions.Assertions.assertThat;
-
-public class CommentTreeTest extends CssTreeTest {
-
-  public CommentTreeTest() {
-    super(LexicalGrammar.STYLESHEET);
-  }
+public class VariableDeclarationFirstCheckTest {
 
   @Test
-  public void hasComments() {
-    checkParsed("/* abc */\nh1 { color: green }");
-    checkParsed("<!-- abc -->\nh1 {color: green;}");
-    checkParsed("<!-- abc -->\n<!-- def -->\nh1 {color: green} /* blabla... */");
-    checkParsed("<!-- abc -->\n<!-- def -->\nh1 {color: green /* blabla... */ }");
-    checkParsed("<!-- abc -->\n<!-- def -->\nh1 {color: green !important; /* NOSONAR */ }");
-  }
-
-  private void checkParsed(String toParse) {
-    StyleSheetTree tree = (StyleSheetTree) parser().parse(toParse);
-    assertThat(tree).isNotNull();
+  public void test() {
+    CssCheckVerifier.verifyLessFile(new VariableDeclarationFirstCheck(), CheckTestUtils.getLessTestFile("variableDeclarationFirst.less"));
   }
 
 }

@@ -20,13 +20,12 @@
 package org.sonar.css.parser.css;
 
 import org.junit.Test;
-import org.sonar.css.parser.TreeTest;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.PseudoIdentifierTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class PseudoIdentifierTreeTest extends TreeTest {
+public class PseudoIdentifierTreeTest extends CssTreeTest {
 
   public PseudoIdentifierTreeTest() {
     super(LexicalGrammar.PSEUDO_IDENTIFIER);

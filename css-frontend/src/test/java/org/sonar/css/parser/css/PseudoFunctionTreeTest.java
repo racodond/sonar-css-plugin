@@ -24,13 +24,12 @@ import org.sonar.css.model.Vendor;
 import org.sonar.css.model.pseudo.pseudofunction.UnknownPseudoFunction;
 import org.sonar.css.model.pseudo.pseudofunction.standard.Lang;
 import org.sonar.css.model.pseudo.pseudofunction.standard.NthLastChild;
-import org.sonar.css.parser.TreeTest;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.PseudoFunctionTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class PseudoFunctionTreeTest extends TreeTest {
+public class PseudoFunctionTreeTest extends CssTreeTest {
 
   public PseudoFunctionTreeTest() {
     super(LexicalGrammar.PSEUDO_FUNCTION);

@@ -22,13 +22,12 @@ package org.sonar.css.parser.css;
 import org.junit.Test;
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.standard.Color;
-import org.sonar.css.parser.TreeTest;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.PropertyTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class PropertyTreeTest extends TreeTest {
+public class PropertyTreeTest extends CssTreeTest {
 
   public PropertyTreeTest() {
     super(LexicalGrammar.PROPERTY);

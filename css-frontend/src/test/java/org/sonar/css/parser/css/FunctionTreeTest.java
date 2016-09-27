@@ -24,13 +24,12 @@ import org.sonar.css.model.Vendor;
 import org.sonar.css.model.function.UnknownFunction;
 import org.sonar.css.model.function.standard.MicrosoftFilterBlur;
 import org.sonar.css.model.function.standard.Min;
-import org.sonar.css.parser.TreeTest;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.FunctionTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class FunctionTreeTest extends TreeTest {
+public class FunctionTreeTest extends CssTreeTest {
 
   public FunctionTreeTest() {
     super(LexicalGrammar.FUNCTION);

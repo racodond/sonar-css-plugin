@@ -20,13 +20,12 @@
 package org.sonar.css.parser.css;
 
 import org.junit.Test;
-import org.sonar.css.parser.TreeTest;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.RulesetTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class RulesetTreeTest extends TreeTest {
+public class RulesetTreeTest extends CssTreeTest {
 
   public RulesetTreeTest() {
     super(LexicalGrammar.RULESET);

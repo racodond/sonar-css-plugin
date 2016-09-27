@@ -20,6 +20,10 @@
 package org.sonar.css.parser.less;
 
 import com.sonar.sslr.api.typed.GrammarBuilder;
+import com.sonar.sslr.api.typed.Optional;
+
+import java.util.List;
+
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.css.parser.TreeFactory;
 import org.sonar.css.parser.css.CssGrammar;
@@ -58,14 +62,28 @@ public class LessGrammar extends CssGrammar {
     return b.<RulesetBlockTree>nonterminal(LexicalGrammar.RULESET_BLOCK).is(
       f.rulesetBlock(
         b.token(LexicalGrammar.OPEN_CURLY_BRACE),
-        b.zeroOrMore(
-          b.firstOf(
-            RULESET(),
-            DECLARATION(),
-            AT_RULE(),
-            LESS_MIXIN_CALL(),
-            EMPTY_STATEMENT())),
+        RULE_BLOCK_CONTENT(),
         b.token(LexicalGrammar.CLOSE_CURLY_BRACE)));
+  }
+
+  @Override
+  public AtRuleBlockTree AT_RULE_BLOCK() {
+    return b.<AtRuleBlockTree>nonterminal(LexicalGrammar.AT_RULE_BLOCK).is(
+      f.atRuleBlock(
+        b.token(LexicalGrammar.OPEN_CURLY_BRACE),
+        RULE_BLOCK_CONTENT(),
+        b.token(LexicalGrammar.CLOSE_CURLY_BRACE)));
+  }
+
+  public Optional<List<Tree>> RULE_BLOCK_CONTENT() {
+    return b.<Optional<List<Tree>>>nonterminal().is(
+      b.zeroOrMore(
+        b.firstOf(
+          RULESET(),
+          DECLARATION(),
+          AT_RULE(),
+          LESS_MIXIN_CALL(),
+          EMPTY_STATEMENT())));
   }
 
   @Override

@@ -17,20 +17,21 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.parser;
+package org.sonar.css.parser.css;
 
 import com.google.common.base.Charsets;
 import com.sonar.sslr.api.typed.ActionParser;
+import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.css.parser.css.CssParserBuilder;
 import org.sonar.plugins.css.api.tree.Tree;
 
 import static org.junit.Assert.fail;
 
-public abstract class TreeTest {
+public abstract class CssTreeTest {
 
   private final ActionParser<Tree> parser;
 
-  public TreeTest(LexicalGrammar ruleKey) {
+  public CssTreeTest(LexicalGrammar ruleKey) {
     parser = CssParserBuilder.createTestParser(Charsets.UTF_8, ruleKey);
   }
 
