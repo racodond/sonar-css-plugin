@@ -21,7 +21,6 @@ package org.sonar.css.checks.css;
 
 import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
-import org.sonar.css.checks.common.UnknownCssFunctionCheck;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class UnknownCssFunctionCheckTest {
