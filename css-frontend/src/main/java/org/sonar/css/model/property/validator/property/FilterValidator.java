@@ -22,7 +22,6 @@ package org.sonar.css.model.property.validator.property;
 import java.util.List;
 
 import org.sonar.css.model.function.standard.*;
-import org.sonar.css.model.function.standard.Contrast;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.ValueValidator;
