@@ -125,6 +125,7 @@ public final class CheckList {
       TabCharacterCheck.class,
       TodoTagCheck.class,
       TooManyWebFontsCheck.class,
+      TrailingZerosCheck.class,
       TrailingWhitespaceCheck.class,
       UnderscoreHackCheck.class,
       UnitForZeroValueCheck.class,

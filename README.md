@@ -107,6 +107,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Tabulation characters should not be used
 * The number of web fonts should be reduced
 * There should be one single declaration per line
+* Trailing zeros for numeric values should be removed
 * Underscore hack should not be used
 * Units for zero length values should be removed
 * Universal selector should not be used as key part

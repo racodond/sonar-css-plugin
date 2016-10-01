@@ -1,0 +1,7 @@
+.mybox {
+  font-size: 10px;
+  font-size: 1005;
+  font-size: 12.0; /* Noncompliant ![sc=14;ec=18;el=+0]! !{Remove the trailing zeros.}! */
+  font-size: 12.0px; /* Noncompliant ![sc=14;ec=18;el=+0]! !{Remove the trailing zeros.}! */
+  font-size: 12.00px; /* Noncompliant ![sc=14;ec=19;el=+0]! !{Remove the trailing zeros.}! */
+}
