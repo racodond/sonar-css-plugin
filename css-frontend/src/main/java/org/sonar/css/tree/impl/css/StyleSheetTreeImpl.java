@@ -30,6 +30,7 @@ import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.css.tree.impl.TreeListUtils;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.*;
+import org.sonar.plugins.css.api.tree.less.LessMixinCallTree;
 import org.sonar.plugins.css.api.tree.less.LessVariableDeclarationTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
@@ -43,6 +44,7 @@ public class StyleSheetTreeImpl extends TreeImpl implements StyleSheetTree {
   private List<RulesetTree> rulesets;
   private List<EmptyStatementTree> emptyStatements;
   private List<LessVariableDeclarationTree> lessVariableDeclarations;
+  private List<LessMixinCallTree> lessMixinCalls;
 
   public StyleSheetTreeImpl(@Nullable SyntaxToken byteOrderMark, @Nullable List<Tree> all, SyntaxToken eof) {
     this.byteOrderMark = byteOrderMark;
@@ -58,6 +60,7 @@ public class StyleSheetTreeImpl extends TreeImpl implements StyleSheetTree {
     this.rulesets = TreeListUtils.allElementsOfType(all, RulesetTree.class);
     this.statements = TreeListUtils.allElementsOfType(all, StatementTree.class);
     this.lessVariableDeclarations = TreeListUtils.allElementsOfType(all, LessVariableDeclarationTree.class);
+    this.lessMixinCalls = TreeListUtils.allElementsOfType(all, LessMixinCallTree.class);
     this.emptyStatements = TreeListUtils.allElementsOfType(all, EmptyStatementTree.class);
   }
 
@@ -106,6 +109,11 @@ public class StyleSheetTreeImpl extends TreeImpl implements StyleSheetTree {
   @Override
   public List<LessVariableDeclarationTree> lessVariableDeclarations() {
     return lessVariableDeclarations;
+  }
+
+  @Override
+  public List<LessMixinCallTree> lessMixinCalls() {
+    return lessMixinCalls;
   }
 
   @Override

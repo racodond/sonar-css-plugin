@@ -83,6 +83,7 @@ public class StyleSheetTreeTest extends CssTreeTest {
     assertThat(tree.atRules()).isNotNull();
     assertThat(tree.rulesets()).isNotNull();
     assertThat(tree.lessVariableDeclarations()).isEmpty();
+    assertThat(tree.lessMixinCalls()).isEmpty();
     return tree;
   }
 

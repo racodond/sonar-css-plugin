@@ -53,6 +53,7 @@ public class LessGrammar extends CssGrammar {
             LESS_VARIABLE_DECLARATION(),
             AT_RULE(),
             RULESET(),
+            LESS_MIXIN_CALL(),
             EMPTY_STATEMENT())),
         b.token(LexicalGrammar.EOF)));
   }
@@ -166,6 +167,7 @@ public class LessGrammar extends CssGrammar {
             SIMPLE_CSS_SELECTOR()))));
   }
 
+  @Override
   public ClassSelectorTree CLASS_SELECTOR() {
     return b.<ClassSelectorTree>nonterminal(LexicalGrammar.CLASS_SELECTOR).is(
       f.classSelector(
@@ -175,6 +177,7 @@ public class LessGrammar extends CssGrammar {
           IDENTIFIER_NO_WS())));
   }
 
+  @Override
   public TypeSelectorTree TYPE_SELECTOR() {
     return b.<TypeSelectorTree>nonterminal(LexicalGrammar.TYPE_SELECTOR).is(
       f.typeSelector(
@@ -184,6 +187,7 @@ public class LessGrammar extends CssGrammar {
           LESS_IDENTIFIER_NO_WS_NOR_WHEN())));
   }
 
+  @Override
   public IdSelectorTree ID_SELECTOR() {
     return b.<IdSelectorTree>nonterminal(LexicalGrammar.ID_SELECTOR).is(
       f.idSelector(
@@ -193,6 +197,7 @@ public class LessGrammar extends CssGrammar {
           IDENTIFIER_NO_WS())));
   }
 
+  @Override
   public AttributeSelectorTree ATTRIBUTE_SELECTOR() {
     return b.<AttributeSelectorTree>nonterminal(LexicalGrammar.ATTRIBUTE_SELECTOR).is(
       b.firstOf(

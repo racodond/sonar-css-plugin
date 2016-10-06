@@ -22,6 +22,7 @@ package org.sonar.css.tree.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.annotation.Nullable;
 
 import org.sonar.plugins.css.api.tree.Tree;
 
@@ -30,7 +31,7 @@ public class TreeListUtils {
   private TreeListUtils() {
   }
 
-  public static <T extends Tree> List<T> allElementsOfType(List<Tree> trees, Class<T> treeType) {
+  public static <T extends Tree> List<T> allElementsOfType(@Nullable List<Tree> trees, Class<T> treeType) {
     if (trees != null) {
       return trees.stream()
         .filter(e -> treeType.isAssignableFrom(e.getClass()))

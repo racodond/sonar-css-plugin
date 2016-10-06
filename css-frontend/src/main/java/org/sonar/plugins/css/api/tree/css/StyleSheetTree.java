@@ -22,6 +22,7 @@ package org.sonar.plugins.css.api.tree.css;
 import java.util.List;
 
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.less.LessMixinCallTree;
 import org.sonar.plugins.css.api.tree.less.LessVariableDeclarationTree;
 
 public interface StyleSheetTree extends Tree {
@@ -37,6 +38,8 @@ public interface StyleSheetTree extends Tree {
   List<AtRuleTree> atRules();
 
   List<LessVariableDeclarationTree> lessVariableDeclarations();
+
+  List<LessMixinCallTree> lessMixinCalls();
 
   List<EmptyStatementTree> emptyStatements();
 
