@@ -17,34 +17,20 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.parser.css;
+package org.sonar.css.tree.symbol;
 
-import com.google.common.base.Charsets;
-import com.sonar.sslr.api.typed.ActionParser;
-import org.sonar.css.parser.LexicalGrammar;
-import org.sonar.plugins.css.api.tree.Tree;
+import java.util.Set;
 
-import static org.junit.Assert.fail;
+import org.sonar.plugins.css.api.symbol.Symbol;
 
-public abstract class CssTreeTest {
+public interface SymbolModelBuilder {
 
-  private final ActionParser<Tree> parser;
+  Scope globalScope();
 
-  public CssTreeTest(LexicalGrammar ruleKey) {
-    parser = CssParser.createTestParser(Charsets.UTF_8, ruleKey);
-  }
+  void addScope(Scope scope);
 
-  public ActionParser<Tree> parser() {
-    return parser;
-  }
+  Set<Scope> getScopes();
 
-  public void checkNotParsed(String toParse) {
-    try {
-      parser.parse(toParse);
-    } catch (Exception e) {
-      return;
-    }
-    fail("Did not throw a RecognitionException as expected.");
-  }
+  Symbol declareSymbol(String name, Symbol.Kind kind, Scope scope);
 
 }

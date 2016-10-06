@@ -175,6 +175,10 @@
 4,
 5,
 ],
+'project:custom/less/multipleVariableDeclarationsSameScope.less':[
+1,
+5,
+],
 'project:custom/less/nestedRulesets/nestedRulesets.less':[
 1,
 18,

@@ -17,34 +17,42 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.parser.css;
+package org.sonar.css.visitors;
 
-import com.google.common.base.Charsets;
-import com.sonar.sslr.api.typed.ActionParser;
-import org.sonar.css.parser.LexicalGrammar;
-import org.sonar.plugins.css.api.tree.Tree;
+import java.io.File;
 
-import static org.junit.Assert.fail;
+import org.sonar.css.tree.symbol.SymbolModelImpl;
+import org.sonar.css.tree.impl.TreeImpl;
+import org.sonar.plugins.css.api.symbol.SymbolModel;
+import org.sonar.plugins.css.api.visitors.TreeVisitorContext;
 
-public abstract class CssTreeTest {
+public class CssTreeVisitorContext implements TreeVisitorContext {
 
-  private final ActionParser<Tree> parser;
+  private final TreeImpl tree;
+  private final File file;
+  private final SymbolModel symbolModel;
 
-  public CssTreeTest(LexicalGrammar ruleKey) {
-    parser = CssParser.createTestParser(Charsets.UTF_8, ruleKey);
+  public CssTreeVisitorContext(TreeImpl tree, File file) {
+    this.tree = tree;
+    this.file = file;
+
+    this.symbolModel = new SymbolModelImpl();
+    SymbolModelImpl.build(this);
   }
 
-  public ActionParser<Tree> parser() {
-    return parser;
+  @Override
+  public TreeImpl getTopTree() {
+    return tree;
   }
 
-  public void checkNotParsed(String toParse) {
-    try {
-      parser.parse(toParse);
-    } catch (Exception e) {
-      return;
-    }
-    fail("Did not throw a RecognitionException as expected.");
+  @Override
+  public File getFile() {
+    return file;
+  }
+
+  @Override
+  public SymbolModel getSymbolModel() {
+    return symbolModel;
   }
 
 }

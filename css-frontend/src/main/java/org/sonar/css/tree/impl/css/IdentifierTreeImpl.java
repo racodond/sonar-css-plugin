@@ -23,6 +23,8 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 
 import org.sonar.css.model.Vendor;
+import org.sonar.css.tree.symbol.Scope;
+import org.sonar.plugins.css.api.symbol.Symbol;
 import org.sonar.plugins.css.api.tree.css.IdentifierTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
@@ -31,6 +33,8 @@ public class IdentifierTreeImpl extends LiteralTreeImpl implements IdentifierTre
 
   private static final Pattern INTERPOLATED_VARIABLE = Pattern.compile("@\\{[\\w-_]+\\}");
   private final Vendor vendor;
+  private Scope scope;
+  private Symbol symbol = null;
 
   public IdentifierTreeImpl(SyntaxToken ident) {
     super(ident);
@@ -70,5 +74,24 @@ public class IdentifierTreeImpl extends LiteralTreeImpl implements IdentifierTre
     }
     return null;
   }
+
+  @Override
+  public Scope scope(){
+    return scope;
+  }
+
+  public void scope(Scope scope) {
+    this.scope = scope;
+  }
+
+  @Override
+  public Symbol symbol() {
+    return symbol;
+  }
+
+  public void setSymbol(Symbol symbol) {
+    this.symbol = symbol;
+  }
+
 
 }

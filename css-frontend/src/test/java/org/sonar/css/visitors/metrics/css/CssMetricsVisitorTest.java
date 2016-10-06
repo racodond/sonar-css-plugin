@@ -29,9 +29,8 @@ import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
-import org.sonar.css.parser.css.CssParserBuilder;
+import org.sonar.css.parser.css.CssParser;
 import org.sonar.css.tree.impl.TreeImpl;
-import org.sonar.css.visitors.metrics.css.CssMetricsVisitor;
 import org.sonar.plugins.css.api.visitors.TreeVisitorContext;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -58,7 +57,7 @@ public class CssMetricsVisitorTest {
 
     TreeVisitorContext treeVisitorContext = mock(TreeVisitorContext.class);
     when(treeVisitorContext.getFile()).thenReturn(inputFile.file());
-    when(treeVisitorContext.getTopTree()).thenReturn((TreeImpl) CssParserBuilder.createParser(Charsets.UTF_8).parse(inputFile.file()));
+    when(treeVisitorContext.getTopTree()).thenReturn((TreeImpl) CssParser.createParser(Charsets.UTF_8).parse(inputFile.file()));
 
     metricsVisitor.scanTree(treeVisitorContext);
   }

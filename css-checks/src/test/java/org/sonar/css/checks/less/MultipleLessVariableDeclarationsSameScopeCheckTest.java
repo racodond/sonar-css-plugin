@@ -17,34 +17,17 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.parser.css;
+package org.sonar.css.checks.less;
 
-import com.google.common.base.Charsets;
-import com.sonar.sslr.api.typed.ActionParser;
-import org.sonar.css.parser.LexicalGrammar;
-import org.sonar.plugins.css.api.tree.Tree;
+import org.junit.Test;
+import org.sonar.css.checks.CheckTestUtils;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
-import static org.junit.Assert.fail;
+public class MultipleLessVariableDeclarationsSameScopeCheckTest {
 
-public abstract class CssTreeTest {
-
-  private final ActionParser<Tree> parser;
-
-  public CssTreeTest(LexicalGrammar ruleKey) {
-    parser = CssParser.createTestParser(Charsets.UTF_8, ruleKey);
-  }
-
-  public ActionParser<Tree> parser() {
-    return parser;
-  }
-
-  public void checkNotParsed(String toParse) {
-    try {
-      parser.parse(toParse);
-    } catch (Exception e) {
-      return;
-    }
-    fail("Did not throw a RecognitionException as expected.");
+  @Test
+  public void test() {
+    CssCheckVerifier.verifyLessFile(new MultipleLessVariableDeclarationsSameScopeCheck(), CheckTestUtils.getLessTestFile("multipleVariableDeclarationsSameScope.less"));
   }
 
 }

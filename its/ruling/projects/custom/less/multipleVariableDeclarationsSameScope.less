@@ -1,0 +1,12 @@
+@myvar: 1px; @myvar: 1px; /* Noncompliant ![sc=2;ec=7;el=+0;secondary=+0,+1,+11]! !{Merge those multiple variable declarations within the same scope.}! */
+@myvar: 1px;
+
+.mybox {
+  @myvar1: green; /* Noncompliant ![sc=4;ec=10;el=+0;secondary=+4]! !{Merge those multiple variable declarations within the same scope.}! */
+  color: @myvar;
+  color: @myvar1;
+  @myvar: blue;
+  @myvar1: black;
+}
+
+@myvar: 1px;

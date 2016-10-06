@@ -35,7 +35,7 @@ import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.batch.sensor.highlighting.TypeOfText;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
-import org.sonar.css.parser.less.LessParserBuilder;
+import org.sonar.css.parser.less.LessParser;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.visitors.TreeVisitorContext;
@@ -158,7 +158,7 @@ public class LessSyntaxHighlighterVisitorTest {
 
   private void highlight(String string) throws Exception {
     inputFile.initMetadata(string);
-    Tree tree = LessParserBuilder.createParser(Charsets.UTF_8).parse(string);
+    Tree tree = LessParser.createParser(Charsets.UTF_8).parse(string);
 
     when(visitorContext.getTopTree()).thenReturn((TreeImpl) tree);
 

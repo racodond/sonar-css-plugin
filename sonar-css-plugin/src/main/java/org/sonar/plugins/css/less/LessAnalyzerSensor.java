@@ -38,7 +38,7 @@ import org.sonar.api.config.Settings;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.css.checks.CheckList;
 import org.sonar.css.checks.less.ParsingErrorCheck;
-import org.sonar.css.parser.less.LessParserBuilder;
+import org.sonar.css.parser.less.LessParser;
 import org.sonar.css.visitors.cpd.CpdVisitor;
 import org.sonar.css.visitors.highlighter.LessSyntaxHighlighterVisitor;
 import org.sonar.css.visitors.metrics.less.LessMetricsVisitor;
@@ -75,7 +75,7 @@ public class LessAnalyzerSensor extends AbstractLanguageAnalyzerSensor {
 
   @Override
   public ActionParser<Tree> parser(FileSystem fileSystem) {
-    return LessParserBuilder.createParser(fileSystem.encoding());
+    return LessParser.createParser(fileSystem.encoding());
   }
 
   @Override

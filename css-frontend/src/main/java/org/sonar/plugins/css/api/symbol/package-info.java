@@ -17,31 +17,8 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.visitors;
+@ParametersAreNonnullByDefault
+package org.sonar.plugins.css.api.symbol;
 
-import java.io.File;
+import javax.annotation.ParametersAreNonnullByDefault;
 
-import org.sonar.css.tree.impl.TreeImpl;
-import org.sonar.plugins.css.api.visitors.TreeVisitorContext;
-
-public class CssVisitorContext implements TreeVisitorContext {
-
-  private final TreeImpl tree;
-  private final File file;
-
-  public CssVisitorContext(TreeImpl tree, File file) {
-    this.tree = tree;
-    this.file = file;
-  }
-
-  @Override
-  public TreeImpl getTopTree() {
-    return tree;
-  }
-
-  @Override
-  public File getFile() {
-    return file;
-  }
-
-}

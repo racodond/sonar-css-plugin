@@ -25,7 +25,6 @@ import java.util.Iterator;
 import java.util.List;
 import javax.annotation.Nullable;
 
-import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.*;
 import org.sonar.plugins.css.api.tree.embedded.CssInStyleTagTree;
@@ -55,7 +54,7 @@ public abstract class DoubleDispatchVisitor implements TreeVisitor {
   }
 
   protected void scanChildren(Tree tree) {
-    Iterator<Tree> childrenIterator = ((TreeImpl) tree).childrenIterator();
+    Iterator<Tree> childrenIterator = tree.childrenIterator();
 
     Tree child;
 

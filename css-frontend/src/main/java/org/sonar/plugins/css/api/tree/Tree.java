@@ -20,6 +20,7 @@
 package org.sonar.plugins.css.api.tree;
 
 import java.util.Iterator;
+import javax.annotation.Nullable;
 
 import org.sonar.plugins.css.api.tree.css.*;
 import org.sonar.plugins.css.api.tree.embedded.CssInStyleTagTree;
@@ -37,6 +38,13 @@ public interface Tree {
   Iterator<Tree> childrenIterator();
 
   String treeValue();
+
+  @Nullable
+  Tree parent();
+
+  void setParent(Tree parent);
+
+  boolean isLeaf();
 
   enum Kind implements GrammarRuleKey {
 

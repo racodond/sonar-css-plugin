@@ -39,7 +39,7 @@ import org.sonar.api.config.Settings;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.css.checks.CheckList;
 import org.sonar.css.checks.css.ParsingErrorCheck;
-import org.sonar.css.parser.css.CssParserBuilder;
+import org.sonar.css.parser.css.CssParser;
 import org.sonar.css.visitors.cpd.CpdVisitor;
 import org.sonar.css.visitors.highlighter.CssSyntaxHighlighterVisitor;
 import org.sonar.css.visitors.metrics.css.CssMetricsVisitor;
@@ -76,7 +76,7 @@ public class CssAnalyzerSensor extends AbstractLanguageAnalyzerSensor {
 
   @Override
   public ActionParser<Tree> parser(FileSystem fileSystem) {
-    return CssParserBuilder.createParser(fileSystem.encoding());
+    return CssParser.createParser(fileSystem.encoding());
   }
 
   @Override

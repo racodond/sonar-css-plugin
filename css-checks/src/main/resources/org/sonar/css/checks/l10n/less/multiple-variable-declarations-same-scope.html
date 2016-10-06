@@ -1,0 +1,29 @@
+<p>
+    Declaring the same variable twice within the same scope is error-prone. Thus, redeclaring variables twice within the
+    same scope should be avoided.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+ 1  @myvar: blue;   /* Noncompliant: redeclared line 2 and 11 */
+ 2  @myvar: white;
+ 3
+ 4  .mybox {
+ 5    @size: 1px;    /* Noncompliant: redeclared line 8 */
+ 6    color: @myvar;
+ 7    width: @size;
+ 8    @size: 2px;
+ 9  }
+10
+11  @myvar: red;
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+1  @myvar: red;
+2  .mybox {
+3    @size: 1px;
+4    color: @myvar;
+5    width: @size;
+6  }
+</pre>

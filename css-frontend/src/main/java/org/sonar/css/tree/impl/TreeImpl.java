@@ -20,11 +20,25 @@
 package org.sonar.css.tree.impl;
 
 import java.util.Iterator;
+import javax.annotation.Nullable;
 
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 
 public abstract class TreeImpl implements Tree {
+
+  @Nullable
+  private Tree parent;
+
+  @Override
+  public Tree parent() {
+    return parent;
+  }
+
+  @Override
+  public void setParent(Tree parent) {
+    this.parent = parent;
+  }
 
   public int getLine() {
     return getFirstToken().line();
@@ -54,6 +68,7 @@ public abstract class TreeImpl implements Tree {
     return value.toString();
   }
 
+  @Override
   public boolean isLeaf() {
     return false;
   }

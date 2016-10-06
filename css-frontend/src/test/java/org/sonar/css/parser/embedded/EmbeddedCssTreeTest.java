@@ -31,7 +31,7 @@ public abstract class EmbeddedCssTreeTest {
   private final ActionParser<Tree> parser;
 
   public EmbeddedCssTreeTest(LexicalGrammar ruleKey) {
-    parser = EmbeddedCssParserBuilder.createTestParser(Charsets.UTF_8, ruleKey);
+    parser = EmbeddedCssParser.createTestParser(Charsets.UTF_8, ruleKey);
   }
 
   public ActionParser<Tree> parser() {

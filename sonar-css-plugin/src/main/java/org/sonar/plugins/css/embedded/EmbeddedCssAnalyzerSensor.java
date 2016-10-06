@@ -39,7 +39,7 @@ import org.sonar.api.config.Settings;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.css.checks.CheckList;
 import org.sonar.css.checks.css.ParsingErrorCheck;
-import org.sonar.css.parser.embedded.EmbeddedCssParserBuilder;
+import org.sonar.css.parser.embedded.EmbeddedCssParser;
 import org.sonar.css.visitors.highlighter.CssSyntaxHighlighterVisitor;
 import org.sonar.plugins.css.AbstractLanguageAnalyzerSensor;
 import org.sonar.plugins.css.Checks;
@@ -72,7 +72,7 @@ public class EmbeddedCssAnalyzerSensor extends AbstractLanguageAnalyzerSensor {
 
   @Override
   public ActionParser<Tree> parser(FileSystem fileSystem) {
-    return EmbeddedCssParserBuilder.createParser(fileSystem.encoding());
+    return EmbeddedCssParser.createParser(fileSystem.encoding());
   }
 
   @Override

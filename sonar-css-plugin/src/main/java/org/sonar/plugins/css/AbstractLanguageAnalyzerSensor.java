@@ -45,7 +45,7 @@ import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.css.visitors.CharsetAwareVisitor;
-import org.sonar.css.visitors.CssVisitorContext;
+import org.sonar.css.visitors.CssTreeVisitorContext;
 import org.sonar.plugins.css.api.CssCheck;
 import org.sonar.plugins.css.api.CustomRulesDefinition;
 import org.sonar.plugins.css.api.tree.Tree;
@@ -149,7 +149,7 @@ public abstract class AbstractLanguageAnalyzerSensor implements Sensor {
   }
 
   private List<Issue> scanFile(InputFile inputFile, TreeImpl tree, List<TreeVisitor> visitors) {
-    CssVisitorContext context = new CssVisitorContext(tree, inputFile.file());
+    CssTreeVisitorContext context = new CssTreeVisitorContext(tree, inputFile.file());
     List<Issue> issues = new ArrayList<>();
     for (TreeVisitor visitor : visitors) {
       if (visitor instanceof CharsetAwareVisitor) {

@@ -65,6 +65,7 @@ public final class CheckList {
         DeprecatedEscapingFunctionCheck.class,
         ExperimentalNotLessFunctionCheck.class,
         LessVariableNamingConventionCheck.class,
+        MultipleLessVariableDeclarationsSameScopeCheck.class,
         NestedRulesetsCheck.class,
         ObsoleteNotLessFunctionCheck.class,
         org.sonar.css.checks.less.ParsingErrorCheck.class,
@@ -76,7 +77,7 @@ public final class CheckList {
 
   @SuppressWarnings("rawtypes")
   private static List<Class> getCommonChecks() {
-    return ImmutableList.<Class>of(
+    return ImmutableList.of(
       AllGradientDefinitionsCheck.class,
       AlphabetizeDeclarationsCheck.class,
       BewareOfBoxModelCheck.class,

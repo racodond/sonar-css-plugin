@@ -34,12 +34,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 
-import org.sonar.css.parser.css.CssParserBuilder;
-import org.sonar.css.parser.embedded.EmbeddedCssParserBuilder;
-import org.sonar.css.parser.less.LessParserBuilder;
+import org.sonar.css.parser.css.CssParser;
+import org.sonar.css.parser.embedded.EmbeddedCssParser;
+import org.sonar.css.parser.less.LessParser;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.css.visitors.CharsetAwareVisitor;
-import org.sonar.css.visitors.CssVisitorContext;
+import org.sonar.css.visitors.CssTreeVisitorContext;
 import org.sonar.plugins.css.api.CssCheck;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
@@ -85,7 +85,7 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
     if (check instanceof CharsetAwareVisitor) {
       ((CharsetAwareVisitor) check).setCharset(charset);
     }
-    return CheckMessagesVerifier.verify(TreeCheckTest.getIssues(file.getAbsolutePath(), check, CssParserBuilder.createParser(charset)));
+    return CheckMessagesVerifier.verify(TreeCheckTest.getIssues(file.getAbsolutePath(), check, CssParser.createParser(charset)));
   }
 
   /**
@@ -104,7 +104,7 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
     if (check instanceof CharsetAwareVisitor) {
       ((CharsetAwareVisitor) check).setCharset(charset);
     }
-    return CheckMessagesVerifier.verify(TreeCheckTest.getIssues(file.getAbsolutePath(), check, EmbeddedCssParserBuilder.createParser(charset)));
+    return CheckMessagesVerifier.verify(TreeCheckTest.getIssues(file.getAbsolutePath(), check, EmbeddedCssParser.createParser(charset)));
   }
 
   /**
@@ -123,7 +123,7 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
     if (check instanceof CharsetAwareVisitor) {
       ((CharsetAwareVisitor) check).setCharset(charset);
     }
-    return CheckMessagesVerifier.verify(TreeCheckTest.getIssues(file.getAbsolutePath(), check, LessParserBuilder.createParser(charset)));
+    return CheckMessagesVerifier.verify(TreeCheckTest.getIssues(file.getAbsolutePath(), check, LessParser.createParser(charset)));
   }
 
   /**
@@ -165,7 +165,7 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
    * @param charset Charset of the file to test.
    */
   public static void verifyCssFile(CssCheck check, File file, Charset charset) {
-    verify(check, file, charset, CssParserBuilder.createParser(charset));
+    verify(check, file, charset, CssParser.createParser(charset));
   }
 
   /**
@@ -181,7 +181,7 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
    * @param charset Charset of the file to test.
    */
   private static void verifyEmbeddedCssFile(CssCheck check, File file, Charset charset) {
-    verify(check, file, charset, EmbeddedCssParserBuilder.createParser(charset));
+    verify(check, file, charset, EmbeddedCssParser.createParser(charset));
   }
 
   /**
@@ -197,13 +197,13 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
    * @param charset Charset of the file to test.
    */
   private static void verifyLessFile(CssCheck check, File file, Charset charset) {
-    verify(check, file, charset, LessParserBuilder.createParser(charset));
+    verify(check, file, charset, LessParser.createParser(charset));
   }
 
   private static void verify(CssCheck check, File file, Charset charset, ActionParser<Tree> parser) {
 
     TreeImpl tree = (TreeImpl) parser.parse(file);
-    CssVisitorContext context = new CssVisitorContext(tree, file);
+    CssTreeVisitorContext context = new CssTreeVisitorContext(tree, file);
 
     CssCheckVerifier checkVerifier = new CssCheckVerifier();
     checkVerifier.scanFile(context);
@@ -232,7 +232,7 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
     }
   }
 
-  private static Iterator<Issue> getActualIssues(CssCheck check, CssVisitorContext context) {
+  private static Iterator<Issue> getActualIssues(CssCheck check, CssTreeVisitorContext context) {
     List<Issue> issues = check.scanFile(context);
     List<Issue> sortedIssues = Ordering.natural().onResultOf(new IssueToLine()).sortedCopy(issues);
     return sortedIssues.iterator();

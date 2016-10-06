@@ -14,7 +14,7 @@ This plugin enables code QA analysis of:
 within [SonarQube](http://www.sonarqube.org). It:
  * Computes metrics: lines of code, number of rules, complexity, etc.
  * Validates your CSS code
- * Performs more than [50 checks](#available-checks)
+ * Performs more than [70 checks](#available-checks)
  * Provides the ability to write your own checks
 
  
@@ -120,11 +120,13 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 ### Specific to CSS
 * "@import" rule should not be used
 * @import rules should precede all other at-rules and style rules
+* CSS should not be embedded in HTML files
 * Stylesheets should not "@import" too many other sheets
 
 ### Specific to Less
 * Deprecated "e" escaping function should be replaced with ~"value" syntax
 * Rulesets should not be nested too deeply
+* Same variable should not be declared multiple times within the same scope
 * Single-line comments (//) should be preferred over multi-line comments (/* ... */)
 * Variables should be declared at the beginning of the block
 * Variables should follow a naming convention

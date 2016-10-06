@@ -33,7 +33,7 @@ import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
-import org.sonar.css.parser.css.CssParserBuilder;
+import org.sonar.css.parser.css.CssParser;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.duplications.internal.pmd.TokensLine;
 import org.sonar.plugins.css.api.tree.Tree;
@@ -77,7 +77,7 @@ public class CpdVisitorTest {
     String toParse = ".mybox {\n  color: green;\n  background-color: blue;\n}";
 
     inputFile.initMetadata(toParse);
-    Tree tree = CssParserBuilder.createParser(Charsets.UTF_8).parse(toParse);
+    Tree tree = CssParser.createParser(Charsets.UTF_8).parse(toParse);
 
     when(visitorContext.getTopTree()).thenReturn((TreeImpl) tree);
 

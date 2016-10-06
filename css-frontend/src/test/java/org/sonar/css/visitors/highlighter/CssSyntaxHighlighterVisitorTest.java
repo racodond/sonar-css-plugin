@@ -35,7 +35,7 @@ import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.batch.sensor.highlighting.TypeOfText;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
-import org.sonar.css.parser.css.CssParserBuilder;
+import org.sonar.css.parser.css.CssParser;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.visitors.TreeVisitorContext;
@@ -151,7 +151,7 @@ public class CssSyntaxHighlighterVisitorTest {
 
   private void highlight(String string) throws Exception {
     inputFile.initMetadata(string);
-    Tree tree = CssParserBuilder.createParser(Charsets.UTF_8).parse(string);
+    Tree tree = CssParser.createParser(Charsets.UTF_8).parse(string);
 
     when(visitorContext.getTopTree()).thenReturn((TreeImpl) tree);
 

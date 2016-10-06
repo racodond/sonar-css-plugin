@@ -17,21 +17,25 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.parser.less;
+package org.sonar.css.parser.css;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.sonar.sslr.api.typed.ActionParser;
 
 import java.nio.charset.Charset;
 
-import org.sonar.css.parser.TreeFactory;
+import org.sonar.css.parser.AbstractParser;
 import org.sonar.css.parser.LexicalGrammar;
+import org.sonar.css.parser.TreeFactory;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.sslr.grammar.GrammarRuleKey;
+import org.sonar.sslr.grammar.LexerlessGrammarBuilder;
 
-public class LessParserBuilder {
+public class CssParser extends AbstractParser {
 
-  private LessParserBuilder() {
+  private CssParser(Charset charset, LexerlessGrammarBuilder grammarBuilder, Class<CssGrammar> cssGrammarClass,
+    TreeFactory treeFactory, CssNodeBuilder cssNodeBuilder, GrammarRuleKey rootRule) {
+    super(charset, grammarBuilder, cssGrammarClass, treeFactory, cssNodeBuilder, rootRule);
   }
 
   public static ActionParser<Tree> createParser(Charset charset) {
@@ -44,12 +48,12 @@ public class LessParserBuilder {
   }
 
   private static ActionParser<Tree> createParser(Charset charset, GrammarRuleKey rootRule) {
-    return new ActionParser<>(
+    return new CssParser(
       charset,
-      LexicalGrammar.createLessGrammar(),
-      LessGrammar.class,
+      LexicalGrammar.createCssGrammar(),
+      CssGrammar.class,
       new TreeFactory(),
-      new LessNodeBuilder(),
+      new CssNodeBuilder(),
       rootRule);
   }
 

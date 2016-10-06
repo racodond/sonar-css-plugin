@@ -17,34 +17,45 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.parser.css;
+package org.sonar.plugins.css.api.symbol;
 
-import com.google.common.base.Charsets;
-import com.sonar.sslr.api.typed.ActionParser;
-import org.sonar.css.parser.LexicalGrammar;
-import org.sonar.plugins.css.api.tree.Tree;
+import com.google.common.annotations.Beta;
+import org.sonar.plugins.css.api.tree.css.IdentifierTree;
 
-import static org.junit.Assert.fail;
+@Beta
+public class Usage {
 
-public abstract class CssTreeTest {
-
-  private final ActionParser<Tree> parser;
-
-  public CssTreeTest(LexicalGrammar ruleKey) {
-    parser = CssParser.createTestParser(Charsets.UTF_8, ruleKey);
+  public enum Kind {
+    DECLARATION,
+    READ,
   }
 
-  public ActionParser<Tree> parser() {
-    return parser;
+  private Kind kind;
+  private IdentifierTree identifierTree;
+
+  private Usage(IdentifierTree identifierTree, Kind kind) {
+    this.kind = kind;
+    this.identifierTree = identifierTree;
   }
 
-  public void checkNotParsed(String toParse) {
-    try {
-      parser.parse(toParse);
-    } catch (Exception e) {
-      return;
-    }
-    fail("Did not throw a RecognitionException as expected.");
+  public Symbol symbol() {
+    return identifierTree.symbol();
+  }
+
+  public Kind kind() {
+    return kind;
+  }
+
+  public boolean is(Usage.Kind kind) {
+    return kind.equals(this.kind);
+  }
+
+  public IdentifierTree identifierTree() {
+    return identifierTree;
+  }
+
+  public static Usage create(IdentifierTree symbolTree, Kind kind) {
+    return new Usage(symbolTree, kind);
   }
 
 }

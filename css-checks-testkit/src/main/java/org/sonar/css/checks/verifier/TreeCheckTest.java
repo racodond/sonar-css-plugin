@@ -27,7 +27,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.sonar.css.tree.impl.TreeImpl;
-import org.sonar.css.visitors.CssVisitorContext;
+import org.sonar.css.visitors.CssTreeVisitorContext;
 import org.sonar.plugins.css.api.CssCheck;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.visitors.issue.FileIssue;
@@ -45,7 +45,7 @@ class TreeCheckTest {
     File file = new File(relativePath);
 
     TreeImpl tree = (TreeImpl) parser.parse(file);
-    CssVisitorContext context = new CssVisitorContext(tree, file);
+    CssTreeVisitorContext context = new CssTreeVisitorContext(tree, file);
     List<Issue> issues = check.scanFile(context);
 
     return getCheckMessages(issues);

@@ -21,18 +21,24 @@ package org.sonar.plugins.css.api.visitors;
 
 import java.io.File;
 
-import org.sonar.css.tree.impl.TreeImpl;
+import org.sonar.plugins.css.api.symbol.SymbolModel;
+import org.sonar.plugins.css.api.tree.Tree;
 
 public interface TreeVisitorContext {
 
   /**
    * @return the top tree node of the current file AST representation.
    */
-  TreeImpl getTopTree();
+  Tree getTopTree();
 
   /**
    * @return the current file
    */
   File getFile();
+
+  /**
+   * @return the symbol model that allows to access the symbols declared in the current file
+   */
+  SymbolModel getSymbolModel();
 
 }

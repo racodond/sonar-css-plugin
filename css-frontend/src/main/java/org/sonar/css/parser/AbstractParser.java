@@ -17,40 +17,41 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.parser.embedded;
+package org.sonar.css.parser;
 
-import com.google.common.annotations.VisibleForTesting;
+import com.google.common.collect.Lists;
 import com.sonar.sslr.api.typed.ActionParser;
 
+import java.io.File;
 import java.nio.charset.Charset;
 
-import org.sonar.css.parser.LexicalGrammar;
-import org.sonar.css.parser.TreeFactory;
+import org.sonar.css.parser.css.CssGrammar;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.sslr.grammar.GrammarRuleKey;
+import org.sonar.sslr.grammar.LexerlessGrammarBuilder;
 
-public class EmbeddedCssParserBuilder {
+public abstract class AbstractParser extends ActionParser<Tree> {
 
-  private EmbeddedCssParserBuilder() {
+  public AbstractParser(Charset charset, LexerlessGrammarBuilder grammarBuilder, Class<? extends CssGrammar> grammarClass,
+    TreeFactory treeFactory, AbstractNodeBuilder nodeBuilder, GrammarRuleKey rootRule) {
+    super(charset, grammarBuilder, grammarClass, treeFactory, nodeBuilder, rootRule);
   }
 
-  public static ActionParser<Tree> createParser(Charset charset) {
-    return createParser(charset, LexicalGrammar.FILE_WITH_EMBEDDED_CSS);
+  @Override
+  public Tree parse(File file) {
+    return createParentLink(super.parse(file));
   }
 
-  @VisibleForTesting
-  public static ActionParser<Tree> createTestParser(Charset charset, GrammarRuleKey rootRule) {
-    return createParser(charset, rootRule);
-  }
-
-  private static ActionParser<Tree> createParser(Charset charset, GrammarRuleKey rootRule) {
-    return new ActionParser<>(
-      charset,
-      LexicalGrammar.createEmbeddedCssGrammar(),
-      EmbeddedCssGrammar.class,
-      new TreeFactory(),
-      new EmbeddedCssNodeBuilder(),
-      rootRule);
+  private static Tree createParentLink(Tree parent) {
+    if (!parent.isLeaf()) {
+      for (Tree nextTree : Lists.newArrayList(parent.childrenIterator())) {
+        if (nextTree != null) {
+          nextTree.setParent(parent);
+          createParentLink(nextTree);
+        }
+      }
+    }
+    return parent;
   }
 
 }

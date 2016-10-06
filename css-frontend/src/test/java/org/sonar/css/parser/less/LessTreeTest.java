@@ -31,7 +31,7 @@ abstract class LessTreeTest {
   private final ActionParser<Tree> parser;
 
   LessTreeTest(LexicalGrammar ruleKey) {
-    parser = LessParserBuilder.createTestParser(Charsets.UTF_8, ruleKey);
+    parser = LessParser.createTestParser(Charsets.UTF_8, ruleKey);
   }
 
   public ActionParser<Tree> parser() {

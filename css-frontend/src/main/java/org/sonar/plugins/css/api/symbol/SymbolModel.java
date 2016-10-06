@@ -17,34 +17,36 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.parser.css;
+package org.sonar.plugins.css.api.symbol;
 
-import com.google.common.base.Charsets;
-import com.sonar.sslr.api.typed.ActionParser;
-import org.sonar.css.parser.LexicalGrammar;
-import org.sonar.plugins.css.api.tree.Tree;
+import com.google.common.annotations.Beta;
 
-import static org.junit.Assert.fail;
+import java.util.Set;
 
-public abstract class CssTreeTest {
+import org.sonar.css.tree.symbol.Scope;
 
-  private final ActionParser<Tree> parser;
+@Beta
+public interface SymbolModel {
+  /**
+   * Returns all symbols
+   */
+  Set<Symbol> getSymbols();
 
-  public CssTreeTest(LexicalGrammar ruleKey) {
-    parser = CssParser.createTestParser(Charsets.UTF_8, ruleKey);
-  }
+  /**
+   * @param kind kind of symbols to look for
+   * @return list of symbols with the given kind
+   */
+  Set<Symbol> getSymbols(Symbol.Kind kind);
 
-  public ActionParser<Tree> parser() {
-    return parser;
-  }
+  /**
+   * @param name name of symbols to look for
+   * @return list of symbols with the given name
+   */
+  Set<Symbol> getSymbols(String name);
 
-  public void checkNotParsed(String toParse) {
-    try {
-      parser.parse(toParse);
-    } catch (Exception e) {
-      return;
-    }
-    fail("Did not throw a RecognitionException as expected.");
-  }
+  /**
+   * Returns all scopes
+   */
+  Set<Scope> getScopes();
 
 }

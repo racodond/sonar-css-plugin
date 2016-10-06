@@ -22,6 +22,8 @@ package org.sonar.plugins.css.api.tree.css;
 import javax.annotation.Nullable;
 
 import org.sonar.css.model.Vendor;
+import org.sonar.css.tree.symbol.Scope;
+import org.sonar.plugins.css.api.symbol.Symbol;
 
 public interface IdentifierTree extends LiteralTree {
 
@@ -31,5 +33,10 @@ public interface IdentifierTree extends LiteralTree {
   Vendor vendor();
 
   boolean isInterpolated();
+
+  @Nullable
+  Symbol symbol();
+
+  Scope scope();
 
 }
