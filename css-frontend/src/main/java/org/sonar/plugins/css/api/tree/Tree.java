@@ -22,6 +22,8 @@ package org.sonar.plugins.css.api.tree;
 import java.util.Iterator;
 
 import org.sonar.plugins.css.api.tree.css.*;
+import org.sonar.plugins.css.api.tree.embedded.CssInStyleTagTree;
+import org.sonar.plugins.css.api.tree.embedded.FileWithEmbeddedCssTree;
 import org.sonar.plugins.css.api.tree.less.*;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 import org.sonar.sslr.grammar.GrammarRuleKey;
@@ -85,6 +87,10 @@ public interface Tree {
     TOKEN(SyntaxToken.class),
     TRIVIA(SyntaxTrivia.class),
     SPACING(SyntaxSpacing.class),
+
+    // Embedded CSS
+    FILE_WITH_EMBEDDED_CSS(FileWithEmbeddedCssTree.class),
+    CSS_IN_STYLE_TAG(CssInStyleTagTree.class),
 
     // Less
     LESS_VARIABLE_DECLARATION(LessVariableDeclarationTree.class),

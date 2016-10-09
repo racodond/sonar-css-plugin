@@ -17,29 +17,18 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.plugins.css;
+package org.sonar.plugins.css.api.tree.embedded;
 
-import org.junit.Test;
-import org.sonar.api.Plugin.Context;
-import org.sonar.api.utils.Version;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.StyleSheetTree;
+import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 
-import static org.fest.assertions.Assertions.assertThat;
+public interface CssInStyleTagTree extends Tree {
 
-public class PluginTest {
+  SyntaxToken openingTag();
 
-  @Test
-  public void should_get_the_right_version() {
-    Context context = new Context(Version.create(5, 6));
-    new Plugin().define(context);
-    assertThat(context.getSonarQubeVersion().major()).isEqualTo(5);
-    assertThat(context.getSonarQubeVersion().minor()).isEqualTo(6);
-  }
+  StyleSheetTree styleSheet();
 
-  @Test
-  public void should_get_the_right_number_of_extensions() {
-    Context context = new Context(Version.create(5, 6));
-    new Plugin().define(context);
-    assertThat(context.getExtensions()).hasSize(9);
-  }
+  SyntaxToken closingTag();
 
 }

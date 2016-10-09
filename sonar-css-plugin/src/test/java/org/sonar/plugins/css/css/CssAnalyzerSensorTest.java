@@ -34,6 +34,7 @@ import org.sonar.api.batch.rule.internal.ActiveRulesBuilder;
 import org.sonar.api.batch.sensor.internal.DefaultSensorDescriptor;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.api.batch.sensor.issue.Issue;
+import org.sonar.api.config.Settings;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.rule.RuleKey;
@@ -47,6 +48,7 @@ public class CssAnalyzerSensorTest {
   private final File baseDir = new File("src/test/resources/css");
   private final SensorContextTester context = SensorContextTester.create(baseDir);
   private CheckFactory checkFactory = new CheckFactory(mock(ActiveRules.class));
+  private Settings settings = mock(Settings.class);
 
   @Test
   public void should_create_a_valid_sensor_descriptor() {
@@ -155,7 +157,7 @@ public class CssAnalyzerSensorTest {
   }
 
   private CssAnalyzerSensor createCssSquidSensor() {
-    return new CssAnalyzerSensor(context.fileSystem(), checkFactory, new NoSonarFilter());
+    return new CssAnalyzerSensor(context.fileSystem(), checkFactory, settings, new NoSonarFilter());
   }
 
   private DefaultInputFile inputFile(String relativePath) {

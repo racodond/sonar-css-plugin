@@ -17,29 +17,32 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.plugins.css;
+package org.sonar.css.parser.embedded;
 
 import org.junit.Test;
-import org.sonar.api.Plugin.Context;
-import org.sonar.api.utils.Version;
+import org.sonar.css.parser.LexicalGrammar;
 
-import static org.fest.assertions.Assertions.assertThat;
+public class ClosingHtmlStyleTagTreeTest extends EmbeddedCssTreeTest {
 
-public class PluginTest {
-
-  @Test
-  public void should_get_the_right_version() {
-    Context context = new Context(Version.create(5, 6));
-    new Plugin().define(context);
-    assertThat(context.getSonarQubeVersion().major()).isEqualTo(5);
-    assertThat(context.getSonarQubeVersion().minor()).isEqualTo(6);
+  public ClosingHtmlStyleTagTreeTest() {
+    super(LexicalGrammar.CLOSING_HTML_STYLE_TAG);
   }
 
   @Test
-  public void should_get_the_right_number_of_extensions() {
-    Context context = new Context(Version.create(5, 6));
-    new Plugin().define(context);
-    assertThat(context.getExtensions()).hasSize(9);
+  public void closingHtmlStyleTag() {
+    checkParsed("</style>");
+    checkParsed("</style >");
+  }
+
+  @Test
+  public void notClosingHtmlStyleTag() {
+    checkNotParsed("</blabla>");
+    checkNotParsed("</style blabla>");
+    checkNotParsed("</style ");
+  }
+
+  private void checkParsed(String toParse) {
+    parser().parse(toParse);
   }
 
 }

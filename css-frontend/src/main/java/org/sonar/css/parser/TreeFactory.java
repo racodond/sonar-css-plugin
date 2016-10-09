@@ -26,9 +26,13 @@ import java.util.List;
 import org.sonar.css.tree.impl.SyntaxList;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.css.tree.impl.css.*;
+import org.sonar.css.tree.impl.embedded.CssInStyleTagTreeImpl;
+import org.sonar.css.tree.impl.embedded.FileWithEmbeddedCssTreeImpl;
 import org.sonar.css.tree.impl.less.*;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.*;
+import org.sonar.plugins.css.api.tree.embedded.CssInStyleTagTree;
+import org.sonar.plugins.css.api.tree.embedded.FileWithEmbeddedCssTree;
 import org.sonar.plugins.css.api.tree.less.*;
 
 public class TreeFactory {
@@ -242,6 +246,22 @@ public class TreeFactory {
 
   public UnitTree unit(SyntaxToken unit) {
     return new UnitTreeImpl(unit);
+  }
+
+  // ---------------------------------
+  // Embedded CSS
+  // ---------------------------------
+
+  public StyleSheetTree stylesheet(Optional<List<Tree>> statements) {
+    return new StyleSheetTreeImpl(null, statements.orNull(), null);
+  }
+
+  public CssInStyleTagTree cssInStyleTag(SyntaxToken openingTag, StyleSheetTree styleSheet, SyntaxToken closingTag) {
+    return new CssInStyleTagTreeImpl(openingTag, styleSheet, closingTag);
+  }
+
+  public FileWithEmbeddedCssTree fileWithEmbeddedCss(Optional<List<Tree>> trees, SyntaxToken eof) {
+    return new FileWithEmbeddedCssTreeImpl(trees.orNull(), eof);
   }
 
   // ---------------------------------

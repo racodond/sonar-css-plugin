@@ -46,7 +46,7 @@ public class StyleSheetTreeImpl extends TreeImpl implements StyleSheetTree {
   private List<LessVariableDeclarationTree> lessVariableDeclarations;
   private List<LessMixinCallTree> lessMixinCalls;
 
-  public StyleSheetTreeImpl(@Nullable SyntaxToken byteOrderMark, @Nullable List<Tree> all, SyntaxToken eof) {
+  public StyleSheetTreeImpl(@Nullable SyntaxToken byteOrderMark, @Nullable List<Tree> all, @Nullable SyntaxToken eof) {
     this.byteOrderMark = byteOrderMark;
     this.eof = eof;
 

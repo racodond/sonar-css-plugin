@@ -6,8 +6,12 @@ SonarQube CSS / Less Plugin
 
 
 ## Description
-This plugin enables code QA analysis of CSS and Less files within [SonarQube](http://www.sonarqube.org):
-
+This plugin enables code QA analysis of:
+ * CSS files
+ * Less files
+ * CSS code embedded in HTML/XHTML files
+ 
+within [SonarQube](http://www.sonarqube.org). It:
  * Computes metrics: lines of code, number of rules, complexity, etc.
  * Validates your CSS code
  * Performs more than [50 checks](#available-checks)
@@ -21,6 +25,13 @@ This plugin enables code QA analysis of CSS and Less files within [SonarQube](ht
 
 Plugin versions and compatibility with SonarQube versions: http://docs.sonarqube.org/display/PLUG/Plugin+Version+Matrix
 
+### Analyzing CSS code embedded in HTML/XHTML files
+The plugin analyzes CSS code embedded in `<style type="text/css">...</style>` tags in HTML/XHTML files.
+To do so, as a prerequisite, SonarQube has to import those files. Either:
+ * Install a plugin importing those files ([Web plugin](http://docs.sonarqube.org/display/PLUG/Web+Plugin) for instance)
+ * Or turn on the [import of unknown files](http://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code#AnalyzingSourceCode-Unrecognizedfiles) by setting property `sonar.import_unknown_files` to `true` 
+
+The list of files containing embedded CSS to analyze can be customized through the `sonar.css.embedded.file.suffixes` property.
 
 ## Metrics
 

@@ -28,6 +28,8 @@ import javax.annotation.Nullable;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.*;
+import org.sonar.plugins.css.api.tree.embedded.CssInStyleTagTree;
+import org.sonar.plugins.css.api.tree.embedded.FileWithEmbeddedCssTree;
 import org.sonar.plugins.css.api.tree.less.*;
 
 public abstract class DoubleDispatchVisitor implements TreeVisitor {
@@ -249,6 +251,18 @@ public abstract class DoubleDispatchVisitor implements TreeVisitor {
 
   public void visitComment(SyntaxTrivia commentToken) {
     // No sub-tree
+  }
+
+  // -------------------------------------------------------------------------
+  // Embedded CSS
+  // -------------------------------------------------------------------------
+
+  public void visitFileWithEmbeddedCss(FileWithEmbeddedCssTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitCssBetweenTags(CssInStyleTagTree tree) {
+    scanChildren(tree);
   }
 
   // -------------------------------------------------------------------------
