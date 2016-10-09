@@ -1,0 +1,10 @@
+<script type="text/css">
+  .mybox1 {
+    color: green !important;
+  }
+</script>
+<script type="text/css">
+  .mybox2 {
+     width: 1px; /* TODO: blabla... */
+  }
+</script>

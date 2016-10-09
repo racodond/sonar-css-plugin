@@ -161,6 +161,13 @@ public enum LexicalGrammar implements GrammarRuleKey {
   /* Spacing */
   SPACING,
 
+  /* Embedded CSS */
+  FILE_WITH_EMBEDDED_CSS,
+  CSS_IN_SCRIPT_TAG,
+  OPENING_HTML_SCRIPT_TAG,
+  CLOSING_HTML_SCRIPT_TAG,
+  NON_CSS_TOKEN,
+
   /* Less */
   LESS_VARIABLE_DECLARATION,
   LESS_VARIABLE,
@@ -204,6 +211,16 @@ public enum LexicalGrammar implements GrammarRuleKey {
     spacing(b, CSS_COMMENT_REGEX);
     tokens(b);
     b.setRootRule(STYLESHEET);
+    return b;
+  }
+
+  public static LexerlessGrammarBuilder createEmbeddedCssGrammar() {
+    LexerlessGrammarBuilder b = LexerlessGrammarBuilder.create();
+    macros(b);
+    spacing(b, CSS_COMMENT_REGEX);
+    tokens(b);
+    embeddedCss(b);
+    b.setRootRule(FILE_WITH_EMBEDDED_CSS);
     return b;
   }
 
@@ -394,6 +411,30 @@ public enum LexicalGrammar implements GrammarRuleKey {
     b.rule(_NL).is(b.firstOf("\n", "\r\n", "\r", "\f")).skip();
 
     b.rule(_W).is(b.regexp("[ \\t\\r\\n\\f]*")).skip();
+  }
+
+  private static void embeddedCss(LexerlessGrammarBuilder b) {
+    String openingHtmlScriptTagRegex = "<script[\\s]*type[\\s]*=[\\s]*\"text/css\"[^>]*>";
+
+    b.rule(OPENING_HTML_SCRIPT_TAG).is(
+      SPACING,
+      b.token(
+        GenericTokenType.LITERAL,
+        b.regexp(openingHtmlScriptTagRegex)));
+
+    b.rule(CLOSING_HTML_SCRIPT_TAG).is(
+      SPACING,
+      b.token(
+        GenericTokenType.LITERAL,
+        b.regexp("</script[\\s]*>")));
+
+    b.rule(NON_CSS_TOKEN).is(
+      SPACING,
+      b.token(
+        GenericTokenType.LITERAL,
+        b.firstOf(
+          b.regexp(".+?(?=" + openingHtmlScriptTagRegex + ")"),
+          b.regexp(".+"))));
   }
 
   private static void less(LexerlessGrammarBuilder b) {

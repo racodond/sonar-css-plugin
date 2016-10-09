@@ -17,29 +17,34 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.plugins.css;
+package org.sonar.css.parser.embedded;
 
-import org.junit.Test;
-import org.sonar.api.Plugin.Context;
-import org.sonar.api.utils.Version;
+import com.google.common.base.Charsets;
+import com.sonar.sslr.api.typed.ActionParser;
+import org.sonar.css.parser.LexicalGrammar;
+import org.sonar.plugins.css.api.tree.Tree;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
-public class PluginTest {
+public abstract class EmbeddedCssTreeTest {
 
-  @Test
-  public void should_get_the_right_version() {
-    Context context = new Context(Version.create(5, 6));
-    new Plugin().define(context);
-    assertThat(context.getSonarQubeVersion().major()).isEqualTo(5);
-    assertThat(context.getSonarQubeVersion().minor()).isEqualTo(6);
+  private final ActionParser<Tree> parser;
+
+  public EmbeddedCssTreeTest(LexicalGrammar ruleKey) {
+    parser = EmbeddedCssParserBuilder.createTestParser(Charsets.UTF_8, ruleKey);
   }
 
-  @Test
-  public void should_get_the_right_number_of_extensions() {
-    Context context = new Context(Version.create(5, 6));
-    new Plugin().define(context);
-    assertThat(context.getExtensions()).hasSize(9);
+  public ActionParser<Tree> parser() {
+    return parser;
+  }
+
+  public void checkNotParsed(String toParse) {
+    try {
+      parser.parse(toParse);
+    } catch (Exception e) {
+      return;
+    }
+    fail("Did not throw a RecognitionException as expected.");
   }
 
 }
