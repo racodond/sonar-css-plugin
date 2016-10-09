@@ -35,6 +35,7 @@ import org.sonar.api.batch.fs.InputFile.Type;
 import org.sonar.api.batch.rule.CheckFactory;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
+import org.sonar.api.config.Settings;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.css.checks.CheckList;
 import org.sonar.css.checks.css.ParsingErrorCheck;
@@ -51,13 +52,13 @@ import org.sonar.plugins.css.api.visitors.TreeVisitor;
 
 public class CssAnalyzerSensor extends AbstractLanguageAnalyzerSensor {
 
-  public CssAnalyzerSensor(FileSystem fileSystem, CheckFactory checkFactory, NoSonarFilter noSonarFilter) {
-    super(fileSystem, checkFactory, noSonarFilter);
+  public CssAnalyzerSensor(FileSystem fileSystem, CheckFactory checkFactory, Settings settings, NoSonarFilter noSonarFilter) {
+    super(fileSystem, checkFactory, settings, noSonarFilter);
   }
 
-  public CssAnalyzerSensor(FileSystem fileSystem, CheckFactory checkFactory, NoSonarFilter noSonarFilter,
+  public CssAnalyzerSensor(FileSystem fileSystem, CheckFactory checkFactory, Settings settings, NoSonarFilter noSonarFilter,
     @Nullable CustomCssRulesDefinition[] customRulesDefinition) {
-    super(fileSystem, checkFactory, noSonarFilter, customRulesDefinition);
+    super(fileSystem, checkFactory, settings, noSonarFilter, customRulesDefinition);
   }
 
   @Override

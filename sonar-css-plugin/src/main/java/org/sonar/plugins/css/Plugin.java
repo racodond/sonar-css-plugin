@@ -21,14 +21,15 @@ package org.sonar.plugins.css;
 
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
+import org.sonar.plugins.css.css.CssAnalyzerSensor;
 import org.sonar.plugins.css.css.CssLanguage;
 import org.sonar.plugins.css.css.CssProfile;
 import org.sonar.plugins.css.css.CssRulesDefinition;
-import org.sonar.plugins.css.css.CssAnalyzerSensor;
+import org.sonar.plugins.css.embedded.EmbeddedCssAnalyzerSensor;
+import org.sonar.plugins.css.less.LessAnalyzerSensor;
 import org.sonar.plugins.css.less.LessLanguage;
 import org.sonar.plugins.css.less.LessProfile;
 import org.sonar.plugins.css.less.LessRulesDefinition;
-import org.sonar.plugins.css.less.LessAnalyzerSensor;
 
 @Properties({
   @Property(
@@ -46,6 +47,13 @@ import org.sonar.plugins.css.less.LessAnalyzerSensor;
     description = "Comma-separated list of suffixes for Less files to analyze.",
     global = true, project = true),
   @Property(
+    key = Plugin.EMBEDDED_CSS_FILE_SUFFIXES_KEY,
+    category = "CSS",
+    defaultValue = Plugin.EMBEDDED_CSS_FILE_SUFFIXES_DEFAULT_VALUE,
+    name = "Embedded CSS File Suffixes",
+    description = "Comma-separated list of suffixes for files containing embedded CSS to analyze.",
+    global = true, project = true),
+  @Property(
     key = "sonar.cpd.css.minimumTokens",
     defaultValue = "70",
     name = "Minimum number of tokens to start detecting duplication",
@@ -57,6 +65,9 @@ public class Plugin implements org.sonar.api.Plugin {
   public static final String CSS_FILE_SUFFIXES_KEY = "sonar.css.file.suffixes";
   public static final String CSS_FILE_SUFFIXES_DEFAULT_VALUE = "css";
 
+  public static final String EMBEDDED_CSS_FILE_SUFFIXES_KEY = "sonar.css.embedded.file.suffixes";
+  public static final String EMBEDDED_CSS_FILE_SUFFIXES_DEFAULT_VALUE = "html,xhtml";
+
   public static final String LESS_FILE_SUFFIXES_KEY = "sonar.less.file.suffixes";
   public static final String LESS_FILE_SUFFIXES_DEFAULT_VALUE = "less";
 
@@ -66,6 +77,7 @@ public class Plugin implements org.sonar.api.Plugin {
       CssLanguage.class,
       LessLanguage.class,
       CssAnalyzerSensor.class,
+      EmbeddedCssAnalyzerSensor.class,
       LessAnalyzerSensor.class,
       CssProfile.class,
       LessProfile.class,

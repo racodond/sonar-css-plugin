@@ -38,6 +38,7 @@ import org.sonar.api.batch.sensor.Sensor;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.batch.sensor.issue.NewIssueLocation;
+import org.sonar.api.config.Settings;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.api.utils.log.Logger;
@@ -59,6 +60,7 @@ public abstract class AbstractLanguageAnalyzerSensor implements Sensor {
 
   private final FileSystem fileSystem;
   private final CheckFactory checkFactory;
+  private final Settings settings;
   private final NoSonarFilter noSonarFilter;
   private final ActionParser<Tree> parser;
   private final CustomRulesDefinition[] customRulesDefinition;
@@ -67,18 +69,23 @@ public abstract class AbstractLanguageAnalyzerSensor implements Sensor {
   private RuleKey parsingErrorRuleKey = null;
   private IssueSaver issueSaver;
 
-  public AbstractLanguageAnalyzerSensor(FileSystem fileSystem, CheckFactory checkFactory, NoSonarFilter noSonarFilter) {
-    this(fileSystem, checkFactory, noSonarFilter, null);
+  public AbstractLanguageAnalyzerSensor(FileSystem fileSystem, CheckFactory checkFactory, Settings settings, NoSonarFilter noSonarFilter) {
+    this(fileSystem, checkFactory, settings, noSonarFilter, null);
   }
 
-  public AbstractLanguageAnalyzerSensor(FileSystem fileSystem, CheckFactory checkFactory, NoSonarFilter noSonarFilter,
+  public AbstractLanguageAnalyzerSensor(FileSystem fileSystem, CheckFactory checkFactory, Settings settings, NoSonarFilter noSonarFilter,
     @Nullable CustomRulesDefinition[] customRulesDefinition) {
 
     this.fileSystem = fileSystem;
+    this.settings = settings;
     this.noSonarFilter = noSonarFilter;
     this.checkFactory = checkFactory;
     this.customRulesDefinition = customRulesDefinition;
     this.parser = parser(fileSystem);
+  }
+
+  public Settings getSettings() {
+    return settings;
   }
 
   @Override
