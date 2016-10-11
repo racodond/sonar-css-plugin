@@ -261,7 +261,7 @@ public abstract class DoubleDispatchVisitor implements TreeVisitor {
     scanChildren(tree);
   }
 
-  public void visitCssBetweenTags(CssInStyleTagTree tree) {
+  public void visitCssInStyleTag(CssInStyleTagTree tree) {
     scanChildren(tree);
   }
 

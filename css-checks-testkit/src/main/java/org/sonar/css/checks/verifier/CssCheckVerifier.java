@@ -35,6 +35,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 
 import org.sonar.css.parser.css.CssParserBuilder;
+import org.sonar.css.parser.embedded.EmbeddedCssParserBuilder;
 import org.sonar.css.parser.less.LessParserBuilder;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.css.visitors.CharsetAwareVisitor;
@@ -85,6 +86,25 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
       ((CharsetAwareVisitor) check).setCharset(charset);
     }
     return CheckMessagesVerifier.verify(TreeCheckTest.getIssues(file.getAbsolutePath(), check, CssParserBuilder.createParser(charset)));
+  }
+
+  /**
+   * See {@link CssCheckVerifier#issuesOnCssFile(CssCheck, File)}
+   * File is parsed with Less parser.
+   */
+  public static CheckMessagesVerifier issuesOnEmbeddedCssFile(CssCheck check, File file) {
+    return issuesOnEmbeddedCssFile(check, file, Charsets.UTF_8);
+  }
+
+  /**
+   * See {@link CssCheckVerifier#issuesOnEmbeddedCssFile(CssCheck, File)}
+   * @param charset Charset of the file to test.
+   */
+  public static CheckMessagesVerifier issuesOnEmbeddedCssFile(CssCheck check, File file, Charset charset) {
+    if (check instanceof CharsetAwareVisitor) {
+      ((CharsetAwareVisitor) check).setCharset(charset);
+    }
+    return CheckMessagesVerifier.verify(TreeCheckTest.getIssues(file.getAbsolutePath(), check, EmbeddedCssParserBuilder.createParser(charset)));
   }
 
   /**
@@ -146,6 +166,22 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
    */
   public static void verifyCssFile(CssCheck check, File file, Charset charset) {
     verify(check, file, charset, CssParserBuilder.createParser(charset));
+  }
+
+  /**
+   * See {@link CssCheckVerifier#verifyCssFile(CssCheck, File)}
+   * File is parsed with Less parser.
+   */
+  public static void verifyEmbeddedCssFile(CssCheck check, File file) {
+    verifyLessFile(check, file, Charsets.UTF_8);
+  }
+
+  /**
+   * See {@link CssCheckVerifier#verifyEmbeddedCssFile(CssCheck, File)}
+   * @param charset Charset of the file to test.
+   */
+  private static void verifyEmbeddedCssFile(CssCheck check, File file, Charset charset) {
+    verify(check, file, charset, EmbeddedCssParserBuilder.createParser(charset));
   }
 
   /**
