@@ -69,7 +69,7 @@ public class CssInStyleTagTreeImpl extends TreeImpl implements CssInStyleTagTree
 
   @Override
   public void accept(DoubleDispatchVisitor visitor) {
-    visitor.visitCssBetweenTags(this);
+    visitor.visitCssInStyleTag(this);
   }
 
 }

@@ -46,6 +46,7 @@ public final class CheckList {
     return Stream.concat(
       getCommonChecks().stream(),
       ImmutableList.of(
+        EmbeddedCssCheck.class,
         ExperimentalCssFunctionCheck.class,
         ImportFirstCheck.class,
         ImportNumberCheck.class,
@@ -152,6 +153,7 @@ public final class CheckList {
       DoNotUseShorthandPropertyCheck.class,
       DuplicateBackgroundImagesCheck.class,
       DuplicatedPropertiesCheck.class,
+      EmbeddedCssCheck.class,
       EmptyDeclarationCheck.class,
       EmptyRuleCheck.class,
       ExperimentalAtRuleCheck.class,

@@ -1,0 +1,19 @@
+<p>
+    Embedded CSS gets loaded with every page request, changes cannot be shared across pages, and the content cannot be
+    cached. Thus, it decreases performance, reusability and maintainability. External CSS should be used whenever
+    possible instead.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;style type="text/css"&gt;
+  .mybox {
+    color: green;
+  }
+&lt;/style&gt;
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+&lt;link rel="stylesheet" type="text/css" href="mystyles.css"/&gt;
+</pre>
