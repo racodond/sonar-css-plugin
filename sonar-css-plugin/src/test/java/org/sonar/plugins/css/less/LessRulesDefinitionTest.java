@@ -23,7 +23,7 @@ import org.junit.Test;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.CheckList;
-import org.sonar.css.checks.common.TodoTagCheck;
+import org.sonar.css.checks.less.DeprecatedEscapingFunctionCheck;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -40,10 +40,9 @@ public class LessRulesDefinitionTest {
     assertThat(repository.language()).isEqualTo("less");
     assertThat(repository.rules()).hasSize(CheckList.getLessChecks().size());
 
-    // TODO: replace by Less specific rule
-    RulesDefinition.Rule todoRule = repository.rule(TodoTagCheck.class.getAnnotation(Rule.class).key());
+    RulesDefinition.Rule todoRule = repository.rule(DeprecatedEscapingFunctionCheck.class.getAnnotation(Rule.class).key());
     assertThat(todoRule).isNotNull();
-    assertThat(todoRule.name()).isEqualTo(TodoTagCheck.class.getAnnotation(Rule.class).name());
+    assertThat(todoRule.name()).isEqualTo(DeprecatedEscapingFunctionCheck.class.getAnnotation(Rule.class).name());
   }
 
 }
