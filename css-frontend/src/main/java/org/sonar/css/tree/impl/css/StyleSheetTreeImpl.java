@@ -40,11 +40,11 @@ public class StyleSheetTreeImpl extends TreeImpl implements StyleSheetTree {
   private final SyntaxToken eof;
   private final List<Tree> all;
   private final List<StatementTree> statements;
-  private List<AtRuleTree> atRules;
-  private List<RulesetTree> rulesets;
-  private List<EmptyStatementTree> emptyStatements;
-  private List<LessVariableDeclarationTree> lessVariableDeclarations;
-  private List<LessMixinCallTree> lessMixinCalls;
+  private final List<AtRuleTree> atRules;
+  private final List<RulesetTree> rulesets;
+  private final List<EmptyStatementTree> emptyStatements;
+  private final List<LessVariableDeclarationTree> lessVariableDeclarations;
+  private final List<LessMixinCallTree> lessMixinCalls;
 
   public StyleSheetTreeImpl(@Nullable SyntaxToken byteOrderMark, @Nullable List<Tree> all, @Nullable SyntaxToken eof) {
     this.byteOrderMark = byteOrderMark;
