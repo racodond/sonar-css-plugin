@@ -20,8 +20,9 @@
 package org.sonar.css.checks;
 
 import org.sonar.check.Rule;
-import org.sonar.plugins.css.api.tree.css.RulesetTree;
+import org.sonar.plugins.css.api.CssCheck;
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.RulesetTree;
 
 public final class CheckUtils {
 
@@ -30,9 +31,9 @@ public final class CheckUtils {
   private CheckUtils() {
   }
 
-  public static String paramsErrorMessage(Class clazz, String repository, String message) {
-    return "Check "+ repository + ":" + ((Rule) clazz.getAnnotation(Rule.class)).key()
-      + " (" + ((Rule) clazz.getAnnotation(Rule.class)).name() + "): "
+  public static String paramsErrorMessage(Class<? extends CssCheck> clazz, String repository, String message) {
+    return "Check " + repository + ":" + clazz.getAnnotation(Rule.class).key()
+      + " (" + clazz.getAnnotation(Rule.class).name() + "): "
       + message;
   }
 
