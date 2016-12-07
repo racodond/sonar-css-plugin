@@ -16,10 +16,14 @@ within [SonarQube](http://www.sonarqube.org). It:
 
  * Computes metrics: lines of code, number of rules, complexity, etc.
  * Validates your CSS code
- * Performs more than [70 checks](#available-checks)
+ * Performs more than [70 checks](http://sonarqube.racodond.com/coding_rules#languages=less%2Ccss)
  * Provides the ability to write your own checks
 
- 
+
+## Demo
+
+ * [Demo project](http://sonarqube.racodond.com/dashboard/index?id=css-sample-project)
+
 ## Usage
 1. [Download and install](http://docs.sonarqube.org/display/SONAR/Setup+and+Upgrade) SonarQube
 2. Install the CSS/Less plugin either by a [direct download](https://github.com/racodond/sonar-css-plugin/releases) or through the [update center](http://docs.sonarqube.org/display/SONAR/Update+Center).
