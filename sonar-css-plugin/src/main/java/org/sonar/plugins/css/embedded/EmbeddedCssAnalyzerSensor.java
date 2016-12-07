@@ -21,13 +21,6 @@ package org.sonar.plugins.css.embedded;
 
 import com.google.common.collect.Lists;
 import com.sonar.sslr.api.typed.ActionParser;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-import javax.annotation.Nullable;
-
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.batch.fs.FilePredicate;
 import org.sonar.api.batch.fs.FileSystem;
@@ -40,7 +33,6 @@ import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.css.checks.CheckList;
 import org.sonar.css.checks.css.ParsingErrorCheck;
 import org.sonar.css.parser.embedded.EmbeddedCssParser;
-import org.sonar.css.visitors.highlighter.CssSyntaxHighlighterVisitor;
 import org.sonar.plugins.css.AbstractLanguageAnalyzerSensor;
 import org.sonar.plugins.css.Checks;
 import org.sonar.plugins.css.Plugin;
@@ -49,6 +41,12 @@ import org.sonar.plugins.css.api.CustomRulesDefinition;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.visitors.TreeVisitor;
 
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 public class EmbeddedCssAnalyzerSensor extends AbstractLanguageAnalyzerSensor {
 
   public EmbeddedCssAnalyzerSensor(FileSystem fileSystem, CheckFactory checkFactory, Settings settings, NoSonarFilter noSonarFilter) {
@@ -56,7 +54,7 @@ public class EmbeddedCssAnalyzerSensor extends AbstractLanguageAnalyzerSensor {
   }
 
   public EmbeddedCssAnalyzerSensor(FileSystem fileSystem, CheckFactory checkFactory, Settings settings, NoSonarFilter noSonarFilter,
-    @Nullable CustomCssRulesDefinition[] customRulesDefinition) {
+                                   @Nullable CustomCssRulesDefinition[] customRulesDefinition) {
     super(fileSystem, checkFactory, settings, noSonarFilter, customRulesDefinition);
   }
 
@@ -92,7 +90,6 @@ public class EmbeddedCssAnalyzerSensor extends AbstractLanguageAnalyzerSensor {
   public List<TreeVisitor> treeVisitors(SensorContext sensorContext, Checks checks, NoSonarFilter noSonarFilter) {
     List<TreeVisitor> treeVisitors = Lists.newArrayList();
     treeVisitors.addAll(checks.visitorChecks());
-    treeVisitors.add(new CssSyntaxHighlighterVisitor(sensorContext));
     return treeVisitors;
   }
 
