@@ -17,7 +17,7 @@
   <url>https://github.com/racodond/sonar-css-plugin</url>
 
   <properties>
-    <sonar.pluginName>CSS</sonar.pluginName>
+    <sonar.pluginName>CSS / Less</sonar.pluginName>
     <sonar.pluginClass>org.sonar.plugins.css.Plugin</sonar.pluginClass>
     <sonar.skipDependenciesPackaging>true</sonar.skipDependenciesPackaging>
   </properties>
