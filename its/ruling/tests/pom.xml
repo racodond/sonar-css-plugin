@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.codehaus.sonar-plugins.css</groupId>
     <artifactId>css-its-ruling</artifactId>
-    <version>2.4-SNAPSHOT</version>
+    <version>2.4</version>
   </parent>
 
   <artifactId>css-its-ruling-tests</artifactId>
