@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -52,6 +52,7 @@ public class IdSelectorTreeTest extends LessTreeTest {
     assertThat(tree.hashSymbol()).isNotNull();
     assertThat(tree.identifier()).isNotNull();
     assertThat(tree.identifier().text()).isEqualTo(expectedIdentifier);
+    assertThat(tree.identifier().isLessInterpolated()).isEqualTo(isInterpolatedIndentifier);
     assertThat(tree.identifier().isInterpolated()).isEqualTo(isInterpolatedIndentifier);
   }
 

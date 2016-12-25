@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -19,15 +19,14 @@
  */
 package org.sonar.css.tree.symbol;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.css.AtRuleBlockTree;
-import org.sonar.plugins.css.api.tree.css.RulesetBlockTree;
+import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
 import org.sonar.plugins.css.api.tree.css.StyleSheetTree;
 import org.sonar.plugins.css.api.tree.embedded.FileWithEmbeddedCssTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ScopeVisitor extends DoubleDispatchVisitor {
 
@@ -58,16 +57,9 @@ public class ScopeVisitor extends DoubleDispatchVisitor {
   }
 
   @Override
-  public void visitAtRuleBlock(AtRuleBlockTree tree) {
+  public void visitStatementBlock(StatementBlockTree tree) {
     newScope(tree);
-    super.visitAtRuleBlock(tree);
-    leaveScope();
-  }
-
-  @Override
-  public void visitRulesetBlock(RulesetBlockTree tree) {
-    newScope(tree);
-    super.visitRulesetBlock(tree);
+    super.visitStatementBlock(tree);
     leaveScope();
   }
 

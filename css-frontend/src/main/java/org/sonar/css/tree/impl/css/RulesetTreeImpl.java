@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -20,23 +20,22 @@
 package org.sonar.css.tree.impl.css;
 
 import com.google.common.collect.Iterators;
-
-import java.util.Iterator;
-import javax.annotation.Nullable;
-
 import org.sonar.css.tree.impl.TreeImpl;
-import org.sonar.plugins.css.api.tree.css.RulesetBlockTree;
+import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.RulesetTree;
 import org.sonar.plugins.css.api.tree.css.SelectorsTree;
-import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
+
+import javax.annotation.Nullable;
+import java.util.Iterator;
 
 public class RulesetTreeImpl extends TreeImpl implements RulesetTree {
 
   private final SelectorsTree selectors;
-  private final RulesetBlockTree block;
+  private final StatementBlockTree block;
 
-  public RulesetTreeImpl(@Nullable SelectorsTree selectors, RulesetBlockTree block) {
+  public RulesetTreeImpl(@Nullable SelectorsTree selectors, StatementBlockTree block) {
     this.selectors = selectors;
     this.block = block;
   }
@@ -63,7 +62,7 @@ public class RulesetTreeImpl extends TreeImpl implements RulesetTree {
   }
 
   @Override
-  public RulesetBlockTree block() {
+  public StatementBlockTree block() {
     return block;
   }
 

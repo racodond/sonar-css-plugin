@@ -10,7 +10,7 @@
   </parent>
 
   <artifactId>css-its-plugin-plugins</artifactId>
-  <name>SonarQube CSS / Less Plugin :: Integration Tests :: Plugin :: Plugins</name>
+  <name>SonarQube CSS / SCSS / Less Analyzer :: Integration Tests :: Plugin :: Plugins</name>
   <packaging>pom</packaging>
 
   <modules>

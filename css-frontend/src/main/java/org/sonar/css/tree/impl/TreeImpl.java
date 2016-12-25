@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -19,11 +19,11 @@
  */
 package org.sonar.css.tree.impl;
 
-import java.util.Iterator;
-import javax.annotation.Nullable;
-
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
+
+import javax.annotation.Nullable;
+import java.util.Iterator;
 
 public abstract class TreeImpl implements Tree {
 
@@ -63,7 +63,10 @@ public abstract class TreeImpl implements Tree {
     StringBuilder value = new StringBuilder();
     Iterator<Tree> children = childrenIterator();
     while (children.hasNext()) {
-      value.append(children.next().treeValue());
+      Tree next = children.next();
+      if (next != null) {
+        value.append(next.treeValue());
+      }
     }
     return value.toString();
   }

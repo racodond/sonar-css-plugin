@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -19,18 +19,17 @@
  */
 package org.sonar.css.tree.impl.less;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import javax.annotation.Nullable;
-
+import com.google.common.collect.Iterators;
 import org.sonar.css.tree.impl.TreeImpl;
-import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.css.ValueTree;
 import org.sonar.plugins.css.api.tree.less.LessMixinParameterTree;
 import org.sonar.plugins.css.api.tree.less.LessVariableTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
+
+import javax.annotation.Nullable;
+import java.util.Iterator;
 
 public class LessMixinParameterTreeImpl extends TreeImpl implements LessMixinParameterTree {
 
@@ -44,12 +43,6 @@ public class LessMixinParameterTreeImpl extends TreeImpl implements LessMixinPar
     this.value = value;
   }
 
-  public LessMixinParameterTreeImpl(ValueTree value) {
-    this.value = value;
-    this.colon = null;
-    this.variable = null;
-  }
-
   @Override
   public Kind getKind() {
     return Kind.LESS_MIXIN_PARAMETER;
@@ -57,17 +50,7 @@ public class LessMixinParameterTreeImpl extends TreeImpl implements LessMixinPar
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    List<Tree> children = new ArrayList<>();
-    if (variable != null) {
-      children.add(variable);
-    }
-    if (colon != null) {
-      children.add(colon);
-    }
-    if (value != null) {
-      children.add(value);
-    }
-    return children.iterator();
+    return Iterators.forArray(variable, colon, value);
   }
 
   @Override

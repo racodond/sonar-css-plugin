@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -20,9 +20,6 @@
 package org.sonar.css.visitors.metrics.css;
 
 import com.google.common.base.Charsets;
-
-import java.io.File;
-
 import org.junit.Test;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
@@ -30,8 +27,9 @@ import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.css.parser.css.CssParser;
-import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.visitors.TreeVisitorContext;
+
+import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -57,7 +55,7 @@ public class CssMetricsVisitorTest {
 
     TreeVisitorContext treeVisitorContext = mock(TreeVisitorContext.class);
     when(treeVisitorContext.getFile()).thenReturn(inputFile.file());
-    when(treeVisitorContext.getTopTree()).thenReturn((TreeImpl) CssParser.createParser(Charsets.UTF_8).parse(inputFile.file()));
+    when(treeVisitorContext.getTopTree()).thenReturn(CssParser.createParser(Charsets.UTF_8).parse(inputFile.file()));
 
     metricsVisitor.scanTree(treeVisitorContext);
   }

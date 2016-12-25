@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -48,7 +48,7 @@ public class LessExtendTreeTest extends LessTreeTest {
     tree = checkParsed(" :extend( @{abc}, div )");
     assertThat(tree.parameterElements()).hasSize(3);
     assertThat(tree.parameterElements().get(0)).isInstanceOf(IdentifierTree.class);
-    assertThat(((IdentifierTree) tree.parameterElements().get(0)).isInterpolated()).isTrue();
+    assertThat(((IdentifierTree) tree.parameterElements().get(0)).isLessInterpolated()).isTrue();
   }
 
   @Test

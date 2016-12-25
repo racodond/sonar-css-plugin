@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -21,12 +21,11 @@ package org.sonar.css.parser.css;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
-
-import java.io.File;
-
 import org.junit.Test;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.StyleSheetTree;
+
+import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -52,7 +51,7 @@ public class StyleSheetTreeTest extends CssTreeTest {
     checkParsed("\ufeff   ");
 
     tree = checkParsed(new File("src/test/resources/normalize.css"));
-    assertThat(tree.atRules()).hasSize(0);
+    assertThat(tree.atRules()).isEmpty();
     assertThat(tree.rulesets()).hasSize(38);
     assertThat(tree.all()).hasSize(38);
 
@@ -82,8 +81,15 @@ public class StyleSheetTreeTest extends CssTreeTest {
     assertThat(tree.all()).isNotNull();
     assertThat(tree.atRules()).isNotNull();
     assertThat(tree.rulesets()).isNotNull();
+
     assertThat(tree.lessVariableDeclarations()).isEmpty();
     assertThat(tree.lessMixinCalls()).isEmpty();
+
+    assertThat(tree.scssVariableDeclarations()).isEmpty();
+    assertThat(tree.scssMixinDefinitions()).isEmpty();
+    assertThat(tree.scssMixinIncludes()).isEmpty();
+    assertThat(tree.scssAtRoots()).isEmpty();
+
     return tree;
   }
 

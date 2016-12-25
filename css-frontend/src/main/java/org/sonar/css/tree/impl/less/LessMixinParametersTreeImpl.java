@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -20,13 +20,7 @@
 package org.sonar.css.tree.impl.less;
 
 import com.google.common.collect.Iterators;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import javax.annotation.Nullable;
-
-import org.sonar.css.tree.impl.SyntaxList;
+import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
@@ -34,18 +28,23 @@ import org.sonar.plugins.css.api.tree.less.LessMixinParameterTree;
 import org.sonar.plugins.css.api.tree.less.LessMixinParametersTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.function.Function;
+
 public class LessMixinParametersTreeImpl extends TreeImpl implements LessMixinParametersTree {
 
   private final SyntaxToken openParenthesis;
   private final SyntaxToken closeParenthesis;
-  private final SyntaxList<LessMixinParameterTree> parameterSyntaxList;
-  private final List<LessMixinParameterTree> parameters;
+  private final SeparatedList<LessMixinParameterTree, SyntaxToken> parameters;
 
-  public LessMixinParametersTreeImpl(SyntaxToken openParenthesis, @Nullable SyntaxList<LessMixinParameterTree> parameterSyntaxList, SyntaxToken closeParenthesis) {
+  public LessMixinParametersTreeImpl(SyntaxToken openParenthesis, @Nullable SeparatedList<LessMixinParameterTree, SyntaxToken> parameters, SyntaxToken closeParenthesis) {
     this.openParenthesis = openParenthesis;
     this.closeParenthesis = closeParenthesis;
-    this.parameterSyntaxList = parameterSyntaxList;
-    this.parameters = parameterSyntaxList != null ? parameterSyntaxList.allElements(LessMixinParameterTree.class) : new ArrayList<>();
+    this.parameters = parameters;
   }
 
   @Override
@@ -55,14 +54,10 @@ public class LessMixinParametersTreeImpl extends TreeImpl implements LessMixinPa
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    if (parameterSyntaxList != null) {
-      return Iterators.concat(
-        Iterators.singletonIterator(openParenthesis),
-        parameterSyntaxList.all().iterator(),
-        Iterators.singletonIterator(closeParenthesis));
-    } else {
-      return Iterators.forArray(openParenthesis, closeParenthesis);
-    }
+    return Iterators.concat(
+      Iterators.singletonIterator(openParenthesis),
+      parameters != null ? parameters.elementsAndSeparators(Function.identity(), Function.identity()) : new ArrayList<Tree>().iterator(),
+      Iterators.singletonIterator(closeParenthesis));
   }
 
   @Override
@@ -77,7 +72,7 @@ public class LessMixinParametersTreeImpl extends TreeImpl implements LessMixinPa
 
   @Override
   public List<LessMixinParameterTree> parameters() {
-    return parameters;
+    return parameters != null ? parameters : Collections.emptyList();
   }
 
   @Override

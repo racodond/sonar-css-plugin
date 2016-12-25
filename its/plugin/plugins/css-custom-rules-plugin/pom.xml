@@ -12,7 +12,7 @@
   <artifactId>css-custom-rules-plugin</artifactId>
   <packaging>sonar-plugin</packaging>
 
-  <name>SonarQube CSS / Less Plugin :: Integration Tests :: Plugin :: Plugins :: Custom Rules</name>
+  <name>SonarQube CSS / SCSS / Less Analyzer :: Integration Tests :: Plugin :: Plugins :: Custom Rules</name>
 
   <dependencies>
     <dependency>

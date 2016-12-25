@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -19,18 +19,18 @@
  */
 package org.sonar.plugins.css.api.tree.css;
 
-import java.util.List;
-import javax.annotation.Nullable;
-
-import org.sonar.css.tree.impl.css.SelectorCombinationList;
+import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.less.LessExtendTree;
 import org.sonar.plugins.css.api.tree.less.LessMixinGuardTree;
 import org.sonar.plugins.css.api.tree.less.LessMixinParametersTree;
 
+import javax.annotation.Nullable;
+import java.util.List;
+
 public interface SelectorTree extends Tree {
 
-  SelectorCombinationList compoundSelectorSyntaxList();
+  SeparatedList<CompoundSelectorTree, SelectorCombinatorTree> compoundSelectorsCombinationList();
 
   List<CompoundSelectorTree> compoundSelectors();
 
@@ -45,5 +45,11 @@ public interface SelectorTree extends Tree {
 
   @Nullable
   LessMixinGuardTree lessMixinGuard();
+
+  @Nullable
+  SelectorCombinatorTree scssParentCombinator();
+
+  @Nullable
+  SelectorCombinatorTree scssBlockCombinator();
 
 }

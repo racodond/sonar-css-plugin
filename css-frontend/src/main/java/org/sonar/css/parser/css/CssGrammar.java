@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -22,9 +22,8 @@ package org.sonar.css.parser.css;
 import com.sonar.sslr.api.typed.GrammarBuilder;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.css.parser.TreeFactory;
-import org.sonar.css.tree.impl.SyntaxList;
+import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.css.tree.impl.css.InternalSyntaxToken;
-import org.sonar.css.tree.impl.css.SelectorCombinationList;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.*;
 
@@ -71,8 +70,8 @@ public class CssGrammar {
         RULESET_BLOCK()));
   }
 
-  public AtRuleBlockTree AT_RULE_BLOCK() {
-    return b.<AtRuleBlockTree>nonterminal(LexicalGrammar.AT_RULE_BLOCK).is(
+  public StatementBlockTree AT_RULE_BLOCK() {
+    return b.<StatementBlockTree>nonterminal(LexicalGrammar.AT_RULE_BLOCK).is(
       f.atRuleBlock(
         b.token(LexicalGrammar.OPEN_CURLY_BRACE),
         b.zeroOrMore(
@@ -84,8 +83,8 @@ public class CssGrammar {
         b.token(LexicalGrammar.CLOSE_CURLY_BRACE)));
   }
 
-  public RulesetBlockTree RULESET_BLOCK() {
-    return b.<RulesetBlockTree>nonterminal(LexicalGrammar.RULESET_BLOCK).is(
+  public StatementBlockTree RULESET_BLOCK() {
+    return b.<StatementBlockTree>nonterminal(LexicalGrammar.RULESET_BLOCK).is(
       f.rulesetBlock(
         b.token(LexicalGrammar.OPEN_CURLY_BRACE),
         b.zeroOrMore(
@@ -202,26 +201,29 @@ public class CssGrammar {
       f.selectors(SELECTOR_LIST()));
   }
 
-  public SyntaxList<SelectorTree> SELECTOR_LIST() {
-    return b.<SyntaxList<SelectorTree>>nonterminal().is(
-      b.firstOf(
-        f.selectorList(SELECTOR(), b.token(LexicalGrammar.COMMA), SELECTOR_LIST()),
-        f.selectorList(SELECTOR())));
+  public SeparatedList<SelectorTree, SyntaxToken> SELECTOR_LIST() {
+    return b.<SeparatedList<SelectorTree, SyntaxToken>>nonterminal().is(
+      f.selectorList(
+        SELECTOR(),
+        b.zeroOrMore(
+          f.newTuple1(
+            b.token(LexicalGrammar.COMMA),
+            SELECTOR()))));
   }
 
   public SelectorTree SELECTOR() {
     return b.<SelectorTree>nonterminal(LexicalGrammar.SELECTOR).is(
-      f.selector(SELECTOR_COMBINATION_LIST()));
+      f.selector(COMPOUND_SELECTOR_COMBINATION_LIST()));
   }
 
-  public SelectorCombinationList SELECTOR_COMBINATION_LIST() {
-    return b.<SelectorCombinationList>nonterminal().is(
-      b.firstOf(
-        f.selectorCombinationList(
-          COMPOUND_SELECTOR(),
-          SELECTOR_COMBINATOR(),
-          SELECTOR_COMBINATION_LIST()),
-        f.selectorCombinationList(COMPOUND_SELECTOR())));
+  public SeparatedList<CompoundSelectorTree, SelectorCombinatorTree> COMPOUND_SELECTOR_COMBINATION_LIST() {
+    return b.<SeparatedList<CompoundSelectorTree, SelectorCombinatorTree>>nonterminal().is(
+      f.selectorCombinationList(
+        COMPOUND_SELECTOR(),
+        b.zeroOrMore(
+          f.newTuple4(
+            SELECTOR_COMBINATOR(),
+            COMPOUND_SELECTOR()))));
   }
 
   public SelectorCombinatorTree SELECTOR_COMBINATOR() {

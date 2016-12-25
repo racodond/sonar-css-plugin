@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -20,21 +20,21 @@
 package org.sonar.css.tree.impl.css;
 
 import com.google.common.collect.Iterators;
-
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import javax.annotation.Nullable;
-
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.pseudo.pseudofunction.StandardPseudoFunction;
 import org.sonar.css.model.pseudo.pseudofunction.StandardPseudoFunctionFactory;
 import org.sonar.css.tree.impl.TreeImpl;
+import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.IdentifierTree;
 import org.sonar.plugins.css.api.tree.css.PseudoFunctionTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
-import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
 
 public class PseudoFunctionTreeImpl extends TreeImpl implements PseudoFunctionTree {
 
@@ -47,7 +47,7 @@ public class PseudoFunctionTreeImpl extends TreeImpl implements PseudoFunctionTr
   private final StandardPseudoFunction standardFunction;
 
   public PseudoFunctionTreeImpl(SyntaxToken prefix, IdentifierTree function, SyntaxToken openParenthesis, @Nullable List<Tree> parameterElements,
-    SyntaxToken closeParenthesis) {
+                                SyntaxToken closeParenthesis) {
     this.prefix = prefix;
     this.function = function;
     this.openParenthesis = openParenthesis;
@@ -65,14 +65,10 @@ public class PseudoFunctionTreeImpl extends TreeImpl implements PseudoFunctionTr
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    if (parameterElements != null) {
-      return Iterators.concat(
-        Iterators.forArray(prefix, function, openParenthesis),
-        parameterElements.iterator(),
-        Iterators.singletonIterator(closeParenthesis));
-    } else {
-      return Iterators.forArray(prefix, function, openParenthesis, closeParenthesis);
-    }
+    return Iterators.concat(
+      Iterators.forArray(prefix, function, openParenthesis),
+      parameterElements != null ? parameterElements.iterator() : new ArrayList<Tree>().iterator(),
+      Iterators.singletonIterator(closeParenthesis));
   }
 
   @Override

@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -20,12 +20,7 @@
 package org.sonar.css.tree.impl.less;
 
 import com.google.common.collect.Iterators;
-
-import java.util.Iterator;
-import java.util.List;
-import javax.annotation.Nullable;
-
-import org.sonar.css.tree.impl.SyntaxList;
+import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.ParenthesisBlockTree;
@@ -33,18 +28,21 @@ import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.less.LessMixinGuardTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
+import javax.annotation.Nullable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.function.Function;
+
 public class LessMixinGuardTreeImpl extends TreeImpl implements LessMixinGuardTree {
 
   private final SyntaxToken when;
   private final SyntaxToken not;
-  private final SyntaxList<ParenthesisBlockTree> conditionSyntaxList;
-  private final List<ParenthesisBlockTree> conditions;
+  private final SeparatedList<ParenthesisBlockTree, SyntaxToken> conditions;
 
-  public LessMixinGuardTreeImpl(SyntaxToken when, @Nullable SyntaxToken not, SyntaxList<ParenthesisBlockTree> conditionSyntaxList) {
+  public LessMixinGuardTreeImpl(SyntaxToken when, @Nullable SyntaxToken not, SeparatedList<ParenthesisBlockTree, SyntaxToken> conditions) {
     this.when = when;
     this.not = not;
-    this.conditionSyntaxList = conditionSyntaxList;
-    this.conditions = conditionSyntaxList.allElements(ParenthesisBlockTree.class);
+    this.conditions = conditions;
   }
 
   @Override
@@ -54,15 +52,9 @@ public class LessMixinGuardTreeImpl extends TreeImpl implements LessMixinGuardTr
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    if (not != null) {
-      return Iterators.concat(
-        Iterators.forArray(when, not),
-        conditionSyntaxList.all().iterator());
-    } else {
-      return Iterators.concat(
-        Iterators.singletonIterator(when),
-        conditionSyntaxList.all().iterator());
-    }
+    return Iterators.concat(
+      Iterators.forArray(when, not),
+      conditions.elementsAndSeparators(Function.identity(), Function.identity()));
   }
 
   @Override

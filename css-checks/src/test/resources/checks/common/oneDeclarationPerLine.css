@@ -22,3 +22,7 @@ h1 {
 h1 {
   background-color: blue; --abc: red; color: blue; /* Noncompliant */ /* Noncompliant */
 }
+
+@document url-prefix("http://www.w3.org/Style/CSS/") {
+  #summary { background: yellow; color: black; } /* Noncompliant */
+}

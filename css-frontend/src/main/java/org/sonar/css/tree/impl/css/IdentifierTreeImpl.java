@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -19,9 +19,6 @@
  */
 package org.sonar.css.tree.impl.css;
 
-import java.util.Locale;
-import java.util.regex.Pattern;
-
 import org.sonar.css.model.Vendor;
 import org.sonar.css.tree.symbol.Scope;
 import org.sonar.plugins.css.api.symbol.Symbol;
@@ -29,9 +26,13 @@ import org.sonar.plugins.css.api.tree.css.IdentifierTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
+import java.util.Locale;
+import java.util.regex.Pattern;
+
 public class IdentifierTreeImpl extends LiteralTreeImpl implements IdentifierTree {
 
-  private static final Pattern INTERPOLATED_VARIABLE = Pattern.compile("@\\{[\\w-_]+\\}");
+  private static final Pattern LESS_INTERPOLATED_VARIABLE = Pattern.compile("@\\{[\\w-_]+\\}");
+  private static final Pattern SCSS_INTERPOLATED_VARIABLE = Pattern.compile("#\\{\\$[\\w-_]+\\}");
   private final Vendor vendor;
   private Scope scope;
   private Symbol symbol = null;
@@ -57,8 +58,18 @@ public class IdentifierTreeImpl extends LiteralTreeImpl implements IdentifierTre
   }
 
   @Override
+  public boolean isLessInterpolated() {
+    return LESS_INTERPOLATED_VARIABLE.matcher(text()).find();
+  }
+
+  @Override
+  public boolean isScssInterpolated() {
+    return SCSS_INTERPOLATED_VARIABLE.matcher(text()).find();
+  }
+
+  @Override
   public boolean isInterpolated() {
-    return INTERPOLATED_VARIABLE.matcher(text()).find();
+    return isLessInterpolated() || isScssInterpolated();
   }
 
   @Override
@@ -76,7 +87,7 @@ public class IdentifierTreeImpl extends LiteralTreeImpl implements IdentifierTre
   }
 
   @Override
-  public Scope scope(){
+  public Scope scope() {
     return scope;
   }
 
@@ -92,6 +103,5 @@ public class IdentifierTreeImpl extends LiteralTreeImpl implements IdentifierTre
   public void setSymbol(Symbol symbol) {
     this.symbol = symbol;
   }
-
 
 }

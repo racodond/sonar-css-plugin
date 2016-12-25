@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -30,8 +30,9 @@ public enum LexicalGrammar implements GrammarRuleKey {
 
   EMPTY_STATEMENT,
   AT_RULE,
-  AT_RULE_BLOCK,
   RULESET,
+  STATEMENT_BLOCK,
+  AT_RULE_BLOCK,
   RULESET_BLOCK,
   PARENTHESIS_BLOCK_TREE,
   BRACKET_BLOCK_TREE,
@@ -168,6 +169,103 @@ public enum LexicalGrammar implements GrammarRuleKey {
   CLOSING_HTML_STYLE_TAG,
   NON_CSS_TOKEN,
 
+  /* SCSS */
+  SCSS_NESTED_PROPERTIES_DECLARATION,
+
+  SCSS_VARIABLE_DECLARATION,
+  SCSS_VARIABLE_DECLARATION_WITHOUT_DELIMITER_IN_VALUE,
+  SCSS_VARIABLE,
+  SCSS_VARIABLE_ARGUMENT,
+  SCSS_VARIABLE_PREFIX,
+  SCSS_DOLLAR,
+  SCSS_ELLIPSIS,
+  SCSS_DEFAULT_FLAG,
+  SCSS_DEFAULT_KEYWORD,
+  SCSS_GLOBAL_FLAG,
+  SCSS_GLOBAL_KEYWORD,
+
+  SCSS_MIXIN_BLOCK,
+
+  SCSS_PARENT_SELECTOR,
+  SCSS_PARENT_SELECTOR_KEYWORD,
+  SCSS_PARENT_SELECTOR_COMBINATOR,
+  SCSS_PLACEHOLDER_SELECTOR,
+
+  SCSS_EXTEND,
+  SCSS_EXTEND_DIRECTIVE,
+  SCSS_OPTIONAL_FLAG,
+  SCSS_OPTIONAL_KEYWORD,
+
+  SCSS_AT_ROOT,
+  SCSS_AT_ROOT_DIRECTIVE,
+  SCSS_AT_ROOT_PARAMETERS,
+  SCSS_AT_ROOT_WITH,
+  SCSS_AT_ROOT_WITHOUT,
+
+  SCSS_FUNCTION_DEFINITION,
+  SCSS_FUNCTION_DEFINITION_DIRECTIVE,
+
+  SCSS_MIXIN_DEFINITION,
+  SCSS_MIXIN_DEFINITION_DIRECTIVE,
+
+  SCSS_MIXIN_INCLUDE,
+  SCSS_MIXIN_INCLUDE_DIRECTIVE,
+
+  SCSS_DEFINITION_PARAMETERS,
+  SCSS_DEFINITION_PARAMETER,
+  SCSS_CALL_PARAMETERS,
+  SCSS_CALL_PARAMETER,
+
+  SCSS_VALUE,
+  SCSS_VALUE_WITHOUT_DELIMITER,
+
+  SCSS_INTERPOLATED_IDENTIFIER,
+  SCSS_INTERPOLATED_IDENTIFIER_NO_WS,
+  SCSS_IDENT_INTERPOLATED_IDENTIFIER_NO_WS,
+  SCSS_IDENT_INTERPOLATED_IDENTIFIER,
+
+  SCSS_CONTENT,
+  SCSS_CONTENT_DIRECTIVE,
+
+  SCSS_DEBUG,
+  SCSS_WARN,
+  SCSS_ERROR,
+  SCSS_DEBUG_DIRECTIVE,
+  SCSS_WARN_DIRECTIVE,
+  SCSS_ERROR_DIRECTIVE,
+
+  SCSS_IF_CONDITIONS,
+  SCSS_IF,
+  SCSS_ELSE,
+  SCSS_ELSE_IF,
+  SCSS_IF_DIRECTIVE,
+  SCSS_ELSE_DIRECTIVE,
+  SCSS_ELSE_IF_DIRECTIVE,
+
+  SCSS_WHILE,
+  SCSS_WHILE_DIRECTIVE,
+
+  SCSS_EACH,
+  SCSS_EACH_DIRECTIVE,
+  SCSS_EACH_IN,
+
+  SCSS_FOR,
+  SCSS_FOR_DIRECTIVE,
+  SCSS_FOR_FROM,
+  SCSS_FOR_TO,
+  SCSS_FOR_THROUGH,
+
+  SCSS_FUNCTION,
+  SCSS_FUNCTION_DIRECTIVE,
+  SCSS_RETURN,
+  SCSS_RETURN_DIRECTIVE,
+
+  SCSS_OPERATOR,
+  SCSS_OPERATOR_LITERAL,
+
+  SCSS_MULTILINE_STRING,
+  SCSS_MULTILINE_STRING_LITERAL,
+
   /* Less */
   LESS_VARIABLE_DECLARATION,
   LESS_VARIABLE,
@@ -198,12 +296,11 @@ public enum LexicalGrammar implements GrammarRuleKey {
   LESS_IDENT_IDENTIFIER_NO_WS_NOR_WHEN,
   LESS_MERGE,
   LESS_ESCAPING,
-  LESS_ESCAPING_SYMBOL,
-
-  ;
+  LESS_ESCAPING_SYMBOL;
 
   private static final String CSS_COMMENT_REGEX = "(?:" + "(?:/\\*[\\s\\S]*?\\*/)" + "|" + "(?:\\<\\!--[\\s\\S]*?--\\>)" + ")";
   private static final String LESS_COMMENT_REGEX = "(?:" + "(?:/\\*[\\s\\S]*?\\*/)" + "|" + "(?:\\<\\!--[\\s\\S]*?--\\>)" + "|" + "//[^\\n\\r]*+" + ")";
+  private static final String SCSS_COMMENT_REGEX = "(?:" + "(?:/\\*[\\s\\S]*?\\*/)" + "|" + "//[^\\n\\r]*+" + ")";
 
   public static LexerlessGrammarBuilder createCssGrammar() {
     LexerlessGrammarBuilder b = LexerlessGrammarBuilder.create();
@@ -221,6 +318,16 @@ public enum LexicalGrammar implements GrammarRuleKey {
     tokens(b);
     embeddedCss(b);
     b.setRootRule(FILE_WITH_EMBEDDED_CSS);
+    return b;
+  }
+
+  public static LexerlessGrammarBuilder createScssGrammar() {
+    LexerlessGrammarBuilder b = LexerlessGrammarBuilder.create();
+    macros(b);
+    spacing(b, SCSS_COMMENT_REGEX);
+    tokens(b);
+    scss(b);
+    b.setRootRule(STYLESHEET);
     return b;
   }
 
@@ -435,6 +542,83 @@ public enum LexicalGrammar implements GrammarRuleKey {
         b.firstOf(
           b.regexp(".+?(?=" + openingHtmlStyleTagRegex + ")"),
           b.regexp(".+"))));
+  }
+
+  private static void scss(LexerlessGrammarBuilder b) {
+    b.rule(SCSS_DOLLAR).is(b.token(GenericTokenType.LITERAL, "$"));
+    b.rule(SCSS_ELLIPSIS).is(b.token(GenericTokenType.LITERAL, "..."));
+    b.rule(SCSS_VARIABLE_PREFIX).is(SPACING, SCSS_DOLLAR);
+    b.rule(SCSS_DEFAULT_KEYWORD).is(SPACING, b.token(GenericTokenType.LITERAL, "!default"));
+    b.rule(SCSS_GLOBAL_KEYWORD).is(SPACING, b.token(GenericTokenType.LITERAL, "!global"));
+    b.rule(SCSS_OPTIONAL_KEYWORD).is(SPACING, b.token(GenericTokenType.LITERAL, "!optional"));
+
+    b.rule(SCSS_PARENT_SELECTOR_KEYWORD).is("&");
+
+    b.rule(SCSS_FUNCTION_DEFINITION_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@function"));
+    b.rule(SCSS_MIXIN_DEFINITION_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@mixin"));
+    b.rule(SCSS_MIXIN_INCLUDE_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@include"));
+    b.rule(SCSS_EXTEND_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@extend"), SPACING);
+
+    b.rule(SCSS_CONTENT_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@content"));
+
+    b.rule(SCSS_DEBUG_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@debug"));
+    b.rule(SCSS_WARN_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@warn"));
+    b.rule(SCSS_ERROR_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@error"));
+
+    b.rule(SCSS_IF_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@if"));
+    b.rule(SCSS_ELSE_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@else"));
+    b.rule(SCSS_ELSE_IF_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, b.sequence("@else", SPACING, "if")));
+
+    b.rule(SCSS_EACH_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@each"));
+    b.rule(SCSS_EACH_IN).is(SPACING, b.token(GenericTokenType.LITERAL, "in"));
+
+    b.rule(SCSS_WHILE_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@while"));
+    b.rule(SCSS_FUNCTION_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@function"));
+    b.rule(SCSS_RETURN_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@return"));
+
+    b.rule(SCSS_FOR_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@for"));
+    b.rule(SCSS_FOR_FROM).is(SPACING, b.token(GenericTokenType.LITERAL, "from"));
+    b.rule(SCSS_FOR_TO).is(SPACING, b.token(GenericTokenType.LITERAL, "to"));
+    b.rule(SCSS_FOR_THROUGH).is(SPACING, b.token(GenericTokenType.LITERAL, "through"));
+
+    b.rule(SCSS_AT_ROOT_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@at-root"));
+    b.rule(SCSS_AT_ROOT_WITH).is(SPACING, b.token(GenericTokenType.LITERAL, "with"));
+    b.rule(SCSS_AT_ROOT_WITHOUT).is(SPACING, b.token(GenericTokenType.LITERAL, "without"));
+
+    b.rule(SCSS_IDENT_INTERPOLATED_IDENTIFIER_NO_WS).is(
+      b.token(GenericTokenType.LITERAL,
+        b.sequence(
+          b.optional(IDENT_IDENTIFIER_NO_WS),
+          b.regexp("#\\{[^\\n\\r\\f\\}]*\\}"),
+          b.zeroOrMore(
+            b.firstOf(
+              b.regexp("#\\{[^\\n\\r\\f\\}]*\\}"),
+              _NMCHAR)))));
+
+    b.rule(SCSS_IDENT_INTERPOLATED_IDENTIFIER).is(SPACING, SCSS_IDENT_INTERPOLATED_IDENTIFIER_NO_WS);
+
+    b.rule(SCSS_OPERATOR_LITERAL).is(
+      SPACING,
+      b.token(GenericTokenType.LITERAL,
+        b.firstOf(
+          "and",
+          "or",
+          "+",
+          "-",
+          "/",
+          "*",
+          "==",
+          "!=",
+          ">",
+          ">=",
+          "<",
+          "<=")));
+
+    b.rule(SCSS_MULTILINE_STRING_LITERAL).is(
+      SPACING,
+      b.token(
+        GenericTokenType.LITERAL,
+        b.regexp("\"[^\"\\n\\r]*[\\n\\r]+[^\"]*\"|'[^'\\n\\r]*[\\n\\r]+[^']*'")));
   }
 
   private static void less(LexerlessGrammarBuilder b) {

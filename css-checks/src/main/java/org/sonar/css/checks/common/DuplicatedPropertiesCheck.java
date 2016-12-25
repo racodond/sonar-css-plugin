@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -19,22 +19,19 @@
  */
 package org.sonar.css.checks.common;
 
-import com.google.common.collect.ImmutableList;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.Tags;
 import org.sonar.plugins.css.api.tree.css.PropertyDeclarationTree;
 import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
-import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.visitors.SubscriptionVisitorCheck;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.plugins.css.api.visitors.issue.PreciseIssue;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Rule(
   key = "duplicate-properties",
@@ -43,18 +40,11 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   tags = {Tags.PITFALL})
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
-public class DuplicatedPropertiesCheck extends SubscriptionVisitorCheck {
+public class DuplicatedPropertiesCheck extends DoubleDispatchVisitorCheck {
 
   @Override
-  public List<Tree.Kind> nodesToVisit() {
-    return ImmutableList.of(
-      Tree.Kind.RULESET_BLOCK,
-      Tree.Kind.AT_RULE_BLOCK);
-  }
-
-  @Override
-  public void visitNode(Tree tree) {
-    List<PropertyDeclarationTree> propertyDeclarations = ((StatementBlockTree) tree).propertyDeclarations();
+  public void visitStatementBlock(StatementBlockTree tree) {
+    List<PropertyDeclarationTree> propertyDeclarations = tree.propertyDeclarations();
 
     PropertyDeclarationTree current;
     PropertyDeclarationTree next;
@@ -95,6 +85,7 @@ public class DuplicatedPropertiesCheck extends SubscriptionVisitorCheck {
         duplicates.stream().forEach(d -> issue.secondary(d.property(), "Duplicated property"));
       }
     }
+    super.visitStatementBlock(tree);
   }
 
 }

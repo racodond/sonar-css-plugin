@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -53,7 +53,7 @@ public class CssInStyleTagTreeTest extends EmbeddedCssTreeTest {
     tree = checkParsed(
       "<style type = \"text/css\">\n"
         + "</style >");
-    assertThat(tree.styleSheet().rulesets()).hasSize(0);
+    assertThat(tree.styleSheet().rulesets()).isEmpty();
 
   }
 

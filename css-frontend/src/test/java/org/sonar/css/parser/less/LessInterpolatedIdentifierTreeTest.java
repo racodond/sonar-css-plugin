@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -32,15 +32,12 @@ public class LessInterpolatedIdentifierTreeTest extends LessTreeTest {
   }
 
   @Test
-  public void interpolatedIdentifier() {
-    IdentifierTree tree;
-
-    tree = checkParsed(" -moz-abc@{class}e@{class1}def", "-moz-abc@{class}e@{class1}def");
-    assertThat(tree.isInterpolated()).isTrue();
+  public void lessInterpolatedIdentifier() {
+    checkParsed(" -moz-abc@{class}e@{class1}def", "-moz-abc@{class}e@{class1}def");
   }
 
   @Test
-  public void notInterpolatedIdentifier() {
+  public void notLessInterpolatedIdentifier() {
     checkNotParsed(" *");
     checkNotParsed(" abc");
     checkNotParsed(" .");
@@ -50,15 +47,16 @@ public class LessInterpolatedIdentifierTreeTest extends LessTreeTest {
     checkNotParsed(" 123px");
   }
 
-  private IdentifierTree checkParsed(String toParse, String expectedIdent) {
+  private void checkParsed(String toParse, String expectedIdent) {
     IdentifierTree tree = (IdentifierTree) parser().parse(toParse);
     assertThat(tree.value()).isNotNull();
     assertThat(tree.text()).isEqualTo(expectedIdent);
-    return tree;
+    assertThat(tree.isLessInterpolated()).isTrue();
+    assertThat(tree.isInterpolated()).isTrue();
   }
 
-  private IdentifierTree checkParsed(String toParse) {
-    return checkParsed(toParse, toParse);
+  private void checkParsed(String toParse) {
+    checkParsed(toParse, toParse);
   }
 
 }

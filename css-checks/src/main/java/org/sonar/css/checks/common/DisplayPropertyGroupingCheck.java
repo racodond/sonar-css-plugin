@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -21,21 +21,19 @@ package org.sonar.css.checks.common;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-
-import java.util.List;
-import java.util.Map;
-
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.Tags;
 import org.sonar.plugins.css.api.tree.css.IdentifierTree;
 import org.sonar.plugins.css.api.tree.css.PropertyDeclarationTree;
 import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
-import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.visitors.SubscriptionVisitorCheck;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.plugins.css.api.visitors.issue.PreciseIssue;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+
+import java.util.List;
+import java.util.Map;
 
 @Rule(
   key = "display-property-grouping",
@@ -44,7 +42,7 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   tags = {Tags.PERFORMANCE, Tags.PITFALL})
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
-public class DisplayPropertyGroupingCheck extends SubscriptionVisitorCheck {
+public class DisplayPropertyGroupingCheck extends DoubleDispatchVisitorCheck {
 
   private static final Map<String, ImmutableList<String>> RULES = ImmutableMap.of(
     "inline", ImmutableList.of("width", "height", "margin", "margin-top", "margin-bottom", "float"),
@@ -56,19 +54,13 @@ public class DisplayPropertyGroupingCheck extends SubscriptionVisitorCheck {
   private List<String> propertiesToNotUse;
 
   @Override
-  public List<Tree.Kind> nodesToVisit() {
-    return ImmutableList.of(
-      Tree.Kind.RULESET_BLOCK,
-      Tree.Kind.AT_RULE_BLOCK);
-  }
-
-  @Override
-  public void visitNode(Tree tree) {
-    List<PropertyDeclarationTree> propertyDeclarations = ((StatementBlockTree) tree).propertyDeclarations();
+  public void visitStatementBlock(StatementBlockTree tree) {
+    List<PropertyDeclarationTree> propertyDeclarations = tree.propertyDeclarations();
     setPropertiesToNotUse(propertyDeclarations);
     if (propertiesToNotUse != null) {
       addIssues(propertyDeclarations, propertiesToNotUse);
     }
+    super.visitStatementBlock(tree);
   }
 
   private void setPropertiesToNotUse(List<PropertyDeclarationTree> propertyDeclarationTrees) {

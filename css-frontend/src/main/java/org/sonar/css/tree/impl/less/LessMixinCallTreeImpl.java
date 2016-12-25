@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -19,16 +19,18 @@
  */
 package org.sonar.css.tree.impl.less;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import javax.annotation.Nullable;
-
+import com.google.common.collect.Iterators;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.css.*;
+import org.sonar.plugins.css.api.tree.css.ImportantTree;
+import org.sonar.plugins.css.api.tree.css.SelectorCombinatorTree;
+import org.sonar.plugins.css.api.tree.css.SelectorTree;
+import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.less.LessMixinCallTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
+
+import javax.annotation.Nullable;
+import java.util.Iterator;
 
 public class LessMixinCallTreeImpl extends TreeImpl implements LessMixinCallTree {
 
@@ -51,18 +53,7 @@ public class LessMixinCallTreeImpl extends TreeImpl implements LessMixinCallTree
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    List<Tree> children = new ArrayList<>();
-    if (parentCombinator != null) {
-      children.add(parentCombinator);
-    }
-    children.add(selector);
-    if (important != null) {
-      children.add(important);
-    }
-    if (semicolon != null) {
-      children.add(semicolon);
-    }
-    return children.iterator();
+    return Iterators.forArray(parentCombinator, selector, important, semicolon);
   }
 
   @Override

@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -20,30 +20,33 @@
 package org.sonar.css.tree.impl.css;
 
 import com.google.common.collect.Iterators;
-
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import javax.annotation.Nullable;
-
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.atrule.StandardAtRule;
 import org.sonar.css.model.atrule.StandardAtRuleFactory;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.css.*;
+import org.sonar.plugins.css.api.tree.css.AtKeywordTree;
+import org.sonar.plugins.css.api.tree.css.AtRuleTree;
+import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
+import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
 
 public class AtRuleTreeImpl extends TreeImpl implements AtRuleTree {
 
   private final AtKeywordTree atKeyword;
   private final List<Tree> preludes;
-  private final AtRuleBlockTree block;
+  private final StatementBlockTree block;
   private final SyntaxToken semicolon;
   private final StandardAtRule standardAtRule;
   private final Vendor vendor;
 
-  public AtRuleTreeImpl(AtKeywordTree atKeyword, @Nullable List<Tree> preludes, @Nullable AtRuleBlockTree block, @Nullable SyntaxToken semicolon) {
+  public AtRuleTreeImpl(AtKeywordTree atKeyword, @Nullable List<Tree> preludes, @Nullable StatementBlockTree block, @Nullable SyntaxToken semicolon) {
     this.atKeyword = atKeyword;
     this.preludes = preludes;
     this.block = block;
@@ -59,14 +62,10 @@ public class AtRuleTreeImpl extends TreeImpl implements AtRuleTree {
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    if (preludes != null) {
-      return Iterators.concat(
-        Iterators.singletonIterator(atKeyword),
-        preludes.iterator(),
-        Iterators.forArray(block, semicolon));
-    } else {
-      return Iterators.forArray(atKeyword, block);
-    }
+    return Iterators.concat(
+      Iterators.singletonIterator(atKeyword),
+      preludes != null ? preludes.iterator() : new ArrayList<Tree>().iterator(),
+      Iterators.forArray(block, semicolon));
   }
 
   @Override
@@ -87,7 +86,7 @@ public class AtRuleTreeImpl extends TreeImpl implements AtRuleTree {
 
   @Override
   @Nullable
-  public AtRuleBlockTree block() {
+  public StatementBlockTree block() {
     return block;
   }
 

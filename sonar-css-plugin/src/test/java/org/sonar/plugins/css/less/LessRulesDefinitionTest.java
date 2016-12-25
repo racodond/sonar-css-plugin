@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -40,9 +40,9 @@ public class LessRulesDefinitionTest {
     assertThat(repository.language()).isEqualTo("less");
     assertThat(repository.rules()).hasSize(CheckList.getLessChecks().size());
 
-    RulesDefinition.Rule todoRule = repository.rule(DeprecatedEscapingFunctionCheck.class.getAnnotation(Rule.class).key());
-    assertThat(todoRule).isNotNull();
-    assertThat(todoRule.name()).isEqualTo(DeprecatedEscapingFunctionCheck.class.getAnnotation(Rule.class).name());
+    RulesDefinition.Rule rule = repository.rule(DeprecatedEscapingFunctionCheck.class.getAnnotation(Rule.class).key());
+    assertThat(rule).isNotNull();
+    assertThat(rule.name()).isEqualTo(DeprecatedEscapingFunctionCheck.class.getAnnotation(Rule.class).name());
   }
 
 }

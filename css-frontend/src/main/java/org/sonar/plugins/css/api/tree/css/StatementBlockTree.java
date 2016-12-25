@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -19,16 +19,22 @@
  */
 package org.sonar.plugins.css.api.tree.css;
 
-import java.util.List;
-import javax.annotation.Nullable;
-
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.less.LessMixinCallTree;
 import org.sonar.plugins.css.api.tree.less.LessVariableDeclarationTree;
+import org.sonar.plugins.css.api.tree.scss.*;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public interface StatementBlockTree extends Tree {
 
   SyntaxToken openCurlyBrace();
+
+  @Nullable
+  List<Tree> content();
+
+  SyntaxToken closeCurlyBrace();
 
   List<PropertyDeclarationTree> propertyDeclarations();
 
@@ -36,21 +42,26 @@ public interface StatementBlockTree extends Tree {
 
   List<EmptyStatementTree> emptyStatements();
 
-  List<LessVariableDeclarationTree> lessVariableDeclarations();
-
   List<DeclarationTree> allDeclarations();
 
   List<RulesetTree> rulesets();
 
   List<AtRuleTree> atRules();
 
-  List<LessMixinCallTree> lessMixinCalls();
-
   List<Tree> allStatements();
 
-  @Nullable
-  List<Tree> content();
+  List<LessVariableDeclarationTree> lessVariableDeclarations();
 
-  SyntaxToken closeCurlyBrace();
+  List<LessMixinCallTree> lessMixinCalls();
+
+  List<ScssVariableDeclarationTree> scssVariableDeclarations();
+
+  List<ScssMixinDefinitionTree> scssMixinDefinitions();
+
+  List<ScssMixinIncludeTree> scssMixinIncludes();
+
+  List<ScssExtendTree> scssExtends();
+
+  List<ScssAtRootTree> scssAtRoots();
 
 }

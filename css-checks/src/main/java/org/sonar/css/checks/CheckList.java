@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -20,20 +20,23 @@
 package org.sonar.css.checks;
 
 import com.google.common.collect.ImmutableList;
+import org.sonar.css.checks.common.*;
+import org.sonar.css.checks.css.*;
+import org.sonar.css.checks.css.ParsingErrorCheck;
+import org.sonar.css.checks.less.*;
+import org.sonar.css.checks.scss.ScssVariableNamingConventionCheck;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.sonar.css.checks.common.*;
-import org.sonar.css.checks.css.*;
-import org.sonar.css.checks.css.ParsingErrorCheck;
-import org.sonar.css.checks.less.*;
-
 public final class CheckList {
 
   public static final String CSS_REPOSITORY_KEY = "css";
   public static final String CSS_REPOSITORY_NAME = "SonarQube";
+
+  public static final String SCSS_REPOSITORY_KEY = "scss";
+  public static final String SCSS_REPOSITORY_NAME = "SonarQube";
 
   public static final String LESS_REPOSITORY_KEY = "less";
   public static final String LESS_REPOSITORY_NAME = "SonarQube";
@@ -54,6 +57,16 @@ public final class CheckList {
         ObsoleteCssFunctionCheck.class,
         ParsingErrorCheck.class,
         UnknownCssFunctionCheck.class).stream())
+      .collect(Collectors.toList());
+  }
+
+  @SuppressWarnings("rawtypes")
+  public static List<Class> getScssChecks() {
+    return Stream.concat(
+      getCommonChecks().stream(),
+      ImmutableList.of(
+        org.sonar.css.checks.scss.ParsingErrorCheck.class,
+        ScssVariableNamingConventionCheck.class).stream())
       .collect(Collectors.toList());
   }
 

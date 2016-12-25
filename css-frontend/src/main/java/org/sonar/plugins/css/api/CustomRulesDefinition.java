@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -23,19 +23,10 @@ import org.sonar.api.server.rule.RulesDefinition;
 
 public abstract class CustomRulesDefinition implements RulesDefinition {
 
-  /**
-   * Name of the custom rule repository.
-   */
   public abstract String repositoryName();
 
-  /**
-   * Key of the custom rule repository.
-   */
   public abstract String repositoryKey();
 
-  /**
-   * Array of the custom rules classes.
-   */
   public abstract Class[] checkClasses();
 
 }

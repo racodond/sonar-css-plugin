@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -19,21 +19,23 @@
  */
 package org.sonar.css.parser;
 
+import com.google.common.collect.Lists;
 import com.sonar.sslr.api.typed.Optional;
-
-import java.util.List;
-
-import org.sonar.css.tree.impl.SyntaxList;
+import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.css.tree.impl.css.*;
 import org.sonar.css.tree.impl.embedded.CssInStyleTagTreeImpl;
 import org.sonar.css.tree.impl.embedded.FileWithEmbeddedCssTreeImpl;
 import org.sonar.css.tree.impl.less.*;
+import org.sonar.css.tree.impl.scss.*;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.*;
 import org.sonar.plugins.css.api.tree.embedded.CssInStyleTagTree;
 import org.sonar.plugins.css.api.tree.embedded.FileWithEmbeddedCssTree;
 import org.sonar.plugins.css.api.tree.less.*;
+import org.sonar.plugins.css.api.tree.scss.*;
+
+import java.util.List;
 
 public class TreeFactory {
 
@@ -41,20 +43,20 @@ public class TreeFactory {
     return new StyleSheetTreeImpl(byteOrderMark.orNull(), statements.orNull(), eof);
   }
 
-  public AtRuleTree atRule(AtKeywordTree atKeyword, Optional<List<Tree>> prelude, Optional<AtRuleBlockTree> block, Optional<SyntaxToken> semicolon) {
+  public AtRuleTree atRule(AtKeywordTree atKeyword, Optional<List<Tree>> prelude, Optional<StatementBlockTree> block, Optional<SyntaxToken> semicolon) {
     return new AtRuleTreeImpl(atKeyword, prelude.orNull(), block.orNull(), semicolon.orNull());
   }
 
-  public AtRuleBlockTree atRuleBlock(SyntaxToken openCurlyBrace, Optional<List<Tree>> content, SyntaxToken closeCurlyBrace) {
-    return new AtRuleBlockTreeImpl(openCurlyBrace, content.orNull(), closeCurlyBrace);
-  }
-
-  public RulesetTree ruleset(Optional<SyntaxToken> spacing, Optional<SelectorsTree> selectors, RulesetBlockTree block) {
+  public RulesetTree ruleset(Optional<SyntaxToken> spacing, Optional<SelectorsTree> selectors, StatementBlockTree block) {
     return new RulesetTreeImpl(selectors.orNull(), block);
   }
 
-  public RulesetBlockTree rulesetBlock(SyntaxToken openCurlyBrace, Optional<List<Tree>> content, SyntaxToken closeCurlyBrace) {
-    return new RulesetBlockTreeImpl(openCurlyBrace, content.orNull(), closeCurlyBrace);
+  public StatementBlockTree atRuleBlock(SyntaxToken openCurlyBrace, Optional<List<Tree>> content, SyntaxToken closeCurlyBrace) {
+    return new StatementBlockTreeImpl(openCurlyBrace, content.orNull(), closeCurlyBrace);
+  }
+
+  public StatementBlockTree rulesetBlock(SyntaxToken openCurlyBrace, Optional<List<Tree>> content, SyntaxToken closeCurlyBrace) {
+    return new StatementBlockTreeImpl(openCurlyBrace, content.orNull(), closeCurlyBrace);
   }
 
   public ParenthesisBlockTree parenthesisBlock(SyntaxToken openParenthesis, Optional<List<Tree>> content, SyntaxToken closeParenthesis) {
@@ -101,28 +103,44 @@ public class TreeFactory {
     return new FunctionTreeImpl(functionName, openParenthesis, parameterElements.orNull(), closeParenthesis);
   }
 
-  public SelectorsTree selectors(SyntaxList<SelectorTree> selectors) {
+  public SelectorsTree selectors(SeparatedList<SelectorTree, SyntaxToken> selectors) {
     return new SelectorsTreeImpl(selectors);
   }
 
-  public SyntaxList<SelectorTree> selectorList(SelectorTree selector) {
-    return new SyntaxList<>(selector, null, null);
+  public SeparatedList<SelectorTree, SyntaxToken> selectorList(SelectorTree selector, Optional<List<Tuple<SyntaxToken, SelectorTree>>> subsequentSelectors) {
+    List<SelectorTree> selectors = Lists.newArrayList();
+    List<SyntaxToken> separators = Lists.newArrayList();
+
+    selectors.add(selector);
+
+    if (subsequentSelectors.isPresent()) {
+      for (Tuple<SyntaxToken, SelectorTree> t : subsequentSelectors.get()) {
+        separators.add(t.first());
+        selectors.add(t.second());
+      }
+    }
+
+    return new SeparatedList<>(selectors, separators);
   }
 
-  public SyntaxList<SelectorTree> selectorList(SelectorTree selector, SyntaxToken commaToken, SyntaxList<SelectorTree> next) {
-    return new SyntaxList<>(selector, commaToken, next);
+  public SelectorTree selector(SeparatedList<CompoundSelectorTree, SelectorCombinatorTree> compoundSelectors) {
+    return new SelectorTreeImpl(compoundSelectors);
   }
 
-  public SelectorTree selector(SelectorCombinationList selectorCombinationList) {
-    return new SelectorTreeImpl(selectorCombinationList);
-  }
+  public SeparatedList<CompoundSelectorTree, SelectorCombinatorTree> selectorCombinationList(CompoundSelectorTree selector, Optional<List<Tuple<SelectorCombinatorTree, CompoundSelectorTree>>> subsequentSelectors) {
+    List<CompoundSelectorTree> compoundSelectors = Lists.newArrayList();
+    List<SelectorCombinatorTree> selectorCombinators = Lists.newArrayList();
 
-  public SelectorCombinationList selectorCombinationList(CompoundSelectorTree selector, SelectorCombinatorTree combinator, SelectorCombinationList next) {
-    return new SelectorCombinationList(selector, combinator, next);
-  }
+    compoundSelectors.add(selector);
 
-  public SelectorCombinationList selectorCombinationList(CompoundSelectorTree selector) {
-    return new SelectorCombinationList(selector, null, null);
+    if (subsequentSelectors.isPresent()) {
+      for (Tuple<SelectorCombinatorTree, CompoundSelectorTree> t : subsequentSelectors.get()) {
+        selectorCombinators.add(t.first());
+        compoundSelectors.add(t.second());
+      }
+    }
+
+    return new SeparatedList<>(compoundSelectors, selectorCombinators);
   }
 
   public SelectorCombinatorTree selectorCombinator(SyntaxToken combinator) {
@@ -158,7 +176,7 @@ public class TreeFactory {
   }
 
   public PseudoFunctionTree pseudoFunction(SyntaxToken prefix, IdentifierTree pseudoFunctionName, SyntaxToken openParenthesis, Optional<List<Tree>> parameterElements,
-    SyntaxToken closeParenthesis) {
+                                           SyntaxToken closeParenthesis) {
     return new PseudoFunctionTreeImpl(prefix, pseudoFunctionName, openParenthesis, parameterElements.orNull(), closeParenthesis);
   }
 
@@ -167,12 +185,12 @@ public class TreeFactory {
   }
 
   public AttributeSelectorTree attributeSelector(SyntaxToken openBracket, IdentifierTree attribute,
-    Optional<AttributeMatcherExpressionTree> matcherExpression, SyntaxToken closeBracket) {
+                                                 Optional<AttributeMatcherExpressionTree> matcherExpression, SyntaxToken closeBracket) {
     return new AttributeSelectorTreeImpl(openBracket, null, attribute, matcherExpression.orNull(), closeBracket);
   }
 
   public AttributeSelectorTree attributeSelector(SyntaxToken openBracket, TreeImpl spacing, NamespaceTree namespace, IdentifierTree attribute,
-    Optional<AttributeMatcherExpressionTree> matcherExpression, SyntaxToken closeBracket) {
+                                                 Optional<AttributeMatcherExpressionTree> matcherExpression, SyntaxToken closeBracket) {
     return new AttributeSelectorTreeImpl(openBracket, namespace, attribute, matcherExpression.orNull(), closeBracket);
   }
 
@@ -265,6 +283,208 @@ public class TreeFactory {
   }
 
   // ---------------------------------
+  // Common to SCSS and Less
+  // ---------------------------------
+  public StatementBlockTree rulesetBlock(StatementBlockTree block) {
+    return new StatementBlockTreeImpl(block);
+  }
+
+  public StatementBlockTree atRuleBlock(StatementBlockTree block) {
+    return new StatementBlockTreeImpl(block);
+  }
+
+  public StatementBlockTree statementBlock(SyntaxToken openCurlyBrace, Optional<List<Tree>> content, SyntaxToken closeCurlyBrace) {
+    return new StatementBlockTreeImpl(openCurlyBrace, content.orNull(), closeCurlyBrace);
+  }
+
+  // ---------------------------------
+  // SCSS
+  // ---------------------------------
+  public SelectorTree scssSelector(Optional<SelectorCombinatorTree> parentCombinator, SeparatedList<CompoundSelectorTree, SelectorCombinatorTree> selectors, Optional<SelectorCombinatorTree> blockCombinator) {
+    return new SelectorTreeImpl(parentCombinator.orNull(), selectors, blockCombinator.orNull());
+  }
+
+  public ScssParentSelectorTree scssParentSelector(SyntaxToken parentSelector) {
+    return new ScssParentSelectorTreeImpl(parentSelector);
+  }
+
+  public SelectorCombinatorTree scssParentSelectorCombinator(SyntaxToken combinator) {
+    return new SelectorCombinatorTreeImpl(combinator);
+  }
+
+  public ScssNestedPropertiesDeclarationTree scssNestedPropertiesDeclaration(PropertyTree namespace, SyntaxToken colon, StatementBlockTree block) {
+    return new ScssNestedPropertiesDeclarationTreeImpl(namespace, colon, block);
+  }
+
+  public ScssVariableDeclarationTree scssVariableDeclaration(ScssVariableTree variable, SyntaxToken colon, ValueTree value, Optional<SyntaxToken> semicolon) {
+    return new ScssVariableDeclarationTreeImpl(variable, colon, value, semicolon.orNull());
+  }
+
+  public ScssVariableDeclarationTree scssVariableDeclarationWithoutDelimiterInValue(ScssVariableTree variable, SyntaxToken colon, ValueTree value, Optional<SyntaxToken> semicolon) {
+    return new ScssVariableDeclarationTreeImpl(variable, colon, value, semicolon.orNull());
+  }
+
+  public ScssVariableTree scssVariable(SyntaxToken variablePrefix, IdentifierTree variable) {
+    return new ScssVariableTreeImpl(variablePrefix, variable);
+  }
+
+  public ScssVariableArgumentTree scssVariableArgument(SyntaxToken variablePrefix, IdentifierTree variable, SyntaxToken ellipsis) {
+    return new ScssVariableArgumentTreeImpl(variablePrefix, variable, ellipsis);
+  }
+
+  public ScssDefaultFlagTree scssDefaultFlag(SyntaxToken keyword) {
+    return new ScssDefaultFlagTreeImpl(keyword);
+  }
+
+  public ScssGlobalFlagTree scssGlobalFlag(SyntaxToken keyword) {
+    return new ScssGlobalFlagTreeImpl(keyword);
+  }
+
+  public ScssOptionalFlagTree scssOptionalFlag(SyntaxToken keyword) {
+    return new ScssOptionalFlagTreeImpl(keyword);
+  }
+
+  public ScssFunctionDefinitionTree scssFunctionDefinition(SyntaxToken directive, IdentifierTree name, Optional<ScssParametersTree> parameters, StatementBlockTree block) {
+    return new ScssFunctionDefinitionTreeImpl(directive, name, parameters.orNull(), block);
+  }
+
+  public ScssMixinDefinitionTree scssMixinDefinition(SyntaxToken directive, IdentifierTree name, Optional<ScssParametersTree> parameters, StatementBlockTree block) {
+    return new ScssMixinDefinitionTreeImpl(directive, name, parameters.orNull(), block);
+  }
+
+  public ScssMixinIncludeTree scssMixinInclude(SyntaxToken directive, IdentifierTree name, Optional<ScssParametersTree> parameters, Optional<StatementBlockTree> block, Optional<SyntaxToken> semicolon) {
+    return new ScssMixinIncludeTreeImpl(directive, name, parameters.orNull(), block.orNull(), semicolon.orNull());
+  }
+
+  public ScssParametersTree scssDefinitionParameters(SyntaxToken openParenthesis, Optional<SeparatedList<ScssParameterTree, SyntaxToken>> parameters, SyntaxToken closeParenthesis) {
+    return new ScssParametersTreeImpl(openParenthesis, parameters.orNull(), closeParenthesis);
+  }
+
+  public ScssParametersTree scssCallParameters(SyntaxToken openParenthesis, Optional<SeparatedList<ScssParameterTree, SyntaxToken>> parameters, SyntaxToken closeParenthesis) {
+    return new ScssParametersTreeImpl(openParenthesis, parameters.orNull(), closeParenthesis);
+  }
+
+  public SeparatedList<ScssParameterTree, SyntaxToken> scssDefinitionParameterList(ScssParameterTree parameter, Optional<List<Tuple<SyntaxToken, ScssParameterTree>>> subsequentParameters) {
+    return scssParameterList(parameter, subsequentParameters);
+  }
+
+  public SeparatedList<ScssParameterTree, SyntaxToken> scssCallParameterList(ScssParameterTree parameter, Optional<List<Tuple<SyntaxToken, ScssParameterTree>>> subsequentParameters) {
+    return scssParameterList(parameter, subsequentParameters);
+  }
+
+  private SeparatedList<ScssParameterTree, SyntaxToken> scssParameterList(ScssParameterTree parameter, Optional<List<Tuple<SyntaxToken, ScssParameterTree>>> subsequentParameters) {
+    List<ScssParameterTree> parameters = Lists.newArrayList();
+    List<SyntaxToken> separators = Lists.newArrayList();
+
+    parameters.add(parameter);
+
+    if (subsequentParameters.isPresent()) {
+      for (Tuple<SyntaxToken, ScssParameterTree> t : subsequentParameters.get()) {
+        separators.add(t.first());
+        parameters.add(t.second());
+      }
+    }
+
+    return new SeparatedList<>(parameters, separators);
+  }
+
+  public ScssParameterTree scssDefinitionParameter(Tree tree) {
+    return new ScssParameterTreeImpl(tree);
+  }
+
+  public ScssParameterTree scssCallParameter(Tree tree) {
+    return new ScssParameterTreeImpl(tree);
+  }
+
+  public ValueTree scssValue(List<Tree> valueElements) {
+    return new ValueTreeImpl(valueElements);
+  }
+
+  public ValueTree scssValueWithoutDelimiter(List<Tree> valueElements) {
+    return new ValueTreeImpl(valueElements);
+  }
+
+  public ScssExtendTree scssExtend(SyntaxToken directive, CompoundSelectorTree compoundSelector, Optional<ScssOptionalFlagTree> optionalFlag, Optional<SyntaxToken> semicolon) {
+    return new ScssExtendTreeImpl(directive, compoundSelector, optionalFlag.orNull(), semicolon.orNull());
+  }
+
+  public ScssContentTree scssContent(SyntaxToken directive, Optional<SyntaxToken> semicolon) {
+    return new ScssContentTreeImpl(directive, semicolon.orNull());
+  }
+
+  public ScssDebugTree scssDebug(SyntaxToken directive, ValueTree value, Optional<SyntaxToken> semicolon) {
+    return new ScssDebugTreeImpl(directive, value, semicolon.orNull());
+  }
+
+  public ScssWarnTree scssWarn(SyntaxToken directive, ValueTree value, Optional<SyntaxToken> semicolon) {
+    return new ScssWarnTreeImpl(directive, value, semicolon.orNull());
+  }
+
+  public ScssErrorTree scssError(SyntaxToken directive, ValueTree value, Optional<SyntaxToken> semicolon) {
+    return new ScssErrorTreeImpl(directive, value, semicolon.orNull());
+  }
+
+  public ScssReturnTree scssReturn(SyntaxToken directive, ValueTree value, Optional<SyntaxToken> semicolon) {
+    return new ScssReturnTreeImpl(directive, value, semicolon.orNull());
+  }
+
+  public ScssIfConditionsTree scssIfConditions(ScssIfTree ifDirective, Optional<List<ScssElseIfTree>> elseIfDirectives, Optional<ScssElseTree> elseDirective) {
+    return new ScssIfConditionsTreeImpl(ifDirective, elseIfDirectives.orNull(), elseDirective.orNull());
+  }
+
+  public ScssIfTree scssIf(SyntaxToken directive, ValueTree condition, StatementBlockTree block) {
+    return new ScssIfTreeImpl(directive, condition, block);
+  }
+
+  public ScssElseIfTree scssElseIf(SyntaxToken directive, ValueTree condition, StatementBlockTree block) {
+    return new ScssElseIfTreeImpl(directive, condition, block);
+  }
+
+  public ScssWhileTree scssWhile(SyntaxToken directive, ValueTree condition, StatementBlockTree block) {
+    return new ScssWhileTreeImpl(directive, condition, block);
+  }
+
+  public ScssElseTree scssElse(SyntaxToken directive, StatementBlockTree block) {
+    return new ScssElseTreeImpl(directive, block);
+  }
+
+  public ScssForTree scssFor(SyntaxToken directive, ValueTree condition, StatementBlockTree block) {
+    return new ScssForTreeImpl(directive, condition, block);
+  }
+
+  public ScssEachTree scssEach(SyntaxToken directive, ValueTree condition, StatementBlockTree block) {
+    return new ScssEachTreeImpl(directive, condition, block);
+  }
+
+  public ScssAtRootTree scssAtRoot(SyntaxToken directive, Optional<ScssAtRootParametersTree> parameters, Tree content) {
+    return new ScssAtRootTreeImpl(directive, parameters.orNull(), content);
+  }
+
+  public ScssAtRootParametersTree scssAtRootParameters(SyntaxToken openParenthesis, SyntaxToken parameter, SyntaxToken colon, List<IdentifierTree> values, SyntaxToken closeParenthesis) {
+    return new ScssAtRootParametersTreeImpl(openParenthesis, parameter, colon, values, closeParenthesis);
+  }
+
+  public ScssPlaceholderSelectorTree scssPlaceholderSelector(SyntaxToken percentage, IdentifierTree identifier) {
+    return new ScssPlaceholderSelectorTreeImpl(percentage, identifier);
+  }
+
+  public IdentifierTree scssInterpolatedIdentifier(SyntaxToken identifier) {
+    return identifier(identifier);
+  }
+
+  public IdentifierTree scssInterpolatedIdentifierNoWs(SyntaxToken identifier) {
+    return identifier(identifier);
+  }
+
+  public ScssOperatorTree scssOperator(SyntaxToken operator) {
+    return new ScssOperatorTreeImpl(operator);
+  }
+
+  public ScssMultilineStringTree scssMultilineString(SyntaxToken string) {
+    return new ScssMultilineStringTreeImpl(string);
+  }
+
+  // ---------------------------------
   // Less
   // ---------------------------------
 
@@ -272,13 +492,13 @@ public class TreeFactory {
     return new PropertyTreeImpl(property, merge.orNull());
   }
 
-  public SelectorsTree lessSelectors(SyntaxList<SelectorTree> selectors, Optional<SyntaxToken> comma) {
+  public SelectorsTree lessSelectors(SeparatedList<SelectorTree, SyntaxToken> selectors, Optional<SyntaxToken> comma) {
     return new SelectorsTreeImpl(selectors, comma.orNull());
   }
 
-  public SelectorTree lessSelector(Optional<SelectorCombinatorTree> parentCombinator, SelectorCombinationList selectorCombinationList, Optional<LessExtendTree> extend,
-    Optional<LessMixinParametersTree> parameters, Optional<LessMixinGuardTree> guard) {
-    return new SelectorTreeImpl(parentCombinator.orNull(), selectorCombinationList, extend.orNull(), parameters.orNull(), guard.orNull());
+  public SelectorTree lessSelector(Optional<SelectorCombinatorTree> parentCombinator, SeparatedList<CompoundSelectorTree, SelectorCombinatorTree> selectors, Optional<LessExtendTree> extend,
+                                   Optional<LessMixinParametersTree> parameters, Optional<LessMixinGuardTree> guard) {
+    return new SelectorTreeImpl(parentCombinator.orNull(), selectors, extend.orNull(), parameters.orNull(), guard.orNull());
   }
 
   public LessVariableDeclarationTree lessVariableDeclaration(LessVariableTree variable, SyntaxToken colon, ValueTree value, Optional<SyntaxToken> semicolon) {
@@ -314,36 +534,52 @@ public class TreeFactory {
   }
 
   public LessMixinCallTree lessMixinCall(Optional<SelectorCombinatorTree> parentCombinator, Optional<SyntaxToken> spacing, SelectorTree selector, Optional<ImportantTree> important,
-    Optional<SyntaxToken> semicolon) {
+                                         Optional<SyntaxToken> semicolon) {
     return new LessMixinCallTreeImpl(parentCombinator.orNull(), selector, important.orNull(), semicolon.orNull());
   }
 
-  public LessMixinGuardTree lessMixinGuard(SyntaxToken when, Optional<SyntaxToken> not, SyntaxList<ParenthesisBlockTree> conditions) {
+  public LessMixinGuardTree lessMixinGuard(SyntaxToken when, Optional<SyntaxToken> not, SeparatedList<ParenthesisBlockTree, SyntaxToken> conditions) {
     return new LessMixinGuardTreeImpl(when, not.orNull(), conditions);
   }
 
-  public SyntaxList<ParenthesisBlockTree> lessMixinGuardConditionList(ParenthesisBlockTree condition, SyntaxToken comma, SyntaxList<ParenthesisBlockTree> next) {
-    return new SyntaxList<>(condition, comma, next);
+  public SeparatedList<ParenthesisBlockTree, SyntaxToken> lessMixinGuardConditionList(ParenthesisBlockTree condition, Optional<List<Tuple<SyntaxToken, ParenthesisBlockTree>>> subsequentConditions) {
+    List<ParenthesisBlockTree> conditions = Lists.newArrayList();
+    List<SyntaxToken> separators = Lists.newArrayList();
+
+    conditions.add(condition);
+
+    if (subsequentConditions.isPresent()) {
+      for (Tuple<SyntaxToken, ParenthesisBlockTree> t : subsequentConditions.get()) {
+        separators.add(t.first());
+        conditions.add(t.second());
+      }
+    }
+
+    return new SeparatedList<>(conditions, separators);
   }
 
-  public SyntaxList<ParenthesisBlockTree> lessMixinGuardConditionList(ParenthesisBlockTree condition) {
-    return new SyntaxList<>(condition, null, null);
-  }
-
-  public LessMixinParametersTree lessMixinParameters(SyntaxToken openParenthesis, Optional<SyntaxList<LessMixinParameterTree>> parameters, SyntaxToken closeParenthesis) {
+  public LessMixinParametersTree lessMixinParameters(SyntaxToken openParenthesis, Optional<SeparatedList<LessMixinParameterTree, SyntaxToken>> parameters, SyntaxToken closeParenthesis) {
     return new LessMixinParametersTreeImpl(openParenthesis, parameters.orNull(), closeParenthesis);
   }
 
-  public SyntaxList<LessMixinParameterTree> lessMixinParameterList(LessMixinParameterTree parameter) {
-    return new SyntaxList<>(parameter, null, null);
-  }
+  public SeparatedList<LessMixinParameterTree, SyntaxToken> lessMixinParameterList(LessMixinParameterTree parameter, Optional<List<Tuple<SyntaxToken, LessMixinParameterTree>>> subsequentParameters, Optional<SyntaxToken> trailingSeparator) {
+    List<LessMixinParameterTree> parameters = Lists.newArrayList();
+    List<SyntaxToken> separators = Lists.newArrayList();
 
-  public SyntaxList<LessMixinParameterTree> lessMixinParameterList(LessMixinParameterTree parameter, SyntaxToken separator) {
-    return new SyntaxList<>(parameter, separator, null);
-  }
+    parameters.add(parameter);
 
-  public SyntaxList<LessMixinParameterTree> lessMixinParameterList(LessMixinParameterTree parameter, SyntaxToken separator, SyntaxList<LessMixinParameterTree> next) {
-    return new SyntaxList<>(parameter, separator, next);
+    if (subsequentParameters.isPresent()) {
+      for (Tuple<SyntaxToken, LessMixinParameterTree> t : subsequentParameters.get()) {
+        separators.add(t.first());
+        parameters.add(t.second());
+      }
+    }
+
+    if (trailingSeparator.isPresent()) {
+      separators.add(trailingSeparator.get());
+    }
+
+    return new SeparatedList<>(parameters, separators);
   }
 
   public LessMixinParameterTree lessMixinParameter(LessVariableTree variable, Optional<SyntaxToken> colon, Optional<ValueTree> value) {
@@ -356,6 +592,59 @@ public class TreeFactory {
 
   public LessEscapingTree lessEscaping(SyntaxToken escapingSymbol, StringTree string) {
     return new LessEscapingTreeImpl(escapingSymbol, string);
+  }
+
+  // ---------------------------------
+  // Tuple
+  // ---------------------------------
+
+  public static class Tuple<T, U> {
+
+    private final T first;
+    private final U second;
+
+    public Tuple(T first, U second) {
+      super();
+
+      this.first = first;
+      this.second = second;
+    }
+
+    public T first() {
+      return first;
+    }
+
+    public U second() {
+      return second;
+    }
+  }
+
+  private static <T, U> Tuple<T, U> newTuple(T first, U second) {
+    return new Tuple<>(first, second);
+  }
+
+  public <T, U> Tuple<T, U> newTuple1(T first, U second) {
+    return newTuple(first, second);
+  }
+
+  public <T, U> Tuple<T, U> newTuple2(T first, U second) {
+    return newTuple(first, second);
+  }
+
+  public <T, U> Tuple<T, U> newTuple3(T first, U second) {
+    return newTuple(first, second);
+  }
+
+  public <T, U> Tuple<T, U> newTuple4(T first, U second) {
+    return newTuple(first, second);
+  }
+
+  public <T, U> Tuple<T, U> newTuple5(T first, U second) {
+    return newTuple(first, second);
+  }
+
+  public <T, U> Tuple<T, U> newTuple6(T first, U second) {
+    return newTuple(first, second);
   }
 
 }

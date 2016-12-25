@@ -94,6 +94,10 @@
 'project:custom/common/metrics.css':[
 11,
 ],
+'project:custom/common/oneDeclarationPerLine.css':[
+27,
+27,
+],
 'project:custom/common/trailingWhitespace.css':[
 5,
 9,

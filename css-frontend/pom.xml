@@ -9,7 +9,7 @@
   </parent>
 
   <artifactId>css-frontend</artifactId>
-  <name>SonarQube CSS / Less Plugin :: Frontend</name>
+  <name>SonarQube CSS / SCSS / Less Analyzer :: Frontend</name>
 
   <dependencies>
     <dependency>

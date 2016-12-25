@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -39,7 +39,7 @@ public class PluginTest {
   public void should_get_the_right_number_of_extensions() {
     Context context = new Context(Version.create(5, 6));
     new Plugin().define(context);
-    assertThat(context.getExtensions()).hasSize(9);
+    assertThat(context.getExtensions()).hasSize(13);
   }
 
 }

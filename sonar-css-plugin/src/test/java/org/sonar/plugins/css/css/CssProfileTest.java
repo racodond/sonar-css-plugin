@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -24,7 +24,6 @@ import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
-import org.sonar.css.checks.CheckList;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Matchers.anyString;
@@ -39,9 +38,9 @@ public class CssProfileTest {
     CssProfile definition = new CssProfile(universalRuleFinder());
     RulesProfile profile = definition.createProfile(validation);
 
-    assertThat(profile.getName()).isEqualTo(CssProfile.SONARQUBE_WAY_PROFILE_NAME);
-    assertThat(profile.getLanguage()).isEqualTo(CssLanguage.KEY);
-    assertThat(profile.getActiveRulesByRepository(CheckList.CSS_REPOSITORY_KEY)).hasSize(59);
+    assertThat(profile.getName()).isEqualTo("SonarQube Way");
+    assertThat(profile.getLanguage()).isEqualTo("css");
+    assertThat(profile.getActiveRulesByRepository("css")).hasSize(59);
     assertThat(validation.hasErrors()).isFalse();
   }
 

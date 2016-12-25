@@ -9,10 +9,10 @@
   </parent>
 
   <artifactId>css-its</artifactId>
-  <name>SonarQube CSS / Less Plugin :: Integration Tests</name>
+  <name>SonarQube CSS / SCSS / Less Analyzer :: Integration Tests</name>
   <packaging>pom</packaging>
 
-  <description>Integration tests of the SonarQube CSS / Less plugin</description>
+  <description>Integration tests of the SonarQube CSS / SCSS / Less Analyzer</description>
   <inceptionYear>2013</inceptionYear>
   <organization>
     <name>Tamas Kende and David RACODON</name>

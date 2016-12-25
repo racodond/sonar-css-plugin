@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -20,11 +20,6 @@
 package org.sonar.css.tree.symbol;
 
 import com.google.common.base.Charsets;
-
-import java.io.File;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import org.junit.Test;
 import org.sonar.css.parser.less.LessParser;
 import org.sonar.css.tree.impl.TreeImpl;
@@ -33,6 +28,10 @@ import org.sonar.css.visitors.CssTreeVisitorContext;
 import org.sonar.plugins.css.api.symbol.Symbol;
 import org.sonar.plugins.css.api.symbol.SymbolModel;
 import org.sonar.plugins.css.api.tree.Tree;
+
+import java.io.File;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -58,7 +57,7 @@ public class ScopeTest {
   public void test_at_rule_block_scope() throws Exception {
     Scope scope = scopeAtLine(20);
 
-    assertThat(scope.tree().is(Tree.Kind.AT_RULE_BLOCK)).isTrue();
+    assertThat(scope.tree().is(Tree.Kind.STATEMENT_BLOCK)).isTrue();
     assertThat(symbols(scope)).containsOnly("myvar");
     assertThat(scope.getSymbols(Symbol.Kind.LESS_VARIABLE)).hasSize(1);
   }
@@ -67,16 +66,16 @@ public class ScopeTest {
   public void test_stylesheet_block_scope1() throws Exception {
     Scope scope = scopeAtLine(4);
 
-    assertThat(scope.tree().is(Tree.Kind.RULESET_BLOCK)).isTrue();
-    assertThat(symbols(scope)).containsOnly("myvar", "myvar1");
-    assertThat(scope.getSymbols(Symbol.Kind.LESS_VARIABLE)).hasSize(2);
+    assertThat(scope.tree().is(Tree.Kind.STATEMENT_BLOCK)).isTrue();
+    assertThat(symbols(scope)).containsOnly("myvar", "myvar1", "myvar2");
+    assertThat(scope.getSymbols(Symbol.Kind.LESS_VARIABLE)).hasSize(3);
   }
 
   @Test
   public void test_stylesheet_block_scope2() throws Exception {
     Scope scope = scopeAtLine(11);
 
-    assertThat(scope.tree().is(Tree.Kind.RULESET_BLOCK)).isTrue();
+    assertThat(scope.tree().is(Tree.Kind.STATEMENT_BLOCK)).isTrue();
     assertThat(symbols(scope)).containsOnly("blabla");
     assertThat(scope.getSymbols(Symbol.Kind.LESS_VARIABLE)).hasSize(1);
   }

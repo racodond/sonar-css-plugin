@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -19,12 +19,12 @@
  */
 package org.sonar.plugins.css.api.tree.css;
 
-import java.util.List;
-import javax.annotation.Nullable;
-
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.atrule.StandardAtRule;
 import org.sonar.plugins.css.api.tree.Tree;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public interface AtRuleTree extends StatementTree {
 
@@ -41,7 +41,7 @@ public interface AtRuleTree extends StatementTree {
   List<Tree> preludes();
 
   @Nullable
-  AtRuleBlockTree block();
+  StatementBlockTree block();
 
   @Nullable
   SyntaxToken semicolon();

@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -24,18 +24,10 @@ import org.sonar.api.ExtensionPoint;
 import org.sonar.api.batch.BatchSide;
 import org.sonar.squidbridge.annotations.AnnotationBasedRulesDefinition;
 
-/**
- * Extension point to create custom rule repository for CSS.
- */
 @ExtensionPoint
 @BatchSide
 public abstract class CustomCssRulesDefinition extends CustomRulesDefinition {
 
-  /**
-   * Defines rule repository with check metadata from check classes' annotations.
-   * This method should be overridden if check metadata are provided via another format,
-   * e.g: XMl, JSON.
-   */
   @Override
   public void define(Context context) {
     NewRepository repo = context.createRepository(repositoryKey(), "css").setName(repositoryName());

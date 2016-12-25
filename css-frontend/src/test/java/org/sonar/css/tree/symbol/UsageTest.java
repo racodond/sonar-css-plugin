@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -42,12 +42,12 @@ public class UsageTest {
 
   @Test
   public void number_of_scoped_symbols() throws Exception {
-    assertThat(SYMBOL_MODEL.getSymbols().size()).isEqualTo(6);
+    assertThat(SYMBOL_MODEL.getSymbols().size()).isEqualTo(7);
   }
 
   @Test
   public void number_of_less_variable_scoped_symbols() throws Exception {
-    assertThat(SYMBOL_MODEL.getSymbols(Symbol.Kind.LESS_VARIABLE).size()).isEqualTo(6);
+    assertThat(SYMBOL_MODEL.getSymbols(Symbol.Kind.LESS_VARIABLE).size()).isEqualTo(7);
   }
 
   @Test
@@ -57,7 +57,7 @@ public class UsageTest {
 
     Symbol b = null;
     for (Symbol symbol : symbols) {
-      if (symbol.scope().tree().is(Tree.Kind.RULESET_BLOCK)) {
+      if (symbol.scope().tree().is(Tree.Kind.STATEMENT_BLOCK)) {
         b = symbol;
         break;
       }
@@ -68,28 +68,12 @@ public class UsageTest {
   }
 
   @Test
-  public void myvar_symbol_in_at_rule_block() throws Exception {
-    Set<Symbol> symbols = SYMBOL_MODEL.getSymbols("myvar");
-
-    Symbol b = null;
-    for (Symbol symbol : symbols) {
-      if (symbol.scope().tree().is(Tree.Kind.AT_RULE_BLOCK)) {
-        b = symbol;
-        break;
-      }
-    }
-    assertThat(b).isNotNull();
-    assertThat(b.usages()).hasSize(1);
-    assertThat(b.usages().stream().map(Usage::kind).collect(Collectors.toSet())).containsOnly(Usage.Kind.READ);
-  }
-
-  @Test
-  public void myvar1_symbol_in_ruleset_block() throws Exception {
+  public void myvar1_symbol_in_statement_block() throws Exception {
     Set<Symbol> symbols = SYMBOL_MODEL.getSymbols("myvar1");
 
     Symbol b = null;
     for (Symbol symbol : symbols) {
-      if (symbol.scope().tree().is(Tree.Kind.RULESET_BLOCK)) {
+      if (symbol.scope().tree().is(Tree.Kind.STATEMENT_BLOCK)) {
         b = symbol;
         break;
       }
@@ -99,6 +83,22 @@ public class UsageTest {
     assertThat(b.usages().stream().map(Usage::kind).collect(Collectors.toSet())).containsOnly(Usage.Kind.READ, Usage.Kind.DECLARATION);
     assertThat(b.usages().stream().filter(u -> u.is(Usage.Kind.DECLARATION)).count()).isEqualTo(2);
     assertThat(b.usages().stream().filter(u -> u.is(Usage.Kind.READ)).count()).isEqualTo(1);
+  }
+
+  @Test
+  public void myvar2_symbol_in_statement_block() throws Exception {
+    Set<Symbol> symbols = SYMBOL_MODEL.getSymbols("myvar2");
+
+    Symbol b = null;
+    for (Symbol symbol : symbols) {
+      if (symbol.scope().tree().is(Tree.Kind.STATEMENT_BLOCK)) {
+        b = symbol;
+        break;
+      }
+    }
+    assertThat(b).isNotNull();
+    assertThat(b.usages()).hasSize(1);
+    assertThat(b.usages().stream().map(Usage::kind).collect(Collectors.toSet())).containsOnly(Usage.Kind.READ);
   }
 
   private SymbolModel symbolModel(File file) {

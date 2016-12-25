@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -20,11 +20,6 @@
 package org.sonar.css.tree.impl.css;
 
 import com.google.common.collect.Iterators;
-
-import java.util.Iterator;
-import java.util.List;
-import javax.annotation.Nullable;
-
 import org.sonar.css.model.function.standard.Expression;
 import org.sonar.css.model.function.standard.Var;
 import org.sonar.css.model.property.validator.Validator;
@@ -38,6 +33,10 @@ import org.sonar.plugins.css.api.tree.css.*;
 import org.sonar.plugins.css.api.tree.less.LessEscapingTree;
 import org.sonar.plugins.css.api.tree.less.LessVariableTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
+
+import javax.annotation.Nullable;
+import java.util.Iterator;
+import java.util.List;
 
 public class PropertyDeclarationTreeImpl extends TreeImpl implements PropertyDeclarationTree {
 
@@ -138,7 +137,7 @@ public class PropertyDeclarationTreeImpl extends TreeImpl implements PropertyDec
   private boolean doesValueContainLessElements(Iterator<Tree> iterator) {
     while (iterator.hasNext()) {
       Tree next = iterator.next();
-      if (!(next instanceof SyntaxToken)
+      if (next != null && !(next instanceof SyntaxToken)
         && (isLessElement(next) || doesValueContainLessElements(next.childrenIterator()))) {
         return true;
       }
