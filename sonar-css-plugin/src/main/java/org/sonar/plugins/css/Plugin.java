@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -30,6 +30,10 @@ import org.sonar.plugins.css.less.LessAnalyzerSensor;
 import org.sonar.plugins.css.less.LessLanguage;
 import org.sonar.plugins.css.less.LessProfile;
 import org.sonar.plugins.css.less.LessRulesDefinition;
+import org.sonar.plugins.css.scss.ScssAnalyzerSensor;
+import org.sonar.plugins.css.scss.ScssLanguage;
+import org.sonar.plugins.css.scss.ScssProfile;
+import org.sonar.plugins.css.scss.ScssRulesDefinition;
 
 @Properties({
   @Property(
@@ -38,6 +42,13 @@ import org.sonar.plugins.css.less.LessRulesDefinition;
     defaultValue = Plugin.CSS_FILE_SUFFIXES_DEFAULT_VALUE,
     name = "CSS File Suffixes",
     description = "Comma-separated list of suffixes for CSS files to analyze.",
+    global = true, project = true),
+  @Property(
+    key = Plugin.SCSS_FILE_SUFFIXES_KEY,
+    category = "SCSS",
+    defaultValue = Plugin.SCSS_FILE_SUFFIXES_DEFAULT_VALUE,
+    name = "SCSS File Suffixes",
+    description = "Comma-separated list of suffixes for SCSS files to analyze.",
     global = true, project = true),
   @Property(
     key = Plugin.LESS_FILE_SUFFIXES_KEY,
@@ -68,6 +79,9 @@ public class Plugin implements org.sonar.api.Plugin {
   public static final String EMBEDDED_CSS_FILE_SUFFIXES_KEY = "sonar.css.embedded.file.suffixes";
   public static final String EMBEDDED_CSS_FILE_SUFFIXES_DEFAULT_VALUE = "html,xhtml";
 
+  public static final String SCSS_FILE_SUFFIXES_KEY = "sonar.scss.file.suffixes";
+  public static final String SCSS_FILE_SUFFIXES_DEFAULT_VALUE = "scss";
+
   public static final String LESS_FILE_SUFFIXES_KEY = "sonar.less.file.suffixes";
   public static final String LESS_FILE_SUFFIXES_DEFAULT_VALUE = "less";
 
@@ -75,13 +89,17 @@ public class Plugin implements org.sonar.api.Plugin {
   public void define(Context context) {
     context.addExtensions(
       CssLanguage.class,
+      ScssLanguage.class,
       LessLanguage.class,
       CssAnalyzerSensor.class,
       EmbeddedCssAnalyzerSensor.class,
+      ScssAnalyzerSensor.class,
       LessAnalyzerSensor.class,
       CssProfile.class,
+      ScssProfile.class,
       LessProfile.class,
       CssRulesDefinition.class,
+      ScssRulesDefinition.class,
       LessRulesDefinition.class);
   }
 

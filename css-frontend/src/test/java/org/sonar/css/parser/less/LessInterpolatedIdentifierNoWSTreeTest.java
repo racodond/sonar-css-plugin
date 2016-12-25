@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -32,33 +32,18 @@ public class LessInterpolatedIdentifierNoWSTreeTest extends LessTreeTest {
   }
 
   @Test
-  public void interpolatedIdentifierNoWS() {
-    IdentifierTree tree;
-
-    tree = checkParsed("@{class}");
-    assertThat(tree.isInterpolated()).isTrue();
-
-    tree = checkParsed("@{cla-ss}");
-    assertThat(tree.isInterpolated()).isTrue();
-
-    tree = checkParsed("@{cla_ss}");
-    assertThat(tree.isInterpolated()).isTrue();
-
-    tree = checkParsed("@{cla0ss}");
-    assertThat(tree.isInterpolated()).isTrue();
-
-    tree = checkParsed("abc@{class}");
-    assertThat(tree.isInterpolated()).isTrue();
-
-    tree = checkParsed("abc@{class}@{class1}def");
-    assertThat(tree.isInterpolated()).isTrue();
-
-    tree = checkParsed("-moz-abc@{class}e@{class1}def");
-    assertThat(tree.isInterpolated()).isTrue();
+  public void lessInterpolatedIdentifierNoWS() {
+    checkParsed("@{class}");
+    checkParsed("@{cla-ss}");
+    checkParsed("@{cla_ss}");
+    checkParsed("@{cla0ss}");
+    checkParsed("abc@{class}");
+    checkParsed("abc@{class}@{class1}def");
+    checkParsed("-moz-abc@{class}e@{class1}def");
   }
 
   @Test
-  public void notInterpolatedIdentifierNoWS() {
+  public void notLessInterpolatedIdentifierNoWS() {
     checkNotParsed("*");
     checkNotParsed("abc");
     checkNotParsed(".");
@@ -68,15 +53,12 @@ public class LessInterpolatedIdentifierNoWSTreeTest extends LessTreeTest {
     checkNotParsed("123px");
   }
 
-  private IdentifierTree checkParsed(String toParse, String expectedIdent) {
+  private void checkParsed(String toParse) {
     IdentifierTree tree = (IdentifierTree) parser().parse(toParse);
     assertThat(tree.value()).isNotNull();
-    assertThat(tree.text()).isEqualTo(expectedIdent);
-    return tree;
-  }
-
-  private IdentifierTree checkParsed(String toParse) {
-    return checkParsed(toParse, toParse);
+    assertThat(tree.text()).isEqualTo(toParse);
+    assertThat(tree.isLessInterpolated()).isTrue();
+    assertThat(tree.isInterpolated()).isTrue();
   }
 
 }

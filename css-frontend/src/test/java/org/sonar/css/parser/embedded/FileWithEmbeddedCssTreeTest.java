@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -41,10 +41,10 @@ public class FileWithEmbeddedCssTreeTest extends EmbeddedCssTreeTest {
     FileWithEmbeddedCssTree tree;
 
     tree = checkParsed(new File("src/test/resources/embedded/empty.html"));
-    assertThat(tree.cssBetweenTagsList()).hasSize(0);
+    assertThat(tree.cssBetweenTagsList()).isEmpty();
 
     tree = checkParsed(new File("src/test/resources/embedded/noEmbeddedCss.html"));
-    assertThat(tree.cssBetweenTagsList()).hasSize(0);
+    assertThat(tree.cssBetweenTagsList()).isEmpty();
 
     tree = checkParsed(new File("src/test/resources/embedded/embeddedCss.html"));
     assertThat(tree.cssBetweenTagsList()).hasSize(2);

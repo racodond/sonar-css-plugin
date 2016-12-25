@@ -12,7 +12,7 @@
   <artifactId>sonar-css-plugin</artifactId>
   <packaging>sonar-plugin</packaging>
 
-  <name>SonarQube CSS / Less Plugin :: Plugin</name>
+  <name>SonarQube CSS / SCSS / Less Analyzer :: Plugin</name>
   <description>Enables analysis of CSS and Less files</description>
   <url>https://github.com/racodond/sonar-css-plugin</url>
 
@@ -104,8 +104,8 @@
             <configuration>
               <rules>
                 <requireFilesSize>
-                  <maxsize>3200000</maxsize>
-                  <minsize>3000000</minsize>
+                  <maxsize>3400000</maxsize>
+                  <minsize>3200000</minsize>
                   <files>
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                   </files>

@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -21,19 +21,18 @@ package org.sonar.css.parser;
 
 import com.google.common.collect.Lists;
 import com.sonar.sslr.api.typed.ActionParser;
-
-import java.io.File;
-import java.nio.charset.Charset;
-
 import org.sonar.css.parser.css.CssGrammar;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.sslr.grammar.GrammarRuleKey;
 import org.sonar.sslr.grammar.LexerlessGrammarBuilder;
 
+import java.io.File;
+import java.nio.charset.Charset;
+
 public abstract class AbstractParser extends ActionParser<Tree> {
 
   public AbstractParser(Charset charset, LexerlessGrammarBuilder grammarBuilder, Class<? extends CssGrammar> grammarClass,
-    TreeFactory treeFactory, AbstractNodeBuilder nodeBuilder, GrammarRuleKey rootRule) {
+                        TreeFactory treeFactory, AbstractNodeBuilder nodeBuilder, GrammarRuleKey rootRule) {
     super(charset, grammarBuilder, grammarClass, treeFactory, nodeBuilder, rootRule);
   }
 
@@ -44,12 +43,13 @@ public abstract class AbstractParser extends ActionParser<Tree> {
 
   private static Tree createParentLink(Tree parent) {
     if (!parent.isLeaf()) {
-      for (Tree nextTree : Lists.newArrayList(parent.childrenIterator())) {
-        if (nextTree != null) {
-          nextTree.setParent(parent);
-          createParentLink(nextTree);
-        }
-      }
+      Lists.newArrayList(parent.childrenIterator())
+        .stream()
+        .filter(t -> t != null)
+        .forEach(t -> {
+          t.setParent(parent);
+          createParentLink(t);
+        });
     }
     return parent;
   }

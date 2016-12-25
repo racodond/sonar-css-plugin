@@ -25,6 +25,9 @@
 'project:custom/common/formatting/block.css':[
 52,
 ],
+'project:custom/common/oneDeclarationPerLine.css':[
+26,
+],
 'project:custom/common/unknownAtRules.css':[
 9,
 11,

@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -20,19 +20,22 @@
 package org.sonar.css.tree.impl.css;
 
 import com.google.common.collect.Iterators;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import javax.annotation.Nullable;
-
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.css.tree.impl.TreeListUtils;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.*;
 import org.sonar.plugins.css.api.tree.less.LessMixinCallTree;
 import org.sonar.plugins.css.api.tree.less.LessVariableDeclarationTree;
+import org.sonar.plugins.css.api.tree.scss.ScssAtRootTree;
+import org.sonar.plugins.css.api.tree.scss.ScssMixinDefinitionTree;
+import org.sonar.plugins.css.api.tree.scss.ScssMixinIncludeTree;
+import org.sonar.plugins.css.api.tree.scss.ScssVariableDeclarationTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class StyleSheetTreeImpl extends TreeImpl implements StyleSheetTree {
 
@@ -43,25 +46,33 @@ public class StyleSheetTreeImpl extends TreeImpl implements StyleSheetTree {
   private final List<AtRuleTree> atRules;
   private final List<RulesetTree> rulesets;
   private final List<EmptyStatementTree> emptyStatements;
+
   private final List<LessVariableDeclarationTree> lessVariableDeclarations;
   private final List<LessMixinCallTree> lessMixinCalls;
+
+  private final List<ScssVariableDeclarationTree> scssVariableDeclarations;
+  private final List<ScssMixinDefinitionTree> scssMixinDefinitions;
+  private final List<ScssMixinIncludeTree> scssMixinIncludes;
+  private final List<ScssAtRootTree> scssAtRoots;
 
   public StyleSheetTreeImpl(@Nullable SyntaxToken byteOrderMark, @Nullable List<Tree> all, @Nullable SyntaxToken eof) {
     this.byteOrderMark = byteOrderMark;
     this.eof = eof;
 
-    if (all != null) {
-      this.all = all;
-    } else {
-      this.all = new ArrayList<>();
-    }
+    this.all = all != null ? all : new ArrayList<>();
 
     this.atRules = TreeListUtils.allElementsOfType(all, AtRuleTree.class);
     this.rulesets = TreeListUtils.allElementsOfType(all, RulesetTree.class);
     this.statements = TreeListUtils.allElementsOfType(all, StatementTree.class);
+    this.emptyStatements = TreeListUtils.allElementsOfType(all, EmptyStatementTree.class);
+
     this.lessVariableDeclarations = TreeListUtils.allElementsOfType(all, LessVariableDeclarationTree.class);
     this.lessMixinCalls = TreeListUtils.allElementsOfType(all, LessMixinCallTree.class);
-    this.emptyStatements = TreeListUtils.allElementsOfType(all, EmptyStatementTree.class);
+
+    this.scssVariableDeclarations = TreeListUtils.allElementsOfType(all, ScssVariableDeclarationTree.class);
+    this.scssMixinDefinitions = TreeListUtils.allElementsOfType(all, ScssMixinDefinitionTree.class);
+    this.scssMixinIncludes = TreeListUtils.allElementsOfType(all, ScssMixinIncludeTree.class);
+    this.scssAtRoots = TreeListUtils.allElementsOfType(all, ScssAtRootTree.class);
   }
 
   @Override
@@ -71,14 +82,10 @@ public class StyleSheetTreeImpl extends TreeImpl implements StyleSheetTree {
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    if (all != null) {
-      return Iterators.concat(
-        Iterators.singletonIterator(byteOrderMark),
-        all.iterator(),
-        Iterators.singletonIterator(eof));
-    } else {
-      return Iterators.forArray(byteOrderMark, eof);
-    }
+    return Iterators.concat(
+      Iterators.singletonIterator(byteOrderMark),
+      all != null ? all.iterator() : new ArrayList<Tree>().iterator(),
+      Iterators.singletonIterator(eof));
   }
 
   @Override
@@ -107,6 +114,16 @@ public class StyleSheetTreeImpl extends TreeImpl implements StyleSheetTree {
   }
 
   @Override
+  public List<AtRuleTree> atRules() {
+    return atRules;
+  }
+
+  @Override
+  public void accept(DoubleDispatchVisitor visitor) {
+    visitor.visitStyleSheet(this);
+  }
+
+  @Override
   public List<LessVariableDeclarationTree> lessVariableDeclarations() {
     return lessVariableDeclarations;
   }
@@ -117,13 +134,23 @@ public class StyleSheetTreeImpl extends TreeImpl implements StyleSheetTree {
   }
 
   @Override
-  public List<AtRuleTree> atRules() {
-    return atRules;
+  public List<ScssVariableDeclarationTree> scssVariableDeclarations() {
+    return scssVariableDeclarations;
   }
 
   @Override
-  public void accept(DoubleDispatchVisitor visitor) {
-    visitor.visitStyleSheet(this);
+  public List<ScssMixinDefinitionTree> scssMixinDefinitions() {
+    return scssMixinDefinitions;
+  }
+
+  @Override
+  public List<ScssMixinIncludeTree> scssMixinIncludes() {
+    return scssMixinIncludes;
+  }
+
+  @Override
+  public List<ScssAtRootTree> scssAtRoots() {
+    return scssAtRoots;
   }
 
 }

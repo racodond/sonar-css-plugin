@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -140,7 +140,7 @@ public class DeclarationTreeTest extends LessTreeTest {
 
   private DeclarationTree checkParsed(String toParse) {
     DeclarationTree tree = (DeclarationTree) parser().parse(toParse);
-    assertThat(tree).isInstanceOf(DeclarationTree.class);
+    assertThat(tree).isNotNull();
     return tree;
   }
 

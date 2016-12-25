@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -35,46 +35,48 @@ public class TypeSelectorTreeTest extends LessTreeTest {
   public void typeSelector() {
     TypeSelectorTree tree;
 
-    tree = checkParsed("div", "div");
+    tree = checkParsed("div", "div", false);
     assertThat(tree.namespace()).isNull();
 
-    tree = checkParsed("div", "div");
+    tree = checkParsed("div", "div", false);
     assertThat(tree.namespace()).isNull();
 
-    tree = checkParsed("*", "*");
+    tree = checkParsed("*", "*", false);
     assertThat(tree.namespace()).isNull();
 
-    tree = checkParsed("|div", "div");
+    tree = checkParsed("|div", "div", false);
     assertThat(tree.namespace()).isNotNull();
     assertThat(tree.namespace().pipe()).isNotNull();
     assertThat(tree.namespace().prefix()).isNull();
 
-    tree = checkParsed("*|div", "div");
+    tree = checkParsed("*|div", "div", false);
     assertThat(tree.namespace()).isNotNull();
     assertThat(tree.namespace().pipe()).isNotNull();
     assertThat(tree.namespace().prefix()).isNotNull();
     assertThat(tree.namespace().prefix().text()).isEqualTo("*");
 
-    tree = checkParsed("d@{i}v", "d@{i}v");
+    tree = checkParsed("d@{i}v", "d@{i}v", true);
     assertThat(tree.namespace()).isNull();
 
-    tree = checkParsed("|d@{i}v", "d@{i}v");
+    tree = checkParsed("|d@{i}v", "d@{i}v", true);
     assertThat(tree.namespace()).isNotNull();
     assertThat(tree.namespace().pipe()).isNotNull();
     assertThat(tree.namespace().prefix()).isNull();
 
-    tree = checkParsed("*|d@{i}v", "d@{i}v");
+    tree = checkParsed("*|d@{i}v", "d@{i}v", true);
     assertThat(tree.namespace()).isNotNull();
     assertThat(tree.namespace().pipe()).isNotNull();
     assertThat(tree.namespace().prefix()).isNotNull();
     assertThat(tree.namespace().prefix().text()).isEqualTo("*");
   }
 
-  private TypeSelectorTree checkParsed(String toParse, String expectedIdentifier) {
+  private TypeSelectorTree checkParsed(String toParse, String expectedIdentifier, boolean isInterpolated) {
     TypeSelectorTree tree = (TypeSelectorTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
     assertThat(tree.identifier()).isNotNull();
     assertThat(tree.identifier().text()).isEqualTo(expectedIdentifier);
+    assertThat(tree.identifier().isLessInterpolated()).isEqualTo(isInterpolated);
+    assertThat(tree.identifier().isInterpolated()).isEqualTo(isInterpolated);
     return tree;
   }
 

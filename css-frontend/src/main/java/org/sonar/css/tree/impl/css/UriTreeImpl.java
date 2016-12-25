@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -20,16 +20,15 @@
 package org.sonar.css.tree.impl.css;
 
 import com.google.common.collect.Iterators;
-
-import java.util.Iterator;
-import javax.annotation.Nullable;
-
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.css.UriContentTree;
 import org.sonar.plugins.css.api.tree.css.UriTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
+
+import javax.annotation.Nullable;
+import java.util.Iterator;
 
 public class UriTreeImpl extends TreeImpl implements UriTree {
 
@@ -52,11 +51,7 @@ public class UriTreeImpl extends TreeImpl implements UriTree {
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    if (uriContent != null) {
-      return Iterators.forArray(urlFunction, openParenthesis, uriContent, closeParenthesis);
-    } else {
-      return Iterators.forArray(urlFunction, openParenthesis, closeParenthesis);
-    }
+    return Iterators.forArray(urlFunction, openParenthesis, uriContent, closeParenthesis);
   }
 
   @Override

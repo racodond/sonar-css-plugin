@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -59,7 +59,7 @@ public class ClassSelectorTreeTest extends LessTreeTest {
     assertThat(tree.dot()).isNotNull();
     assertThat(tree.className()).isNotNull();
     assertThat(tree.className().text()).isEqualTo(expectedClassName);
-    assertThat(tree.className().isInterpolated()).isEqualTo(isInterpolated);
+    assertThat(tree.className().isLessInterpolated()).isEqualTo(isInterpolated);
   }
 
 }

@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -36,7 +36,7 @@ public class AttributeSelectorTreeTest extends LessTreeTest {
   public void attributeSelector() {
     AttributeSelectorTree tree;
 
-    tree = checkParsed("[attribute~=abc]", "attribute");
+    tree = checkParsed("[attribute~=abc]", "attribute", false);
     assertThat(tree.matcherExpression()).isNotNull();
     assertThat(tree.matcherExpression().attributeMatcher()).isNotNull();
     assertThat(tree.matcherExpression().attributeMatcher().type()).isNotNull();
@@ -44,7 +44,7 @@ public class AttributeSelectorTreeTest extends LessTreeTest {
     assertThat(tree.matcherExpression().attributeMatcher().value()).isEqualTo("~=");
     assertThat(tree.namespace()).isNull();
 
-    tree = checkParsed("[ attribute ~= abc ]", "attribute");
+    tree = checkParsed("[ attribute ~= abc ]", "attribute", false);
     assertThat(tree.matcherExpression()).isNotNull();
     assertThat(tree.matcherExpression().attributeMatcher()).isNotNull();
     assertThat(tree.matcherExpression().attributeMatcher().type()).isNotNull();
@@ -52,36 +52,36 @@ public class AttributeSelectorTreeTest extends LessTreeTest {
     assertThat(tree.matcherExpression().attributeMatcher().value()).isEqualTo("~=");
     assertThat(tree.namespace()).isNull();
 
-    tree = checkParsed("[id]", "id");
+    tree = checkParsed("[id]", "id", false);
     assertThat(tree).isNotNull();
     assertThat(tree.matcherExpression()).isNull();
     assertThat(tree.namespace()).isNull();
 
-    tree = checkParsed("[|attribute ~= abc ]", "attribute");
+    tree = checkParsed("[|attribute ~= abc ]", "attribute", false);
     assertThat(tree.namespace()).isNotNull();
     assertThat(tree.namespace().prefix()).isNull();
 
-    tree = checkParsed("[*|attribute ~= abc ]", "attribute");
+    tree = checkParsed("[*|attribute ~= abc ]", "attribute", false);
     assertThat(tree.namespace()).isNotNull();
     assertThat(tree.namespace().prefix()).isNotNull();
     assertThat(tree.namespace().prefix().text()).isEqualTo("*");
 
-    tree = checkParsed("[ *|attribute ~= abc ]", "attribute");
+    tree = checkParsed("[ *|attribute ~= abc ]", "attribute", false);
     assertThat(tree.namespace()).isNotNull();
     assertThat(tree.namespace().prefix()).isNotNull();
     assertThat(tree.namespace().prefix().text()).isEqualTo("*");
 
-    checkParsed("[attribute=xxx]", "attribute");
-    checkParsed("[attribute~=xxx]", "attribute");
-    checkParsed("[attribute*=xxx]", "attribute");
-    checkParsed("[attribute^=xxx]", "attribute");
-    checkParsed("[attribute$=xxx]", "attribute");
-    checkParsed("[attribute|=xxx]", "attribute");
-    checkParsed("[attribute|=xxx i]", "attribute");
+    checkParsed("[attribute=xxx]", "attribute", false);
+    checkParsed("[attribute~=xxx]", "attribute", false);
+    checkParsed("[attribute*=xxx]", "attribute", false);
+    checkParsed("[attribute^=xxx]", "attribute", false);
+    checkParsed("[attribute$=xxx]", "attribute", false);
+    checkParsed("[attribute|=xxx]", "attribute", false);
+    checkParsed("[attribute|=xxx i]", "attribute", false);
 
-    checkParsed("[abc@{attribute}-def|=xxx i]", "abc@{attribute}-def");
-    checkParsed("[ abc@{attribute}-def|=xxx i]", "abc@{attribute}-def");
-    checkParsed("[ abc@{attribute}-def|=x@{abc}xx i]", "abc@{attribute}-def");
+    checkParsed("[abc@{attribute}-def|=xxx i]", "abc@{attribute}-def", true);
+    checkParsed("[ abc@{attribute}-def|=xxx i]", "abc@{attribute}-def", true);
+    checkParsed("[ abc@{attribute}-def|=x@{abc}xx i]", "abc@{attribute}-def", true);
   }
 
   @Test
@@ -94,13 +94,15 @@ public class AttributeSelectorTreeTest extends LessTreeTest {
     checkNotParsed("[*| attribute ~= abc ]");
   }
 
-  private AttributeSelectorTree checkParsed(String toParse, String expectedAttribute) {
+  private AttributeSelectorTree checkParsed(String toParse, String expectedAttribute, boolean isInterpolated) {
     AttributeSelectorTree tree = (AttributeSelectorTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
     assertThat(tree.attribute()).isNotNull();
     assertThat(tree.closeBracket()).isNotNull();
     assertThat(tree.openBracket()).isNotNull();
     assertThat(tree.attribute().text()).isEqualTo(expectedAttribute);
+    assertThat(tree.attribute().isLessInterpolated()).isEqualTo(isInterpolated);
+    assertThat(tree.attribute().isInterpolated()).isEqualTo(isInterpolated);
     return tree;
   }
 

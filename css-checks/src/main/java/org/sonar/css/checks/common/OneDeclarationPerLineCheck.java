@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -19,19 +19,16 @@
  */
 package org.sonar.css.checks.common;
 
-import com.google.common.collect.ImmutableList;
-
-import java.util.List;
-
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.Tags;
 import org.sonar.plugins.css.api.tree.css.DeclarationTree;
 import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
-import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.visitors.SubscriptionVisitorCheck;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+
+import java.util.List;
 
 @Rule(
   key = "one-declaration-per-line",
@@ -40,23 +37,17 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   tags = {Tags.FORMAT})
 @ActivatedByDefault
 @SqaleConstantRemediation("2min")
-public class OneDeclarationPerLineCheck extends SubscriptionVisitorCheck {
+public class OneDeclarationPerLineCheck extends DoubleDispatchVisitorCheck {
 
   @Override
-  public List<Tree.Kind> nodesToVisit() {
-    return ImmutableList.of(
-      Tree.Kind.RULESET_BLOCK,
-      Tree.Kind.AT_RULE_BLOCK);
-  }
-
-  @Override
-  public void visitNode(Tree tree) {
-    List<DeclarationTree> allDeclarations = ((StatementBlockTree) tree).allDeclarations();
+  public void visitStatementBlock(StatementBlockTree tree) {
+    List<DeclarationTree> allDeclarations = tree.allDeclarations();
     for (int i = 1; i < allDeclarations.size(); i++) {
       if (allDeclarations.get(i).colon().line() == allDeclarations.get(i - 1).colon().line()) {
         addPreciseIssue(allDeclarations.get(i), "Define this declaration on a separate line.");
       }
     }
+    super.visitStatementBlock(tree);
   }
 
 }

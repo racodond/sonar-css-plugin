@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -29,15 +29,15 @@ public class LessLanguageTest {
 
   @Test
   public void language_key_and_name() {
-    LessLanguage less = new LessLanguage(mock(Settings.class));
-    assertThat(less.getKey()).isEqualTo("less");
-    assertThat(less.getName()).isEqualTo("Less");
+    LessLanguage language = new LessLanguage(mock(Settings.class));
+    assertThat(language.getKey()).isEqualTo("less");
+    assertThat(language.getName()).isEqualTo("Less");
   }
 
   @Test
   public void default_file_suffix() {
-    LessLanguage less = new LessLanguage(mock(Settings.class));
-    assertThat(less.getFileSuffixes()).containsOnly("less");
+    LessLanguage language = new LessLanguage(mock(Settings.class));
+    assertThat(language.getFileSuffixes()).containsOnly("less");
   }
 
   @Test
@@ -45,8 +45,8 @@ public class LessLanguageTest {
     Settings settings = new Settings();
     settings.setProperty("sonar.less.file.suffixes", "less,less3");
 
-    LessLanguage less = new LessLanguage(settings);
-    assertThat(less.getFileSuffixes()).containsOnly("less", "less3");
+    LessLanguage language = new LessLanguage(settings);
+    assertThat(language.getFileSuffixes()).containsOnly("less", "less3");
   }
 
 }

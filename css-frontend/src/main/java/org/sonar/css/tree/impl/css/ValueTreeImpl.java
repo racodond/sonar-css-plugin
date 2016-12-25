@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -29,6 +29,7 @@ import org.sonar.css.tree.impl.TreeListUtils;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.ImportantTree;
 import org.sonar.plugins.css.api.tree.css.ValueTree;
+import org.sonar.plugins.css.api.tree.scss.ScssDefaultFlagTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 public class ValueTreeImpl extends TreeImpl implements ValueTree {
@@ -81,7 +82,7 @@ public class ValueTreeImpl extends TreeImpl implements ValueTree {
 
   private List<Tree> buildSanitizedList() {
     return allValueElements.stream()
-      .filter(e -> !ImportantTree.class.isAssignableFrom(e.getClass()))
+      .filter(e -> !ImportantTree.class.isAssignableFrom(e.getClass()) && !ScssDefaultFlagTree.class.isAssignableFrom(e.getClass()))
       .collect(Collectors.toList());
   }
 

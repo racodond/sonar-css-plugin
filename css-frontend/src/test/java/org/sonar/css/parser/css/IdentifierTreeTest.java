@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -45,12 +45,12 @@ public class IdentifierTreeTest extends CssTreeTest {
     tree = checkParsed("-moz-box-sizing");
     assertThat(tree.isVendorPrefixed()).isTrue();
     assertThat(tree.vendor()).isEqualTo(Vendor.MOZILLA);
-    assertThat(tree.isInterpolated()).isFalse();
+    assertThat(tree.isLessInterpolated()).isFalse();
 
     tree = checkParsed("_dunno-what");
     assertThat(tree.isVendorPrefixed()).isFalse();
     assertThat(tree.vendor()).isNull();
-    assertThat(tree.isInterpolated()).isFalse();
+    assertThat(tree.isLessInterpolated()).isFalse();
 
     checkParsed("*");
   }

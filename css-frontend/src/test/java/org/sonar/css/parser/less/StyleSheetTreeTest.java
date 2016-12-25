@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -21,12 +21,11 @@ package org.sonar.css.parser.less;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
-
-import java.io.File;
-
 import org.junit.Test;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.StyleSheetTree;
+
+import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -54,17 +53,17 @@ public class StyleSheetTreeTest extends LessTreeTest {
     checkParsed("\ufeff   ");
 
     tree = checkParsed(new File("src/test/resources/normalize.css"));
-    assertThat(tree.atRules()).hasSize(0);
+    assertThat(tree.atRules()).isEmpty();
     assertThat(tree.rulesets()).hasSize(38);
-    assertThat(tree.lessVariableDeclarations()).hasSize(0);
-    assertThat(tree.lessMixinCalls()).hasSize(0);
+    assertThat(tree.lessVariableDeclarations()).isEmpty();
+    assertThat(tree.lessMixinCalls()).isEmpty();
     assertThat(tree.all()).hasSize(38);
 
     tree = checkParsed(new File("src/test/resources/animate.css"));
     assertThat(tree.atRules()).hasSize(221);
     assertThat(tree.rulesets()).hasSize(60);
-    assertThat(tree.lessVariableDeclarations()).hasSize(0);
-    assertThat(tree.lessMixinCalls()).hasSize(0);
+    assertThat(tree.lessVariableDeclarations()).isEmpty();
+    assertThat(tree.lessMixinCalls()).isEmpty();
     assertThat(tree.all()).hasSize(281);
 
     checkParsed(new File("src/test/resources/animate.min.css"));
@@ -74,10 +73,10 @@ public class StyleSheetTreeTest extends LessTreeTest {
     checkParsed(new File("src/test/resources/starting-with-bom.css"));
 
     tree = checkParsed(new File("src/test/resources/less/stylesheet.less"));
-    assertThat(tree.atRules()).hasSize(0);
+    assertThat(tree.atRules()).isEmpty();
     assertThat(tree.rulesets()).hasSize(2);
     assertThat(tree.lessVariableDeclarations()).hasSize(2);
-    assertThat(tree.lessMixinCalls()).hasSize(0);
+    assertThat(tree.lessMixinCalls()).isEmpty();
     assertThat(tree.all()).hasSize(4);
 
     tree = checkParsed(";");
@@ -105,40 +104,40 @@ public class StyleSheetTreeTest extends LessTreeTest {
       "          }");
 
     tree = checkParsed(new File("src/test/resources/less/stylesheet.less"));
-    assertThat(tree.atRules()).hasSize(0);
+    assertThat(tree.atRules()).isEmpty();
 
     tree = checkParsed(".mixin();");
-    assertThat(tree.atRules()).hasSize(0);
-    assertThat(tree.rulesets()).hasSize(0);
-    assertThat(tree.lessVariableDeclarations()).hasSize(0);
+    assertThat(tree.atRules()).isEmpty();
+    assertThat(tree.rulesets()).isEmpty();
+    assertThat(tree.lessVariableDeclarations()).isEmpty();
     assertThat(tree.lessMixinCalls()).hasSize(1);
     assertThat(tree.all()).hasSize(1);
 
     tree = checkParsed(".mixin();");
-    assertThat(tree.atRules()).hasSize(0);
-    assertThat(tree.rulesets()).hasSize(0);
-    assertThat(tree.lessVariableDeclarations()).hasSize(0);
+    assertThat(tree.atRules()).isEmpty();
+    assertThat(tree.rulesets()).isEmpty();
+    assertThat(tree.lessVariableDeclarations()).isEmpty();
     assertThat(tree.lessMixinCalls()).hasSize(1);
     assertThat(tree.all()).hasSize(1);
 
     tree = checkParsed(".mixin();\n.mixin2();");
-    assertThat(tree.atRules()).hasSize(0);
-    assertThat(tree.rulesets()).hasSize(0);
-    assertThat(tree.lessVariableDeclarations()).hasSize(0);
+    assertThat(tree.atRules()).isEmpty();
+    assertThat(tree.rulesets()).isEmpty();
+    assertThat(tree.lessVariableDeclarations()).isEmpty();
     assertThat(tree.lessMixinCalls()).hasSize(2);
     assertThat(tree.all()).hasSize(2);
 
     tree = checkParsed(".mixin()");
-    assertThat(tree.atRules()).hasSize(0);
-    assertThat(tree.rulesets()).hasSize(0);
-    assertThat(tree.lessVariableDeclarations()).hasSize(0);
+    assertThat(tree.atRules()).isEmpty();
+    assertThat(tree.rulesets()).isEmpty();
+    assertThat(tree.lessVariableDeclarations()).isEmpty();
     assertThat(tree.lessMixinCalls()).hasSize(1);
     assertThat(tree.all()).hasSize(1);
 
     tree = checkParsed(".mixin");
-    assertThat(tree.atRules()).hasSize(0);
-    assertThat(tree.rulesets()).hasSize(0);
-    assertThat(tree.lessVariableDeclarations()).hasSize(0);
+    assertThat(tree.atRules()).isEmpty();
+    assertThat(tree.rulesets()).isEmpty();
+    assertThat(tree.lessVariableDeclarations()).isEmpty();
     assertThat(tree.lessMixinCalls()).hasSize(1);
     assertThat(tree.all()).hasSize(1);
   }
@@ -154,6 +153,12 @@ public class StyleSheetTreeTest extends LessTreeTest {
     assertThat(tree.rulesets()).isNotNull();
     assertThat(tree.lessVariableDeclarations()).isNotNull();
     assertThat(tree.lessMixinCalls()).isNotNull();
+
+    assertThat(tree.scssVariableDeclarations()).isEmpty();
+    assertThat(tree.scssMixinDefinitions()).isEmpty();
+    assertThat(tree.scssMixinIncludes()).isEmpty();
+    assertThat(tree.scssAtRoots()).isEmpty();
+
     return tree;
   }
 

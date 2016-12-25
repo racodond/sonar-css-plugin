@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -20,16 +20,16 @@
 package org.sonar.plugins.css.api.visitors;
 
 import com.google.common.base.Preconditions;
-
-import java.util.Iterator;
-import java.util.List;
-import javax.annotation.Nullable;
-
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.*;
 import org.sonar.plugins.css.api.tree.embedded.CssInStyleTagTree;
 import org.sonar.plugins.css.api.tree.embedded.FileWithEmbeddedCssTree;
 import org.sonar.plugins.css.api.tree.less.*;
+import org.sonar.plugins.css.api.tree.scss.*;
+
+import javax.annotation.Nullable;
+import java.util.Iterator;
+import java.util.List;
 
 public abstract class DoubleDispatchVisitor implements TreeVisitor {
 
@@ -82,11 +82,7 @@ public abstract class DoubleDispatchVisitor implements TreeVisitor {
     scanChildren(tree);
   }
 
-  public void visitAtRuleBlock(AtRuleBlockTree tree) {
-    scanChildren(tree);
-  }
-
-  public void visitRulesetBlock(RulesetBlockTree tree) {
+  public void visitStatementBlock(StatementBlockTree tree) {
     scanChildren(tree);
   }
 
@@ -261,6 +257,134 @@ public abstract class DoubleDispatchVisitor implements TreeVisitor {
   }
 
   public void visitCssInStyleTag(CssInStyleTagTree tree) {
+    scanChildren(tree);
+  }
+
+  // -------------------------------------------------------------------------
+  // SCSS
+  // -------------------------------------------------------------------------
+
+  public void visitScssNestedPropertiesDeclaration(ScssNestedPropertiesDeclarationTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssVariableDeclaration(ScssVariableDeclarationTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssVariable(ScssVariableTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssVariableArgument(ScssVariableArgumentTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssDefaultFlag(ScssDefaultFlagTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssGlobalFlag(ScssGlobalFlagTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssOptionalFlag(ScssOptionalFlagTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssParentSelector(ScssParentSelectorTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssFunctionDefinition(ScssFunctionDefinitionTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssMixinDefinition(ScssMixinDefinitionTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssMixinInclude(ScssMixinIncludeTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssParameters(ScssParametersTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssParameter(ScssParameterTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssExtend(ScssExtendTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssIfConditions(ScssIfConditionsTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssIf(ScssIfTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssElseIf(ScssElseIfTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssElse(ScssElseTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssFor(ScssForTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssWhile(ScssWhileTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssEach(ScssEachTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssContent(ScssContentTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssDebug(ScssDebugTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssWarn(ScssWarnTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssError(ScssErrorTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssReturn(ScssReturnTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssAtRoot(ScssAtRootTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssAtRootParameters(ScssAtRootParametersTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssPlaceholderSelector(ScssPlaceholderSelectorTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssOperator(ScssOperatorTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssMultilineString(ScssMultilineStringTree tree) {
     scanChildren(tree);
   }
 

@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -20,16 +20,16 @@
 package org.sonar.css.tree.impl.css;
 
 import com.google.common.collect.Iterators;
-
-import java.util.Iterator;
-import java.util.List;
-import javax.annotation.Nullable;
-
 import org.sonar.css.tree.impl.TreeImpl;
+import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.BracketBlockTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
-import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class BracketBlockTreeImpl extends TreeImpl implements BracketBlockTree {
 
@@ -50,14 +50,10 @@ public class BracketBlockTreeImpl extends TreeImpl implements BracketBlockTree {
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    if (content != null) {
-      return Iterators.concat(
-        Iterators.singletonIterator(openBracket),
-        content.iterator(),
-        Iterators.singletonIterator(closeBracket));
-    } else {
-      return Iterators.forArray(openBracket, closeBracket);
-    }
+    return Iterators.concat(
+      Iterators.singletonIterator(openBracket),
+      content != null ? content.iterator() : new ArrayList<Tree>().iterator(),
+      Iterators.singletonIterator(closeBracket));
   }
 
   @Override

@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -19,45 +19,74 @@
  */
 package org.sonar.css.tree.impl.css;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import javax.annotation.Nullable;
-
+import com.google.common.collect.Iterators;
+import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.css.tree.impl.TreeImpl;
+import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.CompoundSelectorTree;
 import org.sonar.plugins.css.api.tree.css.SelectorCombinatorTree;
 import org.sonar.plugins.css.api.tree.css.SelectorTree;
-import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.less.LessExtendTree;
 import org.sonar.plugins.css.api.tree.less.LessMixinGuardTree;
 import org.sonar.plugins.css.api.tree.less.LessMixinParametersTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
+import javax.annotation.Nullable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.function.Function;
+
 public class SelectorTreeImpl extends TreeImpl implements SelectorTree {
 
-  private final SelectorCombinationList compoundSelectorSyntaxList;
-  private final List<CompoundSelectorTree> compoundSelectors;
-  private final List<Tree> allTrees;
+  private final SeparatedList<CompoundSelectorTree, SelectorCombinatorTree> compoundSelectorsCombinationList;
 
+  @Nullable
   private final LessExtendTree lessExtend;
+
+  @Nullable
   private final LessMixinParametersTree lessMixinParameters;
+
+  @Nullable
   private final LessMixinGuardTree lessMixinGuard;
+
+  @Nullable
   private final SelectorCombinatorTree lessParentCombinator;
 
-  public SelectorTreeImpl(@Nullable SelectorCombinationList compoundSelectorSyntaxList) {
-    this(null, compoundSelectorSyntaxList, null, null, null);
+  @Nullable
+  private final SelectorCombinatorTree scssParentCombinator;
+
+  @Nullable
+  private final SelectorCombinatorTree scssBlockCombinator;
+
+  public SelectorTreeImpl(SeparatedList<CompoundSelectorTree, SelectorCombinatorTree> compoundSelectorsCombinationList) {
+    this.compoundSelectorsCombinationList = compoundSelectorsCombinationList;
+    this.scssParentCombinator = null;
+    this.scssBlockCombinator = null;
+    this.lessExtend = null;
+    this.lessMixinParameters = null;
+    this.lessMixinGuard = null;
+    this.lessParentCombinator = null;
   }
 
-  public SelectorTreeImpl(@Nullable SelectorCombinatorTree lessParentCombinator, @Nullable SelectorCombinationList compoundSelectorSyntaxList, @Nullable LessExtendTree lessExtend,
-    @Nullable LessMixinParametersTree lessMixinParameters, @Nullable LessMixinGuardTree lessMixinGuard) {
-    this.compoundSelectorSyntaxList = compoundSelectorSyntaxList;
+  public SelectorTreeImpl(@Nullable SelectorCombinatorTree scssParentCombinator, SeparatedList<CompoundSelectorTree, SelectorCombinatorTree> compoundSelectorsCombinationList, @Nullable SelectorCombinatorTree scssBlockCombinator) {
+    this.compoundSelectorsCombinationList = compoundSelectorsCombinationList;
+    this.scssParentCombinator = scssParentCombinator;
+    this.scssBlockCombinator = scssBlockCombinator;
+    this.lessExtend = null;
+    this.lessMixinParameters = null;
+    this.lessMixinGuard = null;
+    this.lessParentCombinator = null;
+  }
+
+  public SelectorTreeImpl(@Nullable SelectorCombinatorTree lessParentCombinator, SeparatedList<CompoundSelectorTree, SelectorCombinatorTree> compoundSelectorsCombinationList, @Nullable LessExtendTree lessExtend,
+                          @Nullable LessMixinParametersTree lessMixinParameters, @Nullable LessMixinGuardTree lessMixinGuard) {
+    this.compoundSelectorsCombinationList = compoundSelectorsCombinationList;
     this.lessExtend = lessExtend;
     this.lessMixinParameters = lessMixinParameters;
     this.lessMixinGuard = lessMixinGuard;
     this.lessParentCombinator = lessParentCombinator;
-    this.compoundSelectors = buildCompoundSelectorList();
-    this.allTrees = buildAllTreeList();
+    this.scssParentCombinator = null;
+    this.scssBlockCombinator = null;
   }
 
   @Override
@@ -67,21 +96,10 @@ public class SelectorTreeImpl extends TreeImpl implements SelectorTree {
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    List<Tree> children = new ArrayList<>();
-    if (lessParentCombinator != null) {
-      children.add(lessParentCombinator);
-    }
-    children.addAll(allTrees);
-    if (lessExtend != null) {
-      children.add(lessExtend);
-    }
-    if (lessMixinParameters != null) {
-      children.add(lessMixinParameters);
-    }
-    if (lessMixinGuard != null) {
-      children.add(lessMixinGuard);
-    }
-    return children.iterator();
+    return Iterators.concat(
+      Iterators.singletonIterator(lessParentCombinator),
+      compoundSelectorsCombinationList.elementsAndSeparators(Function.identity(), Function.identity()),
+      Iterators.forArray(lessExtend, lessMixinParameters, lessMixinGuard));
   }
 
   @Override
@@ -90,13 +108,13 @@ public class SelectorTreeImpl extends TreeImpl implements SelectorTree {
   }
 
   @Override
-  public SelectorCombinationList compoundSelectorSyntaxList() {
-    return compoundSelectorSyntaxList;
+  public SeparatedList<CompoundSelectorTree, SelectorCombinatorTree> compoundSelectorsCombinationList() {
+    return compoundSelectorsCombinationList;
   }
 
   @Override
   public List<CompoundSelectorTree> compoundSelectors() {
-    return compoundSelectors;
+    return compoundSelectorsCombinationList;
   }
 
   @Override
@@ -123,42 +141,16 @@ public class SelectorTreeImpl extends TreeImpl implements SelectorTree {
     return lessMixinGuard;
   }
 
-  private List<Tree> buildAllTreeList() {
-    List<Tree> all = new ArrayList<>();
-
-    if (compoundSelectorSyntaxList != null) {
-      all.add(compoundSelectorSyntaxList.compoundSelector());
-      if (compoundSelectorSyntaxList.combinator() != null) {
-        all.add(compoundSelectorSyntaxList.combinator());
-      }
-
-      SelectorCombinationList nextSelectorCombinationList = compoundSelectorSyntaxList.next();
-      while (nextSelectorCombinationList != null) {
-        all.add(nextSelectorCombinationList.compoundSelector());
-        if (nextSelectorCombinationList.combinator() != null) {
-          all.add(nextSelectorCombinationList.combinator());
-        }
-        nextSelectorCombinationList = nextSelectorCombinationList.next();
-      }
-    }
-
-    return all;
+  @Override
+  @Nullable
+  public SelectorCombinatorTree scssParentCombinator() {
+    return scssParentCombinator;
   }
 
-  private List<CompoundSelectorTree> buildCompoundSelectorList() {
-    List<CompoundSelectorTree> selectorList = new ArrayList<>();
-
-    if (compoundSelectorSyntaxList != null) {
-      selectorList.add(compoundSelectorSyntaxList.compoundSelector());
-
-      SelectorCombinationList nextSelectorCombinationList = compoundSelectorSyntaxList.next();
-      while (nextSelectorCombinationList != null) {
-        selectorList.add(nextSelectorCombinationList.compoundSelector());
-        nextSelectorCombinationList = nextSelectorCombinationList.next();
-      }
-    }
-
-    return selectorList;
+  @Override
+  @Nullable
+  public SelectorCombinatorTree scssBlockCombinator() {
+    return scssBlockCombinator;
   }
 
 }

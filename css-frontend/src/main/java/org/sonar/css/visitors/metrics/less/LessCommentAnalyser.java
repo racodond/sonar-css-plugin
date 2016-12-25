@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -32,7 +32,7 @@ public class LessCommentAnalyser extends CssCommentAnalyser {
     } else if (comment.startsWith("//")) {
       return comment.substring(2, comment.length());
     } else {
-      throw new IllegalArgumentException();
+      throw new IllegalArgumentException("Unknown Less comment type");
     }
   }
 

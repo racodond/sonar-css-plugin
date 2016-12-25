@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -70,39 +70,39 @@ public class SelectorTreeTest extends CssTreeTest {
     assertThat(tree.compoundSelectors()).hasSize(2);
     assertThat(tree.compoundSelectors().get(0).selectors().get(0)).isInstanceOf(AttributeSelectorTree.class);
     assertThat(tree.compoundSelectors().get(1).selectors().get(0)).isInstanceOf(AttributeSelectorTree.class);
-    assertThat(tree.compoundSelectorSyntaxList().combinator().type()).isEqualTo(SelectorCombinatorTree.COMBINATOR.DESCENDANT_WS);
+    assertThat(tree.compoundSelectorsCombinationList().separators().get(0).type()).isEqualTo(SelectorCombinatorTree.COMBINATOR.DESCENDANT_WS);
 
     tree = checkParsed("[attribute~=abc] >> [attribute~=abc]");
     assertThat(tree.compoundSelectors()).hasSize(2);
     assertThat(tree.compoundSelectors().get(0).selectors().get(0)).isInstanceOf(AttributeSelectorTree.class);
     assertThat(tree.compoundSelectors().get(1).selectors().get(0)).isInstanceOf(AttributeSelectorTree.class);
-    assertThat(tree.compoundSelectorSyntaxList().combinator().type()).isEqualTo(SelectorCombinatorTree.COMBINATOR.DESCENDANT);
+    assertThat(tree.compoundSelectorsCombinationList().separators().get(0).type()).isEqualTo(SelectorCombinatorTree.COMBINATOR.DESCENDANT);
 
     tree = checkParsed("[attribute~=abc] > [attribute~=abc]");
     assertThat(tree.compoundSelectors()).hasSize(2);
     assertThat(tree.compoundSelectors().get(0).selectors().get(0)).isInstanceOf(AttributeSelectorTree.class);
     assertThat(tree.compoundSelectors().get(1).selectors().get(0)).isInstanceOf(AttributeSelectorTree.class);
-    assertThat(tree.compoundSelectorSyntaxList().combinator().type()).isEqualTo(SelectorCombinatorTree.COMBINATOR.CHILD);
+    assertThat(tree.compoundSelectorsCombinationList().separators().get(0).type()).isEqualTo(SelectorCombinatorTree.COMBINATOR.CHILD);
 
     tree = checkParsed("[attribute~=abc] + [attribute~=abc]");
     assertThat(tree.compoundSelectors()).hasSize(2);
     assertThat(tree.compoundSelectors().get(0).selectors().get(0)).isInstanceOf(AttributeSelectorTree.class);
     assertThat(tree.compoundSelectors().get(1).selectors().get(0)).isInstanceOf(AttributeSelectorTree.class);
-    assertThat(tree.compoundSelectorSyntaxList().combinator().type()).isEqualTo(SelectorCombinatorTree.COMBINATOR.NEXT_SIBLING);
+    assertThat(tree.compoundSelectorsCombinationList().separators().get(0).type()).isEqualTo(SelectorCombinatorTree.COMBINATOR.NEXT_SIBLING);
 
     tree = checkParsed("[attribute~=abc] ~ [attribute~=abc]");
     assertThat(tree.compoundSelectors()).hasSize(2);
     assertThat(tree.compoundSelectors().get(0).selectors().get(0)).isInstanceOf(AttributeSelectorTree.class);
     assertThat(tree.compoundSelectors().get(1).selectors().get(0)).isInstanceOf(AttributeSelectorTree.class);
-    assertThat(tree.compoundSelectorSyntaxList().combinator().type()).isEqualTo(SelectorCombinatorTree.COMBINATOR.FOLLOWING_SIBLING);
+    assertThat(tree.compoundSelectorsCombinationList().separators().get(0).type()).isEqualTo(SelectorCombinatorTree.COMBINATOR.FOLLOWING_SIBLING);
 
     tree = checkParsed("[attribute~=abc] [attribute~=abc] > .class");
     assertThat(tree.compoundSelectors()).hasSize(3);
     assertThat(tree.compoundSelectors().get(0).selectors().get(0)).isInstanceOf(AttributeSelectorTree.class);
     assertThat(tree.compoundSelectors().get(1).selectors().get(0)).isInstanceOf(AttributeSelectorTree.class);
     assertThat(tree.compoundSelectors().get(2).selectors().get(0)).isInstanceOf(ClassSelectorTree.class);
-    assertThat(tree.compoundSelectorSyntaxList().combinator().type()).isEqualTo(SelectorCombinatorTree.COMBINATOR.DESCENDANT_WS);
-    assertThat(tree.compoundSelectorSyntaxList().next().combinator().type()).isEqualTo(SelectorCombinatorTree.COMBINATOR.CHILD);
+    assertThat(tree.compoundSelectorsCombinationList().separators().get(0).type()).isEqualTo(SelectorCombinatorTree.COMBINATOR.DESCENDANT_WS);
+    assertThat(tree.compoundSelectorsCombinationList().separators().get(1).type()).isEqualTo(SelectorCombinatorTree.COMBINATOR.CHILD);
 
     tree = checkParsed("[attribute~=abc] >> [attribute~=abc] + .class");
     assertThat(tree.compoundSelectors()).hasSize(3);

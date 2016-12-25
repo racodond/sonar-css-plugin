@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -20,21 +20,21 @@
 package org.sonar.css.tree.impl.css;
 
 import com.google.common.collect.Iterators;
-
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import javax.annotation.Nullable;
-
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.function.StandardFunction;
 import org.sonar.css.model.function.StandardFunctionFactory;
 import org.sonar.css.tree.impl.TreeImpl;
+import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.FunctionTree;
 import org.sonar.plugins.css.api.tree.css.IdentifierTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
-import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
 
 public class FunctionTreeImpl extends TreeImpl implements FunctionTree {
 
@@ -62,14 +62,10 @@ public class FunctionTreeImpl extends TreeImpl implements FunctionTree {
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    if (parameterElements != null) {
-      return Iterators.concat(
-        Iterators.forArray(function, openParenthesis),
-        parameterElements.iterator(),
-        Iterators.singletonIterator(closeParenthesis));
-    } else {
-      return Iterators.forArray(function, openParenthesis, closeParenthesis);
-    }
+    return Iterators.concat(
+      Iterators.forArray(function, openParenthesis),
+      parameterElements != null ? parameterElements.iterator() : new ArrayList<Tree>().iterator(),
+      Iterators.singletonIterator(closeParenthesis));
   }
 
   @Override

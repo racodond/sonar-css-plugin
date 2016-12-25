@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -21,7 +21,7 @@ package org.sonar.css.parser.css;
 
 import org.junit.Test;
 import org.sonar.css.parser.LexicalGrammar;
-import org.sonar.plugins.css.api.tree.css.RulesetBlockTree;
+import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -33,7 +33,7 @@ public class RulesetBlockTreeTest extends CssTreeTest {
 
   @Test
   public void rulesetBlock() {
-    RulesetBlockTree tree;
+    StatementBlockTree tree;
 
     tree = checkParsed("{}");
     assertThat(tree.content()).isNull();
@@ -47,59 +47,65 @@ public class RulesetBlockTreeTest extends CssTreeTest {
     tree = checkParsed("{color:green}");
     assertThat(tree.content()).isNotNull();
     assertThat(tree.propertyDeclarations()).hasSize(1);
-    assertThat(tree.variableDeclarations()).isEmpty();
-    assertThat(tree.lessVariableDeclarations()).isEmpty();
     assertThat(tree.rulesets()).isEmpty();
 
     tree = checkParsed(" { color : green }");
     assertThat(tree.content()).isNotNull();
     assertThat(tree.propertyDeclarations()).hasSize(1);
     assertThat(tree.variableDeclarations()).isEmpty();
-    assertThat(tree.lessVariableDeclarations()).isEmpty();
     assertThat(tree.rulesets()).isEmpty();
 
     tree = checkParsed(" { \ncolor : green\n }");
     assertThat(tree.content()).isNotNull();
     assertThat(tree.propertyDeclarations()).hasSize(1);
     assertThat(tree.variableDeclarations()).isEmpty();
-    assertThat(tree.lessVariableDeclarations()).isEmpty();
     assertThat(tree.rulesets()).isEmpty();
 
     tree = checkParsed(" { \ncolor : green;\ncolor: red;\n--myvar: blabla }");
     assertThat(tree.content()).isNotNull();
     assertThat(tree.propertyDeclarations()).hasSize(2);
     assertThat(tree.variableDeclarations()).hasSize(1);
-    assertThat(tree.lessVariableDeclarations()).isEmpty();
     assertThat(tree.rulesets()).isEmpty();
 
     tree = checkParsed(" { \ncolor : green;\ncolor: red;\n--myvar: blabla; }");
     assertThat(tree.content()).isNotNull();
     assertThat(tree.propertyDeclarations()).hasSize(2);
     assertThat(tree.variableDeclarations()).hasSize(1);
-    assertThat(tree.lessVariableDeclarations()).isEmpty();
     assertThat(tree.rulesets()).isEmpty();
 
     tree = checkParsed(" { \ncolor : green;\ncolor: red;\n--myvar: blabla;}");
     assertThat(tree.content()).isNotNull();
     assertThat(tree.propertyDeclarations()).hasSize(2);
     assertThat(tree.variableDeclarations()).hasSize(1);
-    assertThat(tree.lessVariableDeclarations()).isEmpty();
     assertThat(tree.rulesets()).isEmpty();
   }
 
   @Test
   public void notRulesetBlock() {
     checkNotParsed("{color:}");
+    checkNotParsed("{@document{}}");
+    checkNotParsed("{h1{}}");
   }
 
-  private RulesetBlockTree checkParsed(String toParse) {
-    RulesetBlockTree tree = (RulesetBlockTree) parser().parse(toParse);
+  private StatementBlockTree checkParsed(String toParse) {
+    StatementBlockTree tree = (StatementBlockTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
     assertThat(tree.openCurlyBrace()).isNotNull();
     assertThat(tree.closeCurlyBrace()).isNotNull();
     assertThat(tree.variableDeclarations()).isNotNull();
-    assertThat(tree.lessVariableDeclarations()).isNotNull();
-    assertThat(tree.rulesets()).isNotNull();
+
+    assertThat(tree.rulesets()).isEmpty();
+    assertThat(tree.atRules()).isEmpty();
+
+    assertThat(tree.lessVariableDeclarations()).isEmpty();
+    assertThat(tree.lessMixinCalls()).isEmpty();
+
+    assertThat(tree.scssVariableDeclarations()).isEmpty();
+    assertThat(tree.scssMixinDefinitions()).isEmpty();
+    assertThat(tree.scssMixinIncludes()).isEmpty();
+    assertThat(tree.scssExtends()).isEmpty();
+    assertThat(tree.scssAtRoots()).isEmpty();
+
     return tree;
   }
 

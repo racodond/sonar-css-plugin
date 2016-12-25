@@ -1,0 +1,47 @@
+$family: unquote("Droid+Sans");
+@import url("http://fonts.googleapis.com/css?family=#{$family}");
+
+$my-color: green;
+
+@mixin my-mixin($color) {
+  h1 {
+    color: $color;
+  }
+  @import "example";
+}
+
+.mybox {
+  color: $my-color;
+}
+
+$abc: "blabla";
+
+.mybox2 {
+  width: 10px;
+  @at-root {
+    color: green;
+  }
+}
+
+@include my-mixin(green);
+
+@at-root {
+  color: green;
+}
+
+@at-root (with: abc)
+
+h1 {
+  color: green;
+  h2 {
+    color: blue;
+  }
+}
+
+.funky {
+  font: {
+    family: fantasy;
+    size: 30em;
+    weight: bold;
+  }
+}

@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -78,9 +78,13 @@ public class PropertyTreeTest extends LessTreeTest {
     assertThat(tree.isVendorPrefixed()).isTrue();
     assertThat(tree.vendor()).isEqualTo(Vendor.MICROSOFT);
     assertThat(tree.isHacked()).isFalse();
+    assertThat(tree.property().isLessInterpolated()).isFalse();
+    assertThat(tree.property().isInterpolated()).isFalse();
 
     tree = checkParsed(" -ms-@{background}-color");
     assertThat(tree.property().text()).isEqualTo("-ms-@{background}-color");
+    assertThat(tree.property().isLessInterpolated()).isTrue();
+    assertThat(tree.property().isInterpolated()).isTrue();
     assertThat(tree.standardProperty()).isInstanceOf(UnknownProperty.class);
     assertThat(tree.isVendorPrefixed()).isTrue();
     assertThat(tree.vendor()).isEqualTo(Vendor.MICROSOFT);

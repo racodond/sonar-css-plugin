@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -21,11 +21,6 @@ package org.sonar.css.visitors.highlighter;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,9 +31,12 @@ import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.batch.sensor.highlighting.TypeOfText;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.css.parser.less.LessParser;
-import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.visitors.TreeVisitorContext;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -160,7 +158,7 @@ public class LessSyntaxHighlighterVisitorTest {
     inputFile.initMetadata(string);
     Tree tree = LessParser.createParser(Charsets.UTF_8).parse(string);
 
-    when(visitorContext.getTopTree()).thenReturn((TreeImpl) tree);
+    when(visitorContext.getTopTree()).thenReturn(tree);
 
     Files.write(string, file, Charsets.UTF_8);
     highlighterVisitor.scanTree(visitorContext);

@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -30,15 +30,15 @@ public class CssLanguageTest {
 
   @Test
   public void language_key_and_name() {
-    CssLanguage css = new CssLanguage(mock(Settings.class));
-    assertThat(css.getKey()).isEqualTo("css");
-    assertThat(css.getName()).isEqualTo("CSS");
+    CssLanguage language = new CssLanguage(mock(Settings.class));
+    assertThat(language.getKey()).isEqualTo("css");
+    assertThat(language.getName()).isEqualTo("CSS");
   }
 
   @Test
   public void default_file_suffix() {
-    CssLanguage css = new CssLanguage(mock(Settings.class));
-    assertThat(css.getFileSuffixes()).containsOnly("css");
+    CssLanguage language = new CssLanguage(mock(Settings.class));
+    assertThat(language.getFileSuffixes()).containsOnly("css");
   }
 
   @Test
@@ -46,8 +46,8 @@ public class CssLanguageTest {
     Settings settings = new Settings();
     settings.setProperty("sonar.css.file.suffixes", "css,css3");
 
-    CssLanguage css = new CssLanguage(settings);
-    assertThat(css.getFileSuffixes()).containsOnly("css", "css3");
+    CssLanguage language = new CssLanguage(settings);
+    assertThat(language.getFileSuffixes()).containsOnly("css", "css3");
   }
 
 }

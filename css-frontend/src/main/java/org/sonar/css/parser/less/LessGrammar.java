@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -20,14 +20,10 @@
 package org.sonar.css.parser.less;
 
 import com.sonar.sslr.api.typed.GrammarBuilder;
-import com.sonar.sslr.api.typed.Optional;
-
-import java.util.List;
-
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.css.parser.TreeFactory;
 import org.sonar.css.parser.css.CssGrammar;
-import org.sonar.css.tree.impl.SyntaxList;
+import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.css.tree.impl.css.InternalSyntaxToken;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.*;
@@ -59,32 +55,29 @@ public class LessGrammar extends CssGrammar {
   }
 
   @Override
-  public RulesetBlockTree RULESET_BLOCK() {
-    return b.<RulesetBlockTree>nonterminal(LexicalGrammar.RULESET_BLOCK).is(
-      f.rulesetBlock(
-        b.token(LexicalGrammar.OPEN_CURLY_BRACE),
-        RULE_BLOCK_CONTENT(),
-        b.token(LexicalGrammar.CLOSE_CURLY_BRACE)));
+  public StatementBlockTree RULESET_BLOCK() {
+    return b.<StatementBlockTree>nonterminal(LexicalGrammar.RULESET_BLOCK).is(
+      f.rulesetBlock(STATEMENT_BLOCK()));
   }
 
   @Override
-  public AtRuleBlockTree AT_RULE_BLOCK() {
-    return b.<AtRuleBlockTree>nonterminal(LexicalGrammar.AT_RULE_BLOCK).is(
-      f.atRuleBlock(
-        b.token(LexicalGrammar.OPEN_CURLY_BRACE),
-        RULE_BLOCK_CONTENT(),
-        b.token(LexicalGrammar.CLOSE_CURLY_BRACE)));
+  public StatementBlockTree AT_RULE_BLOCK() {
+    return b.<StatementBlockTree>nonterminal(LexicalGrammar.AT_RULE_BLOCK).is(
+      f.atRuleBlock(STATEMENT_BLOCK()));
   }
 
-  public Optional<List<Tree>> RULE_BLOCK_CONTENT() {
-    return b.<Optional<List<Tree>>>nonterminal().is(
-      b.zeroOrMore(
-        b.firstOf(
-          RULESET(),
-          DECLARATION(),
-          AT_RULE(),
-          LESS_MIXIN_CALL(),
-          EMPTY_STATEMENT())));
+  public StatementBlockTree STATEMENT_BLOCK() {
+    return b.<StatementBlockTree>nonterminal(LexicalGrammar.STATEMENT_BLOCK).is(
+      f.statementBlock(
+        b.token(LexicalGrammar.OPEN_CURLY_BRACE),
+        b.zeroOrMore(
+          b.firstOf(
+            RULESET(),
+            DECLARATION(),
+            AT_RULE(),
+            LESS_MIXIN_CALL(),
+            EMPTY_STATEMENT())),
+        b.token(LexicalGrammar.CLOSE_CURLY_BRACE)));
   }
 
   @Override
@@ -142,7 +135,7 @@ public class LessGrammar extends CssGrammar {
     return b.<SelectorTree>nonterminal(LexicalGrammar.SELECTOR).is(
       f.lessSelector(
         b.optional(LESS_PARENT_SELECTOR_COMBINATOR()),
-        SELECTOR_COMBINATION_LIST(),
+        COMPOUND_SELECTOR_COMBINATION_LIST(),
         b.optional(LESS_EXTEND()),
         b.optional(LESS_MIXIN_PARAMETERS()),
         b.optional(LESS_MIXIN_GUARD())));
@@ -290,17 +283,16 @@ public class LessGrammar extends CssGrammar {
         LESS_MIXIN_GUARD_CONDITION_LIST()));
   }
 
-  public SyntaxList<ParenthesisBlockTree> LESS_MIXIN_GUARD_CONDITION_LIST() {
-    return b.<SyntaxList<ParenthesisBlockTree>>nonterminal().is(
-      b.firstOf(
-        f.lessMixinGuardConditionList(
-          PARENTHESIS_BLOCK(),
-          b.firstOf(
-            b.token(LexicalGrammar.LESS_MIXIN_GUARD_AND),
-            b.token(LexicalGrammar.LESS_MIXIN_GUARD_OR)),
-          LESS_MIXIN_GUARD_CONDITION_LIST()),
-        f.lessMixinGuardConditionList(
-          PARENTHESIS_BLOCK())));
+  public SeparatedList<ParenthesisBlockTree, SyntaxToken> LESS_MIXIN_GUARD_CONDITION_LIST() {
+    return b.<SeparatedList<ParenthesisBlockTree, SyntaxToken>>nonterminal().is(
+      f.lessMixinGuardConditionList(
+        PARENTHESIS_BLOCK(),
+        b.zeroOrMore(
+          f.newTuple2(
+            b.firstOf(
+              b.token(LexicalGrammar.LESS_MIXIN_GUARD_AND),
+              b.token(LexicalGrammar.LESS_MIXIN_GUARD_OR)),
+            PARENTHESIS_BLOCK()))));
   }
 
   public LessMixinParametersTree LESS_MIXIN_PARAMETERS() {
@@ -311,21 +303,20 @@ public class LessGrammar extends CssGrammar {
         b.token(LexicalGrammar.CLOSE_PARENTHESIS)));
   }
 
-  public SyntaxList<LessMixinParameterTree> LESS_MIXIN_PARAMETER_LIST() {
-    return b.<SyntaxList<LessMixinParameterTree>>nonterminal().is(
-      b.firstOf(
-        f.lessMixinParameterList(
-          LESS_MIXIN_PARAMETER(),
+  public SeparatedList<LessMixinParameterTree, SyntaxToken> LESS_MIXIN_PARAMETER_LIST() {
+    return b.<SeparatedList<LessMixinParameterTree, SyntaxToken>>nonterminal().is(
+      f.lessMixinParameterList(
+        LESS_MIXIN_PARAMETER(),
+        b.zeroOrMore(
+          f.newTuple3(
+            b.firstOf(
+              b.token(LexicalGrammar.COMMA),
+              b.token(LexicalGrammar.SEMICOLON)),
+            LESS_MIXIN_PARAMETER())),
+        b.optional(
           b.firstOf(
             b.token(LexicalGrammar.COMMA),
-            b.token(LexicalGrammar.SEMICOLON)),
-          LESS_MIXIN_PARAMETER_LIST()),
-        f.lessMixinParameterList(
-          LESS_MIXIN_PARAMETER(),
-          b.firstOf(
-            b.token(LexicalGrammar.COMMA),
-            b.token(LexicalGrammar.SEMICOLON))),
-        f.lessMixinParameterList(LESS_MIXIN_PARAMETER())));
+            b.token(LexicalGrammar.SEMICOLON)))));
   }
 
   public LessMixinParameterTree LESS_MIXIN_PARAMETER() {

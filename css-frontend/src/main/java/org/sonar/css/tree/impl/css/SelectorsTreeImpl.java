@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -20,12 +20,7 @@
 package org.sonar.css.tree.impl.css;
 
 import com.google.common.collect.Iterators;
-
-import java.util.Iterator;
-import java.util.List;
-import javax.annotation.Nullable;
-
-import org.sonar.css.tree.impl.SyntaxList;
+import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.SelectorTree;
@@ -33,20 +28,23 @@ import org.sonar.plugins.css.api.tree.css.SelectorsTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
+import javax.annotation.Nullable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.function.Function;
+
 public class SelectorsTreeImpl extends TreeImpl implements SelectorsTree {
 
-  private final SyntaxList<SelectorTree> selectorSyntaxList;
-  private final List<SelectorTree> selectors;
-  private final SyntaxToken lessTrailingComma;
+  private final SeparatedList<SelectorTree, SyntaxToken> selectors;
+  private final SyntaxToken lessTrailingComma; // FIXME: integrate it to the above list instead
 
-  public SelectorsTreeImpl(SyntaxList<SelectorTree> selectorSyntaxList) {
-    this(selectorSyntaxList, null);
+  public SelectorsTreeImpl(SeparatedList<SelectorTree, SyntaxToken> selectors) {
+    this(selectors, null);
   }
 
-  public SelectorsTreeImpl(SyntaxList<SelectorTree> selectorSyntaxList, @Nullable SyntaxToken lessTrailingComma) {
-    this.selectorSyntaxList = selectorSyntaxList;
+  public SelectorsTreeImpl(SeparatedList<SelectorTree, SyntaxToken> selectors, @Nullable SyntaxToken lessTrailingComma) {
+    this.selectors = selectors;
     this.lessTrailingComma = lessTrailingComma;
-    this.selectors = selectorSyntaxList.allElements(SelectorTree.class);
   }
 
   @Override
@@ -56,13 +54,9 @@ public class SelectorsTreeImpl extends TreeImpl implements SelectorsTree {
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    if (lessTrailingComma != null) {
-      return Iterators.concat(
-        selectorSyntaxList.all().iterator(),
-        Iterators.singletonIterator(lessTrailingComma));
-    } else {
-      return selectorSyntaxList.all().iterator();
-    }
+    return Iterators.concat(
+      selectors.elementsAndSeparators(Function.identity(), Function.identity()),
+      Iterators.singletonIterator(lessTrailingComma));
   }
 
   @Override

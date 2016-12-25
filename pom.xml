@@ -14,8 +14,8 @@
   <version>2.5-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>SonarQube CSS / Less Plugin</name>
-  <description>Enables analysis of CSS and Less files in SonarQube</description>
+  <name>SonarQube CSS / SCSS / Less Analyzer</name>
+  <description>Enables analysis of CSS, SCSS and Less files in SonarQube</description>
   <url>https://github.com/racodond/sonar-css-plugin</url>
   <inceptionYear>2013</inceptionYear>
   <organization>
@@ -66,7 +66,7 @@
   </ciManagement>
 
   <properties>
-    <license.title>SonarQube CSS / Less Plugin</license.title>
+    <license.title>SonarQube CSS / SCSS / Less Analyzer</license.title>
     <license.mailto>mailto: kende.tamas@gmail.com and david.racodon@gmail.com</license.mailto>
     <license.owner>Tamas Kende and David RACODON</license.owner>
     <sonar.version>5.6</sonar.version>

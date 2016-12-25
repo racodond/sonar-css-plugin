@@ -1,5 +1,5 @@
 /*
- * SonarQube CSS / Less Plugin
+ * SonarQube CSS / SCSS / Less Analyzer
  * Copyright (C) 2013-2016 Tamas Kende and David RACODON
  * mailto: kende.tamas@gmail.com and david.racodon@gmail.com
  *
@@ -19,15 +19,16 @@
  */
 package org.sonar.plugins.css.api.tree;
 
-import java.util.Iterator;
-import javax.annotation.Nullable;
-
 import org.sonar.plugins.css.api.tree.css.*;
 import org.sonar.plugins.css.api.tree.embedded.CssInStyleTagTree;
 import org.sonar.plugins.css.api.tree.embedded.FileWithEmbeddedCssTree;
 import org.sonar.plugins.css.api.tree.less.*;
+import org.sonar.plugins.css.api.tree.scss.*;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 import org.sonar.sslr.grammar.GrammarRuleKey;
+
+import javax.annotation.Nullable;
+import java.util.Iterator;
 
 public interface Tree {
 
@@ -53,8 +54,7 @@ public interface Tree {
     AT_RULE(AtRuleTree.class),
     RULESET(RulesetTree.class),
     EMPTY_STATEMENT(EmptyStatementTree.class),
-    RULESET_BLOCK(RulesetBlockTree.class),
-    AT_RULE_BLOCK(AtRuleBlockTree.class),
+    STATEMENT_BLOCK(StatementBlockTree.class),
     PARENTHESIS_BLOCK(ParenthesisBlockTree.class),
     BRACKET_BLOCK(BracketBlockTree.class),
     PROPERTY_DECLARATION(PropertyDeclarationTree.class),
@@ -100,6 +100,39 @@ public interface Tree {
     FILE_WITH_EMBEDDED_CSS(FileWithEmbeddedCssTree.class),
     CSS_IN_STYLE_TAG(CssInStyleTagTree.class),
 
+    // SCSS
+    SCSS_VARIABLE(ScssVariableTree.class),
+    SCSS_VARIABLE_ARGUMENT(ScssVariableArgumentTree.class),
+    SCSS_VARIABLE_DECLARATION(ScssVariableDeclarationTree.class),
+    SCSS_NESTED_PROPERTIES_DECLARATION(ScssNestedPropertiesDeclarationTree.class),
+    SCSS_DEFAULT_FLAG(ScssDefaultFlagTree.class),
+    SCSS_GLOBAL_FLAG(ScssGlobalFlagTree.class),
+    SCSS_OPTIONAL_FLAG(ScssOptionalFlagTree.class),
+    SCSS_PARENT_SELECTOR(ScssParentSelectorTree.class),
+    SCSS_PLACEHOLDER_SELECTOR(ScssPlaceholderSelectorTree.class),
+    SCSS_EXTEND(ScssExtendTree.class),
+    SCSS_ELSE(ScssElseTree.class),
+    SCSS_ELSE_IF(ScssElseIfTree.class),
+    SCSS_IF(ScssIfTree.class),
+    SCSS_IF_CONDITIONS(ScssIfConditionsTree.class),
+    SCSS_FOR(ScssForTree.class),
+    SCSS_WHILE(ScssWhileTree.class),
+    SCSS_EACH(ScssEachTree.class),
+    SCSS_CONTENT(ScssContentTree.class),
+    SCSS_DEBUG(ScssDebugTree.class),
+    SCSS_WARN(ScssWarnTree.class),
+    SCSS_ERROR(ScssErrorTree.class),
+    SCSS_RETURN(ScssErrorTree.class),
+    SCSS_AT_ROOT(ScssAtRootTree.class),
+    SCSS_AT_ROOT_PARAMETERS(ScssAtRootTree.class),
+    SCSS_FUNCTION_DEFINITION(ScssFunctionDefinitionTree.class),
+    SCSS_MIXIN_DEFINITION(ScssMixinDefinitionTree.class),
+    SCSS_MIXIN_INCLUDE(ScssMixinIncludeTree.class),
+    SCSS_PARAMETERS(ScssParametersTree.class),
+    SCSS_PARAMETER(ScssParameterTree.class),
+    SCSS_OPERATOR(ScssOperatorTree.class),
+    SCSS_MULTILINE_STRING(ScssMultilineStringTree.class),
+
     // Less
     LESS_VARIABLE_DECLARATION(LessVariableDeclarationTree.class),
     LESS_VARIABLE(LessVariableTree.class),
@@ -109,9 +142,7 @@ public interface Tree {
     LESS_MIXIN_GUARD(LessMixinGuardTree.class),
     LESS_MIXIN_PARAMETERS(LessMixinParametersTree.class),
     LESS_MIXIN_PARAMETER(LessMixinParameterTree.class),
-    LESS_ESCAPING(LessEscapingTree.class),
-
-    ;
+    LESS_ESCAPING(LessEscapingTree.class),;
 
     final Class<? extends Tree> associatedInterface;
 
