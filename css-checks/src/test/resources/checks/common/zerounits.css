@@ -34,3 +34,20 @@
   transition-duration: 0s;
 }
 
+@keyframes mymove {
+  0% {
+    top: 0;
+  }
+  25% {
+    top: 200px;
+  }
+  50% {
+    top: 100px;
+  }
+  75% {
+    top: 200px;
+  }
+  100% {
+    top: 0;
+  }
+}

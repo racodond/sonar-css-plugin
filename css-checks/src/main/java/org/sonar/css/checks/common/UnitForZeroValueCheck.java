@@ -19,24 +19,23 @@
  */
 package org.sonar.css.checks.common;
 
-import java.util.regex.Pattern;
-
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.Tags;
 import org.sonar.css.model.Unit;
+import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.DimensionTree;
 import org.sonar.plugins.css.api.tree.css.NumberTree;
 import org.sonar.plugins.css.api.tree.css.PercentageTree;
-import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
+import java.util.regex.Pattern;
+
 /**
  * See https://drafts.csswg.org/css-values-3/#lengths:
  * "However, for zero lengths the unit identifier is optional (i.e. can be syntactically represented as the 0 )."
- *
  * For lengths only, not for other dimensions such as angle, time, etc.
  * See https://developer.mozilla.org/en-US/docs/Web/CSS/time#Summary for example.
  */
@@ -51,7 +50,8 @@ public class UnitForZeroValueCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitPercentage(PercentageTree tree) {
-    if (isZeroValue(tree.value())) {
+    if (isZeroValue(tree.value())
+      && (tree.parent() == null || !tree.parent().is(Tree.Kind.KEYFRAMES_SELECTOR))) {
       addIssue(tree.percentageSymbol());
     }
     super.visitPercentage(tree);
