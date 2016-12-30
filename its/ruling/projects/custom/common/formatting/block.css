@@ -43,3 +43,16 @@
             (-ms-perspective: 10px) or (-o-perspective: 10px) )
 { /* Noncompliant !{Move the opening curly brace to the previous line.}! */
 }
+
+.mybox { color: red; width: 2px;} /* Noncompliant */ /* Noncompliant */
+
+/* Compliant */
+.mybox { color: red; }
+
+@keyframes mymove {
+  0%   {top: 0;}
+  25%  {top: 200px;}
+  50%  {top: 100px;}
+  75%  {top: 200px;}
+  100% {top: 0;}
+}

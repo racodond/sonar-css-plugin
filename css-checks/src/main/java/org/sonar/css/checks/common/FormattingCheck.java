@@ -117,7 +117,16 @@ public class FormattingCheck extends DoubleDispatchVisitorCheck {
   @Override
   public void visitRuleset(RulesetTree tree) {
 
-    if (tree.block().content() != null && isOnSameLine(tree.block().openCurlyBrace(), tree.block().content().get(0))) {
+    if (tree.block().content() == null) {
+      return;
+    }
+
+    if (tree.block().content().size() < 2
+      && isOnSameLine(tree.block().openCurlyBrace(), tree.block().closeCurlyBrace())) {
+      return;
+    }
+
+    if (isOnSameLine(tree.block().openCurlyBrace(), tree.block().content().get(0))) {
       addPreciseIssue(tree.block().openCurlyBrace(), "Move the code following the opening curly brace to the next line.");
     }
 
@@ -125,7 +134,7 @@ public class FormattingCheck extends DoubleDispatchVisitorCheck {
       addPreciseIssue(tree.block().openCurlyBrace(), "Move the opening curly brace to the previous line.");
     }
 
-    if (tree.block().content() != null && isOnSameLine(tree.block().content().get(tree.block().content().size() - 1), tree.block().closeCurlyBrace())) {
+    if (isOnSameLine(tree.block().content().get(tree.block().content().size() - 1), tree.block().closeCurlyBrace())) {
       addPreciseIssue(tree.block().closeCurlyBrace(), "Move the closing curly brace to the next line.");
     }
 
