@@ -29,15 +29,23 @@ public class CheckTestUtils {
   }
 
   public static File getCommonTestFile(String relativePath) {
-    return new File(TEST_FILE_BASE_DIRECTORY_PATH + "common/" + relativePath);
+    return getTestFile(relativePath, "common");
   }
 
   public static File getCssTestFile(String relativePath) {
-    return new File(TEST_FILE_BASE_DIRECTORY_PATH + "css/" + relativePath);
+    return getTestFile(relativePath, "css");
   }
 
   public static File getLessTestFile(String relativePath) {
-    return new File(TEST_FILE_BASE_DIRECTORY_PATH + "less/" + relativePath);
+    return getTestFile(relativePath, "less");
+  }
+
+  public static File getScssTestFile(String relativePath) {
+    return getTestFile(relativePath, "scss");
+  }
+
+  private static File getTestFile(String relativePath, String languageDirectoryName) {
+    return new File(TEST_FILE_BASE_DIRECTORY_PATH + languageDirectoryName + "/" + relativePath);
   }
 
 }

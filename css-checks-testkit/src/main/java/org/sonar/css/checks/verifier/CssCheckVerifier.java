@@ -25,18 +25,10 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Ordering;
 import com.sonar.sslr.api.typed.ActionParser;
-
-import java.io.File;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.stream.Collectors;
-import javax.annotation.Nullable;
-
 import org.sonar.css.parser.css.CssParser;
 import org.sonar.css.parser.embedded.EmbeddedCssParser;
 import org.sonar.css.parser.less.LessParser;
+import org.sonar.css.parser.scss.ScssParser;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.css.visitors.CharsetAwareVisitor;
 import org.sonar.css.visitors.CssTreeVisitorContext;
@@ -47,6 +39,14 @@ import org.sonar.plugins.css.api.tree.css.SyntaxTrivia;
 import org.sonar.plugins.css.api.visitors.SubscriptionVisitorCheck;
 import org.sonar.plugins.css.api.visitors.issue.*;
 import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+
+import javax.annotation.Nullable;
+import java.io.File;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.fail;
@@ -61,17 +61,18 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
   /**
    * Check issuesOnCssFile.
    * File is parsed with CSS parser.
-   * @param check Check to test
-   * @param file File to test
    *
-   * Example:
-   * <pre>
-   * CheckVerifier.issuesOnCssFile(new MyCheck(), myFile))
-   *    .next().atLine(2).withMessage("This is message for line 2.")
-   *    .next().atLine(3).withMessage("This is message for line 3.").withCost(2.)
-   *    .next().atLine(8)
-   *    .noMore();
-   * </pre>
+   * @param check Check to test
+   * @param file  File to test
+   *              <p>
+   *              Example:
+   *              <pre>
+   *                           CheckVerifier.issuesOnCssFile(new MyCheck(), myFile))
+   *                              .next().atLine(2).withMessage("This is message for line 2.")
+   *                              .next().atLine(3).withMessage("This is message for line 3.").withCost(2.)
+   *                              .next().atLine(8)
+   *                              .noMore();
+   *                           </pre>
    */
   public static CheckMessagesVerifier issuesOnCssFile(CssCheck check, File file) {
     return issuesOnCssFile(check, file, Charsets.UTF_8);
@@ -79,6 +80,7 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
 
   /**
    * See {@link CssCheckVerifier#issuesOnCssFile(CssCheck, File)}
+   *
    * @param charset Charset of the file to test.
    */
   public static CheckMessagesVerifier issuesOnCssFile(CssCheck check, File file, Charset charset) {
@@ -98,6 +100,7 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
 
   /**
    * See {@link CssCheckVerifier#issuesOnEmbeddedCssFile(CssCheck, File)}
+   *
    * @param charset Charset of the file to test.
    */
   public static CheckMessagesVerifier issuesOnEmbeddedCssFile(CssCheck check, File file, Charset charset) {
@@ -117,6 +120,7 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
 
   /**
    * See {@link CssCheckVerifier#issuesOnLessFile(CssCheck, File)}
+   *
    * @param charset Charset of the file to test.
    */
   public static CheckMessagesVerifier issuesOnLessFile(CssCheck check, File file, Charset charset) {
@@ -127,9 +131,29 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
   }
 
   /**
+   * See {@link CssCheckVerifier#issuesOnCssFile(CssCheck, File)}
+   * File is parsed with Less parser.
+   */
+  public static CheckMessagesVerifier issuesOnScssFile(CssCheck check, File file) {
+    return issuesOnScssFile(check, file, Charsets.UTF_8);
+  }
+
+  /**
+   * See {@link CssCheckVerifier#issuesOnScssFile(CssCheck, File)}
+   *
+   * @param charset Charset of the file to test.
+   */
+  public static CheckMessagesVerifier issuesOnScssFile(CssCheck check, File file, Charset charset) {
+    if (check instanceof CharsetAwareVisitor) {
+      ((CharsetAwareVisitor) check).setCharset(charset);
+    }
+    return CheckMessagesVerifier.verify(TreeCheckTest.getIssues(file.getAbsolutePath(), check, ScssParser.createParser(charset)));
+  }
+
+  /**
    * To unit tests checks.
    * File is parsed with CSS parser.
-   *
+   * <p>
    * Expected issuesOnCssFile should be provided as comments in the source file.
    * Expected issue details should be provided on the line of the actual issue.
    * For example:
@@ -139,18 +163,18 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
    * /* Noncompliant ![sc=2;ec=6;secondary=+2,+4]! !{Error message}!
    * ...
    * </pre>
-   *
+   * <p>
    * How to write these comments:
    * <ul>
-   *   <li>Put a comment starting with "Noncompliant" if you expect an issue on the line.</li>
-   *   <li>Optional - In ![...]! provide the precise issue location <code>sl, sc, ec, el</code> keywords respectively for start line, start column, end column and end line. <code>sl=+1</code> by default.</li>
-   *   <li>Optional - In ![...]! provide secondary locations with the <code>secondary</code> keyword.</li>
-   *   <li>Optional - In ![...]! provide expected effort to fix (cost) with the <code>effortToFix</code> keyword.</li>
-   *   <li>Optional - In <code>!{MESSAGE}!</code> provide the expected message.</li>
-   *   <li>To specify the line you can use relative location by putting <code>+</code> or <code>-</code>.</li>
-   *   <li>Note that the order matters: Noncompliant => Parameters => Error message</li>
+   * <li>Put a comment starting with "Noncompliant" if you expect an issue on the line.</li>
+   * <li>Optional - In ![...]! provide the precise issue location <code>sl, sc, ec, el</code> keywords respectively for start line, start column, end column and end line. <code>sl=+1</code> by default.</li>
+   * <li>Optional - In ![...]! provide secondary locations with the <code>secondary</code> keyword.</li>
+   * <li>Optional - In ![...]! provide expected effort to fix (cost) with the <code>effortToFix</code> keyword.</li>
+   * <li>Optional - In <code>!{MESSAGE}!</code> provide the expected message.</li>
+   * <li>To specify the line you can use relative location by putting <code>+</code> or <code>-</code>.</li>
+   * <li>Note that the order matters: Noncompliant => Parameters => Error message</li>
    * </ul>
-   *
+   * <p>
    * Example of call:
    * <pre>
    * CheckVerifier.verifyCssFile(new MyCheck(), myFile));
@@ -162,6 +186,7 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
 
   /**
    * See {@link CssCheckVerifier#verifyCssFile(CssCheck, File)}
+   *
    * @param charset Charset of the file to test.
    */
   public static void verifyCssFile(CssCheck check, File file, Charset charset) {
@@ -178,10 +203,28 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
 
   /**
    * See {@link CssCheckVerifier#verifyEmbeddedCssFile(CssCheck, File)}
+   *
    * @param charset Charset of the file to test.
    */
   private static void verifyEmbeddedCssFile(CssCheck check, File file, Charset charset) {
     verify(check, file, charset, EmbeddedCssParser.createParser(charset));
+  }
+
+  /**
+   * See {@link CssCheckVerifier#verifyCssFile(CssCheck, File)}
+   * File is parsed with SCSS parser.
+   */
+  public static void verifyScssFile(CssCheck check, File file) {
+    verifyScssFile(check, file, Charsets.UTF_8);
+  }
+
+  /**
+   * See {@link CssCheckVerifier#verifyScssFile(CssCheck, File)}
+   *
+   * @param charset Charset of the file to test.
+   */
+  private static void verifyScssFile(CssCheck check, File file, Charset charset) {
+    verify(check, file, charset, ScssParser.createParser(charset));
   }
 
   /**
@@ -194,6 +237,7 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
 
   /**
    * See {@link CssCheckVerifier#verifyLessFile(CssCheck, File)}
+   *
    * @param charset Charset of the file to test.
    */
   private static void verifyLessFile(CssCheck check, File file, Charset charset) {
