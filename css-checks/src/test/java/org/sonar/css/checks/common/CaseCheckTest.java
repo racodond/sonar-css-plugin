@@ -35,4 +35,9 @@ public class CaseCheckTest {
     CssCheckVerifier.verifyLessFile(new CaseCheck(), CheckTestUtils.getCommonTestFile("case/case.less"));
   }
 
+  @Test
+  public void test_scss() {
+    CssCheckVerifier.verifyScssFile(new CaseCheck(), CheckTestUtils.getCommonTestFile("case/case.scss"));
+  }
+
 }
