@@ -30,20 +30,12 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 @Rule(
   key = "case",
-  name = "Properties, functions, @rule keywords and variables should be lower case",
+  name = "Properties, functions and @rule keywords should be lower case",
   priority = Priority.MINOR,
   tags = {Tags.CONVENTION})
 @SqaleConstantRemediation("2min")
 @ActivatedByDefault
 public class CaseCheck extends DoubleDispatchVisitorCheck {
-
-  @Override
-  public void visitVariable(VariableTree tree) {
-    if (containsUpperCaseCharacter(tree.variableName())) {
-      addIssue(tree, "variable", tree.variableName());
-    }
-    super.visitVariable(tree);
-  }
 
   @Override
   public void visitProperty(PropertyTree tree) {
