@@ -27,6 +27,7 @@ import org.sonar.css.checks.CheckList;
 import org.sonar.css.checks.CheckUtils;
 import org.sonar.css.checks.Tags;
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.scss.ScssVariableDeclarationTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -37,7 +38,7 @@ import java.util.regex.PatternSyntaxException;
 
 @Rule(
   key = "scss-variable-naming-convention",
-  name = "Variables should follow a naming convention",
+  name = "SCSS variables should follow a naming convention",
   priority = Priority.MINOR,
   tags = {Tags.CONVENTION})
 @SqaleConstantRemediation("10min")
@@ -51,7 +52,13 @@ public class ScssVariableNamingConventionCheck extends DoubleDispatchVisitorChec
     defaultValue = DEFAULT_FORMAT)
   private String format = DEFAULT_FORMAT;
 
-  // FIXME
+  @Override
+  public void visitScssVariableDeclaration(ScssVariableDeclarationTree tree) {
+    if (!tree.variable().variableName().matches(format)) {
+      addIssue(tree.variable().variable(), tree.variable().variableName());
+    }
+    super.visitScssVariableDeclaration(tree);
+  }
 
   @VisibleForTesting
   public void setFormat(String format) {
