@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.checks.less;
+package org.sonar.css.checks.css;
 
 import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
@@ -25,20 +25,20 @@ import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class LessVariableNamingConventionCheckTest {
+public class CssVariableNamingConventionCheckTest {
 
-  private final LessVariableNamingConventionCheck check = new LessVariableNamingConventionCheck();
+  private final CssVariableNamingConventionCheck check = new CssVariableNamingConventionCheck();
 
   @Test
   public void test_with_default_format() {
     check.setFormat("^[a-z][-a-z0-9]*$");
-    CssCheckVerifier.verifyLessFile(check, CheckTestUtils.getLessTestFile("lessVariableNamingConvention.less"));
+    CssCheckVerifier.verifyCssFile(check, CheckTestUtils.getCssTestFile("variable-naming-convention/variableNamingConvention.css"));
   }
 
   @Test
   public void test_with_custom_format() {
     check.setFormat("^[-a-z]+$");
-    CssCheckVerifier.verifyLessFile(check, CheckTestUtils.getLessTestFile("lessVariableNamingConventionCustomFormat.less"));
+    CssCheckVerifier.verifyCssFile(check, CheckTestUtils.getCssTestFile("variable-naming-convention/variableNamingConventionCustomFormat.css"));
   }
 
   @Test
@@ -46,10 +46,10 @@ public class LessVariableNamingConventionCheckTest {
     try {
       check.setFormat("(");
 
-      CssCheckVerifier.issuesOnLessFile(check, CheckTestUtils.getLessTestFile("lessVariableNamingConvention.less")).noMore();
+      CssCheckVerifier.issuesOnCssFile(check, CheckTestUtils.getCssTestFile("variable-naming-convention/variableNamingConvention.css")).noMore();
 
     } catch (IllegalStateException e) {
-      assertThat(e.getMessage()).isEqualTo("Check less:less-variable-naming-convention (Less variables should follow a naming convention): "
+      assertThat(e.getMessage()).isEqualTo("Check css:css-variable-naming-convention (CSS variables should follow a naming convention): "
         + "format parameter \"(\" is not a valid regular expression.");
     }
   }

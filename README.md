@@ -18,9 +18,9 @@ within [SonarQube](http://www.sonarqube.org). It:
 * Computes metrics: lines of code, number of rules, complexity, etc.
 * Validates your CSS code
 * Performs more than:
-  * [xx70 checks](http://sonarqube.racodond.com/coding_rules#languages=css%2Ccss) on CSS code
-  * [xx70 checks](http://sonarqube.racodond.com/coding_rules#languages=scss%2Ccss) on SCSS code
-  * [xx70 checks](http://sonarqube.racodond.com/coding_rules#languages=less%2Ccss) on Less code
+  * [60 checks](http://sonarqube.racodond.com/coding_rules#languages=css%2Ccss) on CSS code
+  * [60 checks](http://sonarqube.racodond.com/coding_rules#languages=scss%2Ccss) on SCSS code
+  * [60 checks](http://sonarqube.racodond.com/coding_rules#languages=less%2Ccss) on Less code
 * Provides the ability to write your own checks
 
 
@@ -77,6 +77,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Box model size should be carefully reviewed
 * Byte Order Mark (BOM) should not be used for UTF-8 files
 * Case-sensitive flag should not be used
+* CSS variables should follow a naming convention
 * Deprecated system colors should not be used
 * Duplicated background images should be removed
 * Duplicated properties should be removed
@@ -102,7 +103,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Obsolete pseudo-elements and pseudo-classes should not be used
 * Over-specified selectors should be simplified
 * Properties that do not work with the "display" property should be removed
-* Properties, functions and variables should be lower case
+* Properties, functions and @-rule keywords should be lower case
 * Property values should be valid
 * Protocol-relative URL should not be used
 * Regular expression like selectors should not be used
@@ -135,7 +136,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Stylesheets should not "@import" too many other sheets
 
 ### Specific to SCSS
-* TODO...
+* SCSS variables should follow a naming convention
 
 ### Specific to Less
 * Deprecated "e" escaping function should be replaced with ~"value" syntax
@@ -143,7 +144,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Same variable should not be declared multiple times within the same scope
 * Single-line comments (//) should be preferred over multi-line comments (/* ... */)
 * Variables should be declared at the beginning of the block
-* Variables should follow a naming convention
+* Less variables should follow a naming convention
 
 ### Templates
 * Regular expression on comment
