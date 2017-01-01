@@ -49,6 +49,7 @@ public final class CheckList {
     return Stream.concat(
       getCommonChecks().stream(),
       ImmutableList.of(
+        CssVariableNamingConventionCheck.class,
         EmbeddedCssCheck.class,
         ExperimentalCssFunctionCheck.class,
         ImportFirstCheck.class,

@@ -17,14 +17,9 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.checks.less;
+package org.sonar.css.checks.css;
 
 import com.google.common.annotations.VisibleForTesting;
-
-import java.text.MessageFormat;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
-
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -32,19 +27,23 @@ import org.sonar.css.checks.CheckList;
 import org.sonar.css.checks.CheckUtils;
 import org.sonar.css.checks.Tags;
 import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.less.LessVariableDeclarationTree;
+import org.sonar.plugins.css.api.tree.css.VariableDeclarationTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
+import java.text.MessageFormat;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
 @Rule(
-  key = "less-variable-naming-convention",
-  name = "Less variables should follow a naming convention",
+  key = "css-variable-naming-convention",
+  name = "CSS variables should follow a naming convention",
   priority = Priority.MINOR,
   tags = {Tags.CONVENTION})
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
-public class LessVariableNamingConventionCheck extends DoubleDispatchVisitorCheck {
+public class CssVariableNamingConventionCheck extends DoubleDispatchVisitorCheck {
 
   private static final String DEFAULT_FORMAT = "^[a-z][-a-z0-9]*$";
   @RuleProperty(
@@ -54,11 +53,11 @@ public class LessVariableNamingConventionCheck extends DoubleDispatchVisitorChec
   private String format = DEFAULT_FORMAT;
 
   @Override
-  public void visitLessVariableDeclaration(LessVariableDeclarationTree tree) {
+  public void visitVariableDeclaration(VariableDeclarationTree tree) {
     if (!tree.variable().variableName().matches(format)) {
       addIssue(tree.variable().variable(), tree.variable().variableName());
     }
-    super.visitLessVariableDeclaration(tree);
+    super.visitVariableDeclaration(tree);
   }
 
   @VisibleForTesting
@@ -78,7 +77,7 @@ public class LessVariableNamingConventionCheck extends DoubleDispatchVisitorChec
   private String paramsErrorMessage() {
     return CheckUtils.paramsErrorMessage(
       this.getClass(),
-      CheckList.LESS_REPOSITORY_KEY,
+      CheckList.CSS_REPOSITORY_KEY,
       "format parameter \"" + format + "\" is not a valid regular expression.");
   }
 
