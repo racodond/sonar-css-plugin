@@ -43,7 +43,7 @@ public class RuleDescriptionsGenerator {
 
   private static final String UTF_8 = "UTF-8";
 
-  private static final Map<String, String> links = ImmutableMap.<String, String>builder()
+  private static final Map<String, String> CSS_OBJECT_LINKS = ImmutableMap.<String, String>builder()
     .put("|", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar")
     .put("||", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar")
     .put("&&", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_ampersand")
@@ -351,7 +351,7 @@ public class RuleDescriptionsGenerator {
 
   private String replaceLinks(String rawValidator) {
     String validator = rawValidator;
-    for (Map.Entry<String, String> link : links.entrySet()) {
+    for (Map.Entry<String, String> link : CSS_OBJECT_LINKS.entrySet()) {
       validator = validator.replace(
         link.getKey(),
         "<a target=\"_blank\" href=\"" + link.getValue() + "\">" + StringEscapeUtils.escapeHtml(link.getKey()) + "</a>");

@@ -19,6 +19,7 @@
  */
 package org.sonar.css.model.property.validator;
 
+@FunctionalInterface
 public interface Validator {
 
   String getValidatorFormat();
