@@ -19,11 +19,6 @@
  */
 package org.sonar.css.tree.impl.css;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.css.tree.impl.TreeListUtils;
 import org.sonar.plugins.css.api.tree.Tree;
@@ -31,6 +26,11 @@ import org.sonar.plugins.css.api.tree.css.ImportantTree;
 import org.sonar.plugins.css.api.tree.css.ValueTree;
 import org.sonar.plugins.css.api.tree.scss.ScssDefaultFlagTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ValueTreeImpl extends TreeImpl implements ValueTree {
 
@@ -78,6 +78,11 @@ public class ValueTreeImpl extends TreeImpl implements ValueTree {
       .filter(e -> treeType.isAssignableFrom(e.getClass()))
       .map(treeType::cast)
       .findFirst();
+  }
+
+  @Override
+  public Tree firstValueElement() {
+    return allValueElements.get(0);
   }
 
   private List<Tree> buildSanitizedList() {

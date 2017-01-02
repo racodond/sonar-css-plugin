@@ -24,9 +24,7 @@ import org.sonar.css.checks.common.*;
 import org.sonar.css.checks.css.*;
 import org.sonar.css.checks.css.ParsingErrorCheck;
 import org.sonar.css.checks.less.*;
-import org.sonar.css.checks.scss.DebugCheck;
-import org.sonar.css.checks.scss.IfElseIfWithoutElseCheck;
-import org.sonar.css.checks.scss.ScssVariableNamingConventionCheck;
+import org.sonar.css.checks.scss.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -71,7 +69,9 @@ public final class CheckList {
         DebugCheck.class,
         IfElseIfWithoutElseCheck.class,
         org.sonar.css.checks.scss.ParsingErrorCheck.class,
-        ScssVariableNamingConventionCheck.class).stream())
+        IfElseIfSameConditionCheck.class,
+        ScssVariableNamingConventionCheck.class,
+        TooComplexConditionCheck.class).stream())
       .collect(Collectors.toList());
   }
 

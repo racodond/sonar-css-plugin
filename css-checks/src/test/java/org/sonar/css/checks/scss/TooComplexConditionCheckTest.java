@@ -17,38 +17,29 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.plugins.css.api.tree.css;
+package org.sonar.css.checks.scss;
 
-import org.sonar.plugins.css.api.tree.Tree;
+import org.junit.Test;
+import org.sonar.css.checks.CheckTestUtils;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
-import java.util.List;
-import java.util.Optional;
+public class TooComplexConditionCheckTest {
 
-public interface ValueTree extends Tree {
+  @Test
+  public void test_default_threshold() {
+    CssCheckVerifier.verifyScssFile(
+      new TooComplexConditionCheck(),
+      CheckTestUtils.getScssTestFile("too-complex-condition/tooComplexConditionDefault.scss"));
+  }
 
-  /**
-   * @return First value element.
-   */
-  Tree firstValueElement();
+  @Test
+  public void test_custom_threshold() {
+    TooComplexConditionCheck check = new TooComplexConditionCheck();
+    check.setMax(4);
 
-  /**
-   * @return Sanitized list of value elements. Value elements removed from the list are: ImportantTree
-   */
-  List<Tree> sanitizedValueElements();
-
-  /**
-   * @return All value elements (no filtering).
-   */
-  List<Tree> valueElements();
-
-  /**
-   * @return All value elements of a certain type.
-   */
-  <T extends Tree> List<T> valueElementsOfType(Class<T> treeType);
-
-  /**
-   * @return First value element of a certain type.
-   */
-  <T extends Tree> Optional<T> firstValueElementOfType(Class<T> treeType);
+    CssCheckVerifier.verifyScssFile(
+      check,
+      CheckTestUtils.getScssTestFile("too-complex-condition/tooComplexConditionCustom.scss"));
+  }
 
 }

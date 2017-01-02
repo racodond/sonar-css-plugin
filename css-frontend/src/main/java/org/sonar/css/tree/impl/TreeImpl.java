@@ -40,6 +40,7 @@ public abstract class TreeImpl implements Tree {
     this.parent = parent;
   }
 
+  @Override
   public int getLine() {
     return getFirstToken().line();
   }

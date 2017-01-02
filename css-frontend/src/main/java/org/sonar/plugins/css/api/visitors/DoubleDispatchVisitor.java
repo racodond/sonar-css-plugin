@@ -320,6 +320,10 @@ public abstract class DoubleDispatchVisitor implements TreeVisitor {
     scanChildren(tree);
   }
 
+  public void visitScssCondition(ScssConditionTree tree) {
+    scanChildren(tree);
+  }
+
   public void visitScssIfConditions(ScssIfConditionsTree tree) {
     scanChildren(tree);
   }

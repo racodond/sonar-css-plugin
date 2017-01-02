@@ -33,23 +33,47 @@ public class ScssOperatorTreeTest extends ScssTreeTest {
 
   @Test
   public void scssOperator() {
-    checkParsed("/");
-    checkParsed("-");
-    checkParsed("!=");
-    checkParsed("and");
-    checkParsed("or");
-    checkParsed(" or");
+    ScssOperatorTree tree;
+
+    tree = checkParsed("/");
+    assertThat(tree.type()).isEqualTo(ScssOperatorTree.OPERATOR.DIV);
+    assertThat(tree.operator().text()).isEqualTo("/");
+
+    tree = checkParsed("-");
+    assertThat(tree.type()).isEqualTo(ScssOperatorTree.OPERATOR.MINUS);
+    assertThat(tree.operator().text()).isEqualTo("-");
+
+    tree = checkParsed("==");
+    assertThat(tree.type()).isEqualTo(ScssOperatorTree.OPERATOR.DOUBLE_EQUALS);
+    assertThat(tree.operator().text()).isEqualTo("==");
+
+    tree = checkParsed("=");
+    assertThat(tree.type()).isEqualTo(ScssOperatorTree.OPERATOR.EQUALS);
+    assertThat(tree.operator().text()).isEqualTo("=");
+
+    tree = checkParsed("and");
+    assertThat(tree.type()).isEqualTo(ScssOperatorTree.OPERATOR.AND);
+    assertThat(tree.operator().text()).isEqualTo("and");
+
+    tree = checkParsed("or");
+    assertThat(tree.type()).isEqualTo(ScssOperatorTree.OPERATOR.OR);
+    assertThat(tree.operator().text()).isEqualTo("or");
+
+    tree = checkParsed(" or");
+    assertThat(tree.type()).isEqualTo(ScssOperatorTree.OPERATOR.OR);
+    assertThat(tree.operator().text()).isEqualTo("or");
   }
 
   @Test
   public void notScssOperator() {
-    checkNotParsed("=");
     checkNotParsed("a");
   }
 
-  private void checkParsed(String toParse) {
+  private ScssOperatorTree checkParsed(String toParse) {
     ScssOperatorTree tree = (ScssOperatorTree) parser().parse(toParse);
-    assertThat(tree.value()).isNotNull();
+    assertThat(tree).isNotNull();
+    assertThat(tree.text()).isNotNull();
+    return tree;
   }
 
 }

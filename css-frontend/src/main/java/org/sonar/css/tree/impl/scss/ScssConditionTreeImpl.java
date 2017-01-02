@@ -19,26 +19,50 @@
  */
 package org.sonar.css.tree.impl.scss;
 
-import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
-import org.sonar.plugins.css.api.tree.css.SyntaxToken;
+import com.google.common.collect.Iterators;
+import org.sonar.css.tree.impl.TreeImpl;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.ValueTree;
 import org.sonar.plugins.css.api.tree.scss.ScssConditionTree;
-import org.sonar.plugins.css.api.tree.scss.ScssEachTree;
+import org.sonar.plugins.css.api.tree.scss.ScssOperatorTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
-public class ScssEachTreeImpl extends ScssConditionalDirectiveTreeImpl implements ScssEachTree {
+import java.util.Iterator;
 
-  public ScssEachTreeImpl(SyntaxToken directive, ScssConditionTree condition, StatementBlockTree block) {
-    super(directive, condition, block);
+public class ScssConditionTreeImpl extends TreeImpl implements ScssConditionTree {
+
+  private final ValueTree condition;
+
+  public ScssConditionTreeImpl(ValueTree condition) {
+    this.condition = condition;
   }
 
   @Override
   public Kind getKind() {
-    return Kind.SCSS_EACH;
+    return Kind.SCSS_CONDITION;
+  }
+
+  @Override
+  public Iterator<Tree> childrenIterator() {
+    return Iterators.forArray(condition);
   }
 
   @Override
   public void accept(DoubleDispatchVisitor visitor) {
-    visitor.visitScssEach(this);
+    visitor.visitScssCondition(this);
+  }
+
+  @Override
+  public ValueTree condition() {
+    return condition;
+  }
+
+  @Override
+  public long complexity() {
+    return 1 + condition.valueElementsOfType(ScssOperatorTree.class)
+      .stream()
+      .filter(o -> o.type() == ScssOperatorTree.OPERATOR.AND || o.type() == ScssOperatorTree.OPERATOR.OR)
+      .count();
   }
 
 }

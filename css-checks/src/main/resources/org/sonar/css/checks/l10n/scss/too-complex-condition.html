@@ -1,0 +1,20 @@
+<p> The complexity of a condition is defined by the number of <code>and</code> and <code>or</code> operators.</p>
+<p> A single condition's complexity should not become too high to keep the code readable.</p>
+
+<h2>Noncompliant Code Example</h2>
+With a maximum allowed number of conditional operators of 3:
+<pre>
+@if $x == 0 and ($is-a or $is-b) and $z == 1 and $a {
+  do-something();
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+With a maximum allowed number of conditional operators of 3:
+<pre>
+$is-d: $is-a or $is-b;
+
+@if $x == 0 and $is-d and $z == 1  and $a {
+  do-something();
+}
+</pre>

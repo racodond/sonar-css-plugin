@@ -17,38 +17,15 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.plugins.css.api.tree.css;
+package org.sonar.plugins.css.api.tree.scss;
 
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.ValueTree;
 
-import java.util.List;
-import java.util.Optional;
+public interface ScssConditionTree extends Tree {
 
-public interface ValueTree extends Tree {
+  ValueTree condition();
 
-  /**
-   * @return First value element.
-   */
-  Tree firstValueElement();
-
-  /**
-   * @return Sanitized list of value elements. Value elements removed from the list are: ImportantTree
-   */
-  List<Tree> sanitizedValueElements();
-
-  /**
-   * @return All value elements (no filtering).
-   */
-  List<Tree> valueElements();
-
-  /**
-   * @return All value elements of a certain type.
-   */
-  <T extends Tree> List<T> valueElementsOfType(Class<T> treeType);
-
-  /**
-   * @return First value element of a certain type.
-   */
-  <T extends Tree> Optional<T> firstValueElementOfType(Class<T> treeType);
+  long complexity();
 
 }

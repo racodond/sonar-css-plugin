@@ -1,0 +1,15 @@
+@if $var == 1 and $var2 == 2 or $var3 == 3 and $var4 == 4 {
+  @error "1";
+}
+
+@if $var == 1 and $var2 == 2 or $var3 == 3 or $var4 == 4 and $var5 == 5 { /* Noncompliant ![sc=5;ec=72]! !{Reduce the number of conditional operators (5) of this condition (maximum allowed 4).}! */
+  @error "1";
+}
+
+@while $var == 1 and $var2 == 2 or $var3 == 3 and $var4 == 4 {
+  @error "1";
+}
+
+@while $var == 1 and $var2 == 2 or $var3 == 3 or $var4 == 4 and $var == 5 { /* Noncompliant ![sc=8;ec=74]! !{Reduce the number of conditional operators (5) of this condition (maximum allowed 4).}! */
+  @error "1";
+}

@@ -263,6 +263,8 @@ public enum LexicalGrammar implements GrammarRuleKey {
   SCSS_OPERATOR,
   SCSS_OPERATOR_LITERAL,
 
+  SCSS_CONDITION,
+
   SCSS_MULTILINE_STRING,
   SCSS_MULTILINE_STRING_LITERAL,
 
@@ -603,12 +605,14 @@ public enum LexicalGrammar implements GrammarRuleKey {
         b.firstOf(
           "and",
           "or",
+          "not",
           "+",
           "-",
           "/",
           "*",
           "==",
           "!=",
+          "=",
           ">",
           ">=",
           "<",

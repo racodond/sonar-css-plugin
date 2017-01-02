@@ -21,13 +21,13 @@ package org.sonar.css.tree.impl.scss;
 
 import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
-import org.sonar.plugins.css.api.tree.css.ValueTree;
+import org.sonar.plugins.css.api.tree.scss.ScssConditionTree;
 import org.sonar.plugins.css.api.tree.scss.ScssElseIfTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 public class ScssElseIfTreeImpl extends ScssConditionalDirectiveTreeImpl implements ScssElseIfTree {
 
-  public ScssElseIfTreeImpl(SyntaxToken directive, ValueTree condition, StatementBlockTree block) {
+  public ScssElseIfTreeImpl(SyntaxToken directive, ScssConditionTree condition, StatementBlockTree block) {
     super(directive, condition, block);
   }
 

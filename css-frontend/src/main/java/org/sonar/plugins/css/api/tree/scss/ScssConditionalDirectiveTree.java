@@ -22,13 +22,12 @@ package org.sonar.plugins.css.api.tree.scss;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
-import org.sonar.plugins.css.api.tree.css.ValueTree;
 
 public interface ScssConditionalDirectiveTree extends Tree {
 
   SyntaxToken directive();
 
-  ValueTree condition();
+  ScssConditionTree condition();
 
   StatementBlockTree block();
 

@@ -9,9 +9,9 @@ SonarQube CSS / SCSS / Less Analyzer
 This analyzer enables code QA analysis of:
 
 * [CSS](https://www.w3.org/Style/CSS/) files
+* [CSS](https://www.w3.org/Style/CSS/) code embedded in HTML/XHTML files
 * [SCSS](http://sass-lang.com/) files
 * [Less](http://lesscss.org/) files
-* [CSS](https://www.w3.org/Style/CSS/) code embedded in HTML/XHTML files
  
 within [SonarQube](http://www.sonarqube.org). It:
 
@@ -138,6 +138,8 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 ### Specific to SCSS
 * @debug directives should not be used in production code
 * @if ... @else if ... constructs should end with @else directives
+* Conditions should not be too complex
+* Related @if / @else if directives should not have the same condition
 * SCSS variables should follow a naming convention
 
 ### Specific to Less

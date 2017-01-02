@@ -40,6 +40,8 @@ public interface Tree {
 
   String treeValue();
 
+  int getLine();
+
   @Nullable
   Tree parent();
 
@@ -111,6 +113,7 @@ public interface Tree {
     SCSS_PARENT_SELECTOR(ScssParentSelectorTree.class),
     SCSS_PLACEHOLDER_SELECTOR(ScssPlaceholderSelectorTree.class),
     SCSS_EXTEND(ScssExtendTree.class),
+    SCSS_CONDITION(ScssConditionTree.class),
     SCSS_ELSE(ScssElseTree.class),
     SCSS_ELSE_IF(ScssElseIfTree.class),
     SCSS_IF(ScssIfTree.class),

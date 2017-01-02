@@ -432,15 +432,15 @@ public class TreeFactory {
     return new ScssIfConditionsTreeImpl(ifDirective, elseIfDirectives.orNull(), elseDirective.orNull());
   }
 
-  public ScssIfTree scssIf(SyntaxToken directive, ValueTree condition, StatementBlockTree block) {
+  public ScssIfTree scssIf(SyntaxToken directive, ScssConditionTree condition, StatementBlockTree block) {
     return new ScssIfTreeImpl(directive, condition, block);
   }
 
-  public ScssElseIfTree scssElseIf(SyntaxToken directive, ValueTree condition, StatementBlockTree block) {
+  public ScssElseIfTree scssElseIf(SyntaxToken directive, ScssConditionTree condition, StatementBlockTree block) {
     return new ScssElseIfTreeImpl(directive, condition, block);
   }
 
-  public ScssWhileTree scssWhile(SyntaxToken directive, ValueTree condition, StatementBlockTree block) {
+  public ScssWhileTree scssWhile(SyntaxToken directive, ScssConditionTree condition, StatementBlockTree block) {
     return new ScssWhileTreeImpl(directive, condition, block);
   }
 
@@ -448,11 +448,11 @@ public class TreeFactory {
     return new ScssElseTreeImpl(directive, block);
   }
 
-  public ScssForTree scssFor(SyntaxToken directive, ValueTree condition, StatementBlockTree block) {
+  public ScssForTree scssFor(SyntaxToken directive, ScssConditionTree condition, StatementBlockTree block) {
     return new ScssForTreeImpl(directive, condition, block);
   }
 
-  public ScssEachTree scssEach(SyntaxToken directive, ValueTree condition, StatementBlockTree block) {
+  public ScssEachTree scssEach(SyntaxToken directive, ScssConditionTree condition, StatementBlockTree block) {
     return new ScssEachTreeImpl(directive, condition, block);
   }
 
@@ -482,6 +482,10 @@ public class TreeFactory {
 
   public ScssMultilineStringTree scssMultilineString(SyntaxToken string) {
     return new ScssMultilineStringTreeImpl(string);
+  }
+
+  public ScssConditionTree scssCondition(ValueTree condition) {
+    return new ScssConditionTreeImpl(condition);
   }
 
   // ---------------------------------

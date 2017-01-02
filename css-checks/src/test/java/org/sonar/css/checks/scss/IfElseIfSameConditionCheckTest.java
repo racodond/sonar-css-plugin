@@ -17,38 +17,19 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.plugins.css.api.tree.css;
+package org.sonar.css.checks.scss;
 
-import org.sonar.plugins.css.api.tree.Tree;
+import org.junit.Test;
+import org.sonar.css.checks.CheckTestUtils;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
-import java.util.List;
-import java.util.Optional;
+public class IfElseIfSameConditionCheckTest {
 
-public interface ValueTree extends Tree {
-
-  /**
-   * @return First value element.
-   */
-  Tree firstValueElement();
-
-  /**
-   * @return Sanitized list of value elements. Value elements removed from the list are: ImportantTree
-   */
-  List<Tree> sanitizedValueElements();
-
-  /**
-   * @return All value elements (no filtering).
-   */
-  List<Tree> valueElements();
-
-  /**
-   * @return All value elements of a certain type.
-   */
-  <T extends Tree> List<T> valueElementsOfType(Class<T> treeType);
-
-  /**
-   * @return First value element of a certain type.
-   */
-  <T extends Tree> Optional<T> firstValueElementOfType(Class<T> treeType);
+  @Test
+  public void test() {
+    CssCheckVerifier.verifyScssFile(
+      new IfElseIfSameConditionCheck(),
+      CheckTestUtils.getScssTestFile("ifElseIfSameCondition.scss"));
+  }
 
 }

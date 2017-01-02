@@ -17,32 +17,41 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.plugins.css.scss;
+package org.sonar.css.parser.scss;
 
 import org.junit.Test;
-import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.check.Rule;
-import org.sonar.css.checks.CheckList;
-import org.sonar.css.checks.scss.ScssVariableNamingConventionCheck;
+import org.sonar.css.parser.LexicalGrammar;
+import org.sonar.plugins.css.api.tree.scss.ScssConditionTree;
+import org.sonar.plugins.css.api.tree.scss.ScssIfConditionsTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class ScssRulesDefinitionTest {
+public class ScssConditionTreeTest extends ScssTreeTest {
+
+  public ScssConditionTreeTest() {
+    super(LexicalGrammar.SCSS_CONDITION);
+  }
 
   @Test
-  public void test() {
-    ScssRulesDefinition rulesDefinition = new ScssRulesDefinition();
-    RulesDefinition.Context context = new RulesDefinition.Context();
-    rulesDefinition.define(context);
-    RulesDefinition.Repository repository = context.repository("scss");
+  public void scssCondition() {
+    ScssConditionTree tree;
 
-    assertThat(repository.name()).isEqualTo("SonarQube");
-    assertThat(repository.language()).isEqualTo("scss");
-    assertThat(repository.rules()).hasSize(65);
+    tree = checkParsed("$a == 1");
+    assertThat(tree.complexity()).isEqualTo(1);
 
-    RulesDefinition.Rule rule = repository.rule(ScssVariableNamingConventionCheck.class.getAnnotation(Rule.class).key());
-    assertThat(rule).isNotNull();
-    assertThat(rule.name()).isEqualTo(ScssVariableNamingConventionCheck.class.getAnnotation(Rule.class).name());
+    tree = checkParsed("$a == 1 and $b");
+    assertThat(tree.complexity()).isEqualTo(2);
+
+    tree = checkParsed("$a == 1 and ($c or $d) and false");
+    assertThat(tree.complexity()).isEqualTo(3);
+  }
+
+  private ScssConditionTree checkParsed(String toParse) {
+    ScssConditionTree tree = (ScssConditionTree) parser().parse(toParse);
+    assertThat(tree).isNotNull();
+    assertThat(tree.complexity()).isGreaterThanOrEqualTo(1);
+    assertThat(tree.condition()).isNotNull();
+    return tree;
   }
 
 }

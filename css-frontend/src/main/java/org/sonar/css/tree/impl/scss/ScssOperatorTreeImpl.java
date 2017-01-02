@@ -19,15 +19,21 @@
  */
 package org.sonar.css.tree.impl.scss;
 
-import org.sonar.css.tree.impl.css.LiteralTreeImpl;
+import com.google.common.collect.Iterators;
+import org.sonar.css.tree.impl.TreeImpl;
+import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.scss.ScssOperatorTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
-public class ScssOperatorTreeImpl extends LiteralTreeImpl implements ScssOperatorTree {
+import java.util.Iterator;
+
+public class ScssOperatorTreeImpl extends TreeImpl implements ScssOperatorTree {
+
+  private final SyntaxToken operator;
 
   public ScssOperatorTreeImpl(SyntaxToken operator) {
-    super(operator);
+    this.operator = operator;
   }
 
   @Override
@@ -36,8 +42,28 @@ public class ScssOperatorTreeImpl extends LiteralTreeImpl implements ScssOperato
   }
 
   @Override
+  public Iterator<Tree> childrenIterator() {
+    return Iterators.singletonIterator(operator);
+  }
+
+  @Override
   public void accept(DoubleDispatchVisitor visitor) {
     visitor.visitScssOperator(this);
+  }
+
+  @Override
+  public SyntaxToken operator() {
+    return operator;
+  }
+
+  @Override
+  public OPERATOR type() {
+    return ScssOperatorTree.OPERATOR.getType(operator.text());
+  }
+
+  @Override
+  public String text() {
+    return operator().text();
   }
 
 }

@@ -506,7 +506,7 @@ public class ScssGrammar extends CssGrammar {
     return b.<ScssIfTree>nonterminal(LexicalGrammar.SCSS_IF).is(
       f.scssIf(
         b.token(LexicalGrammar.SCSS_IF_DIRECTIVE),
-        SCSS_VALUE(),
+        SCSS_CONDITION(),
         STATEMENT_BLOCK()));
   }
 
@@ -514,7 +514,7 @@ public class ScssGrammar extends CssGrammar {
     return b.<ScssElseIfTree>nonterminal(LexicalGrammar.SCSS_ELSE_IF).is(
       f.scssElseIf(
         b.token(LexicalGrammar.SCSS_ELSE_IF_DIRECTIVE),
-        SCSS_VALUE(),
+        SCSS_CONDITION(),
         STATEMENT_BLOCK()));
   }
 
@@ -529,7 +529,7 @@ public class ScssGrammar extends CssGrammar {
     return b.<ScssWhileTree>nonterminal(LexicalGrammar.SCSS_WHILE).is(
       f.scssWhile(
         b.token(LexicalGrammar.SCSS_WHILE_DIRECTIVE),
-        SCSS_VALUE(),
+        SCSS_CONDITION(),
         STATEMENT_BLOCK()));
   }
 
@@ -537,7 +537,7 @@ public class ScssGrammar extends CssGrammar {
     return b.<ScssForTree>nonterminal(LexicalGrammar.SCSS_FOR).is(
       f.scssFor(
         b.token(LexicalGrammar.SCSS_FOR_DIRECTIVE),
-        SCSS_VALUE(),
+        SCSS_CONDITION(),
         STATEMENT_BLOCK()));
   }
 
@@ -545,7 +545,7 @@ public class ScssGrammar extends CssGrammar {
     return b.<ScssEachTree>nonterminal(LexicalGrammar.SCSS_EACH).is(
       f.scssEach(
         b.token(LexicalGrammar.SCSS_EACH_DIRECTIVE),
-        SCSS_VALUE(),
+        SCSS_CONDITION(),
         STATEMENT_BLOCK()));
   }
 
@@ -599,6 +599,11 @@ public class ScssGrammar extends CssGrammar {
   public ScssMultilineStringTree SCSS_MULTILINE_STRING() {
     return b.<ScssMultilineStringTree>nonterminal(LexicalGrammar.SCSS_MULTILINE_STRING).is(
       f.scssMultilineString(b.token(LexicalGrammar.SCSS_MULTILINE_STRING_LITERAL)));
+  }
+
+  public ScssConditionTree SCSS_CONDITION() {
+    return b.<ScssConditionTree>nonterminal(LexicalGrammar.SCSS_CONDITION).is(
+      f.scssCondition(SCSS_VALUE()));
   }
 
 }

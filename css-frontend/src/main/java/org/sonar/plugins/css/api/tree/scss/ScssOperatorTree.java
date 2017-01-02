@@ -19,7 +19,56 @@
  */
 package org.sonar.plugins.css.api.tree.scss;
 
-import org.sonar.plugins.css.api.tree.css.LiteralTree;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 
-public interface ScssOperatorTree extends LiteralTree {
+import java.util.HashMap;
+import java.util.Map;
+
+public interface ScssOperatorTree extends Tree {
+
+  enum OPERATOR {
+    AND("and"),
+    OR("or"),
+    NOT("not"),
+    PLUS("+"),
+    MINUS("-"),
+    TIMES("*"),
+    DIV("/"),
+    EQUALS("="),
+    DOUBLE_EQUALS("=="),
+    NOT_EQUALS("!="),
+    GREATER(">"),
+    LOWER("<"),
+    GREATER_OR_EQUALS(">="),
+    LOWER_OR_EQUALS("<=");
+
+    private static final Map<String, OPERATOR> LOOKUP = new HashMap<>();
+
+    static {
+      for (OPERATOR operator : OPERATOR.values())
+        LOOKUP.put(operator.getValue(), operator);
+    }
+
+    private String value;
+
+    OPERATOR(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    public static OPERATOR getType(String value) {
+      return LOOKUP.get(value.trim());
+    }
+  }
+
+  SyntaxToken operator();
+
+  OPERATOR type();
+
+  String text();
+
 }
