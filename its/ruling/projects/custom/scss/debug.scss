@@ -1,7 +1,7 @@
 @debug "blabla..."; /* Noncompliant ![sc=1;ec=7]! !{Remove this @debug directive.}! */
 @debug "blabla #{$var}..."; /* Noncompliant ![sc=1;ec=7]! !{Remove this @debug directive.}! */
 
-/* Noncompliant ![sc=1;ec=7;sl=+1;el=+0]! !{Remove this @debug directive.}! */
+/* Noncompliant ![sc=1;ec=7]! !{Remove this @debug directive.}! */
 @debug "blabla
         and blabla
         and blabla...";

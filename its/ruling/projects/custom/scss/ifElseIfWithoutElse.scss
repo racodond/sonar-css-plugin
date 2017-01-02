@@ -1,0 +1,43 @@
+@if $var == 1 {
+  @error "1";
+}
+
+@if $var == 1 {
+  @error "1";
+} @else {
+  @error "else";
+}
+
+@if $var == 1 {
+  @error "1";
+} @else if $var == 2 {
+  @error "2";
+} @else {
+  @error "else";
+}
+
+@if $var == 1 {
+  @error "1";
+} @else if $var == 2 { /* Noncompliant ![sc=3;ec=11]! !{Add an @else directive after this @else if directive.}! */
+  @error "2";
+}
+
+@if $var == 1 {
+  @error "1";
+} @else if $var == 2 {
+  @error "2";
+} @else if $var == 3 { /* Noncompliant ![sc=3;ec=11]! !{Add an @else directive after this @else if directive.}! */
+  @error "3";
+}
+
+@if $var == 1 {
+  @error "1";
+} @else if $var == 2 {
+  @error "2";
+} @else {
+  @if $var == 1 {
+    @error "1";
+  } @else if $var == 2 { /* Noncompliant ![sc=5;ec=13]! !{Add an @else directive after this @else if directive.}! */
+    @error "2";
+  }
+}

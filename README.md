@@ -137,6 +137,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 
 ### Specific to SCSS
 * @debug directives should not be used in production code
+* @if ... @else if ... constructs should end with @else directives
 * SCSS variables should follow a naming convention
 
 ### Specific to Less

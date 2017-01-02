@@ -19,27 +19,17 @@
  */
 package org.sonar.css.checks.scss;
 
-import org.sonar.check.Priority;
-import org.sonar.check.Rule;
-import org.sonar.css.checks.Tags;
-import org.sonar.plugins.css.api.tree.scss.ScssDebugTree;
-import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.junit.Test;
+import org.sonar.css.checks.CheckTestUtils;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
-@Rule(
-  key = "debug",
-  name = "@debug directives should not be used in production code",
-  priority = Priority.MINOR,
-  tags = {Tags.CONVENTION})
-@SqaleConstantRemediation("5min")
-@ActivatedByDefault
-public class DebugCheck extends DoubleDispatchVisitorCheck {
+public class IfElseIfWithoutElseCheckTest {
 
-  @Override
-  public void visitScssDebug(ScssDebugTree tree) {
-    addPreciseIssue(tree.directive(), "Remove this @debug directive.");
-    super.visitScssDebug(tree);
+  @Test
+  public void test() {
+    CssCheckVerifier.verifyScssFile(
+      new IfElseIfWithoutElseCheck(),
+      CheckTestUtils.getScssTestFile("ifElseIfWithoutElse.scss"));
   }
 
 }

@@ -22,24 +22,28 @@ package org.sonar.css.checks.scss;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.Tags;
-import org.sonar.plugins.css.api.tree.scss.ScssDebugTree;
+import org.sonar.plugins.css.api.tree.scss.ScssIfConditionsTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 @Rule(
-  key = "debug",
-  name = "@debug directives should not be used in production code",
-  priority = Priority.MINOR,
-  tags = {Tags.CONVENTION})
-@SqaleConstantRemediation("5min")
+  key = "if-elseif-without-else",
+  name = "@if ... @else if ... constructs should end with @else directive",
+  priority = Priority.MAJOR,
+  tags = {Tags.PITFALL})
+@SqaleConstantRemediation("15min")
 @ActivatedByDefault
-public class DebugCheck extends DoubleDispatchVisitorCheck {
+public class IfElseIfWithoutElseCheck extends DoubleDispatchVisitorCheck {
 
   @Override
-  public void visitScssDebug(ScssDebugTree tree) {
-    addPreciseIssue(tree.directive(), "Remove this @debug directive.");
-    super.visitScssDebug(tree);
+  public void visitScssIfConditions(ScssIfConditionsTree tree) {
+    if (!tree.elseIfDirectives().isEmpty() && tree.elseDirective() == null) {
+      addPreciseIssue(
+        tree.elseIfDirectives().get(tree.elseIfDirectives().size() - 1).directive(),
+        "Add an @else directive after this @else if directive.");
+    }
+    super.visitScssIfConditions(tree);
   }
 
 }

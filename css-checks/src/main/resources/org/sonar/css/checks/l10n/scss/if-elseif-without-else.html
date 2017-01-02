@@ -1,0 +1,31 @@
+<p>
+    This rule applies whenever an <code>@if</code> directive is followed by one or more <code>@else if</code>
+    directives; the final <code>@else if</code> directive should be followed by an <code>@else</code> directive.
+</p>
+<p>
+    The requirement for a final <code>@else</code> directive is defensive programming.
+</p>
+<p>
+    The <code>@else</code> directive should either take appropriate action or contain a suitable comment as to why no
+    action is taken.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+@if $x == 0 {
+  do-something();
+} @else if x == 1 {
+  do-something-else();
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+@if $x == 0 {
+  do-something();
+} @else if x == 1 {
+  do-something-else();
+} @else {
+  @error "Unexpected value for $x: #{$x}";
+}
+</pre>
