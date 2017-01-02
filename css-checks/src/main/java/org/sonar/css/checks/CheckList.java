@@ -119,6 +119,7 @@ public final class CheckList {
       ExperimentalPropertyCheck.class,
       ExperimentalPseudoCheck.class,
       ExperimentalSelectorCombinatorCheck.class,
+      FileTooManyLinesCheck.class,
       FixmeTagCheck.class,
       FontFaceBrowserCompatibilityCheck.class,
       FormattingCheck.class,
