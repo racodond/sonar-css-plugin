@@ -34,6 +34,7 @@ import org.sonar.css.checks.Tags;
 import org.sonar.plugins.css.api.tree.css.ClassSelectorTree;
 import org.sonar.plugins.css.api.tree.css.IdSelectorTree;
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.scss.ScssPlaceholderSelectorTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -68,6 +69,14 @@ public class SelectorNamingConventionCheck extends DoubleDispatchVisitorCheck {
       addIssue(tree.identifier(), tree.text());
     }
     super.visitIdSelector(tree);
+  }
+
+  @Override
+  public void visitScssPlaceholderSelector(ScssPlaceholderSelectorTree tree) {
+    if (!tree.identifier().isInterpolated() && !tree.text().matches(format)) {
+      addIssue(tree.identifier(), tree.text());
+    }
+    super.visitScssPlaceholderSelector(tree);
   }
 
   @VisibleForTesting

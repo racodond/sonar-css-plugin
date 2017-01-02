@@ -38,3 +38,13 @@ With format <code>^[a-z][-a-z0-9]*$</code>:
   color: green;
 }
 </pre>
+
+<p>
+    SCSS interpolated selectors are not checked for naming convention. For instance, the following piece of code does
+    not raise an issue:
+</p>
+<pre>
+.abc-#{$DEF} {
+  color: green;
+}
+</pre>

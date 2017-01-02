@@ -42,6 +42,12 @@ public class SelectorNamingConventionCheckTest {
   }
 
   @Test
+  public void test_scss_placeholder() {
+    check.setFormat("^[-a-z]+$");
+    CssCheckVerifier.verifyScssFile(check, CheckTestUtils.getCommonTestFile("selectorNamingConvention/selectorNamingConventionScssPlaceholder.scss"));
+  }
+
+  @Test
   public void test_interpolated_selectors_not_checked_on_less_file() {
     check.setFormat("^[a-z][-a-z0-9]*$");
     CssCheckVerifier.verifyLessFile(check, CheckTestUtils.getCommonTestFile("selectorNamingConvention/selectorNamingConvention.less"));

@@ -1,0 +1,7 @@
+.notice {
+  @extend %abc;
+}
+
+.notice {
+  @extend %abc_def; /* Noncompliant ![sc=12;ec=19]! !{Rename selector "abc_def" to match the regular expression: ^[-a-z]+$}! */
+}
