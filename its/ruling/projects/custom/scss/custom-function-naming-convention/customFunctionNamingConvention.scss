@@ -1,0 +1,7 @@
+@function my-custom-function() {
+  @error "blabla...";
+}
+
+@function my_custom_function() { /* Noncompliant ![sc=11;ec=29]! !{Rename function "my_custom_function" to match the regular expression: ^[a-z][-a-z0-9]*$}! */
+  @error "blabla...";
+}

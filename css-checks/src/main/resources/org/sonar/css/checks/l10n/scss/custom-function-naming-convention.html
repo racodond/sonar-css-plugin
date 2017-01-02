@@ -1,0 +1,16 @@
+<p>
+    Shared coding conventions allow teams to collaborate efficiently. This rule checks that all SCSS custom function
+    names match a provided regular expression.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+With default format <code>^[a-z][-a-z0-9]*$</code>:
+<pre>
+@function my_custom_function($color) { ... }
+</pre>
+
+<h2>Compliant Solution</h2>
+With default format <code>^[a-z][-a-z0-9]*$</code>:
+<pre>
+@function my-custom-function($color) { ... }
+</pre>

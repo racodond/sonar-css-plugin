@@ -4,14 +4,14 @@
 </p>
 
 <h2>Noncompliant Code Example</h2>
-With format "^[a-z][-a-z0-9]*$":
+With default format <code>^[a-z][-a-z0-9]*$</code>:
 <pre>
 $myColor: green; /* Noncompliant */
 $my_color: green; /* Noncompliant */
 </pre>
 
 <h2>Compliant Solution</h2>
-With format "^[a-z][-a-z0-9]*$":
+With default format <code>^[a-z][-a-z0-9]*$</code>:
 <pre>
 $my-color: green;
 </pre>
