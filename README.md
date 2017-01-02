@@ -18,9 +18,9 @@ within [SonarQube](http://www.sonarqube.org). It:
 * Computes metrics: lines of code, number of rules, complexity, etc.
 * Validates your CSS code
 * Performs more than:
-  * [60 checks](http://sonarqube.racodond.com/coding_rules#languages=css%2Ccss) on CSS code
-  * [60 checks](http://sonarqube.racodond.com/coding_rules#languages=scss%2Ccss) on SCSS code
-  * [60 checks](http://sonarqube.racodond.com/coding_rules#languages=less%2Ccss) on Less code
+  * [70 checks](http://sonarqube.racodond.com/coding_rules#languages=css%2Ccss) on CSS code
+  * [70 checks](http://sonarqube.racodond.com/coding_rules#languages=scss%2Ccss) on SCSS code
+  * [70 checks](http://sonarqube.racodond.com/coding_rules#languages=less%2Ccss) on Less code
 * Provides the ability to write your own checks
 
 
@@ -90,6 +90,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Experimental properties should not be used
 * Experimental pseudo-elements and pseudo-classes should not be used
 * Experimental selector combinators should not be used
+* Files should contain an empty new line at the end
 * Files should not have too many lins
 * Font files inlining should not be used
 * Gradient definitions should be set for all vendors
