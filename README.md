@@ -136,6 +136,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Stylesheets should not "@import" too many other sheets
 
 ### Specific to SCSS
+* @debug directives should not be used in production code
 * SCSS variables should follow a naming convention
 
 ### Specific to Less

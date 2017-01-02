@@ -46,7 +46,7 @@ public class ScssContentTreeTest extends ScssTreeTest {
   }
 
   @Test
-  public void notScssDebug() {
+  public void notScssContent() {
     checkNotParsed("@debug");
     checkNotParsed("@debug;");
   }
