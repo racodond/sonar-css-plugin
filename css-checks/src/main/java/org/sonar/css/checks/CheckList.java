@@ -71,6 +71,7 @@ public final class CheckList {
         IfElseIfWithoutElseCheck.class,
         org.sonar.css.checks.scss.ParsingErrorCheck.class,
         IfElseIfSameConditionCheck.class,
+        MixinNamingConventionCheck.class,
         ScssVariableNamingConventionCheck.class,
         TooComplexConditionCheck.class).stream())
       .collect(Collectors.toList());

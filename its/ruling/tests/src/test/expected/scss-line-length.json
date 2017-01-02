@@ -11,6 +11,12 @@
 33,
 44,
 ],
+'project:custom/scss/mixin-naming-convention/mixinNamingConvention.scss':[
+5,
+],
+'project:custom/scss/mixin-naming-convention/mixinNamingConventionCustomFormat.scss':[
+5,
+],
 'project:custom/scss/too-complex-condition/tooComplexConditionCustom.scss':[
 5,
 13,

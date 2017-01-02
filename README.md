@@ -140,6 +140,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * @if ... @else if ... constructs should end with @else directives
 * Conditions should not be too complex
 * Custom functions should follow a naming convention
+* Mixins should follow a naming convention
 * Related @if / @else if directives should not have the same condition
 * SCSS variables should follow a naming convention
 

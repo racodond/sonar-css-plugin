@@ -40,7 +40,7 @@ public class ScssProfileTest {
 
     assertThat(profile.getName()).isEqualTo("SonarQube Way");
     assertThat(profile.getLanguage()).isEqualTo("scss");
-    assertThat(profile.getActiveRulesByRepository("scss")).hasSize(58);
+    assertThat(profile.getActiveRulesByRepository("scss")).hasSize(59);
     assertThat(validation.hasErrors()).isFalse();
   }
 

@@ -1,0 +1,7 @@
+@mixin my-mixin {
+  display: inline-block;
+}
+
+@mixin my_mixin() { /* Noncompliant ![sc=8;ec=16]! !{Rename mixin "my_mixin" to match the regular expression: ^[a-z][-a-z0-9]*$}! */
+  display: inline-block;
+}

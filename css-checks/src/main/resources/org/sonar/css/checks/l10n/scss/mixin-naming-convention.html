@@ -1,0 +1,16 @@
+<p>
+    Shared coding conventions allow teams to collaborate efficiently. This rule checks that all mixin names match a
+    provided regular expression.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+With default format <code>^[a-z][-a-z0-9]*$</code>:
+<pre>
+@mixin my_mixin { ... }
+</pre>
+
+<h2>Compliant Solution</h2>
+With default format <code>^[a-z][-a-z0-9]*$</code>:
+<pre>
+@mixin my-mixin { ... }
+</pre>
