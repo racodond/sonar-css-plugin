@@ -1,0 +1,58 @@
+@if $x == 0 {
+  @if $y == 0 {
+    @if $z == 0 {
+      @error "blabla...";
+    }
+  }
+}
+
+@if $x == 0 {
+  @if $y == 0 {
+    @if $z == 0 {
+      @if $a == 0 {  /* Noncompliant ![sc=7;ec=10;secondary=-3,-2,-1]! !{Refactor this code to not nest more than 3 control flow directives.}! */
+        @error "blabla...";
+      } @else if $a == 1 {
+        @if $z == 1 {
+          @error "blabla...";
+        }
+      } @else {
+        @error "blabla...";
+      }
+    }
+  }
+}
+
+@if $x == 0 {
+  @while $y == 0 {
+    @for $z from 1 through 10 {
+      @each $a in (1, 2) {  /* Noncompliant ![sc=7;ec=12;secondary=-3,-2,-1]! !{Refactor this code to not nest more than 3 control flow directives.}! */
+        @error "blabla...";
+      }
+      @each $a in (1, 2) {  /* Noncompliant ![sc=7;ec=12;secondary=-6,-5,-4]! !{Refactor this code to not nest more than 3 control flow directives.}! */
+        @error "blabla...";
+      }
+    }
+  }
+} @else if $x == 1 {
+  @while $y == 0 {
+    @for $z from 1 through 10 {
+      @each $a in (1, 2) {  /* Noncompliant ![sc=7;ec=12;secondary=-3,-2,-1]! !{Refactor this code to not nest more than 3 control flow directives.}! */
+        @error "blabla...";
+      }
+      @each $a in (1, 2) {  /* Noncompliant ![sc=7;ec=12;secondary=-6,-5,-4]! !{Refactor this code to not nest more than 3 control flow directives.}! */
+        @error "blabla...";
+      }
+    }
+  }
+} @else {
+  @while $y == 0 {
+    @for $z from 1 through 10 {
+      @each $a in (1, 2) {  /* Noncompliant ![sc=7;ec=12;secondary=-3,-2,-1]! !{Refactor this code to not nest more than 3 control flow directives.}! */
+        @error "blabla...";
+      }
+      @each $a in (1, 2) {  /* Noncompliant ![sc=7;ec=12;secondary=-6,-5,-4]! !{Refactor this code to not nest more than 3 control flow directives.}! */
+        @error "blabla...";
+      }
+    }
+  }
+}

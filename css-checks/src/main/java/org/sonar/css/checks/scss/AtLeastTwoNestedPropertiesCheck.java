@@ -38,7 +38,7 @@ public class AtLeastTwoNestedPropertiesCheck extends DoubleDispatchVisitorCheck 
 
   @Override
   public void visitScssNestedPropertiesDeclaration(ScssNestedPropertiesDeclarationTree tree) {
-    if (tree.nestedPropertyDeclarations().size() < 1) {
+    if (tree.nestedPropertyDeclarations().isEmpty()) {
       addPreciseIssue(tree.block(), "Remove this useless nested property or add the missing properties.");
     } else if (tree.nestedPropertyDeclarations().size() < 2) {
       addPreciseIssue(tree.block(), "Convert this nested property into a simple property or add the missing properties.");

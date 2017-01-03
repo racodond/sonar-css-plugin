@@ -1,0 +1,19 @@
+@if $x == 0 {
+  @if $y == 0 {
+    @error "blabla...";
+  }
+}
+
+@if $x == 0 {
+  @if $y == 0 {
+    @if $z == 0 { /* Noncompliant ![sc=5;ec=8;secondary=-2,-1]! !{Refactor this code to not nest more than 2 control flow directives.}! */
+      @error "blabla...";
+    } @else if $a == 1 {
+      @if $z == 1 {
+        @error "blabla...";
+      }
+    } @else {
+      @error "blabla...";
+    }
+  }
+}

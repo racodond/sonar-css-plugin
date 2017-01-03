@@ -74,6 +74,7 @@ public final class CheckList {
         org.sonar.css.checks.scss.ParsingErrorCheck.class,
         IfElseIfSameConditionCheck.class,
         MixinNamingConventionCheck.class,
+        NestedControlFlowDirectivesCheck.class,
         ScssVariableNamingConventionCheck.class,
         ThroughInsteadOfToCheck.class,
         TooComplexConditionCheck.class).stream())

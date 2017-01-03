@@ -1,0 +1,36 @@
+<p>
+    Nested <code>@if</code>, <code>@else if</code>, <code>@else</code>, <code>@for</code>, <code>@while</code>,
+    <code>@each</code> directives is a key ingredient for making what's known as "Spaghetti code". Such code is hard to
+    read, refactor and therefore maintain.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+With default maximum depth of 3:
+<pre>
+@if $x == 0 {
+  ...
+  @if $y == 1 {
+    ...
+    @while $z < 10 {
+      ...
+      @if $a == 1 {   /* Noncompliant: depth is 4 */
+        ...
+      }
+    }
+  }
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+With default maximum depth of 3:
+<pre>
+@if $x == 0 {
+  ...
+  @if $y == 1 {
+    ...
+    @while $z < 10 {
+      ...
+    }
+  }
+}
+</pre>
