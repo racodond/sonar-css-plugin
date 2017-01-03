@@ -145,6 +145,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Custom functions should follow a naming convention
 * Deprecated unescaped multiline strings should not be used
 * Mixins should follow a naming convention
+* Nested properties should define at least two properties 
 * Related @if / @else if directives should not have the same condition
 * SCSS variables should follow a naming convention
 

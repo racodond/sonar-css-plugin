@@ -17,21 +17,19 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.plugins.css.api.tree.scss;
+package org.sonar.css.checks.scss;
 
-import org.sonar.plugins.css.api.tree.css.DeclarationTree;
-import org.sonar.plugins.css.api.tree.css.PropertyDeclarationTree;
-import org.sonar.plugins.css.api.tree.css.PropertyTree;
-import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
+import org.junit.Test;
+import org.sonar.css.checks.CheckTestUtils;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
-import java.util.List;
+public class AtLeastTwoNestedPropertiesCheckTest {
 
-public interface ScssNestedPropertiesDeclarationTree extends DeclarationTree {
-
-  PropertyTree namespace();
-
-  StatementBlockTree block();
-
-  List<PropertyDeclarationTree> nestedPropertyDeclarations();
+  @Test
+  public void test() {
+    CssCheckVerifier.verifyScssFile(
+      new AtLeastTwoNestedPropertiesCheck(),
+      CheckTestUtils.getScssTestFile("atLeastTwoNestedProperties.scss"));
+  }
 
 }

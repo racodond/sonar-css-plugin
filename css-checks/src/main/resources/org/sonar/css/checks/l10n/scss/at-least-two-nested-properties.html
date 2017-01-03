@@ -1,0 +1,29 @@
+<p>
+    Nested properties should define at least two properties. If they do not, either it means that some expected
+    properties are missing or that they can be converted into simple property declarations.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+.mybox {
+  padding: {     /* Noncompliant: Forgot to add bottom declaration? */
+    left: 20px;
+  }
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+.mybox {
+  padding: {
+    left: 20px;
+    bottom: 10px;
+  }
+}
+
+OR
+
+.mybox {
+  padding-left: 20px;
+}
+</pre>

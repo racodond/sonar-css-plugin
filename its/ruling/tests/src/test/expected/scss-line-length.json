@@ -2,6 +2,10 @@
 'project:custom/common/selectorNamingConvention/selectorNamingConventionScssPlaceholder.scss':[
 6,
 ],
+'project:custom/scss/atLeastTwoNestedProperties.scss':[
+2,
+8,
+],
 'project:custom/scss/custom-function-naming-convention/customFunctionNamingConvention.scss':[
 5,
 ],

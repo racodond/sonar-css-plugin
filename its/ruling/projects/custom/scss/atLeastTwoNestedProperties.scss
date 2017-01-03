@@ -1,0 +1,17 @@
+.mybox1 {
+  padding: {  /* Noncompliant ![sc=12;ec=4;el=+2]! !{Convert this nested property into a simple property or add the missing properties.}! */
+    left: 20px;
+  }
+}
+
+.mybox2 {
+  padding: {  /* Noncompliant ![sc=12;ec=4;el=+1]! !{Remove this useless nested property or add the missing properties.}! */
+  }
+}
+
+.mybox3 {
+  padding: {
+    left: 20px;
+    bottom: 10px;
+  }
+}

@@ -72,10 +72,14 @@ public class ScssNestedPropertiesDeclarationTreeImpl extends TreeImpl implements
   }
 
   @Override
+  public StatementBlockTree block() {
+    return block;
+  }
+
+  @Override
   public SyntaxToken semicolon() {
     return null;
   }
-
 
   @Override
   public List<PropertyDeclarationTree> nestedPropertyDeclarations() {
