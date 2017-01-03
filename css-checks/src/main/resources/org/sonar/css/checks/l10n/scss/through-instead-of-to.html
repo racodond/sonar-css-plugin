@@ -1,0 +1,19 @@
+<p>
+    In <code>@for</code> directives, never use <code>to</code>, always use <code>through</code> instead. Many developers
+    do not even know Sass offers this variation; using it might lead to confusion.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+@for $i from 1 to 10 { ... }
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+@for $i from 1 through 10 { ... }
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://sass-guidelin.es/#for" target="_blank">Sass Guidelines, @for section</a></li>
+</ul>

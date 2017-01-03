@@ -140,6 +140,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 ### Specific to SCSS
 * @debug directives should not be used in production code
 * @if ... @else if ... constructs should end with @else directives
+* Always use 'through' instead of 'to' in @for directives
 * Conditions should not be too complex
 * Custom functions should follow a naming convention
 * Mixins should follow a naming convention

@@ -1,0 +1,7 @@
+@for $i from 1 to 10 { /* Noncompliant ![sc=16;ec=18]! !{Replace 'to' with 'through'.}! */
+  @error "blabla...";
+}
+
+@for $i from 1 through 10 {
+  @error "blabla...";
+}

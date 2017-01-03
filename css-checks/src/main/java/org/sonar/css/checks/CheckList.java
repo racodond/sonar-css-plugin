@@ -73,6 +73,7 @@ public final class CheckList {
         IfElseIfSameConditionCheck.class,
         MixinNamingConventionCheck.class,
         ScssVariableNamingConventionCheck.class,
+        ThroughInsteadOfToCheck.class,
         TooComplexConditionCheck.class).stream())
       .collect(Collectors.toList());
   }
