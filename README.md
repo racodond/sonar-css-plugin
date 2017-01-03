@@ -149,6 +149,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Nested properties should define at least two properties 
 * Related @if / @else if directives should not have the same condition
 * SCSS variables should follow a naming convention
+* Two branches in the same conditional structure should not have exactly the same implementation
 
 ### Specific to Less
 * Deprecated "e" escaping function should be replaced with ~"value" syntax

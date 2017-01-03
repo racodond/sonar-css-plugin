@@ -14,7 +14,7 @@
 <pre>
 @if $x == 0 {
   do-something();
-} @else if x == 1 {
+} @else if $x == 1 {
   do-something-else();
 }
 </pre>
@@ -23,7 +23,7 @@
 <pre>
 @if $x == 0 {
   do-something();
-} @else if x == 1 {
+} @else if $x == 1 {
   do-something-else();
 } @else {
   @error "Unexpected value for $x: #{$x}";

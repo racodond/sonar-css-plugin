@@ -23,7 +23,7 @@ import com.google.common.collect.Lists;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.Tags;
-import org.sonar.plugins.css.api.tree.scss.ScssConditionTree;
+import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
 import org.sonar.plugins.css.api.tree.scss.ScssElseIfTree;
 import org.sonar.plugins.css.api.tree.scss.ScssIfConditionsTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
@@ -36,50 +36,59 @@ import java.util.List;
 import java.util.Map;
 
 @Rule(
-  key = "if-elseif-same-condition",
-  name = "Related @if / @else if directives should not have the same condition",
+  key = "branch-same-implementation",
+  name = "Two branches in the same conditional structure should not have exactly the same implementation",
   priority = Priority.CRITICAL,
   tags = {Tags.BUG})
 @SqaleConstantRemediation("15min")
 @ActivatedByDefault
-public class IfElseIfSameConditionCheck extends DoubleDispatchVisitorCheck {
+public class BranchSameImplementationCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitScssIfConditions(ScssIfConditionsTree tree) {
-    Map<String, List<ScssConditionTree>> conditions = buildConditionsMap(tree);
-    createIssues(conditions);
+    Map<String, List<StatementBlockTree>> blocks = buildBlocksMap(tree);
+    createIssues(blocks);
     super.visitScssIfConditions(tree);
   }
 
-  private Map<String, List<ScssConditionTree>> buildConditionsMap(ScssIfConditionsTree tree) {
-    Map<String, List<ScssConditionTree>> conditions = new HashMap<>();
+  private Map<String, List<StatementBlockTree>> buildBlocksMap(ScssIfConditionsTree tree) {
+    Map<String, List<StatementBlockTree>> blocks = new HashMap<>();
 
-    conditions.put(tree.ifDirective().condition().treeValue(), Lists.newArrayList(tree.ifDirective().condition()));
+    blocks.put(tree.ifDirective().block().treeValue(), Lists.newArrayList(tree.ifDirective().block()));
 
     tree.elseIfDirectives()
       .stream()
-      .map(ScssElseIfTree::condition)
-      .forEach(c -> {
-        if (conditions.get(c.treeValue()) == null) {
-          conditions.put(c.treeValue(), Lists.newArrayList(c));
+      .map(ScssElseIfTree::block)
+      .forEach(b -> {
+        if (blocks.get(b.treeValue()) == null) {
+          blocks.put(b.treeValue(), Lists.newArrayList(b));
         } else {
-          conditions.get(c.treeValue()).add(c);
+          blocks.get(b.treeValue()).add(b);
         }
       });
 
-    return conditions;
+    if (tree.elseDirective() != null) {
+      StatementBlockTree elseBlock = tree.elseDirective().block();
+      if (blocks.get(elseBlock.treeValue()) == null) {
+        blocks.put(elseBlock.treeValue(), Lists.newArrayList(elseBlock));
+      } else {
+        blocks.get(elseBlock.treeValue()).add(elseBlock);
+      }
+    }
+
+    return blocks;
   }
 
-  private void createIssues(Map<String, List<ScssConditionTree>> conditions) {
-    for (Map.Entry<String, List<ScssConditionTree>> condition : conditions.entrySet()) {
-      if (condition.getValue().size() > 1) {
-        for (int i = 1; i < condition.getValue().size(); i++) {
+  private void createIssues(Map<String, List<StatementBlockTree>> blocks) {
+    for (Map.Entry<String, List<StatementBlockTree>> block : blocks.entrySet()) {
+      if (block.getValue().size() > 1) {
+        for (int i = 1; i < block.getValue().size(); i++) {
           PreciseIssue issue = addPreciseIssue(
-            condition.getValue().get(i),
-            "This condition duplicates the one at line " + condition.getValue().get(0).condition().firstValueElement().getLine() + "."
-              + " Either remove or update this condition.");
+            block.getValue().get(i),
+            "This block duplicates the one at line " + block.getValue().get(0).openCurlyBrace().getLine() + "."
+              + " Either update the block or the condition.");
 
-          issue.secondary(condition.getValue().get(0), "Duplicated condition");
+          issue.secondary(block.getValue().get(0), "Duplicated block");
         }
       }
     }

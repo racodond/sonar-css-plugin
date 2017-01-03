@@ -1,0 +1,15 @@
+@if $var == 1 {
+  @error "1";
+} @else if $var == 2 { /* Noncompliant ![sc=22;ec=2;el=+2;secondary=-2]! !{This block duplicates the one at line 1. Either update the block or the condition.}! */
+  @error "1";
+} @else {
+  @error "else";
+}
+
+@if $var == 1 {
+  @error "1";
+} @else if $var == 2 {
+  @error "2";
+} @else {  /* Noncompliant ![sc=9;ec=2;el=+2;secondary=-4]! !{This block duplicates the one at line 9. Either update the block or the condition.}! */
+  @error "1";
+}

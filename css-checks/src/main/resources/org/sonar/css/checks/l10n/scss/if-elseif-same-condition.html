@@ -12,10 +12,10 @@
 <pre>
 @if $x == 0 {
   do-something();
-} @else if x == 1 {
-  do-something-else();
-} @else if x == 0 {  /* Noncompliant: Same condition as in the @if directive */
+} @else if $x == 1 {
   do-something-different();
+} @else if $x == 0 {  /* Noncompliant: Same condition as in the @if directive */
+  do-something-else();
 }
 </pre>
 
@@ -23,9 +23,9 @@
 <pre>
 @if $x == 0 {
   do-something();
-} @else if x == 1 {
-  do-something-else();
-} @else if x == 2 {
+} @else if $x == 1 {
   do-something-different();
+} @else if $x == 2 {
+  do-something-else();
 }
 </pre>

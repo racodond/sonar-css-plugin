@@ -67,6 +67,7 @@ public final class CheckList {
       getCommonChecks().stream(),
       ImmutableList.of(
         AtLeastTwoNestedPropertiesCheck.class,
+        BranchSameImplementationCheck.class,
         CustomFunctionNamingConventionCheck.class,
         DebugCheck.class,
         DeprecatedUnescapedMultilineStringCheck.class,
