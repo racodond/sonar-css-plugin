@@ -1,0 +1,10 @@
+@error "blabla...";
+
+@error "blabla...\
+        blabla...\
+        blabla...";
+
+/* Noncompliant ![sc=8;ec=19;sl=+1;el=+2]! !{Escape this multiline string.}! */
+@error "blabla...
+        blabla...
+        blabla...";

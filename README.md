@@ -143,6 +143,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Always use 'through' instead of 'to' in @for directives
 * Conditions should not be too complex
 * Custom functions should follow a naming convention
+* Deprecated unescaped multiline strings should not be used
 * Mixins should follow a naming convention
 * Related @if / @else if directives should not have the same condition
 * SCSS variables should follow a naming convention

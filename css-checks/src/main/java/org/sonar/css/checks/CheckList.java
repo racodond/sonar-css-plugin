@@ -68,6 +68,7 @@ public final class CheckList {
       ImmutableList.of(
         CustomFunctionNamingConventionCheck.class,
         DebugCheck.class,
+        DeprecatedUnescapedMultilineStringCheck.class,
         IfElseIfWithoutElseCheck.class,
         org.sonar.css.checks.scss.ParsingErrorCheck.class,
         IfElseIfSameConditionCheck.class,

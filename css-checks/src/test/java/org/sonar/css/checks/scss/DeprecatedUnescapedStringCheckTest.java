@@ -17,23 +17,19 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.checks;
+package org.sonar.css.checks.scss;
 
-public class Tags {
+import org.junit.Test;
+import org.sonar.css.checks.CheckTestUtils;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
-  public static final String BROWSER_COMPATIBILITY = "browser-compatibility";
-  public static final String BUG = "bug";
-  public static final String CONVENTION = "convention";
-  public static final String DEPRECATED = "deprecated";
-  public static final String DESIGN = "design";
-  public static final String FORMAT = "format";
-  public static final String OBSOLETE = "obsolete";
-  public static final String PERFORMANCE = "performance";
-  public static final String PITFALL = "pitfall";
-  public static final String SECURITY = "security";
-  public static final String UNDERSTANDABILITY = "understandability";
+public class DeprecatedUnescapedStringCheckTest {
 
-  private Tags() {
+  @Test
+  public void test() {
+    CssCheckVerifier.verifyScssFile(
+      new DeprecatedUnescapedMultilineStringCheck(),
+      CheckTestUtils.getScssTestFile("deprecatedUnescapedString.scss"));
   }
 
 }

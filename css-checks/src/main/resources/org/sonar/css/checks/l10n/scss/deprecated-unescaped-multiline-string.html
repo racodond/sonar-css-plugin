@@ -1,0 +1,28 @@
+<p>
+    Unescaped multiline strings are deprecated since version 3.4.0 and should not be used anymore.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+@error "blabla...
+        blabla...
+        blabla...";
+</pre>
+
+
+<h2>Compliant Solution</h2>
+<p>
+    Add <code>\</code> at the end of each line to escape the multiline string. Also add <code>\a</code> to add a
+    carriage return.
+</p>
+<pre>
+@error "blabla...\a\
+        blabla...\a\
+        blabla...";
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="http://sass-lang.com/documentation/file.SASS_CHANGELOG.html#340_18_august_2014" target="_blank">
+        Changelog release 3.4.0 (18 August 2014)</a></li>
+</ul>
