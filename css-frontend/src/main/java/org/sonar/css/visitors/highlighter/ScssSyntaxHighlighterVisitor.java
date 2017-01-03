@@ -23,6 +23,7 @@ import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.highlighting.TypeOfText;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
+import org.sonar.plugins.css.api.tree.scss.ScssDirectiveTree;
 import org.sonar.plugins.css.api.tree.scss.ScssVariableTree;
 
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class ScssSyntaxHighlighterVisitor extends CssSyntaxHighlighterVisitor {
   public List<Tree.Kind> nodesToVisit() {
     List<Tree.Kind> nodesToVisit = super.nodesToVisit();
     nodesToVisit.add(Tree.Kind.SCSS_VARIABLE);
+    nodesToVisit.add(Tree.Kind.SCSS_DIRECTIVE);
     return nodesToVisit;
   }
 
@@ -52,6 +54,10 @@ public class ScssSyntaxHighlighterVisitor extends CssSyntaxHighlighterVisitor {
       tokens.add(((ScssVariableTree) tree).variable().value());
       tokens.add(((ScssVariableTree) tree).variablePrefix());
       code = TypeOfText.CONSTANT;
+    } else if (tree.is(Tree.Kind.SCSS_DIRECTIVE)) {
+      tokens.add(((ScssDirectiveTree) tree).at());
+      tokens.add(((ScssDirectiveTree) tree).name());
+      code = TypeOfText.ANNOTATION;
     }
 
     for (SyntaxToken token : tokens) {

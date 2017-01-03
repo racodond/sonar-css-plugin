@@ -17,36 +17,17 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.parser.scss;
+package org.sonar.plugins.css.api.tree.scss;
 
-import org.junit.Test;
-import org.sonar.css.parser.LexicalGrammar;
+import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 
-import static org.fest.assertions.Assertions.assertThat;
+import javax.annotation.Nullable;
 
-public class ScssMixinDefinitionDirectiveTreeTest extends ScssTreeTest {
+public interface ScssDirectiveTree extends Tree {
 
-  public ScssMixinDefinitionDirectiveTreeTest() {
-    super(LexicalGrammar.SCSS_MIXIN_DEFINITION_DIRECTIVE);
-  }
+  SyntaxToken at();
 
-  @Test
-  public void scssMixinDefinitionDirective() {
-    checkParsed("@mixin");
-    checkParsed(" @mixin");
-  }
-
-  @Test
-  public void notScssMixinDefinitionDirective() {
-    checkNotParsed("@ mixin");
-    checkNotParsed("mixin");
-  }
-
-  private void checkParsed(String toParse) {
-    SyntaxToken tree = (SyntaxToken) parser().parse(toParse);
-    assertThat(tree).isNotNull();
-    assertThat(tree.text()).isEqualTo("@mixin");
-  }
+  SyntaxToken name();
 
 }

@@ -36,21 +36,22 @@ public class ScssElseIfTreeTest extends ScssTreeTest {
     ScssElseIfTree tree;
 
     tree = checkParsed("@elseif $a == 1 {}");
-    assertThat(tree.directive().text()).isEqualTo("@elseif");
+    assertThat(tree.directive().name().text()).isEqualTo("elseif");
     assertThat(tree.block().content()).isNull();
 
     tree = checkParsed("@else if $a >= 1 and $b != 2 {}");
-    assertThat(tree.directive().text()).isEqualTo("@else if");
+    assertThat(tree.directive().name().text()).isEqualTo("else if");
     assertThat(tree.block().content()).isNull();
 
     tree = checkParsed("@else  if $a == 1/2 {}");
-    assertThat(tree.directive().text()).isEqualTo("@else  if");
+    assertThat(tree.directive().name().text()).isEqualTo("else  if");
     assertThat(tree.block().content()).isNull();
 
     tree = checkParsed("@elseif $a == 1*6+1-2 { $abc: green; color: $abc;}");
     assertThat(tree.block().content()).isNotNull();
     assertThat(tree.block().scssVariableDeclarations()).hasSize(1);
     assertThat(tree.block().propertyDeclarations()).hasSize(1);
+    assertThat(tree.directive().name().text()).isEqualTo("elseif");
   }
 
   @Test
@@ -64,6 +65,7 @@ public class ScssElseIfTreeTest extends ScssTreeTest {
     ScssElseIfTree tree = (ScssElseIfTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
     assertThat(tree.directive()).isNotNull();
+    assertThat(tree.directive().at()).isNotNull();
     assertThat(tree.condition()).isNotNull();
     assertThat(tree.block()).isNotNull();
     return tree;

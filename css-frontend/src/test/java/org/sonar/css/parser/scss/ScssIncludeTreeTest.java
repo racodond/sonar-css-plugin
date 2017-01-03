@@ -21,19 +21,19 @@ package org.sonar.css.parser.scss;
 
 import org.junit.Test;
 import org.sonar.css.parser.LexicalGrammar;
-import org.sonar.plugins.css.api.tree.scss.ScssMixinIncludeTree;
+import org.sonar.plugins.css.api.tree.scss.ScssIncludeTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class ScssMixinIncludeTreeTest extends ScssTreeTest {
+public class ScssIncludeTreeTest extends ScssTreeTest {
 
-  public ScssMixinIncludeTreeTest() {
+  public ScssIncludeTreeTest() {
     super(LexicalGrammar.SCSS_MIXIN_INCLUDE);
   }
 
   @Test
   public void scssMixinInclude() {
-    ScssMixinIncludeTree tree;
+    ScssIncludeTree tree;
 
     tree = checkParsed("@include hello");
     assertThat(tree.parameters()).isNull();
@@ -125,10 +125,12 @@ public class ScssMixinIncludeTreeTest extends ScssTreeTest {
     checkNotParsed("@mixin(10);");
   }
 
-  private ScssMixinIncludeTree checkParsed(String toParse) {
-    ScssMixinIncludeTree tree = (ScssMixinIncludeTree) parser().parse(toParse);
+  private ScssIncludeTree checkParsed(String toParse) {
+    ScssIncludeTree tree = (ScssIncludeTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
     assertThat(tree.directive()).isNotNull();
+    assertThat(tree.directive().at()).isNotNull();
+    assertThat(tree.directive().name().text()).isEqualTo("include");
     assertThat(tree.name()).isNotNull();
     return tree;
   }

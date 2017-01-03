@@ -56,9 +56,9 @@ public interface StatementBlockTree extends Tree {
 
   List<ScssVariableDeclarationTree> scssVariableDeclarations();
 
-  List<ScssMixinDefinitionTree> scssMixinDefinitions();
+  List<ScssMixinTree> scssMixinDefinitions();
 
-  List<ScssMixinIncludeTree> scssMixinIncludes();
+  List<ScssIncludeTree> scssMixinIncludes();
 
   List<ScssExtendTree> scssExtends();
 

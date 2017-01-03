@@ -23,8 +23,8 @@ import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.less.LessMixinCallTree;
 import org.sonar.plugins.css.api.tree.less.LessVariableDeclarationTree;
 import org.sonar.plugins.css.api.tree.scss.ScssAtRootTree;
-import org.sonar.plugins.css.api.tree.scss.ScssMixinDefinitionTree;
-import org.sonar.plugins.css.api.tree.scss.ScssMixinIncludeTree;
+import org.sonar.plugins.css.api.tree.scss.ScssMixinTree;
+import org.sonar.plugins.css.api.tree.scss.ScssIncludeTree;
 import org.sonar.plugins.css.api.tree.scss.ScssVariableDeclarationTree;
 
 import java.util.List;
@@ -49,9 +49,9 @@ public interface StyleSheetTree extends Tree {
 
   List<ScssVariableDeclarationTree> scssVariableDeclarations();
 
-  List<ScssMixinDefinitionTree> scssMixinDefinitions();
+  List<ScssMixinTree> scssMixinDefinitions();
 
-  List<ScssMixinIncludeTree> scssMixinIncludes();
+  List<ScssIncludeTree> scssMixinIncludes();
 
   List<ScssAtRootTree> scssAtRoots();
 

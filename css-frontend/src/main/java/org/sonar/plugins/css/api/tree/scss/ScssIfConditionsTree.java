@@ -26,11 +26,11 @@ import java.util.List;
 
 public interface ScssIfConditionsTree extends Tree {
 
-  ScssIfTree ifDirective();
+  ScssIfTree ife();
 
-  List<ScssElseIfTree> elseIfDirectives();
+  List<ScssElseIfTree> elseif();
 
   @Nullable
-  ScssElseTree elseDirective();
+  ScssElseTree elsee();
 
 }

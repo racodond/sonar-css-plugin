@@ -20,9 +20,16 @@
 package org.sonar.plugins.css.api.tree.scss;
 
 import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
+import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 
-public interface ScssMixinDefinitionTree extends ScssDirectiveWithNameAndParametersTree {
+import javax.annotation.Nullable;
 
+public interface ScssIncludeTree extends ScssDirectiveWithNameAndParametersTree {
+
+  @Nullable
   StatementBlockTree block();
+
+  @Nullable
+  SyntaxToken semicolon();
 
 }

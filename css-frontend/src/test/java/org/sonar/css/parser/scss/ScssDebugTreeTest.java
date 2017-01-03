@@ -70,6 +70,8 @@ public class ScssDebugTreeTest extends ScssTreeTest {
     ScssDebugTree tree = (ScssDebugTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
     assertThat(tree.directive()).isNotNull();
+    assertThat(tree.directive().at()).isNotNull();
+    assertThat(tree.directive().name().text()).isEqualTo("debug");
     assertThat(tree.value()).isNotNull();
     return tree;
   }

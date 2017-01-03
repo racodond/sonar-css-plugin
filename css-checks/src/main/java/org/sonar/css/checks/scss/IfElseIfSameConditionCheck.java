@@ -54,9 +54,9 @@ public class IfElseIfSameConditionCheck extends DoubleDispatchVisitorCheck {
   private Map<String, List<ScssConditionTree>> buildConditionsMap(ScssIfConditionsTree tree) {
     Map<String, List<ScssConditionTree>> conditions = new HashMap<>();
 
-    conditions.put(tree.ifDirective().condition().treeValue(), Lists.newArrayList(tree.ifDirective().condition()));
+    conditions.put(tree.ife().condition().treeValue(), Lists.newArrayList(tree.ife().condition()));
 
-    tree.elseIfDirectives()
+    tree.elseif()
       .stream()
       .map(ScssElseIfTree::condition)
       .forEach(c -> {

@@ -55,7 +55,8 @@ public class ScssElseTreeTest extends ScssTreeTest {
     ScssElseTree tree = (ScssElseTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
     assertThat(tree.directive()).isNotNull();
-    assertThat(tree.directive().text()).isEqualTo("@else");
+    assertThat(tree.directive().at()).isNotNull();
+    assertThat(tree.directive().name().text()).isEqualTo("else");
     assertThat(tree.block()).isNotNull();
     return tree;
   }

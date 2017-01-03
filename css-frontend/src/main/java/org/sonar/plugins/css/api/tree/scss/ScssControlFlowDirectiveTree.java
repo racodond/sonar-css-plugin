@@ -17,36 +17,9 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.parser.scss;
+package org.sonar.plugins.css.api.tree.scss;
 
-import org.junit.Test;
-import org.sonar.css.parser.LexicalGrammar;
-import org.sonar.plugins.css.api.tree.css.SyntaxToken;
+import org.sonar.plugins.css.api.tree.Tree;
 
-import static org.fest.assertions.Assertions.assertThat;
-
-public class ScssAtRootDirectiveTreeTest extends ScssTreeTest {
-
-  public ScssAtRootDirectiveTreeTest() {
-    super(LexicalGrammar.SCSS_EXTEND_DIRECTIVE);
-  }
-
-  @Test
-  public void scssExtendDirective() {
-    checkParsed("@extend");
-    checkParsed(" @extend");
-  }
-
-  @Test
-  public void notScssExtendDirective() {
-    checkNotParsed("@ extend");
-    checkNotParsed("extend");
-  }
-
-  private void checkParsed(String toParse) {
-    SyntaxToken tree = (SyntaxToken) parser().parse(toParse);
-    assertThat(tree).isNotNull();
-    assertThat(tree.text()).isEqualTo("@extend");
-  }
-
+public interface ScssControlFlowDirectiveTree extends Tree {
 }

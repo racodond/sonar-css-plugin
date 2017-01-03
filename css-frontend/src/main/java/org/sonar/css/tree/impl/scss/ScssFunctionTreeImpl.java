@@ -24,18 +24,19 @@ import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.IdentifierTree;
 import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
-import org.sonar.plugins.css.api.tree.scss.ScssFunctionDefinitionTree;
+import org.sonar.plugins.css.api.tree.scss.ScssDirectiveTree;
+import org.sonar.plugins.css.api.tree.scss.ScssFunctionTree;
 import org.sonar.plugins.css.api.tree.scss.ScssParametersTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 import javax.annotation.Nullable;
 import java.util.Iterator;
 
-public class ScssFunctionDefinitionTreeImpl extends ScssDirectiveWithNameAndParametersTreeImpl implements ScssFunctionDefinitionTree {
+public class ScssFunctionTreeImpl extends ScssDirectiveWithNameAndParametersTreeImpl implements ScssFunctionTree {
 
   private final StatementBlockTree block;
 
-  public ScssFunctionDefinitionTreeImpl(SyntaxToken directive, IdentifierTree name, @Nullable ScssParametersTree parameters, StatementBlockTree block) {
+  public ScssFunctionTreeImpl(ScssDirectiveTree directive, IdentifierTree name, @Nullable ScssParametersTree parameters, StatementBlockTree block) {
     super(directive, name, parameters);
     this.block = block;
   }

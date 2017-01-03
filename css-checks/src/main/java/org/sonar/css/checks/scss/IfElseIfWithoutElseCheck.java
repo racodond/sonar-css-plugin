@@ -38,9 +38,9 @@ public class IfElseIfWithoutElseCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitScssIfConditions(ScssIfConditionsTree tree) {
-    if (!tree.elseIfDirectives().isEmpty() && tree.elseDirective() == null) {
+    if (!tree.elseif().isEmpty() && tree.elsee() == null) {
       addPreciseIssue(
-        tree.elseIfDirectives().get(tree.elseIfDirectives().size() - 1).directive(),
+        tree.elseif().get(tree.elseif().size() - 1).directive(),
         "Add an @else directive after this @else if directive.");
     }
     super.visitScssIfConditions(tree);

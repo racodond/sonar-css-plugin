@@ -128,13 +128,14 @@ public interface Tree {
     SCSS_RETURN(ScssErrorTree.class),
     SCSS_AT_ROOT(ScssAtRootTree.class),
     SCSS_AT_ROOT_PARAMETERS(ScssAtRootTree.class),
-    SCSS_FUNCTION_DEFINITION(ScssFunctionDefinitionTree.class),
-    SCSS_MIXIN_DEFINITION(ScssMixinDefinitionTree.class),
-    SCSS_MIXIN_INCLUDE(ScssMixinIncludeTree.class),
+    SCSS_FUNCTION_DEFINITION(ScssFunctionTree.class),
+    SCSS_MIXIN_DEFINITION(ScssMixinTree.class),
+    SCSS_MIXIN_INCLUDE(ScssIncludeTree.class),
     SCSS_PARAMETERS(ScssParametersTree.class),
     SCSS_PARAMETER(ScssParameterTree.class),
     SCSS_OPERATOR(ScssOperatorTree.class),
     SCSS_MULTILINE_STRING(ScssMultilineStringTree.class),
+    SCSS_DIRECTIVE(ScssDirectiveTree.class),
 
     // Less
     LESS_VARIABLE_DECLARATION(LessVariableDeclarationTree.class),

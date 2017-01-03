@@ -23,19 +23,19 @@ import com.google.common.collect.Iterators;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
-import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.scss.ScssConditionTree;
 import org.sonar.plugins.css.api.tree.scss.ScssConditionalDirectiveTree;
+import org.sonar.plugins.css.api.tree.scss.ScssDirectiveTree;
 
 import java.util.Iterator;
 
 abstract class ScssConditionalDirectiveTreeImpl extends TreeImpl implements ScssConditionalDirectiveTree {
 
-  private final SyntaxToken directive;
+  private final ScssDirectiveTree directive;
   private final ScssConditionTree condition;
   private final StatementBlockTree block;
 
-  public ScssConditionalDirectiveTreeImpl(SyntaxToken directive, ScssConditionTree condition, StatementBlockTree block) {
+  public ScssConditionalDirectiveTreeImpl(ScssDirectiveTree directive, ScssConditionTree condition, StatementBlockTree block) {
     this.directive = directive;
     this.condition = condition;
     this.block = block;
@@ -47,7 +47,7 @@ abstract class ScssConditionalDirectiveTreeImpl extends TreeImpl implements Scss
   }
 
   @Override
-  public SyntaxToken directive() {
+  public ScssDirectiveTree directive() {
     return directive;
   }
 

@@ -149,6 +149,14 @@ public class ScssSyntaxHighlighterVisitorTest {
     assertHighlighting(2, 0, 14, CONSTANT);
   }
 
+  @Test
+  public void scss_directive() throws Exception {
+    highlight("@if $x == 0 {}");
+    assertHighlighting(1, 0, 3, ANNOTATION);
+    highlight("@for $i from 0 through 10 {}");
+    assertHighlighting(1, 0, 4, ANNOTATION);
+  }
+
   private void highlight(String string) throws Exception {
     inputFile.initMetadata(string);
     Tree tree = ScssParser.createParser(Charsets.UTF_8).parse(string);

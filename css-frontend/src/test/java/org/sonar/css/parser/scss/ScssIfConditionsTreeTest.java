@@ -36,31 +36,31 @@ public class ScssIfConditionsTreeTest extends ScssTreeTest {
     ScssIfConditionsTree tree;
 
     tree = checkParsed("@if $a == 1 {}");
-    assertThat(tree.elseIfDirectives()).isEmpty();
-    assertThat(tree.elseDirective()).isNull();
+    assertThat(tree.elseif()).isEmpty();
+    assertThat(tree.elsee()).isNull();
 
     tree = checkParsed("@if $a == 1 {} @else if $a == 1 {}");
-    assertThat(tree.elseIfDirectives()).hasSize(1);
-    assertThat(tree.elseDirective()).isNull();
+    assertThat(tree.elseif()).hasSize(1);
+    assertThat(tree.elsee()).isNull();
 
     tree = checkParsed("@if $a == 1 {} @else if $a == 1 {} @else if $a == 1 {}");
-    assertThat(tree.elseIfDirectives()).hasSize(2);
-    assertThat(tree.elseDirective()).isNull();
+    assertThat(tree.elseif()).hasSize(2);
+    assertThat(tree.elsee()).isNull();
 
     tree = checkParsed("@if $a == 1 {} @else if $a == 1 {} @else if $a == 1 {} @else {}");
-    assertThat(tree.elseIfDirectives()).hasSize(2);
-    assertThat(tree.elseDirective()).isNotNull();
+    assertThat(tree.elseif()).hasSize(2);
+    assertThat(tree.elsee()).isNotNull();
 
     tree = checkParsed("@if $a == 1 {} @else {}");
-    assertThat(tree.elseIfDirectives()).isEmpty();
-    assertThat(tree.elseDirective()).isNotNull();
+    assertThat(tree.elseif()).isEmpty();
+    assertThat(tree.elsee()).isNotNull();
   }
 
   private ScssIfConditionsTree checkParsed(String toParse) {
     ScssIfConditionsTree tree = (ScssIfConditionsTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
-    assertThat(tree.ifDirective()).isNotNull();
-    assertThat(tree.elseIfDirectives()).isNotNull();
+    assertThat(tree.ife()).isNotNull();
+    assertThat(tree.elseif()).isNotNull();
     return tree;
   }
 

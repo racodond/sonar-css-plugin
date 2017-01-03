@@ -61,7 +61,8 @@ public class ScssIfTreeTest extends ScssTreeTest {
     ScssIfTree tree = (ScssIfTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
     assertThat(tree.directive()).isNotNull();
-    assertThat(tree.directive().text()).isEqualTo("@if");
+    assertThat(tree.directive().at()).isNotNull();
+    assertThat(tree.directive().name().text()).isEqualTo("if");
     assertThat(tree.condition()).isNotNull();
     assertThat(tree.block()).isNotNull();
     return tree;

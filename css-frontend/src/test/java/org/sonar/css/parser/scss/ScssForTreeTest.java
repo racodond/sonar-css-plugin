@@ -54,7 +54,8 @@ public class ScssForTreeTest extends ScssTreeTest {
     ScssForTree tree = (ScssForTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
     assertThat(tree.directive()).isNotNull();
-    assertThat(tree.directive().text()).isEqualTo("@for");
+    assertThat(tree.directive().at()).isNotNull();
+    assertThat(tree.directive().name().text()).isEqualTo("for");
     assertThat(tree.condition()).isNotNull();
     assertThat(tree.block()).isNotNull();
     return tree;

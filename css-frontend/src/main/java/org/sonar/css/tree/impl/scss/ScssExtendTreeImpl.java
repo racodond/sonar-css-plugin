@@ -24,6 +24,7 @@ import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.CompoundSelectorTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
+import org.sonar.plugins.css.api.tree.scss.ScssDirectiveTree;
 import org.sonar.plugins.css.api.tree.scss.ScssExtendTree;
 import org.sonar.plugins.css.api.tree.scss.ScssOptionalFlagTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
@@ -33,7 +34,7 @@ import java.util.Iterator;
 
 public class ScssExtendTreeImpl extends TreeImpl implements ScssExtendTree {
 
-  private final SyntaxToken directive;
+  private final ScssDirectiveTree directive;
   private final CompoundSelectorTree selector;
 
   @Nullable
@@ -42,7 +43,7 @@ public class ScssExtendTreeImpl extends TreeImpl implements ScssExtendTree {
   @Nullable
   private final SyntaxToken semicolon;
 
-  public ScssExtendTreeImpl(SyntaxToken directive, CompoundSelectorTree selector, @Nullable ScssOptionalFlagTree optionalFlag, @Nullable SyntaxToken semicolon) {
+  public ScssExtendTreeImpl(ScssDirectiveTree directive, CompoundSelectorTree selector, @Nullable ScssOptionalFlagTree optionalFlag, @Nullable SyntaxToken semicolon) {
     this.directive = directive;
     this.selector = selector;
     this.optionalFlag = optionalFlag;
@@ -65,7 +66,7 @@ public class ScssExtendTreeImpl extends TreeImpl implements ScssExtendTree {
   }
 
   @Override
-  public SyntaxToken directive() {
+  public ScssDirectiveTree directive() {
     return directive;
   }
 

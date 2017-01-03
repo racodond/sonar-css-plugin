@@ -61,7 +61,8 @@ public class ScssWhileTreeTest extends ScssTreeTest {
     ScssWhileTree tree = (ScssWhileTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
     assertThat(tree.directive()).isNotNull();
-    assertThat(tree.directive().text()).isEqualTo("@while");
+    assertThat(tree.directive().at()).isNotNull();
+    assertThat(tree.directive().name().text()).isEqualTo("while");
     assertThat(tree.condition()).isNotNull();
     assertThat(tree.block()).isNotNull();
     return tree;

@@ -24,52 +24,41 @@ import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.IdentifierTree;
 import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
+import org.sonar.plugins.css.api.tree.scss.ScssDirectiveTree;
+import org.sonar.plugins.css.api.tree.scss.ScssMixinTree;
 import org.sonar.plugins.css.api.tree.scss.ScssParametersTree;
-import org.sonar.plugins.css.api.tree.scss.ScssMixinIncludeTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 import javax.annotation.Nullable;
 import java.util.Iterator;
 
-public class ScssMixinIncludeTreeImpl extends ScssDirectiveWithNameAndParametersTreeImpl implements ScssMixinIncludeTree {
+public class ScssMixinTreeImpl extends ScssDirectiveWithNameAndParametersTreeImpl implements ScssMixinTree {
 
-  @Nullable
   private final StatementBlockTree block;
 
-  @Nullable
-  private final SyntaxToken semicolon;
-
-  public ScssMixinIncludeTreeImpl(SyntaxToken directive, IdentifierTree name, @Nullable ScssParametersTree parameters, @Nullable StatementBlockTree block, @Nullable SyntaxToken semicolon) {
+  public ScssMixinTreeImpl(ScssDirectiveTree directive, IdentifierTree name, @Nullable ScssParametersTree parameters, StatementBlockTree block) {
     super(directive, name, parameters);
     this.block = block;
-    this.semicolon = semicolon;
   }
 
   @Override
   public Kind getKind() {
-    return Kind.SCSS_MIXIN_INCLUDE;
+    return Kind.SCSS_MIXIN_DEFINITION;
   }
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    return Iterators.forArray(directive(), name(), parameters(), block, semicolon);
+    return Iterators.forArray(directive(), name(), parameters(), block);
   }
 
   @Override
   public void accept(DoubleDispatchVisitor visitor) {
-    visitor.visitScssMixinInclude(this);
+    visitor.visitScssMixinDefinition(this);
   }
 
   @Override
-  @Nullable
   public StatementBlockTree block() {
     return block;
-  }
-
-  @Override
-  @Nullable
-  public SyntaxToken semicolon() {
-    return semicolon;
   }
 
 }

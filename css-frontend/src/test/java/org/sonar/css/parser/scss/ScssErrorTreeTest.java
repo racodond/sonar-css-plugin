@@ -70,6 +70,8 @@ public class ScssErrorTreeTest extends ScssTreeTest {
     ScssErrorTree tree = (ScssErrorTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
     assertThat(tree.directive()).isNotNull();
+    assertThat(tree.directive().at()).isNotNull();
+    assertThat(tree.directive().name().text()).isEqualTo("error");
     assertThat(tree.value()).isNotNull();
     return tree;
   }

@@ -27,8 +27,8 @@ import org.sonar.plugins.css.api.tree.css.*;
 import org.sonar.plugins.css.api.tree.less.LessMixinCallTree;
 import org.sonar.plugins.css.api.tree.less.LessVariableDeclarationTree;
 import org.sonar.plugins.css.api.tree.scss.ScssAtRootTree;
-import org.sonar.plugins.css.api.tree.scss.ScssMixinDefinitionTree;
-import org.sonar.plugins.css.api.tree.scss.ScssMixinIncludeTree;
+import org.sonar.plugins.css.api.tree.scss.ScssMixinTree;
+import org.sonar.plugins.css.api.tree.scss.ScssIncludeTree;
 import org.sonar.plugins.css.api.tree.scss.ScssVariableDeclarationTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
@@ -51,8 +51,8 @@ public class StyleSheetTreeImpl extends TreeImpl implements StyleSheetTree {
   private final List<LessMixinCallTree> lessMixinCalls;
 
   private final List<ScssVariableDeclarationTree> scssVariableDeclarations;
-  private final List<ScssMixinDefinitionTree> scssMixinDefinitions;
-  private final List<ScssMixinIncludeTree> scssMixinIncludes;
+  private final List<ScssMixinTree> scssMixinDefinitions;
+  private final List<ScssIncludeTree> scssMixinIncludes;
   private final List<ScssAtRootTree> scssAtRoots;
 
   public StyleSheetTreeImpl(@Nullable SyntaxToken byteOrderMark, @Nullable List<Tree> all, @Nullable SyntaxToken eof) {
@@ -70,8 +70,8 @@ public class StyleSheetTreeImpl extends TreeImpl implements StyleSheetTree {
     this.lessMixinCalls = TreeListUtils.allElementsOfType(all, LessMixinCallTree.class);
 
     this.scssVariableDeclarations = TreeListUtils.allElementsOfType(all, ScssVariableDeclarationTree.class);
-    this.scssMixinDefinitions = TreeListUtils.allElementsOfType(all, ScssMixinDefinitionTree.class);
-    this.scssMixinIncludes = TreeListUtils.allElementsOfType(all, ScssMixinIncludeTree.class);
+    this.scssMixinDefinitions = TreeListUtils.allElementsOfType(all, ScssMixinTree.class);
+    this.scssMixinIncludes = TreeListUtils.allElementsOfType(all, ScssIncludeTree.class);
     this.scssAtRoots = TreeListUtils.allElementsOfType(all, ScssAtRootTree.class);
   }
 
@@ -139,12 +139,12 @@ public class StyleSheetTreeImpl extends TreeImpl implements StyleSheetTree {
   }
 
   @Override
-  public List<ScssMixinDefinitionTree> scssMixinDefinitions() {
+  public List<ScssMixinTree> scssMixinDefinitions() {
     return scssMixinDefinitions;
   }
 
   @Override
-  public List<ScssMixinIncludeTree> scssMixinIncludes() {
+  public List<ScssIncludeTree> scssMixinIncludes() {
     return scssMixinIncludes;
   }
 

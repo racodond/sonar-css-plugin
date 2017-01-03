@@ -24,6 +24,7 @@ import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.scss.ScssContentTree;
+import org.sonar.plugins.css.api.tree.scss.ScssDirectiveTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 import javax.annotation.Nullable;
@@ -31,12 +32,12 @@ import java.util.Iterator;
 
 public class ScssContentTreeImpl extends TreeImpl implements ScssContentTree {
 
-  private final SyntaxToken directive;
+  private final ScssDirectiveTree directive;
 
   @Nullable
   private final SyntaxToken semicolon;
 
-  public ScssContentTreeImpl(SyntaxToken directive, @Nullable SyntaxToken semicolon) {
+  public ScssContentTreeImpl(ScssDirectiveTree directive, @Nullable SyntaxToken semicolon) {
     this.directive = directive;
     this.semicolon = semicolon;
   }
@@ -57,7 +58,7 @@ public class ScssContentTreeImpl extends TreeImpl implements ScssContentTree {
   }
 
   @Override
-  public SyntaxToken directive() {
+  public ScssDirectiveTree directive() {
     return directive;
   }
 

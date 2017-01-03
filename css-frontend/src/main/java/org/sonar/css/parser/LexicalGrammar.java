@@ -193,23 +193,28 @@ public enum LexicalGrammar implements GrammarRuleKey {
 
   SCSS_EXTEND,
   SCSS_EXTEND_DIRECTIVE,
+  SCSS_EXTEND_DIRECTIVE_LITERAL,
   SCSS_OPTIONAL_FLAG,
   SCSS_OPTIONAL_KEYWORD,
 
   SCSS_AT_ROOT,
   SCSS_AT_ROOT_DIRECTIVE,
+  SCSS_AT_ROOT_DIRECTIVE_LITERAL,
   SCSS_AT_ROOT_PARAMETERS,
   SCSS_AT_ROOT_WITH,
   SCSS_AT_ROOT_WITHOUT,
 
-  SCSS_FUNCTION_DEFINITION,
-  SCSS_FUNCTION_DEFINITION_DIRECTIVE,
+  SCSS_FUNCTION,
+  SCSS_FUNCTION_DIRECTIVE,
+  SCSS_FUNCTION_DIRECTIVE_LITERAL,
 
   SCSS_MIXIN_DEFINITION,
-  SCSS_MIXIN_DEFINITION_DIRECTIVE,
+  SCSS_MIXIN_DIRECTIVE,
+  SCSS_MIXIN_DIRECTIVE_LITERAL,
 
   SCSS_MIXIN_INCLUDE,
-  SCSS_MIXIN_INCLUDE_DIRECTIVE,
+  SCSS_INCLUDE_DIRECTIVE,
+  SCSS_INCLUDE_DIRECTIVE_LITERAL,
 
   SCSS_DEFINITION_PARAMETERS,
   SCSS_DEFINITION_PARAMETER,
@@ -226,39 +231,49 @@ public enum LexicalGrammar implements GrammarRuleKey {
 
   SCSS_CONTENT,
   SCSS_CONTENT_DIRECTIVE,
+  SCSS_CONTENT_DIRECTIVE_LITERAL,
 
   SCSS_DEBUG,
-  SCSS_WARN,
-  SCSS_ERROR,
   SCSS_DEBUG_DIRECTIVE,
+  SCSS_DEBUG_DIRECTIVE_LITERAL,
+
+  SCSS_WARN,
   SCSS_WARN_DIRECTIVE,
+  SCSS_WARN_DIRECTIVE_LITERAL,
+
+  SCSS_ERROR,
   SCSS_ERROR_DIRECTIVE,
+  SCSS_ERROR_DIRECTIVE_LITERAL,
 
   SCSS_IF_CONDITIONS,
+
   SCSS_IF,
-  SCSS_ELSE,
-  SCSS_ELSE_IF,
   SCSS_IF_DIRECTIVE,
+  SCSS_IF_DIRECTIVE_LITERAL,
+
+  SCSS_ELSE,
   SCSS_ELSE_DIRECTIVE,
+  SCSS_ELSE_DIRECTIVE_LITERAL,
+
+  SCSS_ELSE_IF,
   SCSS_ELSE_IF_DIRECTIVE,
+  SCSS_ELSE_IF_DIRECTIVE_LITERAL,
 
   SCSS_WHILE,
   SCSS_WHILE_DIRECTIVE,
+  SCSS_WHILE_DIRECTIVE_LITERAL,
 
   SCSS_EACH,
   SCSS_EACH_DIRECTIVE,
-  SCSS_EACH_IN,
+  SCSS_EACH_DIRECTIVE_LITERAL,
 
   SCSS_FOR,
   SCSS_FOR_DIRECTIVE,
-  SCSS_FOR_FROM,
-  SCSS_FOR_TO,
-  SCSS_FOR_THROUGH,
+  SCSS_FOR_DIRECTIVE_LITERAL,
 
-  SCSS_FUNCTION,
-  SCSS_FUNCTION_DIRECTIVE,
   SCSS_RETURN,
   SCSS_RETURN_DIRECTIVE,
+  SCSS_RETURN_DIRECTIVE_LITERAL,
 
   SCSS_OPERATOR,
   SCSS_OPERATOR_LITERAL,
@@ -549,41 +564,35 @@ public enum LexicalGrammar implements GrammarRuleKey {
   private static void scss(LexerlessGrammarBuilder b) {
     b.rule(SCSS_DOLLAR).is(b.token(GenericTokenType.LITERAL, "$"));
     b.rule(SCSS_ELLIPSIS).is(b.token(GenericTokenType.LITERAL, "..."));
+    b.rule(SCSS_PARENT_SELECTOR_KEYWORD).is("&");
+
     b.rule(SCSS_VARIABLE_PREFIX).is(SPACING, SCSS_DOLLAR);
     b.rule(SCSS_DEFAULT_KEYWORD).is(SPACING, b.token(GenericTokenType.LITERAL, "!default"));
     b.rule(SCSS_GLOBAL_KEYWORD).is(SPACING, b.token(GenericTokenType.LITERAL, "!global"));
     b.rule(SCSS_OPTIONAL_KEYWORD).is(SPACING, b.token(GenericTokenType.LITERAL, "!optional"));
 
-    b.rule(SCSS_PARENT_SELECTOR_KEYWORD).is("&");
+    b.rule(SCSS_MIXIN_DIRECTIVE_LITERAL).is(SPACING, b.token(GenericTokenType.LITERAL, "mixin"));
+    b.rule(SCSS_INCLUDE_DIRECTIVE_LITERAL).is(SPACING, b.token(GenericTokenType.LITERAL, "include"));
+    b.rule(SCSS_EXTEND_DIRECTIVE_LITERAL).is(SPACING, b.token(GenericTokenType.LITERAL, "extend"), SPACING);
 
-    b.rule(SCSS_FUNCTION_DEFINITION_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@function"));
-    b.rule(SCSS_MIXIN_DEFINITION_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@mixin"));
-    b.rule(SCSS_MIXIN_INCLUDE_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@include"));
-    b.rule(SCSS_EXTEND_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@extend"), SPACING);
+    b.rule(SCSS_CONTENT_DIRECTIVE_LITERAL).is(SPACING, b.token(GenericTokenType.LITERAL, "content"));
 
-    b.rule(SCSS_CONTENT_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@content"));
+    b.rule(SCSS_DEBUG_DIRECTIVE_LITERAL).is(SPACING, b.token(GenericTokenType.LITERAL, "debug"));
+    b.rule(SCSS_WARN_DIRECTIVE_LITERAL).is(SPACING, b.token(GenericTokenType.LITERAL, "warn"));
+    b.rule(SCSS_ERROR_DIRECTIVE_LITERAL).is(SPACING, b.token(GenericTokenType.LITERAL, "error"));
 
-    b.rule(SCSS_DEBUG_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@debug"));
-    b.rule(SCSS_WARN_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@warn"));
-    b.rule(SCSS_ERROR_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@error"));
+    b.rule(SCSS_IF_DIRECTIVE_LITERAL).is(SPACING, b.token(GenericTokenType.LITERAL, "if"));
+    b.rule(SCSS_ELSE_DIRECTIVE_LITERAL).is(SPACING, b.token(GenericTokenType.LITERAL, "else"));
+    b.rule(SCSS_ELSE_IF_DIRECTIVE_LITERAL).is(SPACING, b.token(GenericTokenType.LITERAL, b.sequence("else", SPACING, "if")));
 
-    b.rule(SCSS_IF_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@if"));
-    b.rule(SCSS_ELSE_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@else"));
-    b.rule(SCSS_ELSE_IF_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, b.sequence("@else", SPACING, "if")));
+    b.rule(SCSS_FOR_DIRECTIVE_LITERAL).is(SPACING, b.token(GenericTokenType.LITERAL, "for"));
+    b.rule(SCSS_EACH_DIRECTIVE_LITERAL).is(SPACING, b.token(GenericTokenType.LITERAL, "each"));
+    b.rule(SCSS_WHILE_DIRECTIVE_LITERAL).is(SPACING, b.token(GenericTokenType.LITERAL, "while"));
 
-    b.rule(SCSS_EACH_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@each"));
-    b.rule(SCSS_EACH_IN).is(SPACING, b.token(GenericTokenType.LITERAL, "in"));
+    b.rule(SCSS_FUNCTION_DIRECTIVE_LITERAL).is(SPACING, b.token(GenericTokenType.LITERAL, "function"));
+    b.rule(SCSS_RETURN_DIRECTIVE_LITERAL).is(SPACING, b.token(GenericTokenType.LITERAL, "return"));
 
-    b.rule(SCSS_WHILE_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@while"));
-    b.rule(SCSS_FUNCTION_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@function"));
-    b.rule(SCSS_RETURN_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@return"));
-
-    b.rule(SCSS_FOR_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@for"));
-    b.rule(SCSS_FOR_FROM).is(SPACING, b.token(GenericTokenType.LITERAL, "from"));
-    b.rule(SCSS_FOR_TO).is(SPACING, b.token(GenericTokenType.LITERAL, "to"));
-    b.rule(SCSS_FOR_THROUGH).is(SPACING, b.token(GenericTokenType.LITERAL, "through"));
-
-    b.rule(SCSS_AT_ROOT_DIRECTIVE).is(SPACING, b.token(GenericTokenType.LITERAL, "@at-root"));
+    b.rule(SCSS_AT_ROOT_DIRECTIVE_LITERAL).is(SPACING, b.token(GenericTokenType.LITERAL, "at-root"));
     b.rule(SCSS_AT_ROOT_WITH).is(SPACING, b.token(GenericTokenType.LITERAL, "with"));
     b.rule(SCSS_AT_ROOT_WITHOUT).is(SPACING, b.token(GenericTokenType.LITERAL, "without"));
 

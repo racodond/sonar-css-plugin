@@ -23,7 +23,7 @@ import com.google.common.collect.Iterators;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.IdentifierTree;
-import org.sonar.plugins.css.api.tree.css.SyntaxToken;
+import org.sonar.plugins.css.api.tree.scss.ScssDirectiveTree;
 import org.sonar.plugins.css.api.tree.scss.ScssDirectiveWithNameAndParametersTree;
 import org.sonar.plugins.css.api.tree.scss.ScssParametersTree;
 
@@ -32,13 +32,13 @@ import java.util.Iterator;
 
 abstract class ScssDirectiveWithNameAndParametersTreeImpl extends TreeImpl implements ScssDirectiveWithNameAndParametersTree {
 
-  private final SyntaxToken directive;
+  private final ScssDirectiveTree directive;
   private final IdentifierTree name;
 
   @Nullable
   private final ScssParametersTree parameters;
 
-  public ScssDirectiveWithNameAndParametersTreeImpl(SyntaxToken directive, IdentifierTree name, @Nullable ScssParametersTree parameters) {
+  public ScssDirectiveWithNameAndParametersTreeImpl(ScssDirectiveTree directive, IdentifierTree name, @Nullable ScssParametersTree parameters) {
     this.directive = directive;
     this.name = name;
     this.parameters = parameters;
@@ -50,7 +50,7 @@ abstract class ScssDirectiveWithNameAndParametersTreeImpl extends TreeImpl imple
   }
 
   @Override
-  public SyntaxToken directive() {
+  public ScssDirectiveTree directive() {
     return directive;
   }
 

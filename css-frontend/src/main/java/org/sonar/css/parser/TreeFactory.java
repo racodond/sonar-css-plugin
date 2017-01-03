@@ -344,16 +344,16 @@ public class TreeFactory {
     return new ScssOptionalFlagTreeImpl(keyword);
   }
 
-  public ScssFunctionDefinitionTree scssFunctionDefinition(SyntaxToken directive, IdentifierTree name, Optional<ScssParametersTree> parameters, StatementBlockTree block) {
-    return new ScssFunctionDefinitionTreeImpl(directive, name, parameters.orNull(), block);
+  public ScssFunctionTree scssFunctionDefinition(ScssDirectiveTree directive, IdentifierTree name, Optional<ScssParametersTree> parameters, StatementBlockTree block) {
+    return new ScssFunctionTreeImpl(directive, name, parameters.orNull(), block);
   }
 
-  public ScssMixinDefinitionTree scssMixinDefinition(SyntaxToken directive, IdentifierTree name, Optional<ScssParametersTree> parameters, StatementBlockTree block) {
-    return new ScssMixinDefinitionTreeImpl(directive, name, parameters.orNull(), block);
+  public ScssMixinTree scssMixinDefinition(ScssDirectiveTree directive, IdentifierTree name, Optional<ScssParametersTree> parameters, StatementBlockTree block) {
+    return new ScssMixinTreeImpl(directive, name, parameters.orNull(), block);
   }
 
-  public ScssMixinIncludeTree scssMixinInclude(SyntaxToken directive, IdentifierTree name, Optional<ScssParametersTree> parameters, Optional<StatementBlockTree> block, Optional<SyntaxToken> semicolon) {
-    return new ScssMixinIncludeTreeImpl(directive, name, parameters.orNull(), block.orNull(), semicolon.orNull());
+  public ScssIncludeTree scssMixinInclude(ScssDirectiveTree directive, IdentifierTree name, Optional<ScssParametersTree> parameters, Optional<StatementBlockTree> block, Optional<SyntaxToken> semicolon) {
+    return new ScssIncludeTreeImpl(directive, name, parameters.orNull(), block.orNull(), semicolon.orNull());
   }
 
   public ScssParametersTree scssDefinitionParameters(SyntaxToken openParenthesis, Optional<SeparatedList<ScssParameterTree, SyntaxToken>> parameters, SyntaxToken closeParenthesis) {
@@ -404,27 +404,27 @@ public class TreeFactory {
     return new ValueTreeImpl(valueElements);
   }
 
-  public ScssExtendTree scssExtend(SyntaxToken directive, CompoundSelectorTree compoundSelector, Optional<ScssOptionalFlagTree> optionalFlag, Optional<SyntaxToken> semicolon) {
+  public ScssExtendTree scssExtend(ScssDirectiveTree directive, CompoundSelectorTree compoundSelector, Optional<ScssOptionalFlagTree> optionalFlag, Optional<SyntaxToken> semicolon) {
     return new ScssExtendTreeImpl(directive, compoundSelector, optionalFlag.orNull(), semicolon.orNull());
   }
 
-  public ScssContentTree scssContent(SyntaxToken directive, Optional<SyntaxToken> semicolon) {
+  public ScssContentTree scssContent(ScssDirectiveTree directive, Optional<SyntaxToken> semicolon) {
     return new ScssContentTreeImpl(directive, semicolon.orNull());
   }
 
-  public ScssDebugTree scssDebug(SyntaxToken directive, ValueTree value, Optional<SyntaxToken> semicolon) {
+  public ScssDebugTree scssDebug(ScssDirectiveTree directive, ValueTree value, Optional<SyntaxToken> semicolon) {
     return new ScssDebugTreeImpl(directive, value, semicolon.orNull());
   }
 
-  public ScssWarnTree scssWarn(SyntaxToken directive, ValueTree value, Optional<SyntaxToken> semicolon) {
+  public ScssWarnTree scssWarn(ScssDirectiveTree directive, ValueTree value, Optional<SyntaxToken> semicolon) {
     return new ScssWarnTreeImpl(directive, value, semicolon.orNull());
   }
 
-  public ScssErrorTree scssError(SyntaxToken directive, ValueTree value, Optional<SyntaxToken> semicolon) {
+  public ScssErrorTree scssError(ScssDirectiveTree directive, ValueTree value, Optional<SyntaxToken> semicolon) {
     return new ScssErrorTreeImpl(directive, value, semicolon.orNull());
   }
 
-  public ScssReturnTree scssReturn(SyntaxToken directive, ValueTree value, Optional<SyntaxToken> semicolon) {
+  public ScssReturnTree scssReturn(ScssDirectiveTree directive, ValueTree value, Optional<SyntaxToken> semicolon) {
     return new ScssReturnTreeImpl(directive, value, semicolon.orNull());
   }
 
@@ -432,31 +432,31 @@ public class TreeFactory {
     return new ScssIfConditionsTreeImpl(ifDirective, elseIfDirectives.orNull(), elseDirective.orNull());
   }
 
-  public ScssIfTree scssIf(SyntaxToken directive, ScssConditionTree condition, StatementBlockTree block) {
+  public ScssIfTree scssIf(ScssDirectiveTree directive, ScssConditionTree condition, StatementBlockTree block) {
     return new ScssIfTreeImpl(directive, condition, block);
   }
 
-  public ScssElseIfTree scssElseIf(SyntaxToken directive, ScssConditionTree condition, StatementBlockTree block) {
+  public ScssElseIfTree scssElseIf(ScssDirectiveTree directive, ScssConditionTree condition, StatementBlockTree block) {
     return new ScssElseIfTreeImpl(directive, condition, block);
   }
 
-  public ScssWhileTree scssWhile(SyntaxToken directive, ScssConditionTree condition, StatementBlockTree block) {
+  public ScssWhileTree scssWhile(ScssDirectiveTree directive, ScssConditionTree condition, StatementBlockTree block) {
     return new ScssWhileTreeImpl(directive, condition, block);
   }
 
-  public ScssElseTree scssElse(SyntaxToken directive, StatementBlockTree block) {
+  public ScssElseTree scssElse(ScssDirectiveTree directive, StatementBlockTree block) {
     return new ScssElseTreeImpl(directive, block);
   }
 
-  public ScssForTree scssFor(SyntaxToken directive, ScssConditionTree condition, StatementBlockTree block) {
+  public ScssForTree scssFor(ScssDirectiveTree directive, ScssConditionTree condition, StatementBlockTree block) {
     return new ScssForTreeImpl(directive, condition, block);
   }
 
-  public ScssEachTree scssEach(SyntaxToken directive, ScssConditionTree condition, StatementBlockTree block) {
+  public ScssEachTree scssEach(ScssDirectiveTree directive, ScssConditionTree condition, StatementBlockTree block) {
     return new ScssEachTreeImpl(directive, condition, block);
   }
 
-  public ScssAtRootTree scssAtRoot(SyntaxToken directive, Optional<ScssAtRootParametersTree> parameters, Tree content) {
+  public ScssAtRootTree scssAtRoot(ScssDirectiveTree directive, Optional<ScssAtRootParametersTree> parameters, Tree content) {
     return new ScssAtRootTreeImpl(directive, parameters.orNull(), content);
   }
 
@@ -486,6 +486,70 @@ public class TreeFactory {
 
   public ScssConditionTree scssCondition(ValueTree condition) {
     return new ScssConditionTreeImpl(condition);
+  }
+
+  public ScssDirectiveTree scssExtendDirective(SyntaxToken at, SyntaxToken name) {
+    return new ScssDirectiveTreeImpl(at, name);
+  }
+
+  public ScssDirectiveTree scssContentDirective(SyntaxToken at, SyntaxToken name) {
+    return new ScssDirectiveTreeImpl(at, name);
+  }
+
+  public ScssDirectiveTree scssDebugDirective(SyntaxToken at, SyntaxToken name) {
+    return new ScssDirectiveTreeImpl(at, name);
+  }
+
+  public ScssDirectiveTree scssWarnDirective(SyntaxToken at, SyntaxToken name) {
+    return new ScssDirectiveTreeImpl(at, name);
+  }
+
+  public ScssDirectiveTree scssErrorDirective(SyntaxToken at, SyntaxToken name) {
+    return new ScssDirectiveTreeImpl(at, name);
+  }
+
+  public ScssDirectiveTree scssIfDirective(SyntaxToken at, SyntaxToken name) {
+    return new ScssDirectiveTreeImpl(at, name);
+  }
+
+  public ScssDirectiveTree scssElseIfDirective(SyntaxToken at, SyntaxToken name) {
+    return new ScssDirectiveTreeImpl(at, name);
+  }
+
+  public ScssDirectiveTree scssElseDirective(SyntaxToken at, SyntaxToken name) {
+    return new ScssDirectiveTreeImpl(at, name);
+  }
+
+  public ScssDirectiveTree scssForDirective(SyntaxToken at, SyntaxToken name) {
+    return new ScssDirectiveTreeImpl(at, name);
+  }
+
+  public ScssDirectiveTree scssWhileDirective(SyntaxToken at, SyntaxToken name) {
+    return new ScssDirectiveTreeImpl(at, name);
+  }
+
+  public ScssDirectiveTree scssEachDirective(SyntaxToken at, SyntaxToken name) {
+    return new ScssDirectiveTreeImpl(at, name);
+  }
+
+  public ScssDirectiveTree scssMixinDirective(SyntaxToken at, SyntaxToken name) {
+    return new ScssDirectiveTreeImpl(at, name);
+  }
+
+  public ScssDirectiveTree scssIncludeDirective(SyntaxToken at, SyntaxToken name) {
+    return new ScssDirectiveTreeImpl(at, name);
+  }
+
+  public ScssDirectiveTree scssFunctionDirective(SyntaxToken at, SyntaxToken name) {
+    return new ScssDirectiveTreeImpl(at, name);
+  }
+
+  public ScssDirectiveTree scssReturnDirective(SyntaxToken at, SyntaxToken name) {
+    return new ScssDirectiveTreeImpl(at, name);
+  }
+
+  public ScssDirectiveTree scssAtRootDirective(SyntaxToken at, SyntaxToken name) {
+    return new ScssDirectiveTreeImpl(at, name);
   }
 
   // ---------------------------------

@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 
 public interface ScssExtendTree extends Tree {
 
-  SyntaxToken directive();
+  ScssDirectiveTree directive();
 
   CompoundSelectorTree selector();
 

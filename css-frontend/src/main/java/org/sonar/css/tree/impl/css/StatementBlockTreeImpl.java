@@ -53,8 +53,8 @@ public class StatementBlockTreeImpl extends TreeImpl implements StatementBlockTr
   private final List<LessMixinCallTree> lessMixinCalls;
 
   private final List<ScssVariableDeclarationTree> scssVariableDeclarations;
-  private final List<ScssMixinDefinitionTree> scssMixinDefinitions;
-  private final List<ScssMixinIncludeTree> scssMixinIncludes;
+  private final List<ScssMixinTree> scssMixinDefinitions;
+  private final List<ScssIncludeTree> scssMixinIncludes;
   private final List<ScssExtendTree> scssExtends;
   private final List<ScssAtRootTree> scssAtRoots;
 
@@ -74,8 +74,8 @@ public class StatementBlockTreeImpl extends TreeImpl implements StatementBlockTr
     emptyStatements = TreeListUtils.allElementsOfType(content, EmptyStatementTree.class);
 
     scssVariableDeclarations = TreeListUtils.allElementsOfType(content, ScssVariableDeclarationTree.class);
-    scssMixinDefinitions = TreeListUtils.allElementsOfType(content, ScssMixinDefinitionTree.class);
-    scssMixinIncludes = TreeListUtils.allElementsOfType(content, ScssMixinIncludeTree.class);
+    scssMixinDefinitions = TreeListUtils.allElementsOfType(content, ScssMixinTree.class);
+    scssMixinIncludes = TreeListUtils.allElementsOfType(content, ScssIncludeTree.class);
     scssExtends = TreeListUtils.allElementsOfType(content, ScssExtendTree.class);
     scssAtRoots = TreeListUtils.allElementsOfType(content, ScssAtRootTree.class);
 
@@ -166,12 +166,12 @@ public class StatementBlockTreeImpl extends TreeImpl implements StatementBlockTr
   }
 
   @Override
-  public List<ScssMixinDefinitionTree> scssMixinDefinitions() {
+  public List<ScssMixinTree> scssMixinDefinitions() {
     return scssMixinDefinitions;
   }
 
   @Override
-  public List<ScssMixinIncludeTree> scssMixinIncludes() {
+  public List<ScssIncludeTree> scssMixinIncludes() {
     return scssMixinIncludes;
   }
 

@@ -21,76 +21,87 @@ package org.sonar.css.parser.scss;
 
 import org.junit.Test;
 import org.sonar.css.parser.LexicalGrammar;
-import org.sonar.plugins.css.api.tree.scss.ScssMixinDefinitionTree;
+import org.sonar.plugins.css.api.tree.scss.ScssFunctionTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class ScssMixinDefinitionTreeTest extends ScssTreeTest {
+public class ScssFunctionTreeTest extends ScssTreeTest {
 
-  public ScssMixinDefinitionTreeTest() {
-    super(LexicalGrammar.SCSS_MIXIN_DEFINITION);
+  public ScssFunctionTreeTest() {
+    super(LexicalGrammar.SCSS_FUNCTION);
   }
 
   @Test
-  public void scssMixinDefinition() {
-    ScssMixinDefinitionTree tree;
-
-    tree = checkParsed("@mixin hello {}");
+  public void scssFunctionDefinition() {
+    ScssFunctionTree tree;
+    
+    tree = checkParsed("@function hello {}");
+    assertThat(tree.name().text()).isEqualTo("hello");
     assertThat(tree.parameters()).isNull();
     assertThat(tree.block().allStatements()).isEmpty();
     assertThat(tree.block().propertyDeclarations()).isEmpty();
     assertThat(tree.block().rulesets()).isEmpty();
     assertThat(tree.block().scssMixinIncludes()).isEmpty();
 
-    tree = checkParsed("@mixin hello() {}");
+    tree = checkParsed("@function hello() {}");
+    assertThat(tree.name().text()).isEqualTo("hello");
     assertThat(tree.parameters()).isNotNull();
     assertThat(tree.parameters().parameters()).isNull();
 
-    tree = checkParsed("@mixin hello () {}");
+    tree = checkParsed("@function hello () {}");
+    assertThat(tree.name().text()).isEqualTo("hello");
     assertThat(tree.parameters()).isNotNull();
     assertThat(tree.parameters().parameters()).isNull();
 
-    tree = checkParsed("@mixin hello ($abc, $def: 10) {}");
+    tree = checkParsed("@function hello ($abc, $def: 10) {}");
+    assertThat(tree.name().text()).isEqualTo("hello");
     assertThat(tree.parameters()).isNotNull();
     assertThat(tree.parameters().parameters()).hasSize(2);
 
-    tree = checkParsed("@mixin hello { color: green;}");
+    tree = checkParsed("@function hello { color: green;}");
+    assertThat(tree.name().text()).isEqualTo("hello");
     assertThat(tree.block().allStatements()).hasSize(1);
     assertThat(tree.block().propertyDeclarations()).hasSize(1);
     assertThat(tree.block().rulesets()).isEmpty();
     assertThat(tree.block().scssMixinIncludes()).isEmpty();
 
-    tree = checkParsed("@mixin hello { color: green;\n width: 10px}");
+    tree = checkParsed("@function hello { color: green;\n width: 10px}");
+    assertThat(tree.name().text()).isEqualTo("hello");
     assertThat(tree.block().allStatements()).hasSize(2);
     assertThat(tree.block().propertyDeclarations()).hasSize(2);
     assertThat(tree.block().rulesets()).isEmpty();
     assertThat(tree.block().scssMixinIncludes()).isEmpty();
 
-    tree = checkParsed("@mixin hello { h1 { color:green; }}");
+    tree = checkParsed("@function hello { h1 { color:green; }}");
+    assertThat(tree.name().text()).isEqualTo("hello");
     assertThat(tree.block().allStatements()).hasSize(1);
     assertThat(tree.block().propertyDeclarations()).isEmpty();
     assertThat(tree.block().rulesets()).hasSize(1);
     assertThat(tree.block().scssMixinIncludes()).isEmpty();
 
-    tree = checkParsed("@mixin hello { h1 { color:green; }\n p { color: blue; } }");
+    tree = checkParsed("@function hello { h1 { color:green; }\n p { color: blue; } }");
+    assertThat(tree.name().text()).isEqualTo("hello");
     assertThat(tree.block().allStatements()).hasSize(2);
     assertThat(tree.block().propertyDeclarations()).isEmpty();
     assertThat(tree.block().rulesets()).hasSize(2);
     assertThat(tree.block().scssMixinIncludes()).isEmpty();
 
-    tree = checkParsed("@mixin hello { @include abc;}");
+    tree = checkParsed("@function hello { @include abc;}");
+    assertThat(tree.name().text()).isEqualTo("hello");
     assertThat(tree.block().allStatements()).hasSize(1);
     assertThat(tree.block().propertyDeclarations()).isEmpty();
     assertThat(tree.block().rulesets()).isEmpty();
     assertThat(tree.block().scssMixinIncludes()).hasSize(1);
 
-    tree = checkParsed("@mixin hello { @include abc; @include def(10) }");
+    tree = checkParsed("@function hello { @include abc; @include def(10) }");
+    assertThat(tree.name().text()).isEqualTo("hello");
     assertThat(tree.block().allStatements()).hasSize(2);
     assertThat(tree.block().propertyDeclarations()).isEmpty();
     assertThat(tree.block().rulesets()).isEmpty();
     assertThat(tree.block().scssMixinIncludes()).hasSize(2);
 
-    tree = checkParsed("@mixin hello { color: green; @include abc; h1 {color: green;} width: 10px; @include def(10); p {color: blue} }");
+    tree = checkParsed("@function hello { color: green; @include abc; h1 {color: green;} width: 10px; @include def(10); p {color: blue} }");
+    assertThat(tree.name().text()).isEqualTo("hello");
     assertThat(tree.block().allStatements()).hasSize(6);
     assertThat(tree.block().propertyDeclarations()).hasSize(2);
     assertThat(tree.block().rulesets()).hasSize(2);
@@ -98,18 +109,20 @@ public class ScssMixinDefinitionTreeTest extends ScssTreeTest {
   }
 
   @Test
-  public void notScssMixinDefinition() {
-    checkNotParsed("@mixin");
-    checkNotParsed("@mixin()");
-    checkNotParsed("@mixin{}");
-    checkNotParsed("@mixin(){}");
-    checkNotParsed("@mixin abc(10) {}");
+  public void notScssFunctionDefinition() {
+    checkNotParsed("@function");
+    checkNotParsed("@function()");
+    checkNotParsed("@function{}");
+    checkNotParsed("@function(){}");
+    checkNotParsed("@function abc(10) {}");
   }
 
-  private ScssMixinDefinitionTree checkParsed(String toParse) {
-    ScssMixinDefinitionTree tree = (ScssMixinDefinitionTree) parser().parse(toParse);
+  private ScssFunctionTree checkParsed(String toParse) {
+    ScssFunctionTree tree = (ScssFunctionTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
     assertThat(tree.directive()).isNotNull();
+    assertThat(tree.directive().at()).isNotNull();
+    assertThat(tree.directive().name().text()).isEqualTo("function");
     assertThat(tree.name()).isNotNull();
     assertThat(tree.block()).isNotNull();
     return tree;

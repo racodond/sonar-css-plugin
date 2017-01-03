@@ -53,7 +53,8 @@ public class ScssEachTreeTest extends ScssTreeTest {
     ScssEachTree tree = (ScssEachTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
     assertThat(tree.directive()).isNotNull();
-    assertThat(tree.directive().text()).isEqualTo("@each");
+    assertThat(tree.directive().at()).isNotNull();
+    assertThat(tree.directive().name().text()).isEqualTo("each");
     assertThat(tree.condition()).isNotNull();
     assertThat(tree.block()).isNotNull();
     return tree;

@@ -26,7 +26,7 @@ import org.sonar.check.RuleProperty;
 import org.sonar.css.checks.CheckList;
 import org.sonar.css.checks.CheckUtils;
 import org.sonar.css.checks.Tags;
-import org.sonar.plugins.css.api.tree.scss.ScssFunctionDefinitionTree;
+import org.sonar.plugins.css.api.tree.scss.ScssFunctionTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -52,7 +52,7 @@ public class CustomFunctionNamingConventionCheck extends DoubleDispatchVisitorCh
   private String format = DEFAULT_FORMAT;
 
   @Override
-  public void visitScssFunctionDefinition(ScssFunctionDefinitionTree tree) {
+  public void visitScssFunctionDefinition(ScssFunctionTree tree) {
     if (!tree.name().text().matches(format)) {
       addIssue(tree);
     }
@@ -80,7 +80,7 @@ public class CustomFunctionNamingConventionCheck extends DoubleDispatchVisitorCh
       "format parameter \"" + format + "\" is not a valid regular expression.");
   }
 
-  private void addIssue(ScssFunctionDefinitionTree tree) {
+  private void addIssue(ScssFunctionTree tree) {
     addPreciseIssue(
       tree.name(),
       MessageFormat.format(

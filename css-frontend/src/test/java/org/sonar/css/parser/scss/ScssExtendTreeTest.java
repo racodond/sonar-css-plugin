@@ -94,8 +94,9 @@ public class ScssExtendTreeTest extends ScssTreeTest {
 
   private ScssExtendTree checkParsed(String toParse) {
     ScssExtendTree tree = (ScssExtendTree) parser().parse(toParse);
-    assertThat(tree).isNotNull();
     assertThat(tree.directive()).isNotNull();
+    assertThat(tree.directive().at()).isNotNull();
+    assertThat(tree.directive().name().text()).isEqualTo("extend");
     assertThat(tree.selector()).isNotNull();
     return tree;
   }

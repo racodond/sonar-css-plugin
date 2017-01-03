@@ -27,6 +27,7 @@ import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.scss.ScssAtRootParametersTree;
 import org.sonar.plugins.css.api.tree.scss.ScssAtRootTree;
+import org.sonar.plugins.css.api.tree.scss.ScssDirectiveTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 import javax.annotation.Nullable;
@@ -34,7 +35,7 @@ import java.util.Iterator;
 
 public class ScssAtRootTreeImpl extends TreeImpl implements ScssAtRootTree {
 
-  private final SyntaxToken directive;
+  private final ScssDirectiveTree directive;
 
   @Nullable
   private final ScssAtRootParametersTree parameters;
@@ -45,7 +46,7 @@ public class ScssAtRootTreeImpl extends TreeImpl implements ScssAtRootTree {
   @Nullable
   private final StatementBlockTree block;
 
-  public ScssAtRootTreeImpl(SyntaxToken directive, @Nullable ScssAtRootParametersTree parameters, Tree content) {
+  public ScssAtRootTreeImpl(ScssDirectiveTree directive, @Nullable ScssAtRootParametersTree parameters, Tree content) {
     this.directive = directive;
     this.parameters = parameters;
 
@@ -76,7 +77,7 @@ public class ScssAtRootTreeImpl extends TreeImpl implements ScssAtRootTree {
   }
 
   @Override
-  public SyntaxToken directive() {
+  public ScssDirectiveTree directive() {
     return directive;
   }
 

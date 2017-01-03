@@ -20,14 +20,14 @@
 package org.sonar.css.tree.impl.scss;
 
 import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
-import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.scss.ScssConditionTree;
+import org.sonar.plugins.css.api.tree.scss.ScssDirectiveTree;
 import org.sonar.plugins.css.api.tree.scss.ScssForTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 public class ScssForTreeImpl extends ScssConditionalDirectiveTreeImpl implements ScssForTree {
 
-  public ScssForTreeImpl(SyntaxToken directive, ScssConditionTree condition, StatementBlockTree block) {
+  public ScssForTreeImpl(ScssDirectiveTree directive, ScssConditionTree condition, StatementBlockTree block) {
     super(directive, condition, block);
   }
 

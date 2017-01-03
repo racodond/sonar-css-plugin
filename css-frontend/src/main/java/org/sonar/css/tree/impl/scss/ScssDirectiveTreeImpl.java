@@ -17,36 +17,50 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.parser.scss;
+package org.sonar.css.tree.impl.scss;
 
-import org.junit.Test;
-import org.sonar.css.parser.LexicalGrammar;
+import com.google.common.collect.Iterators;
+import org.sonar.css.tree.impl.TreeImpl;
+import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
+import org.sonar.plugins.css.api.tree.scss.ScssDirectiveTree;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
-import static org.fest.assertions.Assertions.assertThat;
+import java.util.Iterator;
 
-public class ScssExtendDirectiveTreeTest extends ScssTreeTest {
+public class ScssDirectiveTreeImpl extends TreeImpl implements ScssDirectiveTree {
 
-  public ScssExtendDirectiveTreeTest() {
-    super(LexicalGrammar.SCSS_AT_ROOT_DIRECTIVE);
+  private final SyntaxToken at;
+  private final SyntaxToken name;
+
+  public ScssDirectiveTreeImpl(SyntaxToken at, SyntaxToken name) {
+    this.at = at;
+    this.name = name;
   }
 
-  @Test
-  public void scssAtRootDirective() {
-    checkParsed("@at-root");
-    checkParsed(" @at-root");
+  @Override
+  public Kind getKind() {
+    return Kind.SCSS_DIRECTIVE;
   }
 
-  @Test
-  public void notScssAtRootDirective() {
-    checkNotParsed("@ at-root");
-    checkNotParsed("at-root");
+  @Override
+  public Iterator<Tree> childrenIterator() {
+    return Iterators.forArray(at, name);
   }
 
-  private void checkParsed(String toParse) {
-    SyntaxToken tree = (SyntaxToken) parser().parse(toParse);
-    assertThat(tree).isNotNull();
-    assertThat(tree.text()).isEqualTo("@at-root");
+  @Override
+  public SyntaxToken at() {
+    return at;
+  }
+
+  @Override
+  public void accept(DoubleDispatchVisitor visitor) {
+    visitor.visitScssDirective(this);
+  }
+
+  @Override
+  public SyntaxToken name() {
+    return name;
   }
 
 }

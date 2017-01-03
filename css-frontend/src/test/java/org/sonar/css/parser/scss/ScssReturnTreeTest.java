@@ -72,6 +72,8 @@ public class ScssReturnTreeTest extends ScssTreeTest {
     ScssReturnTree tree = (ScssReturnTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
     assertThat(tree.directive()).isNotNull();
+    assertThat(tree.directive().at()).isNotNull();
+    assertThat(tree.directive().name().text()).isEqualTo("return");
     assertThat(tree.value()).isNotNull();
     return tree;
   }

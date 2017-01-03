@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 
 public interface ScssContentTree extends Tree {
 
-  SyntaxToken directive();
+  ScssDirectiveTree directive();
 
   @Nullable
   SyntaxToken semicolon();

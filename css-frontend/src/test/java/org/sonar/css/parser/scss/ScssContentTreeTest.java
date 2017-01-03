@@ -55,6 +55,8 @@ public class ScssContentTreeTest extends ScssTreeTest {
     ScssContentTree tree = (ScssContentTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
     assertThat(tree.directive()).isNotNull();
+    assertThat(tree.directive().at()).isNotNull();
+    assertThat(tree.directive().name().text()).isEqualTo("content");
     return tree;
   }
 

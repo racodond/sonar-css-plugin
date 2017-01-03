@@ -21,6 +21,7 @@ package org.sonar.css.tree.impl.scss;
 
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.css.ValueTree;
+import org.sonar.plugins.css.api.tree.scss.ScssDirectiveTree;
 import org.sonar.plugins.css.api.tree.scss.ScssWarnTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
@@ -28,7 +29,7 @@ import javax.annotation.Nullable;
 
 public class ScssWarnTreeImpl extends ScssSimpleDirectiveTreeImpl implements ScssWarnTree {
 
-  public ScssWarnTreeImpl(SyntaxToken directive, ValueTree value, @Nullable SyntaxToken semicolon) {
+  public ScssWarnTreeImpl(ScssDirectiveTree directive, ValueTree value, @Nullable SyntaxToken semicolon) {
     super(directive, value, semicolon);
   }
 

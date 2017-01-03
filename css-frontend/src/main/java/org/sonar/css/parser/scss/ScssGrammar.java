@@ -50,15 +50,15 @@ public class ScssGrammar extends CssGrammar {
             SCSS_DEBUG(),
             SCSS_WARN(),
             SCSS_ERROR(),
-            SCSS_FUNCTION_DEFINITION(),
+            SCSS_FUNCTION(),
             SCSS_RETURN(),
             SCSS_IF_CONDITIONS(),
             SCSS_FOR(),
             SCSS_EACH(),
             SCSS_WHILE(),
             SCSS_AT_ROOT(),
-            SCSS_MIXIN_DEFINITION(),
-            SCSS_MIXIN_INCLUDE(),
+            SCSS_MIXIN(),
+            SCSS_INCLUDE(),
             AT_RULE(),
             RULESET(),
             EMPTY_STATEMENT())),
@@ -235,15 +235,15 @@ public class ScssGrammar extends CssGrammar {
             SCSS_DEBUG(),
             SCSS_WARN(),
             SCSS_ERROR(),
-            SCSS_FUNCTION_DEFINITION(),
+            SCSS_FUNCTION(),
             SCSS_RETURN(),
             SCSS_IF_CONDITIONS(),
             SCSS_FOR(),
             SCSS_EACH(),
             SCSS_WHILE(),
             SCSS_AT_ROOT(),
-            SCSS_MIXIN_DEFINITION(),
-            SCSS_MIXIN_INCLUDE(),
+            SCSS_MIXIN(),
+            SCSS_INCLUDE(),
             RULESET(),
             DECLARATION(),
             AT_RULE(),
@@ -300,28 +300,28 @@ public class ScssGrammar extends CssGrammar {
             SCSS_VARIABLE()))));
   }
 
-  public ScssFunctionDefinitionTree SCSS_FUNCTION_DEFINITION() {
-    return b.<ScssFunctionDefinitionTree>nonterminal(LexicalGrammar.SCSS_FUNCTION_DEFINITION).is(
+  public ScssFunctionTree SCSS_FUNCTION() {
+    return b.<ScssFunctionTree>nonterminal(LexicalGrammar.SCSS_FUNCTION).is(
       f.scssFunctionDefinition(
-        b.token(LexicalGrammar.SCSS_FUNCTION_DEFINITION_DIRECTIVE),
+        SCSS_FUNCTION_DIRECTIVE(),
         IDENTIFIER(),
         b.optional(SCSS_DEFINITION_PARAMETERS()),
         STATEMENT_BLOCK()));
   }
 
-  public ScssMixinDefinitionTree SCSS_MIXIN_DEFINITION() {
-    return b.<ScssMixinDefinitionTree>nonterminal(LexicalGrammar.SCSS_MIXIN_DEFINITION).is(
+  public ScssMixinTree SCSS_MIXIN() {
+    return b.<ScssMixinTree>nonterminal(LexicalGrammar.SCSS_MIXIN_DEFINITION).is(
       f.scssMixinDefinition(
-        b.token(LexicalGrammar.SCSS_MIXIN_DEFINITION_DIRECTIVE),
+        SCSS_MIXIN_DIRECTIVE(),
         IDENTIFIER(),
         b.optional(SCSS_DEFINITION_PARAMETERS()),
         STATEMENT_BLOCK()));
   }
 
-  public ScssMixinIncludeTree SCSS_MIXIN_INCLUDE() {
-    return b.<ScssMixinIncludeTree>nonterminal(LexicalGrammar.SCSS_MIXIN_INCLUDE).is(
+  public ScssIncludeTree SCSS_INCLUDE() {
+    return b.<ScssIncludeTree>nonterminal(LexicalGrammar.SCSS_MIXIN_INCLUDE).is(
       f.scssMixinInclude(
-        b.token(LexicalGrammar.SCSS_MIXIN_INCLUDE_DIRECTIVE),
+        SCSS_INCLUDE_DIRECTIVE(),
         IDENTIFIER(),
         b.optional(SCSS_CALL_PARAMETERS()),
         b.optional(STATEMENT_BLOCK()),
@@ -449,7 +449,7 @@ public class ScssGrammar extends CssGrammar {
   public ScssExtendTree SCSS_EXTEND() {
     return b.<ScssExtendTree>nonterminal(LexicalGrammar.SCSS_EXTEND).is(
       f.scssExtend(
-        b.token(LexicalGrammar.SCSS_EXTEND_DIRECTIVE),
+        SCSS_EXTEND_DIRECTIVE(),
         COMPOUND_SELECTOR(),
         b.optional(SCSS_OPTIONAL_FLAG()),
         b.optional(b.token(LexicalGrammar.SEMICOLON))));
@@ -458,14 +458,14 @@ public class ScssGrammar extends CssGrammar {
   public ScssContentTree SCSS_CONTENT() {
     return b.<ScssContentTree>nonterminal(LexicalGrammar.SCSS_CONTENT).is(
       f.scssContent(
-        b.token(LexicalGrammar.SCSS_CONTENT_DIRECTIVE),
+        SCSS_CONTENT_DIRECTIVE(),
         b.optional(b.token(LexicalGrammar.SEMICOLON))));
   }
 
   public ScssDebugTree SCSS_DEBUG() {
     return b.<ScssDebugTree>nonterminal(LexicalGrammar.SCSS_DEBUG).is(
       f.scssDebug(
-        b.token(LexicalGrammar.SCSS_DEBUG_DIRECTIVE),
+        SCSS_DEBUG_DIRECTIVE(),
         SCSS_VALUE(),
         b.optional(b.token(LexicalGrammar.SEMICOLON))));
   }
@@ -473,7 +473,7 @@ public class ScssGrammar extends CssGrammar {
   public ScssWarnTree SCSS_WARN() {
     return b.<ScssWarnTree>nonterminal(LexicalGrammar.SCSS_WARN).is(
       f.scssWarn(
-        b.token(LexicalGrammar.SCSS_WARN_DIRECTIVE),
+        SCSS_WARN_DIRECTIVE(),
         SCSS_VALUE(),
         b.optional(b.token(LexicalGrammar.SEMICOLON))));
   }
@@ -481,7 +481,7 @@ public class ScssGrammar extends CssGrammar {
   public ScssErrorTree SCSS_ERROR() {
     return b.<ScssErrorTree>nonterminal(LexicalGrammar.SCSS_ERROR).is(
       f.scssError(
-        b.token(LexicalGrammar.SCSS_ERROR_DIRECTIVE),
+        SCSS_ERROR_DIRECTIVE(),
         SCSS_VALUE(),
         b.optional(b.token(LexicalGrammar.SEMICOLON))));
   }
@@ -489,7 +489,7 @@ public class ScssGrammar extends CssGrammar {
   public ScssReturnTree SCSS_RETURN() {
     return b.<ScssReturnTree>nonterminal(LexicalGrammar.SCSS_RETURN).is(
       f.scssReturn(
-        b.token(LexicalGrammar.SCSS_RETURN_DIRECTIVE),
+        SCSS_RETURN_DIRECTIVE(),
         SCSS_VALUE(),
         b.optional(b.token(LexicalGrammar.SEMICOLON))));
   }
@@ -505,7 +505,7 @@ public class ScssGrammar extends CssGrammar {
   public ScssIfTree SCSS_IF() {
     return b.<ScssIfTree>nonterminal(LexicalGrammar.SCSS_IF).is(
       f.scssIf(
-        b.token(LexicalGrammar.SCSS_IF_DIRECTIVE),
+        SCSS_IF_DIRECTIVE(),
         SCSS_CONDITION(),
         STATEMENT_BLOCK()));
   }
@@ -513,7 +513,7 @@ public class ScssGrammar extends CssGrammar {
   public ScssElseIfTree SCSS_ELSE_IF() {
     return b.<ScssElseIfTree>nonterminal(LexicalGrammar.SCSS_ELSE_IF).is(
       f.scssElseIf(
-        b.token(LexicalGrammar.SCSS_ELSE_IF_DIRECTIVE),
+        SCSS_ELSE_IF_DIRECTIVE(),
         SCSS_CONDITION(),
         STATEMENT_BLOCK()));
   }
@@ -521,14 +521,14 @@ public class ScssGrammar extends CssGrammar {
   public ScssElseTree SCSS_ELSE() {
     return b.<ScssElseTree>nonterminal(LexicalGrammar.SCSS_ELSE).is(
       f.scssElse(
-        b.token(LexicalGrammar.SCSS_ELSE_DIRECTIVE),
+        SCSS_ELSE_DIRECTIVE(),
         STATEMENT_BLOCK()));
   }
 
   public ScssWhileTree SCSS_WHILE() {
     return b.<ScssWhileTree>nonterminal(LexicalGrammar.SCSS_WHILE).is(
       f.scssWhile(
-        b.token(LexicalGrammar.SCSS_WHILE_DIRECTIVE),
+        SCSS_WHILE_DIRECTIVE(),
         SCSS_CONDITION(),
         STATEMENT_BLOCK()));
   }
@@ -536,7 +536,7 @@ public class ScssGrammar extends CssGrammar {
   public ScssForTree SCSS_FOR() {
     return b.<ScssForTree>nonterminal(LexicalGrammar.SCSS_FOR).is(
       f.scssFor(
-        b.token(LexicalGrammar.SCSS_FOR_DIRECTIVE),
+        SCSS_FOR_DIRECTIVE(),
         SCSS_CONDITION(),
         STATEMENT_BLOCK()));
   }
@@ -544,7 +544,7 @@ public class ScssGrammar extends CssGrammar {
   public ScssEachTree SCSS_EACH() {
     return b.<ScssEachTree>nonterminal(LexicalGrammar.SCSS_EACH).is(
       f.scssEach(
-        b.token(LexicalGrammar.SCSS_EACH_DIRECTIVE),
+        SCSS_EACH_DIRECTIVE(),
         SCSS_CONDITION(),
         STATEMENT_BLOCK()));
   }
@@ -552,7 +552,7 @@ public class ScssGrammar extends CssGrammar {
   public ScssAtRootTree SCSS_AT_ROOT() {
     return b.<ScssAtRootTree>nonterminal(LexicalGrammar.SCSS_AT_ROOT).is(
       f.scssAtRoot(
-        b.token(LexicalGrammar.SCSS_AT_ROOT_DIRECTIVE),
+        SCSS_AT_ROOT_DIRECTIVE(),
         b.optional(SCSS_AT_ROOT_PARAMETERS()),
         b.firstOf(
           STATEMENT_BLOCK(),
@@ -604,6 +604,118 @@ public class ScssGrammar extends CssGrammar {
   public ScssConditionTree SCSS_CONDITION() {
     return b.<ScssConditionTree>nonterminal(LexicalGrammar.SCSS_CONDITION).is(
       f.scssCondition(SCSS_VALUE()));
+  }
+
+  public ScssDirectiveTree SCSS_MIXIN_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_MIXIN_DIRECTIVE).is(
+      f.scssMixinDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_MIXIN_DIRECTIVE_LITERAL)));
+  }
+
+  public ScssDirectiveTree SCSS_INCLUDE_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_INCLUDE_DIRECTIVE).is(
+      f.scssIncludeDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_INCLUDE_DIRECTIVE_LITERAL)));
+  }
+
+  public ScssDirectiveTree SCSS_EXTEND_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_EXTEND_DIRECTIVE).is(
+      f.scssExtendDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_EXTEND_DIRECTIVE_LITERAL)));
+  }
+
+  public ScssDirectiveTree SCSS_CONTENT_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_CONTENT_DIRECTIVE).is(
+      f.scssContentDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_CONTENT_DIRECTIVE_LITERAL)));
+  }
+
+  public ScssDirectiveTree SCSS_DEBUG_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_DEBUG_DIRECTIVE).is(
+      f.scssDebugDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_DEBUG_DIRECTIVE_LITERAL)));
+  }
+
+  public ScssDirectiveTree SCSS_WARN_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_WARN_DIRECTIVE).is(
+      f.scssWarnDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_WARN_DIRECTIVE_LITERAL)));
+  }
+
+  public ScssDirectiveTree SCSS_ERROR_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_ERROR_DIRECTIVE).is(
+      f.scssErrorDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_ERROR_DIRECTIVE_LITERAL)));
+  }
+
+  public ScssDirectiveTree SCSS_FUNCTION_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_FUNCTION_DIRECTIVE).is(
+      f.scssFunctionDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_FUNCTION_DIRECTIVE_LITERAL)));
+  }
+
+  public ScssDirectiveTree SCSS_RETURN_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_RETURN_DIRECTIVE).is(
+      f.scssReturnDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_RETURN_DIRECTIVE_LITERAL)));
+  }
+
+  public ScssDirectiveTree SCSS_IF_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_IF_DIRECTIVE).is(
+      f.scssIfDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_IF_DIRECTIVE_LITERAL)));
+  }
+
+  public ScssDirectiveTree SCSS_ELSE_IF_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_ELSE_IF_DIRECTIVE).is(
+      f.scssElseIfDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_ELSE_IF_DIRECTIVE_LITERAL)));
+  }
+
+  public ScssDirectiveTree SCSS_ELSE_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_ELSE_DIRECTIVE).is(
+      f.scssElseDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_ELSE_DIRECTIVE_LITERAL)));
+  }
+
+  public ScssDirectiveTree SCSS_WHILE_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_WHILE_DIRECTIVE).is(
+      f.scssWhileDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_WHILE_DIRECTIVE_LITERAL)));
+  }
+
+  public ScssDirectiveTree SCSS_FOR_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_FOR_DIRECTIVE).is(
+      f.scssForDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_FOR_DIRECTIVE_LITERAL)));
+  }
+
+  public ScssDirectiveTree SCSS_EACH_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_EACH_DIRECTIVE).is(
+      f.scssEachDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_EACH_DIRECTIVE_LITERAL)));
+  }
+
+  public ScssDirectiveTree SCSS_AT_ROOT_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_AT_ROOT_DIRECTIVE).is(
+      f.scssAtRootDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_AT_ROOT_DIRECTIVE_LITERAL)));
   }
 
 }

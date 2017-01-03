@@ -66,18 +66,18 @@ public class ScssIfConditionsTreeImpl extends TreeImpl implements ScssIfConditio
   }
 
   @Override
-  public ScssIfTree ifDirective() {
+  public ScssIfTree ife() {
     return ifDirective;
   }
 
   @Override
-  public List<ScssElseIfTree> elseIfDirectives() {
+  public List<ScssElseIfTree> elseif() {
     return elseIfDirectives;
   }
 
   @Override
   @Nullable
-  public ScssElseTree elseDirective() {
+  public ScssElseTree elsee() {
     return elseDirective;
   }
 

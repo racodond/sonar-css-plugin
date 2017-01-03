@@ -25,7 +25,7 @@ import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 
 public interface ScssConditionalDirectiveTree extends Tree {
 
-  SyntaxToken directive();
+  ScssDirectiveTree directive();
 
   ScssConditionTree condition();
 

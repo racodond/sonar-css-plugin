@@ -24,40 +24,53 @@ import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.IdentifierTree;
 import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
-import org.sonar.plugins.css.api.tree.scss.ScssMixinDefinitionTree;
+import org.sonar.plugins.css.api.tree.scss.ScssDirectiveTree;
 import org.sonar.plugins.css.api.tree.scss.ScssParametersTree;
+import org.sonar.plugins.css.api.tree.scss.ScssIncludeTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 import javax.annotation.Nullable;
 import java.util.Iterator;
 
-public class ScssMixinDefinitionTreeImpl extends ScssDirectiveWithNameAndParametersTreeImpl implements ScssMixinDefinitionTree {
+public class ScssIncludeTreeImpl extends ScssDirectiveWithNameAndParametersTreeImpl implements ScssIncludeTree {
 
+  @Nullable
   private final StatementBlockTree block;
 
-  public ScssMixinDefinitionTreeImpl(SyntaxToken directive, IdentifierTree name, @Nullable ScssParametersTree parameters, StatementBlockTree block) {
+  @Nullable
+  private final SyntaxToken semicolon;
+
+  public ScssIncludeTreeImpl(ScssDirectiveTree directive, IdentifierTree name, @Nullable ScssParametersTree parameters, @Nullable StatementBlockTree block, @Nullable SyntaxToken semicolon) {
     super(directive, name, parameters);
     this.block = block;
+    this.semicolon = semicolon;
   }
 
   @Override
   public Kind getKind() {
-    return Kind.SCSS_MIXIN_DEFINITION;
+    return Kind.SCSS_MIXIN_INCLUDE;
   }
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    return Iterators.forArray(directive(), name(), parameters(), block);
+    return Iterators.forArray(directive(), name(), parameters(), block, semicolon);
   }
 
   @Override
   public void accept(DoubleDispatchVisitor visitor) {
-    visitor.visitScssMixinDefinition(this);
+    visitor.visitScssMixinInclude(this);
   }
 
   @Override
+  @Nullable
   public StatementBlockTree block() {
     return block;
+  }
+
+  @Override
+  @Nullable
+  public SyntaxToken semicolon() {
+    return semicolon;
   }
 
 }

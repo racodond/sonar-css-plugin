@@ -54,9 +54,9 @@ public class BranchSameImplementationCheck extends DoubleDispatchVisitorCheck {
   private Map<String, List<StatementBlockTree>> buildBlocksMap(ScssIfConditionsTree tree) {
     Map<String, List<StatementBlockTree>> blocks = new HashMap<>();
 
-    blocks.put(tree.ifDirective().block().treeValue(), Lists.newArrayList(tree.ifDirective().block()));
+    blocks.put(tree.ife().block().treeValue(), Lists.newArrayList(tree.ife().block()));
 
-    tree.elseIfDirectives()
+    tree.elseif()
       .stream()
       .map(ScssElseIfTree::block)
       .forEach(b -> {
@@ -67,8 +67,8 @@ public class BranchSameImplementationCheck extends DoubleDispatchVisitorCheck {
         }
       });
 
-    if (tree.elseDirective() != null) {
-      StatementBlockTree elseBlock = tree.elseDirective().block();
+    if (tree.elsee() != null) {
+      StatementBlockTree elseBlock = tree.elsee().block();
       if (blocks.get(elseBlock.treeValue()) == null) {
         blocks.put(elseBlock.treeValue(), Lists.newArrayList(elseBlock));
       } else {

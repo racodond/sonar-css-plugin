@@ -26,7 +26,7 @@ import org.sonar.check.RuleProperty;
 import org.sonar.css.checks.CheckList;
 import org.sonar.css.checks.CheckUtils;
 import org.sonar.css.checks.Tags;
-import org.sonar.plugins.css.api.tree.scss.ScssMixinDefinitionTree;
+import org.sonar.plugins.css.api.tree.scss.ScssMixinTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -52,7 +52,7 @@ public class MixinNamingConventionCheck extends DoubleDispatchVisitorCheck {
   private String format = DEFAULT_FORMAT;
 
   @Override
-  public void visitScssMixinDefinition(ScssMixinDefinitionTree tree) {
+  public void visitScssMixinDefinition(ScssMixinTree tree) {
     if (!tree.name().text().matches(format)) {
       addIssue(tree);
     }
@@ -80,7 +80,7 @@ public class MixinNamingConventionCheck extends DoubleDispatchVisitorCheck {
       "format parameter \"" + format + "\" is not a valid regular expression.");
   }
 
-  private void addIssue(ScssMixinDefinitionTree tree) {
+  private void addIssue(ScssMixinTree tree) {
     addPreciseIssue(
       tree.name(),
       MessageFormat.format(

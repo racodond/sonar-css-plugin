@@ -21,6 +21,7 @@ package org.sonar.css.tree.impl.scss;
 
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.css.ValueTree;
+import org.sonar.plugins.css.api.tree.scss.ScssDirectiveTree;
 import org.sonar.plugins.css.api.tree.scss.ScssReturnTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
@@ -28,7 +29,7 @@ import javax.annotation.Nullable;
 
 public class ScssReturnTreeImpl extends ScssSimpleDirectiveTreeImpl implements ScssReturnTree {
 
-  public ScssReturnTreeImpl(SyntaxToken directive, ValueTree value, @Nullable SyntaxToken semicolon) {
+  public ScssReturnTreeImpl(ScssDirectiveTree directive, ValueTree value, @Nullable SyntaxToken semicolon) {
     super(directive, value, semicolon);
   }
 

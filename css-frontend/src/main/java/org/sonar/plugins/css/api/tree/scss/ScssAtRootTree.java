@@ -41,13 +41,12 @@ package org.sonar.plugins.css.api.tree.scss;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.RulesetTree;
 import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
-import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 
 import javax.annotation.Nullable;
 
 public interface ScssAtRootTree extends Tree {
 
-  SyntaxToken directive();
+  ScssDirectiveTree directive();
 
   @Nullable
   ScssAtRootParametersTree parameters();

@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 
 public interface ScssSimpleDirectiveTree extends Tree {
 
-  SyntaxToken directive();
+  ScssDirectiveTree directive();
 
   ValueTree value();
 
