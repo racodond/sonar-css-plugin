@@ -44,17 +44,12 @@ public class ScssCallParametersTreeTest extends ScssTreeTest {
     tree = checkParsed(" ( )");
     assertThat(tree.parameters()).isNull();
 
-    tree = checkParsed("(10)");
-    assertThat(tree.parameters()).isNotNull();
-    assertThat(tree.parameters()).hasSize(1);
-    assertThat(tree.parameters().get(0).value()).isNotNull();
-
     tree = checkParsed("($abc: 10)");
     assertThat(tree.parameters()).isNotNull();
     assertThat(tree.parameters()).hasSize(1);
     assertThat(tree.parameters().get(0).variableDeclaration()).isNotNull();
 
-    tree = checkParsed("($abc: 5 * 3, $def: \"string\")");
+    tree = checkParsed("($abc: 10, $def: \"string\")");
     assertThat(tree.parameters()).isNotNull();
     assertThat(tree.parameters()).hasSize(2);
     assertThat(tree.parameters().get(0).variableDeclaration()).isNotNull();
@@ -78,6 +73,12 @@ public class ScssCallParametersTreeTest extends ScssTreeTest {
     assertThat(tree.parameters().get(1).value()).isNotNull();
 
     tree = checkParsed(" ( $abc, $def : 10)");
+    assertThat(tree.parameters()).isNotNull();
+    assertThat(tree.parameters()).hasSize(2);
+    assertThat(tree.parameters().get(0).value()).isNotNull();
+    assertThat(tree.parameters().get(1).variableDeclaration()).isNotNull();
+
+    tree = checkParsed(" (abc, $def : 10)");
     assertThat(tree.parameters()).isNotNull();
     assertThat(tree.parameters()).hasSize(2);
     assertThat(tree.parameters().get(0).value()).isNotNull();

@@ -25,7 +25,7 @@ import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 
 import javax.annotation.Nullable;
 
-public interface ScssDirectiveWithNameAndParametersTree extends Tree {
+public interface ScssDirectiveNameParametersTree extends Tree {
 
   ScssDirectiveTree directive();
 

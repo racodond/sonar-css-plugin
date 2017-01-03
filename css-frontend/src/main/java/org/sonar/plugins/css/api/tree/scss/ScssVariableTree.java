@@ -25,10 +25,8 @@ import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 
 public interface ScssVariableTree extends Tree {
 
-  SyntaxToken variablePrefix();
+  SyntaxToken prefix();
 
-  IdentifierTree variable();
-
-  String variableName();
+  IdentifierTree name();
 
 }

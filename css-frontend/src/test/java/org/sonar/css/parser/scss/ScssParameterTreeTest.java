@@ -26,40 +26,43 @@ import org.sonar.plugins.css.api.tree.scss.ScssParameterTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class ScssDefinitionParameterTreeTest extends ScssTreeTest {
+public class ScssParameterTreeTest extends ScssTreeTest {
 
-  public ScssDefinitionParameterTreeTest() {
-    super(LexicalGrammar.SCSS_DEFINITION_PARAMETER);
+  public ScssParameterTreeTest() {
+    super(LexicalGrammar.SCSS_PARAMETER);
   }
 
   @Test
-  public void scssDefinitionParameter() {
+  public void scssParameter() {
     ScssParameterTree tree;
 
     tree = checkParsed("$abc");
     assertThat(tree.variable()).isNotNull();
-    assertThat(tree.variable().variableName()).isEqualTo("abc");
+    assertThat(tree.variable().name().text()).isEqualTo("abc");
     assertThat(tree.variableDeclaration()).isNull();
+    assertThat(tree.value()).isNull();
 
     tree = checkParsed("$abc: 10");
+    assertThat(tree.value()).isNull();
     assertThat(tree.variable()).isNull();
     assertThat(tree.variableDeclaration()).isNotNull();
     assertThat(tree.variableDeclaration().variable()).isNotNull();
-    assertThat(tree.variableDeclaration().variable().variableName()).isEqualTo("abc");
+    assertThat(tree.variableDeclaration().variable().name().text()).isEqualTo("abc");
     assertThat(tree.variableDeclaration().value()).isNotNull();
     assertThat(tree.variableDeclaration().value().valueElements()).hasSize(1);
     assertThat(tree.variableDeclaration().value().valueElements().get(0).is(Tree.Kind.NUMBER)).isTrue();
     assertThat(tree.variableDeclaration().value().treeValue()).isEqualTo("10");
 
     tree = checkParsed("$abc...");
+    assertThat(tree.variable()).isNull();
     assertThat(tree.value()).isNull();
     assertThat(tree.variableArgument()).isNotNull();
-    assertThat(tree.variableArgument().variableName()).isEqualTo("abc");
+    assertThat(tree.variableArgument().name().text()).isEqualTo("abc");
   }
 
   @Test
-  public void notScssMixinDefinitionParameter() {
-    checkNotParsed("10");
+  public void notScssParameter() {
+    checkNotParsed("abc");
   }
 
   private ScssParameterTree checkParsed(String toParse) {

@@ -109,11 +109,11 @@ public class NestedControlFlowDirectivesCheck extends DoubleDispatchVisitorCheck
   private void increaseAndCheckNestedLevel(Tree tree) {
     if (stack.size() == max && !(tree instanceof ScssElseIfTree) && !(tree instanceof ScssElseTree)) {
       PreciseIssue issue = addPreciseIssue(
-        ((ScssConditionalDirectiveTree) tree).directive(),
+        ((ScssDirectiveConditionBlockTree) tree).directive(),
         String.format("Refactor this code to not nest more than %s control flow directives.", max));
 
       stack.forEach(t -> issue.secondary(
-        t instanceof ScssConditionalDirectiveTree ? ((ScssConditionalDirectiveTree) t).directive() : ((ScssElseTree) t).directive(),
+        t instanceof ScssDirectiveConditionBlockTree ? ((ScssDirectiveConditionBlockTree) t).directive() : ((ScssElseTree) t).directive(),
         "+1"));
     }
     stack.push(tree);

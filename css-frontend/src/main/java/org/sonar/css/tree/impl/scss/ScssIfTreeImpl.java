@@ -25,7 +25,7 @@ import org.sonar.plugins.css.api.tree.scss.ScssDirectiveTree;
 import org.sonar.plugins.css.api.tree.scss.ScssIfTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
-public class ScssIfTreeImpl extends ScssConditionalDirectiveTreeImpl implements ScssIfTree {
+public class ScssIfTreeImpl extends ScssDirectiveConditionBlockTreeImpl implements ScssIfTree {
 
   public ScssIfTreeImpl(ScssDirectiveTree directive, ScssConditionTree condition, StatementBlockTree block) {
     super(directive, condition, block);

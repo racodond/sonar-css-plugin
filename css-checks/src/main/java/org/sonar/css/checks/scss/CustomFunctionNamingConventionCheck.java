@@ -52,11 +52,11 @@ public class CustomFunctionNamingConventionCheck extends DoubleDispatchVisitorCh
   private String format = DEFAULT_FORMAT;
 
   @Override
-  public void visitScssFunctionDefinition(ScssFunctionTree tree) {
+  public void visitScssFunction(ScssFunctionTree tree) {
     if (!tree.name().text().matches(format)) {
       addIssue(tree);
     }
-    super.visitScssFunctionDefinition(tree);
+    super.visitScssFunction(tree);
   }
 
   @VisibleForTesting

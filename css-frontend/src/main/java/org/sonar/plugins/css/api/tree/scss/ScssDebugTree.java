@@ -19,5 +19,5 @@
  */
 package org.sonar.plugins.css.api.tree.scss;
 
-public interface ScssDebugTree extends ScssSimpleDirectiveTree {
+public interface ScssDebugTree extends ScssDirectiveValueTree {
 }

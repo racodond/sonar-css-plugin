@@ -23,7 +23,6 @@ import com.google.common.collect.Iterators;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.IdentifierTree;
 import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
-import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.scss.ScssDirectiveTree;
 import org.sonar.plugins.css.api.tree.scss.ScssFunctionTree;
 import org.sonar.plugins.css.api.tree.scss.ScssParametersTree;
@@ -32,7 +31,7 @@ import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 import javax.annotation.Nullable;
 import java.util.Iterator;
 
-public class ScssFunctionTreeImpl extends ScssDirectiveWithNameAndParametersTreeImpl implements ScssFunctionTree {
+public class ScssFunctionTreeImpl extends ScssDirectiveNameParametersTreeImpl implements ScssFunctionTree {
 
   private final StatementBlockTree block;
 
@@ -43,7 +42,7 @@ public class ScssFunctionTreeImpl extends ScssDirectiveWithNameAndParametersTree
 
   @Override
   public Kind getKind() {
-    return Kind.SCSS_FUNCTION_DEFINITION;
+    return Kind.SCSS_FUNCTION;
   }
 
   @Override
@@ -53,7 +52,7 @@ public class ScssFunctionTreeImpl extends ScssDirectiveWithNameAndParametersTree
 
   @Override
   public void accept(DoubleDispatchVisitor visitor) {
-    visitor.visitScssFunctionDefinition(this);
+    visitor.visitScssFunction(this);
   }
 
   @Override

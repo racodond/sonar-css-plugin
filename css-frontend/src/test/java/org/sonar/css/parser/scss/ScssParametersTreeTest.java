@@ -25,14 +25,14 @@ import org.sonar.plugins.css.api.tree.scss.ScssParametersTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class ScssDefinitionParametersTreeTest extends ScssTreeTest {
+public class ScssParametersTreeTest extends ScssTreeTest {
 
-  public ScssDefinitionParametersTreeTest() {
-    super(LexicalGrammar.SCSS_DEFINITION_PARAMETERS);
+  public ScssParametersTreeTest() {
+    super(LexicalGrammar.SCSS_PARAMETERS);
   }
 
   @Test
-  public void scssDefinitionParameters() {
+  public void scssParameters() {
     ScssParametersTree tree;
 
     tree = checkParsed("()");
@@ -80,8 +80,8 @@ public class ScssDefinitionParametersTreeTest extends ScssTreeTest {
   }
 
   @Test
-  public void notScssDefinitionParameters() {
-    checkNotParsed("(10)");
+  public void notScssParameters() {
+    checkNotParsed("(abc)");
   }
 
   private ScssParametersTree checkParsed(String toParse) {

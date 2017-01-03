@@ -82,7 +82,7 @@ public class ScssNestedPropertiesDeclarationTreeImpl extends TreeImpl implements
   }
 
   @Override
-  public List<PropertyDeclarationTree> nestedPropertyDeclarations() {
+  public List<PropertyDeclarationTree> propertyDeclarations() {
     return block.propertyDeclarations();
   }
 

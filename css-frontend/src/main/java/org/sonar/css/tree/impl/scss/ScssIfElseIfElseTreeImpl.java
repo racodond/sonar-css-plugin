@@ -24,7 +24,7 @@ import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.scss.ScssElseIfTree;
 import org.sonar.plugins.css.api.tree.scss.ScssElseTree;
-import org.sonar.plugins.css.api.tree.scss.ScssIfConditionsTree;
+import org.sonar.plugins.css.api.tree.scss.ScssIfElseIfElseTree;
 import org.sonar.plugins.css.api.tree.scss.ScssIfTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
@@ -33,52 +33,52 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ScssIfConditionsTreeImpl extends TreeImpl implements ScssIfConditionsTree {
+public class ScssIfElseIfElseTreeImpl extends TreeImpl implements ScssIfElseIfElseTree {
 
-  private final ScssIfTree ifDirective;
-  private final List<ScssElseIfTree> elseIfDirectives;
+  private final ScssIfTree ife;
+  private final List<ScssElseIfTree> elseIf;
 
   @Nullable
-  private final ScssElseTree elseDirective;
+  private final ScssElseTree elsee;
 
-  public ScssIfConditionsTreeImpl(ScssIfTree ifDirective, @Nullable List<ScssElseIfTree> elseIfDirectives, @Nullable ScssElseTree elseDirective) {
-    this.ifDirective = ifDirective;
-    this.elseIfDirectives = elseIfDirectives != null ? elseIfDirectives : new ArrayList<>();
-    this.elseDirective = elseDirective;
+  public ScssIfElseIfElseTreeImpl(ScssIfTree ife, @Nullable List<ScssElseIfTree> elseIf, @Nullable ScssElseTree elsee) {
+    this.ife = ife;
+    this.elseIf = elseIf != null ? elseIf : new ArrayList<>();
+    this.elsee = elsee;
   }
 
   @Override
   public Kind getKind() {
-    return Kind.SCSS_IF_CONDITIONS;
+    return Kind.SCSS_IF_ELSE_IF_ELSE;
   }
 
   @Override
   public Iterator<Tree> childrenIterator() {
     return Iterators.concat(
-      Iterators.singletonIterator(ifDirective),
-      elseIfDirectives.iterator(),
-      Iterators.singletonIterator(elseDirective));
+      Iterators.singletonIterator(ife),
+      elseIf.iterator(),
+      Iterators.singletonIterator(elsee));
   }
 
   @Override
   public void accept(DoubleDispatchVisitor visitor) {
-    visitor.visitScssIfConditions(this);
+    visitor.visitScssIfElseIfElse(this);
   }
 
   @Override
   public ScssIfTree ife() {
-    return ifDirective;
+    return ife;
   }
 
   @Override
   public List<ScssElseIfTree> elseif() {
-    return elseIfDirectives;
+    return elseIf;
   }
 
   @Override
   @Nullable
   public ScssElseTree elsee() {
-    return elseDirective;
+    return elsee;
   }
 
 }

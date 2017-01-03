@@ -51,8 +51,8 @@ public class ScssSyntaxHighlighterVisitor extends CssSyntaxHighlighterVisitor {
     TypeOfText code = null;
 
     if (tree.is(Tree.Kind.SCSS_VARIABLE)) {
-      tokens.add(((ScssVariableTree) tree).variable().value());
-      tokens.add(((ScssVariableTree) tree).variablePrefix());
+      tokens.add(((ScssVariableTree) tree).name().value());
+      tokens.add(((ScssVariableTree) tree).prefix());
       code = TypeOfText.CONSTANT;
     } else if (tree.is(Tree.Kind.SCSS_DIRECTIVE)) {
       tokens.add(((ScssDirectiveTree) tree).at());

@@ -32,13 +32,13 @@ public class ScssOptionalFlagTreeTest extends ScssTreeTest {
   }
 
   @Test
-  public void isOptionalFlag() {
+  public void scssOptionalFlag() {
     checkParsed("!optional");
     checkParsed(" !optional");
   }
 
   @Test
-  public void notOptionalFlag() {
+  public void notScssOptionalFlag() {
     checkNotParsed("! optional");
   }
 

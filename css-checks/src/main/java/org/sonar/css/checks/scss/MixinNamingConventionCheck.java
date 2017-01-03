@@ -52,11 +52,11 @@ public class MixinNamingConventionCheck extends DoubleDispatchVisitorCheck {
   private String format = DEFAULT_FORMAT;
 
   @Override
-  public void visitScssMixinDefinition(ScssMixinTree tree) {
+  public void visitScssMixin(ScssMixinTree tree) {
     if (!tree.name().text().matches(format)) {
       addIssue(tree);
     }
-    super.visitScssMixinDefinition(tree);
+    super.visitScssMixin(tree);
   }
 
   @VisibleForTesting

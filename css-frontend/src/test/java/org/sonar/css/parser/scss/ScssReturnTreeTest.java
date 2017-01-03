@@ -59,7 +59,7 @@ public class ScssReturnTreeTest extends ScssTreeTest {
     assertThat(tree.value().valueElements().get(1)).isInstanceOf(StringTree.class);
     assertThat(tree.semicolon()).isNotNull();
 
-    tree = checkParsed(" @return \"abc\n\";");
+    checkParsed(" @return \"abc\n\";");
   }
 
   @Test

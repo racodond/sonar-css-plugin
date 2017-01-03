@@ -31,12 +31,12 @@ import java.util.Iterator;
 
 public class ScssVariableTreeImpl extends TreeImpl implements ScssVariableTree {
 
-  private final SyntaxToken variablePrefix;
-  private final IdentifierTree variable;
+  private final SyntaxToken prefix;
+  private final IdentifierTree name;
 
-  public ScssVariableTreeImpl(SyntaxToken variablePrefrix, IdentifierTree variable) {
-    this.variable = variable;
-    this.variablePrefix = variablePrefrix;
+  public ScssVariableTreeImpl(SyntaxToken variablePrefrix, IdentifierTree name) {
+    this.name = name;
+    this.prefix = variablePrefrix;
   }
 
   @Override
@@ -46,7 +46,7 @@ public class ScssVariableTreeImpl extends TreeImpl implements ScssVariableTree {
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    return Iterators.forArray(variablePrefix, variable);
+    return Iterators.forArray(prefix, name);
   }
 
   @Override
@@ -55,18 +55,13 @@ public class ScssVariableTreeImpl extends TreeImpl implements ScssVariableTree {
   }
 
   @Override
-  public IdentifierTree variable() {
-    return variable;
+  public IdentifierTree name() {
+    return name;
   }
 
   @Override
-  public SyntaxToken variablePrefix() {
-    return variablePrefix;
-  }
-
-  @Override
-  public String variableName() {
-    return variable.text();
+  public SyntaxToken prefix() {
+    return prefix;
   }
 
 }

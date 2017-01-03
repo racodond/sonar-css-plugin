@@ -22,31 +22,28 @@ package org.sonar.css.tree.impl.scss;
 import com.google.common.collect.Iterators;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.css.IdentifierTree;
+import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
+import org.sonar.plugins.css.api.tree.scss.ScssConditionTree;
+import org.sonar.plugins.css.api.tree.scss.ScssDirectiveConditionBlockTree;
 import org.sonar.plugins.css.api.tree.scss.ScssDirectiveTree;
-import org.sonar.plugins.css.api.tree.scss.ScssDirectiveWithNameAndParametersTree;
-import org.sonar.plugins.css.api.tree.scss.ScssParametersTree;
 
-import javax.annotation.Nullable;
 import java.util.Iterator;
 
-abstract class ScssDirectiveWithNameAndParametersTreeImpl extends TreeImpl implements ScssDirectiveWithNameAndParametersTree {
+abstract class ScssDirectiveConditionBlockTreeImpl extends TreeImpl implements ScssDirectiveConditionBlockTree {
 
   private final ScssDirectiveTree directive;
-  private final IdentifierTree name;
+  private final ScssConditionTree condition;
+  private final StatementBlockTree block;
 
-  @Nullable
-  private final ScssParametersTree parameters;
-
-  public ScssDirectiveWithNameAndParametersTreeImpl(ScssDirectiveTree directive, IdentifierTree name, @Nullable ScssParametersTree parameters) {
+  public ScssDirectiveConditionBlockTreeImpl(ScssDirectiveTree directive, ScssConditionTree condition, StatementBlockTree block) {
     this.directive = directive;
-    this.name = name;
-    this.parameters = parameters;
+    this.condition = condition;
+    this.block = block;
   }
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    return Iterators.forArray(directive, name, parameters);
+    return Iterators.forArray(directive, condition, block);
   }
 
   @Override
@@ -55,14 +52,13 @@ abstract class ScssDirectiveWithNameAndParametersTreeImpl extends TreeImpl imple
   }
 
   @Override
-  public IdentifierTree name() {
-    return name;
+  public ScssConditionTree condition() {
+    return condition;
   }
 
   @Override
-  @Nullable
-  public ScssParametersTree parameters() {
-    return parameters;
+  public StatementBlockTree block() {
+    return block;
   }
 
 }

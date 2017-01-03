@@ -32,7 +32,7 @@ import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 import javax.annotation.Nullable;
 import java.util.Iterator;
 
-public class ScssIncludeTreeImpl extends ScssDirectiveWithNameAndParametersTreeImpl implements ScssIncludeTree {
+public class ScssIncludeTreeImpl extends ScssDirectiveNameParametersTreeImpl implements ScssIncludeTree {
 
   @Nullable
   private final StatementBlockTree block;
@@ -48,7 +48,7 @@ public class ScssIncludeTreeImpl extends ScssDirectiveWithNameAndParametersTreeI
 
   @Override
   public Kind getKind() {
-    return Kind.SCSS_MIXIN_INCLUDE;
+    return Kind.SCSS_INCLUDE;
   }
 
   @Override
@@ -58,7 +58,7 @@ public class ScssIncludeTreeImpl extends ScssDirectiveWithNameAndParametersTreeI
 
   @Override
   public void accept(DoubleDispatchVisitor visitor) {
-    visitor.visitScssMixinInclude(this);
+    visitor.visitScssInclude(this);
   }
 
   @Override

@@ -32,6 +32,6 @@ public interface ScssNestedPropertiesDeclarationTree extends DeclarationTree {
 
   StatementBlockTree block();
 
-  List<PropertyDeclarationTree> nestedPropertyDeclarations();
+  List<PropertyDeclarationTree> propertyDeclarations();
 
 }

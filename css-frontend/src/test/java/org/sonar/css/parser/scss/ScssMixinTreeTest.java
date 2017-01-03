@@ -28,11 +28,11 @@ import static org.fest.assertions.Assertions.assertThat;
 public class ScssMixinTreeTest extends ScssTreeTest {
 
   public ScssMixinTreeTest() {
-    super(LexicalGrammar.SCSS_MIXIN_DEFINITION);
+    super(LexicalGrammar.SCSS_MIXIN);
   }
 
   @Test
-  public void scssMixinDefinition() {
+  public void scssMixin() {
     ScssMixinTree tree;
 
     tree = checkParsed("@mixin hello {}");
@@ -98,12 +98,11 @@ public class ScssMixinTreeTest extends ScssTreeTest {
   }
 
   @Test
-  public void notScssMixinDefinition() {
+  public void notScssMixin() {
     checkNotParsed("@mixin");
     checkNotParsed("@mixin()");
     checkNotParsed("@mixin{}");
     checkNotParsed("@mixin(){}");
-    checkNotParsed("@mixin abc(10) {}");
   }
 
   private ScssMixinTree checkParsed(String toParse) {

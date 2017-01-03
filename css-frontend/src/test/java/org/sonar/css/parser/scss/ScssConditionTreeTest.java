@@ -22,7 +22,6 @@ package org.sonar.css.parser.scss;
 import org.junit.Test;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.scss.ScssConditionTree;
-import org.sonar.plugins.css.api.tree.scss.ScssIfConditionsTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 

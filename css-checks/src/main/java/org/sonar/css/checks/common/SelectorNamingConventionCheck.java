@@ -73,8 +73,8 @@ public class SelectorNamingConventionCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitScssPlaceholderSelector(ScssPlaceholderSelectorTree tree) {
-    if (!tree.identifier().isInterpolated() && !tree.text().matches(format)) {
-      addIssue(tree.identifier(), tree.text());
+    if (!tree.name().isInterpolated() && !tree.text().matches(format)) {
+      addIssue(tree.name(), tree.text());
     }
     super.visitScssPlaceholderSelector(tree);
   }

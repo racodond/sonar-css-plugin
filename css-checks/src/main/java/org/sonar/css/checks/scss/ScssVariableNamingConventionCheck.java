@@ -54,8 +54,8 @@ public class ScssVariableNamingConventionCheck extends DoubleDispatchVisitorChec
 
   @Override
   public void visitScssVariableDeclaration(ScssVariableDeclarationTree tree) {
-    if (!tree.variable().variableName().matches(format)) {
-      addIssue(tree.variable().variable(), tree.variable().variableName());
+    if (!tree.variable().name().text().matches(format)) {
+      addIssue(tree.variable().name(), tree.variable().name().text());
     }
     super.visitScssVariableDeclaration(tree);
   }

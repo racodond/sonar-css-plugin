@@ -19,5 +19,5 @@
  */
 package org.sonar.plugins.css.api.tree.scss;
 
-public interface ScssIfTree extends ScssConditionalDirectiveTree {
+public interface ScssIfTree extends ScssDirectiveConditionBlockTree {
 }

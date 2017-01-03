@@ -27,7 +27,7 @@ import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 import javax.annotation.Nullable;
 
-public class ScssReturnTreeImpl extends ScssSimpleDirectiveTreeImpl implements ScssReturnTree {
+public class ScssReturnTreeImpl extends ScssDirectiveValueTreeImpl implements ScssReturnTree {
 
   public ScssReturnTreeImpl(ScssDirectiveTree directive, ValueTree value, @Nullable SyntaxToken semicolon) {
     super(directive, value, semicolon);

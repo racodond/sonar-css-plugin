@@ -308,6 +308,10 @@ public class TreeFactory {
     return new ScssParentSelectorTreeImpl(parentSelector);
   }
 
+  public ScssPlaceholderSelectorTree scssPlaceholderSelector(SyntaxToken prefix, IdentifierTree name) {
+    return new ScssPlaceholderSelectorTreeImpl(prefix, name);
+  }
+
   public SelectorCombinatorTree scssParentSelectorCombinator(SyntaxToken combinator) {
     return new SelectorCombinatorTreeImpl(combinator);
   }
@@ -324,39 +328,39 @@ public class TreeFactory {
     return new ScssVariableDeclarationTreeImpl(variable, colon, value, semicolon.orNull());
   }
 
-  public ScssVariableTree scssVariable(SyntaxToken variablePrefix, IdentifierTree variable) {
-    return new ScssVariableTreeImpl(variablePrefix, variable);
+  public ScssVariableTree scssVariable(SyntaxToken prefix, IdentifierTree name) {
+    return new ScssVariableTreeImpl(prefix, name);
   }
 
-  public ScssVariableArgumentTree scssVariableArgument(SyntaxToken variablePrefix, IdentifierTree variable, SyntaxToken ellipsis) {
-    return new ScssVariableArgumentTreeImpl(variablePrefix, variable, ellipsis);
+  public ScssVariableArgumentTree scssVariableArgument(SyntaxToken prefix, IdentifierTree name, SyntaxToken ellipsis) {
+    return new ScssVariableArgumentTreeImpl(prefix, name, ellipsis);
   }
 
-  public ScssDefaultFlagTree scssDefaultFlag(SyntaxToken keyword) {
-    return new ScssDefaultFlagTreeImpl(keyword);
+  public ScssDefaultFlagTree scssDefaultFlag(SyntaxToken flag) {
+    return new ScssDefaultFlagTreeImpl(flag);
   }
 
-  public ScssGlobalFlagTree scssGlobalFlag(SyntaxToken keyword) {
-    return new ScssGlobalFlagTreeImpl(keyword);
+  public ScssGlobalFlagTree scssGlobalFlag(SyntaxToken flag) {
+    return new ScssGlobalFlagTreeImpl(flag);
   }
 
-  public ScssOptionalFlagTree scssOptionalFlag(SyntaxToken keyword) {
-    return new ScssOptionalFlagTreeImpl(keyword);
+  public ScssOptionalFlagTree scssOptionalFlag(SyntaxToken flag) {
+    return new ScssOptionalFlagTreeImpl(flag);
   }
 
-  public ScssFunctionTree scssFunctionDefinition(ScssDirectiveTree directive, IdentifierTree name, Optional<ScssParametersTree> parameters, StatementBlockTree block) {
+  public ScssFunctionTree scssFunction(ScssDirectiveTree directive, IdentifierTree name, Optional<ScssParametersTree> parameters, StatementBlockTree block) {
     return new ScssFunctionTreeImpl(directive, name, parameters.orNull(), block);
   }
 
-  public ScssMixinTree scssMixinDefinition(ScssDirectiveTree directive, IdentifierTree name, Optional<ScssParametersTree> parameters, StatementBlockTree block) {
+  public ScssMixinTree scssMixin(ScssDirectiveTree directive, IdentifierTree name, Optional<ScssParametersTree> parameters, StatementBlockTree block) {
     return new ScssMixinTreeImpl(directive, name, parameters.orNull(), block);
   }
 
-  public ScssIncludeTree scssMixinInclude(ScssDirectiveTree directive, IdentifierTree name, Optional<ScssParametersTree> parameters, Optional<StatementBlockTree> block, Optional<SyntaxToken> semicolon) {
+  public ScssIncludeTree scssInclude(ScssDirectiveTree directive, IdentifierTree name, Optional<ScssParametersTree> parameters, Optional<StatementBlockTree> block, Optional<SyntaxToken> semicolon) {
     return new ScssIncludeTreeImpl(directive, name, parameters.orNull(), block.orNull(), semicolon.orNull());
   }
 
-  public ScssParametersTree scssDefinitionParameters(SyntaxToken openParenthesis, Optional<SeparatedList<ScssParameterTree, SyntaxToken>> parameters, SyntaxToken closeParenthesis) {
+  public ScssParametersTree scssParameters(SyntaxToken openParenthesis, Optional<SeparatedList<ScssParameterTree, SyntaxToken>> parameters, SyntaxToken closeParenthesis) {
     return new ScssParametersTreeImpl(openParenthesis, parameters.orNull(), closeParenthesis);
   }
 
@@ -364,15 +368,11 @@ public class TreeFactory {
     return new ScssParametersTreeImpl(openParenthesis, parameters.orNull(), closeParenthesis);
   }
 
-  public SeparatedList<ScssParameterTree, SyntaxToken> scssDefinitionParameterList(ScssParameterTree parameter, Optional<List<Tuple<SyntaxToken, ScssParameterTree>>> subsequentParameters) {
-    return scssParameterList(parameter, subsequentParameters);
-  }
-
   public SeparatedList<ScssParameterTree, SyntaxToken> scssCallParameterList(ScssParameterTree parameter, Optional<List<Tuple<SyntaxToken, ScssParameterTree>>> subsequentParameters) {
     return scssParameterList(parameter, subsequentParameters);
   }
 
-  private SeparatedList<ScssParameterTree, SyntaxToken> scssParameterList(ScssParameterTree parameter, Optional<List<Tuple<SyntaxToken, ScssParameterTree>>> subsequentParameters) {
+  public SeparatedList<ScssParameterTree, SyntaxToken> scssParameterList(ScssParameterTree parameter, Optional<List<Tuple<SyntaxToken, ScssParameterTree>>> subsequentParameters) {
     List<ScssParameterTree> parameters = Lists.newArrayList();
     List<SyntaxToken> separators = Lists.newArrayList();
 
@@ -388,12 +388,12 @@ public class TreeFactory {
     return new SeparatedList<>(parameters, separators);
   }
 
-  public ScssParameterTree scssDefinitionParameter(Tree tree) {
-    return new ScssParameterTreeImpl(tree);
+  public ScssParameterTree scssParameter(Tree parameter) {
+    return new ScssParameterTreeImpl(parameter);
   }
 
-  public ScssParameterTree scssCallParameter(Tree tree) {
-    return new ScssParameterTreeImpl(tree);
+  public ScssParameterTree scssCallParameter(Tree parameter) {
+    return new ScssParameterTreeImpl(parameter);
   }
 
   public ValueTree scssValue(List<Tree> valueElements) {
@@ -428,8 +428,8 @@ public class TreeFactory {
     return new ScssReturnTreeImpl(directive, value, semicolon.orNull());
   }
 
-  public ScssIfConditionsTree scssIfConditions(ScssIfTree ifDirective, Optional<List<ScssElseIfTree>> elseIfDirectives, Optional<ScssElseTree> elseDirective) {
-    return new ScssIfConditionsTreeImpl(ifDirective, elseIfDirectives.orNull(), elseDirective.orNull());
+  public ScssIfElseIfElseTree scssIfElseIfElse(ScssIfTree ife, Optional<List<ScssElseIfTree>> elseIf, Optional<ScssElseTree> elsee) {
+    return new ScssIfElseIfElseTreeImpl(ife, elseIf.orNull(), elsee.orNull());
   }
 
   public ScssIfTree scssIf(ScssDirectiveTree directive, ScssConditionTree condition, StatementBlockTree block) {
@@ -462,10 +462,6 @@ public class TreeFactory {
 
   public ScssAtRootParametersTree scssAtRootParameters(SyntaxToken openParenthesis, SyntaxToken parameter, SyntaxToken colon, List<IdentifierTree> values, SyntaxToken closeParenthesis) {
     return new ScssAtRootParametersTreeImpl(openParenthesis, parameter, colon, values, closeParenthesis);
-  }
-
-  public ScssPlaceholderSelectorTree scssPlaceholderSelector(SyntaxToken percentage, IdentifierTree identifier) {
-    return new ScssPlaceholderSelectorTreeImpl(percentage, identifier);
   }
 
   public IdentifierTree scssInterpolatedIdentifier(SyntaxToken identifier) {

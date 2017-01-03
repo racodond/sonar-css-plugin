@@ -296,15 +296,15 @@ public abstract class DoubleDispatchVisitor implements TreeVisitor {
     scanChildren(tree);
   }
 
-  public void visitScssFunctionDefinition(ScssFunctionTree tree) {
+  public void visitScssFunction(ScssFunctionTree tree) {
     scanChildren(tree);
   }
 
-  public void visitScssMixinDefinition(ScssMixinTree tree) {
+  public void visitScssMixin(ScssMixinTree tree) {
     scanChildren(tree);
   }
 
-  public void visitScssMixinInclude(ScssIncludeTree tree) {
+  public void visitScssInclude(ScssIncludeTree tree) {
     scanChildren(tree);
   }
 
@@ -324,7 +324,7 @@ public abstract class DoubleDispatchVisitor implements TreeVisitor {
     scanChildren(tree);
   }
 
-  public void visitScssIfConditions(ScssIfConditionsTree tree) {
+  public void visitScssIfElseIfElse(ScssIfElseIfElseTree tree) {
     scanChildren(tree);
   }
 

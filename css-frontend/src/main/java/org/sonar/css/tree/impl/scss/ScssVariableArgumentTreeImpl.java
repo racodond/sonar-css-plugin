@@ -25,20 +25,19 @@ import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.IdentifierTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.scss.ScssVariableArgumentTree;
-import org.sonar.plugins.css.api.tree.scss.ScssVariableTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 import java.util.Iterator;
 
 public class ScssVariableArgumentTreeImpl extends TreeImpl implements ScssVariableArgumentTree {
 
-  private final SyntaxToken variablePrefix;
-  private final IdentifierTree variable;
+  private final SyntaxToken prefix;
+  private final IdentifierTree name;
   private final SyntaxToken ellipsis;
 
-  public ScssVariableArgumentTreeImpl(SyntaxToken variablePrefrix, IdentifierTree variable, SyntaxToken ellipsis) {
-    this.variable = variable;
-    this.variablePrefix = variablePrefrix;
+  public ScssVariableArgumentTreeImpl(SyntaxToken prefix, IdentifierTree name, SyntaxToken ellipsis) {
+    this.name = name;
+    this.prefix = prefix;
     this.ellipsis = ellipsis;
   }
 
@@ -49,7 +48,7 @@ public class ScssVariableArgumentTreeImpl extends TreeImpl implements ScssVariab
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    return Iterators.forArray(variablePrefix, variable, ellipsis);
+    return Iterators.forArray(prefix, name, ellipsis);
   }
 
   @Override
@@ -58,23 +57,18 @@ public class ScssVariableArgumentTreeImpl extends TreeImpl implements ScssVariab
   }
 
   @Override
-  public IdentifierTree variable() {
-    return variable;
+  public IdentifierTree name() {
+    return name;
   }
 
   @Override
-  public SyntaxToken variablePrefix() {
-    return variablePrefix;
+  public SyntaxToken prefix() {
+    return prefix;
   }
 
   @Override
   public SyntaxToken ellipsis() {
     return ellipsis;
-  }
-
-  @Override
-  public String variableName() {
-    return variable.text();
   }
 
 }

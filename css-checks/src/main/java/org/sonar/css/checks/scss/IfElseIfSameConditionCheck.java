@@ -25,7 +25,7 @@ import org.sonar.check.Rule;
 import org.sonar.css.checks.Tags;
 import org.sonar.plugins.css.api.tree.scss.ScssConditionTree;
 import org.sonar.plugins.css.api.tree.scss.ScssElseIfTree;
-import org.sonar.plugins.css.api.tree.scss.ScssIfConditionsTree;
+import org.sonar.plugins.css.api.tree.scss.ScssIfElseIfElseTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.plugins.css.api.visitors.issue.PreciseIssue;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
@@ -45,13 +45,13 @@ import java.util.Map;
 public class IfElseIfSameConditionCheck extends DoubleDispatchVisitorCheck {
 
   @Override
-  public void visitScssIfConditions(ScssIfConditionsTree tree) {
+  public void visitScssIfElseIfElse(ScssIfElseIfElseTree tree) {
     Map<String, List<ScssConditionTree>> conditions = buildConditionsMap(tree);
     createIssues(conditions);
-    super.visitScssIfConditions(tree);
+    super.visitScssIfElseIfElse(tree);
   }
 
-  private Map<String, List<ScssConditionTree>> buildConditionsMap(ScssIfConditionsTree tree) {
+  private Map<String, List<ScssConditionTree>> buildConditionsMap(ScssIfElseIfElseTree tree) {
     Map<String, List<ScssConditionTree>> conditions = new HashMap<>();
 
     conditions.put(tree.ife().condition().treeValue(), Lists.newArrayList(tree.ife().condition()));

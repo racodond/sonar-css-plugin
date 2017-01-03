@@ -32,13 +32,13 @@ public class ScssGlobalFlagTreeTest extends ScssTreeTest {
   }
 
   @Test
-  public void isGlobalFlag() {
+  public void scssGlobalFlag() {
     checkParsed("!global");
     checkParsed(" !global");
   }
 
   @Test
-  public void notGlobalFlag() {
+  public void notScssGlobalFlag() {
     checkNotParsed("! global");
   }
 

@@ -22,7 +22,7 @@ package org.sonar.css.checks.scss;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.Tags;
-import org.sonar.plugins.css.api.tree.scss.ScssIfConditionsTree;
+import org.sonar.plugins.css.api.tree.scss.ScssIfElseIfElseTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -37,13 +37,13 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 public class IfElseIfWithoutElseCheck extends DoubleDispatchVisitorCheck {
 
   @Override
-  public void visitScssIfConditions(ScssIfConditionsTree tree) {
+  public void visitScssIfElseIfElse(ScssIfElseIfElseTree tree) {
     if (!tree.elseif().isEmpty() && tree.elsee() == null) {
       addPreciseIssue(
         tree.elseif().get(tree.elseif().size() - 1).directive(),
         "Add an @else directive after this @else if directive.");
     }
-    super.visitScssIfConditions(tree);
+    super.visitScssIfElseIfElse(tree);
   }
 
 }

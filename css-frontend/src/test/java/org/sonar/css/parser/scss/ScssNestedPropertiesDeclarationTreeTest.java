@@ -41,7 +41,7 @@ public class ScssNestedPropertiesDeclarationTreeTest extends ScssTreeTest {
       "    weight: bold;\n" +
       "  }");
     assertThat(tree.namespace().property().text()).isEqualTo("font");
-    assertThat(tree.nestedPropertyDeclarations()).hasSize(3);
+    assertThat(tree.propertyDeclarations()).hasSize(3);
 
     tree = checkParsed("fo#{$abc}nt: {\n" +
       "    fam#{$def}ily: fantasy;\n" +
@@ -49,7 +49,7 @@ public class ScssNestedPropertiesDeclarationTreeTest extends ScssTreeTest {
       "    weight: bold;\n" +
       "  }");
     assertThat(tree.namespace().property().text()).isEqualTo("fo#{$abc}nt");
-    assertThat(tree.nestedPropertyDeclarations()).hasSize(3);
+    assertThat(tree.propertyDeclarations()).hasSize(3);
   }
 
   @Test
@@ -62,7 +62,7 @@ public class ScssNestedPropertiesDeclarationTreeTest extends ScssTreeTest {
     assertThat(tree).isNotNull();
     assertThat(tree.namespace()).isNotNull();
     assertThat(tree.colon()).isNotNull();
-    assertThat(tree.nestedPropertyDeclarations()).isNotNull();
+    assertThat(tree.propertyDeclarations()).isNotNull();
     assertThat(tree.semicolon()).isNull();
     return tree;
   }

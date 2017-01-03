@@ -26,8 +26,8 @@ import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 public class ScssDefaultFlagTreeImpl extends LiteralTreeImpl implements ScssDefaultFlagTree {
 
-  public ScssDefaultFlagTreeImpl(SyntaxToken keyword) {
-    super(keyword);
+  public ScssDefaultFlagTreeImpl(SyntaxToken flag) {
+    super(flag);
   }
 
   @Override

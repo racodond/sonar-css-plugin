@@ -28,11 +28,11 @@ import static org.fest.assertions.Assertions.assertThat;
 public class ScssIncludeTreeTest extends ScssTreeTest {
 
   public ScssIncludeTreeTest() {
-    super(LexicalGrammar.SCSS_MIXIN_INCLUDE);
+    super(LexicalGrammar.SCSS_INCLUDE);
   }
 
   @Test
-  public void scssMixinInclude() {
+  public void scssInclude() {
     ScssIncludeTree tree;
 
     tree = checkParsed("@include hello");
@@ -118,7 +118,7 @@ public class ScssIncludeTreeTest extends ScssTreeTest {
   }
 
   @Test
-  public void notScssMixinInclude() {
+  public void notScssInclude() {
     checkNotParsed("@mixin");
     checkNotParsed("@mixin()");
     checkNotParsed("@mixin;");

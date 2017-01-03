@@ -78,6 +78,15 @@ public class ScssGrammar extends CssGrammar {
   }
 
   @Override
+  public DeclarationTree DECLARATION() {
+    return b.<DeclarationTree>nonterminal(LexicalGrammar.DECLARATION).is(
+      b.firstOf(
+        SCSS_VARIABLE_DECLARATION(),
+        SCSS_NESTED_PROPERTIES_DECLARATION(),
+        CSS_DECLARATION()));
+  }
+
+  @Override
   public PropertyTree PROPERTY() {
     return b.<PropertyTree>nonterminal(LexicalGrammar.PROPERTY).is(
       f.property(
@@ -129,15 +138,6 @@ public class ScssGrammar extends CssGrammar {
             SCSS_PARENT_SELECTOR(),
             SCSS_PLACEHOLDER_SELECTOR(),
             SIMPLE_CSS_SELECTOR()))));
-  }
-
-  @Override
-  public DeclarationTree DECLARATION() {
-    return b.<DeclarationTree>nonterminal(LexicalGrammar.DECLARATION).is(
-      b.firstOf(
-        SCSS_VARIABLE_DECLARATION(),
-        SCSS_NESTED_PROPERTIES_DECLARATION(),
-        CSS_DECLARATION()));
   }
 
   @Override
@@ -302,25 +302,25 @@ public class ScssGrammar extends CssGrammar {
 
   public ScssFunctionTree SCSS_FUNCTION() {
     return b.<ScssFunctionTree>nonterminal(LexicalGrammar.SCSS_FUNCTION).is(
-      f.scssFunctionDefinition(
+      f.scssFunction(
         SCSS_FUNCTION_DIRECTIVE(),
         IDENTIFIER(),
-        b.optional(SCSS_DEFINITION_PARAMETERS()),
+        b.optional(SCSS_PARAMETERS()),
         STATEMENT_BLOCK()));
   }
 
   public ScssMixinTree SCSS_MIXIN() {
-    return b.<ScssMixinTree>nonterminal(LexicalGrammar.SCSS_MIXIN_DEFINITION).is(
-      f.scssMixinDefinition(
+    return b.<ScssMixinTree>nonterminal(LexicalGrammar.SCSS_MIXIN).is(
+      f.scssMixin(
         SCSS_MIXIN_DIRECTIVE(),
         IDENTIFIER(),
-        b.optional(SCSS_DEFINITION_PARAMETERS()),
+        b.optional(SCSS_PARAMETERS()),
         STATEMENT_BLOCK()));
   }
 
   public ScssIncludeTree SCSS_INCLUDE() {
-    return b.<ScssIncludeTree>nonterminal(LexicalGrammar.SCSS_MIXIN_INCLUDE).is(
-      f.scssMixinInclude(
+    return b.<ScssIncludeTree>nonterminal(LexicalGrammar.SCSS_INCLUDE).is(
+      f.scssInclude(
         SCSS_INCLUDE_DIRECTIVE(),
         IDENTIFIER(),
         b.optional(SCSS_CALL_PARAMETERS()),
@@ -328,11 +328,11 @@ public class ScssGrammar extends CssGrammar {
         b.optional(b.token(LexicalGrammar.SEMICOLON))));
   }
 
-  public ScssParametersTree SCSS_DEFINITION_PARAMETERS() {
-    return b.<ScssParametersTree>nonterminal(LexicalGrammar.SCSS_DEFINITION_PARAMETERS).is(
-      f.scssDefinitionParameters(
+  public ScssParametersTree SCSS_PARAMETERS() {
+    return b.<ScssParametersTree>nonterminal(LexicalGrammar.SCSS_PARAMETERS).is(
+      f.scssParameters(
         b.token(LexicalGrammar.OPEN_PARENTHESIS),
-        b.optional(SCSS_DEFINITION_PARAMETER_LIST()),
+        b.optional(SCSS_PARAMETER_LIST()),
         b.token(LexicalGrammar.CLOSE_PARENTHESIS)));
   }
 
@@ -344,14 +344,14 @@ public class ScssGrammar extends CssGrammar {
         b.token(LexicalGrammar.CLOSE_PARENTHESIS)));
   }
 
-  public SeparatedList<ScssParameterTree, SyntaxToken> SCSS_DEFINITION_PARAMETER_LIST() {
+  public SeparatedList<ScssParameterTree, SyntaxToken> SCSS_PARAMETER_LIST() {
     return b.<SeparatedList<ScssParameterTree, SyntaxToken>>nonterminal().is(
-      f.scssDefinitionParameterList(
-        SCSS_DEFINITION_PARAMETER(),
+      f.scssParameterList(
+        SCSS_PARAMETER(),
         b.zeroOrMore(
           f.newTuple5(
             b.token(LexicalGrammar.COMMA),
-            SCSS_DEFINITION_PARAMETER()))));
+            SCSS_PARAMETER()))));
   }
 
   public SeparatedList<ScssParameterTree, SyntaxToken> SCSS_CALL_PARAMETER_LIST() {
@@ -364,9 +364,9 @@ public class ScssGrammar extends CssGrammar {
             SCSS_CALL_PARAMETER()))));
   }
 
-  public ScssParameterTree SCSS_DEFINITION_PARAMETER() {
-    return b.<ScssParameterTree>nonterminal(LexicalGrammar.SCSS_DEFINITION_PARAMETER).is(
-      f.scssDefinitionParameter(
+  public ScssParameterTree SCSS_PARAMETER() {
+    return b.<ScssParameterTree>nonterminal(LexicalGrammar.SCSS_PARAMETER).is(
+      f.scssParameter(
         b.firstOf(
           SCSS_VARIABLE_DECLARATION_WITHOUT_DELIMITER_IN_VALUE(),
           SCSS_VARIABLE_ARGUMENT(),
@@ -494,9 +494,9 @@ public class ScssGrammar extends CssGrammar {
         b.optional(b.token(LexicalGrammar.SEMICOLON))));
   }
 
-  public ScssIfConditionsTree SCSS_IF_CONDITIONS() {
-    return b.<ScssIfConditionsTree>nonterminal(LexicalGrammar.SCSS_IF_CONDITIONS).is(
-      f.scssIfConditions(
+  public ScssIfElseIfElseTree SCSS_IF_CONDITIONS() {
+    return b.<ScssIfElseIfElseTree>nonterminal(LexicalGrammar.SCSS_IF_CONDITIONS).is(
+      f.scssIfElseIfElse(
         SCSS_IF(),
         b.zeroOrMore(SCSS_ELSE_IF()),
         b.optional(SCSS_ELSE())));

@@ -25,9 +25,9 @@ import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 
 public interface ScssPlaceholderSelectorTree extends SimpleSelectorTree {
 
-  SyntaxToken percentageSymbol();
+  SyntaxToken prefix();
 
-  IdentifierTree identifier();
+  IdentifierTree name();
 
   String text();
 

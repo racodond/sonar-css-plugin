@@ -21,7 +21,7 @@ package org.sonar.plugins.css.api.tree.scss;
 
 import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
 
-public interface ScssMixinTree extends ScssDirectiveWithNameAndParametersTree {
+public interface ScssMixinTree extends ScssDirectiveNameParametersTree {
 
   StatementBlockTree block();
 

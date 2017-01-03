@@ -44,7 +44,7 @@ public class ScssForTreeTest extends ScssTreeTest {
   }
 
   @Test
-  public void ScssForTree() {
+  public void ScssNotFor() {
     checkNotParsed("@for");
     checkNotParsed("@for {}");
     checkNotParsed("@for;");

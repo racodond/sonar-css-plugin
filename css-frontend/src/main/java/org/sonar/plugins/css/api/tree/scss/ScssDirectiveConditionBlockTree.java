@@ -20,18 +20,15 @@
 package org.sonar.plugins.css.api.tree.scss;
 
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
-import org.sonar.plugins.css.api.tree.css.ValueTree;
 
-import javax.annotation.Nullable;
-
-public interface ScssSimpleDirectiveTree extends Tree {
+public interface ScssDirectiveConditionBlockTree extends Tree {
 
   ScssDirectiveTree directive();
 
-  ValueTree value();
+  ScssConditionTree condition();
 
-  @Nullable
-  SyntaxToken semicolon();
+  StatementBlockTree block();
 
 }

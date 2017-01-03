@@ -21,19 +21,19 @@ package org.sonar.css.parser.scss;
 
 import org.junit.Test;
 import org.sonar.css.parser.LexicalGrammar;
-import org.sonar.plugins.css.api.tree.scss.ScssIfConditionsTree;
+import org.sonar.plugins.css.api.tree.scss.ScssIfElseIfElseTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class ScssIfConditionsTreeTest extends ScssTreeTest {
+public class ScssIfElseIfElseTreeTest extends ScssTreeTest {
 
-  public ScssIfConditionsTreeTest() {
+  public ScssIfElseIfElseTreeTest() {
     super(LexicalGrammar.SCSS_IF_CONDITIONS);
   }
 
   @Test
-  public void scssIfConditions() {
-    ScssIfConditionsTree tree;
+  public void scssIfElseIfElse() {
+    ScssIfElseIfElseTree tree;
 
     tree = checkParsed("@if $a == 1 {}");
     assertThat(tree.elseif()).isEmpty();
@@ -56,8 +56,8 @@ public class ScssIfConditionsTreeTest extends ScssTreeTest {
     assertThat(tree.elsee()).isNotNull();
   }
 
-  private ScssIfConditionsTree checkParsed(String toParse) {
-    ScssIfConditionsTree tree = (ScssIfConditionsTree) parser().parse(toParse);
+  private ScssIfElseIfElseTree checkParsed(String toParse) {
+    ScssIfElseIfElseTree tree = (ScssIfElseIfElseTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
     assertThat(tree.ife()).isNotNull();
     assertThat(tree.elseif()).isNotNull();

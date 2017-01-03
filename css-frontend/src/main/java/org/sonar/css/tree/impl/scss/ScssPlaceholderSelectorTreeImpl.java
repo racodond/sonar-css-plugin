@@ -31,12 +31,12 @@ import java.util.Iterator;
 
 public class ScssPlaceholderSelectorTreeImpl extends TreeImpl implements ScssPlaceholderSelectorTree {
 
-  private final SyntaxToken percentageSymbol;
-  private final IdentifierTree identifier;
+  private final SyntaxToken prefix;
+  private final IdentifierTree name;
 
-  public ScssPlaceholderSelectorTreeImpl(SyntaxToken percentageSymbol, IdentifierTree identifier) {
-    this.percentageSymbol = percentageSymbol;
-    this.identifier = identifier;
+  public ScssPlaceholderSelectorTreeImpl(SyntaxToken prefix, IdentifierTree name) {
+    this.prefix = prefix;
+    this.name = name;
   }
 
   @Override
@@ -46,7 +46,7 @@ public class ScssPlaceholderSelectorTreeImpl extends TreeImpl implements ScssPla
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    return Iterators.forArray(percentageSymbol, identifier);
+    return Iterators.forArray(prefix, name);
   }
 
   @Override
@@ -55,18 +55,18 @@ public class ScssPlaceholderSelectorTreeImpl extends TreeImpl implements ScssPla
   }
 
   @Override
-  public SyntaxToken percentageSymbol() {
-    return percentageSymbol;
+  public SyntaxToken prefix() {
+    return prefix;
   }
 
   @Override
-  public IdentifierTree identifier() {
-    return identifier;
+  public IdentifierTree name() {
+    return name;
   }
 
   @Override
   public String text() {
-    return identifier.text();
+    return name.text();
   }
 
 }

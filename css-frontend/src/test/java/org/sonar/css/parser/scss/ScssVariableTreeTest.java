@@ -47,9 +47,9 @@ public class ScssVariableTreeTest extends ScssTreeTest {
 
   private void checkParsed(String toParse, String expectedVariableName) {
     ScssVariableTree tree = (ScssVariableTree) parser().parse(toParse);
-    assertThat(tree.variable()).isNotNull();
-    assertThat(tree.variablePrefix()).isNotNull();
-    assertThat(tree.variableName()).isEqualTo(expectedVariableName);
+    assertThat(tree.name()).isNotNull();
+    assertThat(tree.prefix()).isNotNull();
+    assertThat(tree.name().text()).isEqualTo(expectedVariableName);
   }
 
 }

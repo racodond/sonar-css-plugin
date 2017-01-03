@@ -36,18 +36,32 @@ public class ScssCallParameterTreeTest extends ScssTreeTest {
   public void scssCallParameter() {
     ScssParameterTree tree;
 
+    tree = checkParsed("$abc");
+    assertThat(tree.value()).isNotNull();
+    assertThat(tree.variableDeclaration()).isNull();
+    assertThat(tree.variable()).isNull();
+
     tree = checkParsed("$abc: 10");
     assertThat(tree.value()).isNull();
+    assertThat(tree.variable()).isNull();
     assertThat(tree.variableDeclaration()).isNotNull();
-    assertThat(tree.variableDeclaration().variable().variableName()).isEqualTo("abc");
+    assertThat(tree.variableDeclaration().variable()).isNotNull();
+    assertThat(tree.variableDeclaration().variable().name().text()).isEqualTo("abc");
     assertThat(tree.variableDeclaration().value()).isNotNull();
+    assertThat(tree.variableDeclaration().value().valueElements()).hasSize(1);
+    assertThat(tree.variableDeclaration().value().valueElements().get(0).is(Tree.Kind.NUMBER)).isTrue();
+    assertThat(tree.variableDeclaration().value().treeValue()).isEqualTo("10");
 
-    tree = checkParsed("10");
+    tree = checkParsed("$abc...");
+    assertThat(tree.variable()).isNull();
+    assertThat(tree.value()).isNull();
+    assertThat(tree.variableArgument()).isNotNull();
+    assertThat(tree.variableArgument().name().text()).isEqualTo("abc");
+
+    tree = checkParsed("abc");
+    assertThat(tree.variable()).isNull();
+    assertThat(tree.variableArgument()).isNull();
     assertThat(tree.value()).isNotNull();
-    assertThat(tree.value().valueElements()).hasSize(1);
-    assertThat(tree.value().valueElements().get(0).is(Tree.Kind.NUMBER)).isTrue();
-    assertThat(tree.value().treeValue()).isEqualTo("10");
-    assertThat(tree.variableDeclaration()).isNull();
   }
 
   private ScssParameterTree checkParsed(String toParse) {

@@ -32,7 +32,7 @@ public class ScssFunctionTreeTest extends ScssTreeTest {
   }
 
   @Test
-  public void scssFunctionDefinition() {
+  public void scssFunction() {
     ScssFunctionTree tree;
     
     tree = checkParsed("@function hello {}");
@@ -109,12 +109,11 @@ public class ScssFunctionTreeTest extends ScssTreeTest {
   }
 
   @Test
-  public void notScssFunctionDefinition() {
+  public void notScssFunction() {
     checkNotParsed("@function");
     checkNotParsed("@function()");
     checkNotParsed("@function{}");
     checkNotParsed("@function(){}");
-    checkNotParsed("@function abc(10) {}");
   }
 
   private ScssFunctionTree checkParsed(String toParse) {

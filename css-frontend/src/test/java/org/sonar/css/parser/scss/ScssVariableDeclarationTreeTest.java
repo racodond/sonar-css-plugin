@@ -36,19 +36,19 @@ public class ScssVariableDeclarationTreeTest extends ScssTreeTest {
     ScssVariableDeclarationTree tree;
 
     tree = checkParsed("$abc:def");
-    assertThat(tree.variable().variableName()).isEqualTo("abc");
+    assertThat(tree.variable().name().text()).isEqualTo("abc");
     assertThat(tree.value().sanitizedValueElements()).isNotNull();
 
     tree = checkParsed(" $abc : def");
-    assertThat(tree.variable().variableName()).isEqualTo("abc");
+    assertThat(tree.variable().name().text()).isEqualTo("abc");
 
     tree = checkParsed(" $abc : 10 !default");
-    assertThat(tree.variable().variableName()).isEqualTo("abc");
+    assertThat(tree.variable().name().text()).isEqualTo("abc");
     assertThat(tree.defaultFlag()).isNotNull();
     assertThat(tree.defaultFlag().text()).isEqualTo("!default");
 
     tree = checkParsed(" $abc : 10 !global");
-    assertThat(tree.variable().variableName()).isEqualTo("abc");
+    assertThat(tree.variable().name().text()).isEqualTo("abc");
     assertThat(tree.globalFlag()).isNotNull();
     assertThat(tree.globalFlag().text()).isEqualTo("!global");
 
@@ -76,8 +76,8 @@ public class ScssVariableDeclarationTreeTest extends ScssTreeTest {
   private ScssVariableDeclarationTree checkParsed(String toParse) {
     ScssVariableDeclarationTree tree = (ScssVariableDeclarationTree) parser().parse(toParse);
     assertThat(tree.variable()).isNotNull();
-    assertThat(tree.variable().variablePrefix()).isNotNull();
-    assertThat(tree.variable().variablePrefix().text()).isEqualTo("$");
+    assertThat(tree.variable().prefix()).isNotNull();
+    assertThat(tree.variable().prefix().text()).isEqualTo("$");
     assertThat(tree.colon()).isNotNull();
     assertThat(tree.value()).isNotNull();
     return tree;

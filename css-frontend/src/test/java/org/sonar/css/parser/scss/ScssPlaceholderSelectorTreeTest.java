@@ -49,9 +49,9 @@ public class ScssPlaceholderSelectorTreeTest extends ScssTreeTest {
   private void checkParsed(String toParse, String expectedIdentifier) {
     ScssPlaceholderSelectorTree tree = (ScssPlaceholderSelectorTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
-    assertThat(tree.percentageSymbol()).isNotNull();
-    assertThat(tree.identifier()).isNotNull();
-    assertThat(tree.identifier().text()).isEqualTo(expectedIdentifier);
+    assertThat(tree.prefix()).isNotNull();
+    assertThat(tree.name()).isNotNull();
+    assertThat(tree.name().text()).isEqualTo(expectedIdentifier);
   }
 
 }

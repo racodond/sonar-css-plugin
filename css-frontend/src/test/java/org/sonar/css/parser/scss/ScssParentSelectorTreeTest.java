@@ -32,12 +32,12 @@ public class ScssParentSelectorTreeTest extends ScssTreeTest {
   }
 
   @Test
-  public void parentSelector() {
+  public void sscsParentSelector() {
     checkParsed("&");
   }
 
   @Test
-  public void notParentSelector() {
+  public void notScssParentSelector() {
     checkNotParsed(" &");
   }
 

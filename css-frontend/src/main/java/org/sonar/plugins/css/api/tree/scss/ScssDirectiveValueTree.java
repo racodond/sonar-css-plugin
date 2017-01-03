@@ -20,17 +20,18 @@
 package org.sonar.plugins.css.api.tree.scss;
 
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.SyntaxToken;
+import org.sonar.plugins.css.api.tree.css.ValueTree;
 
 import javax.annotation.Nullable;
-import java.util.List;
 
-public interface ScssIfConditionsTree extends Tree {
+public interface ScssDirectiveValueTree extends Tree {
 
-  ScssIfTree ife();
+  ScssDirectiveTree directive();
 
-  List<ScssElseIfTree> elseif();
+  ValueTree value();
 
   @Nullable
-  ScssElseTree elsee();
+  SyntaxToken semicolon();
 
 }
