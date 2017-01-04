@@ -195,10 +195,10 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
 
   /**
    * See {@link CssCheckVerifier#verifyCssFile(CssCheck, File)}
-   * File is parsed with Less parser.
+   * File is parsed with CSS Embedded parser.
    */
   public static void verifyEmbeddedCssFile(CssCheck check, File file) {
-    verifyLessFile(check, file, Charsets.UTF_8);
+    verifyEmbeddedCssFile(check, file, Charsets.UTF_8);
   }
 
   /**

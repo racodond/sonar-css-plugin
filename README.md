@@ -84,6 +84,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Each declaration should end with a semicolon
 * Empty declarations should be removed
 * Empty rules should be removed
+* Empty stylesheets should be removed
 * Experimental @-rules should not be used
 * Experimental functions should not be used
 * Experimental identifiers should not be used
