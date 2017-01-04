@@ -17,25 +17,48 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.checks.less;
+package org.sonar.plugins.css.api.tree.less;
 
-import org.junit.Test;
-import org.sonar.css.checks.CheckTestUtils;
-import org.sonar.css.checks.verifier.CssCheckVerifier;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 
-public class PreferSingleLineCommentsCheckTest {
+import java.util.HashMap;
+import java.util.Map;
 
-  private static final String MESSAGE = "Replace this multi-line comment with single-line comments.";
+public interface LessOperatorTree extends Tree {
 
-  @Test
-  public void test() {
-    CssCheckVerifier.issuesOnLessFile(
-      new PreferSingleLineCommentsCheck(),
-      CheckTestUtils.getLessTestFile("preferSingleLineComments.less"))
-      .next().atLine(2).withMessage(MESSAGE)
-      .next().atLine(4).withMessage(MESSAGE)
-      .next().atLine(5).withMessage(MESSAGE)
-      .noMore();
+  enum OPERATOR {
+    PLUS("+"),
+    MINUS("-"),
+    TIMES("*"),
+    DIV("/");
+
+    private static final Map<String, OPERATOR> LOOKUP = new HashMap<>();
+
+    static {
+      for (OPERATOR operator : OPERATOR.values())
+        LOOKUP.put(operator.getValue(), operator);
+    }
+
+    private String value;
+
+    OPERATOR(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    public static OPERATOR getType(String value) {
+      return LOOKUP.get(value.trim());
+    }
   }
+
+  SyntaxToken operator();
+
+  OPERATOR type();
+
+  String text();
 
 }

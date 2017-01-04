@@ -436,4 +436,8 @@ public abstract class DoubleDispatchVisitor implements TreeVisitor {
     scanChildren(tree);
   }
 
+  public void visitLessOperator(LessOperatorTree tree) {
+    scanChildren(tree);
+  }
+
 }

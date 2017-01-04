@@ -146,7 +146,8 @@ public interface Tree {
     LESS_MIXIN_GUARD(LessMixinGuardTree.class),
     LESS_MIXIN_PARAMETERS(LessMixinParametersTree.class),
     LESS_MIXIN_PARAMETER(LessMixinParameterTree.class),
-    LESS_ESCAPING(LessEscapingTree.class),;
+    LESS_ESCAPING(LessEscapingTree.class),
+    LESS_OPERATOR(LessOperatorTree.class);
 
     final Class<? extends Tree> associatedInterface;
 

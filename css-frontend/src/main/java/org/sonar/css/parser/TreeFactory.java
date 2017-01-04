@@ -658,6 +658,10 @@ public class TreeFactory {
     return new LessEscapingTreeImpl(escapingSymbol, string);
   }
 
+  public LessOperatorTree lessOperator(SyntaxToken operator) {
+    return new LessOperatorTreeImpl(operator);
+  }
+
   // ---------------------------------
   // Tuple
   // ---------------------------------

@@ -95,6 +95,7 @@ public class LessGrammar extends CssGrammar {
         STRING(),
         HASH(),
         UNICODE_RANGE(),
+        LESS_OPERATOR(),
         IDENTIFIER(),
         IMPORTANT(),
         LESS_ESCAPING(),
@@ -349,6 +350,11 @@ public class LessGrammar extends CssGrammar {
       f.lessEscaping(
         b.token(LexicalGrammar.LESS_ESCAPING_SYMBOL),
         STRING_NO_WS()));
+  }
+
+  public LessOperatorTree LESS_OPERATOR() {
+    return b.<LessOperatorTree>nonterminal(LexicalGrammar.LESS_OPERATOR).is(
+      f.lessOperator(b.token(LexicalGrammar.LESS_OPERATOR_LITERAL)));
   }
 
 }

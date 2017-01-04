@@ -39,7 +39,7 @@ public class PreferSingleLineCommentsCheck extends DoubleDispatchVisitorCheck {
   @Override
   public void visitComment(SyntaxTrivia trivia) {
     if (trivia.text().startsWith("/*")) {
-      addPreciseIssue(trivia, "Replace these multi-line comments with single-line comments.");
+      addPreciseIssue(trivia, "Replace this multi-line comment with single-line comments.");
     }
     super.visitComment(trivia);
   }

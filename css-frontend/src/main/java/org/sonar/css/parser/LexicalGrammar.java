@@ -314,7 +314,11 @@ public enum LexicalGrammar implements GrammarRuleKey {
   LESS_IDENT_IDENTIFIER_NO_WS_NOR_WHEN,
   LESS_MERGE,
   LESS_ESCAPING,
-  LESS_ESCAPING_SYMBOL;
+  LESS_ESCAPING_SYMBOL,
+
+  LESS_OPERATOR,
+  LESS_OPERATOR_LITERAL;
+
 
   private static final String CSS_COMMENT_REGEX = "(?:" + "(?:/\\*[\\s\\S]*?\\*/)" + "|" + "(?:\\<\\!--[\\s\\S]*?--\\>)" + ")";
   private static final String LESS_COMMENT_REGEX = "(?:" + "(?:/\\*[\\s\\S]*?\\*/)" + "|" + "(?:\\<\\!--[\\s\\S]*?--\\>)" + "|" + "//[^\\n\\r]*+" + ")";
@@ -668,6 +672,16 @@ public enum LexicalGrammar implements GrammarRuleKey {
     b.rule(LESS_MERGE).is(b.token(GenericTokenType.LITERAL, b.firstOf("+_", "+")));
 
     b.rule(LESS_ESCAPING_SYMBOL).is(SPACING, b.token(GenericTokenType.LITERAL, "~"));
+
+    b.rule(LESS_OPERATOR_LITERAL).is(
+      SPACING,
+      b.token(GenericTokenType.LITERAL,
+        b.firstOf(
+          "+",
+          "-",
+          "/",
+          "*"
+        )));
   }
 
   private static Object matchCaseInsensitive(LexerlessGrammarBuilder b, String value) {

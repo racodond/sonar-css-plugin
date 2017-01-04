@@ -31,6 +31,7 @@ import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.*;
 import org.sonar.plugins.css.api.tree.less.LessEscapingTree;
+import org.sonar.plugins.css.api.tree.less.LessOperatorTree;
 import org.sonar.plugins.css.api.tree.less.LessVariableTree;
 import org.sonar.plugins.css.api.tree.scss.ScssOperatorTree;
 import org.sonar.plugins.css.api.tree.scss.ScssVariableTree;
@@ -170,8 +171,10 @@ public class PropertyDeclarationTreeImpl extends TreeImpl implements PropertyDec
 
   private boolean isLessElement(Tree tree) {
     return tree instanceof LessVariableTree
+      || (tree instanceof IdentifierTree && ((IdentifierTree) tree).isLessInterpolated())
       || tree instanceof LessEscapingTree
-      || (tree instanceof FunctionTree && ((FunctionTree) tree).standardFunction().isLess());
+      || (tree instanceof FunctionTree && ((FunctionTree) tree).standardFunction().isLess())
+      || tree instanceof LessOperatorTree;
   }
 
   private boolean isScssElement(Tree tree) {

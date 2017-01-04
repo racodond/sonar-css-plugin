@@ -25,7 +25,7 @@ import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 public class PreferSingleLineCommentsCheckTest {
 
-  private static final String MESSAGE = "Replace these multi-line comments with single-line comments.";
+  private static final String MESSAGE = "Replace this multi-line comment with single-line comments.";
 
   @Test
   public void test() {
