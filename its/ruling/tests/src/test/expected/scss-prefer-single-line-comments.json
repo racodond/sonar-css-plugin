@@ -11,6 +11,10 @@
 'project:custom/common/selectorNamingConvention/selectorNamingConventionScssPlaceholder.scss':[
 6,
 ],
+'project:custom/common/single-quotes/singleQuotes.scss':[
+3,
+7,
+],
 'project:custom/scss/atLeastTwoNestedProperties.scss':[
 2,
 8,

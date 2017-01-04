@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style type="text/css">
+        .mybox1 {
+            background-image: url("my-image"); /* Noncompliant ![sc=35;ec=45]! !{Wrap this string with single quotes instead of double quotes.}! */
+        }
+
+        .mybox2 {
+            background-image: url('my-image');
+        }
+
+        .mybox3 {
+            background-image: url("my'-'image");
+        }
+    </style>
+</head>
+<body>
+</body>
+</html>

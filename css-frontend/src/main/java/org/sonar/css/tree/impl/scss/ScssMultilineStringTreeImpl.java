@@ -40,4 +40,9 @@ public class ScssMultilineStringTreeImpl extends LiteralTreeImpl implements Scss
     visitor.visitScssMultilineString(this);
   }
 
+  @Override
+  public String actualText() {
+    return text().substring(1, text().length() - 1);
+  }
+
 }

@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.mybox1 {
+  background-image: url("my-image"); /* Noncompliant ![sc=25;ec=35]! !{Wrap this string with single quotes instead of double quotes.}! */
+}
+
+.mybox2 {
+    background-image: url('my-image');
+}
+
+.mybox3 {
+    background-image: url("my'-'image");
+}

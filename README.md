@@ -114,6 +114,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Selectors should follow a naming convention
 * Shorthand properties should be used whenever possible
 * Shorthand properties should not be used
+* Single quotes should be used instead of double quotes for strings
 * Source code should comply with formatting standards
 * Standard properties should be specified along with vendor-prefixed properties
 * Star hack should not be used
@@ -132,11 +133,13 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Unknown pseudo-functions should be removed
 * URL should be quoted
 
+
 ### Specific to CSS
 * "@import" rule should not be used
 * @import rules should precede all other at-rules and style rules
 * CSS should not be embedded in HTML files
 * Stylesheets should not "@import" too many other sheets
+
 
 ### Specific to SCSS
 * @debug directives should not be used in production code
@@ -155,6 +158,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Two branches in the same conditional structure should not have exactly the same implementation
 * Useless parentheses following @include and @mixin with no parameter should be removed
 
+
 ### Specific to Less
 * Deprecated "e" escaping function should be replaced with ~"value" syntax
 * Rulesets should not be nested too deeply
@@ -162,6 +166,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Single-line comments (//) should be preferred over multi-line comments (/* ... */)
 * Variables should be declared at the beginning of the block
 * Less variables should follow a naming convention
+
 
 ### Templates
 * Regular expression on comment

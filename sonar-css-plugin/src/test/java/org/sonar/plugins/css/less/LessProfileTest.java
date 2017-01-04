@@ -40,7 +40,7 @@ public class LessProfileTest {
 
     assertThat(profile.getName()).isEqualTo("SonarQube Way");
     assertThat(profile.getLanguage()).isEqualTo("less");
-    assertThat(profile.getActiveRulesByRepository("less")).hasSize(63);
+    assertThat(profile.getActiveRulesByRepository("less")).hasSize(64);
     assertThat(validation.hasErrors()).isFalse();
   }
 

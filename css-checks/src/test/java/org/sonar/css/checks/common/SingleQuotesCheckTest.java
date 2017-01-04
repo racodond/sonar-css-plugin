@@ -17,9 +17,40 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.plugins.css.api.tree.scss;
+package org.sonar.css.checks.common;
 
-import org.sonar.plugins.css.api.tree.css.StringTree;
+import org.junit.Test;
+import org.sonar.css.checks.CheckTestUtils;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
-public interface ScssMultilineStringTree extends StringTree {
+import java.io.File;
+
+public class SingleQuotesCheckTest {
+
+  private SingleQuotesCheck check = new SingleQuotesCheck();
+
+  @Test
+  public void test_css() {
+    CssCheckVerifier.verifyCssFile(check, getTestFile("singleQuotes.css"));
+  }
+
+  @Test
+  public void test_embedded_css() {
+    CssCheckVerifier.verifyEmbeddedCssFile(check, getTestFile("singleQuotes.html"));
+  }
+
+  @Test
+  public void test_less() {
+    CssCheckVerifier.verifyLessFile(check, getTestFile("singleQuotes.less"));
+  }
+
+  @Test
+  public void test_scss() {
+    CssCheckVerifier.verifyScssFile(check, getTestFile("singleQuotes.scss"));
+  }
+
+  private File getTestFile(String fileName) {
+    return CheckTestUtils.getCommonTestFile("single-quotes/" + fileName);
+  }
+
 }

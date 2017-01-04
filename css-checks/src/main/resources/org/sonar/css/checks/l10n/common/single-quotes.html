@@ -1,0 +1,42 @@
+<p>
+    Strings should always be wrapped with single quotes (<code>'</code>); single being easier to type than double on
+    qwerty keyboards.
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+.mybox {
+  background-image: url("img.png"); /* Noncompliant */
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+.mybox {
+  background-image: url('img.png');
+}
+</pre>
+
+<h2>Exceptions</h2>
+<p>
+    If a string contains one or several single quotes, double quotes (<code>"</code>) wrapping can be used instead in
+    order to avoid escaping characters within the string. Thus, in this case, no issue is raised.
+</p>
+<pre>
+.mybox {
+  background-image: url("im'a'ge.png");
+}
+</pre>
+
+<p>
+    The encoding value of the <code>@charset</code> rule must be a double-quoted string per the W3C specifications.
+    Thus, in this case, no issue is raised.
+</p>
+<pre>
+@charset "UTF-8";
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@charset" target="_blank">
+        Mozilla Developer Network @charset Documentation</a></li>
+</ul>
