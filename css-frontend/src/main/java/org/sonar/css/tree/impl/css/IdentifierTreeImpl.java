@@ -73,6 +73,11 @@ public class IdentifierTreeImpl extends LiteralTreeImpl implements IdentifierTre
   }
 
   @Override
+  public boolean isValidable() {
+    return !isInterpolated() && !isVendorPrefixed();
+  }
+
+  @Override
   public Vendor vendor() {
     return vendor;
   }

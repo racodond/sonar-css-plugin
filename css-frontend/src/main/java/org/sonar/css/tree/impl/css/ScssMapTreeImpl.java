@@ -20,48 +20,59 @@
 package org.sonar.css.tree.impl.css;
 
 import com.google.common.collect.Iterators;
-
-import java.util.Iterator;
-
 import org.sonar.css.tree.impl.TreeImpl;
-import org.sonar.plugins.css.api.tree.css.ImportantTree;
-import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.ScssMapEntryTree;
+import org.sonar.plugins.css.api.tree.css.ScssMapTree;
+import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
-public class ImportantTreeImpl extends TreeImpl implements ImportantTree {
+import java.util.Iterator;
+import java.util.List;
 
-  private final SyntaxToken exclamationMark;
-  private final SyntaxToken importantKeyWord;
+public class ScssMapTreeImpl extends TreeImpl implements ScssMapTree {
 
-  public ImportantTreeImpl(SyntaxToken exclamationMark, SyntaxToken importantKeyWord) {
-    this.exclamationMark = exclamationMark;
-    this.importantKeyWord = importantKeyWord;
+  private final SyntaxToken openParenthesis;
+  private final SyntaxToken closeParenthesis;
+  private final List<ScssMapEntryTree> entries;
+
+  public ScssMapTreeImpl(SyntaxToken openParenthesis, List<ScssMapEntryTree> entries, SyntaxToken closeParenthesis) {
+    this.openParenthesis = openParenthesis;
+    this.closeParenthesis = closeParenthesis;
+    this.entries = entries;
   }
 
   @Override
   public Kind getKind() {
-    return Kind.IMPORTANT;
+    return Kind.SCSS_MAP;
   }
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    return Iterators.forArray(exclamationMark, importantKeyWord);
-  }
-
-  @Override
-  public SyntaxToken exclamationMark() {
-    return exclamationMark;
-  }
-
-  @Override
-  public SyntaxToken importantKeyword() {
-    return importantKeyWord;
+    return Iterators.concat(
+      Iterators.singletonIterator(openParenthesis),
+      entries.iterator(),
+      Iterators.singletonIterator(closeParenthesis));
   }
 
   @Override
   public void accept(DoubleDispatchVisitor visitor) {
-    visitor.visitImportant(this);
+    visitor.visitScssMap(this);
+  }
+
+  @Override
+  public SyntaxToken openParenthesis() {
+    return openParenthesis;
+  }
+
+  @Override
+  public SyntaxToken closeParenthesis() {
+    return closeParenthesis;
+  }
+
+  @Override
+  public List<ScssMapEntryTree> entries() {
+    return entries;
   }
 
 }

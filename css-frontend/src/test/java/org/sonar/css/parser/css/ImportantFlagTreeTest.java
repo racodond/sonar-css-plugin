@@ -21,18 +21,18 @@ package org.sonar.css.parser.css;
 
 import org.junit.Test;
 import org.sonar.css.parser.LexicalGrammar;
-import org.sonar.plugins.css.api.tree.css.ImportantTree;
+import org.sonar.plugins.css.api.tree.css.ImportantFlagTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class ImportantTreeTest extends CssTreeTest {
+public class ImportantFlagTreeTest extends CssTreeTest {
 
-  public ImportantTreeTest() {
-    super(LexicalGrammar.IMPORTANT);
+  public ImportantFlagTreeTest() {
+    super(LexicalGrammar.IMPORTANT_FLAG);
   }
 
   @Test
-  public void important() {
+  public void importantFlag() {
     checkParsed("!important", "important");
     checkParsed(" !important", "important");
     checkParsed("! important", "important");
@@ -46,13 +46,13 @@ public class ImportantTreeTest extends CssTreeTest {
   }
 
   @Test
-  public void notImportant() {
+  public void notImportantFlag() {
     checkNotParsed("important");
     checkNotParsed("!import");
   }
 
   private void checkParsed(String toParse, String expectedImportantString) {
-    ImportantTree tree = (ImportantTree) parser().parse(toParse);
+    ImportantFlagTree tree = (ImportantFlagTree) parser().parse(toParse);
     assertThat(tree.exclamationMark()).isNotNull();
     assertThat(tree.exclamationMark().text()).isEqualTo("!");
     assertThat(tree.importantKeyword()).isNotNull();

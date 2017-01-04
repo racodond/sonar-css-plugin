@@ -1,0 +1,15 @@
+{
+'project:custom/common/case/case.scss':[
+1,
+],
+'project:custom/common/validateNestedProperties.scss':[
+1,
+],
+'project:custom/scss/atLeastTwoNestedProperties.scss':[
+1,
+12,
+],
+'project:custom/scss/preferSingleLineComments.scss':[
+1,
+],
+}

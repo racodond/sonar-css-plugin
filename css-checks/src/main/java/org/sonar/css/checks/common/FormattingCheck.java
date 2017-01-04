@@ -41,7 +41,7 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 public class FormattingCheck extends DoubleDispatchVisitorCheck {
 
   @Override
-  public void visitImportant(ImportantTree tree) {
+  public void visitImportant(ImportantFlagTree tree) {
     if (tree.exclamationMark().endColumn() != tree.importantKeyword().column()) {
       addPreciseIssue(tree, "Remove the whitespaces between \"!\" and \"important\".");
     }

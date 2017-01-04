@@ -22,7 +22,7 @@ package org.sonar.css.checks.common;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.Tags;
-import org.sonar.plugins.css.api.tree.css.ImportantTree;
+import org.sonar.plugins.css.api.tree.css.ImportantFlagTree;
 import org.sonar.plugins.css.api.tree.css.ValueTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
@@ -40,7 +40,7 @@ public class ImportantPositionCheck extends DoubleDispatchVisitorCheck {
   @Override
   public void visitValue(ValueTree tree) {
     for (int i = 0; i < tree.valueElements().size() - 1; i++) {
-      if (tree.valueElements().get(i) instanceof ImportantTree) {
+      if (tree.valueElements().get(i) instanceof ImportantFlagTree) {
         addPreciseIssue(tree.valueElements().get(i), "Move the \"!important\" annotation to the end of the declaration.");
       }
     }

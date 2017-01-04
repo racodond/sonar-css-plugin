@@ -206,8 +206,8 @@ public class TreeFactory {
     return new NamespaceTreeImpl(namespace.orNull(), pipe);
   }
 
-  public ImportantTree important(SyntaxToken exclamationMark, SyntaxToken importantKeyword) {
-    return new ImportantTreeImpl(exclamationMark, importantKeyword);
+  public ImportantFlagTree important(SyntaxToken exclamationMark, SyntaxToken importantKeyword) {
+    return new ImportantFlagTreeImpl(exclamationMark, importantKeyword);
   }
 
   public IdentifierTree identifier(SyntaxToken identifier) {
@@ -324,8 +324,8 @@ public class TreeFactory {
     return new ScssVariableDeclarationTreeImpl(variable, colon, value, semicolon.orNull());
   }
 
-  public ScssVariableDeclarationTree scssVariableDeclarationWithoutDelimiterInValue(ScssVariableTree variable, SyntaxToken colon, ValueTree value, Optional<SyntaxToken> semicolon) {
-    return new ScssVariableDeclarationTreeImpl(variable, colon, value, semicolon.orNull());
+  public ScssVariableDeclarationTree scssVariableDeclarationAsParameter(ScssVariableTree variable, SyntaxToken colon, ValueTree value) {
+    return new ScssVariableDeclarationTreeImpl(variable, colon, value, null);
   }
 
   public ScssVariableTree scssVariable(SyntaxToken prefix, IdentifierTree name) {
@@ -394,14 +394,6 @@ public class TreeFactory {
 
   public ScssParameterTree scssCallParameter(Tree parameter) {
     return new ScssParameterTreeImpl(parameter);
-  }
-
-  public ValueTree scssValue(List<Tree> valueElements) {
-    return new ValueTreeImpl(valueElements);
-  }
-
-  public ValueTree scssValueWithoutDelimiter(List<Tree> valueElements) {
-    return new ValueTreeImpl(valueElements);
   }
 
   public ScssExtendTree scssExtend(ScssDirectiveTree directive, CompoundSelectorTree compoundSelector, Optional<ScssOptionalFlagTree> optionalFlag, Optional<SyntaxToken> semicolon) {
@@ -548,6 +540,60 @@ public class TreeFactory {
     return new ScssDirectiveTreeImpl(at, name);
   }
 
+  public ScssMapTree scssMap(SyntaxToken openParenthesis, List<ScssMapEntryTree> entries, SyntaxToken closeParenthesis) {
+    return new ScssMapTreeImpl(openParenthesis, entries, closeParenthesis);
+  }
+
+  public SeparatedList<ScssMapEntryTree, SyntaxToken> scssMapEntryList(ScssMapEntryTree mapEntry, Optional<List<Tuple<SyntaxToken, ScssMapEntryTree>>> subsequentMapEntries, Optional<SyntaxToken> trailingComma) {
+    List<ScssMapEntryTree> mapEntries = Lists.newArrayList();
+    List<SyntaxToken> commas = Lists.newArrayList();
+
+    mapEntries.add(mapEntry);
+
+    if (subsequentMapEntries.isPresent()) {
+      for (Tuple<SyntaxToken, ScssMapEntryTree> t : subsequentMapEntries.get()) {
+        commas.add(t.first());
+        mapEntries.add(t.second());
+      }
+    }
+
+    if (trailingComma.isPresent()) {
+      commas.add(trailingComma.get());
+    }
+
+    return new SeparatedList<>(mapEntries, commas);
+  }
+
+  public ScssSassScriptExpressionCommaSeparatedListTree scssSassScriptExpressionCommaSeparatedListTree(ValueTree value, List<Tuple<SyntaxToken, ValueTree>> subsequentValues, Optional<SyntaxToken> trailingComma) {
+    List<ValueTree> values = Lists.newArrayList();
+    List<SyntaxToken> commas = Lists.newArrayList();
+
+    values.add(value);
+
+    for (Tuple<SyntaxToken, ValueTree> t : subsequentValues) {
+      commas.add(t.first());
+      values.add(t.second());
+    }
+
+    if (trailingComma.isPresent()) {
+      commas.add(trailingComma.get());
+    }
+
+    return new ScssSassScriptExpressionCommaSeparatedListTreeImpl(new SeparatedList<>(values, commas));
+  }
+
+  public ScssMapEntryTree scssMapEntry(ValueTree key, SyntaxToken colon, ValueTree value) {
+    return new ScssMapEntryTreeImpl(key, colon, value);
+  }
+
+  public ValueTree scssSassExpression(List<Tree> valueElements) {
+    return new ValueTreeImpl(valueElements);
+  }
+
+  public ValueTree scssSassExpressionWithoutCommaSeparatedList(List<Tree> valueElements) {
+    return new ValueTreeImpl(valueElements);
+  }
+
   // ---------------------------------
   // Less
   // ---------------------------------
@@ -597,7 +643,7 @@ public class TreeFactory {
     return new SelectorCombinatorTreeImpl(combinator);
   }
 
-  public LessMixinCallTree lessMixinCall(Optional<SelectorCombinatorTree> parentCombinator, Optional<SyntaxToken> spacing, SelectorTree selector, Optional<ImportantTree> important,
+  public LessMixinCallTree lessMixinCall(Optional<SelectorCombinatorTree> parentCombinator, Optional<SyntaxToken> spacing, SelectorTree selector, Optional<ImportantFlagTree> important,
                                          Optional<SyntaxToken> semicolon) {
     return new LessMixinCallTreeImpl(parentCombinator.orNull(), selector, important.orNull(), semicolon.orNull());
   }
@@ -712,6 +758,14 @@ public class TreeFactory {
   }
 
   public <T, U> Tuple<T, U> newTuple6(T first, U second) {
+    return newTuple(first, second);
+  }
+
+  public <T, U> Tuple<T, U> newTuple7(T first, U second) {
+    return newTuple(first, second);
+  }
+
+  public <T, U> Tuple<T, U> newTuple8(T first, U second) {
     return newTuple(first, second);
   }
 

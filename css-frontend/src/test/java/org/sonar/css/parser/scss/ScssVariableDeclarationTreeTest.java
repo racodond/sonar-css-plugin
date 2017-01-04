@@ -35,7 +35,7 @@ public class ScssVariableDeclarationTreeTest extends ScssTreeTest {
   public void scssVariableDeclaration() {
     ScssVariableDeclarationTree tree;
 
-    tree = checkParsed("$abc:def");
+    tree = checkParsed("$abc:def blue");
     assertThat(tree.variable().name().text()).isEqualTo("abc");
     assertThat(tree.value().sanitizedValueElements()).isNotNull();
 

@@ -37,6 +37,7 @@ public class PseudoIdentifierTreeTest extends LessTreeTest {
     checkParsed("::after", "::", "after", false);
     checkParsed(":after@{abc}-def", ":", "after@{abc}-def", true);
     checkParsed("::after@{abc}-def", "::", "after@{abc}-def", true);
+    checkParsed("::@{hello}", "::", "@{hello}", true);
   }
 
   @Test

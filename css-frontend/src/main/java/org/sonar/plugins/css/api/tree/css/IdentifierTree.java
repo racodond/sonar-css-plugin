@@ -38,6 +38,8 @@ public interface IdentifierTree extends LiteralTree {
 
   boolean isScssInterpolated();
 
+  boolean isValidable();
+
   @Nullable
   Symbol symbol();
 

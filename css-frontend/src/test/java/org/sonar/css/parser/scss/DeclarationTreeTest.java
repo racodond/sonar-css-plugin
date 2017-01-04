@@ -38,7 +38,7 @@ public class DeclarationTreeTest extends ScssTreeTest {
   public void declaration() {
     DeclarationTree tree;
 
-    tree = checkParsed("color:green");
+    tree = checkParsed("color:green blue");
     assertThat(tree).isInstanceOf(PropertyDeclarationTree.class);
 
     tree = checkParsed(" color : green");

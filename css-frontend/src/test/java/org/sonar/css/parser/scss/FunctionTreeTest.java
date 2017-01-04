@@ -26,7 +26,7 @@ import org.sonar.css.model.function.standard.MicrosoftFilterBlur;
 import org.sonar.css.model.function.standard.Min;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.FunctionTree;
-import org.sonar.plugins.css.api.tree.less.LessVariableTree;
+import org.sonar.plugins.css.api.tree.css.ScssSassScriptExpressionCommaSeparatedListTree;
 import org.sonar.plugins.css.api.tree.scss.ScssVariableTree;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -56,13 +56,12 @@ public class FunctionTreeTest extends ScssTreeTest {
 
     tree = checkParsed("abc(param, 4, \"abc\")");
     assertThat(tree.standardFunction()).isInstanceOf(UnknownFunction.class);
-    assertThat(tree.parameterElements()).isNotNull();
-    assertThat(tree.parameterElements()).hasSize(5);
+    assertThat(tree.parameterElements()).hasSize(1);
+    assertThat(((ScssSassScriptExpressionCommaSeparatedListTree) tree.parameterElements().get(0)).values()).hasSize(3);
 
     tree = checkParsed("min(4, 5)");
     assertThat(tree.standardFunction()).isInstanceOf(Min.class);
-    assertThat(tree.parameterElements()).isNotNull();
-    assertThat(tree.parameterElements()).hasSize(3);
+    assertThat(((ScssSassScriptExpressionCommaSeparatedListTree) tree.parameterElements().get(0)).values()).hasSize(2);
 
     tree = checkParsed("-webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(100%,#7db9e8))");
     assertThat(tree.isVendorPrefixed()).isTrue();
@@ -76,9 +75,7 @@ public class FunctionTreeTest extends ScssTreeTest {
 
     tree = checkParsed("min($myvar, 5)");
     assertThat(tree.standardFunction()).isInstanceOf(Min.class);
-    assertThat(tree.parameterElements()).isNotNull();
-    assertThat(tree.parameterElements()).hasSize(3);
-    assertThat(tree.parameterElements().get(0)).isInstanceOf(ScssVariableTree.class);
+    assertThat(((ScssSassScriptExpressionCommaSeparatedListTree) tree.parameterElements().get(0)).values()).hasSize(2);
   }
 
   @Test

@@ -32,7 +32,7 @@ public interface LessMixinCallTree extends Tree {
   SelectorTree selector();
 
   @Nullable
-  ImportantTree important();
+  ImportantFlagTree important();
 
   @Nullable
   SyntaxToken semicolon();

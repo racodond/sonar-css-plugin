@@ -22,7 +22,7 @@ package org.sonar.css.tree.impl.css;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.css.tree.impl.TreeListUtils;
 import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.css.ImportantTree;
+import org.sonar.plugins.css.api.tree.css.ImportantFlagTree;
 import org.sonar.plugins.css.api.tree.css.ValueTree;
 import org.sonar.plugins.css.api.tree.scss.ScssDefaultFlagTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
@@ -87,7 +87,7 @@ public class ValueTreeImpl extends TreeImpl implements ValueTree {
 
   private List<Tree> buildSanitizedList() {
     return allValueElements.stream()
-      .filter(e -> !ImportantTree.class.isAssignableFrom(e.getClass()) && !ScssDefaultFlagTree.class.isAssignableFrom(e.getClass()))
+      .filter(e -> !ImportantFlagTree.class.isAssignableFrom(e.getClass()) && !ScssDefaultFlagTree.class.isAssignableFrom(e.getClass()))
       .collect(Collectors.toList());
   }
 

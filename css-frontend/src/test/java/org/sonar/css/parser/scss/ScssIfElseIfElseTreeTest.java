@@ -28,7 +28,7 @@ import static org.fest.assertions.Assertions.assertThat;
 public class ScssIfElseIfElseTreeTest extends ScssTreeTest {
 
   public ScssIfElseIfElseTreeTest() {
-    super(LexicalGrammar.SCSS_IF_CONDITIONS);
+    super(LexicalGrammar.SCSS_IF_ELSE_IF_ELSE);
   }
 
   @Test

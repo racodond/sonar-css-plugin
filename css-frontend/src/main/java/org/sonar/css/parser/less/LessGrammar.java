@@ -72,9 +72,9 @@ public class LessGrammar extends CssGrammar {
         b.token(LexicalGrammar.OPEN_CURLY_BRACE),
         b.zeroOrMore(
           b.firstOf(
-            RULESET(),
             DECLARATION(),
             AT_RULE(),
+            RULESET(),
             LESS_MIXIN_CALL(),
             EMPTY_STATEMENT())),
         b.token(LexicalGrammar.CLOSE_CURLY_BRACE)));
@@ -97,7 +97,7 @@ public class LessGrammar extends CssGrammar {
         UNICODE_RANGE(),
         LESS_OPERATOR(),
         IDENTIFIER(),
-        IMPORTANT(),
+        IMPORTANT_FLAG(),
         LESS_ESCAPING(),
         LESS_INTERPOLATED_IDENTIFIER(),
         LESS_VARIABLE(),
@@ -272,7 +272,7 @@ public class LessGrammar extends CssGrammar {
         b.optional(LESS_PARENT_SELECTOR_COMBINATOR()),
         b.optional(b.token(LexicalGrammar.SPACING)),
         SELECTOR(),
-        b.optional(IMPORTANT()),
+        b.optional(IMPORTANT_FLAG()),
         b.optional(b.token(LexicalGrammar.SEMICOLON))));
   }
 

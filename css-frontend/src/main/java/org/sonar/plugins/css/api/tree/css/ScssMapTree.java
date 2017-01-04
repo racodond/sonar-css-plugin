@@ -21,10 +21,14 @@ package org.sonar.plugins.css.api.tree.css;
 
 import org.sonar.plugins.css.api.tree.Tree;
 
-public interface ImportantTree extends Tree {
+import java.util.List;
 
-  SyntaxToken exclamationMark();
+public interface ScssMapTree extends Tree {
 
-  SyntaxToken importantKeyword();
+  SyntaxToken openParenthesis();
+
+  List<ScssMapEntryTree> entries();
+
+  SyntaxToken closeParenthesis();
 
 }

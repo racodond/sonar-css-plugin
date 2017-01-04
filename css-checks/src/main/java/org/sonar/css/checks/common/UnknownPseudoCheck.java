@@ -24,9 +24,9 @@ import org.sonar.check.Rule;
 import org.sonar.css.checks.Tags;
 import org.sonar.css.model.pseudo.pseudofunction.UnknownPseudoFunction;
 import org.sonar.css.model.pseudo.pseudoidentifier.UnknownPseudoIdentifier;
+import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.PseudoFunctionTree;
 import org.sonar.plugins.css.api.tree.css.PseudoIdentifierTree;
-import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -42,7 +42,7 @@ public class UnknownPseudoCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitPseudoFunction(PseudoFunctionTree tree) {
-    if (tree.standardFunction() instanceof UnknownPseudoFunction && !tree.isVendorPrefixed()) {
+    if (tree.standardFunction() instanceof UnknownPseudoFunction && tree.function().isValidable()) {
       createIssue(tree.function(), tree.standardFunction().getName());
     }
     super.visitPseudoFunction(tree);
@@ -50,7 +50,7 @@ public class UnknownPseudoCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitPseudoIdentifier(PseudoIdentifierTree tree) {
-    if (tree.standardPseudoIdentifier() instanceof UnknownPseudoIdentifier && !tree.isVendorPrefixed()) {
+    if (tree.standardPseudoIdentifier() instanceof UnknownPseudoIdentifier && tree.identifier().isValidable()) {
       createIssue(tree.identifier(), tree.standardPseudoIdentifier().getName());
     }
     super.visitPseudoIdentifier(tree);

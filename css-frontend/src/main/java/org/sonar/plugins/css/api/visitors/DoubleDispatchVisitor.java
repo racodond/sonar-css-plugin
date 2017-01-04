@@ -186,7 +186,7 @@ public abstract class DoubleDispatchVisitor implements TreeVisitor {
     scanChildren(tree);
   }
 
-  public void visitImportant(ImportantTree tree) {
+  public void visitImportant(ImportantFlagTree tree) {
     scanChildren(tree);
   }
 
@@ -384,10 +384,6 @@ public abstract class DoubleDispatchVisitor implements TreeVisitor {
     scanChildren(tree);
   }
 
-  public void visitScssOperator(ScssOperatorTree tree) {
-    scanChildren(tree);
-  }
-
   public void visitScssMultilineString(ScssMultilineStringTree tree) {
     scanChildren(tree);
   }
@@ -395,6 +391,23 @@ public abstract class DoubleDispatchVisitor implements TreeVisitor {
   public void visitScssDirective(ScssDirectiveTree tree) {
     scanChildren(tree);
   }
+
+  public void visitScssSassScriptExpressionCommaSeparatedList(ScssSassScriptExpressionCommaSeparatedListTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssMap(ScssMapTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssMapEntry(ScssMapEntryTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitScssOperator(ScssOperatorTree tree) {
+    scanChildren(tree);
+  }
+
 
   // -------------------------------------------------------------------------
   // Less

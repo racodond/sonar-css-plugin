@@ -22,7 +22,7 @@ package org.sonar.css.tree.impl.less;
 import com.google.common.collect.Iterators;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.css.ImportantTree;
+import org.sonar.plugins.css.api.tree.css.ImportantFlagTree;
 import org.sonar.plugins.css.api.tree.css.SelectorCombinatorTree;
 import org.sonar.plugins.css.api.tree.css.SelectorTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
@@ -35,11 +35,11 @@ import java.util.Iterator;
 public class LessMixinCallTreeImpl extends TreeImpl implements LessMixinCallTree {
 
   private final SelectorTree selector;
-  private final ImportantTree important;
+  private final ImportantFlagTree important;
   private final SyntaxToken semicolon;
   private final SelectorCombinatorTree parentCombinator;
 
-  public LessMixinCallTreeImpl(@Nullable SelectorCombinatorTree parentCombinator, SelectorTree selector, @Nullable ImportantTree important, @Nullable SyntaxToken semicolon) {
+  public LessMixinCallTreeImpl(@Nullable SelectorCombinatorTree parentCombinator, SelectorTree selector, @Nullable ImportantFlagTree important, @Nullable SyntaxToken semicolon) {
     this.parentCombinator = parentCombinator;
     this.selector = selector;
     this.important = important;
@@ -74,7 +74,7 @@ public class LessMixinCallTreeImpl extends TreeImpl implements LessMixinCallTree
 
   @Override
   @Nullable
-  public ImportantTree important() {
+  public ImportantFlagTree important() {
     return important;
   }
 

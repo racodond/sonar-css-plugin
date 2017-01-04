@@ -119,7 +119,7 @@ public class CssGrammar {
         HASH(),
         UNICODE_RANGE(),
         IDENTIFIER(),
-        IMPORTANT(),
+        IMPORTANT_FLAG(),
         b.token(LexicalGrammar.COLON),
         DELIMITER()));
   }
@@ -356,8 +356,8 @@ public class CssGrammar {
         IDENTIFIER_NO_WS()));
   }
 
-  public ImportantTree IMPORTANT() {
-    return b.<ImportantTree>nonterminal(LexicalGrammar.IMPORTANT).is(
+  public ImportantFlagTree IMPORTANT_FLAG() {
+    return b.<ImportantFlagTree>nonterminal(LexicalGrammar.IMPORTANT_FLAG).is(
       f.important(
         b.token(LexicalGrammar.EXCLAMATION_MARK),
         b.token(LexicalGrammar.IMPORTANT_KEYWORD)));

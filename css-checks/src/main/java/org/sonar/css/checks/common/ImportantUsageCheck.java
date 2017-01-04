@@ -22,7 +22,7 @@ package org.sonar.css.checks.common;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.Tags;
-import org.sonar.plugins.css.api.tree.css.ImportantTree;
+import org.sonar.plugins.css.api.tree.css.ImportantFlagTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -37,7 +37,7 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 public class ImportantUsageCheck extends DoubleDispatchVisitorCheck {
 
   @Override
-  public void visitImportant(ImportantTree tree) {
+  public void visitImportant(ImportantFlagTree tree) {
     addPreciseIssue(tree, "Remove this usage of the \"!important\" annotation.");
     super.visitImportant(tree);
   }

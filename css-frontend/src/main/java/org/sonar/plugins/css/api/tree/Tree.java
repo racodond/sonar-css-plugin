@@ -84,7 +84,7 @@ public interface Tree {
     PERCENTAGE(PercentageTree.class),
     UNICODE_RANGE(UnicodeRangeTree.class),
     DIMENSION(DimensionTree.class),
-    IMPORTANT(ImportantTree.class),
+    IMPORTANT_FLAG(ImportantFlagTree.class),
     AT_KEYWORD(AtKeywordTree.class),
     HASH(HashTree.class),
     UNIT(UnitTree.class),
@@ -133,9 +133,13 @@ public interface Tree {
     SCSS_INCLUDE(ScssIncludeTree.class),
     SCSS_PARAMETERS(ScssParametersTree.class),
     SCSS_PARAMETER(ScssParameterTree.class),
+    SCSS_DIRECTIVE(ScssDirectiveTree.class),
+
+    SCSS_SASS_SCRIPT_EXPRESSION_COMMA_SEPARATED_LIST(ScssSassScriptExpressionCommaSeparatedListTree.class),
+    SCSS_MAP(ScssMapEntryTree.class),
+    SCSS_MAP_ENTRY(ScssMapTree.class),
     SCSS_OPERATOR(ScssOperatorTree.class),
     SCSS_MULTILINE_STRING(ScssMultilineStringTree.class),
-    SCSS_DIRECTIVE(ScssDirectiveTree.class),
 
     // Less
     LESS_VARIABLE_DECLARATION(LessVariableDeclarationTree.class),

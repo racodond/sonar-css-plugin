@@ -30,8 +30,7 @@ import org.sonar.plugins.css.api.tree.css.*;
 import org.sonar.plugins.css.api.tree.scss.*;
 
 /**
- * SCSS grammar based on:
- * - http://sass-lang.com/guide
+ * SCSS grammar based on http://sass-lang.com/guide
  */
 public class ScssGrammar extends CssGrammar {
 
@@ -51,8 +50,7 @@ public class ScssGrammar extends CssGrammar {
             SCSS_WARN(),
             SCSS_ERROR(),
             SCSS_FUNCTION(),
-            SCSS_RETURN(),
-            SCSS_IF_CONDITIONS(),
+            SCSS_IF_ELSE_IF_ELSE(),
             SCSS_FOR(),
             SCSS_EACH(),
             SCSS_WHILE(),
@@ -66,6 +64,43 @@ public class ScssGrammar extends CssGrammar {
   }
 
   @Override
+  public Tree ANY() {
+    return b.<Tree>nonterminal().is(
+      b.firstOf(
+        // SCSS_SASS_SCRIPT_EXPRESSION
+        SCSS_SASS_SCRIPT_EXPRESSION_COMMA_SEPARATED_LIST(),
+        IMPORTANT_FLAG(),
+        SCSS_GLOBAL_FLAG(),
+        SCSS_DEFAULT_FLAG(),
+        SCSS_MAP(),
+        SCSS_OPERATOR(),
+        PARENTHESIS_BLOCK(),
+        BRACKET_BLOCK(),
+        URI(),
+        FUNCTION(),
+        PSEUDO_SELECTOR(),
+        PERCENTAGE(),
+        DIMENSION(),
+        NUMBER(),
+        SCSS_MULTILINE_STRING(),
+        STRING(),
+        SCSS_INTERPOLATED_IDENTIFIER(),
+        HASH(),
+        UNICODE_RANGE(),
+        IDENTIFIER(),
+        SCSS_VARIABLE(),
+        // Non SCSS_SASS_SCRIPT_EXPRESSION
+        BRACKET_BLOCK(),
+        PSEUDO_SELECTOR(),
+        b.token(LexicalGrammar.COLON),
+        DELIMITER()));
+  }
+
+  // -----------------------
+  // Rules
+  // -----------------------
+
+  @Override
   public StatementBlockTree RULESET_BLOCK() {
     return b.<StatementBlockTree>nonterminal(LexicalGrammar.RULESET_BLOCK).is(
       f.rulesetBlock(STATEMENT_BLOCK()));
@@ -77,6 +112,37 @@ public class ScssGrammar extends CssGrammar {
       f.atRuleBlock(STATEMENT_BLOCK()));
   }
 
+  public StatementBlockTree STATEMENT_BLOCK() {
+    return b.<StatementBlockTree>nonterminal(LexicalGrammar.STATEMENT_BLOCK).is(
+      f.statementBlock(
+        b.token(LexicalGrammar.OPEN_CURLY_BRACE),
+        b.zeroOrMore(
+          b.firstOf(
+            SCSS_CONTENT(),
+            SCSS_EXTEND(),
+            SCSS_DEBUG(),
+            SCSS_WARN(),
+            SCSS_ERROR(),
+            SCSS_FUNCTION(),
+            SCSS_RETURN(),
+            SCSS_IF_ELSE_IF_ELSE(),
+            SCSS_FOR(),
+            SCSS_EACH(),
+            SCSS_WHILE(),
+            SCSS_AT_ROOT(),
+            SCSS_MIXIN(),
+            SCSS_INCLUDE(),
+            DECLARATION(),
+            AT_RULE(),
+            RULESET(),
+            EMPTY_STATEMENT())),
+        b.token(LexicalGrammar.CLOSE_CURLY_BRACE)));
+  }
+
+  // -----------------------
+  // Properties
+  // -----------------------
+
   @Override
   public DeclarationTree DECLARATION() {
     return b.<DeclarationTree>nonterminal(LexicalGrammar.DECLARATION).is(
@@ -84,6 +150,14 @@ public class ScssGrammar extends CssGrammar {
         SCSS_VARIABLE_DECLARATION(),
         SCSS_NESTED_PROPERTIES_DECLARATION(),
         CSS_DECLARATION()));
+  }
+
+  public ScssNestedPropertiesDeclarationTree SCSS_NESTED_PROPERTIES_DECLARATION() {
+    return b.<ScssNestedPropertiesDeclarationTree>nonterminal(LexicalGrammar.SCSS_NESTED_PROPERTIES_DECLARATION).is(
+      f.scssNestedPropertiesDeclaration(
+        PROPERTY(),
+        b.token(LexicalGrammar.COLON),
+        STATEMENT_BLOCK()));
   }
 
   @Override
@@ -95,32 +169,9 @@ public class ScssGrammar extends CssGrammar {
           IDENTIFIER())));
   }
 
-  @Override
-  public Tree ANY() {
-    return b.<Tree>nonterminal().is(
-      b.firstOf(
-        URI(),
-        FUNCTION(),
-        PSEUDO_SELECTOR(),
-        PARENTHESIS_BLOCK(),
-        BRACKET_BLOCK(),
-        PERCENTAGE(),
-        DIMENSION(),
-        NUMBER(),
-        SCSS_MULTILINE_STRING(),
-        STRING(),
-        SCSS_INTERPOLATED_IDENTIFIER(),
-        HASH(),
-        UNICODE_RANGE(),
-        SCSS_OPERATOR(),
-        IDENTIFIER(),
-        SCSS_GLOBAL_FLAG(),
-        SCSS_DEFAULT_FLAG(),
-        IMPORTANT(),
-        SCSS_VARIABLE(),
-        b.token(LexicalGrammar.COLON),
-        DELIMITER()));
-  }
+  // -----------------------
+  // Selectors
+  // -----------------------
 
   @Override
   public SelectorTree SELECTOR() {
@@ -217,6 +268,20 @@ public class ScssGrammar extends CssGrammar {
           IDENTIFIER_NO_WS())));
   }
 
+  public ScssParentSelectorTree SCSS_PARENT_SELECTOR() {
+    return b.<ScssParentSelectorTree>nonterminal(LexicalGrammar.SCSS_PARENT_SELECTOR).is(
+      f.scssParentSelector(b.token(LexicalGrammar.SCSS_PARENT_SELECTOR_KEYWORD)));
+  }
+
+  public ScssPlaceholderSelectorTree SCSS_PLACEHOLDER_SELECTOR() {
+    return b.<ScssPlaceholderSelectorTree>nonterminal(LexicalGrammar.SCSS_PLACEHOLDER_SELECTOR).is(
+      f.scssPlaceholderSelector(
+        b.token(LexicalGrammar.PERCENTAGE_SYMBOL),
+        b.firstOf(
+          SCSS_INTERPOLATED_IDENTIFIER_NO_WS(),
+          IDENTIFIER_NO_WS())));
+  }
+
   public SelectorCombinatorTree SCSS_PARENT_SELECTOR_COMBINATOR() {
     return b.<SelectorCombinatorTree>nonterminal(LexicalGrammar.SCSS_PARENT_SELECTOR_COMBINATOR).is(
       f.scssParentSelectorCombinator(
@@ -226,90 +291,9 @@ public class ScssGrammar extends CssGrammar {
           b.token(LexicalGrammar.FOLLOWING_SIBLING_COMBINATOR))));
   }
 
-  public StatementBlockTree STATEMENT_BLOCK() {
-    return b.<StatementBlockTree>nonterminal(LexicalGrammar.STATEMENT_BLOCK).is(
-      f.statementBlock(
-        b.token(LexicalGrammar.OPEN_CURLY_BRACE),
-        b.zeroOrMore(
-          b.firstOf(
-            SCSS_CONTENT(),
-            SCSS_EXTEND(),
-            SCSS_DEBUG(),
-            SCSS_WARN(),
-            SCSS_ERROR(),
-            SCSS_FUNCTION(),
-            SCSS_RETURN(),
-            SCSS_IF_CONDITIONS(),
-            SCSS_FOR(),
-            SCSS_EACH(),
-            SCSS_WHILE(),
-            SCSS_AT_ROOT(),
-            SCSS_MIXIN(),
-            SCSS_INCLUDE(),
-            RULESET(),
-            DECLARATION(),
-            AT_RULE(),
-            EMPTY_STATEMENT())),
-        b.token(LexicalGrammar.CLOSE_CURLY_BRACE)));
-  }
-
-  public ValueTree SCSS_VALUE() {
-    return b.<ValueTree>nonterminal(LexicalGrammar.SCSS_VALUE).is(
-      f.scssValue(
-        b.oneOrMore(
-          b.firstOf(
-            URI(),
-            FUNCTION(),
-            PARENTHESIS_BLOCK(),
-            BRACKET_BLOCK(),
-            PERCENTAGE(),
-            DIMENSION(),
-            NUMBER(),
-            SCSS_MULTILINE_STRING(),
-            STRING(),
-            SCSS_INTERPOLATED_IDENTIFIER(),
-            HASH(),
-            UNICODE_RANGE(),
-            SCSS_OPERATOR(),
-            IDENTIFIER(),
-            SCSS_GLOBAL_FLAG(),
-            SCSS_DEFAULT_FLAG(),
-            SCSS_VARIABLE(),
-            DELIMITER()))));
-  }
-
-  public ValueTree SCSS_VALUE_WITHOUT_DELIMITER() {
-    return b.<ValueTree>nonterminal(LexicalGrammar.SCSS_VALUE_WITHOUT_DELIMITER).is(
-      f.scssValueWithoutDelimiter(
-        b.oneOrMore(
-          b.firstOf(
-            URI(),
-            FUNCTION(),
-            PARENTHESIS_BLOCK(),
-            BRACKET_BLOCK(),
-            PERCENTAGE(),
-            DIMENSION(),
-            NUMBER(),
-            SCSS_MULTILINE_STRING(),
-            STRING(),
-            SCSS_INTERPOLATED_IDENTIFIER(),
-            HASH(),
-            UNICODE_RANGE(),
-            SCSS_OPERATOR(),
-            IDENTIFIER(),
-            SCSS_GLOBAL_FLAG(),
-            SCSS_DEFAULT_FLAG(),
-            SCSS_VARIABLE()))));
-  }
-
-  public ScssFunctionTree SCSS_FUNCTION() {
-    return b.<ScssFunctionTree>nonterminal(LexicalGrammar.SCSS_FUNCTION).is(
-      f.scssFunction(
-        SCSS_FUNCTION_DIRECTIVE(),
-        IDENTIFIER(),
-        b.optional(SCSS_PARAMETERS()),
-        STATEMENT_BLOCK()));
-  }
+  // -----------------------
+  // Mixins
+  // -----------------------
 
   public ScssMixinTree SCSS_MIXIN() {
     return b.<ScssMixinTree>nonterminal(LexicalGrammar.SCSS_MIXIN).is(
@@ -328,6 +312,20 @@ public class ScssGrammar extends CssGrammar {
         b.optional(SCSS_CALL_PARAMETERS()),
         b.optional(STATEMENT_BLOCK()),
         b.optional(b.token(LexicalGrammar.SEMICOLON))));
+  }
+
+  public ScssDirectiveTree SCSS_MIXIN_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_MIXIN_DIRECTIVE).is(
+      f.scssMixinDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_MIXIN_DIRECTIVE_LITERAL)));
+  }
+
+  public ScssDirectiveTree SCSS_INCLUDE_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_INCLUDE_DIRECTIVE).is(
+      f.scssIncludeDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_INCLUDE_DIRECTIVE_LITERAL)));
   }
 
   public ScssParametersTree SCSS_PARAMETERS() {
@@ -370,7 +368,7 @@ public class ScssGrammar extends CssGrammar {
     return b.<ScssParameterTree>nonterminal(LexicalGrammar.SCSS_PARAMETER).is(
       f.scssParameter(
         b.firstOf(
-          SCSS_VARIABLE_DECLARATION_WITHOUT_DELIMITER_IN_VALUE(),
+          SCSS_VARIABLE_DECLARATION_AS_PARAMETER(),
           SCSS_VARIABLE_ARGUMENT(),
           SCSS_VARIABLE())));
   }
@@ -379,74 +377,14 @@ public class ScssGrammar extends CssGrammar {
     return b.<ScssParameterTree>nonterminal(LexicalGrammar.SCSS_CALL_PARAMETER).is(
       f.scssCallParameter(
         b.firstOf(
-          SCSS_VARIABLE_DECLARATION_WITHOUT_DELIMITER_IN_VALUE(),
+          SCSS_VARIABLE_DECLARATION_AS_PARAMETER(),
           SCSS_VARIABLE_ARGUMENT(),
-          SCSS_VALUE_WITHOUT_DELIMITER())));
+          SCSS_SASS_SCRIPT_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST())));
   }
 
-  public ScssParentSelectorTree SCSS_PARENT_SELECTOR() {
-    return b.<ScssParentSelectorTree>nonterminal(LexicalGrammar.SCSS_PARENT_SELECTOR).is(
-      f.scssParentSelector(b.token(LexicalGrammar.SCSS_PARENT_SELECTOR_KEYWORD)));
-  }
-
-  public ScssNestedPropertiesDeclarationTree SCSS_NESTED_PROPERTIES_DECLARATION() {
-    return b.<ScssNestedPropertiesDeclarationTree>nonterminal(LexicalGrammar.SCSS_NESTED_PROPERTIES_DECLARATION).is(
-      f.scssNestedPropertiesDeclaration(
-        PROPERTY(),
-        b.token(LexicalGrammar.COLON),
-        STATEMENT_BLOCK()));
-  }
-
-  public ScssVariableDeclarationTree SCSS_VARIABLE_DECLARATION() {
-    return b.<ScssVariableDeclarationTree>nonterminal(LexicalGrammar.SCSS_VARIABLE_DECLARATION).is(
-      f.scssVariableDeclaration(
-        SCSS_VARIABLE(),
-        b.token(LexicalGrammar.COLON),
-        SCSS_VALUE(),
-        b.optional(b.token(LexicalGrammar.SEMICOLON))));
-  }
-
-  public ScssVariableDeclarationTree SCSS_VARIABLE_DECLARATION_WITHOUT_DELIMITER_IN_VALUE() {
-    return b.<ScssVariableDeclarationTree>nonterminal(LexicalGrammar.SCSS_VARIABLE_DECLARATION_WITHOUT_DELIMITER_IN_VALUE).is(
-      f.scssVariableDeclarationWithoutDelimiterInValue(
-        SCSS_VARIABLE(),
-        b.token(LexicalGrammar.COLON),
-        SCSS_VALUE_WITHOUT_DELIMITER(),
-        b.optional(b.token(LexicalGrammar.SEMICOLON))));
-  }
-
-  public ScssVariableTree SCSS_VARIABLE() {
-    return b.<ScssVariableTree>nonterminal(LexicalGrammar.SCSS_VARIABLE).is(
-      f.scssVariable(
-        b.token(LexicalGrammar.SCSS_VARIABLE_PREFIX),
-        IDENTIFIER_NO_WS()));
-  }
-
-  public ScssVariableArgumentTree SCSS_VARIABLE_ARGUMENT() {
-    return b.<ScssVariableArgumentTree>nonterminal(LexicalGrammar.SCSS_VARIABLE_ARGUMENT).is(
-      f.scssVariableArgument(
-        b.token(LexicalGrammar.SCSS_VARIABLE_PREFIX),
-        IDENTIFIER_NO_WS(),
-        b.token(LexicalGrammar.SCSS_ELLIPSIS)));
-  }
-
-  public ScssDefaultFlagTree SCSS_DEFAULT_FLAG() {
-    return b.<ScssDefaultFlagTree>nonterminal(LexicalGrammar.SCSS_DEFAULT_FLAG).is(
-      f.scssDefaultFlag(
-        b.token(LexicalGrammar.SCSS_DEFAULT_KEYWORD)));
-  }
-
-  public ScssGlobalFlagTree SCSS_GLOBAL_FLAG() {
-    return b.<ScssGlobalFlagTree>nonterminal(LexicalGrammar.SCSS_GLOBAL_FLAG).is(
-      f.scssGlobalFlag(
-        b.token(LexicalGrammar.SCSS_GLOBAL_KEYWORD)));
-  }
-
-  public ScssOptionalFlagTree SCSS_OPTIONAL_FLAG() {
-    return b.<ScssOptionalFlagTree>nonterminal(LexicalGrammar.SCSS_OPTIONAL_FLAG).is(
-      f.scssOptionalFlag(
-        b.token(LexicalGrammar.SCSS_OPTIONAL_KEYWORD)));
-  }
+  // -----------------------
+  // Ruleset Directives
+  // -----------------------
 
   public ScssExtendTree SCSS_EXTEND() {
     return b.<ScssExtendTree>nonterminal(LexicalGrammar.SCSS_EXTEND).is(
@@ -457,6 +395,19 @@ public class ScssGrammar extends CssGrammar {
         b.optional(b.token(LexicalGrammar.SEMICOLON))));
   }
 
+  public ScssDirectiveTree SCSS_EXTEND_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_EXTEND_DIRECTIVE).is(
+      f.scssExtendDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_EXTEND_DIRECTIVE_LITERAL)));
+  }
+
+  public ScssOptionalFlagTree SCSS_OPTIONAL_FLAG() {
+    return b.<ScssOptionalFlagTree>nonterminal(LexicalGrammar.SCSS_OPTIONAL_FLAG).is(
+      f.scssOptionalFlag(
+        b.token(LexicalGrammar.SCSS_OPTIONAL_KEYWORD)));
+  }
+
   public ScssContentTree SCSS_CONTENT() {
     return b.<ScssContentTree>nonterminal(LexicalGrammar.SCSS_CONTENT).is(
       f.scssContent(
@@ -464,11 +415,52 @@ public class ScssGrammar extends CssGrammar {
         b.optional(b.token(LexicalGrammar.SEMICOLON))));
   }
 
+  public ScssDirectiveTree SCSS_CONTENT_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_CONTENT_DIRECTIVE).is(
+      f.scssContentDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_CONTENT_DIRECTIVE_LITERAL)));
+  }
+
+  public ScssDirectiveTree SCSS_AT_ROOT_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_AT_ROOT_DIRECTIVE).is(
+      f.scssAtRootDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_AT_ROOT_DIRECTIVE_LITERAL)));
+  }
+
+  public ScssAtRootTree SCSS_AT_ROOT() {
+    return b.<ScssAtRootTree>nonterminal(LexicalGrammar.SCSS_AT_ROOT).is(
+      f.scssAtRoot(
+        SCSS_AT_ROOT_DIRECTIVE(),
+        b.optional(SCSS_AT_ROOT_PARAMETERS()),
+        b.firstOf(
+          STATEMENT_BLOCK(),
+          RULESET()
+        )));
+  }
+
+  public ScssAtRootParametersTree SCSS_AT_ROOT_PARAMETERS() {
+    return b.<ScssAtRootParametersTree>nonterminal(LexicalGrammar.SCSS_AT_ROOT_PARAMETERS).is(
+      f.scssAtRootParameters(
+        b.token(LexicalGrammar.OPEN_PARENTHESIS),
+        b.firstOf(
+          b.token(LexicalGrammar.SCSS_AT_ROOT_WITHOUT),
+          b.token(LexicalGrammar.SCSS_AT_ROOT_WITH)),
+        b.token(LexicalGrammar.COLON),
+        b.oneOrMore(IDENTIFIER()),
+        b.token(LexicalGrammar.CLOSE_PARENTHESIS)));
+  }
+
+  // -----------------------
+  // Logging Directives
+  // -----------------------
+
   public ScssDebugTree SCSS_DEBUG() {
     return b.<ScssDebugTree>nonterminal(LexicalGrammar.SCSS_DEBUG).is(
       f.scssDebug(
         SCSS_DEBUG_DIRECTIVE(),
-        SCSS_VALUE(),
+        SCSS_SASS_SCRIPT_EXPRESSION(),
         b.optional(b.token(LexicalGrammar.SEMICOLON))));
   }
 
@@ -476,7 +468,7 @@ public class ScssGrammar extends CssGrammar {
     return b.<ScssWarnTree>nonterminal(LexicalGrammar.SCSS_WARN).is(
       f.scssWarn(
         SCSS_WARN_DIRECTIVE(),
-        SCSS_VALUE(),
+        SCSS_SASS_SCRIPT_EXPRESSION(),
         b.optional(b.token(LexicalGrammar.SEMICOLON))));
   }
 
@@ -484,20 +476,72 @@ public class ScssGrammar extends CssGrammar {
     return b.<ScssErrorTree>nonterminal(LexicalGrammar.SCSS_ERROR).is(
       f.scssError(
         SCSS_ERROR_DIRECTIVE(),
-        SCSS_VALUE(),
+        SCSS_SASS_SCRIPT_EXPRESSION(),
         b.optional(b.token(LexicalGrammar.SEMICOLON))));
+  }
+
+  public ScssDirectiveTree SCSS_DEBUG_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_DEBUG_DIRECTIVE).is(
+      f.scssDebugDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_DEBUG_DIRECTIVE_LITERAL)));
+  }
+
+  public ScssDirectiveTree SCSS_WARN_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_WARN_DIRECTIVE).is(
+      f.scssWarnDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_WARN_DIRECTIVE_LITERAL)));
+  }
+
+  public ScssDirectiveTree SCSS_ERROR_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_ERROR_DIRECTIVE).is(
+      f.scssErrorDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_ERROR_DIRECTIVE_LITERAL)));
+  }
+
+  // -----------------------
+  // Function Directives
+  // -----------------------
+
+  public ScssFunctionTree SCSS_FUNCTION() {
+    return b.<ScssFunctionTree>nonterminal(LexicalGrammar.SCSS_FUNCTION).is(
+      f.scssFunction(
+        SCSS_FUNCTION_DIRECTIVE(),
+        IDENTIFIER(),
+        b.optional(SCSS_PARAMETERS()),
+        STATEMENT_BLOCK()));
+  }
+
+  public ScssDirectiveTree SCSS_FUNCTION_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_FUNCTION_DIRECTIVE).is(
+      f.scssFunctionDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_FUNCTION_DIRECTIVE_LITERAL)));
   }
 
   public ScssReturnTree SCSS_RETURN() {
     return b.<ScssReturnTree>nonterminal(LexicalGrammar.SCSS_RETURN).is(
       f.scssReturn(
         SCSS_RETURN_DIRECTIVE(),
-        SCSS_VALUE(),
+        SCSS_SASS_SCRIPT_EXPRESSION(),
         b.optional(b.token(LexicalGrammar.SEMICOLON))));
   }
 
-  public ScssIfElseIfElseTree SCSS_IF_CONDITIONS() {
-    return b.<ScssIfElseIfElseTree>nonterminal(LexicalGrammar.SCSS_IF_CONDITIONS).is(
+  public ScssDirectiveTree SCSS_RETURN_DIRECTIVE() {
+    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_RETURN_DIRECTIVE).is(
+      f.scssReturnDirective(
+        b.token(LexicalGrammar.AT_SYMBOL),
+        b.token(LexicalGrammar.SCSS_RETURN_DIRECTIVE_LITERAL)));
+  }
+
+  // -----------------------
+  // Control Flow Directives
+  // -----------------------
+
+  public ScssIfElseIfElseTree SCSS_IF_ELSE_IF_ELSE() {
+    return b.<ScssIfElseIfElseTree>nonterminal(LexicalGrammar.SCSS_IF_ELSE_IF_ELSE).is(
       f.scssIfElseIfElse(
         SCSS_IF(),
         b.zeroOrMore(SCSS_ELSE_IF()),
@@ -551,124 +595,9 @@ public class ScssGrammar extends CssGrammar {
         STATEMENT_BLOCK()));
   }
 
-  public ScssAtRootTree SCSS_AT_ROOT() {
-    return b.<ScssAtRootTree>nonterminal(LexicalGrammar.SCSS_AT_ROOT).is(
-      f.scssAtRoot(
-        SCSS_AT_ROOT_DIRECTIVE(),
-        b.optional(SCSS_AT_ROOT_PARAMETERS()),
-        b.firstOf(
-          STATEMENT_BLOCK(),
-          RULESET()
-        )));
-  }
-
-  public ScssAtRootParametersTree SCSS_AT_ROOT_PARAMETERS() {
-    return b.<ScssAtRootParametersTree>nonterminal(LexicalGrammar.SCSS_AT_ROOT_PARAMETERS).is(
-      f.scssAtRootParameters(
-        b.token(LexicalGrammar.OPEN_PARENTHESIS),
-        b.firstOf(
-          b.token(LexicalGrammar.SCSS_AT_ROOT_WITHOUT),
-          b.token(LexicalGrammar.SCSS_AT_ROOT_WITH)),
-        b.token(LexicalGrammar.COLON),
-        b.oneOrMore(IDENTIFIER()),
-        b.token(LexicalGrammar.CLOSE_PARENTHESIS)));
-  }
-
-  public ScssPlaceholderSelectorTree SCSS_PLACEHOLDER_SELECTOR() {
-    return b.<ScssPlaceholderSelectorTree>nonterminal(LexicalGrammar.SCSS_PLACEHOLDER_SELECTOR).is(
-      f.scssPlaceholderSelector(
-        b.token(LexicalGrammar.PERCENTAGE_SYMBOL),
-        b.firstOf(
-          SCSS_INTERPOLATED_IDENTIFIER_NO_WS(),
-          IDENTIFIER_NO_WS())));
-  }
-
-  public IdentifierTree SCSS_INTERPOLATED_IDENTIFIER() {
-    return b.<IdentifierTree>nonterminal(LexicalGrammar.SCSS_INTERPOLATED_IDENTIFIER).is(
-      f.scssInterpolatedIdentifier(b.token(LexicalGrammar.SCSS_IDENT_INTERPOLATED_IDENTIFIER)));
-  }
-
-  public IdentifierTree SCSS_INTERPOLATED_IDENTIFIER_NO_WS() {
-    return b.<IdentifierTree>nonterminal(LexicalGrammar.SCSS_INTERPOLATED_IDENTIFIER_NO_WS).is(
-      f.scssInterpolatedIdentifierNoWs(b.token(LexicalGrammar.SCSS_IDENT_INTERPOLATED_IDENTIFIER_NO_WS)));
-  }
-
-  public ScssOperatorTree SCSS_OPERATOR() {
-    return b.<ScssOperatorTree>nonterminal(LexicalGrammar.SCSS_OPERATOR).is(
-      f.scssOperator(b.token(LexicalGrammar.SCSS_OPERATOR_LITERAL)));
-  }
-
-  public ScssMultilineStringTree SCSS_MULTILINE_STRING() {
-    return b.<ScssMultilineStringTree>nonterminal(LexicalGrammar.SCSS_MULTILINE_STRING).is(
-      f.scssMultilineString(b.token(LexicalGrammar.SCSS_MULTILINE_STRING_LITERAL)));
-  }
-
   public ScssConditionTree SCSS_CONDITION() {
     return b.<ScssConditionTree>nonterminal(LexicalGrammar.SCSS_CONDITION).is(
-      f.scssCondition(SCSS_VALUE()));
-  }
-
-  public ScssDirectiveTree SCSS_MIXIN_DIRECTIVE() {
-    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_MIXIN_DIRECTIVE).is(
-      f.scssMixinDirective(
-        b.token(LexicalGrammar.AT_SYMBOL),
-        b.token(LexicalGrammar.SCSS_MIXIN_DIRECTIVE_LITERAL)));
-  }
-
-  public ScssDirectiveTree SCSS_INCLUDE_DIRECTIVE() {
-    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_INCLUDE_DIRECTIVE).is(
-      f.scssIncludeDirective(
-        b.token(LexicalGrammar.AT_SYMBOL),
-        b.token(LexicalGrammar.SCSS_INCLUDE_DIRECTIVE_LITERAL)));
-  }
-
-  public ScssDirectiveTree SCSS_EXTEND_DIRECTIVE() {
-    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_EXTEND_DIRECTIVE).is(
-      f.scssExtendDirective(
-        b.token(LexicalGrammar.AT_SYMBOL),
-        b.token(LexicalGrammar.SCSS_EXTEND_DIRECTIVE_LITERAL)));
-  }
-
-  public ScssDirectiveTree SCSS_CONTENT_DIRECTIVE() {
-    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_CONTENT_DIRECTIVE).is(
-      f.scssContentDirective(
-        b.token(LexicalGrammar.AT_SYMBOL),
-        b.token(LexicalGrammar.SCSS_CONTENT_DIRECTIVE_LITERAL)));
-  }
-
-  public ScssDirectiveTree SCSS_DEBUG_DIRECTIVE() {
-    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_DEBUG_DIRECTIVE).is(
-      f.scssDebugDirective(
-        b.token(LexicalGrammar.AT_SYMBOL),
-        b.token(LexicalGrammar.SCSS_DEBUG_DIRECTIVE_LITERAL)));
-  }
-
-  public ScssDirectiveTree SCSS_WARN_DIRECTIVE() {
-    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_WARN_DIRECTIVE).is(
-      f.scssWarnDirective(
-        b.token(LexicalGrammar.AT_SYMBOL),
-        b.token(LexicalGrammar.SCSS_WARN_DIRECTIVE_LITERAL)));
-  }
-
-  public ScssDirectiveTree SCSS_ERROR_DIRECTIVE() {
-    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_ERROR_DIRECTIVE).is(
-      f.scssErrorDirective(
-        b.token(LexicalGrammar.AT_SYMBOL),
-        b.token(LexicalGrammar.SCSS_ERROR_DIRECTIVE_LITERAL)));
-  }
-
-  public ScssDirectiveTree SCSS_FUNCTION_DIRECTIVE() {
-    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_FUNCTION_DIRECTIVE).is(
-      f.scssFunctionDirective(
-        b.token(LexicalGrammar.AT_SYMBOL),
-        b.token(LexicalGrammar.SCSS_FUNCTION_DIRECTIVE_LITERAL)));
-  }
-
-  public ScssDirectiveTree SCSS_RETURN_DIRECTIVE() {
-    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_RETURN_DIRECTIVE).is(
-      f.scssReturnDirective(
-        b.token(LexicalGrammar.AT_SYMBOL),
-        b.token(LexicalGrammar.SCSS_RETURN_DIRECTIVE_LITERAL)));
+      f.scssCondition(SCSS_SASS_SCRIPT_EXPRESSION()));
   }
 
   public ScssDirectiveTree SCSS_IF_DIRECTIVE() {
@@ -713,11 +642,165 @@ public class ScssGrammar extends CssGrammar {
         b.token(LexicalGrammar.SCSS_EACH_DIRECTIVE_LITERAL)));
   }
 
-  public ScssDirectiveTree SCSS_AT_ROOT_DIRECTIVE() {
-    return b.<ScssDirectiveTree>nonterminal(LexicalGrammar.SCSS_AT_ROOT_DIRECTIVE).is(
-      f.scssAtRootDirective(
-        b.token(LexicalGrammar.AT_SYMBOL),
-        b.token(LexicalGrammar.SCSS_AT_ROOT_DIRECTIVE_LITERAL)));
+  // -----------------------
+  // Variables
+  // -----------------------
+
+  public ScssVariableDeclarationTree SCSS_VARIABLE_DECLARATION() {
+    return b.<ScssVariableDeclarationTree>nonterminal(LexicalGrammar.SCSS_VARIABLE_DECLARATION).is(
+      f.scssVariableDeclaration(
+        SCSS_VARIABLE(),
+        b.token(LexicalGrammar.COLON),
+        SCSS_SASS_SCRIPT_EXPRESSION(),
+        b.optional(b.token(LexicalGrammar.SEMICOLON))));
+  }
+
+  public ScssVariableDeclarationTree SCSS_VARIABLE_DECLARATION_AS_PARAMETER() {
+    return b.<ScssVariableDeclarationTree>nonterminal(LexicalGrammar.SCSS_VARIABLE_DECLARATION_AS_PARAMETER).is(
+      f.scssVariableDeclarationAsParameter(
+        SCSS_VARIABLE(),
+        b.token(LexicalGrammar.COLON),
+        SCSS_SASS_SCRIPT_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST()));
+  }
+
+  public ScssVariableTree SCSS_VARIABLE() {
+    return b.<ScssVariableTree>nonterminal(LexicalGrammar.SCSS_VARIABLE).is(
+      f.scssVariable(
+        b.token(LexicalGrammar.SCSS_VARIABLE_PREFIX),
+        IDENTIFIER_NO_WS()));
+  }
+
+  public ScssVariableArgumentTree SCSS_VARIABLE_ARGUMENT() {
+    return b.<ScssVariableArgumentTree>nonterminal(LexicalGrammar.SCSS_VARIABLE_ARGUMENT).is(
+      f.scssVariableArgument(
+        b.token(LexicalGrammar.SCSS_VARIABLE_PREFIX),
+        IDENTIFIER_NO_WS(),
+        b.token(LexicalGrammar.SCSS_ELLIPSIS)));
+  }
+
+  public ScssDefaultFlagTree SCSS_DEFAULT_FLAG() {
+    return b.<ScssDefaultFlagTree>nonterminal(LexicalGrammar.SCSS_DEFAULT_FLAG).is(
+      f.scssDefaultFlag(
+        b.token(LexicalGrammar.SCSS_DEFAULT_KEYWORD)));
+  }
+
+  public ScssGlobalFlagTree SCSS_GLOBAL_FLAG() {
+    return b.<ScssGlobalFlagTree>nonterminal(LexicalGrammar.SCSS_GLOBAL_FLAG).is(
+      f.scssGlobalFlag(
+        b.token(LexicalGrammar.SCSS_GLOBAL_KEYWORD)));
+  }
+
+  // -----------------------
+  // Sass Script
+  // -----------------------
+
+  public ValueTree SCSS_SASS_SCRIPT_EXPRESSION() {
+    return b.<ValueTree>nonterminal(LexicalGrammar.SCSS_SASS_SCRIPT_EXPRESSION).is(
+      f.scssSassExpression(
+        b.oneOrMore(
+          b.firstOf(
+            SCSS_SASS_SCRIPT_EXPRESSION_COMMA_SEPARATED_LIST(),
+            IMPORTANT_FLAG(),
+            SCSS_GLOBAL_FLAG(),
+            SCSS_DEFAULT_FLAG(),
+            SCSS_MAP(),
+            SCSS_OPERATOR(),
+            PARENTHESIS_BLOCK(),
+            URI(),
+            FUNCTION(),
+            PERCENTAGE(),
+            DIMENSION(),
+            NUMBER(),
+            SCSS_MULTILINE_STRING(),
+            STRING(),
+            SCSS_INTERPOLATED_IDENTIFIER(),
+            HASH(),
+            UNICODE_RANGE(),
+            IDENTIFIER(),
+            SCSS_VARIABLE()))));
+  }
+
+  public ValueTree SCSS_SASS_SCRIPT_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST() {
+    return b.<ValueTree>nonterminal(LexicalGrammar.SCSS_SASS_SCRIPT_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST).is(
+      f.scssSassExpressionWithoutCommaSeparatedList(
+        b.oneOrMore(
+          b.firstOf(
+            IMPORTANT_FLAG(),
+            SCSS_GLOBAL_FLAG(),
+            SCSS_DEFAULT_FLAG(),
+            SCSS_MAP(),
+            SCSS_OPERATOR(),
+            PARENTHESIS_BLOCK(),
+            URI(),
+            FUNCTION(),
+            PERCENTAGE(),
+            DIMENSION(),
+            NUMBER(),
+            SCSS_MULTILINE_STRING(),
+            STRING(),
+            SCSS_INTERPOLATED_IDENTIFIER(),
+            HASH(),
+            UNICODE_RANGE(),
+            IDENTIFIER(),
+            SCSS_VARIABLE()))));
+  }
+
+  public ScssSassScriptExpressionCommaSeparatedListTree SCSS_SASS_SCRIPT_EXPRESSION_COMMA_SEPARATED_LIST() {
+    return b.<ScssSassScriptExpressionCommaSeparatedListTree>nonterminal(LexicalGrammar.SCSS_SASS_SCRIPT_EXPRESSION_COMMA_SEPARATED_LIST).is(
+      f.scssSassScriptExpressionCommaSeparatedListTree(
+        SCSS_SASS_SCRIPT_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST(),
+        b.oneOrMore(
+          f.newTuple8(
+            b.token(LexicalGrammar.COMMA),
+            SCSS_SASS_SCRIPT_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST())),
+        b.optional(b.token(LexicalGrammar.COMMA))));
+  }
+
+  public ScssMapTree SCSS_MAP() {
+    return b.<ScssMapTree>nonterminal(LexicalGrammar.SCSS_MAP).is(
+      f.scssMap(
+        b.token(LexicalGrammar.OPEN_PARENTHESIS),
+        SCSS_MAP_ENTRY_LIST(),
+        b.token(LexicalGrammar.CLOSE_PARENTHESIS)));
+  }
+
+  public SeparatedList<ScssMapEntryTree, SyntaxToken> SCSS_MAP_ENTRY_LIST() {
+    return b.<SeparatedList<ScssMapEntryTree, SyntaxToken>>nonterminal().is(
+      f.scssMapEntryList(
+        SCSS_MAP_ENTRY(),
+        b.zeroOrMore(
+          f.newTuple7(
+            b.token(LexicalGrammar.COMMA),
+            SCSS_MAP_ENTRY())),
+        b.optional(b.token(LexicalGrammar.COMMA))));
+  }
+
+  public ScssMapEntryTree SCSS_MAP_ENTRY() {
+    return b.<ScssMapEntryTree>nonterminal(LexicalGrammar.SCSS_MAP_ENTRY).is(
+      f.scssMapEntry(
+        SCSS_SASS_SCRIPT_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST(),
+        b.token(LexicalGrammar.COLON),
+        SCSS_SASS_SCRIPT_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST()));
+  }
+
+  public ScssOperatorTree SCSS_OPERATOR() {
+    return b.<ScssOperatorTree>nonterminal(LexicalGrammar.SCSS_OPERATOR).is(
+      f.scssOperator(b.token(LexicalGrammar.SCSS_OPERATOR_LITERAL)));
+  }
+
+  public IdentifierTree SCSS_INTERPOLATED_IDENTIFIER() {
+    return b.<IdentifierTree>nonterminal(LexicalGrammar.SCSS_INTERPOLATED_IDENTIFIER).is(
+      f.scssInterpolatedIdentifier(b.token(LexicalGrammar.SCSS_IDENT_INTERPOLATED_IDENTIFIER)));
+  }
+
+  public IdentifierTree SCSS_INTERPOLATED_IDENTIFIER_NO_WS() {
+    return b.<IdentifierTree>nonterminal(LexicalGrammar.SCSS_INTERPOLATED_IDENTIFIER_NO_WS).is(
+      f.scssInterpolatedIdentifierNoWs(b.token(LexicalGrammar.SCSS_IDENT_INTERPOLATED_IDENTIFIER_NO_WS)));
+  }
+
+  public ScssMultilineStringTree SCSS_MULTILINE_STRING() {
+    return b.<ScssMultilineStringTree>nonterminal(LexicalGrammar.SCSS_MULTILINE_STRING).is(
+      f.scssMultilineString(b.token(LexicalGrammar.SCSS_MULTILINE_STRING_LITERAL)));
   }
 
 }

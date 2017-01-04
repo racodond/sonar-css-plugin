@@ -1,0 +1,24 @@
+a:lang() {
+}
+
+a:-moz-HELLO() {
+}
+
+a:hello() { /* Noncompliant ![sc=3;ec=8;el=+0]! !{Remove this usage of the unknown "hello" pseudo.}!*/
+}
+
+p::first-line {
+  text-transform: uppercase;
+}
+
+p::-moz-abc {
+  text-transform: uppercase;
+}
+
+p::hello { /* Noncompliant ![sc=4;ec=9;el=+0]! !{Remove this usage of the unknown "hello" pseudo.}!*/
+  text-transform: uppercase;
+}
+
+p::@{hello} {
+  text-transform: uppercase;
+}

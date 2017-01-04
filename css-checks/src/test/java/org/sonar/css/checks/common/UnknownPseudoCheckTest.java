@@ -23,11 +23,29 @@ import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
+import java.io.File;
+
 public class UnknownPseudoCheckTest {
 
+  private UnknownPseudoCheck check = new UnknownPseudoCheck();
+
   @Test
-  public void test() {
-    CssCheckVerifier.verifyCssFile(new UnknownPseudoCheck(), CheckTestUtils.getCommonTestFile("unknownPseudos.css"));
+  public void test_css() {
+    CssCheckVerifier.verifyCssFile(check, getTestFile("unknownPseudo.css"));
+  }
+
+  @Test
+  public void test_scss_interpolated_pseudo() {
+    CssCheckVerifier.verifyScssFile(check, getTestFile("unknownPseudo.scss"));
+  }
+
+  @Test
+  public void test_less_interpolated_pseudo() {
+    CssCheckVerifier.verifyLessFile(check, getTestFile("unknownPseudo.less"));
+  }
+
+  private File getTestFile(String fileName) {
+    return CheckTestUtils.getCommonTestFile("unknown-pseudo/" + fileName);
   }
 
 }
