@@ -25,6 +25,7 @@ import org.sonar.css.checks.css.*;
 import org.sonar.css.checks.css.ParsingErrorCheck;
 import org.sonar.css.checks.less.*;
 import org.sonar.css.checks.scss.*;
+import org.sonar.css.checks.scss.PreferSingleLineCommentsCheck;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -77,6 +78,7 @@ public final class CheckList {
         IfElseIfSameConditionCheck.class,
         MixinNamingConventionCheck.class,
         NestedControlFlowDirectivesCheck.class,
+        PreferSingleLineCommentsCheck.class,
         ScssVariableNamingConventionCheck.class,
         ThroughInsteadOfToCheck.class,
         TooComplexConditionCheck.class,
@@ -96,7 +98,7 @@ public final class CheckList {
         NestedRulesetsCheck.class,
         ObsoleteNotLessFunctionCheck.class,
         org.sonar.css.checks.less.ParsingErrorCheck.class,
-        PreferSingleLineCommentsCheck.class,
+        org.sonar.css.checks.less.PreferSingleLineCommentsCheck.class,
         UnknownLessFunctionCheck.class,
         VariableDeclarationFirstCheck.class).stream())
       .collect(Collectors.toList());

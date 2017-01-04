@@ -151,6 +151,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Nested properties should define at least two properties 
 * Related @if / @else if directives should not have the same condition
 * SCSS variables should follow a naming convention
+* Single-line comments (//) should be preferred over multi-line comments (/* ... */)
 * Two branches in the same conditional structure should not have exactly the same implementation
 * Useless parentheses following @include and @mixin with no parameter should be removed
 
