@@ -79,7 +79,8 @@ public final class CheckList {
         NestedControlFlowDirectivesCheck.class,
         ScssVariableNamingConventionCheck.class,
         ThroughInsteadOfToCheck.class,
-        TooComplexConditionCheck.class).stream())
+        TooComplexConditionCheck.class,
+        UselessParenthesesMixinNoParameterCheck.class).stream())
       .collect(Collectors.toList());
   }
 

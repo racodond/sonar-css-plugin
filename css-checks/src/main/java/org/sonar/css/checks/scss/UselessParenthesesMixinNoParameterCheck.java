@@ -17,34 +17,42 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.checks.common;
+package org.sonar.css.checks.scss;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.Tags;
-import org.sonar.plugins.css.api.tree.css.StyleSheetTree;
-import org.sonar.plugins.css.api.tree.embedded.CssInStyleTagTree;
+import org.sonar.plugins.css.api.tree.scss.ScssDirectiveNameParametersTree;
+import org.sonar.plugins.css.api.tree.scss.ScssIncludeTree;
+import org.sonar.plugins.css.api.tree.scss.ScssMixinTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 @Rule(
-  key = "empty-stylesheet",
-  name = "Empty stylesheets should be removed",
-  priority = Priority.MAJOR,
-  tags = {Tags.PITFALL})
-@SqaleConstantRemediation("5min")
+  key = "useless-parentheses-mixin-no-parameter",
+  name = "Useless parentheses following @include and @mixin with no parameter should be removed",
+  priority = Priority.MINOR,
+  tags = {Tags.CONVENTION})
+@SqaleConstantRemediation("2min")
 @ActivatedByDefault
-public class EmptyStylesheetCheck extends DoubleDispatchVisitorCheck {
+public class UselessParenthesesMixinNoParameterCheck extends DoubleDispatchVisitorCheck {
 
   @Override
-  public void visitStyleSheet(StyleSheetTree tree) {
-    if (tree.all().isEmpty()) {
-      if (tree.parent() instanceof CssInStyleTagTree) {
-        addPreciseIssue(tree.parent(), "Remove this empty style tag.");
-      } else {
-        addFileIssue("Remove this empty stylesheet.");
-      }
+  public void visitScssMixin(ScssMixinTree tree) {
+    checkForUselessParentheses(tree);
+    super.visitScssMixin(tree);
+  }
+
+  @Override
+  public void visitScssInclude(ScssIncludeTree tree) {
+    checkForUselessParentheses(tree);
+    super.visitScssInclude(tree);
+  }
+
+  private void checkForUselessParentheses(ScssDirectiveNameParametersTree tree) {
+    if (tree.parameters() != null && tree.parameters().parameters() == null) {
+      addPreciseIssue(tree.parameters(), "Remove those useless parentheses.");
     }
   }
 

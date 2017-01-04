@@ -1,0 +1,14 @@
+{
+'project:custom/scss/mixin-naming-convention/mixinNamingConvention.scss':[
+5,
+],
+'project:custom/scss/mixin-naming-convention/mixinNamingConventionCustomFormat.scss':[
+5,
+],
+'project:custom/scss/uselessParenthesesMixinNoParameter.scss':[
+1,
+2,
+5,
+8,
+],
+}

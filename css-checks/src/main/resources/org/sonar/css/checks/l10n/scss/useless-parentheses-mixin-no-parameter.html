@@ -1,0 +1,22 @@
+<p>
+    When a mixin does not define any parameter, parentheses are optional and should not be added to improve code
+    readability.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+@mixin my-mixin() {   /* Noncompliant */
+  ...
+}
+
+@include my-mixin();  /* Noncompliant */
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+@mixin my-mixin {
+  ...
+}
+
+@include my-mixin;
+</pre>

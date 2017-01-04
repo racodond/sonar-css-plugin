@@ -152,6 +152,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Related @if / @else if directives should not have the same condition
 * SCSS variables should follow a naming convention
 * Two branches in the same conditional structure should not have exactly the same implementation
+* Useless parentheses following @include and @mixin with no parameter should be removed
 
 ### Specific to Less
 * Deprecated "e" escaping function should be replaced with ~"value" syntax

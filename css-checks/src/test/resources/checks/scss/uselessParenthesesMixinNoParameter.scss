@@ -1,0 +1,14 @@
+@mixin my-mixin1() { /* Noncompliant ![sc=17;ec=19]! !{Remove those useless parentheses.}! */
+  @mixin my-mixin2 ( ) { /* Noncompliant ![sc=20;ec=23]! !{Remove those useless parentheses.}! */
+    left: 20px;
+  }
+  @include my-mixin2 ( ); /* Noncompliant ![sc=22;ec=25]! !{Remove those useless parentheses.}! */
+}
+
+@include my-mixin2(); /* Noncompliant ![sc=19;ec=21]! !{Remove those useless parentheses.}! */
+
+@mixin my-mixin3($abc) {
+  border: $abc;
+}
+
+@include my-mixin3(10);

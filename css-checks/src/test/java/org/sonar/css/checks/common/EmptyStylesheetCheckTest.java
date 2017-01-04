@@ -27,17 +27,20 @@ import java.io.File;
 
 public class EmptyStylesheetCheckTest {
 
+  private static final String MESSAGE = "Remove this empty stylesheet.";
   private EmptyStylesheetCheck check = new EmptyStylesheetCheck();
 
   @Test
-  public void should_raise_an_issue_on_empty_css_stylesheet() {
-    CssCheckVerifier.verifyCssFile(check, getTestFile("emptyStylesheet.css"));
+  public void should_raise_an_issue_on_empty_css_stylesheet_with_comment() {
+    CssCheckVerifier.issuesOnCssFile(check, getTestFile("emptyStylesheet.css"))
+      .next().withMessage(MESSAGE)
+      .noMore();
   }
 
   @Test
-  public void should_raise_an_issue_on_empty_css_stylesheet_test_with_no_comment() {
+  public void should_raise_an_issue_on_empty_css_stylesheet_with_no_comment() {
     CssCheckVerifier.issuesOnCssFile(check, getTestFile("emptyStylesheetNoComment.css"))
-      .next().atLine(1).withMessage("Remove this empty stylesheet.")
+      .next().withMessage(MESSAGE)
       .noMore();
   }
 
@@ -48,12 +51,16 @@ public class EmptyStylesheetCheckTest {
 
   @Test
   public void should_raise_an_issue_on_empty_scss_stylesheet() {
-    CssCheckVerifier.verifyScssFile(check, getTestFile("emptyStylesheet.scss"));
+    CssCheckVerifier.issuesOnScssFile(check, getTestFile("emptyStylesheet.scss"))
+      .next().withMessage(MESSAGE)
+      .noMore();
   }
 
   @Test
   public void should_raise_an_issue_on_empty_less_stylesheet() {
-    CssCheckVerifier.verifyLessFile(check, getTestFile("emptyStylesheet.less"));
+    CssCheckVerifier.issuesOnLessFile(check, getTestFile("emptyStylesheet.less"))
+      .next().withMessage(MESSAGE)
+      .noMore();
   }
 
   @Test
