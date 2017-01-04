@@ -22,15 +22,6 @@ package org.sonar.plugins.css;
 import com.google.common.base.Throwables;
 import com.sonar.sslr.api.RecognitionException;
 import com.sonar.sslr.api.typed.ActionParser;
-
-import java.io.File;
-import java.io.InterruptedIOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-import javax.annotation.Nullable;
-
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.rule.CheckFactory;
@@ -54,6 +45,14 @@ import org.sonar.plugins.css.api.visitors.issue.Issue;
 import org.sonar.squidbridge.ProgressReport;
 import org.sonar.squidbridge.api.AnalysisException;
 
+import javax.annotation.Nullable;
+import java.io.File;
+import java.io.InterruptedIOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+
 public abstract class AbstractLanguageAnalyzerSensor implements Sensor {
 
   private static final Logger LOG = Loggers.get(AbstractLanguageAnalyzerSensor.class);
@@ -74,7 +73,7 @@ public abstract class AbstractLanguageAnalyzerSensor implements Sensor {
   }
 
   public AbstractLanguageAnalyzerSensor(FileSystem fileSystem, CheckFactory checkFactory, Settings settings, NoSonarFilter noSonarFilter,
-    @Nullable CustomRulesDefinition[] customRulesDefinition) {
+                                        @Nullable CustomRulesDefinition[] customRulesDefinition) {
 
     this.fileSystem = fileSystem;
     this.settings = settings;
@@ -97,7 +96,7 @@ public abstract class AbstractLanguageAnalyzerSensor implements Sensor {
     setParsingErrorCheckIfActivated(treeVisitors);
 
     ProgressReport progressReport = new ProgressReport(
-      "Report about progress of " + languageToAnalyze() + " analyzer",
+      "Report about progress of " + analyzerName() + " analyzer",
       TimeUnit.SECONDS.toMillis(10));
 
     progressReport.start(filesToAnalyze.stream().map(InputFile::file).collect(Collectors.toList()));
@@ -127,7 +126,9 @@ public abstract class AbstractLanguageAnalyzerSensor implements Sensor {
 
   public abstract List<InputFile> filesToAnalyze(FileSystem fileSystem);
 
-  public abstract String languageToAnalyze();
+  public abstract String analyzerName();
+
+  public abstract String language();
 
   public abstract Class parsingErrorCheck();
 
@@ -150,7 +151,7 @@ public abstract class AbstractLanguageAnalyzerSensor implements Sensor {
   }
 
   private List<Issue> scanFile(InputFile inputFile, TreeImpl tree, List<TreeVisitor> visitors) {
-    CssTreeVisitorContext context = new CssTreeVisitorContext(tree, inputFile.file());
+    CssTreeVisitorContext context = new CssTreeVisitorContext(tree, inputFile.file(), language());
     List<Issue> issues = new ArrayList<>();
     for (TreeVisitor visitor : visitors) {
       if (visitor instanceof CharsetAwareVisitor) {

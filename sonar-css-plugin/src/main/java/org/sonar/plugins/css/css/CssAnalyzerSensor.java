@@ -21,13 +21,6 @@ package org.sonar.plugins.css.css;
 
 import com.google.common.collect.Lists;
 import com.sonar.sslr.api.typed.ActionParser;
-
-import java.io.File;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-import javax.annotation.Nullable;
-
 import org.sonar.api.batch.fs.FilePredicate;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
@@ -50,6 +43,12 @@ import org.sonar.plugins.css.api.CustomRulesDefinition;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.visitors.TreeVisitor;
 
+import javax.annotation.Nullable;
+import java.io.File;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 public class CssAnalyzerSensor extends AbstractLanguageAnalyzerSensor {
 
   public CssAnalyzerSensor(FileSystem fileSystem, CheckFactory checkFactory, Settings settings, NoSonarFilter noSonarFilter) {
@@ -57,7 +56,7 @@ public class CssAnalyzerSensor extends AbstractLanguageAnalyzerSensor {
   }
 
   public CssAnalyzerSensor(FileSystem fileSystem, CheckFactory checkFactory, Settings settings, NoSonarFilter noSonarFilter,
-    @Nullable CustomCssRulesDefinition[] customRulesDefinition) {
+                           @Nullable CustomCssRulesDefinition[] customRulesDefinition) {
     super(fileSystem, checkFactory, settings, noSonarFilter, customRulesDefinition);
   }
 
@@ -70,8 +69,13 @@ public class CssAnalyzerSensor extends AbstractLanguageAnalyzerSensor {
   }
 
   @Override
-  public String languageToAnalyze() {
+  public String analyzerName() {
     return CssLanguage.NAME;
+  }
+
+  @Override
+  public String language() {
+    return CssLanguage.KEY;
   }
 
   @Override

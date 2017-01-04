@@ -48,4 +48,6 @@ public interface PropertyTree extends Tree {
 
   boolean isLessMerge();
 
+  boolean isScssNested();
+
 }

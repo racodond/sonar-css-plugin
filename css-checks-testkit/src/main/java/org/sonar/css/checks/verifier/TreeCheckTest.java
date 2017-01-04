@@ -45,7 +45,7 @@ class TreeCheckTest {
     File file = new File(relativePath);
 
     TreeImpl tree = (TreeImpl) parser.parse(file);
-    CssTreeVisitorContext context = new CssTreeVisitorContext(tree, file);
+    CssTreeVisitorContext context = new CssTreeVisitorContext(tree, file, "css");
     List<Issue> issues = check.scanFile(context);
 
     return getCheckMessages(issues);

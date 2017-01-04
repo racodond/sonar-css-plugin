@@ -1,0 +1,15 @@
+.mybox1 {
+  font: {
+    color: 10px;
+  }
+}
+
+.mybox2 {
+  f#{$abc + $def}ont: {
+    color: 10px;
+  }
+}
+
+.mybox3 {
+  color: 10px; /* Noncompliant */
+}

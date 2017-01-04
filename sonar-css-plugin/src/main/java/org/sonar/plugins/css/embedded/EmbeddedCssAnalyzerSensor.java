@@ -30,6 +30,7 @@ import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.api.config.Settings;
 import org.sonar.api.issue.NoSonarFilter;
+import org.sonar.api.resources.Language;
 import org.sonar.css.checks.CheckList;
 import org.sonar.css.checks.css.ParsingErrorCheck;
 import org.sonar.css.parser.embedded.EmbeddedCssParser;
@@ -40,6 +41,7 @@ import org.sonar.plugins.css.api.CustomCssRulesDefinition;
 import org.sonar.plugins.css.api.CustomRulesDefinition;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.visitors.TreeVisitor;
+import org.sonar.plugins.css.css.CssLanguage;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -64,8 +66,13 @@ public class EmbeddedCssAnalyzerSensor extends AbstractLanguageAnalyzerSensor {
   }
 
   @Override
-  public String languageToAnalyze() {
+  public String analyzerName() {
     return "Embedded CSS";
+  }
+
+  @Override
+  public String language() {
+    return CssLanguage.KEY;
   }
 
   @Override

@@ -32,6 +32,8 @@ import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.*;
 import org.sonar.plugins.css.api.tree.less.LessEscapingTree;
 import org.sonar.plugins.css.api.tree.less.LessVariableTree;
+import org.sonar.plugins.css.api.tree.scss.ScssOperatorTree;
+import org.sonar.plugins.css.api.tree.scss.ScssVariableTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 import javax.annotation.Nullable;
@@ -89,7 +91,7 @@ public class PropertyDeclarationTreeImpl extends TreeImpl implements PropertyDec
   }
 
   @Override
-  public boolean isValid() {
+  public boolean isValid(String language) {
     List<Validator> validators = property.standardProperty().getValidators();
     List<Tree> valueElements = value.sanitizedValueElements();
     int numberOfValueElements = valueElements.size();
@@ -98,8 +100,17 @@ public class PropertyDeclarationTreeImpl extends TreeImpl implements PropertyDec
       return true;
     }
 
-    if (doesValueContainLessElements(value.childrenIterator())) {
-      return true;
+    if ("scss".equals(language)) {
+      if (doesValueContainScssElements(value.childrenIterator())
+        || property.isScssNested()) {
+        return true;
+      }
+    }
+
+    if ("less".equals(language)) {
+      if (doesValueContainLessElements(value.childrenIterator())) {
+        return true;
+      }
     }
 
     if (numberOfValueElements == 0) {
@@ -145,10 +156,29 @@ public class PropertyDeclarationTreeImpl extends TreeImpl implements PropertyDec
     return false;
   }
 
+  // TODO: Refactor to remove duplication with doesValueContainLessElements
+  private boolean doesValueContainScssElements(Iterator<Tree> iterator) {
+    while (iterator.hasNext()) {
+      Tree next = iterator.next();
+      if (next != null && !(next instanceof SyntaxToken)
+        && (isScssElement(next) || doesValueContainScssElements(next.childrenIterator()))) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   private boolean isLessElement(Tree tree) {
     return tree instanceof LessVariableTree
       || tree instanceof LessEscapingTree
       || (tree instanceof FunctionTree && ((FunctionTree) tree).standardFunction().isLess());
+  }
+
+  private boolean isScssElement(Tree tree) {
+    return tree instanceof ScssVariableTree
+      || (tree instanceof IdentifierTree && ((IdentifierTree) tree).isScssInterpolated())
+      || tree instanceof FunctionTree
+      || tree instanceof ScssOperatorTree;
   }
 
 }

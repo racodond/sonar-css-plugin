@@ -67,12 +67,12 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
    *              <p>
    *              Example:
    *              <pre>
-   *                           CheckVerifier.issuesOnCssFile(new MyCheck(), myFile))
-   *                              .next().atLine(2).withMessage("This is message for line 2.")
-   *                              .next().atLine(3).withMessage("This is message for line 3.").withCost(2.)
-   *                              .next().atLine(8)
-   *                              .noMore();
-   *                           </pre>
+   *                                                     CheckVerifier.issuesOnCssFile(new MyCheck(), myFile))
+   *                                                        .next().atLine(2).withMessage("This is message for line 2.")
+   *                                                        .next().atLine(3).withMessage("This is message for line 3.").withCost(2.)
+   *                                                        .next().atLine(8)
+   *                                                        .noMore();
+   *                                                     </pre>
    */
   public static CheckMessagesVerifier issuesOnCssFile(CssCheck check, File file) {
     return issuesOnCssFile(check, file, Charsets.UTF_8);
@@ -190,7 +190,7 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
    * @param charset Charset of the file to test.
    */
   public static void verifyCssFile(CssCheck check, File file, Charset charset) {
-    verify(check, file, charset, CssParser.createParser(charset));
+    verify(check, file, charset, CssParser.createParser(charset), "css");
   }
 
   /**
@@ -207,7 +207,7 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
    * @param charset Charset of the file to test.
    */
   private static void verifyEmbeddedCssFile(CssCheck check, File file, Charset charset) {
-    verify(check, file, charset, EmbeddedCssParser.createParser(charset));
+    verify(check, file, charset, EmbeddedCssParser.createParser(charset), "css");
   }
 
   /**
@@ -224,7 +224,7 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
    * @param charset Charset of the file to test.
    */
   private static void verifyScssFile(CssCheck check, File file, Charset charset) {
-    verify(check, file, charset, ScssParser.createParser(charset));
+    verify(check, file, charset, ScssParser.createParser(charset), "scss");
   }
 
   /**
@@ -241,13 +241,13 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
    * @param charset Charset of the file to test.
    */
   private static void verifyLessFile(CssCheck check, File file, Charset charset) {
-    verify(check, file, charset, LessParser.createParser(charset));
+    verify(check, file, charset, LessParser.createParser(charset), "less");
   }
 
-  private static void verify(CssCheck check, File file, Charset charset, ActionParser<Tree> parser) {
+  private static void verify(CssCheck check, File file, Charset charset, ActionParser<Tree> parser, String language) {
 
     TreeImpl tree = (TreeImpl) parser.parse(file);
-    CssTreeVisitorContext context = new CssTreeVisitorContext(tree, file);
+    CssTreeVisitorContext context = new CssTreeVisitorContext(tree, file, language);
 
     CssCheckVerifier checkVerifier = new CssCheckVerifier();
     checkVerifier.scanFile(context);

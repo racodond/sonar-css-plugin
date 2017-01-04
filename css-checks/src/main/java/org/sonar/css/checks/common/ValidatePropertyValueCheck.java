@@ -40,7 +40,11 @@ public class ValidatePropertyValueCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitPropertyDeclaration(PropertyDeclarationTree tree) {
-    if (!tree.property().isVendorPrefixed() && !tree.isValid()) {
+
+    if (!tree.property().isVendorPrefixed()
+      && !tree.property().isScssNested()
+      && !tree.isValid(this.getContext().getLanguage())) {
+
       addPreciseIssue(
         tree,
         MessageFormat.format(
@@ -48,6 +52,7 @@ public class ValidatePropertyValueCheck extends DoubleDispatchVisitorCheck {
           tree.property().standardProperty().getName(),
           tree.property().standardProperty().getValidatorFormat()));
     }
+
     super.visitPropertyDeclaration(tree);
   }
 

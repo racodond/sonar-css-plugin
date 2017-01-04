@@ -23,6 +23,6 @@ public interface PropertyDeclarationTree extends DeclarationTree {
 
   PropertyTree property();
 
-  boolean isValid();
+  boolean isValid(String language);
 
 }

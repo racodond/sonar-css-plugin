@@ -19,26 +19,19 @@
  */
 package org.sonar.plugins.css.api.visitors;
 
-import java.io.File;
-
 import org.sonar.plugins.css.api.symbol.SymbolModel;
 import org.sonar.plugins.css.api.tree.Tree;
 
+import java.io.File;
+
 public interface TreeVisitorContext {
 
-  /**
-   * @return the top tree node of the current file AST representation.
-   */
   Tree getTopTree();
 
-  /**
-   * @return the current file
-   */
   File getFile();
 
-  /**
-   * @return the symbol model that allows to access the symbols declared in the current file
-   */
+  String getLanguage();
+
   SymbolModel getSymbolModel();
 
 }

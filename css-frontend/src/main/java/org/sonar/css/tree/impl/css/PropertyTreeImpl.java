@@ -28,6 +28,7 @@ import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.IdentifierTree;
 import org.sonar.plugins.css.api.tree.css.PropertyTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
+import org.sonar.plugins.css.api.tree.scss.ScssNestedPropertiesDeclarationTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 import javax.annotation.Nullable;
@@ -104,6 +105,14 @@ public class PropertyTreeImpl extends TreeImpl implements PropertyTree {
   @Override
   public boolean isLessMerge() {
     return lessMerge != null;
+  }
+
+  @Override
+  public boolean isScssNested() {
+    return this.parent() != null
+      && this.parent().parent() != null
+      && this.parent().parent().parent() != null
+      && this.parent().parent().parent() instanceof ScssNestedPropertiesDeclarationTree;
   }
 
   @Override

@@ -68,8 +68,13 @@ public class ScssAnalyzerSensor extends AbstractLanguageAnalyzerSensor {
   }
 
   @Override
-  public String languageToAnalyze() {
+  public String analyzerName() {
     return ScssLanguage.NAME;
+  }
+
+  @Override
+  public String language() {
+    return ScssLanguage.KEY;
   }
 
   @Override

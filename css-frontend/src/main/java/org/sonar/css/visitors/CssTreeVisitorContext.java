@@ -19,22 +19,25 @@
  */
 package org.sonar.css.visitors;
 
-import java.io.File;
-
-import org.sonar.css.tree.symbol.SymbolModelImpl;
 import org.sonar.css.tree.impl.TreeImpl;
+import org.sonar.css.tree.symbol.SymbolModelImpl;
 import org.sonar.plugins.css.api.symbol.SymbolModel;
 import org.sonar.plugins.css.api.visitors.TreeVisitorContext;
+
+import java.io.File;
 
 public class CssTreeVisitorContext implements TreeVisitorContext {
 
   private final TreeImpl tree;
   private final File file;
   private final SymbolModel symbolModel;
+  private final String language;
 
-  public CssTreeVisitorContext(TreeImpl tree, File file) {
+
+  public CssTreeVisitorContext(TreeImpl tree, File file, String language) {
     this.tree = tree;
     this.file = file;
+    this.language = language;
 
     this.symbolModel = new SymbolModelImpl();
     SymbolModelImpl.build(this);
@@ -48,6 +51,11 @@ public class CssTreeVisitorContext implements TreeVisitorContext {
   @Override
   public File getFile() {
     return file;
+  }
+
+  @Override
+  public String getLanguage() {
+    return language;
   }
 
   @Override

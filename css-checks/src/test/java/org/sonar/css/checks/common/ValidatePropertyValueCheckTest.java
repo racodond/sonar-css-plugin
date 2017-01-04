@@ -20,13 +20,12 @@
 package org.sonar.css.checks.common;
 
 import com.google.common.base.Preconditions;
-
-import java.io.File;
-
 import junit.framework.Assert;
 import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
+
+import java.io.File;
 
 public class ValidatePropertyValueCheckTest {
 
@@ -41,10 +40,24 @@ public class ValidatePropertyValueCheckTest {
   }
 
   @Test
-  public void test_validate_properties_ignore_value_with_less_elements() {
+  public void test_ignore_value_with_less_elements() {
     CssCheckVerifier.verifyLessFile(
       new ValidatePropertyValueCheck(),
       CheckTestUtils.getCommonTestFile("validatePropertyValue.less"));
+  }
+
+  @Test
+  public void test_ignore_value_with_scss_elements() {
+    CssCheckVerifier.verifyScssFile(
+      new ValidatePropertyValueCheck(),
+      CheckTestUtils.getCommonTestFile("validatePropertyValue.scss"));
+  }
+
+  @Test
+  public void test_ignore_scss_nested_properties() {
+    CssCheckVerifier.verifyScssFile(
+      new ValidatePropertyValueCheck(),
+      CheckTestUtils.getCommonTestFile("validateNestedProperties.scss"));
   }
 
   @Test

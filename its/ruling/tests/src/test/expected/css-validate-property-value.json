@@ -1600,9 +1600,6 @@
 3,
 4,
 ],
-'project:custom/common/unknownFunctions.css':[
-2,
-],
 'project:custom/common/vendorprefixwithstandard.css':[
 4,
 12,
@@ -1617,9 +1614,12 @@
 23,
 ],
 'project:custom/css/obsoleteFunctions.css':[
+2,
+3,
 10,
 ],
 'project:custom/css/unknownFunctions.css':[
 2,
+8,
 ],
 }

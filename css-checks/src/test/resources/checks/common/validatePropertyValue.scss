@@ -1,0 +1,13 @@
+.mybox {
+  color: blabla; /* Noncompliant */
+  color: black, green; /* Noncompliant */
+  // FIXME: color: abc(black);
+  color: $abc;
+  color: $abc black;
+  color: black $abc;
+  color: black, $abc;
+  color: ($abc + 2);
+  color: #{($abc + 2)};
+  color: abc#{($abc + 2)}def;
+  color: 3 * 2px;
+}

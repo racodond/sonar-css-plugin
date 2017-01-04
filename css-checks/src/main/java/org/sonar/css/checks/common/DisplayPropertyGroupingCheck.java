@@ -68,7 +68,7 @@ public class DisplayPropertyGroupingCheck extends DoubleDispatchVisitorCheck {
     for (PropertyDeclarationTree declaration : propertyDeclarationTrees) {
 
       if ("display".equals(declaration.property().standardProperty().getName())
-        && declaration.isValid()
+        && declaration.isValid(this.getContext().getLanguage())
         && declaration.value().sanitizedValueElements().get(0) instanceof IdentifierTree) {
 
         displayDeclaration = declaration;

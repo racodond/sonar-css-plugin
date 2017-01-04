@@ -24,6 +24,7 @@ import com.google.common.io.Files;
 import org.junit.Test;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.StyleSheetTree;
+import org.sonar.plugins.css.api.tree.scss.ScssNestedPropertiesDeclarationTree;
 
 import java.io.File;
 

@@ -82,7 +82,7 @@ public class ScopeTest {
 
   private SymbolModel symbolModel(File file) {
     StyleSheetTreeImpl tree = (StyleSheetTreeImpl) LessParser.createParser(Charsets.UTF_8).parse(file);
-    return new CssTreeVisitorContext(tree, file).getSymbolModel();
+    return new CssTreeVisitorContext(tree, file, "less").getSymbolModel();
   }
 
   private Scope scopeAtLine(int line) {

@@ -75,7 +75,6 @@ public class CustomCssRulesDefinitionTest {
 
     @Override
     public String repositoryName() {
-      System.out.println(REPOSITORY_NAME);
       return REPOSITORY_NAME;
     }
 

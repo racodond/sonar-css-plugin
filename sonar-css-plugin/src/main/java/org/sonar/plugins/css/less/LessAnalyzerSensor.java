@@ -21,12 +21,6 @@ package org.sonar.plugins.css.less;
 
 import com.google.common.collect.Lists;
 import com.sonar.sslr.api.typed.ActionParser;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-import javax.annotation.Nullable;
-
 import org.sonar.api.batch.fs.FilePredicate;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
@@ -49,6 +43,11 @@ import org.sonar.plugins.css.api.CustomRulesDefinition;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.visitors.TreeVisitor;
 
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 public class LessAnalyzerSensor extends AbstractLanguageAnalyzerSensor {
 
   public LessAnalyzerSensor(FileSystem fileSystem, CheckFactory checkFactory, Settings settings, NoSonarFilter noSonarFilter) {
@@ -69,8 +68,13 @@ public class LessAnalyzerSensor extends AbstractLanguageAnalyzerSensor {
   }
 
   @Override
-  public String languageToAnalyze() {
+  public String analyzerName() {
     return LessLanguage.NAME;
+  }
+
+  @Override
+  public String language() {
+    return LessLanguage.KEY;
   }
 
   @Override

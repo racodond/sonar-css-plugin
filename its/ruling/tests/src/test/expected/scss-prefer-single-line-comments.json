@@ -15,6 +15,13 @@
 3,
 7,
 ],
+'project:custom/common/validateNestedProperties.scss':[
+14,
+],
+'project:custom/common/validatePropertyValue.scss':[
+2,
+3,
+],
 'project:custom/scss/atLeastTwoNestedProperties.scss':[
 2,
 8,
