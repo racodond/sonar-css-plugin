@@ -45,3 +45,9 @@ h1 {
     weight: bold;
   }
 }
+
+.mybox {
+  f#{$abc + $def}ont: {
+    family: fantasy;
+  }
+}

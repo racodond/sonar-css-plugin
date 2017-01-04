@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 public class IdentifierTreeImpl extends LiteralTreeImpl implements IdentifierTree {
 
   private static final Pattern LESS_INTERPOLATED_VARIABLE = Pattern.compile("@\\{[\\w-_]+\\}");
-  private static final Pattern SCSS_INTERPOLATED_VARIABLE = Pattern.compile("#\\{\\$[\\w-_]+\\}");
+  private static final Pattern SCSS_INTERPOLATED_VARIABLE = Pattern.compile("#\\{.+\\}");
   private final Vendor vendor;
   private Scope scope;
   private Symbol symbol = null;

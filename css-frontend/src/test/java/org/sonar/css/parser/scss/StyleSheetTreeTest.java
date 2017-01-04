@@ -72,12 +72,12 @@ public class StyleSheetTreeTest extends ScssTreeTest {
 
     tree = checkParsed(new File("src/test/resources/scss/stylesheet.scss"));
     assertThat(tree.atRules()).hasSize(1);
-    assertThat(tree.rulesets()).hasSize(3);
+    assertThat(tree.rulesets()).hasSize(4);
     assertThat(tree.scssVariableDeclarations()).hasSize(3);
     assertThat(tree.scssMixinDefinitions()).hasSize(1);
     assertThat(tree.scssMixinIncludes()).hasSize(1);
     assertThat(tree.scssAtRoots()).hasSize(2);
-    assertThat(tree.all()).hasSize(11);
+    assertThat(tree.all()).hasSize(12);
 
     tree = checkParsed(";");
     assertThat(tree.emptyStatements()).hasSize(1);

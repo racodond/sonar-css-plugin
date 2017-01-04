@@ -36,6 +36,8 @@ public class ScssInterpolatedIdentifierTreeTest extends ScssTreeTest {
     checkParsed(" -moz-abc#{$class}e#{$class1}def", "-moz-abc#{$class}e#{$class1}def");
     checkParsed(" -moz-abc#{2 + 3}e#{$class1}def", "-moz-abc#{2 + 3}e#{$class1}def");
     checkParsed(" -moz-abc#{ $abc * 2 + 3}e#{$class1}def", "-moz-abc#{ $abc * 2 + 3}e#{$class1}def");
+    checkParsed("#{ 2 * 3 + 5 + $abc}", "#{ 2 * 3 + 5 + $abc}");
+    checkParsed("abc#{ 2 * 3 + 5 + $abc}def", "abc#{ 2 * 3 + 5 + $abc}def");
   }
 
   @Test
