@@ -24,9 +24,9 @@ import org.sonar.css.model.function.StandardFunction;
 public class Toggle extends StandardFunction {
 
   public Toggle() {
-    setExperimental(true);
+    setObsolete(true);
     setCss(true);
-    addLinks("https://drafts.csswg.org/css-values-3/#funcdef-toggle");
+    addLinks("https://drafts.csswg.org/css-values-3/#changes");
   }
 
 }

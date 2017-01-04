@@ -92,12 +92,12 @@ public class StandardFunctionFactoryTest {
 
   @Test
   public void number_of_obsolete_functions() {
-    assertEquals(70, StandardFunctionFactory.getAll().stream().filter(StandardFunction::isObsolete).count());
+    assertEquals(71, StandardFunctionFactory.getAll().stream().filter(StandardFunction::isObsolete).count());
   }
 
   @Test
   public void number_of_experimental_functions() {
-    assertEquals(14, StandardFunctionFactory.getAll().stream().filter(StandardFunction::isExperimental).count());
+    assertEquals(13, StandardFunctionFactory.getAll().stream().filter(StandardFunction::isExperimental).count());
   }
 
 }

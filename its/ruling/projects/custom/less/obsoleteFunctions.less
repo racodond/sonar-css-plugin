@@ -4,4 +4,5 @@
   color: expression(); /* Noncompliant */
   color: min(); /* Compliant */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#000000', GradientType=1); /* Noncompliant ![sc=11;ec=53;el=+0]! !{Remove this usage of the obsolete / not on W3C Standards track "progid:dximagetransform.microsoft.gradient" function.}! */
+  font-style: toggle(italic, normal); /* Noncompliant */
 }

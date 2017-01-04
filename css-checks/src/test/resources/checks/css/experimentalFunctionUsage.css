@@ -19,6 +19,3 @@
   #summary { background: yellow; color: black}
 }
 
-em {
-  font-style: toggle(italic, normal); /* Noncompliant */
-}
