@@ -37,7 +37,6 @@ import java.util.List;
 public class StatementBlockTreeImpl extends TreeImpl implements StatementBlockTree {
 
   private final SyntaxToken openCurlyBrace;
-  @Nullable
   private final List<Tree> content;
   private final SyntaxToken closeCurlyBrace;
 
@@ -64,7 +63,7 @@ public class StatementBlockTreeImpl extends TreeImpl implements StatementBlockTr
 
   public StatementBlockTreeImpl(SyntaxToken openCurlyBrace, @Nullable List<Tree> content, SyntaxToken closeCurlyBrace) {
     this.openCurlyBrace = openCurlyBrace;
-    this.content = content;
+    this.content = content != null ? content : new ArrayList<>();
     this.closeCurlyBrace = closeCurlyBrace;
 
     propertyDeclarations = TreeListUtils.allElementsOfType(content, PropertyDeclarationTree.class);
@@ -145,7 +144,6 @@ public class StatementBlockTreeImpl extends TreeImpl implements StatementBlockTr
   }
 
   @Override
-  @Nullable
   public List<Tree> content() {
     return content;
   }

@@ -36,7 +36,7 @@ public class StatementBlockTreeTest extends LessTreeTest {
     StatementBlockTree tree;
 
     tree = checkParsed("{}");
-    assertThat(tree.content()).isNull();
+    assertThat(tree.content()).isEmpty();
     assertThat(tree.propertyDeclarations()).isEmpty();
     assertThat(tree.variableDeclarations()).isEmpty();
     assertThat(tree.emptyStatements()).isEmpty();
@@ -49,7 +49,7 @@ public class StatementBlockTreeTest extends LessTreeTest {
     assertThat(tree.lessMixinCalls()).isEmpty();
 
     tree = checkParsed(" {}");
-    assertThat(tree.content()).isNull();
+    assertThat(tree.content()).isEmpty();
     assertThat(tree.propertyDeclarations()).isEmpty();
     assertThat(tree.variableDeclarations()).isEmpty();
     assertThat(tree.emptyStatements()).isEmpty();
@@ -62,7 +62,7 @@ public class StatementBlockTreeTest extends LessTreeTest {
     assertThat(tree.lessMixinCalls()).isEmpty();
 
     tree = checkParsed(" { }");
-    assertThat(tree.content()).isNull();
+    assertThat(tree.content()).isEmpty();
     assertThat(tree.propertyDeclarations()).isEmpty();
     assertThat(tree.variableDeclarations()).isEmpty();
     assertThat(tree.emptyStatements()).isEmpty();
@@ -75,7 +75,7 @@ public class StatementBlockTreeTest extends LessTreeTest {
     assertThat(tree.lessMixinCalls()).isEmpty();
 
     tree = checkParsed("{color:green}");
-    assertThat(tree.content()).isNotNull();
+    assertThat(tree.content()).hasSize(1);
     assertThat(tree.propertyDeclarations()).hasSize(1);
     assertThat(tree.variableDeclarations()).isEmpty();
     assertThat(tree.emptyStatements()).isEmpty();
@@ -88,7 +88,7 @@ public class StatementBlockTreeTest extends LessTreeTest {
     assertThat(tree.lessMixinCalls()).isEmpty();
 
     tree = checkParsed(" { color : green; }");
-    assertThat(tree.content()).isNotNull();
+    assertThat(tree.content()).hasSize(1);
     assertThat(tree.propertyDeclarations()).hasSize(1);
     assertThat(tree.variableDeclarations()).isEmpty();
     assertThat(tree.emptyStatements()).isEmpty();
@@ -101,7 +101,7 @@ public class StatementBlockTreeTest extends LessTreeTest {
     assertThat(tree.lessMixinCalls()).isEmpty();
 
     tree = checkParsed(" { color : green; --var: var; }");
-    assertThat(tree.content()).isNotNull();
+    assertThat(tree.content()).hasSize(2);
     assertThat(tree.propertyDeclarations()).hasSize(1);
     assertThat(tree.variableDeclarations()).hasSize(1);
     assertThat(tree.emptyStatements()).isEmpty();
@@ -114,7 +114,7 @@ public class StatementBlockTreeTest extends LessTreeTest {
     assertThat(tree.lessMixinCalls()).isEmpty();
 
     tree = checkParsed(" { h1, h1 {color : green;} }");
-    assertThat(tree.content()).isNotNull();
+    assertThat(tree.content()).hasSize(1);
     assertThat(tree.propertyDeclarations()).isEmpty();
     assertThat(tree.rulesets()).hasSize(1);
     assertThat(tree.variableDeclarations()).isEmpty();
@@ -127,7 +127,7 @@ public class StatementBlockTreeTest extends LessTreeTest {
     assertThat(tree.lessMixinCalls()).isEmpty();
 
     tree = checkParsed(" { @import; }");
-    assertThat(tree.content()).isNotNull();
+    assertThat(tree.content()).hasSize(1);
     assertThat(tree.atRules()).hasSize(1);
     assertThat(tree.propertyDeclarations()).isEmpty();
     assertThat(tree.variableDeclarations()).isEmpty();
@@ -140,7 +140,7 @@ public class StatementBlockTreeTest extends LessTreeTest {
     assertThat(tree.lessMixinCalls()).isEmpty();
 
     tree = checkParsed(" { @import url(\"fineprint.css\") print; }");
-    assertThat(tree.content()).isNotNull();
+    assertThat(tree.content()).hasSize(1);
     assertThat(tree.atRules()).hasSize(1);
     assertThat(tree.propertyDeclarations()).isEmpty();
     assertThat(tree.variableDeclarations()).isEmpty();
@@ -159,7 +159,7 @@ public class StatementBlockTreeTest extends LessTreeTest {
       + "     url('myfont-webfont.ttf')  format('truetype'),"
       + "     url('myfont-webfont.svg#svgFontName') format('svg');"
       + "}");
-    assertThat(tree.content()).isNotNull();
+    assertThat(tree.content()).hasSize(2);
     assertThat(tree.propertyDeclarations()).hasSize(2);
     assertThat(tree.variableDeclarations()).isEmpty();
     assertThat(tree.emptyStatements()).isEmpty();
@@ -172,7 +172,7 @@ public class StatementBlockTreeTest extends LessTreeTest {
     assertThat(tree.lessMixinCalls()).isEmpty();
 
     tree = checkParsed("{ @styleset { nice-style: 4; } @styleset { nice-style: 4; } }");
-    assertThat(tree.content()).isNotNull();
+    assertThat(tree.content()).hasSize(2);
     assertThat(tree.atRules()).hasSize(2);
     assertThat(tree.propertyDeclarations()).isEmpty();
     assertThat(tree.variableDeclarations()).isEmpty();
@@ -185,7 +185,7 @@ public class StatementBlockTreeTest extends LessTreeTest {
     assertThat(tree.lessMixinCalls()).isEmpty();
 
     tree = checkParsed(" { h1, h1 {color : green;} h3 {} }");
-    assertThat(tree.content()).isNotNull();
+    assertThat(tree.content()).hasSize(2);
     assertThat(tree.rulesets()).hasSize(2);
     assertThat(tree.propertyDeclarations()).isEmpty();
     assertThat(tree.variableDeclarations()).isEmpty();
@@ -210,7 +210,7 @@ public class StatementBlockTreeTest extends LessTreeTest {
       "  size: 8.5in 11in;\n" +
       "h1 {color : green;}" +
       "}");
-    assertThat(tree.content()).isNotNull();
+    assertThat(tree.content()).hasSize(6);
     assertThat(tree.propertyDeclarations()).hasSize(2);
     assertThat(tree.variableDeclarations()).hasSize(1);
     assertThat(tree.rulesets()).hasSize(1);
@@ -223,7 +223,7 @@ public class StatementBlockTreeTest extends LessTreeTest {
     assertThat(tree.lessMixinCalls()).isEmpty();
 
     tree = checkParsed(" { \ncolor : green;\ncolor: red;\n@myvar: blabla;}");
-    assertThat(tree.content()).isNotNull();
+    assertThat(tree.content()).hasSize(3);
     assertThat(tree.propertyDeclarations()).hasSize(2);
     assertThat(tree.variableDeclarations()).isEmpty();
     assertThat(tree.emptyStatements()).isEmpty();
@@ -236,7 +236,7 @@ public class StatementBlockTreeTest extends LessTreeTest {
     assertThat(tree.lessMixinCalls()).isEmpty();
 
     tree = checkParsed(" { \ncolor : green;\nh1 {}\ncolor: red;\nh1 {}\n@myvar: blabla;}");
-    assertThat(tree.content()).isNotNull();
+    assertThat(tree.content()).hasSize(5);
     assertThat(tree.propertyDeclarations()).hasSize(2);
     assertThat(tree.rulesets()).hasSize(2);
     assertThat(tree.variableDeclarations()).isEmpty();
@@ -249,7 +249,7 @@ public class StatementBlockTreeTest extends LessTreeTest {
     assertThat(tree.lessMixinCalls()).isEmpty();
 
     tree = checkParsed(" { \ncolor : green;\n#id();\n.class;\nh1 {}\ncolor: red;\nh1 {}\n@myvar: blabla;}");
-    assertThat(tree.content()).isNotNull();
+    assertThat(tree.content()).hasSize(7);
     assertThat(tree.propertyDeclarations()).hasSize(2);
     assertThat(tree.rulesets()).hasSize(2);
     assertThat(tree.variableDeclarations()).isEmpty();
@@ -270,7 +270,7 @@ public class StatementBlockTreeTest extends LessTreeTest {
       "                   }" +
       "                 }" +
       "               }");
-    assertThat(tree.content()).isNotNull();
+    assertThat(tree.content()).hasSize(3);
     assertThat(tree.propertyDeclarations()).hasSize(1);
     assertThat(tree.variableDeclarations()).isEmpty();
     assertThat(tree.emptyStatements()).isEmpty();
@@ -289,7 +289,7 @@ public class StatementBlockTreeTest extends LessTreeTest {
       "                   }" +
       "                 }" +
       "               }");
-    assertThat(tree.content()).isNotNull();
+    assertThat(tree.content()).hasSize(1);
     assertThat(tree.propertyDeclarations()).isEmpty();
     assertThat(tree.variableDeclarations()).isEmpty();
     assertThat(tree.emptyStatements()).isEmpty();

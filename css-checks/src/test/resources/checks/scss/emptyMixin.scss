@@ -1,0 +1,10 @@
+@mixin my-mixin1 {
+  width: 10px;
+}
+
+@mixin my-mixin2 { /* Noncompliant ![sc=1;ec=2;el=+1]! !{Remove this empty mixin.}! */
+}
+
+.mybox {
+  @mixin my-mixin3 {} /* Noncompliant ![sc=3;ec=22]! !{Remove this empty mixin.}! */
+}

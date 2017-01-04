@@ -36,11 +36,11 @@ public class ScssForTreeTest extends ScssTreeTest {
     ScssForTree tree;
 
     tree = checkParsed("@for $i from 1 to 5 {}");
-    assertThat(tree.block().content()).isNull();
+    assertThat(tree.block().content()).isEmpty();
 
-    tree = checkParsed("@for $i from 1 to 5 {}");
-    assertThat(tree.block().content()).isNull();
-
+    tree = checkParsed("@for $i from 1 to 5 {color: green;}");
+    assertThat(tree.block().content()).hasSize(1);
+    assertThat(tree.block().propertyDeclarations()).hasSize(1);
   }
 
   @Test

@@ -36,10 +36,10 @@ public class ScssElseTreeTest extends ScssTreeTest {
     ScssElseTree tree;
 
     tree = checkParsed("@else {}");
-    assertThat(tree.block().content()).isNull();
+    assertThat(tree.block().content()).isEmpty();
 
     tree = checkParsed("@else { $abc: green; color: $abc;}");
-    assertThat(tree.block().content()).isNotNull();
+    assertThat(tree.block().content()).hasSize(2);
     assertThat(tree.block().scssVariableDeclarations()).hasSize(1);
     assertThat(tree.block().propertyDeclarations()).hasSize(1);
   }

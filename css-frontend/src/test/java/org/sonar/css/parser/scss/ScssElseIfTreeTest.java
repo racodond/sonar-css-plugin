@@ -37,18 +37,18 @@ public class ScssElseIfTreeTest extends ScssTreeTest {
 
     tree = checkParsed("@elseif $a == 1 {}");
     assertThat(tree.directive().name().text()).isEqualTo("elseif");
-    assertThat(tree.block().content()).isNull();
+    assertThat(tree.block().content()).isEmpty();
 
     tree = checkParsed("@else if $a >= 1 and $b != 2 {}");
     assertThat(tree.directive().name().text()).isEqualTo("else if");
-    assertThat(tree.block().content()).isNull();
+    assertThat(tree.block().content()).isEmpty();
 
     tree = checkParsed("@else  if $a == 1/2 {}");
     assertThat(tree.directive().name().text()).isEqualTo("else  if");
-    assertThat(tree.block().content()).isNull();
+    assertThat(tree.block().content()).isEmpty();
 
     tree = checkParsed("@elseif $a == 1*6+1-2 { $abc: green; color: $abc;}");
-    assertThat(tree.block().content()).isNotNull();
+    assertThat(tree.block().content()).hasSize(2);
     assertThat(tree.block().scssVariableDeclarations()).hasSize(1);
     assertThat(tree.block().propertyDeclarations()).hasSize(1);
     assertThat(tree.directive().name().text()).isEqualTo("elseif");

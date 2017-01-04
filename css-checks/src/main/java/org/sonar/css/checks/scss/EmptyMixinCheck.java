@@ -17,56 +17,31 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.checks.common;
+package org.sonar.css.checks.scss;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.Tags;
-import org.sonar.css.model.atrule.standard.*;
-import org.sonar.plugins.css.api.tree.css.AtRuleTree;
-import org.sonar.plugins.css.api.tree.css.RulesetTree;
-import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.scss.ScssMixinTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 @Rule(
-  key = "empty-rules",
-  name = "Empty rules should be removed",
+  key = "empty-mixin",
+  name = "Empty mixins should be removed",
   priority = Priority.MAJOR,
   tags = {Tags.PITFALL})
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
-public class EmptyRuleCheck extends DoubleDispatchVisitorCheck {
-
-  private static final ImmutableList<Class> AT_RULES_NOT_REQUIRING_BLOCK = ImmutableList.of(
-    Charset.class,
-    CustomMedia.class,
-    Import.class,
-    Namespace.class,
-    Viewport.class);
+public class EmptyMixinCheck extends DoubleDispatchVisitorCheck {
 
   @Override
-  public void visitRuleset(RulesetTree tree) {
+  public void visitScssMixin(ScssMixinTree tree) {
     if (tree.block().content().isEmpty()) {
-      addIssue(tree);
+      addPreciseIssue(tree, "Remove this empty mixin.");
     }
-    super.visitRuleset(tree);
-  }
-
-  @Override
-  public void visitAtRule(AtRuleTree tree) {
-    if (tree.block() != null
-      && tree.block().content().isEmpty()
-      && !AT_RULES_NOT_REQUIRING_BLOCK.contains(tree.standardAtRule().getClass())) {
-      addIssue(tree);
-    }
-    super.visitAtRule(tree);
-  }
-
-  private void addIssue(Tree tree) {
-    addPreciseIssue(tree, "Remove this empty rule.");
+    super.visitScssMixin(tree);
   }
 
 }

@@ -36,10 +36,10 @@ public class ScssEachTreeTest extends ScssTreeTest {
     ScssEachTree tree;
 
     tree = checkParsed("@each $i in abc {}");
-    assertThat(tree.block().content()).isNull();
+    assertThat(tree.block().content()).isEmpty();
 
     tree = checkParsed("@each $i, $j in abc, def { $abc: green; color: $abc; }");
-    assertThat(tree.block().content()).isNotNull();
+    assertThat(tree.block().content()).hasSize(2);
   }
 
   @Test

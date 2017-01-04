@@ -71,6 +71,7 @@ public final class CheckList {
         CustomFunctionNamingConventionCheck.class,
         DebugCheck.class,
         DeprecatedUnescapedMultilineStringCheck.class,
+        EmptyMixinCheck.class,
         IfElseIfWithoutElseCheck.class,
         org.sonar.css.checks.scss.ParsingErrorCheck.class,
         IfElseIfSameConditionCheck.class,

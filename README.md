@@ -146,6 +146,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Control flow directives @if, @else if, @else, @for, @while, and @each should not be nested too deeply
 * Custom functions should follow a naming convention
 * Deprecated unescaped multiline strings should not be used
+* Empty mixins should be removed
 * Mixins should follow a naming convention
 * Nested properties should define at least two properties 
 * Related @if / @else if directives should not have the same condition

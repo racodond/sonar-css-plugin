@@ -117,7 +117,7 @@ public class FormattingCheck extends DoubleDispatchVisitorCheck {
   @Override
   public void visitRuleset(RulesetTree tree) {
 
-    if (tree.block().content() == null) {
+    if (tree.block().content().isEmpty()) {
       return;
     }
 
@@ -147,7 +147,7 @@ public class FormattingCheck extends DoubleDispatchVisitorCheck {
 
       checkAtRuleOpeningCurlyBrace(tree);
 
-      if (tree.block().content() != null) {
+      if (!tree.block().content().isEmpty()) {
         if (isOnSameLine(tree.block().openCurlyBrace(), tree.block().content().get(0))) {
           addPreciseIssue(tree.block().openCurlyBrace(), "Move the code following the opening curly brace to the next line.");
         }

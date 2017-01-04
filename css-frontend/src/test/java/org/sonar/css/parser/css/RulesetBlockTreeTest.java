@@ -36,45 +36,45 @@ public class RulesetBlockTreeTest extends CssTreeTest {
     StatementBlockTree tree;
 
     tree = checkParsed("{}");
-    assertThat(tree.content()).isNull();
+    assertThat(tree.content()).isEmpty();
 
     tree = checkParsed(" {}");
-    assertThat(tree.content()).isNull();
+    assertThat(tree.content()).isEmpty();
 
     tree = checkParsed(" { }");
-    assertThat(tree.content()).isNull();
+    assertThat(tree.content()).isEmpty();
 
     tree = checkParsed("{color:green}");
-    assertThat(tree.content()).isNotNull();
+    assertThat(tree.content()).isNotEmpty();
     assertThat(tree.propertyDeclarations()).hasSize(1);
     assertThat(tree.rulesets()).isEmpty();
 
     tree = checkParsed(" { color : green }");
-    assertThat(tree.content()).isNotNull();
+    assertThat(tree.content()).isNotEmpty();
     assertThat(tree.propertyDeclarations()).hasSize(1);
     assertThat(tree.variableDeclarations()).isEmpty();
     assertThat(tree.rulesets()).isEmpty();
 
     tree = checkParsed(" { \ncolor : green\n }");
-    assertThat(tree.content()).isNotNull();
+    assertThat(tree.content()).isNotEmpty();
     assertThat(tree.propertyDeclarations()).hasSize(1);
     assertThat(tree.variableDeclarations()).isEmpty();
     assertThat(tree.rulesets()).isEmpty();
 
     tree = checkParsed(" { \ncolor : green;\ncolor: red;\n--myvar: blabla }");
-    assertThat(tree.content()).isNotNull();
+    assertThat(tree.content()).isNotEmpty();
     assertThat(tree.propertyDeclarations()).hasSize(2);
     assertThat(tree.variableDeclarations()).hasSize(1);
     assertThat(tree.rulesets()).isEmpty();
 
     tree = checkParsed(" { \ncolor : green;\ncolor: red;\n--myvar: blabla; }");
-    assertThat(tree.content()).isNotNull();
+    assertThat(tree.content()).isNotEmpty();
     assertThat(tree.propertyDeclarations()).hasSize(2);
     assertThat(tree.variableDeclarations()).hasSize(1);
     assertThat(tree.rulesets()).isEmpty();
 
     tree = checkParsed(" { \ncolor : green;\ncolor: red;\n--myvar: blabla;}");
-    assertThat(tree.content()).isNotNull();
+    assertThat(tree.content()).isNotEmpty();
     assertThat(tree.propertyDeclarations()).hasSize(2);
     assertThat(tree.variableDeclarations()).hasSize(1);
     assertThat(tree.rulesets()).isEmpty();
@@ -92,6 +92,7 @@ public class RulesetBlockTreeTest extends CssTreeTest {
     assertThat(tree).isNotNull();
     assertThat(tree.openCurlyBrace()).isNotNull();
     assertThat(tree.closeCurlyBrace()).isNotNull();
+    assertThat(tree.content()).isNotNull();
     assertThat(tree.variableDeclarations()).isNotNull();
 
     assertThat(tree.rulesets()).isEmpty();

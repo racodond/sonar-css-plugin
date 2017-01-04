@@ -36,16 +36,16 @@ public class ScssWhileTreeTest extends ScssTreeTest {
     ScssWhileTree tree;
 
     tree = checkParsed("@while $a < 1 {}");
-    assertThat(tree.block().content()).isNull();
+    assertThat(tree.block().content()).isEmpty();
 
     tree = checkParsed("@while $a >= 1 and $b != 2 {}");
-    assertThat(tree.block().content()).isNull();
+    assertThat(tree.block().content()).isEmpty();
 
     tree = checkParsed("@while $a == 1/2 {}");
-    assertThat(tree.block().content()).isNull();
+    assertThat(tree.block().content()).isEmpty();
 
     tree = checkParsed("@while $a <= 1*6+1-2 { $abc: green; color: $abc;}");
-    assertThat(tree.block().content()).isNotNull();
+    assertThat(tree.block().content()).hasSize(2);
     assertThat(tree.block().scssVariableDeclarations()).hasSize(1);
     assertThat(tree.block().propertyDeclarations()).hasSize(1);
   }

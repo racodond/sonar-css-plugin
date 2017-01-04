@@ -31,7 +31,6 @@ public interface StatementBlockTree extends Tree {
 
   SyntaxToken openCurlyBrace();
 
-  @Nullable
   List<Tree> content();
 
   SyntaxToken closeCurlyBrace();
