@@ -23,11 +23,24 @@ import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
+import java.io.File;
+
 public class ImportantPositionCheckTest {
 
+  private ImportantPositionCheck check = new ImportantPositionCheck();
+
   @Test
-  public void test() {
-    CssCheckVerifier.verifyCssFile(new ImportantPositionCheck(), CheckTestUtils.getCommonTestFile("importantPosition.css"));
+  public void test_css() {
+    CssCheckVerifier.verifyCssFile(check, getTestFile("importantPosition.css"));
+  }
+
+  @Test
+  public void test_scss() {
+    CssCheckVerifier.verifyScssFile(check, getTestFile("importantPosition.scss"));
+  }
+
+  private File getTestFile(String fileName) {
+    return CheckTestUtils.getCommonTestFile("important-position/" + fileName);
   }
 
 }

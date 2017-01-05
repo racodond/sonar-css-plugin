@@ -13,7 +13,8 @@
 9,
 10,
 ],
-'project:custom/common/important/important.css':[
+'project:custom/common/important-position/importantPosition.css':[
+2,
 3,
 4,
 5,
@@ -23,8 +24,7 @@
 9,
 10,
 ],
-'project:custom/common/importantPosition.css':[
-2,
+'project:custom/common/important/important.css':[
 3,
 4,
 5,

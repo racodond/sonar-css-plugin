@@ -2,6 +2,9 @@
 'project:custom/common/case/case.scss':[
 1,
 ],
+'project:custom/common/important-position/importantPosition.scss':[
+4,
+],
 'project:custom/common/validateNestedProperties.scss':[
 1,
 ],

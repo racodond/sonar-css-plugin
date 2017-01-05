@@ -1,0 +1,14 @@
+$border: 1px solid !important !default;
+$border: 1px solid !important !global;
+
+.mybox {
+   width: 100px !important;
+   width: 100px ! important;
+   width: 100px ! important ;
+   width: 100px !important ;
+   border: 1px solid black !important;
+   width: !important 100px; /* Noncompliant ![sc=11;ec=21;el=+0]! !{Move the "!important" annotation to the end of the declaration.}! */
+   border: !  important 1px solid black; /* Noncompliant ![sc=12;ec=24;el=+0]! !{Move the "!important" annotation to the end of the declaration.}! */
+   border: 1px solid !  important black; /* Noncompliant ![sc=22;ec=34;el=+0]! !{Move the "!important" annotation to the end of the declaration.}! */
+   border: 1px solid black !important
+}
