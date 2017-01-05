@@ -42,7 +42,6 @@ public class ValidatePropertyValueCheck extends DoubleDispatchVisitorCheck {
   public void visitPropertyDeclaration(PropertyDeclarationTree tree) {
 
     if (!tree.property().isVendorPrefixed()
-      && !tree.property().isScssNested()
       && !tree.isValid(this.getContext().getLanguage())) {
 
       addPreciseIssue(
