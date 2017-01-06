@@ -42,7 +42,7 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 @SqaleConstantRemediation("10min")
 public class DeprecatedSystemColorCheck extends DoubleDispatchVisitorCheck {
 
-  private static final List<String> potentialFalsePositives = ImmutableList.of("background");
+  private static final List<String> potentialFalsePositives = ImmutableList.of("background", "scrollbar", "window");
 
   @Override
   public void visitPropertyDeclaration(PropertyDeclarationTree tree) {
