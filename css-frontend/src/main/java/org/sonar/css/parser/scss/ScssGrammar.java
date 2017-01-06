@@ -132,9 +132,9 @@ public class ScssGrammar extends CssGrammar {
             SCSS_AT_ROOT(),
             SCSS_MIXIN(),
             SCSS_INCLUDE(),
+            RULESET(),
             DECLARATION(),
             AT_RULE(),
-            RULESET(),
             EMPTY_STATEMENT())),
         b.token(LexicalGrammar.CLOSE_CURLY_BRACE)));
   }
