@@ -1,0 +1,28 @@
+<p>
+  An empty control flow directive is one that doesn't contain any declaration. Empty control flow directives are
+  useless and should be removed.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+@if $x == 0 {
+} @else {
+}
+
+@while $x == 0 {}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+@if $x == 0 {
+  do-something();
+} @else {
+  do-something-else();
+}
+
+@while $x == 0 {
+  do-something();
+}
+</pre>
+
+

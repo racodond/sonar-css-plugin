@@ -1645,6 +1645,15 @@
 'project:custom/scss/deprecatedUnescapedString.scss':[
 7,
 ],
+'project:custom/scss/emptyControlFlowDirective.scss':[
+21,
+22,
+23,
+26,
+29,
+32,
+36,
+],
 'project:custom/scss/emptyMixin.scss':[
 5,
 9,

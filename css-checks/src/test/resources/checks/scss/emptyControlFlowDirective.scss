@@ -1,0 +1,38 @@
+@if $x == 0 {
+  @error "blabla1";
+} @else if $x == 1 {
+  @error "blabla2";
+} @else {
+  @error "blabla3";
+}
+
+@while $x == 0 {
+  @error "blabla";
+}
+
+@for $i from 0 through 10 {
+  @error "blabla";
+}
+
+@each $abc in ($def) {
+  @error "blabla";
+}
+
+@if $x == 0 { /* Noncompliant ![sc=1;ec=2;el=+1]! !{Remove this empty control flow directive.}! */
+} @else if $x == 1 { /* Noncompliant ![sc=3;ec=2;el=+1]! !{Remove this empty control flow directive.}! */
+} @else { /* Noncompliant ![sc=3;ec=2;el=+1]! !{Remove this empty control flow directive.}! */
+}
+
+@while $x == 0 { /* Noncompliant ![sc=1;ec=2;el=+1]! !{Remove this empty control flow directive.}! */
+}
+
+@for $i from 0 through 10 { /* Noncompliant ![sc=1;ec=2;el=+1]! !{Remove this empty control flow directive.}! */
+}
+
+@each $abc in ($def) { /* Noncompliant ![sc=1;ec=2;el=+1]! !{Remove this empty control flow directive.}! */
+}
+
+@each $abc in ($def) {
+  @if $x == 0 { /* Noncompliant ![sc=3;ec=4;el=+1]! !{Remove this empty control flow directive.}! */
+  }
+}

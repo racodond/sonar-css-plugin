@@ -19,7 +19,7 @@ within [SonarQube](http://www.sonarqube.org). It:
 * Validates your CSS code
 * Performs more than:
   * [70 checks](http://sonarqube.racodond.com/coding_rules#languages=css%2Ccss) on CSS code
-  * [70 checks](http://sonarqube.racodond.com/coding_rules#languages=scss%2Ccss) on SCSS code
+  * [80 checks](http://sonarqube.racodond.com/coding_rules#languages=scss%2Ccss) on SCSS code
   * [70 checks](http://sonarqube.racodond.com/coding_rules#languages=less%2Ccss) on Less code
 * Provides the ability to write your own checks
 
@@ -149,6 +149,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Control flow directives @if, @else if, @else, @for, @while, and @each should not be nested too deeply
 * Custom functions should follow a naming convention
 * Deprecated unescaped multiline strings should not be used
+* Empty control flow directive blocks should be removed
 * Empty mixins should be removed
 * Mixins should follow a naming convention
 * Nested properties should define at least two properties 
