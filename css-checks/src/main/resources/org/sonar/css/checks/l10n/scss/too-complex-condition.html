@@ -4,7 +4,7 @@
 <h2>Noncompliant Code Example</h2>
 With a maximum allowed number of conditional operators of 3:
 <pre>
-@if $x == 0 and ($is-a or $is-b) and $z == 1 and $a {
+@if $height < 10 px and $width < 20px and $depth < 5px or $is-box-valid {
   do-something();
 }
 </pre>
@@ -12,9 +12,9 @@ With a maximum allowed number of conditional operators of 3:
 <h2>Compliant Solution</h2>
 With a maximum allowed number of conditional operators of 3:
 <pre>
-$is-d: $is-a or $is-b;
+$is-box-small-enough: $height < 10 px and $width < 20px and $depth < 5px;
 
-@if $x == 0 and $is-d and $z == 1  and $a {
+@if $is-frame-small-enough or $is-box-valid {
   do-something();
 }
 </pre>
