@@ -1,0 +1,9 @@
+.mybox {
+  animation-iteration-count: inherit;
+  animation-iteration-count: infinite;
+  animation-iteration-count: 0;
+  animation-iteration-count: 2.3;
+  animation-iteration-count: +2.3;
+  animation-iteration-count: abc; /* Noncompliant !{Update the invalid value of property "animation-iteration-count". Expected format: infinite | <number>(>=0)}! */
+  animation-iteration-count: -10; /* Noncompliant */
+}

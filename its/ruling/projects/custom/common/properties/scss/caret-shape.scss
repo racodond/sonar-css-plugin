@@ -1,0 +1,9 @@
+.mybox {
+  caret-shape: inherit;
+  caret-shape: auto;
+  caret-shape: bar;
+  caret-shape: block;
+  caret-shape: underscore;
+  caret-shape: abc; /* Noncompliant !{Update the invalid value of property "caret-shape". Expected format: auto | bar | block | underscore}! */
+  caret-shape: 10px; /* Noncompliant */
+}

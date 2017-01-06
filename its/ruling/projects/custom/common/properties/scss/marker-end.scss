@@ -1,0 +1,7 @@
+.mybox {
+  marker-end: inherit;
+  marker-end: none;
+  marker-end: url("abc");
+  marker-end: url; /* Noncompliant !{Update the invalid value of property "marker-end". Expected format: none | <uri>}! */
+  marker-end: 10px; /* Noncompliant */
+}

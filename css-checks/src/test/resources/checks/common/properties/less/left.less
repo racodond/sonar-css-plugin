@@ -1,0 +1,10 @@
+.mybox {
+  left: inherit;
+  left: auto;
+  left: 10px;
+  left: -10px;
+  left: 10%;
+  left: -10%;
+  left: abc; /* Noncompliant !{Update the invalid value of property "left". Expected format: auto | <length> | <percentage>}! */
+  left: 12; /* Noncompliant */
+}

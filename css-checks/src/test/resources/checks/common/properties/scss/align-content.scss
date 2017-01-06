@@ -1,0 +1,11 @@
+.mybox {
+  align-content: inherit;
+  align-content: flex-start;
+  align-content: flex-end;
+  align-content: center;
+  align-content: space-between;
+  align-content: space-around;
+  align-content: stretch;
+  align-content: abc; /* Noncompliant !{Update the invalid value of property "align-content". Expected format: flex-start | flex-end | center | space-between | space-around | stretch}! */
+  align-content: 10; /* Noncompliant */
+}

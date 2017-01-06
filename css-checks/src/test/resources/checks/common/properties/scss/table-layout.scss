@@ -1,0 +1,7 @@
+.mybox {
+  table-layout: inherit;
+  table-layout: auto;
+  table-layout: fixed;
+  table-layout: abc; /* Noncompliant !{Update the invalid value of property "table-layout". Expected format: auto | fixed}! */
+  table-layout: 10; /* Noncompliant */
+}

@@ -1,0 +1,17 @@
+.mybox {
+  text-underline-position: inherit;
+  text-underline-position: auto;
+  text-underline-position: under;
+  text-underline-position: left;
+  text-underline-position: right;
+  text-underline-position: under left;
+  text-underline-position: under right;
+  text-underline-position: right under;
+  text-underline-position: left under;
+  text-underline-position: left right; /* Noncompliant !{Update the invalid value of property "text-underline-position". Expected format: auto | [ under || [ left | right ] ]}! */
+  text-underline-position: auto right; /* Noncompliant */
+  text-underline-position: auto under; /* Noncompliant */
+  text-underline-position: under 10px; /* Noncompliant */
+  text-underline-position: 0; /* Noncompliant */
+  text-underline-position: 10px; /* Noncompliant */
+}

@@ -1,0 +1,8 @@
+.mybox {
+  float: inherit;
+  float: none;
+  float: left;
+  float: right;
+  float: abc; /* Noncompliant !{Update the invalid value of property "float". Expected format: left | right | none}! */
+  float: 10px; /* Noncompliant */
+}

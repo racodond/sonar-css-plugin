@@ -1,0 +1,35 @@
+.mybox {
+  background-size: inherit;
+  background-size: cover;
+  background-size: contain;
+  background-size: auto;
+  background-size: 10%;
+  background-size: 12px;
+  background-size: auto auto;
+  background-size: 10% 10%;
+  background-size: 10px 10px;
+  background-size: auto 10%;
+  background-size: auto 10px;
+  background-size: 10px 10%;
+  background-size: 10% 10px;
+  // FIXME
+  //background-size: cover, contain;
+  //background-size: cover, contain, cover;
+  //background-size: 10px, 10%, auto;
+  //background-size: 10px auto, cover, 10%;
+  background-size: 10% -10px; /* Noncompliant !{Update the invalid value of property "background-size". Expected format: [ <length> | <percentage> | auto ]{1,2} | cover | contain [,  [ <length> | <percentage> | auto ]{1,2} | cover | contain ]*}! */
+  background-size: -10% -10px; /* Noncompliant */
+  background-size: cover cover; /* Noncompliant */
+  background-size: 12px cover; /* Noncompliant */
+  background-size: contain 10%; /* Noncompliant */
+  background-size: auto, cover auto; /* Noncompliant */
+  background-size: 10; /* Noncompliant */
+  background-size: abc; /* Noncompliant */
+  background-size: abc abc; /* Noncompliant */
+  background-size: abc abc, abc; /* Noncompliant */
+  background-size: cover / contain;
+  background-size: cover !important;
+  //FIXME
+  //background-size: cover, 10px 12% !important;
+  //background-size: !important cover, 10px 12%;
+}

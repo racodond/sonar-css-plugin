@@ -1,0 +1,9 @@
+.mybox {
+  device-pixel-ratio: inherit;
+  device-pixel-ratio: 0;
+  device-pixel-ratio: 2;
+  device-pixel-ratio: -2;
+  device-pixel-ratio: 2.5;
+  device-pixel-ratio: 2px; /* Noncompliant !{Update the invalid value of property "device-pixel-ratio". Expected format: <number>}! */
+  device-pixel-ratio: abc; /* Noncompliant */
+}

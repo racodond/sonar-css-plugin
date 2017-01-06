@@ -1,0 +1,28 @@
+.mybox {
+  background-blend-mode: inherit;
+  background-blend-mode: normal;
+  background-blend-mode: multiply;
+  background-blend-mode: screen;
+  background-blend-mode: overlay;
+  background-blend-mode: darken;
+  background-blend-mode: lighten;
+  background-blend-mode: color-dodge;
+  background-blend-mode: color-burn;
+  background-blend-mode: hard-light;
+  background-blend-mode: soft-light;
+  background-blend-mode: difference;
+  background-blend-mode: exclusion;
+  background-blend-mode: hue;
+  background-blend-mode: saturation;
+  background-blend-mode: color;
+  background-blend-mode: luminosity;
+  background-blend-mode: luminosity color; /* Noncompliant !{Update the invalid value of property "background-blend-mode". Expected format: [ normal | multiply | screen | overlay | darken | lighten | color-dodge | color-burn | hard-light | soft-light | difference | exclusion | hue | saturation | color | luminosity ]#}! */
+  background-blend-mode: abc; /* Noncompliant */
+  background-blend-mode: 10; /* Noncompliant */
+  // FIXME
+  //background-blend-mode: normal, multiply;
+  //background-blend-mode: normal, multiply, multiply;
+  //background-blend-mode: normal, multiply, multiply, color-burn;
+  //background-blend-mode: normal, multiply, multiply, zzz; /* Noncompliant */
+  //background-blend-mode: normal, multiply, , multiply; /* Noncompliant */
+}

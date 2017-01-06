@@ -1,0 +1,23 @@
+.mybox {
+  text-decoration-color: inherit;
+  text-decoration-color: red;
+  text-decoration-color: darkgrey;
+  text-decoration-color: #f03;
+  text-decoration-color: #F03;
+  text-decoration-color: #ff0033;
+  text-decoration-color: #FF0033;
+  text-decoration-color: #GF0033; /* Noncompliant !{Update the invalid value of property "text-decoration-color". Expected format: <color>}! */
+  text-decoration-color: #FF04033; /* Noncompliant */
+  text-decoration-color: abc; /* Noncompliant */
+  text-decoration-color: rgb(255, 0,51);
+  text-decoration-color: rgba(255, 0,51,0.5);
+  text-decoration-color: hsl(0,100%,15%);
+  text-decoration-color: hsla(0,100%,15%,0.5);
+  text-decoration-color: transparent;
+  text-decoration-color: currentColor;
+  text-decoration-color: currentcolor;
+  text-decoration-color: Background;
+  text-decoration-color: background;
+  text-decoration-color: ThreeDShadow;
+  text-decoration-color: threedshadow;
+}

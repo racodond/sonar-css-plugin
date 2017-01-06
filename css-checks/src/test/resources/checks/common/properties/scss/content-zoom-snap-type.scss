@@ -1,0 +1,8 @@
+.mybox {
+  content-zoom-snap-type: inherit;
+  content-zoom-snap-type: none;
+  content-zoom-snap-type: proximity;
+  content-zoom-snap-type: mandatory;
+  content-zoom-snap-type: abc; /* Noncompliant !{Update the invalid value of property "content-zoom-snap-type". Expected format: none | proximity | mandatory}! */
+  content-zoom-snap-type: 10%; /* Noncompliant */
+}

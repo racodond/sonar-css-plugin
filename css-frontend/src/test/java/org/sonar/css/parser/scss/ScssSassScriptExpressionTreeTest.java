@@ -21,11 +21,7 @@ package org.sonar.css.parser.scss;
 
 import org.junit.Test;
 import org.sonar.css.parser.LexicalGrammar;
-import org.sonar.plugins.css.api.tree.css.FunctionTree;
-import org.sonar.plugins.css.api.tree.css.NumberTree;
-import org.sonar.plugins.css.api.tree.css.ScssMapTree;
 import org.sonar.plugins.css.api.tree.css.ValueTree;
-import org.sonar.plugins.css.api.tree.scss.ScssOperatorTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -37,27 +33,10 @@ public class ScssSassScriptExpressionTreeTest extends ScssTreeTest {
 
   @Test
   public void scssSassScriptExpression() {
-    ValueTree tree;
-
-    tree = checkParsed("1+2");
-    assertThat(tree.valueElements()).hasSize(3);
-    assertThat(tree.valueElements().get(0)).isInstanceOf(NumberTree.class);
-    assertThat(tree.valueElements().get(1)).isInstanceOf(ScssOperatorTree.class);
-    assertThat(tree.valueElements().get(2)).isInstanceOf(NumberTree.class);
-
-    tree = checkParsed("1 + 2");
-    assertThat(tree.valueElements()).hasSize(3);
-    assertThat(tree.valueElements().get(0)).isInstanceOf(NumberTree.class);
-    assertThat(tree.valueElements().get(1)).isInstanceOf(ScssOperatorTree.class);
-    assertThat(tree.valueElements().get(2)).isInstanceOf(NumberTree.class);
-
-    tree = checkParsed("(a: 2, b: 3)");
-    assertThat(tree.valueElements()).hasSize(1);
-    assertThat(tree.valueElements().get(0)).isInstanceOf(ScssMapTree.class);
-
-    tree = checkParsed("abc((a: 2, b: 3))");
-    assertThat(tree.valueElements()).hasSize(1);
-    assertThat(tree.valueElements().get(0)).isInstanceOf(FunctionTree.class);
+    checkParsed("1+2");
+    checkParsed("1 + 2");
+    checkParsed("(a: 2, b: 3)");
+    checkParsed("abc((a: 2, b: 3))");
   }
 
   private ValueTree checkParsed(String toParse) {

@@ -1,0 +1,10 @@
+.mybox {
+  animation-direction: inherit;
+  animation-direction: normal;
+  animation-direction: reverse;
+  animation-direction: alternate;
+  animation-direction: alternate-reverse;
+  animation-direction: 10; /* Noncompliant !{Update the invalid value of property "animation-direction". Expected format: normal | reverse | alternate | alternate-reverse}! */
+  animation-direction: 0; /* Noncompliant */
+  animation-direction: abc; /* Noncompliant */
+}

@@ -67,12 +67,12 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
    *              <p>
    *              Example:
    *              <pre>
-   *                                                     CheckVerifier.issuesOnCssFile(new MyCheck(), myFile))
-   *                                                        .next().atLine(2).withMessage("This is message for line 2.")
-   *                                                        .next().atLine(3).withMessage("This is message for line 3.").withCost(2.)
-   *                                                        .next().atLine(8)
-   *                                                        .noMore();
-   *                                                     </pre>
+   *                                                                  CheckVerifier.issuesOnCssFile(new MyCheck(), myFile))
+   *                                                                     .next().atLine(2).withMessage("This is message for line 2.")
+   *                                                                     .next().atLine(3).withMessage("This is message for line 3.").withCost(2.)
+   *                                                                     .next().atLine(8)
+   *                                                                     .noMore();
+   *                                                                  </pre>
    */
   public static CheckMessagesVerifier issuesOnCssFile(CssCheck check, File file) {
     return issuesOnCssFile(check, file, Charsets.UTF_8);
@@ -264,7 +264,7 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
 
     for (TestIssue expected : expectedIssues) {
       if (actualIssues.hasNext()) {
-        verifyIssue(expected, actualIssues.next());
+        verifyIssue(expected, actualIssues.next(), file);
       } else {
         throw new AssertionError("Missing issue at line " + expected.line() + " in file " + file.getAbsolutePath());
       }
@@ -282,12 +282,12 @@ public class CssCheckVerifier extends SubscriptionVisitorCheck {
     return sortedIssues.iterator();
   }
 
-  private static void verifyIssue(TestIssue expected, Issue actual) {
+  private static void verifyIssue(TestIssue expected, Issue actual, File file) {
     if (line(actual) > expected.line()) {
-      fail("Missing issue at line " + expected.line());
+      fail("Missing issue at line " + expected.line() + " in file " + file.getAbsolutePath());
     }
     if (line(actual) < expected.line()) {
-      fail("Unexpected issue at line " + line(actual) + ": \"" + message(actual) + "\"");
+      fail("Unexpected issue at line " + line(actual) + ": \"" + message(actual) + "\"" + " in file " + file.getAbsolutePath());
     }
     if (expected.message() != null) {
       assertThat(message(actual)).as("Bad message at line " + expected.line()).isEqualTo(expected.message());

@@ -19,7 +19,6 @@
  */
 package org.sonar.css.checks.common;
 
-import com.google.common.base.Preconditions;
 import junit.framework.Assert;
 import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
@@ -29,41 +28,55 @@ import java.io.File;
 
 public class ValidatePropertyValueCheckTest {
 
-  private static final File TEST_DIRECTORY = CheckTestUtils.getCommonTestFile("properties");
+  private ValidatePropertyValueCheck check = new ValidatePropertyValueCheck();
 
   @Test
-  public void test_validate_properties() {
-    Preconditions.checkNotNull(TEST_DIRECTORY);
-    for (File file : TEST_DIRECTORY.listFiles()) {
-      CssCheckVerifier.verifyCssFile(new ValidatePropertyValueCheck(), file);
+  public void test_css_validate_properties() {
+    for (File file : CheckTestUtils.getCommonTestFile("properties/css").listFiles()) {
+      CssCheckVerifier.verifyCssFile(check, file);
+    }
+  }
+
+  @Test
+  public void test_less_validate_properties() {
+    for (File file : CheckTestUtils.getCommonTestFile("properties/less").listFiles()) {
+      CssCheckVerifier.verifyLessFile(check, file);
+    }
+  }
+
+  @Test
+  public void test_scss_validate_properties() {
+    for (File file : CheckTestUtils.getCommonTestFile("properties/scss").listFiles()) {
+      CssCheckVerifier.verifyScssFile(check, file);
     }
   }
 
   @Test
   public void test_ignore_value_with_less_elements() {
     CssCheckVerifier.verifyLessFile(
-      new ValidatePropertyValueCheck(),
-      CheckTestUtils.getCommonTestFile("validatePropertyValue.less"));
+      check,
+      CheckTestUtils.getCommonTestFile("validate-property-value/validatePropertyValue.less"));
   }
 
   @Test
   public void test_ignore_value_with_scss_elements() {
     CssCheckVerifier.verifyScssFile(
-      new ValidatePropertyValueCheck(),
-      CheckTestUtils.getCommonTestFile("validatePropertyValue.scss"));
+      check,
+      CheckTestUtils.getCommonTestFile("validate-property-value/validatePropertyValue.scss"));
   }
 
   @Test
   public void test_ignore_scss_nested_properties() {
     CssCheckVerifier.verifyScssFile(
-      new ValidatePropertyValueCheck(),
-      CheckTestUtils.getCommonTestFile("validateNestedProperties.scss"));
+      check,
+      CheckTestUtils.getCommonTestFile("validate-property-value/validateNestedProperties.scss"));
   }
 
   @Test
   public void test_number_of_validated_properties() {
-    Preconditions.checkNotNull(TEST_DIRECTORY);
-    Assert.assertEquals(300, TEST_DIRECTORY.listFiles().length);
+    Assert.assertEquals(300, CheckTestUtils.getCommonTestFile("properties/css").listFiles().length);
+    Assert.assertEquals(300, CheckTestUtils.getCommonTestFile("properties/less").listFiles().length);
+    Assert.assertEquals(300, CheckTestUtils.getCommonTestFile("properties/scss").listFiles().length);
   }
 
 }

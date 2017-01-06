@@ -1,0 +1,10 @@
+.mybox {
+  margin-top: inherit;
+  margin-top: auto;
+  margin-top: 50%;
+  margin-top: -50%;
+  margin-top: 10pt;
+  margin-top: -10pt;
+  margin-top: 10; /* Noncompliant !{Update the invalid value of property "margin-top". Expected format: auto | fill | <length> | <percentage>}! */
+  margin-top: abc; /* Noncompliant */
+}

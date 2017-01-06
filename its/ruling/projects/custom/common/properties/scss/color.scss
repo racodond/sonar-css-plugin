@@ -1,0 +1,23 @@
+.mybox {
+  color: inherit;
+  color: red;
+  color: darkgrey;
+  color: #f03;
+  color: #F03;
+  color: #ff0033;
+  color: #FF0033;
+  color: #GF0033; /* Noncompliant !{Update the invalid value of property "color". Expected format: <color>}!*/
+  color: #FF04033; /* Noncompliant */
+  color: abc; /* Noncompliant */
+  color: rgb(255, 0,51);
+  color: rgba(255, 0,51,0.5);
+  color: hsl(0,100%,15%);
+  color: hsla(0,100%,15%,0.5);
+  color: transparent;
+  color: currentColor;
+  color: currentcolor;
+  color: Background;
+  color: background;
+  color: ThreeDShadow;
+  color: threedshadow;
+}

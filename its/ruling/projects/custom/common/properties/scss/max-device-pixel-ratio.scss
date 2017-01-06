@@ -1,0 +1,9 @@
+.mybox {
+  max-device-pixel-ratio: inherit;
+  max-device-pixel-ratio: 0;
+  max-device-pixel-ratio: 2;
+  max-device-pixel-ratio: -2;
+  max-device-pixel-ratio: 2.5;
+  max-device-pixel-ratio: 2px; /* Noncompliant !{Update the invalid value of property "max-device-pixel-ratio". Expected format: <number>}! */
+  max-device-pixel-ratio: abc; /* Noncompliant */
+}

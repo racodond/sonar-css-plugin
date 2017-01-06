@@ -1,0 +1,9 @@
+.mybox {
+  stroke-width: inherit;
+  stroke-width: 100%;
+  stroke-width: 10px;
+  stroke-width: -100%; /* Noncompliant !{Update the invalid value of property "stroke-width". Expected format: <length>(>=0) | <percentage>(>=0)}! */
+  stroke-width: -10px; /* Noncompliant */
+  stroke-width: 10; /* Noncompliant */
+  stroke-width: abc; /* Noncompliant */
+}

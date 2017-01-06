@@ -1,0 +1,8 @@
+.mybox {
+  font-style: inherit;
+  font-style: normal;
+  font-style: italic;
+  font-style: oblique;
+  font-style: abc; /* Noncompliant !{Update the invalid value of property "font-style". Expected format: normal | italic | oblique}! */
+  font-style: 0px; /* Noncompliant */
+}

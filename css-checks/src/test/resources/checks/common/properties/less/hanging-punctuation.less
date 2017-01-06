@@ -1,0 +1,18 @@
+.mybox {
+  hanging-punctuation: inherit;
+  hanging-punctuation: none;
+  hanging-punctuation: first;
+  hanging-punctuation: last;
+  hanging-punctuation: force-end;
+  hanging-punctuation: allow-end;
+  hanging-punctuation: 10; /* Noncompliant !{Update the invalid value of property "hanging-punctuation". Expected format: none | [ first || [ force-end | allow-end ] || last ]}! */
+  hanging-punctuation: 10%; /* Noncompliant */
+  hanging-punctuation: abc; /* Noncompliant */
+  hanging-punctuation: first last;
+  hanging-punctuation: last first;
+  hanging-punctuation: first force-end last;
+  hanging-punctuation: last allow-end first;
+  hanging-punctuation: last allow-end;
+  hanging-punctuation: last allow-end 10; /* Noncompliant */
+  hanging-punctuation: last allow-end force-end; /* Noncompliant */
+}

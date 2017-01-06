@@ -1,0 +1,9 @@
+.mybox {
+  scroll-behavior: inherit;
+  scroll-behavior: auto;
+  scroll-behavior: smooth;
+  scroll-behavior: 10; /* Noncompliant !{Update the invalid value of property "scroll-behavior". Expected format: auto | smooth}! */
+  scroll-behavior: abc; /* Noncompliant */
+  scroll-behavior: 50%; /* Noncompliant */
+  scroll-behavior: smooth smooth; /* Noncompliant */
+}

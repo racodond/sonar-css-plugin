@@ -1,0 +1,9 @@
+.mybox {
+  max-lines: inherit;
+  max-lines: none;
+  max-lines: 10;
+  max-lines: 0;
+  max-lines: -10;
+  max-lines: 10s; /* Noncompliant !{Update the invalid value of property "max-lines". Expected format: none | <integer>}! */
+  max-lines: abc; /* Noncompliant */
+}

@@ -1,0 +1,19 @@
+.mybox {
+  text-indent: inherit;
+  text-indent: 10px;
+  text-indent: -10px;
+  text-indent: 10%;
+  text-indent: -10%;
+  text-indent: none; /* Noncompliant !{Update the invalid value of property "text-indent". Expected format: [ <length> | <percentage> ] && hanging? && each-line?}! */
+  text-indent: 10.1; /* Noncompliant */
+  text-indent: 10px hanging each-line;
+  text-indent: hanging 10px each-line;
+  text-indent: hanging each-line 10px;
+  text-indent: each-line hanging 10px;
+  text-indent: hanging; /* Noncompliant */
+  text-indent: each-line; /* Noncompliant */
+  text-indent: each-line hanging; /* Noncompliant */
+  text-indent: hanging each-line; /* Noncompliant */
+  text-indent: hanging each-line 10; /* Noncompliant */
+  text-indent: hanging each-line abc; /* Noncompliant */
+}

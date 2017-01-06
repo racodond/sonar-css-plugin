@@ -56,10 +56,10 @@
 'project:custom/common/obsoleteProperties.css':[
 1,
 ],
-'project:custom/common/properties/pause.css':[
+'project:custom/common/properties/css/pause.css':[
 1,
 ],
-'project:custom/common/properties/rest.css':[
+'project:custom/common/properties/css/rest.css':[
 1,
 ],
 'project:custom/common/propertyRegex/propertyRegularExpression.css':[

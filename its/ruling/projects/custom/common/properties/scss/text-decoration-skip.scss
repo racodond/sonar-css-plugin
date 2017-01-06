@@ -1,0 +1,18 @@
+.mybox {
+  text-decoration-skip: inherit;
+  text-decoration-skip: none;
+  text-decoration-skip: objects;
+  text-decoration-skip: spaces;
+  text-decoration-skip: ink;
+  text-decoration-skip: edges;
+  text-decoration-skip: box-decoration;
+  text-decoration-skip: objects spaces;
+  text-decoration-skip: ink spaces edges;
+  text-decoration-skip: ink spaces edges objects box-decoration;
+  text-decoration-skip: ink spaces edges objects box-decoration ink; /* Noncompliant !{Update the invalid value of property "text-decoration-skip". Expected format: none | [ objects || spaces || ink || edges || box-decoration ]}! */
+  text-decoration-skip: ink ink; /* Noncompliant */
+  text-decoration-skip: ink 0px; /* Noncompliant */
+  text-decoration-skip: auto; /* Noncompliant */
+  text-decoration-skip: 0; /* Noncompliant */
+  text-decoration-skip: 10px; /* Noncompliant */
+}

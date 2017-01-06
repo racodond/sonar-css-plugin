@@ -1,0 +1,7 @@
+.mybox {
+  marker-side: inherit;
+  marker-side: list-item;
+  marker-side: list-container;
+  marker-side: 10px; /* Noncompliant !{Update the invalid value of property "marker-side". Expected format: list-item | list-container}! */
+  marker-side: abc; /* Noncompliant */
+}

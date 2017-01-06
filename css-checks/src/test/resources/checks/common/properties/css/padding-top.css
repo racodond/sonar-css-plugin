@@ -1,0 +1,9 @@
+.mybox {
+  padding-top: inherit;
+  padding-top: 50%;
+  padding-top: -50%; /* Noncompliant !{Update the invalid value of property "padding-top". Expected format: <length>(>=0) | <percentage>(>=0)}!*/
+  padding-top: 10pt;
+  padding-top: -10pt; /* Noncompliant */
+  padding-top: 10; /* Noncompliant */
+  padding-top: abc; /* Noncompliant */
+}

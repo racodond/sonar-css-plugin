@@ -1,0 +1,10 @@
+.mybox {
+  float-defer: inherit;
+  float-defer: last;
+  float-defer: none;
+  float-defer: 10;
+  float-defer: 0;
+  float-defer: -10;
+  float-defer: abc; /* Noncompliant !{Update the invalid value of property "float-defer". Expected format: <integer> | last | none}! */
+  float-defer: 10px; /* Noncompliant */
+}

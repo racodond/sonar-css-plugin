@@ -12,7 +12,13 @@
 'project:custom/common/important-position/importantPosition.scss':[
 4,
 ],
-'project:custom/common/validateNestedProperties.scss':[
+'project:custom/common/properties/scss/pause.scss':[
+1,
+],
+'project:custom/common/properties/scss/rest.scss':[
+1,
+],
+'project:custom/common/validate-property-value/validateNestedProperties.scss':[
 1,
 ],
 'project:custom/scss/atLeastTwoNestedProperties.scss':[

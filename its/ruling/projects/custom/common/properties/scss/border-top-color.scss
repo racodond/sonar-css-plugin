@@ -1,0 +1,7 @@
+.mybox {
+  border-top-color: inherit;
+  border-top-color: red;
+  border-top-color: rgb(25,25,25);
+  border-top-color: 10px; /* Noncompliant !{Update the invalid value of property "border-top-color". Expected format: <color>}! */
+  border-top-color: abc; /* Noncompliant */
+}

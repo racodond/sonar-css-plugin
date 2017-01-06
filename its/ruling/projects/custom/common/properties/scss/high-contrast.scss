@@ -1,0 +1,9 @@
+.mybox {
+  high-contrast: inherit;
+  high-contrast: active;
+  high-contrast: black-on-white;
+  high-contrast: white-on-black;
+  high-contrast: abc; /* Noncompliant !{Update the invalid value of property "high-contrast". Expected format: active | black-on-white | white-on-black}! */
+  high-contrast: 10; /* Noncompliant */
+  high-contrast: 10px; /* Noncompliant */
+}

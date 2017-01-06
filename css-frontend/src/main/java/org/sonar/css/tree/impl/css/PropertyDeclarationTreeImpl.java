@@ -157,7 +157,6 @@ public class PropertyDeclarationTreeImpl extends TreeImpl implements PropertyDec
     return false;
   }
 
-  // TODO: Refactor to remove duplication with doesValueContainLessElements
   private boolean doesValueContainScssElements(Iterator<Tree> iterator) {
     while (iterator.hasNext()) {
       Tree next = iterator.next();

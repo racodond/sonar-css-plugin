@@ -1,0 +1,9 @@
+.mybox {
+  content-zoom-snap-points: inherit;
+  content-zoom-snap-points: snapInterval(10%, 10%);
+  content-zoom-snap-points: snapinterval(10%, 10%);
+  content-zoom-snap-points: snapList(10%);
+  content-zoom-snap-points: snaplist(10%);
+  content-zoom-snap-points: abc; /* Noncompliant !{Update the invalid value of property "content-zoom-snap-points". Expected format: <function>(snapinterval | snaplist)}! */
+  content-zoom-snap-points: 10%; /* Noncompliant */
+}

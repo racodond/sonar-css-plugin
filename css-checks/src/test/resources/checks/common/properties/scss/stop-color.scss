@@ -1,0 +1,23 @@
+.mybox {
+  stop-color: inherit;
+  stop-color: red;
+  stop-color: darkgrey;
+  stop-color: #f03;
+  stop-color: #F03;
+  stop-color: #ff0033;
+  stop-color: #FF0033;
+  stop-color: #GF0033; /* Noncompliant !{Update the invalid value of property "stop-color". Expected format: <color>}! */
+  stop-color: #FF04033; /* Noncompliant */
+  stop-color: abc; /* Noncompliant */
+  stop-color: rgb(255, 0,51);
+  stop-color: rgba(255, 0,51,0.5);
+  stop-color: hsl(0,100%,15%);
+  stop-color: hsla(0,100%,15%,0.5);
+  stop-color: transparent;
+  stop-color: currentColor;
+  stop-color: currentcolor;
+  stop-color: Background;
+  stop-color: background;
+  stop-color: ThreeDShadow;
+  stop-color: threedshadow;
+}

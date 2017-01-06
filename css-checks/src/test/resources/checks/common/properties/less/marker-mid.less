@@ -1,0 +1,7 @@
+.mybox {
+  marker-mid: inherit;
+  marker-mid: none;
+  marker-mid: url("abc");
+  marker-mid: url; /* Noncompliant !{Update the invalid value of property "marker-mid". Expected format: none | <uri>}! */
+  marker-mid: 10px; /* Noncompliant */
+}

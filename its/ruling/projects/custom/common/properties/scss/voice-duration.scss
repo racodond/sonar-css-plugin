@@ -1,0 +1,12 @@
+.mybox {
+  voice-duration: inherit;
+  voice-duration: auto;
+  voice-duration: 10s;
+  voice-duration: 3ms;
+  voice-duration: 0;
+  voice-duration: 3; /* Noncompliant !{Update the invalid value of property "voice-duration". Expected format: auto | <time>(>=0)}! */
+  voice-duration: -3s; /* Noncompliant */
+  voice-duration: 50.5%; /* Noncompliant */
+  voice-duration: abc; /* Noncompliant */
+  voice-duration: 10px; /* Noncompliant */
+}

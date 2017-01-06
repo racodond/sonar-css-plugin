@@ -1,0 +1,13 @@
+.mybox {
+  text-combine-upright: inherit;
+  text-combine-upright: none;
+  text-combine-upright: all;
+  text-combine-upright: digits;
+  text-combine-upright: digits 2;
+  text-combine-upright: digits 34;
+  text-combine-upright: abc; /* Noncompliant !{Update the invalid value of property "text-combine-upright". Expected format: none | all | [ digits <integer>? ]}! */
+  text-combine-upright: 10px; /* Noncompliant */
+  text-combine-upright: 10; /* Noncompliant */
+  text-combine-upright: all 10; /* Noncompliant */
+  text-combine-upright: all digits; /* Noncompliant */
+}

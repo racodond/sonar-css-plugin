@@ -1,0 +1,408 @@
+/* Compliant: Only two margin properties*/
+.mybox {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+@mixin arrow-colour($position: bottom, $colour: $white) {
+  background: $colour;
+  &:after {
+    @if $position == top {
+      border-bottom-color: $colour;
+    } @else if $position == left {
+      border-right-color: $colour;
+    } @else if $position == right {
+      border-left-color: $colour;
+    } @else {
+      border-top-color: $colour;
+    }
+  }
+}
+
+@mixin arrow-colour($position: bottom, $colour: $white) {
+  background: $colour;
+  &:after { /* Noncompliant ![sc=3;ec=10;el=+0;secondary=+1,+2,+3,+4]! !{Use the "border-color" shorthand property instead.}! */
+    border-bottom-color: $colour;
+    border-right-color: $colour;
+    border-left-color: $colour;
+    border-top-color: $colour;
+  }
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+1,+3,+4,+5]! !{Use the "margin" shorthand property instead.}! */
+  margin-left: 10px;
+  color: red;
+  margin-right: 10px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+/* Compliant: Only two padding properties */
+.mybox {
+  padding-right: 10px;
+  padding-top: 20px;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+1,+2,+3,+5]! !{Use the "padding" shorthand property instead.}! */
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+  color: red;
+  padding-bottom: 30px;
+}
+
+ { /* Noncompliant ![sc=2;ec=3;el=+0;secondary=+1,+2,+3,+5]! !{Use the "padding" shorthand property instead.}! */
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+  color: red;
+  padding-bottom: 30px;
+}
+
+.mybox { /* Noncompliant */  /* Noncompliant */
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+  color: red;
+  padding-bottom: 30px;
+  margin-left: 10px;
+  abc: red;
+  margin-right: 10px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4,+5]! !{Use the "border-width" shorthand property instead.}! */
+  abc: 10px;
+  border-top-width: 10px;
+  border-right-width: 10px;
+  border-bottom-width: 10px;
+  border-left-width: 10px;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4,+5]! !{Use the "border-color" shorthand property instead.}! */
+  abc: 10px;
+  border-top-color: red;
+  border-right-color: red;
+  border-bottom-color: red;
+  border-left-color: red;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4,+5]! !{Use the "border-style" shorthand property instead.}! */
+  abc: 10px;
+  border-top-style: dashed;
+  border-right-style: dashed;
+  border-bottom-style: dashed;
+  border-left-style: dashed;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4,+5]! !{Use the "border-radius" shorthand property instead.}! */
+  abc: 10px;
+  border-top-left-radius: 10px 10px;
+  border-top-right-radius: 10px 10px;
+  border-bottom-left-radius: 10px 10px;
+  border-bottom-right-radius: 10px 10px;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4,+5]! !{Use the "border" shorthand property instead.}! */
+  abc: 10px;
+  border-top: thin green;
+  border-right: thin green;
+  border-bottom: thin green;
+  border-left: thin green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4]! !{Use the "border-top" shorthand property instead.}! */
+  abc: 10px;
+  border-top-color: green;
+  border-top-style: dashed;
+  border-top-width: 10px;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4]! !{Use the "border-right" shorthand property instead.}! */
+  abc: 10px;
+  border-right-color: green;
+  border-right-style: dashed;
+  border-right-width: 10px;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4]! !{Use the "border-bottom" shorthand property instead.}! */
+  abc: 10px;
+  border-bottom-color: green;
+  border-bottom-style: dashed;
+  border-bottom-width: 10px;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4]! !{Use the "border-left" shorthand property instead.}! */
+  abc: 10px;
+  border-left-color: green;
+  border-left-style: dashed;
+  border-left-width: 10px;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4,+5,+6]! !{Use the "border-image" shorthand property instead.}! */
+  abc: 10px;
+  border-image-source: green;
+  border-image-slice: green;
+  border-image-width: green;
+  border-image-outset: green;
+  border-image-repeat: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4,+5,+6,+7,+8]! !{Use the "font" shorthand property instead.}! */
+  abc: 10px;
+  font-style: 10px;
+  font-variant: 10px;
+  font-weight: 10px;
+  font-stretch: 10px;
+  font-size: 10px;
+  line-height: 10px;
+  font-family: 10px;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3]! !{Use the "pause" shorthand property instead.}! */
+  abc: 10px;
+  pause-after: green;
+  pause-before: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3]! !{Use the "rest" shorthand property instead.}! */
+  abc: 10px;
+  rest-after: green;
+  rest-before: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3]! !{Use the "cue" shorthand property instead.}! */
+  abc: 10px;
+  cue-after: green;
+  cue-before: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4]! !{Use the "list-style" shorthand property instead.}! */
+  abc: 10px;
+  list-style-type: green;
+  list-style-position: green;
+  list-style-image: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4,+5,+6,+7,+8]! !{Use the "background" shorthand property instead.}! */
+  abc: 10px;
+  background-image: green;
+  background-position: green;
+  background-size: green;
+  background-repeat: green;
+  background-origin: green;
+  background-clip: green;
+  background-attachment: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4]! !{Use the "text-decoration" shorthand property instead.}! */
+  abc: 10px;
+  text-decoration-line: green;
+  text-decoration-color: green;
+  text-decoration-style: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4,+5]! !{Use the "transition" shorthand property instead.}! */
+  abc: 10px;
+  transition-property: green;
+  transition-duration: green;
+  transition-timing-function: green;
+  transition-delay: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4,+5,+6,+7,+8,+9]! !{Use the "animation" shorthand property instead.}! */
+  abc: 10px;
+  animation-name: green;
+  animation-duration: green;
+  animation-timing-function: green;
+  animation-delay: green;
+  animation-iteration-count: green;
+  animation-direction: green;
+  animation-fill-mode: green;
+  animation-play-state: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4]! !{Use the "border-block-end" shorthand property instead.}! */
+  abc: 10px;
+  border-block-end-width: green;
+  border-block-end-color: green;
+  border-block-end-style: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4]! !{Use the "border-block-start" shorthand property instead.}! */
+  abc: 10px;
+  border-block-start-width: green;
+  border-block-start-color: green;
+  border-block-start-style: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4]! !{Use the "border-inline-start" shorthand property instead.}! */
+  abc: 10px;
+  border-inline-start-width: green;
+  border-inline-start-color: green;
+  border-inline-start-style: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4]! !{Use the "border-inline-end" shorthand property instead.}! */
+  abc: 10px;
+  border-inline-end-width: green;
+  border-inline-end-color: green;
+  border-inline-end-style: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4]! !{Use the "column-rule" shorthand property instead.}! */
+  abc: 10px;
+  column-rule-width: green;
+  column-rule-color: green;
+  column-rule-style: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4,+5,+6]! !{Use the "font-variant" shorthand property instead.}! */
+  abc: 10px;
+  font-variant-caps: green;
+  font-variant-numeric: green;
+  font-variant-alternates: green;
+  font-variant-ligatures: green;
+  font-variant-east-asian: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3]! !{Use the "grid-column" shorthand property instead.}! */
+  abc: 10px;
+  grid-column-start: green;
+  grid-column-end: green;
+}
+
+.mybox { /* Noncompliant */  /* Noncompliant */  /* Noncompliant */
+  abc: 10px;
+  grid-row-start: green;
+  grid-row-end: green;
+  grid-column-start: green;
+  grid-column-end: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3]! !{Use the "grid-gap" shorthand property instead.}! */
+  abc: 10px;
+  grid-row-gap: green;
+  grid-column-gap: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3]! !{Use the "grid-row" shorthand property instead.}! */
+  abc: 10px;
+  grid-row-start: green;
+  grid-row-end: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4]! !{Use the "grid-template" shorthand property instead.}! */
+  abc: 10px;
+  grid-template-rows: green;
+  grid-template-columns: green;
+  grid-template-areas: green;
+}
+
+.mybox { /* Noncompliant */  /* Noncompliant */  /* Noncompliant */
+  abc: 10px;
+  grid-template-rows: green;
+  grid-template-columns: green;
+  grid-template-areas: green;
+  grid-auto-rows: green;
+  grid-auto-columns: green;
+  grid-auto-flow: green;
+  grid-column-gap: green;
+  grid-row-gap: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3]! !{Use the "text-emphasis" shorthand property instead.}! */
+  abc: 10px;
+  text-emphasis-color: green;
+  text-emphasis-style: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3]! !{Use the "content-zoom-limit" shorthand property instead.}! */
+  abc: 10px;
+  content-zoom-limit-min: green;
+  content-zoom-limit-max: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3]! !{Use the "content-zoom-snap" shorthand property instead.}! */
+  abc: 10px;
+  content-zoom-snap-points: green;
+  content-zoom-snap-type: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3]! !{Use the "columns" shorthand property instead.}! */
+  abc: 10px;
+  column-count: green;
+  column-width: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4]! !{Use the "flex" shorthand property instead.}! */
+  abc: 10px;
+  flex-grow: green;
+  flex-basis: green;
+  flex-shrink: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4,+5]! !{Use the "layout-grid" shorthand property instead.}! */
+  abc: 10px;
+  layout-grid-mode: green;
+  layout-grid-type: green;
+  layout-grid-line: green;
+  layout-grid-char: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3]! !{Use the "flex-flow" shorthand property instead.}! */
+  abc: 10px;
+  flex-direction: green;
+  flex-wrap: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4,+5,+6]! !{Use the "mask-border" shorthand property instead.}! */
+  abc: 10px;
+  mask-border-source: green;
+  mask-border-slice: green;
+  mask-border-width: green;
+  mask-border-outset: green;
+  mask-border-repeat: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4,+5,+6,+7,+8,+9]! !{Use the "mask" shorthand property instead.}! */
+  abc: 10px;
+  mask-image: green;
+  mask-mode: green;
+  mask-repeat: green;
+  mask-position: green;
+  mask-clip: green;
+  mask-origin: green;
+  mask-size: green;
+  mask-composite: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4,+5]! !{Use the "scroll-snap-padding" shorthand property instead.}! */
+  abc: 10px;
+  scroll-snap-padding-top: green;
+  scroll-snap-padding-right: green;
+  scroll-snap-padding-bottom: green;
+  scroll-snap-padding-left: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4,+5]! !{Use the "scroll-snap-margin" shorthand property instead.}! */
+  abc: 10px;
+  scroll-snap-margin-top: green;
+  scroll-snap-margin-right: green;
+  scroll-snap-margin-bottom: green;
+  scroll-snap-margin-left: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3]! !{Use the "vertical-align" shorthand property instead.}! */
+  abc: 10px;
+  baseline-shift: green;
+  alignment-baseline: green;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3,+4]! !{Use the "motion" shorthand property instead.}! */
+  abc: 10px;
+  motion-path: green;
+  motion-offset: green;
+  motion-rotation: green;
+}

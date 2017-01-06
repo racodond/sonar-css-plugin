@@ -1,0 +1,9 @@
+.mybox {
+  padding-right: inherit;
+  padding-right: 50%;
+  padding-right: -50%; /* Noncompliant !{Update the invalid value of property "padding-right". Expected format: <length>(>=0) | <percentage>(>=0)}! */
+  padding-right: 10pt;
+  padding-right: -10pt; /* Noncompliant */
+  padding-right: 10; /* Noncompliant */
+  padding-right: abc; /* Noncompliant */
+}

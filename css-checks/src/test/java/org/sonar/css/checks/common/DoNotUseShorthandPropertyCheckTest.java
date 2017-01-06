@@ -23,11 +23,29 @@ import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
+import java.io.File;
+
 public class DoNotUseShorthandPropertyCheckTest {
 
+  private DoNotUseShorthandPropertyCheck check = new DoNotUseShorthandPropertyCheck();
+
   @Test
-  public void test() {
-    CssCheckVerifier.verifyCssFile(new DoNotUseShorthandPropertyCheck(), CheckTestUtils.getCommonTestFile("doNotUseShorthandProperties.css"));
+  public void test_css() {
+    CssCheckVerifier.verifyCssFile(check, getTestFile("doNotUseShorthandProperties.css"));
+  }
+
+  @Test
+  public void test_less() {
+    CssCheckVerifier.verifyLessFile(check, getTestFile("doNotUseShorthandProperties.less"));
+  }
+
+  @Test
+  public void test_scss() {
+    CssCheckVerifier.verifyScssFile(check, getTestFile("doNotUseShorthandProperties.scss"));
+  }
+
+  private File getTestFile(String fileName) {
+    return CheckTestUtils.getCommonTestFile("do-not-use-shorthand-properties/" + fileName);
   }
 
 }

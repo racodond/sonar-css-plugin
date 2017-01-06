@@ -1,0 +1,9 @@
+.mybox {
+  text-orientation: inherit;
+  text-orientation: mixed;
+  text-orientation: upright;
+  text-orientation: sideways;
+  text-orientation: tb; /* Noncompliant */
+  text-orientation: abc; /* Noncompliant !{Update the invalid value of property "text-orientation". Expected format: mixed | upright | sideways}! */
+  text-orientation: -0.5; /* Noncompliant */
+}

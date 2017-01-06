@@ -1,0 +1,9 @@
+.mybox {
+  image-rendering: inherit;
+  image-rendering: auto;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: abc; /* Noncompliant !{Update the invalid value of property "image-rendering". Expected format: auto | crisp-edges | pixelated}! */
+  image-rendering: 10px; /* Noncompliant */
+  image-rendering: 10; /* Noncompliant */
+}

@@ -1,0 +1,12 @@
+.mybox {
+  cue: inherit;
+  cue: none;
+  cue: url(http://mybox.com);
+  cue: abc; /* Noncompliant !{Update the invalid value of property "cue". Expected format: <cue-before> <cue-after>?}! */
+  cue: 10px; /* Noncompliant */
+  cue: url(http://mybox.com) url(http://mybox.com);
+  cue: url(http://mybox.com) url(http://mybox.com) url(http://mybox.com); /* Noncompliant */
+  cue: none url(http://mybox.com);
+  cue: none none;
+  cue: none abc;  /* Noncompliant */
+}

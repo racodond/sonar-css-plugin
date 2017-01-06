@@ -1,0 +1,10 @@
+.mybox {
+  list-style: inherit;
+  list-style: none;
+  list-style: none url(http://mybox) "abc";
+  list-style: none "abc" image();
+  list-style: none abc image();
+  list-style: none symbols() image();
+  list-style: 10; /* Noncompliant */
+  list-style: 10px; /* Noncompliant */
+}

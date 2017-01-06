@@ -1,0 +1,10 @@
+.mybox {
+  speak: inherit;
+  speak: normal;
+  speak: none;
+  speak: 3s; /* Noncompliant !{Update the invalid value of property "speak". Expected format: auto | normal | none}! */
+  speak: -3s; /* Noncompliant */
+  speak: 50.5%; /* Noncompliant */
+  speak: abc; /* Noncompliant */
+  speak: 10px; /* Noncompliant */
+}

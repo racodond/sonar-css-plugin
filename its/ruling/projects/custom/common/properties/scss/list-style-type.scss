@@ -1,0 +1,10 @@
+.mybox {
+  list-style-type: inherit;
+  list-style-type: none;
+  list-style-type: abc;
+  list-style-type: symbols();
+  list-style-type: "def";
+  list-style-type: 10; /* Noncompliant !{Update the invalid value of property "list-style-type". Expected format: <counter-style> | <string> | none}! */
+  list-style-type: 10px; /* Noncompliant */
+  list-style-type: abc();
+}

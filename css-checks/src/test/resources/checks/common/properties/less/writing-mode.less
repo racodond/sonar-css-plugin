@@ -1,0 +1,15 @@
+.mybox {
+  writing-mode: inherit;
+  writing-mode: horizontal-tb;
+  writing-mode: vertical-rl;
+  writing-mode: vertical-lr;
+  writing-mode: sideways-rl;
+  writing-mode: sideways-rl;
+  writing-mode: rl-tb; /* Noncompliant */
+  writing-mode: tb-rl; /* Noncompliant */
+  writing-mode: lr; /* Noncompliant */
+  writing-mode: rl; /* Noncompliant */
+  writing-mode: tb; /* Noncompliant */
+  writing-mode: abc; /* Noncompliant !{Update the invalid value of property "writing-mode". Expected format: horizontal-tb | vertical-rl | vertical-lr | sideways-rl | sideways-lr}! */
+  writing-mode: -0.5; /* Noncompliant */
+}

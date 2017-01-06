@@ -1,0 +1,11 @@
+.mybox {
+  unicode-bidi: inherit;
+  unicode-bidi: embed;
+  unicode-bidi: normal;
+  unicode-bidi: bidi-override;
+  unicode-bidi: isolate;
+  unicode-bidi: isolate-override;
+  unicode-bidi: plaintext;
+  unicode-bidi: abc; /* Noncompliant !{Update the invalid value of property "unicode-bidi". Expected format: normal | embed | isolate | bidi-override | isolate-override | plaintext}! */
+  unicode-bidi: 0.5; /* Noncompliant */
+}

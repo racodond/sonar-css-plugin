@@ -1,0 +1,10 @@
+.mybox {
+  tab-size: inherit;
+  tab-size: 0;
+  tab-size: 10;
+  tab-size: 10px;
+  tab-size: 10.5px;
+  tab-size: -10; /* Noncompliant !{Update the invalid value of property "tab-size". Expected format: <length>(>=0) | <integer>(>=0)}! */
+  tab-size: -10px; /* Noncompliant */
+  tab-size: abc; /* Noncompliant */
+}

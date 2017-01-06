@@ -1,0 +1,13 @@
+.mybox {
+  column-rule-style: inherit;
+  column-rule-style: none;
+  column-rule-style: hidden;
+  column-rule-style: dashed;
+  column-rule-style: double;
+  column-rule-style: groove;
+  column-rule-style: ridge;
+  column-rule-style: inset;
+  column-rule-style: outset;
+  column-rule-style: 10px; /* Noncompliant !{Update the invalid value of property "column-rule-style". Expected format: none | hidden | dotted | dashed | solid | double | groove | ridge | inset | outset}! */
+  column-rule-style: abc; /* Noncompliant */
+}

@@ -1,0 +1,8 @@
+.mybox {
+  region-fragment: inherit;
+  region-fragment: auto;
+  region-fragment: break;
+  region-fragment: 10; /* Noncompliant !{Update the invalid value of property "region-fragment". Expected format: auto | break}! */
+  region-fragment: none; /* Noncompliant */
+  region-fragment: 10px; /* Noncompliant */
+}

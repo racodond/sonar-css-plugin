@@ -1,0 +1,9 @@
+.mybox {
+  ruby-position: inherit;
+  ruby-position: over;
+  ruby-position: under;
+  ruby-position: inter-character;
+  ruby-position: 10; /* Noncompliant !{Update the invalid value of property "ruby-position". Expected format: over | under | inter-character}! */
+  ruby-position: none; /* Noncompliant */
+  ruby-position: 10px; /* Noncompliant */
+}

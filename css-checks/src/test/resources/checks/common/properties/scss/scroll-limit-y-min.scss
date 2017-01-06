@@ -1,0 +1,8 @@
+.mybox {
+  scroll-limit-y-min: inherit;
+  scroll-limit-y-min: 10px;
+  scroll-limit-y-min: -10px;
+  scroll-limit-y-min: auto; /* Noncompliant !{Update the invalid value of property "scroll-limit-y-min". Expected format: <length>}! */
+  scroll-limit-y-min: 10; /* Noncompliant */
+  scroll-limit-y-min: 10%; /* Noncompliant */
+}

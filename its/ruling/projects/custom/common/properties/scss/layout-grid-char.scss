@@ -1,0 +1,11 @@
+.mybox {
+  layout-grid-char: inherit;
+  layout-grid-char: none;
+  layout-grid-char: auto;
+  layout-grid-char: 10px;
+  layout-grid-char: -10px;
+  layout-grid-char: 10%;
+  layout-grid-char: -10%;
+  layout-grid-char: abc; /* Noncompliant !{Update the invalid value of property "layout-grid-char". Expected format: none | auto | <length> | <percentage>}! */
+  layout-grid-char: 10; /* Noncompliant */
+}

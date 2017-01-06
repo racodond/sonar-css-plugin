@@ -1,0 +1,9 @@
+.mybox {
+  column-gap: inherit;
+  column-gap: normal;
+  column-gap: 10px;
+  column-gap: 0;
+  column-gap: 10; /* Noncompliant !{Update the invalid value of property "column-gap". Expected format: normal | <length>(>=0)}! */
+  column-gap: none; /* Noncompliant */
+  column-gap: -10px; /* Noncompliant */
+}

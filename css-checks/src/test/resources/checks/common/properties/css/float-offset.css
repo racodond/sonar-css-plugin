@@ -1,0 +1,10 @@
+.mybox {
+  float-offset: inherit;
+  float-offset: 10px;
+  float-offset: -10px;
+  float-offset: 10%;
+  float-offset: -10%;
+  float-offset: 0;
+  float-offset: abc; /* Noncompliant !{Update the invalid value of property "float-offset". Expected format: <length> | <percentage>}! */
+  float-offset: 10; /* Noncompliant */
+}

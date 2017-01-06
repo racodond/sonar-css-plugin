@@ -1,0 +1,9 @@
+.mybox {
+  column-fill: inherit;
+  column-fill: auto;
+  column-fill: balance;
+  column-fill: balance-all;
+  column-fill: 10; /* Noncompliant !{Update the invalid value of property "column-fill". Expected format: auto | balance | balance-all}! */
+  column-fill: none; /* Noncompliant */
+  column-fill: 10px; /* Noncompliant */
+}

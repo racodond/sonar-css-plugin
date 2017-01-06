@@ -1,0 +1,15 @@
+.mybox {
+  dominant-baseline: inherit;
+  dominant-baseline: auto;
+  dominant-baseline: text-bottom ;
+  dominant-baseline: alphabetic;
+  dominant-baseline: ideographic;
+  dominant-baseline: middle;
+  dominant-baseline: central;
+  dominant-baseline: mathematical;
+  dominant-baseline: hanging;
+  dominant-baseline: text-top;
+  dominant-baseline: 10; /* Noncompliant !{Update the invalid value of property "dominant-baseline". Expected format: auto | text-bottom | alphabetic | ideographic | middle | central | mathematical | hanging | text-top}! */
+  dominant-baseline: 10px; /* Noncompliant */
+  dominant-baseline: abc; /* Noncompliant */
+}

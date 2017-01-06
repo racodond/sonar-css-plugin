@@ -1,0 +1,10 @@
+.mybox {
+  word-spacing: inherit;
+  word-spacing: normal;
+  word-spacing: 10px;
+  word-spacing: 10cm;
+  word-spacing: 10%;
+  word-spacing: -10%;
+  word-spacing: abc; /* Noncompliant !{Update the invalid value of property "word-spacing". Expected format: normal | <length> | <percentage>}! */
+  word-spacing: 10; /* Noncompliant */
+}

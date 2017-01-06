@@ -1,0 +1,13 @@
+.mybox {
+  border-right-style: inherit;
+  border-right-style: none;
+  border-right-style: hidden;
+  border-right-style: dashed;
+  border-right-style: double;
+  border-right-style: groove;
+  border-right-style: ridge;
+  border-right-style: inset;
+  border-right-style: outset;
+  border-right-style: 10px; /* Noncompliant !{Update the invalid value of property "border-right-style". Expected format: none | hidden | dotted | dashed | solid | double | groove | ridge | inset | outset}! */
+  border-right-style: abc; /* Noncompliant */
+}

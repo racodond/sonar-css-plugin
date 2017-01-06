@@ -1,0 +1,10 @@
+.mybox {
+  layout-grid-mode: inherit;
+  layout-grid-mode: both;
+  layout-grid-mode: none;
+  layout-grid-mode: line;
+  layout-grid-mode: char;
+  layout-grid-mode: abc; /* Noncompliant !{Update the invalid value of property "layout-grid-mode". Expected format: both | none | line | char}! */
+  layout-grid-mode: 10; /* Noncompliant */
+  layout-grid-mode: 10%; /* Noncompliant */
+}

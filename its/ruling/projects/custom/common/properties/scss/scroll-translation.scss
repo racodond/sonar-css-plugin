@@ -1,0 +1,8 @@
+.mybox {
+  scroll-translation: inherit;
+  scroll-translation: none;
+  scroll-translation: vertical-to-horizontal;
+  scroll-translation: abc; /* Noncompliant !{Update the invalid value of property "scroll-translation". Expected format: none | vertical-to-horizontal}! */
+  scroll-translation: 10px; /* Noncompliant */
+  scroll-translation: 10; /* Noncompliant */
+}

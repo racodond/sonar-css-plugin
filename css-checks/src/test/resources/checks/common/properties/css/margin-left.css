@@ -1,0 +1,10 @@
+.mybox {
+  margin-left: inherit;
+  margin-left: auto;
+  margin-left: 50%;
+  margin-left: -50%;
+  margin-left: 10pt;
+  margin-left: -10pt;
+  margin-left: 10; /* Noncompliant !{Update the invalid value of property "margin-left". Expected format: auto | fill | <length> | <percentage>}!*/
+  margin-left: abc; /* Noncompliant */
+}

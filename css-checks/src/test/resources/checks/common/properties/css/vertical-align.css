@@ -1,0 +1,17 @@
+.mybox {
+  vertical-align: inherit;
+  vertical-align: baseline;
+  vertical-align: sub;
+  vertical-align: super;
+  vertical-align: top;
+  vertical-align: text-top;
+  vertical-align: middle;
+  vertical-align: bottom;
+  vertical-align: text-bottom;
+  vertical-align: 10%;
+  vertical-align: -10%;
+  vertical-align: 10px;
+  vertical-align: -10px;
+  vertical-align: abc; /* Noncompliant !{Update the invalid value of property "vertical-align". Expected format: baseline | sub | super | top | text-top | middle | bottom | text-bottom | <percentage> | <length>}! */
+  vertical-align: 10; /* Noncompliant */
+}

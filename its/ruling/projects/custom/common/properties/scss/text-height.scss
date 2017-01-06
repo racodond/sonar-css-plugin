@@ -1,0 +1,10 @@
+.mybox {
+  text-height: inherit;
+  text-height: auto;
+  text-height: font-size;
+  text-height: text-size;
+  text-height: max-size;
+  text-height: abc; /* Noncompliant !{Update the invalid value of property "text-height". Expected format: auto | font-size | text-size | max-size}! */
+  text-height: 10;  /* Noncompliant */
+
+}

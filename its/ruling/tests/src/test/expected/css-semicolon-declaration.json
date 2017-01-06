@@ -14,10 +14,10 @@
 'project:custom/common/important-position/importantPosition.css':[
 10,
 ],
-'project:custom/common/properties/background-clip.css':[
+'project:custom/common/properties/css/background-clip.css':[
 8,
 ],
-'project:custom/common/properties/background-origin.css':[
+'project:custom/common/properties/css/background-origin.css':[
 8,
 ],
 'project:custom/common/semicolonDeclaration.css':[

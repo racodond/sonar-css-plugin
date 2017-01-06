@@ -1,0 +1,12 @@
+.mybox {
+  box-snap: inherit;
+  box-snap: none;
+  box-snap: block-start;
+  box-snap: block-end;
+  box-snap: center;
+  box-snap: baseline;
+  box-snap: last-baseline;
+  box-snap: abc; /* Noncompliant !{Update the invalid value of property "box-snap". Expected format: none | block-start | block-end | center | baseline | last-baseline}! */
+  box-snap: 10; /* Noncompliant */
+  box-snap: 10px; /* Noncompliant */
+}

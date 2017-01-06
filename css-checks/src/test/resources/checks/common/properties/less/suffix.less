@@ -1,0 +1,13 @@
+.mybox {
+  suffix: inherit;
+  suffix: none;
+  suffix: url(http://mybox);
+  suffix: image();
+  suffix: linear-gradient();
+  suffix: abc;
+  suffix: "abc";
+  suffix: 'abc';
+  suffix: 10px; /* Noncompliant !{Update the invalid value of property "suffix". Expected format: <string> | <image> | <identifier>}! */
+  suffix: 10; /* Noncompliant */
+  suffix: image() image(); /* Noncompliant */
+}

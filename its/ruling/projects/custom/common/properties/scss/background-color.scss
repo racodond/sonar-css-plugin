@@ -1,0 +1,24 @@
+.mybox {
+  background-color: inherit;
+  background-color: red;
+  background-color: darkgrey;
+  background-color: #f03;
+  background-color: #F03;
+  background-color: #ff0033;
+  background-color: #FF0033;
+  background-color: #GF0033; /* Noncompliant !{Update the invalid value of property "background-color". Expected format: <color>}! */
+  background-color: #FF04033; /* Noncompliant */
+  background-color: abc; /* Noncompliant */
+  background-color: rgb(255, 0,51);
+  background-color: rgba(255, 0,51,0.5);
+  background-color: hsl(0,100%,15%);
+  background-color: hsla(0,100%,15%,0.5);
+  background-color: hello();
+  background-color: transparent;
+  background-color: currentColor;
+  background-color: currentcolor;
+  background-color: Background;
+  background-color: background;
+  background-color: ThreeDShadow;
+  background-color: threedshadow;
+}

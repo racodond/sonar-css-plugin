@@ -1,0 +1,12 @@
+.mybox {
+  position: inherit;
+  position: static;
+  position: relative;
+  position: absolute;
+  position: fixed;
+  position: sticky;
+  position: marker;
+  position: running(abc);
+  position: 10px; /* Noncompliant !{Update the invalid value of property "position". Expected format: static | relative | absolute | fixed | sticky | marker | <function>(running)}! */
+  position: abc; /* Noncompliant */
+}

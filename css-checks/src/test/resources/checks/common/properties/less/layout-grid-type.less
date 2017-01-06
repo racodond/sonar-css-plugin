@@ -1,0 +1,9 @@
+.mybox {
+  layout-grid-type: inherit;
+  layout-grid-type: loose;
+  layout-grid-type: strict;
+  layout-grid-type: fixed;
+  layout-grid-type: abc; /* Noncompliant !{Update the invalid value of property "layout-grid-type". Expected format: loose | strict | fixed}! */
+  layout-grid-type: 10; /* Noncompliant */
+  layout-grid-type: 10%; /* Noncompliant */
+}

@@ -1,0 +1,26 @@
+.mybox {
+  background-repeat: inherit;
+  background-repeat: repeat-x;
+  background-repeat: repeat-y;
+  background-repeat: repeat;
+  background-repeat: space;
+  background-repeat: round;
+  background-repeat: no-repeat;
+  background-repeat: repeat space;
+  background-repeat: round no-repeat;
+  // FIXME
+  //background-repeat: repeat-x, repeat-y;
+  //background-repeat: repeat-x, repeat-y, repeat-x;
+  //background-repeat: repeat-x, round, space round;
+  //background-repeat: repeat-x, space round, space round;
+  //background-repeat: space round, space round, space round;
+  background-repeat: repeat-x repeat-y; /* Noncompliant !{Update the invalid value of property "background-repeat". Expected format: repeat-x | repeat-y | [repeat | space | round | no-repeat]{1,2} [, repeat-x | repeat-y | [repeat | space | round | no-repeat]{1,2}]*}! */
+  background-repeat: repeat-x round; /* Noncompliant */
+  background-repeat: round repeat-y; /* Noncompliant */
+  background-repeat: repeat-x, round repeat-y; /* Noncompliant */
+  background-repeat: 10; /* Noncompliant */
+  background-repeat: 10px; /* Noncompliant */
+  background-repeat: abc; /* Noncompliant */
+  background-repeat: abc abc; /* Noncompliant */
+  background-repeat: abc abc, abc; /* Noncompliant */
+}

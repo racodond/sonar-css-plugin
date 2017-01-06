@@ -1,0 +1,24 @@
+.mybox {
+  text-emphasis-color: inherit;
+  text-emphasis-color: red;
+  text-emphasis-color: darkgrey;
+  text-emphasis-color: #f03;
+  text-emphasis-color: #F03;
+  text-emphasis-color: #ff0033;
+  text-emphasis-color: #FF0033;
+  text-emphasis-color: #GF0033; /* Noncompliant !{Update the invalid value of property "text-emphasis-color". Expected format: <color>}!*/
+  text-emphasis-color: #FF04033; /* Noncompliant */
+  text-emphasis-color: abc; /* Noncompliant */
+  text-emphasis-color: rgb(255, 0,51);
+  text-emphasis-color: rgba(255, 0,51,0.5);
+  text-emphasis-color: hsl(0,100%,15%);
+  text-emphasis-color: hsla(0,100%,15%,0.5);
+  text-emphasis-color: hello();
+  text-emphasis-color: transparent;
+  text-emphasis-color: currentColor;
+  text-emphasis-color: currentcolor;
+  text-emphasis-color: Background;
+  text-emphasis-color: background;
+  text-emphasis-color: ThreeDShadow;
+  text-emphasis-color: threedshadow;
+}

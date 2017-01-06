@@ -1,0 +1,9 @@
+.mybox {
+  scroll-limit-x-max: inherit;
+  scroll-limit-x-max: 10px;
+  scroll-limit-x-max: -10px;
+  scroll-limit-x-max: auto;
+  scroll-limit-x-max: abc; /* Noncompliant !{Update the invalid value of property "scroll-limit-x-max". Expected format: auto | <length>}! */
+  scroll-limit-x-max: 10; /* Noncompliant */
+  scroll-limit-x-max: 10%; /* Noncompliant */
+}

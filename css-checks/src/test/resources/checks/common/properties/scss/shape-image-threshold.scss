@@ -1,0 +1,11 @@
+.mybox {
+  shape-image-threshold: inherit;
+  shape-image-threshold: 0;
+  shape-image-threshold: 0.0;
+  shape-image-threshold: 0.1;
+  shape-image-threshold: 1;
+  shape-image-threshold: 1.0;
+  shape-image-threshold: 2.5; /* Noncompliant !{Update the invalid value of property "shape-image-threshold". Expected format: <number>(0.0,1.0)}! */
+  shape-image-threshold: -2.5; /* Noncompliant */
+  shape-image-threshold: abc; /* Noncompliant */
+}

@@ -1,0 +1,14 @@
+.mybox {
+  mask-border-repeat: inherit;
+  mask-border-repeat: stretch;
+  mask-border-repeat: repeat;
+  mask-border-repeat: round;
+  mask-border-repeat: space;
+  mask-border-repeat: abc; /* Noncompliant !{Update the invalid value of property "mask-border-repeat". Expected format: [ stretch | repeat | round | space ]{1,2}}! */
+  mask-border-repeat: 10px; /* Noncompliant */
+  mask-border-repeat: 10; /* Noncompliant */
+  mask-border-repeat: stretch repeat;
+  mask-border-repeat: round repeat;
+  mask-border-repeat: round round;
+  mask-border-repeat: round round round; /* Noncompliant */
+}

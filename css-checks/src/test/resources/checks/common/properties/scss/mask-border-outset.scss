@@ -1,0 +1,16 @@
+.mybox {
+  mask-border-outset: inherit;
+  mask-border-outset: auto; /* Noncompliant */
+  mask-border-outset: 10px;
+  mask-border-outset: 10;
+  mask-border-outset: 10.5;
+  mask-border-outset: 0;
+  mask-border-outset: 10%; /* Noncompliant */
+  mask-border-outset: abc; /* Noncompliant !{Update the invalid value of property "mask-border-outset". Expected format: [ <length> | <number> ]{1,4}}! */
+  mask-border-outset: 10px 10px;
+  mask-border-outset: 10px 10px 10px;
+  mask-border-outset: 10px 10px 10px 10px;
+  mask-border-outset: 10px 10px 10px 10px 10px; /* Noncompliant */
+  mask-border-outset: 3 10em 10px 3;
+  mask-border-outset: 3 10em abc 10px; /* Noncompliant */
+}

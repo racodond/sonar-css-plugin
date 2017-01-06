@@ -19,6 +19,12 @@
 50,
 57,
 ],
+'project:custom/common/properties/less/pause.less':[
+1,
+],
+'project:custom/common/properties/less/rest.less':[
+1,
+],
 'project:custom/common/propertyRegex/propertyRegularExpression.less':[
 1,
 ],

@@ -1,0 +1,13 @@
+.mybox {
+  outline: inherit;
+  outline: dotted;
+  outline: dotted thin;
+  outline: dotted thin green;
+  outline: thin green;
+  outline: 10px green;
+  outline: rgb(25,25,25) 10px;
+  outline: dotted thin green green; /* Noncompliant !{Update the invalid value of property "outline". Expected format: <outline-width> || <outline-style> || <outline-color>}! */
+  outline: dotted abc green; /* Noncompliant */
+  outline: dotted -10px green; /* Noncompliant */
+}
+

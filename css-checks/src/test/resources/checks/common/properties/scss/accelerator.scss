@@ -1,0 +1,8 @@
+.mybox {
+  accelerator: inherit;
+  accelerator: true;
+  accelerator: false;
+  accelerator: abc; /* Noncompliant !{Update the invalid value of property "accelerator". Expected format: true | false}! */
+  accelerator: 10; /* Noncompliant */
+  accelerator: 10px; /* Noncompliant */
+}

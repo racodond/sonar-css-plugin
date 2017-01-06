@@ -1,0 +1,24 @@
+.mybox {
+  flood-color: inherit;
+  flood-color: red;
+  flood-color: darkgrey;
+  flood-color: #f03;
+  flood-color: #F03;
+  flood-color: #ff0033;
+  flood-color: #FF0033;
+  flood-color: #GF0033; /* Noncompliant !{Update the invalid value of property "flood-color". Expected format: <color>}! */
+  flood-color: #FF04033; /* Noncompliant */
+  flood-color: abc; /* Noncompliant */
+  flood-color: rgb(255, 0,51);
+  flood-color: rgba(255, 0,51,0.5);
+  flood-color: hsl(0,100%,15%);
+  flood-color: hsla(0,100%,15%,0.5);
+  flood-color: hello(); /* Noncompliant */
+  flood-color: transparent;
+  flood-color: currentColor;
+  flood-color: currentcolor;
+  flood-color: Background;
+  flood-color: background;
+  flood-color: ThreeDShadow;
+  flood-color: threedshadow;
+}

@@ -1,0 +1,9 @@
+.mybox {
+  mask-border-source: inherit;
+  mask-border-source: none;
+  mask-border-source: url(http://mybox);
+  mask-border-source: image();
+  mask-border-source: linear-gradient();
+  mask-border-source: abc; /* Noncompliant !{Update the invalid value of property "mask-border-source". Expected format: none | <image>}! */
+  mask-border-source: 10; /* Noncompliant */
+}

@@ -1,0 +1,9 @@
+.mybox {
+  list-style-image: inherit;
+  list-style-image: none;
+  list-style-image: url(http://mybox);
+  list-style-image: image();
+  list-style-image: linear-gradient();
+  list-style-image: abc; /* Noncompliant !{Update the invalid value of property "list-style-image". Expected format: none | <image>}! */
+  list-style-image: 10; /* Noncompliant */
+}

@@ -1,0 +1,18 @@
+.mybox {
+  symbols: inherit;
+  symbols: none;
+  symbols: url(http://mybox);
+  symbols: image();
+  symbols: linear-gradient();
+  symbols: abc;
+  symbols: "abc";
+  symbols: 'abc';
+  symbols: 10px; /* Noncompliant !{Update the invalid value of property "symbols". Expected format: [ <string> | <image> | <identifier> ]+}! */
+  symbols: 10; /* Noncompliant */
+  symbols: image() image();
+  symbols: image() image() image();
+  symbols: image() image() image() image();
+  symbols: image() image() abc;
+  // FIXME
+  //symbols: image() image() abc 10; /* Noncompliant */
+}

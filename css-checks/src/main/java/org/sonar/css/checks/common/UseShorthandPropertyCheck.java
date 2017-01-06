@@ -61,6 +61,7 @@ public class UseShorthandPropertyCheck extends SubscriptionVisitorCheck {
     return ImmutableList.of(
       Tree.Kind.RULESET,
       Tree.Kind.AT_RULE,
+      Tree.Kind.STATEMENT_BLOCK,
       Tree.Kind.PROPERTY);
   }
 

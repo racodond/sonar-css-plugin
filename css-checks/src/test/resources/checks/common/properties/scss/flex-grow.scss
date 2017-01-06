@@ -1,0 +1,9 @@
+.mybox {
+  flex-grow: inherit;
+  flex-grow: 10;
+  flex-grow: 10.5;
+  flex-grow: 0;
+  flex-grow: abc; /* Noncompliant !{Update the invalid value of property "flex-grow". Expected format: <number>(>=0)}! */
+  flex-grow: -10; /* Noncompliant */
+  flex-grow: -10.5; /* Noncompliant */
+}

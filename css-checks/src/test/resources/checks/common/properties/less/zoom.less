@@ -1,0 +1,12 @@
+.mybox {
+  zoom: inherit;
+  zoom: auto;
+  zoom: 10%;
+  zoom: 10;
+  zoom: -10; /* Noncompliant !{Update the invalid value of property "zoom". Expected format: auto | <percentage>(>=0) | <number>(>=0)}! */
+  zoom: -10%; /* Noncompliant */
+  zoom: abc; /* Noncompliant */
+  zoom: 10px; /* Noncompliant */
+  zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf05b;');
+  zoom: var(abc);
+}
