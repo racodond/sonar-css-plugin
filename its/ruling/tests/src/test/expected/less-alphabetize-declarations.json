@@ -12,7 +12,7 @@
 'project:custom/common/case/case.less':[
 1,
 ],
-'project:custom/common/duplicatedProperties.less':[
+'project:custom/common/duplicated-properties/duplicatedProperties.less':[
 12,
 35,
 43,

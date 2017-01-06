@@ -19,7 +19,6 @@
  */
 package org.sonar.css.tree.impl.css;
 
-import com.google.common.collect.Iterators;
 import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
@@ -30,10 +29,11 @@ import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Function;
 
 public class ScssSassScriptExpressionCommaSeparatedListTreeImpl extends TreeImpl implements ScssSassScriptExpressionCommaSeparatedListTree {
 
-  private final List<ValueTree> values;
+  private final SeparatedList<ValueTree, SyntaxToken> values;
 
   public ScssSassScriptExpressionCommaSeparatedListTreeImpl(SeparatedList<ValueTree, SyntaxToken> values) {
     this.values = values;
@@ -46,7 +46,7 @@ public class ScssSassScriptExpressionCommaSeparatedListTreeImpl extends TreeImpl
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    return Iterators.concat(values.iterator());
+    return values.elementsAndSeparators(Function.identity(), Function.identity());
   }
 
   @Override

@@ -540,7 +540,7 @@ public class TreeFactory {
     return new ScssDirectiveTreeImpl(at, name);
   }
 
-  public ScssMapTree scssMap(SyntaxToken openParenthesis, List<ScssMapEntryTree> entries, SyntaxToken closeParenthesis) {
+  public ScssMapTree scssMap(SyntaxToken openParenthesis, SeparatedList<ScssMapEntryTree, SyntaxToken> entries, SyntaxToken closeParenthesis) {
     return new ScssMapTreeImpl(openParenthesis, entries, closeParenthesis);
   }
 

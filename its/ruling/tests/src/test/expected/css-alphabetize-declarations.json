@@ -22,6 +22,13 @@
 'project:custom/common/doNotUseShorthandProperties.css':[
 1,
 ],
+'project:custom/common/duplicated-properties/duplicatedProperties.css':[
+12,
+35,
+43,
+50,
+57,
+],
 'project:custom/common/emptyDeclaration.css':[
 21,
 ],

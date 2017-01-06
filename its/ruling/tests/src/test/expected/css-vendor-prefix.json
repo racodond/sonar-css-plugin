@@ -2,6 +2,10 @@
 'project:custom/common/alphabetizeDeclarations/alphabetizeDeclarations.css':[
 89,
 ],
+'project:custom/common/duplicated-properties/duplicatedProperties.css':[
+59,
+67,
+],
 'project:custom/common/experimentalPropertyUsage.css':[
 21,
 ],

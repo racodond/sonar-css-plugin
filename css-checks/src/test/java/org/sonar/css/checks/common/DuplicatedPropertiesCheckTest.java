@@ -23,11 +23,29 @@ import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
+import java.io.File;
+
 public class DuplicatedPropertiesCheckTest {
 
+  private DuplicatedPropertiesCheck check = new DuplicatedPropertiesCheck();
+
   @Test
-  public void test() {
-    CssCheckVerifier.verifyLessFile(new DuplicatedPropertiesCheck(), CheckTestUtils.getCommonTestFile("duplicatedProperties.less"));
+  public void test_css() {
+    CssCheckVerifier.verifyCssFile(check, getTestFile("duplicatedProperties.css"));
+  }
+
+  @Test
+  public void test_less() {
+    CssCheckVerifier.verifyLessFile(check, getTestFile("duplicatedProperties.less"));
+  }
+
+  @Test
+  public void test_scss() {
+    CssCheckVerifier.verifyScssFile(check, getTestFile("duplicatedProperties.scss"));
+  }
+
+  private File getTestFile(String fileName) {
+    return CheckTestUtils.getCommonTestFile("duplicated-properties/" + fileName);
   }
 
 }

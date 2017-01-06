@@ -6,7 +6,7 @@
 'project:custom/common/commentRegex/commentRegularExpression.less':[
 3,
 ],
-'project:custom/common/duplicatedProperties.less':[
+'project:custom/common/duplicated-properties/duplicatedProperties.less':[
 2,
 7,
 13,

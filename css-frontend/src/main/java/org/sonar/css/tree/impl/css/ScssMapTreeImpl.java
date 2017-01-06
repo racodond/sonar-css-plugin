@@ -20,6 +20,7 @@
 package org.sonar.css.tree.impl.css;
 
 import com.google.common.collect.Iterators;
+import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.ScssMapEntryTree;
@@ -29,14 +30,15 @@ import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Function;
 
 public class ScssMapTreeImpl extends TreeImpl implements ScssMapTree {
 
   private final SyntaxToken openParenthesis;
   private final SyntaxToken closeParenthesis;
-  private final List<ScssMapEntryTree> entries;
+  private final SeparatedList<ScssMapEntryTree, SyntaxToken> entries;
 
-  public ScssMapTreeImpl(SyntaxToken openParenthesis, List<ScssMapEntryTree> entries, SyntaxToken closeParenthesis) {
+  public ScssMapTreeImpl(SyntaxToken openParenthesis, SeparatedList<ScssMapEntryTree, SyntaxToken> entries, SyntaxToken closeParenthesis) {
     this.openParenthesis = openParenthesis;
     this.closeParenthesis = closeParenthesis;
     this.entries = entries;
@@ -51,7 +53,7 @@ public class ScssMapTreeImpl extends TreeImpl implements ScssMapTree {
   public Iterator<Tree> childrenIterator() {
     return Iterators.concat(
       Iterators.singletonIterator(openParenthesis),
-      entries.iterator(),
+      entries.elementsAndSeparators(Function.identity(), Function.identity()),
       Iterators.singletonIterator(closeParenthesis));
   }
 

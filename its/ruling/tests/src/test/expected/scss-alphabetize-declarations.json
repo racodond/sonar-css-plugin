@@ -2,6 +2,13 @@
 'project:custom/common/case/case.scss':[
 1,
 ],
+'project:custom/common/duplicated-properties/duplicatedProperties.scss':[
+12,
+35,
+43,
+50,
+57,
+],
 'project:custom/common/important-position/importantPosition.scss':[
 4,
 ],
