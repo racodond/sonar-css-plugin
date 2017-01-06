@@ -47,6 +47,8 @@ public interface Tree {
 
   void setParent(Tree parent);
 
+  boolean isChildOrGrandChildOf(Class<? extends Tree> clazz);
+
   boolean isLeaf();
 
   enum Kind implements GrammarRuleKey {

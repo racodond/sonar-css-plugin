@@ -1,0 +1,40 @@
+/* Known property: color => Compliant */
+h1 {
+  color:red;
+}
+
+a {
+  clr:red; /* Noncompliant ![sc=3;ec=6;el=+0]! !{Remove this usage of the unknown "clr" property.}! */
+}
+
+/* Vendor-prefixed property: -moz- => Compliant */
+a {
+  -moz-foo: bar;
+}
+
+/* Known property with '*' hack: color => Compliant */
+a {
+  *color:red;
+}
+
+/* Known property with '_' hack: color => Compliant */
+a {
+  _color:red;
+}
+
+a {
+  *clr:red; /* Noncompliant ![sc=3;ec=7;el=+0]! !{Remove this usage of the unknown "clr" property.}! */
+}
+
+a {
+  _clr:red;  /* Noncompliant ![sc=3;ec=7;el=+0]! !{Remove this usage of the unknown "clr" property.}! */
+}
+
+a {
+  _clr:red;  /* Noncompliant ![sc=3;ec=7;el=+0]! !{Remove this usage of the unknown "clr" property.}! */
+}
+
+@abc: abc;
+h1 {
+  a@{abc}def: test;
+}

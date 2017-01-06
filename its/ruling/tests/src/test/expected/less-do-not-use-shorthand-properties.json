@@ -1,4 +1,12 @@
 {
+'project:custom/common/do-not-use-shorthand-properties/doNotUseShorthandProperties.less':[
+2,
+3,
+4,
+5,
+6,
+7,
+],
 'project:custom/common/duplicated-properties/duplicatedProperties.less':[
 2,
 3,
@@ -199,6 +207,12 @@
 15,
 16,
 17,
+],
+'project:custom/common/use-shorthand-properties/shorthand.less':[
+84,
+85,
+86,
+87,
 ],
 'project:custom/less/experimentalFunctionUsage.less':[
 4,

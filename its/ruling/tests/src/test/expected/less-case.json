@@ -8,6 +8,10 @@
 11,
 15,
 ],
+'project:custom/common/do-not-use-shorthand-properties/doNotUseShorthandProperties.less':[
+6,
+7,
+],
 'project:custom/common/duplicated-properties/duplicatedProperties.less':[
 23,
 24,

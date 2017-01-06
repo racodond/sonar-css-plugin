@@ -7,8 +7,16 @@
 6,
 7,
 ],
+'project:custom/common/do-not-use-shorthand-properties/doNotUseShorthandProperties.less':[
+4,
+5,
+],
 'project:custom/common/duplicated-properties/duplicatedProperties.less':[
 24,
+],
+'project:custom/common/known-properties/knownProperties.less':[
+17,
+26,
 ],
 'project:custom/common/properties/less/all.less':[
 7,

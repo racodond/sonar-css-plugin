@@ -3,8 +3,16 @@
 6,
 7,
 ],
+'project:custom/common/do-not-use-shorthand-properties/doNotUseShorthandProperties.scss':[
+4,
+5,
+],
 'project:custom/common/duplicated-properties/duplicatedProperties.scss':[
 24,
+],
+'project:custom/common/known-properties/knownProperties.scss':[
+17,
+26,
 ],
 'project:custom/common/properties/scss/all.scss':[
 7,

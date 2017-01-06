@@ -8,6 +8,10 @@
 11,
 15,
 ],
+'project:custom/common/do-not-use-shorthand-properties/doNotUseShorthandProperties.scss':[
+6,
+7,
+],
 'project:custom/common/duplicated-properties/duplicatedProperties.scss':[
 23,
 24,
@@ -19,9 +23,9 @@
 5,
 ],
 'project:custom/common/properties/scss/filter.scss':[
-19,
-20,
-21,
+15,
+16,
+17,
 ],
 'project:custom/common/properties/scss/scroll-snap-points-x.scss':[
 3,

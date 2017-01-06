@@ -41,6 +41,18 @@ public abstract class TreeImpl implements Tree {
   }
 
   @Override
+  public boolean isChildOrGrandChildOf(Class<? extends Tree> clazz) {
+    while (this.parent() != null) {
+      if (clazz.isAssignableFrom(this.parent().getClass())) {
+        return true;
+      } else {
+        return this.parent().isChildOrGrandChildOf(clazz);
+      }
+    }
+    return false;
+  }
+
+  @Override
   public int getLine() {
     return getFirstToken().line();
   }

@@ -1,8 +1,5 @@
 {
-'project:custom/common/known-properties/knownProperties.css':[
-34,
-],
-'project:custom/common/use-shorthand-properties/shorthand.css':[
+'project:custom/common/use-shorthand-properties/shorthand.less':[
 7,
 21,
 29,

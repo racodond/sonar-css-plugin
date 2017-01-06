@@ -2,6 +2,10 @@
 'project:custom/common/duplicated-properties/duplicatedProperties.scss':[
 25,
 ],
+'project:custom/common/known-properties/knownProperties.scss':[
+22,
+30,
+],
 'project:custom/common/properties/scss/all.scss':[
 8,
 ],

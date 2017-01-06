@@ -53,12 +53,6 @@
 'project:custom/common/properties/scss/background-color.scss':[
 0,
 ],
-'project:custom/common/properties/scss/background-origin.scss':[
-0,
-],
-'project:custom/common/properties/scss/background-repeat.scss':[
-0,
-],
 'project:custom/common/properties/scss/background-size.scss':[
 0,
 ],
@@ -285,9 +279,6 @@
 0,
 ],
 'project:custom/common/properties/scss/transform-style.scss':[
-0,
-],
-'project:custom/common/properties/scss/transform.scss':[
 0,
 ],
 'project:custom/common/properties/scss/user-zoom.scss':[

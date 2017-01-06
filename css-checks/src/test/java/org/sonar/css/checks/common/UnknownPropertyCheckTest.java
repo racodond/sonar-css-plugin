@@ -23,11 +23,29 @@ import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
+import java.io.File;
+
 public class UnknownPropertyCheckTest {
 
+  private UnknownPropertyCheck check = new UnknownPropertyCheck();
+
   @Test
-  public void test() {
-    CssCheckVerifier.verifyCssFile(new UnknownPropertyCheck(), CheckTestUtils.getCommonTestFile("knownProperty.css"));
+  public void test_css() {
+    CssCheckVerifier.verifyCssFile(check, getTestFile("knownProperties.css"));
+  }
+
+  @Test
+  public void test_less() {
+    CssCheckVerifier.verifyLessFile(check, getTestFile("knownProperties.less"));
+  }
+
+  @Test
+  public void test_scss() {
+    CssCheckVerifier.verifyScssFile(check, getTestFile("knownProperties.scss"));
+  }
+
+  private File getTestFile(String fileName) {
+    return CheckTestUtils.getCommonTestFile("known-properties/" + fileName);
   }
 
 }
