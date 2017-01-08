@@ -38,9 +38,9 @@ h1 {
 @font-face {
   font-family: 'MyFontFamily';
   src: url('myfont-webfont.eot?#iefix') format('embedded-opentype'),
-       url('myfont-webfont.woff') format('woff'),
-       url('myfont-webfont.ttf')  format('truetype'),
-       url('myfont-webfont.svg#svgFontName') format('svg');
+  url('myfont-webfont.woff') format('woff'),
+  url('myfont-webfont.ttf')  format('truetype'),
+  url('myfont-webfont.svg#svgFontName') format('svg');
 }
 
 /* Compliant */
@@ -50,29 +50,29 @@ h1 {
   color: red;
 }
 
-h1 { /* Noncompliant ![sc=1;ec=3;el=+0;secondary=+3]! !{Alphabetically order these rule's properties.}! */
+h1 { /* Noncompliant ![sc=4;ec=2;el=+4;secondary=+3]! !{Alphabetically order these rule's properties.}! */
   background-color: blue;
   color: red;
   border-color: green;
 }
 
-h1 { /* Noncompliant ![sc=1;ec=3;el=+0;secondary=+3]! !{Alphabetically order these rule's properties.}! */
+h1 { /* Noncompliant ![sc=4;ec=2;el=++4;secondary=+3]! !{Alphabetically order these rule's properties.}! */
   background-color: blue;
   *color: red;
   border-color: green;
 }
 
- h1 { /* Noncompliant ![sc=2;ec=4;el=+0;secondary=+3]! !{Alphabetically order these rule's properties.}! */
+ h1 { /* Noncompliant ![sc=5;ec=2;el=+4;secondary=+3]! !{Alphabetically order these rule's properties.}! */
   background-color: blue;
   _color: red;
   border-color: green;
 }
 
- @font-face { /* Noncompliant ![sc=2;ec=12;el=+0;secondary=+5]! !{Alphabetically order these rule's properties.}! */
+ @font-face { /* Noncompliant ![sc=13;ec=2;el=+6;secondary=+5]! !{Alphabetically order these rule's properties.}! */
   src: url('myfont-webfont.eot?#iefix') format('embedded-opentype'),
-       url('myfont-webfont.woff') format('woff'),
-       url('myfont-webfont.ttf')  format('truetype'),
-       url('myfont-webfont.svg#svgFontName') format('svg');
+  url('myfont-webfont.woff') format('woff'),
+  url('myfont-webfont.ttf')  format('truetype'),
+  url('myfont-webfont.svg#svgFontName') format('svg');
   font-family: 'MyFontFamily';
 }
 
@@ -84,7 +84,7 @@ h1 {
   color: red;
 }
 
-h1 { /* Noncompliant ![sc=1;ec=3;el=+0;secondary=+3]! !{Alphabetically order these rule's properties.}! */
+h1 { /* Noncompliant ![sc=4;ec=2;el=+6;secondary=+3]! !{Alphabetically order these rule's properties.}! */
   -moz-background-color: blue;
   -ms-background-color: blue;
   all: unset;
@@ -98,17 +98,17 @@ h1 {
   color: red;
 }
 
-h1 { /* Noncompliant ![sc=1;ec=3;el=+0;secondary=+2]! !{Alphabetically order these rule's properties.}! */
+h1 { /* Noncompliant ![sc=4;ec=2;el=+3;secondary=+2]! !{Alphabetically order these rule's properties.}! */
   color: red;
   abc: red;
 }
 
-{ /* Noncompliant ![sc=1;ec=2;el=+0;secondary=+2]! !{Alphabetically order these rule's properties.}! */
+{ /* Noncompliant ![sc=1;ec=2;el=+3;secondary=+2]! !{Alphabetically order these rule's properties.}! */
   color: red;
   abc: red;
 }
 
- { /* Noncompliant ![sc=2;ec=3;el=+0;secondary=+2]! !{Alphabetically order these rule's properties.}! */
+ { /* Noncompliant ![sc=2;ec=2;el=+3;secondary=+2]! !{Alphabetically order these rule's properties.}! */
   color: red;
   abc: red;
 }

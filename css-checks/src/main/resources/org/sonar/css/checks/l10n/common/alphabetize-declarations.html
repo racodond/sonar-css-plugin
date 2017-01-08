@@ -3,6 +3,10 @@
     Note that vendor-prefixed properties are expected to be ordered without taking into account their prefix.
 </p>
 
+<p>
+  This rule applies to all statement blocks (rulesets, @-rules, mixins, SCSS nested properties, etc.).
+</p>
+
 <h2>Noncompliant Code Example</h2>
 <pre>
 /* Noncompliant: 'color' should be defined after 'border-color' */
@@ -75,5 +79,16 @@
   @{foo}: blue;
   color: white;
   @{bar}: red;
+}
+</pre>
+<p>
+  SCSS interpolated properties are not taken into account. For instance, the following piece of code does not raise an
+  issue:
+</p>
+<pre>
+.mybox {
+  #{$foo}: blue;
+  color: white;
+  #{$bar}: red;
 }
 </pre>

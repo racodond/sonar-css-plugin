@@ -19,23 +19,19 @@
  */
 package org.sonar.css.checks.common;
 
-import com.google.common.collect.ImmutableList;
-
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.Nullable;
-
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.checks.CheckUtils;
 import org.sonar.css.checks.Tags;
-import org.sonar.plugins.css.api.tree.css.AtRuleTree;
+import org.sonar.plugins.css.api.tree.css.PropertyDeclarationTree;
 import org.sonar.plugins.css.api.tree.css.PropertyTree;
-import org.sonar.plugins.css.api.tree.css.RulesetTree;
-import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.visitors.SubscriptionVisitorCheck;
+import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.plugins.css.api.visitors.issue.PreciseIssue;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Rule(
   key = "alphabetize-declarations",
@@ -43,33 +39,24 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   priority = Priority.MINOR,
   tags = {Tags.CONVENTION})
 @SqaleConstantRemediation("2min")
-public class AlphabetizeDeclarationsCheck extends SubscriptionVisitorCheck {
-
-  private List<PropertyTree> properties = new ArrayList<>();
+public class AlphabetizeDeclarationsCheck extends DoubleDispatchVisitorCheck {
 
   @Override
-  public List<Tree.Kind> nodesToVisit() {
-    return ImmutableList.of(
-      Tree.Kind.RULESET,
-      Tree.Kind.AT_RULE,
-      Tree.Kind.PROPERTY);
-  }
+  public void visitStatementBlock(StatementBlockTree tree) {
+    PropertyTree firstUnsortedProperty = firstUnsortedProperty(
+      tree.propertyDeclarations()
+        .stream()
+        .map(PropertyDeclarationTree::property)
+        .collect(Collectors.toList()));
 
-  @Override
-  public void leaveNode(Tree tree) {
-    if (tree.is(Tree.Kind.PROPERTY)) {
-      properties.add((PropertyTree) tree);
-    } else {
-      PropertyTree firstUnsortedProperty = firstUnsortedProperty(properties);
-      if (firstUnsortedProperty != null) {
-        addIssue(tree, firstUnsortedProperty);
-      }
-      properties.clear();
+    if (firstUnsortedProperty != null) {
+      addIssue(tree, firstUnsortedProperty);
     }
+
+    super.visitStatementBlock(tree);
   }
 
   @Nullable
-  // TODO : check unsorted with Guava? Ordering.natural().onResultOf(
   private PropertyTree firstUnsortedProperty(List<PropertyTree> propertyTrees) {
     for (int i = 0; i < propertyTrees.size() - 1; i++) {
       if (!propertyTrees.get(i).property().isInterpolated()
@@ -81,14 +68,8 @@ public class AlphabetizeDeclarationsCheck extends SubscriptionVisitorCheck {
     return null;
   }
 
-  private void addIssue(Tree statementTree, PropertyTree propertyTree) {
-    Tree primaryIssueLocation;
-    if (statementTree.is(Tree.Kind.RULESET)) {
-      primaryIssueLocation = CheckUtils.rulesetIssueLocation((RulesetTree) statementTree);
-    } else {
-      primaryIssueLocation = ((AtRuleTree) statementTree).atKeyword();
-    }
-    PreciseIssue issue = addPreciseIssue(primaryIssueLocation, "Alphabetically order these rule's properties.");
+  private void addIssue(StatementBlockTree statementBlockTree, PropertyTree propertyTree) {
+    PreciseIssue issue = addPreciseIssue(statementBlockTree, "Alphabetically order these rule's properties.");
     issue.secondary(propertyTree, "First unproperly ordered property");
   }
 

@@ -23,16 +23,29 @@ import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
+import java.io.File;
+
 public class AlphabetizeDeclarationsCheckTest {
+
+  private AlphabetizeDeclarationsCheck check = new AlphabetizeDeclarationsCheck();
 
   @Test
   public void test_css() {
-    CssCheckVerifier.verifyCssFile(new AlphabetizeDeclarationsCheck(), CheckTestUtils.getCommonTestFile("alphabetizeDeclarations/alphabetizeDeclarations.css"));
+    CssCheckVerifier.verifyCssFile(check, getTestFile("alphabetizeDeclarations.css"));
   }
 
   @Test
   public void test_less() {
-    CssCheckVerifier.verifyLessFile(new AlphabetizeDeclarationsCheck(), CheckTestUtils.getCommonTestFile("alphabetizeDeclarations/alphabetizeDeclarations.less"));
+    CssCheckVerifier.verifyLessFile(check, getTestFile("alphabetizeDeclarations.less"));
+  }
+
+  @Test
+  public void test_scss() {
+    CssCheckVerifier.verifyScssFile(check, getTestFile("alphabetizeDeclarations.scss"));
+  }
+
+  private File getTestFile(String fileName) {
+    return CheckTestUtils.getCommonTestFile("alphabetize-declarations/" + fileName);
   }
 
 }
