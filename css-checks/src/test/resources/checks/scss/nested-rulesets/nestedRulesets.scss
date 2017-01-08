@@ -1,0 +1,74 @@
+/* Compliant */
+.foo-1 {
+  margin-right: 0;
+  .foo-2 {
+    color: red;
+    .foo-3 {
+      width: 100%;
+    }
+  }
+}
+
+.foo-1 {
+  margin-right: 0;
+  .foo-2 {
+    color: red;
+    .foo-3 {
+      width: 100%;
+      .foo-4 { /* Noncompliant ![sc=7;ec=13;el=+0;secondary=-6,-4,-2]! !{Refactor this code to not nest more than 3 rulesets.}! */
+        background-color: blue;
+      }
+    }
+  }
+}
+
+.foo-1 {
+  margin-right: 0;
+  .foo-2 {
+    color: red;
+    .foo-3 {
+      width: 100%;
+      .foo-4 { /* Noncompliant ![sc=7;ec=13;el=+0;secondary=-6,-4,-2]! !{Refactor this code to not nest more than 3 rulesets.}! */
+        background-color: blue;
+        .foo-5 {
+          height: 100px;
+        }
+      }
+    }
+  }
+}
+
+.foo-1 {
+  margin-right: 0;
+  .foo-2 {
+    color: red;
+    .foo-3 {
+      width: 100%;
+      .foo-4 { /* Noncompliant ![sc=7;ec=13;el=+0;secondary=-6,-4,-2]! !{Refactor this code to not nest more than 3 rulesets.}! */
+        background-color: blue;
+        .foo-5 {
+          height: 100px;
+        }
+      }
+      .foo-4b { /* Noncompliant ![sc=7;ec=14;el=+0;secondary=-12,-10,-8]! !{Refactor this code to not nest more than 3 rulesets.}! */
+        background-color: blue;
+        .foo-5b {
+          height: 100px;
+        }
+      }
+    }
+  }
+}
+
+.foo-1 {
+  margin-right: 0;
+  .foo-2 {
+    color: red;
+    .foo-3 {
+      width: 100%;
+      { /* Noncompliant ![sc=7;ec=8;el=+0;secondary=-6,-4,-2]! !{Refactor this code to not nest more than 3 rulesets.}! */
+        height: 100%;
+      }
+    }
+  }
+}

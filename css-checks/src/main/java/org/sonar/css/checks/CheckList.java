@@ -24,6 +24,7 @@ import org.sonar.css.checks.common.*;
 import org.sonar.css.checks.css.*;
 import org.sonar.css.checks.css.ParsingErrorCheck;
 import org.sonar.css.checks.less.*;
+import org.sonar.css.checks.less.NestedRulesetsCheck;
 import org.sonar.css.checks.scss.*;
 import org.sonar.css.checks.scss.PreferSingleLineCommentsCheck;
 
@@ -79,6 +80,7 @@ public final class CheckList {
         IfElseIfSameConditionCheck.class,
         MixinNamingConventionCheck.class,
         NestedControlFlowDirectivesCheck.class,
+        org.sonar.css.checks.scss.NestedRulesetsCheck.class,
         PreferSingleLineCommentsCheck.class,
         ScssVariableNamingConventionCheck.class,
         ThroughInsteadOfToCheck.class,

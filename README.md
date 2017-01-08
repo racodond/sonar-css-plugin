@@ -154,6 +154,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Mixins should follow a naming convention
 * Nested properties should define at least two properties 
 * Related @if / @else if directives should not have the same condition
+* Rulesets should not be nested too deeply
 * SCSS variables should follow a naming convention
 * Single-line comments (//) should be preferred over multi-line comments (/* ... */)
 * Two branches in the same conditional structure should not have exactly the same implementation
