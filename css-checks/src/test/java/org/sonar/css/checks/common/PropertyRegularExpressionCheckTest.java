@@ -19,34 +19,40 @@
  */
 package org.sonar.css.checks.common;
 
-import java.io.File;
-
 import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
+
+import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
 
 public class PropertyRegularExpressionCheckTest {
 
-  private static final File CSS_FILE = CheckTestUtils.getCommonTestFile("commentRegex/commentRegularExpression.css");
-  private static final File LESS_FILE = CheckTestUtils.getCommonTestFile("commentRegex/commentRegularExpression.less");
   private final PropertyRegularExpressionCheck check = new PropertyRegularExpressionCheck();
 
   @Test
-  public void should_match_some_properties_and_raise_issues() {
+  public void test_css() {
     check.setRegularExpression("(?i).*animation.*");
     check.setMessage("Remove this \"animation\" property...");
 
-    CssCheckVerifier.verifyCssFile(check, CSS_FILE);
+    CssCheckVerifier.verifyCssFile(check, getTestFile("propertyRegularExpression.css"));
   }
 
   @Test
-  public void should_not_match_some_less_interpolated_properties() {
+  public void test_less() {
     check.setRegularExpression("(?i).*animation.*");
     check.setMessage("Remove this \"animation\" property...");
 
-    CssCheckVerifier.verifyLessFile(check, LESS_FILE);
+    CssCheckVerifier.verifyLessFile(check, getTestFile("propertyRegularExpression.less"));
+  }
+
+  @Test
+  public void test_scss() {
+    check.setRegularExpression("(?i).*animation.*");
+    check.setMessage("Remove this \"animation\" property...");
+
+    CssCheckVerifier.verifyScssFile(check, getTestFile("propertyRegularExpression.scss"));
   }
 
   @Test
@@ -55,12 +61,16 @@ public class PropertyRegularExpressionCheckTest {
       check.setRegularExpression("(");
       check.setMessage("blabla");
 
-      CssCheckVerifier.issuesOnCssFile(check, CSS_FILE).noMore();
+      CssCheckVerifier.issuesOnCssFile(check, getTestFile("propertyRegularExpression.css")).noMore();
 
     } catch (IllegalStateException e) {
       assertThat(e.getMessage()).isEqualTo("Check css:property-regular-expression (Regular expression on property): "
         + "regularExpression parameter \"(\" is not a valid regular expression.");
     }
+  }
+
+  private File getTestFile(String fileName) {
+    return CheckTestUtils.getCommonTestFile("property-regular-expression/" + fileName);
   }
 
 }

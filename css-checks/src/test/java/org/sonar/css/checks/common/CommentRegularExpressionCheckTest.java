@@ -29,8 +29,6 @@ import static org.fest.assertions.Assertions.assertThat;
 
 public class CommentRegularExpressionCheckTest {
 
-  private static final File CSS_FILE = CheckTestUtils.getCommonTestFile("commentRegex/commentRegularExpression.css");
-  private static final File LESS_FILE = CheckTestUtils.getCommonTestFile("commentRegex/commentRegularExpression.less");
   private final CommentRegularExpressionCheck check = new CommentRegularExpressionCheck();
 
   @Test
@@ -39,7 +37,7 @@ public class CommentRegularExpressionCheckTest {
     check.regularExpression = "(?i).*WTF.*";
     check.message = message;
 
-    CssCheckVerifier.issuesOnCssFile(check, CSS_FILE)
+    CssCheckVerifier.issuesOnCssFile(check, getTestFile("commentRegularExpression.css"))
       .next().atLine(1).withMessage(message)
       .next().atLine(3).withMessage(message)
       .next().atLine(4).withMessage(message)
@@ -51,7 +49,7 @@ public class CommentRegularExpressionCheckTest {
     check.regularExpression = "blabla";
     check.message = "blabla";
 
-    CssCheckVerifier.issuesOnCssFile(check, CSS_FILE).noMore();
+    CssCheckVerifier.issuesOnCssFile(check, getTestFile("commentRegularExpression.css")).noMore();
   }
 
   @Test
@@ -60,7 +58,21 @@ public class CommentRegularExpressionCheckTest {
     check.regularExpression = "(?i).*WTF.*";
     check.message = message;
 
-    CssCheckVerifier.issuesOnLessFile(check, LESS_FILE)
+    CssCheckVerifier.issuesOnLessFile(check, getTestFile("commentRegularExpression.less"))
+      .next().atLine(1).withMessage(message)
+      .next().atLine(3).withMessage(message)
+      .next().atLine(4).withMessage(message)
+      .next().atLine(5).withMessage(message)
+      .noMore();
+  }
+
+  @Test
+  public void should_match_some_comments_and_raise_issues_on_scss_file() {
+    String message = "Stop annotating lines with WTF! Detail what is wrong instead.";
+    check.regularExpression = "(?i).*WTF.*";
+    check.message = message;
+
+    CssCheckVerifier.issuesOnScssFile(check, getTestFile("commentRegularExpression.scss"))
       .next().atLine(1).withMessage(message)
       .next().atLine(3).withMessage(message)
       .next().atLine(4).withMessage(message)
@@ -74,12 +86,16 @@ public class CommentRegularExpressionCheckTest {
       check.regularExpression = "(";
       check.message = "blabla";
 
-      CssCheckVerifier.issuesOnCssFile(check, CSS_FILE).noMore();
+      CssCheckVerifier.issuesOnCssFile(check, getTestFile("commentRegularExpression.css")).noMore();
 
     } catch (IllegalStateException e) {
       assertThat(e.getMessage()).isEqualTo("Check css:comment-regular-expression (Regular expression on comment): "
         + "regularExpression parameter \"(\" is not a valid regular expression.");
     }
+  }
+
+  private File getTestFile(String fileName) {
+    return CheckTestUtils.getCommonTestFile("comment-regular-expression/" + fileName);
   }
 
 }

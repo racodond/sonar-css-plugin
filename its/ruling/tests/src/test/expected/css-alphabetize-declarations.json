@@ -62,10 +62,7 @@
 'project:custom/common/properties/css/rest.css':[
 1,
 ],
-'project:custom/common/propertyRegex/propertyRegularExpression.css':[
-1,
-],
-'project:custom/common/propertyRegularExpression.css':[
+'project:custom/common/property-regular-expression/propertyRegularExpression.css':[
 1,
 ],
 'project:custom/common/unknownAtRules.css':[

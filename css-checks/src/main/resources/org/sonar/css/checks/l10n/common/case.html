@@ -48,3 +48,13 @@
   @{BG}-color: green;
 }
 </pre>
+
+<p>
+    SCSS interpolated properties are not checked for lowercase. For instance, the following piece of code does not raise
+    an issue:
+</p>
+<pre>
+.mybox {
+  #{$BG}-color: green;
+}
+</pre>

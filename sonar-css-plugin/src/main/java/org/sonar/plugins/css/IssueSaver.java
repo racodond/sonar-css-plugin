@@ -125,11 +125,6 @@ public class IssueSaver {
   }
 
   private NewIssueLocation newLocation(InputFile inputFile, NewIssue issue, IssueLocation location) {
-    System.out.println(location.startLine());
-    System.out.println(location.endLine());
-    System.out.println(location.startLineOffset());
-    System.out.println(location.endLineOffset());
-
     TextRange range = inputFile.newRange(
       location.startLine(), location.startLineOffset(), location.endLine(), location.endLineOffset());
 

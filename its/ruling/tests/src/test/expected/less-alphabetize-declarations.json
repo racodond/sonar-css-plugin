@@ -28,7 +28,7 @@
 'project:custom/common/properties/less/rest.less':[
 1,
 ],
-'project:custom/common/propertyRegex/propertyRegularExpression.less':[
+'project:custom/common/property-regular-expression/propertyRegularExpression.less':[
 1,
 ],
 'project:custom/common/use-shorthand-properties/shorthand.less':[

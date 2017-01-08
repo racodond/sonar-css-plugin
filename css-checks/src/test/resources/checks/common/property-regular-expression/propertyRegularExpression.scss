@@ -7,4 +7,5 @@
 .mybox {
   animation: 3s;  /* Noncompliant ![sc=3;ec=12;el=+0]! !{Remove this "animation" property...}! */
   color: red;
+  abc-#{$animation}-def: green;
 }

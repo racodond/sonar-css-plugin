@@ -23,21 +23,29 @@ import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
+import java.io.File;
+
 public class CaseCheckTest {
+
+  private CaseCheck check = new CaseCheck();
 
   @Test
   public void test_css() {
-    CssCheckVerifier.verifyCssFile(new CaseCheck(), CheckTestUtils.getCommonTestFile("case/case.css"));
+    CssCheckVerifier.verifyCssFile(check, getTestFile("case.css"));
   }
 
   @Test
   public void test_less() {
-    CssCheckVerifier.verifyLessFile(new CaseCheck(), CheckTestUtils.getCommonTestFile("case/case.less"));
+    CssCheckVerifier.verifyLessFile(check, getTestFile("case.less"));
   }
 
   @Test
   public void test_scss() {
-    CssCheckVerifier.verifyScssFile(new CaseCheck(), CheckTestUtils.getCommonTestFile("case/case.scss"));
+    CssCheckVerifier.verifyScssFile(check, getTestFile("case.scss"));
+  }
+
+  private File getTestFile(String fileName) {
+    return CheckTestUtils.getCommonTestFile("case/" + fileName);
   }
 
 }

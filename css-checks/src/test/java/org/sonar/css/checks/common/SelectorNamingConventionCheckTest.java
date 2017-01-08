@@ -23,6 +23,8 @@ import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
+import java.io.File;
+
 import static org.fest.assertions.Assertions.assertThat;
 
 public class SelectorNamingConventionCheckTest {
@@ -32,25 +34,25 @@ public class SelectorNamingConventionCheckTest {
   @Test
   public void test_with_default_format() {
     check.setFormat("^[a-z][-a-z0-9]*$");
-    CssCheckVerifier.verifyCssFile(check, CheckTestUtils.getCommonTestFile("selectorNamingConvention/selectorNamingConvention.css"));
+    CssCheckVerifier.verifyCssFile(check, getTestFile("selectorNamingConvention.css"));
   }
 
   @Test
   public void test_with_custom_format() {
     check.setFormat("^[-a-z]+$");
-    CssCheckVerifier.verifyCssFile(check, CheckTestUtils.getCommonTestFile("selectorNamingConvention/selectorNamingConventionCustomFormat.css"));
+    CssCheckVerifier.verifyCssFile(check, getTestFile("selectorNamingConventionCustomFormat.css"));
   }
 
   @Test
   public void test_scss_placeholder() {
     check.setFormat("^[-a-z]+$");
-    CssCheckVerifier.verifyScssFile(check, CheckTestUtils.getCommonTestFile("selectorNamingConvention/selectorNamingConventionScssPlaceholder.scss"));
+    CssCheckVerifier.verifyScssFile(check, getTestFile("selectorNamingConventionScssPlaceholder.scss"));
   }
 
   @Test
   public void test_interpolated_selectors_not_checked_on_less_file() {
     check.setFormat("^[a-z][-a-z0-9]*$");
-    CssCheckVerifier.verifyLessFile(check, CheckTestUtils.getCommonTestFile("selectorNamingConvention/selectorNamingConvention.less"));
+    CssCheckVerifier.verifyLessFile(check, getTestFile("selectorNamingConvention.less"));
   }
 
   @Test
@@ -64,6 +66,10 @@ public class SelectorNamingConventionCheckTest {
       assertThat(e.getMessage()).isEqualTo("Check css:selector-naming-convention (Selectors should follow a naming convention): "
         + "format parameter \"(\" is not a valid regular expression.");
     }
+  }
+
+  private File getTestFile(String fileName) {
+    return CheckTestUtils.getCommonTestFile("selectorNamingConvention/" + fileName);
   }
 
 }

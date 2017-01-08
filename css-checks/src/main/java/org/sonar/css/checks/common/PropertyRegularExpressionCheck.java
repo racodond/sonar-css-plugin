@@ -19,18 +19,18 @@
  */
 package org.sonar.css.checks.common;
 
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
-
-import org.sonar.css.checks.CheckList;
-import org.sonar.css.checks.CheckUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.css.checks.CheckList;
+import org.sonar.css.checks.CheckUtils;
 import org.sonar.plugins.css.api.tree.css.PropertyTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.NoSqale;
 import org.sonar.squidbridge.annotations.RuleTemplate;
+
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 @Rule(
   key = "property-regular-expression",
@@ -57,7 +57,7 @@ public class PropertyRegularExpressionCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitProperty(PropertyTree tree) {
-    if (tree.property().text().matches(regularExpression)) {
+    if (!tree.property().isInterpolated() && tree.property().text().matches(regularExpression)) {
       addPreciseIssue(tree, message);
     }
     super.visitProperty(tree);

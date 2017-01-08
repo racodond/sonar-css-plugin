@@ -25,3 +25,13 @@
   foo-@{animation}-bar: green;
 }
 </pre>
+
+<p>
+    SCSS interpolated properties are not checked against this rule. For instance, the following piece of code does not
+    raise an issue when the regular expression is set to <code>(?i).*animation.*</code>:
+</p>
+<pre>
+.mybox {
+  foo-#{$animation}-bar: green;
+}
+</pre>
