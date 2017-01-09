@@ -945,6 +945,14 @@
 'project:custom/scss/nested-rulesets/nestedRulesetsCustomThreshold.scss':[
 13,
 ],
+'project:custom/scss/sortDeclarationsAndDirectives.scss':[
+13,
+25,
+35,
+50,
+57,
+70,
+],
 'project:custom/scss/too-complex-condition/tooComplexConditionCustom.scss':[
 5,
 13,

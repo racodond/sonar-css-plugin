@@ -1,0 +1,35 @@
+<p>
+    For better readability and understanding, ruleset blocks should be organized as follow:
+</p>
+<ul>
+    <li>Variable declarations</li>
+    <li>@extend directives</li>
+    <li>@include directives</li>
+    <li>Property declarations and nested selectors</li>
+</ul>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+.mybox {
+  $my-color: green;
+  color: $my-color;
+  @extend %module;
+  @include transition(all 0.3s ease-out);
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+.mybox {
+  $my-color: green;
+  @extend %module;
+  @include transition(all 0.3s ease-out);
+  color: $my-color;
+}
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://css-tricks.com/sass-style-guide/#article-header-id-1" target="_blank">
+        CSS-TRICKS Sass Style Guide</a></li>
+</ul>

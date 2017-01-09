@@ -148,6 +148,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Conditions should not be too complex
 * Control flow directives @if, @else if, @else, @for, @while, and @each should not be nested too deeply
 * Custom functions should follow a naming convention
+* Declarations and directives should be properly organized
 * Deprecated unescaped multiline strings should not be used
 * Empty control flow directive blocks should be removed
 * Empty mixins should be removed

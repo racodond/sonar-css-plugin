@@ -1,0 +1,71 @@
+.mybox1 {
+  $var: green;
+  @extend %foo;
+  @include my-mixin;
+  color: $var;
+  &:hover {
+    background-color: blue;
+  }
+}
+
+.mybox2 {
+  @extend %foo;
+  $var: green; /* Noncompliant ![sc=3;ec=15;secondary=-1]! !{Move this variable declaration before all the other declarations and directives.}! */
+  @include my-mixin;
+  color: $var;
+  &:hover {
+    background-color: blue;
+  }
+}
+
+.mybox3 {
+  @extend %foo;
+  $my-var: blue;
+  @include my-mixin;
+  $var: green; /* Noncompliant ![sc=3;ec=15;secondary=-3,-1]! !{Move this variable declaration before all the other declarations and directives.}! */
+  color: $var;
+  &:hover {
+    background-color: blue;
+  }
+}
+
+.mybox4 {
+  $my-var: blue;
+  @include my-mixin;
+  @extend %foo; /* Noncompliant ![sc=3;ec=16;secondary=-1]! !{Move this @extend directive before all property declarations, nested selectors and @include directives.}! */
+  color: $var;
+  &:hover {
+    background-color: blue;
+  }
+}
+
+.mybox5 {
+  $my-var: blue;
+  @extend %foo;
+  @include my-mixin;
+  color: $var;
+  &:hover {
+    background-color: blue;
+  }
+  @extend %foo; /* Noncompliant ![sc=3;ec=16;secondary=-5,-4,-3]! !{Move this @extend directive before all property declarations, nested selectors and @include directives.}! */
+}
+
+.mybox6 {
+  $my-var: blue;
+  @extend %foo;
+  color: $var;
+  @include my-mixin; /* Noncompliant ![sc=3;ec=21;secondary=-1]! !{Move this @include directive before all property declarations and nested selectors.}! */
+  &:hover {
+    background-color: blue;
+  }
+}
+
+.mybox7 {
+  $my-var: blue;
+  @extend %foo;
+  color: $var;
+  &:hover {
+    background-color: blue;
+  }
+  @include my-mixin; /* Noncompliant ![sc=3;ec=21;secondary=-4,-3]! !{Move this @include directive before all property declarations and nested selectors.}! */
+}

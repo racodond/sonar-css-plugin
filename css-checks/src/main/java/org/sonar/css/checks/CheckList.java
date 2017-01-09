@@ -83,6 +83,7 @@ public final class CheckList {
         org.sonar.css.checks.scss.NestedRulesetsCheck.class,
         PreferSingleLineCommentsCheck.class,
         ScssVariableNamingConventionCheck.class,
+        SortDeclarationsAndDirectivesCheck.class,
         ThroughInsteadOfToCheck.class,
         TooComplexConditionCheck.class,
         UselessParenthesesMixinNoParameterCheck.class).stream())
