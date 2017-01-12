@@ -47,7 +47,7 @@ public class ScssParametersTreeImpl extends TreeImpl implements ScssParametersTr
 
   @Override
   public Kind getKind() {
-    return Kind.SCSS_PARAMETER;
+    return Kind.SCSS_PARAMETERS;
   }
 
   @Override

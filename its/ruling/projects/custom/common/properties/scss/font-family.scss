@@ -4,10 +4,9 @@
   font-family: sans-serif;
   font-family: "Arial";
   font-family: Helvetica;
-  // FIXMEL
-  //font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue";
-  //font-family: Helvetica, Arial, Helvetica, Arial;
-  //font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue";
+  font-family: Helvetica, Arial, Helvetica, Arial;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial;
   font-family: 0; /* Noncompliant {Update the invalid value of property "font-family". Expected format: [<family-name> | <generic-family>] [, <family-name>| <generic-family>]*}! */
   font-family: 10%; /* Noncompliant */
 }

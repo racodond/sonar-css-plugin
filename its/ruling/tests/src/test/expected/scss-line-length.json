@@ -71,7 +71,7 @@
 5,
 ],
 'project:custom/common/properties/scss/background-attachment.scss':[
-9,
+8,
 ],
 'project:custom/common/properties/scss/background-blend-mode.scss':[
 19,
@@ -83,7 +83,7 @@
 9,
 ],
 'project:custom/common/properties/scss/background-image.scss':[
-8,
+7,
 ],
 'project:custom/common/properties/scss/background-origin.scss':[
 6,
@@ -98,10 +98,10 @@
 12,
 ],
 'project:custom/common/properties/scss/background-repeat.scss':[
-17,
+16,
 ],
 'project:custom/common/properties/scss/background-size.scss':[
-20,
+19,
 ],
 'project:custom/common/properties/scss/baseline-shift.scss':[
 9,
@@ -294,7 +294,7 @@
 5,
 ],
 'project:custom/common/properties/scss/cursor.scss':[
-44,
+43,
 ],
 'project:custom/common/properties/scss/device-pixel-ratio.scss':[
 7,
@@ -348,7 +348,7 @@
 7,
 ],
 'project:custom/common/properties/scss/font-family.scss':[
-11,
+10,
 ],
 'project:custom/common/properties/scss/font-language-override.scss':[
 6,

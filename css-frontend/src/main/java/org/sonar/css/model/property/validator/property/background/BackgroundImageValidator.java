@@ -19,9 +19,7 @@
  */
 package org.sonar.css.model.property.validator.property.background;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.sonar.css.model.property.validator.HashMultiplierValidator;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueValidator;
 import org.sonar.plugins.css.api.tree.Tree;
@@ -30,47 +28,26 @@ import org.sonar.plugins.css.api.tree.css.ValueTree;
 public class BackgroundImageValidator implements ValueValidator {
 
   @Override
-  public boolean isValid(ValueTree valueTree) {
-    List<Tree> valueElements = valueTree.sanitizedValueElements();
-    for (int i = 0; i < valueElements.size(); i++) {
-      if (ValidatorFactory.getNoneValidator().isValid(valueElements.get(i)) && i != 0) {
-        return false;
-      } else if (!ValidatorFactory.getImageValidator().isValid(valueElements.get(i)) && !ValidatorFactory.getNoneValidator().isValid(valueElements.get(i))
-        && !ValidatorFactory.getCommaDelimiterValidator().isValid(valueElements.get(i))) {
+  public boolean isValid(ValueTree tree) {
+
+    if (new HashMultiplierValidator(ValidatorFactory.getImageValidator()).isValid(tree)) {
+      return true;
+    }
+
+    if (tree.sanitizedValueElements().size() == 1) {
+      Tree value = tree.sanitizedValueElements().get(0);
+      if (!ValidatorFactory.getNoneValidator().isValid(value)
+        && !ValidatorFactory.getImageValidator().isValid(value)) {
         return false;
       }
     }
-    return checkRepeatStyleList(buildBackgroundImageList(valueTree));
+
+    return true;
   }
 
   @Override
   public String getValidatorFormat() {
-    return "none | <image> [, <image>]*";
-  }
-
-  private List<List<Tree>> buildBackgroundImageList(ValueTree valueTree) {
-    List<List<Tree>> backgroundImageList = new ArrayList<>();
-    backgroundImageList.add(new ArrayList<>());
-    int listIndex = 0;
-    for (Tree valueElement : valueTree.sanitizedValueElements()) {
-      if (ValidatorFactory.getCommaDelimiterValidator().isValid(valueElement)) {
-        backgroundImageList.add(new ArrayList<>());
-        listIndex++;
-      } else {
-        backgroundImageList.get(listIndex).add(valueElement);
-      }
-
-    }
-    return backgroundImageList;
-  }
-
-  private boolean checkRepeatStyleList(List<List<Tree>> repeatStyleList) {
-    for (List<Tree> elementList : repeatStyleList) {
-      if (elementList.size() != 1) {
-        return false;
-      }
-    }
-    return true;
+    return "none | <image>#";
   }
 
 }

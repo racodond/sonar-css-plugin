@@ -40,6 +40,14 @@
 'project:custom/common/overspecselectorCustom.css':[
 2,
 ],
+'project:custom/common/properties/css/background-blend-mode.css':[
+5,
+25,
+],
+'project:custom/common/properties/css/background-image.css':[
+4,
+6,
+],
 'project:custom/common/properties/css/background-size.css':[
 30,
 31,

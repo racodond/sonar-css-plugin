@@ -41,28 +41,28 @@ public class PseudoFunctionTreeTest extends CssTreeTest {
 
     tree = checkParsed(":lang(en)", ":", "lang");
     assertThat(tree.isVendorPrefixed()).isFalse();
-    assertThat(tree.parameterElements()).hasSize(1);
+    assertThat(tree.parameters().parameters()).hasSize(1);
     assertThat(tree.standardFunction()).isInstanceOf(Lang.class);
 
     tree = checkParsed(":nth-last-child(2)", ":", "nth-last-child");
     assertThat(tree.isVendorPrefixed()).isFalse();
-    assertThat(tree.parameterElements()).hasSize(1);
+    assertThat(tree.parameters().parameters()).hasSize(1);
     assertThat(tree.standardFunction()).isInstanceOf(NthLastChild.class);
 
     tree = checkParsed(":nth-last-child( 2 )", ":", "nth-last-child");
     assertThat(tree.isVendorPrefixed()).isFalse();
-    assertThat(tree.parameterElements()).hasSize(1);
+    assertThat(tree.parameters().parameters()).hasSize(1);
     assertThat(tree.standardFunction()).isInstanceOf(NthLastChild.class);
 
     tree = checkParsed(":-moz-nth-last-child( 2 )", ":", "-moz-nth-last-child");
     assertThat(tree.isVendorPrefixed()).isTrue();
     assertThat(tree.vendor()).isEqualTo(Vendor.MOZILLA);
-    assertThat(tree.parameterElements()).hasSize(1);
+    assertThat(tree.parameters().parameters()).hasSize(1);
     assertThat(tree.standardFunction()).isInstanceOf(NthLastChild.class);
 
     tree = checkParsed(":abc( 2 )", ":", "abc");
     assertThat(tree.isVendorPrefixed()).isFalse();
-    assertThat(tree.parameterElements()).hasSize(1);
+    assertThat(tree.parameters().parameters()).hasSize(1);
     assertThat(tree.standardFunction()).isInstanceOf(UnknownPseudoFunction.class);
   }
 
@@ -87,8 +87,9 @@ public class PseudoFunctionTreeTest extends CssTreeTest {
     assertThat(tree.prefix().text()).isEqualTo(expectedPrefix);
     assertThat(tree.function()).isNotNull();
     assertThat(tree.standardFunction()).isNotNull();
-    assertThat(tree.openParenthesis()).isNotNull();
-    assertThat(tree.closeParenthesis()).isNotNull();
+    assertThat(tree.parameters().openParenthesis()).isNotNull();
+    assertThat(tree.parameters()).isNotNull();
+    assertThat(tree.parameters().closeParenthesis()).isNotNull();
     assertThat(tree.function().text()).isEqualTo(expectedPseudoFunctionName);
     return tree;
   }

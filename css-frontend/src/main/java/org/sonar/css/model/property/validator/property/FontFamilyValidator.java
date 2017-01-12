@@ -19,10 +19,10 @@
  */
 package org.sonar.css.model.property.validator.property;
 
+import org.sonar.css.model.property.validator.HashMultiplierValidator;
 import org.sonar.css.model.property.validator.ValidatorFactory;
-import org.sonar.css.model.property.validator.ValueElementListValidator;
 
-public class FontFamilyValidator extends ValueElementListValidator {
+public class FontFamilyValidator extends HashMultiplierValidator {
 
   public FontFamilyValidator() {
     super(

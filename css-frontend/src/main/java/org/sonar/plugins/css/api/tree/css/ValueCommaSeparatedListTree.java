@@ -19,14 +19,11 @@
  */
 package org.sonar.plugins.css.api.tree.css;
 
+import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.plugins.css.api.tree.Tree;
 
-public interface ScssMapEntryTree extends Tree {
+public interface ValueCommaSeparatedListTree extends Tree {
 
-  ValueTree key();
-
-  SyntaxToken colon();
-
-  ValueTree value();
+  SeparatedList<ValueTree, DelimiterTree> values();
 
 }

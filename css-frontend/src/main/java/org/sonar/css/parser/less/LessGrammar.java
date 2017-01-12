@@ -84,6 +84,32 @@ public class LessGrammar extends CssGrammar {
   public Tree ANY() {
     return b.<Tree>nonterminal().is(
       b.firstOf(
+        VALUE_COMMA_SEPARATED_LIST(),
+        URI(),
+        FUNCTION(),
+        PSEUDO_SELECTOR(),
+        PARENTHESIS_BLOCK(),
+        BRACKET_BLOCK(),
+        PERCENTAGE(),
+        DIMENSION(),
+        NUMBER(),
+        STRING(),
+        HASH(),
+        UNICODE_RANGE(),
+        LESS_OPERATOR(),
+        IDENTIFIER(),
+        IMPORTANT_FLAG(),
+        LESS_ESCAPING(),
+        LESS_INTERPOLATED_IDENTIFIER(),
+        LESS_VARIABLE(),
+        b.token(LexicalGrammar.COLON),
+        DELIMITER()));
+  }
+
+  @Override
+  public Tree ANY_WITHOUT_COMMA_SEPARATED_LIST() {
+    return b.<Tree>nonterminal().is(
+      b.firstOf(
         URI(),
         FUNCTION(),
         PSEUDO_SELECTOR(),
@@ -121,14 +147,6 @@ public class LessGrammar extends CssGrammar {
           LESS_INTERPOLATED_IDENTIFIER(),
           IDENTIFIER()),
         b.optional(b.token(LexicalGrammar.LESS_MERGE))));
-  }
-
-  @Override
-  public SelectorsTree SELECTORS() {
-    return b.<SelectorsTree>nonterminal(LexicalGrammar.SELECTORS).is(
-      f.lessSelectors(
-        SELECTOR_LIST(),
-        b.optional(b.token(LexicalGrammar.COMMA))));
   }
 
   @Override
@@ -246,7 +264,7 @@ public class LessGrammar extends CssGrammar {
       f.lessVariableDeclaration(
         LESS_VARIABLE(),
         b.token(LexicalGrammar.COLON),
-        VALUE(),
+        DECLARATION_VALUE(),
         b.optional(b.token(LexicalGrammar.SEMICOLON))));
   }
 
@@ -262,7 +280,7 @@ public class LessGrammar extends CssGrammar {
       f.lessExtend(
         b.token(LexicalGrammar.LESS_EXTEND_PREFIX),
         b.token(LexicalGrammar.OPEN_PARENTHESIS_NO_WS),
-        b.oneOrMore(ANY()),
+        b.oneOrMore(SIMPLE_VALUE()),
         b.token(LexicalGrammar.CLOSE_PARENTHESIS)));
   }
 
@@ -326,8 +344,8 @@ public class LessGrammar extends CssGrammar {
         f.lessMixinParameter(
           LESS_VARIABLE(),
           b.optional(b.token(LexicalGrammar.COLON)),
-          b.optional(VALUE())),
-        f.lessMixinParameter(VALUE())));
+          b.optional(DECLARATION_VALUE())),
+        f.lessMixinParameter(DECLARATION_VALUE())));
   }
 
   public IdentifierTree LESS_INTERPOLATED_IDENTIFIER() {

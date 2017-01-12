@@ -13,9 +13,8 @@
   transition-timing-function: 10; /* Noncompliant */
   transition-timing-function: 10.5; /* Noncompliant */
   transition-timing-function: abc; /* Noncompliant */
-  //FIXME
-  //transition-timing-function: ease, linear;
-  //transition-timing-function: ease, steps(3, start);
-  //transition-timing-function: ease, linear, linear;
+  transition-timing-function: ease, linear;
+  transition-timing-function: ease, steps(3, start);
+  transition-timing-function: ease, linear, linear;
   transition-timing-function: ease, linear, abc; /* Noncompliant */
 }

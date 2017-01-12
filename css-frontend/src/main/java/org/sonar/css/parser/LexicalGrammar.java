@@ -44,8 +44,12 @@ public enum LexicalGrammar implements GrammarRuleKey {
 
   PROPERTY,
   VARIABLE,
-  VALUE,
+  DECLARATION_VALUE,
+  SIMPLE_VALUE_WITHOUT_COMMA_SEPARATED_LIST,
+  SIMPLE_VALUE,
+
   FUNCTION,
+  FUNCTION_PARAMETERS,
 
   DIMENSION,
   PERCENTAGE,
@@ -60,7 +64,11 @@ public enum LexicalGrammar implements GrammarRuleKey {
   URI,
   URI_CONTENT,
   UNICODE_RANGE,
+
+  VALUE_COMMA_SEPARATED_LIST,
+
   DELIMITER,
+  COMMA_DELIMITER,
 
   IMPORTANT_FLAG,
 
@@ -222,12 +230,9 @@ public enum LexicalGrammar implements GrammarRuleKey {
   SCSS_CALL_PARAMETERS,
   SCSS_CALL_PARAMETER,
 
-  SCSS_VALUE,
-  SCSS_VALUE_WITHOUT_DELIMITER,
-
   SCSS_SASS_SCRIPT_EXPRESSION,
   SCSS_SASS_SCRIPT_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST,
-  SCSS_SASS_SCRIPT_EXPRESSION_COMMA_SEPARATED_LIST,
+
   SCSS_MAP,
   SCSS_MAP_ENTRY,
 
@@ -480,7 +485,7 @@ public enum LexicalGrammar implements GrammarRuleKey {
 
     b.rule(URL_FUNCTION_NAME).is(SPACING, matchCaseInsensitive(b, "url"));
 
-    b.rule(DELIM).is(SPACING, b.regexp("[^\"'\\{\\}\\(\\)\\[\\]:; \t\r\n\f]"));
+    b.rule(DELIM).is(SPACING, b.regexp("[^\"'\\{\\}\\(\\)\\[\\]\\\\,:; \t\r\n\f]"));
 
     b.rule(BOM).is("\ufeff");
     b.rule(EOF).is(SPACING, b.token(GenericTokenType.EOF, b.endOfInput()));

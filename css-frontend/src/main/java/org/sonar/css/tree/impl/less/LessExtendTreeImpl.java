@@ -27,6 +27,7 @@ import java.util.List;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.ValueTree;
 import org.sonar.plugins.css.api.tree.less.LessExtendTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
@@ -34,10 +35,10 @@ public class LessExtendTreeImpl extends TreeImpl implements LessExtendTree {
 
   private final SyntaxToken extendKeyword;
   private final SyntaxToken openParenthesis;
-  private final List<Tree> parameterElements;
+  private final List<ValueTree> parameterElements;
   private final SyntaxToken closeParenthesis;
 
-  public LessExtendTreeImpl(SyntaxToken extendKeyword, SyntaxToken openParenthesis, List<Tree> parameterElements, SyntaxToken closeParenthesis) {
+  public LessExtendTreeImpl(SyntaxToken extendKeyword, SyntaxToken openParenthesis, List<ValueTree> parameterElements, SyntaxToken closeParenthesis) {
     this.extendKeyword = extendKeyword;
     this.openParenthesis = openParenthesis;
     this.parameterElements = parameterElements;
@@ -78,7 +79,7 @@ public class LessExtendTreeImpl extends TreeImpl implements LessExtendTree {
   }
 
   @Override
-  public List<Tree> parameterElements() {
+  public List<ValueTree> parameterElements() {
     return parameterElements;
   }
 

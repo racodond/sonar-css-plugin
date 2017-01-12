@@ -17,46 +17,65 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.tree.impl.css;
+package org.sonar.css.tree.impl.scss;
 
+import com.google.common.collect.Iterators;
 import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.css.ScssSassScriptExpressionCommaSeparatedListTree;
+import org.sonar.plugins.css.api.tree.css.DelimiterTree;
+import org.sonar.plugins.css.api.tree.scss.ScssMapEntryTree;
+import org.sonar.plugins.css.api.tree.scss.ScssMapTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
-import org.sonar.plugins.css.api.tree.css.ValueTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Function;
 
-public class ScssSassScriptExpressionCommaSeparatedListTreeImpl extends TreeImpl implements ScssSassScriptExpressionCommaSeparatedListTree {
+public class ScssMapTreeImpl extends TreeImpl implements ScssMapTree {
 
-  private final SeparatedList<ValueTree, SyntaxToken> values;
+  private final SyntaxToken openParenthesis;
+  private final SyntaxToken closeParenthesis;
+  private final SeparatedList<ScssMapEntryTree, DelimiterTree> entries;
 
-  public ScssSassScriptExpressionCommaSeparatedListTreeImpl(SeparatedList<ValueTree, SyntaxToken> values) {
-    this.values = values;
+  public ScssMapTreeImpl(SyntaxToken openParenthesis, SeparatedList<ScssMapEntryTree, DelimiterTree> entries, SyntaxToken closeParenthesis) {
+    this.openParenthesis = openParenthesis;
+    this.closeParenthesis = closeParenthesis;
+    this.entries = entries;
   }
 
   @Override
   public Kind getKind() {
-    return Kind.SCSS_SASS_SCRIPT_EXPRESSION_COMMA_SEPARATED_LIST;
+    return Kind.SCSS_MAP;
   }
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    return values.elementsAndSeparators(Function.identity(), Function.identity());
+    return Iterators.concat(
+      Iterators.singletonIterator(openParenthesis),
+      entries.elementsAndSeparators(Function.identity(), Function.identity()),
+      Iterators.singletonIterator(closeParenthesis));
   }
 
   @Override
   public void accept(DoubleDispatchVisitor visitor) {
-    visitor.visitScssSassScriptExpressionCommaSeparatedList(this);
+    visitor.visitScssMap(this);
   }
 
   @Override
-  public List<ValueTree> values() {
-    return values;
+  public SyntaxToken openParenthesis() {
+    return openParenthesis;
+  }
+
+  @Override
+  public SyntaxToken closeParenthesis() {
+    return closeParenthesis;
+  }
+
+  @Override
+  public List<ScssMapEntryTree> entries() {
+    return entries;
   }
 
 }

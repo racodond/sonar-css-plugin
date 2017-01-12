@@ -21,7 +21,6 @@ package org.sonar.plugins.css.api.tree.css;
 
 import org.sonar.plugins.css.api.tree.Tree;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public interface SelectorsTree extends Tree {
@@ -29,8 +28,5 @@ public interface SelectorsTree extends Tree {
   List<SelectorTree> selectors();
 
   SelectorTree lastSelector();
-
-  @Nullable
-  SyntaxToken lessTrailingComma();
 
 }

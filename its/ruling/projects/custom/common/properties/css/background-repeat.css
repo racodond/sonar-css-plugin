@@ -13,7 +13,7 @@
   background-repeat: repeat-x, round, space round;
   background-repeat: repeat-x, space round, space round;
   background-repeat: space round, space round, space round;
-  background-repeat: repeat-x repeat-y; /* Noncompliant !{Update the invalid value of property "background-repeat". Expected format: repeat-x | repeat-y | [repeat | space | round | no-repeat]{1,2} [, repeat-x | repeat-y | [repeat | space | round | no-repeat]{1,2}]*}! */
+  background-repeat: repeat-x repeat-y; /* Noncompliant !{Update the invalid value of property "background-repeat". Expected format: [ repeat-x | repeat-y | [ repeat | space | round | no-repeat ]{1,2} ]#}! */
   background-repeat: repeat-x round; /* Noncompliant */
   background-repeat: round repeat-y; /* Noncompliant */
   background-repeat: repeat-x, round repeat-y; /* Noncompliant */

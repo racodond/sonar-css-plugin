@@ -41,26 +41,26 @@ public class FunctionTreeTest extends CssTreeTest {
 
     tree = checkParsed("abc()");
     assertThat(tree.standardFunction()).isInstanceOf(UnknownFunction.class);
-    assertThat(tree.parameterElements()).isNull();
+    assertThat(tree.parameters().parameters()).isNull();
 
     tree = checkParsed(" abc()");
     assertThat(tree.standardFunction()).isInstanceOf(UnknownFunction.class);
-    assertThat(tree.parameterElements()).isNull();
+    assertThat(tree.parameters().parameters()).isNull();
 
     tree = checkParsed("abc(param)");
     assertThat(tree.standardFunction()).isInstanceOf(UnknownFunction.class);
-    assertThat(tree.parameterElements()).isNotNull();
-    assertThat(tree.parameterElements()).hasSize(1);
+    assertThat(tree.parameters()).isNotNull();
+    assertThat(tree.parameters().parameters()).hasSize(1);
 
     tree = checkParsed("abc(param, 4, \"abc\")");
     assertThat(tree.standardFunction()).isInstanceOf(UnknownFunction.class);
-    assertThat(tree.parameterElements()).isNotNull();
-    assertThat(tree.parameterElements()).hasSize(5);
+    assertThat(tree.parameters().parameters()).isNotNull();
+    assertThat(tree.parameters().parameters()).hasSize(3);
 
     tree = checkParsed("min(4, 5)");
     assertThat(tree.standardFunction()).isInstanceOf(Min.class);
-    assertThat(tree.parameterElements()).isNotNull();
-    assertThat(tree.parameterElements()).hasSize(3);
+    assertThat(tree.parameters().parameters()).isNotNull();
+    assertThat(tree.parameters().parameters()).hasSize(2);
 
     tree = checkParsed("-webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(100%,#7db9e8))");
     assertThat(tree.isVendorPrefixed()).isTrue();
@@ -84,8 +84,8 @@ public class FunctionTreeTest extends CssTreeTest {
     assertThat(tree).isNotNull();
     assertThat(tree.function()).isNotNull();
     assertThat(tree.standardFunction()).isNotNull();
-    assertThat(tree.openParenthesis()).isNotNull();
-    assertThat(tree.closeParenthesis()).isNotNull();
+    assertThat(tree.parameters().openParenthesis()).isNotNull();
+    assertThat(tree.parameters().closeParenthesis()).isNotNull();
     return tree;
   }
 

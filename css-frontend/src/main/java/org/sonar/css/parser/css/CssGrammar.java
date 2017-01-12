@@ -57,7 +57,7 @@ public class CssGrammar {
     return b.<AtRuleTree>nonterminal(LexicalGrammar.AT_RULE).is(
       f.atRule(
         AT_KEYWORD(),
-        b.zeroOrMore(ANY()),
+        b.optional(SIMPLE_VALUE()),
         b.optional(AT_RULE_BLOCK()),
         b.optional(b.token(LexicalGrammar.SEMICOLON))));
   }
@@ -94,17 +94,28 @@ public class CssGrammar {
         b.token(LexicalGrammar.CLOSE_CURLY_BRACE)));
   }
 
-  public ValueTree VALUE() {
-    return b.<ValueTree>nonterminal(LexicalGrammar.VALUE).is(
-      f.value(
-        b.oneOrMore(
-          b.firstOf(
-            ANY(),
-            RULESET_BLOCK(),
-            AT_KEYWORD()))));
+  public Tree ANY() {
+    return b.<Tree>nonterminal().is(
+      b.firstOf(
+        VALUE_COMMA_SEPARATED_LIST(),
+        URI(),
+        FUNCTION(),
+        PSEUDO_SELECTOR(),
+        PARENTHESIS_BLOCK(),
+        BRACKET_BLOCK(),
+        PERCENTAGE(),
+        DIMENSION(),
+        NUMBER(),
+        STRING(),
+        HASH(),
+        UNICODE_RANGE(),
+        IDENTIFIER(),
+        IMPORTANT_FLAG(),
+        b.token(LexicalGrammar.COLON),
+        DELIMITER()));
   }
 
-  public Tree ANY() {
+  public Tree ANY_WITHOUT_COMMA_SEPARATED_LIST() {
     return b.<Tree>nonterminal().is(
       b.firstOf(
         URI(),
@@ -122,6 +133,28 @@ public class CssGrammar {
         IMPORTANT_FLAG(),
         b.token(LexicalGrammar.COLON),
         DELIMITER()));
+  }
+
+  public ValueTree SIMPLE_VALUE() {
+    return b.<ValueTree>nonterminal(LexicalGrammar.SIMPLE_VALUE).is(
+      f.simpleValue(
+        b.oneOrMore(ANY())));
+  }
+
+  public ValueTree SIMPLE_VALUE_WITHOUT_COMMA_SEPARATED_LIST() {
+    return b.<ValueTree>nonterminal(LexicalGrammar.SIMPLE_VALUE_WITHOUT_COMMA_SEPARATED_LIST).is(
+      f.simpleValueWithoutCommaDeclarationList(
+        b.oneOrMore(ANY_WITHOUT_COMMA_SEPARATED_LIST())));
+  }
+
+  public ValueTree DECLARATION_VALUE() {
+    return b.<ValueTree>nonterminal(LexicalGrammar.DECLARATION_VALUE).is(
+      f.declarationValue(
+        b.oneOrMore(
+          b.firstOf(
+            ANY(),
+            RULESET_BLOCK(),
+            AT_KEYWORD()))));
   }
 
   public ParenthesisBlockTree PARENTHESIS_BLOCK() {
@@ -157,7 +190,7 @@ public class CssGrammar {
       f.propertyDeclaration(
         PROPERTY(),
         b.token(LexicalGrammar.COLON),
-        VALUE(),
+        DECLARATION_VALUE(),
         b.optional(b.token(LexicalGrammar.SEMICOLON))));
   }
 
@@ -166,7 +199,7 @@ public class CssGrammar {
       f.variableDeclaration(
         VARIABLE(),
         b.token(LexicalGrammar.COLON),
-        VALUE(),
+        DECLARATION_VALUE(),
         b.optional(b.token(LexicalGrammar.SEMICOLON))));
   }
 
@@ -184,9 +217,25 @@ public class CssGrammar {
     return b.<FunctionTree>nonterminal(LexicalGrammar.FUNCTION).is(
       f.function(
         IDENTIFIER(),
+        FUNCTION_PARAMETERS()));
+  }
+
+  public ParametersTree FUNCTION_PARAMETERS() {
+    return b.<ParametersTree>nonterminal(LexicalGrammar.FUNCTION_PARAMETERS).is(
+      f.parameters(
         b.token(LexicalGrammar.OPEN_PARENTHESIS_NO_WS),
-        b.optional(b.oneOrMore(ANY())),
+        b.optional(PARAMETER_LIST()),
         b.token(LexicalGrammar.CLOSE_PARENTHESIS)));
+  }
+
+  public SeparatedList<ValueTree, DelimiterTree> PARAMETER_LIST() {
+    return b.<SeparatedList<ValueTree, DelimiterTree>>nonterminal().is(
+      f.parameterList(
+        SIMPLE_VALUE_WITHOUT_COMMA_SEPARATED_LIST(),
+        b.zeroOrMore(
+          f.newTuple9(
+            COMMA_DELIMITER(),
+            SIMPLE_VALUE_WITHOUT_COMMA_SEPARATED_LIST()))));
   }
 
   public NamespaceTree NAMESPACE() {
@@ -208,7 +257,8 @@ public class CssGrammar {
         b.zeroOrMore(
           f.newTuple1(
             b.token(LexicalGrammar.COMMA),
-            SELECTOR()))));
+            SELECTOR())),
+        b.optional(b.token(LexicalGrammar.COMMA))));
   }
 
   public SelectorTree SELECTOR() {
@@ -344,9 +394,7 @@ public class CssGrammar {
       f.pseudoFunction(
         b.token(LexicalGrammar.PSEUDO_PREFIX),
         IDENTIFIER_NO_WS(),
-        b.token(LexicalGrammar.OPEN_PARENTHESIS_NO_WS),
-        b.optional(b.oneOrMore(ANY())),
-        b.token(LexicalGrammar.CLOSE_PARENTHESIS)));
+        FUNCTION_PARAMETERS()));
   }
 
   public PseudoIdentifierTree PSEUDO_IDENTIFIER() {
@@ -445,9 +493,29 @@ public class CssGrammar {
       f.number(b.token(LexicalGrammar.NUMBER_LITERAL)));
   }
 
+  public ValueCommaSeparatedListTree VALUE_COMMA_SEPARATED_LIST() {
+    return b.<ValueCommaSeparatedListTree>nonterminal(LexicalGrammar.VALUE_COMMA_SEPARATED_LIST).is(
+      b.firstOf(
+        f.valueCommaSeparatedList(
+          SIMPLE_VALUE_WITHOUT_COMMA_SEPARATED_LIST(),
+          b.oneOrMore(
+            f.newTuple8(
+              COMMA_DELIMITER(),
+              SIMPLE_VALUE_WITHOUT_COMMA_SEPARATED_LIST())),
+          b.optional(COMMA_DELIMITER())),
+        f.valueCommaSeparatedListOneSingleValue(
+          SIMPLE_VALUE_WITHOUT_COMMA_SEPARATED_LIST(),
+          COMMA_DELIMITER())));
+  }
+
   public DelimiterTree DELIMITER() {
     return b.<DelimiterTree>nonterminal(LexicalGrammar.DELIMITER).is(
       f.delimiter(b.token(LexicalGrammar.DELIM)));
+  }
+
+  public DelimiterTree COMMA_DELIMITER() {
+    return b.<DelimiterTree>nonterminal(LexicalGrammar.COMMA_DELIMITER).is(
+      f.commaDelimiter(b.token(LexicalGrammar.COMMA)));
   }
 
   public CaseInsensitiveFlagTree CASE_INSENSITIVE_FLAG() {

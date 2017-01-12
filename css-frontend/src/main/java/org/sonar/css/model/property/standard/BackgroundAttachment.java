@@ -20,7 +20,8 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.property.background.BackgroundAttachmentValidator;
+import org.sonar.css.model.property.validator.HashMultiplierValidator;
+import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class BackgroundAttachment extends StandardProperty {
 
@@ -28,7 +29,11 @@ public class BackgroundAttachment extends StandardProperty {
     addLinks(
       "https://www.w3.org/TR/CSS22/colors.html#propdef-background-attachment",
       "https://drafts.csswg.org/css-backgrounds-3/#background-attachment");
-    addValidators(new BackgroundAttachmentValidator());
+
+    addValidators(
+      new HashMultiplierValidator(
+        new IdentifierValidator("scroll", "fixed", "local")
+      ));
   }
 
 }

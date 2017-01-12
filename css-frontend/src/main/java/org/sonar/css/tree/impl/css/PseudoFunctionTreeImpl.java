@@ -26,33 +26,26 @@ import org.sonar.css.model.pseudo.pseudofunction.StandardPseudoFunctionFactory;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.IdentifierTree;
+import org.sonar.plugins.css.api.tree.css.ParametersTree;
 import org.sonar.plugins.css.api.tree.css.PseudoFunctionTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 
 public class PseudoFunctionTreeImpl extends TreeImpl implements PseudoFunctionTree {
 
   private final SyntaxToken prefix;
   private final IdentifierTree function;
-  private final SyntaxToken openParenthesis;
-  private final List<Tree> parameterElements;
-  private final SyntaxToken closeParenthesis;
+  private final ParametersTree parameters;
   private final Vendor vendor;
   private final StandardPseudoFunction standardFunction;
 
-  public PseudoFunctionTreeImpl(SyntaxToken prefix, IdentifierTree function, SyntaxToken openParenthesis, @Nullable List<Tree> parameterElements,
-                                SyntaxToken closeParenthesis) {
+  public PseudoFunctionTreeImpl(SyntaxToken prefix, IdentifierTree function, ParametersTree parameters) {
     this.prefix = prefix;
     this.function = function;
-    this.openParenthesis = openParenthesis;
-    this.parameterElements = parameterElements;
-    this.closeParenthesis = closeParenthesis;
+    this.parameters = parameters;
 
     this.vendor = setVendor();
     this.standardFunction = setStandardFunction();
@@ -65,10 +58,7 @@ public class PseudoFunctionTreeImpl extends TreeImpl implements PseudoFunctionTr
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    return Iterators.concat(
-      Iterators.forArray(prefix, function, openParenthesis),
-      parameterElements != null ? parameterElements.iterator() : new ArrayList<Tree>().iterator(),
-      Iterators.singletonIterator(closeParenthesis));
+    return Iterators.forArray(prefix, function, parameters);
   }
 
   @Override
@@ -102,18 +92,8 @@ public class PseudoFunctionTreeImpl extends TreeImpl implements PseudoFunctionTr
   }
 
   @Override
-  public SyntaxToken openParenthesis() {
-    return openParenthesis;
-  }
-
-  @Override
-  public SyntaxToken closeParenthesis() {
-    return closeParenthesis;
-  }
-
-  @Override
-  public List<Tree> parameterElements() {
-    return parameterElements;
+  public ParametersTree parameters() {
+    return parameters;
   }
 
   private Vendor setVendor() {

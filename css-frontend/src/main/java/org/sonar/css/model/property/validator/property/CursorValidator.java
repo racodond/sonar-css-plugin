@@ -19,16 +19,17 @@
  */
 package org.sonar.css.model.property.validator.property;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.sonar.css.model.property.validator.ValidatorFactory;
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.ValueValidator;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 import org.sonar.css.model.property.validator.valueelement.numeric.IntegerRangeValidator;
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.ValueCommaSeparatedListTree;
 import org.sonar.plugins.css.api.tree.css.ValueTree;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CursorValidator implements ValueValidator {
 
@@ -42,25 +43,52 @@ public class CursorValidator implements ValueValidator {
 
   @Override
   public boolean isValid(ValueTree valueTree) {
-    List<List<Tree>> cursorList = buildCursorList(valueTree);
-    if (cursorList.size() == 1) {
-      if (cursorList.get(0).size() != 1
-        || cursorList.get(0).size() == 1 && !identifierValidator.isValid(cursorList.get(0).get(0))) {
-        return false;
-      }
-    } else {
-      for (int i = 0; i < cursorList.size() - 1; i++) {
-        if (cursorList.get(i).size() == 1 && ValidatorFactory.getUriValidator().isValid(cursorList.get(i).get(0))) {
-          break;
-        } else if (cursorList.get(i).size() == 3 && ValidatorFactory.getUriValidator().isValid(cursorList.get(i).get(0))
-          && positiveIntegerValidator.isValid(cursorList.get(i).get(1)) && positiveIntegerValidator.isValid(
-            cursorList.get(i).get(2))) {
-          break;
-        }
-        return false;
-      }
-      return identifierValidator.isValid(cursorList.get(cursorList.size() - 1).get(0));
+
+    if (valueTree.sanitizedValueElements().size() != 1) {
+      return false;
     }
+
+    Tree value = valueTree.sanitizedValueElements().get(0);
+
+    if (value.is(Tree.Kind.VALUE_COMMA_SEPARATED_LIST)) {
+
+      ValueCommaSeparatedListTree list = (ValueCommaSeparatedListTree) value;
+      int numberOfElements = list.values().size();
+
+      if (list.values().get(numberOfElements - 1).sanitizedValueElements().size() != 1) {
+        return false;
+      }
+
+      if (!identifierValidator.isValid(list.values().get(numberOfElements - 1).sanitizedValueElements().get(0))) {
+        return false;
+      }
+
+      for (int i = 0; i < numberOfElements - 1; i++) {
+        if (list.values().get(i).sanitizedValueElements().size() != 1
+          && list.values().get(i).sanitizedValueElements().size() != 3) {
+          return false;
+        }
+
+        if (!ValidatorFactory.getUriValidator().isValid(list.values().get(i).sanitizedValueElements().get(0))) {
+          return false;
+        }
+
+        if (list.values().get(i).sanitizedValueElements().size() == 3) {
+          for (int j = 1; j < 3; j++) {
+            if (!positiveIntegerValidator.isValid(list.values().get(i).sanitizedValueElements().get(j))) {
+              return false;
+            }
+          }
+        }
+      }
+
+      return true;
+    }
+
+    if (!identifierValidator.isValid(valueTree.sanitizedValueElements().get(0))) {
+      return false;
+    }
+
     return true;
   }
 

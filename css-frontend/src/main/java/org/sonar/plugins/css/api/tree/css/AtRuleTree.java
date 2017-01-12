@@ -21,10 +21,8 @@ package org.sonar.plugins.css.api.tree.css;
 
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.atrule.StandardAtRule;
-import org.sonar.plugins.css.api.tree.Tree;
 
 import javax.annotation.Nullable;
-import java.util.List;
 
 public interface AtRuleTree extends StatementTree {
 
@@ -38,7 +36,7 @@ public interface AtRuleTree extends StatementTree {
   AtKeywordTree atKeyword();
 
   @Nullable
-  List<Tree> preludes();
+  ValueTree preludes();
 
   @Nullable
   StatementBlockTree block();

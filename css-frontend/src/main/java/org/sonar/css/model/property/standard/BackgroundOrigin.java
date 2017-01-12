@@ -20,13 +20,16 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.property.background.BackgroundOriginValidator;
+import org.sonar.css.model.property.validator.HashMultiplierValidator;
+import org.sonar.css.model.property.validator.ValidatorFactory;
 
 public class BackgroundOrigin extends StandardProperty {
 
   public BackgroundOrigin() {
     addLinks("https://drafts.csswg.org/css-backgrounds-3/#background-origin");
-    addValidators(new BackgroundOriginValidator());
+    addValidators(
+      new HashMultiplierValidator(
+        ValidatorFactory.getBoxValidator()));
   }
 
 }

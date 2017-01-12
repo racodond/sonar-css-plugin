@@ -31,7 +31,7 @@ import static org.fest.assertions.Assertions.assertThat;
 public class ValueTreeTest extends LessTreeTest {
 
   public ValueTreeTest() {
-    super(LexicalGrammar.VALUE);
+    super(LexicalGrammar.SIMPLE_VALUE);
   }
 
   @Test

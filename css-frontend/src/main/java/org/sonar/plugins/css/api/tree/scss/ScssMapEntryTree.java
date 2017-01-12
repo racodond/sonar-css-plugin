@@ -17,18 +17,18 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.plugins.css.api.tree.css;
+package org.sonar.plugins.css.api.tree.scss;
 
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.SyntaxToken;
+import org.sonar.plugins.css.api.tree.css.ValueTree;
 
-import java.util.List;
+public interface ScssMapEntryTree extends Tree {
 
-public interface ScssMapTree extends Tree {
+  ValueTree key();
 
-  SyntaxToken openParenthesis();
+  SyntaxToken colon();
 
-  List<ScssMapEntryTree> entries();
-
-  SyntaxToken closeParenthesis();
+  ValueTree value();
 
 }

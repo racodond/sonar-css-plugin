@@ -163,7 +163,7 @@ public class FormattingCheck extends DoubleDispatchVisitorCheck {
   private void checkAtRuleOpeningCurlyBrace(AtRuleTree tree) {
     Preconditions.checkNotNull(tree.block());
 
-    Tree tree1 = tree.preludes() != null ? tree.preludes().get(tree.preludes().size() - 1) : tree.atKeyword();
+    Tree tree1 = tree.preludes() != null ? tree.preludes() : tree.atKeyword();
     Tree tree2 = tree.block().openCurlyBrace();
 
     if (!isOnSameLine(tree1, tree2)) {

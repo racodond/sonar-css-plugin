@@ -26,6 +26,8 @@ import org.sonar.css.model.atrule.standard.Import;
 import org.sonar.css.model.atrule.standard.Page;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.AtRuleTree;
+import org.sonar.plugins.css.api.tree.css.ValueCommaSeparatedListTree;
+import org.sonar.plugins.css.api.tree.css.StringTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -83,13 +85,14 @@ public class AtRuleTreeTest extends CssTreeTest {
     assertThat(tree.preludes()).isNotNull();
     assertThat(tree.block()).isNull();
     assertThat(tree.semicolon()).isNotNull();
-    assertThat(tree.preludes()).hasSize(2);
+    assertThat(tree.preludes().valueElements()).hasSize(2);
 
     tree = checkParsed("@charset \"UTF-8\";");
     assertThat(tree.preludes()).isNotNull();
     assertThat(tree.block()).isNull();
     assertThat(tree.semicolon()).isNotNull();
-    assertThat(tree.preludes()).hasSize(1);
+    assertThat(tree.preludes().valueElements()).hasSize(1);
+    assertThat(tree.preludes().valueElements().get(0)).isInstanceOf(StringTree.class);
 
     tree = checkParsed("@media screen, print {\n" +
       "  body { line-height: 1.2 }\n" +
@@ -97,7 +100,8 @@ public class AtRuleTreeTest extends CssTreeTest {
     assertThat(tree.preludes()).isNotNull();
     assertThat(tree.block()).isNotNull();
     assertThat(tree.semicolon()).isNull();
-    assertThat(tree.preludes()).hasSize(3);
+    assertThat(tree.preludes().valueElements()).hasSize(1);
+    assertThat(tree.preludes().valueElements().get(0)).isInstanceOf(ValueCommaSeparatedListTree.class);
 
     tree = checkParsed("@supports (--foo: green) {\n" +
       "  body {\n" +
@@ -106,7 +110,7 @@ public class AtRuleTreeTest extends CssTreeTest {
       "}");
     assertThat(tree.preludes()).isNotNull();
     assertThat(tree.block()).isNotNull();
-    assertThat(tree.preludes()).hasSize(1);
+    assertThat(tree.preludes().valueElements()).hasSize(1);
 
     checkParsed("@document url(http://www.w3.org/),\n" +
       "               url-prefix(http://www.w3.org/Style/),\n" +
@@ -170,7 +174,19 @@ public class AtRuleTreeTest extends CssTreeTest {
       + "@top-center { content: \"This page is intentionally left blank\" }\n"
       + "}");
 
-    checkParsed("@import \"@{themes}/style.less\";");
+    checkParsed("@import \"@{themes}/style.css\";");
+
+    tree = checkParsed("@-moz-keyframes glowing,");
+    assertThat(tree.preludes().valueElements()).hasSize(1);
+    assertThat(tree.preludes().valueElements().get(0)).isInstanceOf(ValueCommaSeparatedListTree.class);
+
+    checkParsed("@-moz-keyframes glowing, style");
+    assertThat(tree.preludes().valueElements()).hasSize(1);
+    assertThat(tree.preludes().valueElements().get(0)).isInstanceOf(ValueCommaSeparatedListTree.class);
+
+    checkParsed("@-moz-keyframes glowing, style,");
+    assertThat(tree.preludes().valueElements()).hasSize(1);
+    assertThat(tree.preludes().valueElements().get(0)).isInstanceOf(ValueCommaSeparatedListTree.class);
   }
 
   @Test

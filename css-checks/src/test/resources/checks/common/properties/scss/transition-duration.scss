@@ -7,9 +7,8 @@
   transition-duration: 10; /* Noncompliant */
   transition-duration: 10.5; /* Noncompliant */
   transition-duration: abc; /* Noncompliant */
-  // FIXME
-  //transition-duration: 10s, 10s;
-  //transition-duration: 10s, 10s, 0, 10s;
+  transition-duration: 10s, 10s;
+  transition-duration: 10s, 10s, 0, 10s;
   transition-duration: 10s, 10s, 0, -10s; /* Noncompliant */
   transition-duration: 10s, 10s, 10, 10s; /* Noncompliant */
 }

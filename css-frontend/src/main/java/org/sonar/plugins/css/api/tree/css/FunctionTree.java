@@ -19,12 +19,11 @@
  */
 package org.sonar.plugins.css.api.tree.css;
 
-import java.util.List;
-import javax.annotation.Nullable;
-
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.function.StandardFunction;
 import org.sonar.plugins.css.api.tree.Tree;
+
+import javax.annotation.Nullable;
 
 public interface FunctionTree extends Tree {
 
@@ -32,11 +31,7 @@ public interface FunctionTree extends Tree {
 
   StandardFunction standardFunction();
 
-  SyntaxToken openParenthesis();
-
-  SyntaxToken closeParenthesis();
-
-  List<Tree> parameterElements();
+  ParametersTree parameters();
 
   boolean isVendorPrefixed();
 

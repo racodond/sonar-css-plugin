@@ -17,13 +17,19 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.model.property.validator.property.background;
+package org.sonar.plugins.css.api.tree.scss;
 
-import org.sonar.css.model.property.validator.ValidatorFactory;
-import org.sonar.css.model.property.validator.ValueElementListValidator;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 
-public class BackgroundClipValidator extends ValueElementListValidator {
-  public BackgroundClipValidator() {
-    super(ValidatorFactory.getBoxValidator());
-  }
+import java.util.List;
+
+public interface ScssMapTree extends Tree {
+
+  SyntaxToken openParenthesis();
+
+  List<ScssMapEntryTree> entries();
+
+  SyntaxToken closeParenthesis();
+
 }

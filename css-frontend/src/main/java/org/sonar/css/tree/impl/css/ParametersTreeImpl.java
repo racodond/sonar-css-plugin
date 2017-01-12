@@ -20,55 +20,64 @@
 package org.sonar.css.tree.impl.css;
 
 import com.google.common.collect.Iterators;
+import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.css.ScssMapEntryTree;
+import org.sonar.plugins.css.api.tree.css.DelimiterTree;
+import org.sonar.plugins.css.api.tree.css.ParametersTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.css.ValueTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
+import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.function.Function;
 
-public class ScssMapEntryTreeImpl extends TreeImpl implements ScssMapEntryTree {
+public class ParametersTreeImpl extends TreeImpl implements ParametersTree {
 
-  private final ValueTree key;
-  private final SyntaxToken colon;
-  private final ValueTree value;
+  private final SyntaxToken openParenthesis;
+  private final SyntaxToken closeParenthesis;
+  private final SeparatedList<ValueTree, DelimiterTree> parameters;
 
-  public ScssMapEntryTreeImpl(ValueTree key, SyntaxToken colon, ValueTree value) {
-    this.key = key;
-    this.colon = colon;
-    this.value = value;
+  public ParametersTreeImpl(SyntaxToken openParenthesis, @Nullable SeparatedList<ValueTree, DelimiterTree> parameters, SyntaxToken closeParenthesis) {
+    this.openParenthesis = openParenthesis;
+    this.closeParenthesis = closeParenthesis;
+    this.parameters = parameters;
   }
 
   @Override
   public Kind getKind() {
-    return Kind.SCSS_MAP_ENTRY;
+    return Kind.PARAMETERS;
   }
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    return Iterators.forArray(key, colon, value);
+    return Iterators.concat(
+      Iterators.singletonIterator(openParenthesis),
+      parameters != null ? parameters.elementsAndSeparators(Function.identity(), Function.identity()) : new ArrayList<Tree>().iterator(),
+      Iterators.singletonIterator(closeParenthesis));
   }
 
   @Override
   public void accept(DoubleDispatchVisitor visitor) {
-    visitor.visitScssMapEntry(this);
+    visitor.visitParameters(this);
   }
 
   @Override
-  public ValueTree key() {
-    return key;
+  public SyntaxToken openParenthesis() {
+    return openParenthesis;
   }
 
   @Override
-  public SyntaxToken colon() {
-    return colon;
+  public SyntaxToken closeParenthesis() {
+    return closeParenthesis;
   }
 
   @Override
-  public ValueTree value() {
-    return value;
+  @Nullable
+  public SeparatedList<ValueTree, DelimiterTree> parameters() {
+    return parameters;
   }
 
 }

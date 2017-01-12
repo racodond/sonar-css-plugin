@@ -17,51 +17,58 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.tree.impl.css;
+package org.sonar.css.tree.impl.scss;
 
-import org.sonar.css.tree.impl.SeparatedList;
+import com.google.common.collect.Iterators;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.css.SelectorTree;
-import org.sonar.plugins.css.api.tree.css.SelectorsTree;
+import org.sonar.plugins.css.api.tree.scss.ScssMapEntryTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
+import org.sonar.plugins.css.api.tree.css.ValueTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 import java.util.Iterator;
-import java.util.List;
-import java.util.function.Function;
 
-public class SelectorsTreeImpl extends TreeImpl implements SelectorsTree {
+public class ScssMapEntryTreeImpl extends TreeImpl implements ScssMapEntryTree {
 
-  private final SeparatedList<SelectorTree, SyntaxToken> selectors;
+  private final ValueTree key;
+  private final SyntaxToken colon;
+  private final ValueTree value;
 
-  public SelectorsTreeImpl(SeparatedList<SelectorTree, SyntaxToken> selectors) {
-    this.selectors = selectors;
+  public ScssMapEntryTreeImpl(ValueTree key, SyntaxToken colon, ValueTree value) {
+    this.key = key;
+    this.colon = colon;
+    this.value = value;
   }
 
   @Override
   public Kind getKind() {
-    return Kind.SELECTORS;
+    return Kind.SCSS_MAP_ENTRY;
   }
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    return selectors.elementsAndSeparators(Function.identity(), Function.identity());
+    return Iterators.forArray(key, colon, value);
   }
 
   @Override
   public void accept(DoubleDispatchVisitor visitor) {
-    visitor.visitSelectors(this);
+    visitor.visitScssMapEntry(this);
   }
 
   @Override
-  public List<SelectorTree> selectors() {
-    return selectors;
+  public ValueTree key() {
+    return key;
   }
 
   @Override
-  public SelectorTree lastSelector() {
-    return selectors.get(selectors.size() - 1);
+  public SyntaxToken colon() {
+    return colon;
+  }
+
+  @Override
+  public ValueTree value() {
+    return value;
   }
 
 }

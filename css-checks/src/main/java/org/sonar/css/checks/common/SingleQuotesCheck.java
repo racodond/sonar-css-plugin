@@ -62,7 +62,9 @@ public class SingleQuotesCheck extends DoubleDispatchVisitorCheck {
   }
 
   private boolean isEncodingOfCharsetAtRule(StringTree tree) {
-    return tree.parent() instanceof AtRuleTree && ((AtRuleTree) tree.parent()).standardAtRule() instanceof Charset;
+    return tree.parent() != null
+      && tree.parent().parent() instanceof AtRuleTree
+      && ((AtRuleTree) tree.parent().parent()).standardAtRule() instanceof Charset;
   }
 
   private boolean containsQuote(String text) {

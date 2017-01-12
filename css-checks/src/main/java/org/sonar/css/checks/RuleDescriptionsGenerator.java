@@ -44,8 +44,8 @@ public class RuleDescriptionsGenerator {
   private static final String UTF_8 = "UTF-8";
 
   private static final Map<String, String> CSS_OBJECT_LINKS = ImmutableMap.<String, String>builder()
-    .put("|", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar")
     .put("||", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar")
+    .put("|", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar")
     .put("&&", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_ampersand")
     .put("?", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Question_mark_()")
     .put("+", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Plus_()")

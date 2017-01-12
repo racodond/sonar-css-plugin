@@ -19,14 +19,13 @@
  */
 package org.sonar.css.model.property.validator.property.background;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.sonar.css.model.property.validator.ValueValidator;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
-import org.sonar.plugins.css.api.tree.css.DelimiterTree;
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.ValueCommaSeparatedListTree;
 import org.sonar.plugins.css.api.tree.css.ValueTree;
+
+import java.util.List;
 
 public class BackgroundRepeatValidator implements ValueValidator {
 
@@ -35,48 +34,65 @@ public class BackgroundRepeatValidator implements ValueValidator {
 
   @Override
   public boolean isValid(ValueTree valueTree) {
+
+    if (valueTree.sanitizedValueElements().size() > 2) {
+      return false;
+    }
+
     List<Tree> valueElements = valueTree.sanitizedValueElements();
-    for (Tree valueElement : valueElements) {
-      if (valueElement instanceof DelimiterTree) {
-        if (!",".equals(((DelimiterTree) valueElement).text())) {
+
+    if (valueElements.size() == 1) {
+      if (valueElements.get(0).is(Tree.Kind.VALUE_COMMA_SEPARATED_LIST)) {
+        if (!checkRepeatStyleList((ValueCommaSeparatedListTree) valueElements.get(0))) {
           return false;
         }
-      } else if (!REPEAT_XY_VALIDATOR.isValid(valueElement) && !REPEAT_OTHERS_VALIDATOR.isValid(valueElement)) {
+      } else {
+        if (!validateOneValueElement(valueElements.get(0))) {
+          return false;
+        }
+      }
+
+    } else {
+      if (!validateTwoValueElements(valueElements.get(0))
+        || !validateTwoValueElements(valueElements.get(1))) {
         return false;
       }
     }
-    return checkRepeatStyleList(buildRepeatStyleList(valueTree));
+
+    return true;
   }
 
   @Override
   public String getValidatorFormat() {
-    return "repeat-x | repeat-y | [repeat | space | round | no-repeat]{1,2} [, repeat-x | repeat-y | [repeat | space | round | no-repeat]{1,2}]*";
+    return "[ repeat-x | repeat-y | [ repeat | space | round | no-repeat ]{1,2} ]#";
   }
 
-  private List<List<Tree>> buildRepeatStyleList(ValueTree valueTree) {
-    List<List<Tree>> repeatStyleList = new ArrayList<>();
-    repeatStyleList.add(new ArrayList<>());
-    int listIndex = 0;
-    for (Tree valueElement : valueTree.sanitizedValueElements()) {
-      if (valueElement instanceof DelimiterTree) {
-        repeatStyleList.add(new ArrayList<>());
-        listIndex++;
-      } else {
-        repeatStyleList.get(listIndex).add(valueElement);
-      }
-
-    }
-    return repeatStyleList;
-  }
-
-  private boolean checkRepeatStyleList(List<List<Tree>> repeatStyleList) {
-    for (List<Tree> elementList : repeatStyleList) {
-      if (elementList.isEmpty()
-        || (elementList.size() == 2 && (REPEAT_XY_VALIDATOR.isValid(elementList.get(0)) || REPEAT_XY_VALIDATOR.isValid(elementList.get(1))))) {
+  private boolean checkRepeatStyleList(ValueCommaSeparatedListTree tree) {
+    for (ValueTree listElement : tree.values()) {
+      if (listElement.sanitizedValueElements().size() > 2) {
         return false;
+      }
+      if (listElement.sanitizedValueElements().size() == 1) {
+        if (!validateOneValueElement(listElement.sanitizedValueElements().get(0))) {
+          return false;
+        }
+      }
+      if (listElement.sanitizedValueElements().size() == 2) {
+        if (!validateTwoValueElements(listElement.sanitizedValueElements().get(0))
+          || !validateTwoValueElements(listElement.sanitizedValueElements().get(1))) {
+          return false;
+        }
       }
     }
     return true;
+  }
+
+  private boolean validateOneValueElement(Tree valueElement) {
+    return REPEAT_XY_VALIDATOR.isValid(valueElement) || REPEAT_OTHERS_VALIDATOR.isValid(valueElement);
+  }
+
+  private boolean validateTwoValueElements(Tree valueElement) {
+    return REPEAT_OTHERS_VALIDATOR.isValid(valueElement);
   }
 
 }

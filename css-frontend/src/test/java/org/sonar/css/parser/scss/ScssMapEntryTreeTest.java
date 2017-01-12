@@ -22,6 +22,8 @@ package org.sonar.css.parser.scss;
 import org.junit.Test;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.*;
+import org.sonar.plugins.css.api.tree.scss.ScssMapEntryTree;
+import org.sonar.plugins.css.api.tree.scss.ScssMapTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -58,7 +60,7 @@ public class ScssMapEntryTreeTest extends ScssTreeTest {
     assertThat(tree.key().valueElements().get(0)).isInstanceOf(IdentifierTree.class);
     assertThat(((IdentifierTree)tree.key().valueElements().get(0)).isScssInterpolated()).isTrue();
 
-    tree = checkParsed("box-shadow:map-get($component,box-shadow))");
+    tree = checkParsed("box-shadow:map-get($component,box-shadow)");
     assertThat(tree.value().valueElements()).hasSize(1);
     assertThat(tree.value().valueElements().get(0)).isInstanceOf(FunctionTree.class);
   }

@@ -22,12 +22,6 @@ package org.sonar.css.checks.common;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -35,9 +29,16 @@ import org.sonar.css.checks.CheckList;
 import org.sonar.css.checks.CheckUtils;
 import org.sonar.css.checks.Tags;
 import org.sonar.css.model.property.standard.Src;
+import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.*;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /*
  * https://css-tricks.com/snippets/css/using-font-face/
@@ -102,7 +103,7 @@ public class FontFaceBrowserCompatibilityCheck extends DoubleDispatchVisitorChec
   private boolean definesScrPropertyWithUrl(List<PropertyDeclarationTree> declarations) {
     for (PropertyDeclarationTree declaration : declarations)
       if (declaration.property().standardProperty() instanceof Src
-        && !declaration.value().valueElementsOfType(UriTree.class).isEmpty()) {
+        && !getUris(declaration).isEmpty()) {
         return true;
       }
     return false;
@@ -161,9 +162,7 @@ public class FontFaceBrowserCompatibilityCheck extends DoubleDispatchVisitorChec
   }
 
   private void checkLastSrcProperty(PropertyDeclarationTree declaration) {
-    List<UriTree> uris = declaration.value().valueElementsOfType(UriTree.class).stream()
-      .filter(t -> t.uriContent() != null && !t.uriContent().text().isEmpty())
-      .collect(Collectors.toList());
+    List<UriTree> uris = getUris(declaration);
 
     if (uris.isEmpty()) {
       addPreciseIssue(declaration.property(), "URL for \"" + FORMAT.get(browserSupportLevel).get(0) + "\" format is expected.");
@@ -218,6 +217,22 @@ public class FontFaceBrowserCompatibilityCheck extends DoubleDispatchVisitorChec
         }
       }
     }
+  }
+
+  private List<UriTree> getUris(PropertyDeclarationTree declaration) {
+    List<UriTree> uris = new ArrayList<>();
+    if (declaration.value().valueElements().get(0).is(Tree.Kind.VALUE_COMMA_SEPARATED_LIST)) {
+      for (ValueTree v : ((ValueCommaSeparatedListTree) declaration.value().valueElements().get(0)).values()) {
+        uris.addAll(v.valueElementsOfType(UriTree.class).stream()
+          .filter(t -> t.uriContent() != null && !t.uriContent().text().isEmpty())
+          .collect(Collectors.toList()));
+      }
+    } else {
+      uris = declaration.value().valueElementsOfType(UriTree.class).stream()
+        .filter(t -> t.uriContent() != null && !t.uriContent().text().isEmpty())
+        .collect(Collectors.toList());
+    }
+    return uris;
   }
 
   @Override

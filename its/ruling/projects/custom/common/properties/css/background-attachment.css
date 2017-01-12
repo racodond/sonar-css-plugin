@@ -5,6 +5,6 @@
   background-attachment: local;
   background-attachment: local, fixed;
   background-attachment: local, fixed, fixed;
-  background-attachment: 10; /* Noncompliant !{Update the invalid value of property "background-attachment". Expected format: scroll | fixed | local [, scroll | fixed | local]*}! */
+  background-attachment: 10; /* Noncompliant !{Update the invalid value of property "background-attachment". Expected format: [ scroll | fixed | local ]#}! */
   background-attachment: 10, 10; /* Noncompliant */
 }

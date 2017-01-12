@@ -19,12 +19,18 @@
  */
 package org.sonar.plugins.css.api.tree.css;
 
+import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.plugins.css.api.tree.Tree;
 
-import java.util.List;
+import javax.annotation.Nullable;
 
-public interface ScssSassScriptExpressionCommaSeparatedListTree extends Tree {
+public interface ParametersTree extends Tree {
 
-  List<ValueTree> values();
+  SyntaxToken openParenthesis();
+
+  @Nullable
+  SeparatedList<ValueTree, DelimiterTree> parameters();
+
+  SyntaxToken closeParenthesis();
 
 }

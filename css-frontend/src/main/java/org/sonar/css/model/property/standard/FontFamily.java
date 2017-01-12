@@ -28,6 +28,7 @@ public class FontFamily extends StandardProperty {
     addLinks(
       "https://www.w3.org/TR/CSS22/fonts.html#propdef-font-family",
       "https://drafts.csswg.org/css-fonts-3/#propdef-font-family");
+
     addValidators(new FontFamilyValidator());
   }
 

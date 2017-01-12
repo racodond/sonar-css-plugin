@@ -26,8 +26,9 @@ import org.sonar.css.model.function.standard.MicrosoftFilterBlur;
 import org.sonar.css.model.function.standard.Min;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.FunctionTree;
-import org.sonar.plugins.css.api.tree.css.ScssSassScriptExpressionCommaSeparatedListTree;
-import org.sonar.plugins.css.api.tree.scss.ScssVariableTree;
+import org.sonar.plugins.css.api.tree.css.IdentifierTree;
+import org.sonar.plugins.css.api.tree.css.NumberTree;
+import org.sonar.plugins.css.api.tree.css.StringTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -43,25 +44,27 @@ public class FunctionTreeTest extends ScssTreeTest {
 
     tree = checkParsed("abc()");
     assertThat(tree.standardFunction()).isInstanceOf(UnknownFunction.class);
-    assertThat(tree.parameterElements()).isNull();
+    assertThat(tree.parameters().parameters()).isNull();
 
     tree = checkParsed(" abc()");
     assertThat(tree.standardFunction()).isInstanceOf(UnknownFunction.class);
-    assertThat(tree.parameterElements()).isNull();
+    assertThat(tree.parameters().parameters()).isNull();
 
     tree = checkParsed("abc(param)");
     assertThat(tree.standardFunction()).isInstanceOf(UnknownFunction.class);
-    assertThat(tree.parameterElements()).isNotNull();
-    assertThat(tree.parameterElements()).hasSize(1);
+    assertThat(tree.parameters().parameters()).isNotNull();
+    assertThat(tree.parameters().parameters()).hasSize(1);
 
     tree = checkParsed("abc(param, 4, \"abc\")");
     assertThat(tree.standardFunction()).isInstanceOf(UnknownFunction.class);
-    assertThat(tree.parameterElements()).hasSize(1);
-    assertThat(((ScssSassScriptExpressionCommaSeparatedListTree) tree.parameterElements().get(0)).values()).hasSize(3);
+    assertThat(tree.parameters().parameters()).hasSize(3);
+    assertThat(tree.parameters().parameters().get(0).valueElements().get(0)).isInstanceOf(IdentifierTree.class);
+    assertThat(tree.parameters().parameters().get(1).valueElements().get(0)).isInstanceOf(NumberTree.class);
+    assertThat(tree.parameters().parameters().get(2).valueElements().get(0)).isInstanceOf(StringTree.class);
 
     tree = checkParsed("min(4, 5)");
     assertThat(tree.standardFunction()).isInstanceOf(Min.class);
-    assertThat(((ScssSassScriptExpressionCommaSeparatedListTree) tree.parameterElements().get(0)).values()).hasSize(2);
+    assertThat(tree.parameters().parameters()).hasSize(2);
 
     tree = checkParsed("-webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(100%,#7db9e8))");
     assertThat(tree.isVendorPrefixed()).isTrue();
@@ -75,7 +78,7 @@ public class FunctionTreeTest extends ScssTreeTest {
 
     tree = checkParsed("min($myvar, 5)");
     assertThat(tree.standardFunction()).isInstanceOf(Min.class);
-    assertThat(((ScssSassScriptExpressionCommaSeparatedListTree) tree.parameterElements().get(0)).values()).hasSize(2);
+    assertThat(tree.parameters().parameters()).hasSize(2);
   }
 
   @Test
@@ -89,8 +92,9 @@ public class FunctionTreeTest extends ScssTreeTest {
     assertThat(tree).isNotNull();
     assertThat(tree.function()).isNotNull();
     assertThat(tree.standardFunction()).isNotNull();
-    assertThat(tree.openParenthesis()).isNotNull();
-    assertThat(tree.closeParenthesis()).isNotNull();
+    assertThat(tree.parameters()).isNotNull();
+    assertThat(tree.parameters().openParenthesis()).isNotNull();
+    assertThat(tree.parameters().closeParenthesis()).isNotNull();
     return tree;
   }
 

@@ -23,7 +23,7 @@ import org.junit.Test;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.IdentifierTree;
 import org.sonar.plugins.css.api.tree.css.NumberTree;
-import org.sonar.plugins.css.api.tree.css.ScssMapTree;
+import org.sonar.plugins.css.api.tree.scss.ScssMapTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 

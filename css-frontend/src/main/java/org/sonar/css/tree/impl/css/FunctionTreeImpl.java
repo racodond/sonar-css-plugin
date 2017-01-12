@@ -27,29 +27,22 @@ import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.FunctionTree;
 import org.sonar.plugins.css.api.tree.css.IdentifierTree;
-import org.sonar.plugins.css.api.tree.css.SyntaxToken;
+import org.sonar.plugins.css.api.tree.css.ParametersTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 
 public class FunctionTreeImpl extends TreeImpl implements FunctionTree {
 
   private final IdentifierTree function;
-  private final SyntaxToken openParenthesis;
-  private final List<Tree> parameterElements;
-  private final SyntaxToken closeParenthesis;
+  private final ParametersTree parameters;
   private final Vendor vendor;
   private final StandardFunction standardFunction;
 
-  public FunctionTreeImpl(IdentifierTree function, SyntaxToken openParenthesis, @Nullable List<Tree> parameterElements, SyntaxToken closeParenthesis) {
+  public FunctionTreeImpl(IdentifierTree function, ParametersTree parameters) {
     this.function = function;
-    this.openParenthesis = openParenthesis;
-    this.parameterElements = parameterElements;
-    this.closeParenthesis = closeParenthesis;
+    this.parameters = parameters;
 
     this.vendor = setVendor();
     this.standardFunction = setStandardFunction();
@@ -62,10 +55,7 @@ public class FunctionTreeImpl extends TreeImpl implements FunctionTree {
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    return Iterators.concat(
-      Iterators.forArray(function, openParenthesis),
-      parameterElements != null ? parameterElements.iterator() : new ArrayList<Tree>().iterator(),
-      Iterators.singletonIterator(closeParenthesis));
+    return Iterators.forArray(function, parameters);
   }
 
   @Override
@@ -94,18 +84,8 @@ public class FunctionTreeImpl extends TreeImpl implements FunctionTree {
   }
 
   @Override
-  public SyntaxToken openParenthesis() {
-    return openParenthesis;
-  }
-
-  @Override
-  public SyntaxToken closeParenthesis() {
-    return closeParenthesis;
-  }
-
-  @Override
-  public List<Tree> parameterElements() {
-    return parameterElements;
+  public ParametersTree parameters() {
+    return parameters;
   }
 
   private Vendor setVendor() {

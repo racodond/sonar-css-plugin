@@ -68,7 +68,7 @@ public class ScssGrammar extends CssGrammar {
     return b.<Tree>nonterminal().is(
       b.firstOf(
         // SCSS_SASS_SCRIPT_EXPRESSION
-        SCSS_SASS_SCRIPT_EXPRESSION_COMMA_SEPARATED_LIST(),
+        VALUE_COMMA_SEPARATED_LIST(),
         IMPORTANT_FLAG(),
         SCSS_GLOBAL_FLAG(),
         SCSS_DEFAULT_FLAG(),
@@ -94,6 +94,87 @@ public class ScssGrammar extends CssGrammar {
         PSEUDO_SELECTOR(),
         b.token(LexicalGrammar.COLON),
         DELIMITER()));
+  }
+
+  @Override
+  public Tree ANY_WITHOUT_COMMA_SEPARATED_LIST() {
+    return b.<Tree>nonterminal().is(
+      b.firstOf(
+        // SCSS_SASS_SCRIPT_EXPRESSION
+        IMPORTANT_FLAG(),
+        SCSS_GLOBAL_FLAG(),
+        SCSS_DEFAULT_FLAG(),
+        SCSS_MAP(),
+        PARENTHESIS_BLOCK(),
+        BRACKET_BLOCK(),
+        URI(),
+        FUNCTION(),
+        PSEUDO_SELECTOR(),
+        PERCENTAGE(),
+        DIMENSION(),
+        NUMBER(),
+        SCSS_OPERATOR(),
+        SCSS_MULTILINE_STRING(),
+        STRING(),
+        SCSS_INTERPOLATED_IDENTIFIER(),
+        HASH(),
+        UNICODE_RANGE(),
+        IDENTIFIER(),
+        SCSS_VARIABLE(),
+        // Non SCSS_SASS_SCRIPT_EXPRESSION
+        BRACKET_BLOCK(),
+        PSEUDO_SELECTOR(),
+        b.token(LexicalGrammar.COLON),
+        DELIMITER()));
+  }
+
+  public Tree ANY_SASS_SCRIPT_EXPRESSION() {
+    return b.<Tree>nonterminal().is(
+      b.firstOf(
+        VALUE_COMMA_SEPARATED_LIST(),
+        IMPORTANT_FLAG(),
+        SCSS_GLOBAL_FLAG(),
+        SCSS_DEFAULT_FLAG(),
+        SCSS_MAP(),
+        PARENTHESIS_BLOCK(),
+        BRACKET_BLOCK(),
+        URI(),
+        FUNCTION(),
+        PERCENTAGE(),
+        DIMENSION(),
+        NUMBER(),
+        SCSS_OPERATOR(),
+        SCSS_MULTILINE_STRING(),
+        STRING(),
+        SCSS_INTERPOLATED_IDENTIFIER(),
+        HASH(),
+        UNICODE_RANGE(),
+        IDENTIFIER(),
+        SCSS_VARIABLE()));
+  }
+
+  public Tree ANY_SASS_SCRIPT_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST() {
+    return b.<Tree>nonterminal().is(
+      b.firstOf(
+        IMPORTANT_FLAG(),
+        SCSS_GLOBAL_FLAG(),
+        SCSS_DEFAULT_FLAG(),
+        SCSS_MAP(),
+        PARENTHESIS_BLOCK(),
+        BRACKET_BLOCK(),
+        URI(),
+        FUNCTION(),
+        PERCENTAGE(),
+        DIMENSION(),
+        NUMBER(),
+        SCSS_OPERATOR(),
+        SCSS_MULTILINE_STRING(),
+        STRING(),
+        SCSS_INTERPOLATED_IDENTIFIER(),
+        HASH(),
+        UNICODE_RANGE(),
+        IDENTIFIER(),
+        SCSS_VARIABLE()));
   }
 
   // -----------------------
@@ -696,64 +777,30 @@ public class ScssGrammar extends CssGrammar {
 
   public ValueTree SCSS_SASS_SCRIPT_EXPRESSION() {
     return b.<ValueTree>nonterminal(LexicalGrammar.SCSS_SASS_SCRIPT_EXPRESSION).is(
-      f.scssSassExpression(
-        b.oneOrMore(
-          b.firstOf(
-            SCSS_SASS_SCRIPT_EXPRESSION_COMMA_SEPARATED_LIST(),
-            IMPORTANT_FLAG(),
-            SCSS_GLOBAL_FLAG(),
-            SCSS_DEFAULT_FLAG(),
-            SCSS_MAP(),
-            PARENTHESIS_BLOCK(),
-            URI(),
-            FUNCTION(),
-            PERCENTAGE(),
-            DIMENSION(),
-            NUMBER(),
-            SCSS_OPERATOR(),
-            SCSS_MULTILINE_STRING(),
-            STRING(),
-            SCSS_INTERPOLATED_IDENTIFIER(),
-            HASH(),
-            UNICODE_RANGE(),
-            IDENTIFIER(),
-            SCSS_VARIABLE()))));
+      f.simpleValueSassScriptExpression(
+        b.oneOrMore(ANY_SASS_SCRIPT_EXPRESSION())));
   }
 
   public ValueTree SCSS_SASS_SCRIPT_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST() {
     return b.<ValueTree>nonterminal(LexicalGrammar.SCSS_SASS_SCRIPT_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST).is(
-      f.scssSassExpressionWithoutCommaSeparatedList(
-        b.oneOrMore(
-          b.firstOf(
-            IMPORTANT_FLAG(),
-            SCSS_GLOBAL_FLAG(),
-            SCSS_DEFAULT_FLAG(),
-            SCSS_MAP(),
-            PARENTHESIS_BLOCK(),
-            URI(),
-            FUNCTION(),
-            PERCENTAGE(),
-            DIMENSION(),
-            NUMBER(),
-            SCSS_OPERATOR(),
-            SCSS_MULTILINE_STRING(),
-            STRING(),
-            SCSS_INTERPOLATED_IDENTIFIER(),
-            HASH(),
-            UNICODE_RANGE(),
-            IDENTIFIER(),
-            SCSS_VARIABLE()))));
+      f.simpleValueSassScriptExpressionWithoutCommaSeparatedList(
+        b.oneOrMore(ANY_SASS_SCRIPT_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST())));
   }
 
-  public ScssSassScriptExpressionCommaSeparatedListTree SCSS_SASS_SCRIPT_EXPRESSION_COMMA_SEPARATED_LIST() {
-    return b.<ScssSassScriptExpressionCommaSeparatedListTree>nonterminal(LexicalGrammar.SCSS_SASS_SCRIPT_EXPRESSION_COMMA_SEPARATED_LIST).is(
-      f.scssSassScriptExpressionCommaSeparatedListTree(
-        SCSS_SASS_SCRIPT_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST(),
-        b.oneOrMore(
-          f.newTuple8(
-            b.token(LexicalGrammar.COMMA),
-            SCSS_SASS_SCRIPT_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST())),
-        b.optional(b.token(LexicalGrammar.COMMA))));
+  @Override
+  public ValueCommaSeparatedListTree VALUE_COMMA_SEPARATED_LIST() {
+    return b.<ValueCommaSeparatedListTree>nonterminal(LexicalGrammar.VALUE_COMMA_SEPARATED_LIST).is(
+      b.firstOf(
+        f.valueCommaSeparatedList(
+          SCSS_SASS_SCRIPT_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST(),
+          b.oneOrMore(
+            f.newTuple8(
+              COMMA_DELIMITER(),
+              SCSS_SASS_SCRIPT_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST())),
+          b.optional(COMMA_DELIMITER())),
+        f.valueCommaSeparatedListOneSingleValue(
+          SCSS_SASS_SCRIPT_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST(),
+          COMMA_DELIMITER())));
   }
 
   public ScssMapTree SCSS_MAP() {
@@ -764,15 +811,15 @@ public class ScssGrammar extends CssGrammar {
         b.token(LexicalGrammar.CLOSE_PARENTHESIS)));
   }
 
-  public SeparatedList<ScssMapEntryTree, SyntaxToken> SCSS_MAP_ENTRY_LIST() {
-    return b.<SeparatedList<ScssMapEntryTree, SyntaxToken>>nonterminal().is(
+  public SeparatedList<ScssMapEntryTree, DelimiterTree> SCSS_MAP_ENTRY_LIST() {
+    return b.<SeparatedList<ScssMapEntryTree, DelimiterTree>>nonterminal().is(
       f.scssMapEntryList(
         SCSS_MAP_ENTRY(),
         b.zeroOrMore(
           f.newTuple7(
-            b.token(LexicalGrammar.COMMA),
+            COMMA_DELIMITER(),
             SCSS_MAP_ENTRY())),
-        b.optional(b.token(LexicalGrammar.COMMA))));
+        b.optional(COMMA_DELIMITER())));
   }
 
   public ScssMapEntryTree SCSS_MAP_ENTRY() {

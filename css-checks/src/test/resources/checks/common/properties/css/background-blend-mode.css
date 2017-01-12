@@ -2,6 +2,7 @@
   background-blend-mode: inherit;
   background-blend-mode: normal;
   background-blend-mode: multiply;
+  background-blend-mode: multiply !important;
   background-blend-mode: screen;
   background-blend-mode: overlay;
   background-blend-mode: darken;
@@ -21,7 +22,7 @@
   background-blend-mode: 10; /* Noncompliant */
   background-blend-mode: normal, multiply;
   background-blend-mode: normal, multiply, multiply;
+  background-blend-mode: normal, multiply, multiply !important;
   background-blend-mode: normal, multiply, multiply, color-burn;
   background-blend-mode: normal, multiply, multiply, zzz; /* Noncompliant */
-  background-blend-mode: normal, multiply, , multiply; /* Noncompliant */
 }

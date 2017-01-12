@@ -2,13 +2,13 @@
 }
 
 @font-face {
- font-family: 'MyFontFamily';
+  font-family: 'MyFontFamily';
 }
 
 @font-face {
- font-family: 'MyFontFamily';
- src: url('myfont.woff2') format('woff2'),
-      url('myfont.woff')  format('woff');
+  font-family: 'MyFontFamily';
+  src: url('myfont.woff2') format('woff2'),
+  url('myfont.woff')  format('woff');
 }
 
 @font-face {

@@ -19,13 +19,13 @@
  */
 package org.sonar.css.model.property.validator;
 
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.ValueCommaSeparatedListTree;
+import org.sonar.plugins.css.api.tree.css.ValueTree;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import org.sonar.css.model.property.validator.valueelement.DelimiterValidator;
-import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.css.ValueTree;
 
 /**
  * Validator to check property values than can be multiplied (comma-separated list): [xxx]#
@@ -34,36 +34,46 @@ import org.sonar.plugins.css.api.tree.css.ValueTree;
 public class HashMultiplierValidator implements ValueValidator {
 
   private final List<ValueElementValidator> validators;
-  private static final ValueElementValidator COMMA_VALIDATOR = new DelimiterValidator(",");
 
   public HashMultiplierValidator(ValueElementValidator... validators) {
     this.validators = Arrays.asList(validators);
   }
 
   @Override
-  public boolean isValid(ValueTree valueTree) {
-    boolean isValid;
-    boolean isCommaSeparatorExpected = false;
-    for (Tree valueElement : valueTree.sanitizedValueElements()) {
-      isValid = false;
-      if (isCommaSeparatorExpected) {
-        if (!COMMA_VALIDATOR.isValid(valueElement)) {
+  public boolean isValid(ValueTree tree) {
+    if (tree.sanitizedValueElements().size() != 1) {
+      return false;
+    }
+
+    Tree value = tree.sanitizedValueElements().get(0);
+
+    if (value.is(Tree.Kind.VALUE_COMMA_SEPARATED_LIST)) {
+      boolean valid;
+      for (ValueTree element : ((ValueCommaSeparatedListTree) value).values()) {
+        if (element.sanitizedValueElements().size() != 1) {
           return false;
         }
-        isCommaSeparatorExpected = false;
-      } else {
+
+        valid = false;
         for (ValueElementValidator validator : validators) {
-          if (validator.isValid(valueElement)) {
-            isValid = true;
+          if (validator.isValid(element.sanitizedValueElements().get(0))) {
+            valid = true;
             break;
           }
         }
-        if (!isValid) {
+        if (!valid) {
           return false;
         }
-        isCommaSeparatorExpected = true;
       }
+    } else {
+      for (ValueElementValidator validator : validators) {
+        if (validator.isValid(value)) {
+          return true;
+        }
+      }
+      return false;
     }
+
     return true;
   }
 

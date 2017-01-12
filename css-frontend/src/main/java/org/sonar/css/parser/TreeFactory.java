@@ -43,7 +43,7 @@ public class TreeFactory {
     return new StyleSheetTreeImpl(byteOrderMark.orNull(), statements.orNull(), eof);
   }
 
-  public AtRuleTree atRule(AtKeywordTree atKeyword, Optional<List<Tree>> prelude, Optional<StatementBlockTree> block, Optional<SyntaxToken> semicolon) {
+  public AtRuleTree atRule(AtKeywordTree atKeyword, Optional<ValueTree> prelude, Optional<StatementBlockTree> block, Optional<SyntaxToken> semicolon) {
     return new AtRuleTreeImpl(atKeyword, prelude.orNull(), block.orNull(), semicolon.orNull());
   }
 
@@ -99,25 +99,57 @@ public class TreeFactory {
     return new ValueTreeImpl(valueElements);
   }
 
-  public FunctionTree function(IdentifierTree functionName, SyntaxToken openParenthesis, Optional<List<Tree>> parameterElements, SyntaxToken closeParenthesis) {
-    return new FunctionTreeImpl(functionName, openParenthesis, parameterElements.orNull(), closeParenthesis);
+  public ValueTree declarationValue(List<Tree> valueElements) {
+    return new ValueTreeImpl(valueElements);
+  }
+
+  public ValueTree simpleValueWithoutCommaDeclarationList(List<Tree> valueElements) {
+    return new ValueTreeImpl(valueElements);
+  }
+
+  public ValueTree simpleValue(List<Tree> valueElements) {
+    return new ValueTreeImpl(valueElements);
+  }
+
+  public FunctionTree function(IdentifierTree functionName, ParametersTree parameters) {
+    return new FunctionTreeImpl(functionName, parameters);
+  }
+
+  public ParametersTree parameters(SyntaxToken openParenthesis, Optional<SeparatedList<ValueTree, DelimiterTree>> parameters, SyntaxToken closeParenthesis) {
+    return new ParametersTreeImpl(openParenthesis, parameters.orNull(), closeParenthesis);
+  }
+
+  public SeparatedList<ValueTree, DelimiterTree> parameterList(ValueTree parameter, Optional<List<Tuple<DelimiterTree, ValueTree>>> subsequentParameters) {
+    List<ValueTree> parameters = Lists.newArrayList(parameter);
+    List<DelimiterTree> separators = Lists.newArrayList();
+
+    if (subsequentParameters.isPresent()) {
+      for (Tuple<DelimiterTree, ValueTree> t : subsequentParameters.get()) {
+        separators.add(t.first());
+        parameters.add(t.second());
+      }
+    }
+
+    return new SeparatedList<>(parameters, separators);
   }
 
   public SelectorsTree selectors(SeparatedList<SelectorTree, SyntaxToken> selectors) {
     return new SelectorsTreeImpl(selectors);
   }
 
-  public SeparatedList<SelectorTree, SyntaxToken> selectorList(SelectorTree selector, Optional<List<Tuple<SyntaxToken, SelectorTree>>> subsequentSelectors) {
-    List<SelectorTree> selectors = Lists.newArrayList();
+  public SeparatedList<SelectorTree, SyntaxToken> selectorList(SelectorTree selector, Optional<List<Tuple<SyntaxToken, SelectorTree>>> subsequentSelectors, Optional<SyntaxToken> trailingComma) {
+    List<SelectorTree> selectors = Lists.newArrayList(selector);
     List<SyntaxToken> separators = Lists.newArrayList();
-
-    selectors.add(selector);
 
     if (subsequentSelectors.isPresent()) {
       for (Tuple<SyntaxToken, SelectorTree> t : subsequentSelectors.get()) {
         separators.add(t.first());
         selectors.add(t.second());
       }
+    }
+
+    if (trailingComma.isPresent()) {
+      separators.add(trailingComma.get());
     }
 
     return new SeparatedList<>(selectors, separators);
@@ -128,10 +160,8 @@ public class TreeFactory {
   }
 
   public SeparatedList<CompoundSelectorTree, SelectorCombinatorTree> selectorCombinationList(CompoundSelectorTree selector, Optional<List<Tuple<SelectorCombinatorTree, CompoundSelectorTree>>> subsequentSelectors) {
-    List<CompoundSelectorTree> compoundSelectors = Lists.newArrayList();
+    List<CompoundSelectorTree> compoundSelectors = Lists.newArrayList(selector);
     List<SelectorCombinatorTree> selectorCombinators = Lists.newArrayList();
-
-    compoundSelectors.add(selector);
 
     if (subsequentSelectors.isPresent()) {
       for (Tuple<SelectorCombinatorTree, CompoundSelectorTree> t : subsequentSelectors.get()) {
@@ -175,9 +205,8 @@ public class TreeFactory {
     return new PseudoSelectorTreeImpl(pseudo);
   }
 
-  public PseudoFunctionTree pseudoFunction(SyntaxToken prefix, IdentifierTree pseudoFunctionName, SyntaxToken openParenthesis, Optional<List<Tree>> parameterElements,
-                                           SyntaxToken closeParenthesis) {
-    return new PseudoFunctionTreeImpl(prefix, pseudoFunctionName, openParenthesis, parameterElements.orNull(), closeParenthesis);
+  public PseudoFunctionTree pseudoFunction(SyntaxToken prefix, IdentifierTree pseudoFunctionName, ParametersTree parameters) {
+    return new PseudoFunctionTreeImpl(prefix, pseudoFunctionName, parameters);
   }
 
   public PseudoIdentifierTree pseudoIdentifier(SyntaxToken prefix, IdentifierTree identifier) {
@@ -246,8 +275,34 @@ public class TreeFactory {
     return new NumberTreeImpl(number);
   }
 
+  public ValueCommaSeparatedListTree valueCommaSeparatedList(ValueTree value, List<Tuple<DelimiterTree, ValueTree>> subsequentValues, Optional<DelimiterTree> trailingComma) {
+    List<ValueTree> values = Lists.newArrayList(value);
+    List<DelimiterTree> separators = Lists.newArrayList();
+
+    for (Tuple<DelimiterTree, ValueTree> t : subsequentValues) {
+      separators.add(t.first());
+      values.add(t.second());
+    }
+
+    if (trailingComma.isPresent()) {
+      separators.add(trailingComma.get());
+    }
+
+    return new ValueCommaSeparatedListTreeImpl(new SeparatedList<>(values, separators));
+  }
+
+  public ValueCommaSeparatedListTree valueCommaSeparatedListOneSingleValue(ValueTree value, DelimiterTree trailingComma) {
+    List<ValueTree> values = Lists.newArrayList(value);
+    List<DelimiterTree> separators = Lists.newArrayList(trailingComma);
+    return new ValueCommaSeparatedListTreeImpl(new SeparatedList<>(values, separators));
+  }
+
   public DelimiterTree delimiter(SyntaxToken delimiter) {
     return new DelimiterTreeImpl(delimiter);
+  }
+
+  public DelimiterTree commaDelimiter(SyntaxToken comma) {
+    return new DelimiterTreeImpl(comma);
   }
 
   public CaseInsensitiveFlagTree caseInsensitiveFlag(SyntaxToken flag) {
@@ -373,10 +428,8 @@ public class TreeFactory {
   }
 
   public SeparatedList<ScssParameterTree, SyntaxToken> scssParameterList(ScssParameterTree parameter, Optional<List<Tuple<SyntaxToken, ScssParameterTree>>> subsequentParameters) {
-    List<ScssParameterTree> parameters = Lists.newArrayList();
+    List<ScssParameterTree> parameters = Lists.newArrayList(parameter);
     List<SyntaxToken> separators = Lists.newArrayList();
-
-    parameters.add(parameter);
 
     if (subsequentParameters.isPresent()) {
       for (Tuple<SyntaxToken, ScssParameterTree> t : subsequentParameters.get()) {
@@ -540,18 +593,16 @@ public class TreeFactory {
     return new ScssDirectiveTreeImpl(at, name);
   }
 
-  public ScssMapTree scssMap(SyntaxToken openParenthesis, SeparatedList<ScssMapEntryTree, SyntaxToken> entries, SyntaxToken closeParenthesis) {
+  public ScssMapTree scssMap(SyntaxToken openParenthesis, SeparatedList<ScssMapEntryTree, DelimiterTree> entries, SyntaxToken closeParenthesis) {
     return new ScssMapTreeImpl(openParenthesis, entries, closeParenthesis);
   }
 
-  public SeparatedList<ScssMapEntryTree, SyntaxToken> scssMapEntryList(ScssMapEntryTree mapEntry, Optional<List<Tuple<SyntaxToken, ScssMapEntryTree>>> subsequentMapEntries, Optional<SyntaxToken> trailingComma) {
-    List<ScssMapEntryTree> mapEntries = Lists.newArrayList();
-    List<SyntaxToken> commas = Lists.newArrayList();
-
-    mapEntries.add(mapEntry);
+  public SeparatedList<ScssMapEntryTree, DelimiterTree> scssMapEntryList(ScssMapEntryTree mapEntry, Optional<List<Tuple<DelimiterTree, ScssMapEntryTree>>> subsequentMapEntries, Optional<DelimiterTree> trailingComma) {
+    List<ScssMapEntryTree> mapEntries = Lists.newArrayList(mapEntry);
+    List<DelimiterTree> commas = Lists.newArrayList();
 
     if (subsequentMapEntries.isPresent()) {
-      for (Tuple<SyntaxToken, ScssMapEntryTree> t : subsequentMapEntries.get()) {
+      for (Tuple<DelimiterTree, ScssMapEntryTree> t : subsequentMapEntries.get()) {
         commas.add(t.first());
         mapEntries.add(t.second());
       }
@@ -564,33 +615,15 @@ public class TreeFactory {
     return new SeparatedList<>(mapEntries, commas);
   }
 
-  public ScssSassScriptExpressionCommaSeparatedListTree scssSassScriptExpressionCommaSeparatedListTree(ValueTree value, List<Tuple<SyntaxToken, ValueTree>> subsequentValues, Optional<SyntaxToken> trailingComma) {
-    List<ValueTree> values = Lists.newArrayList();
-    List<SyntaxToken> commas = Lists.newArrayList();
-
-    values.add(value);
-
-    for (Tuple<SyntaxToken, ValueTree> t : subsequentValues) {
-      commas.add(t.first());
-      values.add(t.second());
-    }
-
-    if (trailingComma.isPresent()) {
-      commas.add(trailingComma.get());
-    }
-
-    return new ScssSassScriptExpressionCommaSeparatedListTreeImpl(new SeparatedList<>(values, commas));
-  }
-
   public ScssMapEntryTree scssMapEntry(ValueTree key, SyntaxToken colon, ValueTree value) {
     return new ScssMapEntryTreeImpl(key, colon, value);
   }
 
-  public ValueTree scssSassExpression(List<Tree> valueElements) {
+  public ValueTree simpleValueSassScriptExpression(List<Tree> valueElements) {
     return new ValueTreeImpl(valueElements);
   }
 
-  public ValueTree scssSassExpressionWithoutCommaSeparatedList(List<Tree> valueElements) {
+  public ValueTree simpleValueSassScriptExpressionWithoutCommaSeparatedList(List<Tree> valueElements) {
     return new ValueTreeImpl(valueElements);
   }
 
@@ -600,10 +633,6 @@ public class TreeFactory {
 
   public PropertyTree property(IdentifierTree property, Optional<SyntaxToken> merge) {
     return new PropertyTreeImpl(property, merge.orNull());
-  }
-
-  public SelectorsTree lessSelectors(SeparatedList<SelectorTree, SyntaxToken> selectors, Optional<SyntaxToken> comma) {
-    return new SelectorsTreeImpl(selectors, comma.orNull());
   }
 
   public SelectorTree lessSelector(Optional<SelectorCombinatorTree> parentCombinator, SeparatedList<CompoundSelectorTree, SelectorCombinatorTree> selectors, Optional<LessExtendTree> extend,
@@ -631,7 +660,7 @@ public class TreeFactory {
     return identifier(identifier);
   }
 
-  public LessExtendTree lessExtend(SyntaxToken extendKeyword, SyntaxToken openParenthesis, List<Tree> parameterElements, SyntaxToken closeParenthesis) {
+  public LessExtendTree lessExtend(SyntaxToken extendKeyword, SyntaxToken openParenthesis, List<ValueTree> parameterElements, SyntaxToken closeParenthesis) {
     return new LessExtendTreeImpl(extendKeyword, openParenthesis, parameterElements, closeParenthesis);
   }
 
@@ -653,10 +682,8 @@ public class TreeFactory {
   }
 
   public SeparatedList<ParenthesisBlockTree, SyntaxToken> lessMixinGuardConditionList(ParenthesisBlockTree condition, Optional<List<Tuple<SyntaxToken, ParenthesisBlockTree>>> subsequentConditions) {
-    List<ParenthesisBlockTree> conditions = Lists.newArrayList();
+    List<ParenthesisBlockTree> conditions = Lists.newArrayList(condition);
     List<SyntaxToken> separators = Lists.newArrayList();
-
-    conditions.add(condition);
 
     if (subsequentConditions.isPresent()) {
       for (Tuple<SyntaxToken, ParenthesisBlockTree> t : subsequentConditions.get()) {
@@ -673,10 +700,8 @@ public class TreeFactory {
   }
 
   public SeparatedList<LessMixinParameterTree, SyntaxToken> lessMixinParameterList(LessMixinParameterTree parameter, Optional<List<Tuple<SyntaxToken, LessMixinParameterTree>>> subsequentParameters, Optional<SyntaxToken> trailingSeparator) {
-    List<LessMixinParameterTree> parameters = Lists.newArrayList();
+    List<LessMixinParameterTree> parameters = Lists.newArrayList(parameter);
     List<SyntaxToken> separators = Lists.newArrayList();
-
-    parameters.add(parameter);
 
     if (subsequentParameters.isPresent()) {
       for (Tuple<SyntaxToken, LessMixinParameterTree> t : subsequentParameters.get()) {
@@ -766,6 +791,10 @@ public class TreeFactory {
   }
 
   public <T, U> Tuple<T, U> newTuple8(T first, U second) {
+    return newTuple(first, second);
+  }
+
+  public <T, U> Tuple<T, U> newTuple9(T first, U second) {
     return newTuple(first, second);
   }
 

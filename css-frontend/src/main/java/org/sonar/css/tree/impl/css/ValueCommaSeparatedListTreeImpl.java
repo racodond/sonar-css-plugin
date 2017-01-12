@@ -19,62 +19,43 @@
  */
 package org.sonar.css.tree.impl.css;
 
-import com.google.common.collect.Iterators;
 import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.css.ScssMapEntryTree;
-import org.sonar.plugins.css.api.tree.css.ScssMapTree;
-import org.sonar.plugins.css.api.tree.css.SyntaxToken;
+import org.sonar.plugins.css.api.tree.css.DelimiterTree;
+import org.sonar.plugins.css.api.tree.css.ValueCommaSeparatedListTree;
+import org.sonar.plugins.css.api.tree.css.ValueTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.function.Function;
 
-public class ScssMapTreeImpl extends TreeImpl implements ScssMapTree {
+public class ValueCommaSeparatedListTreeImpl extends TreeImpl implements ValueCommaSeparatedListTree {
 
-  private final SyntaxToken openParenthesis;
-  private final SyntaxToken closeParenthesis;
-  private final SeparatedList<ScssMapEntryTree, SyntaxToken> entries;
+  private final SeparatedList<ValueTree, DelimiterTree> values;
 
-  public ScssMapTreeImpl(SyntaxToken openParenthesis, SeparatedList<ScssMapEntryTree, SyntaxToken> entries, SyntaxToken closeParenthesis) {
-    this.openParenthesis = openParenthesis;
-    this.closeParenthesis = closeParenthesis;
-    this.entries = entries;
+  public ValueCommaSeparatedListTreeImpl(SeparatedList<ValueTree, DelimiterTree> values) {
+    this.values = values;
   }
 
   @Override
   public Kind getKind() {
-    return Kind.SCSS_MAP;
+    return Kind.VALUE_COMMA_SEPARATED_LIST;
   }
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    return Iterators.concat(
-      Iterators.singletonIterator(openParenthesis),
-      entries.elementsAndSeparators(Function.identity(), Function.identity()),
-      Iterators.singletonIterator(closeParenthesis));
+    return values.elementsAndSeparators(Function.identity(), Function.identity());
   }
 
   @Override
   public void accept(DoubleDispatchVisitor visitor) {
-    visitor.visitScssMap(this);
+    visitor.visitValueCommaSeparatedList(this);
   }
 
   @Override
-  public SyntaxToken openParenthesis() {
-    return openParenthesis;
-  }
-
-  @Override
-  public SyntaxToken closeParenthesis() {
-    return closeParenthesis;
-  }
-
-  @Override
-  public List<ScssMapEntryTree> entries() {
-    return entries;
+  public SeparatedList<ValueTree, DelimiterTree> values() {
+    return values;
   }
 
 }

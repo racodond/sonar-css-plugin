@@ -21,7 +21,7 @@ package org.sonar.css.parser.less;
 
 import org.junit.Test;
 import org.sonar.css.parser.LexicalGrammar;
-import org.sonar.plugins.css.api.tree.css.IdentifierTree;
+import org.sonar.plugins.css.api.tree.css.ValueCommaSeparatedListTree;
 import org.sonar.plugins.css.api.tree.less.LessExtendTree;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -37,18 +37,17 @@ public class LessExtendTreeTest extends LessTreeTest {
     LessExtendTree tree;
 
     tree = checkParsed(":extend(div)");
-    assertThat(tree.parameterElements()).hasSize(1);
+    assertThat(tree.parameterElements().get(0).valueElements()).hasSize(1);
 
     tree = checkParsed(" :extend(div)");
-    assertThat(tree.parameterElements()).hasSize(1);
+    assertThat(tree.parameterElements().get(0).valueElements()).hasSize(1);
 
     tree = checkParsed(" :extend( .inline, a )");
-    assertThat(tree.parameterElements()).hasSize(4);
+    assertThat(tree.parameterElements().get(0).valueElements()).hasSize(1);
 
     tree = checkParsed(" :extend( @{abc}, div )");
-    assertThat(tree.parameterElements()).hasSize(3);
-    assertThat(tree.parameterElements().get(0)).isInstanceOf(IdentifierTree.class);
-    assertThat(((IdentifierTree) tree.parameterElements().get(0)).isLessInterpolated()).isTrue();
+    assertThat(tree.parameterElements().get(0).valueElements()).hasSize(1);
+    assertThat(tree.parameterElements().get(0).valueElements().get(0)).isInstanceOf(ValueCommaSeparatedListTree.class);
   }
 
   @Test
@@ -67,6 +66,7 @@ public class LessExtendTreeTest extends LessTreeTest {
     assertThat(tree.closeParenthesis()).isNotNull();
     assertThat(tree.parameterElements()).isNotNull();
     assertThat(tree.closeParenthesis()).isNotNull();
+    assertThat(tree.parameterElements()).hasSize(1);
     return tree;
   }
 

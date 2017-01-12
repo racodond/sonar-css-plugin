@@ -19,12 +19,10 @@
  */
 package org.sonar.plugins.css.api.tree.css;
 
-import java.util.List;
-import javax.annotation.Nullable;
-
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.pseudo.pseudofunction.StandardPseudoFunction;
-import org.sonar.plugins.css.api.tree.Tree;
+
+import javax.annotation.Nullable;
 
 public interface PseudoFunctionTree extends PseudoComponentTree {
 
@@ -32,11 +30,7 @@ public interface PseudoFunctionTree extends PseudoComponentTree {
 
   StandardPseudoFunction standardFunction();
 
-  SyntaxToken openParenthesis();
-
-  SyntaxToken closeParenthesis();
-
-  List<Tree> parameterElements();
+  ParametersTree parameters();
 
   boolean isVendorPrefixed();
 

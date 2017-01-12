@@ -20,7 +20,9 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.property.background.BackgroundPositionValidator;
+import org.sonar.css.model.property.validator.PlusMultiplierValidator;
+import org.sonar.css.model.property.validator.ValidatorFactory;
+import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class BackgroundPosition extends StandardProperty {
 
@@ -28,7 +30,14 @@ public class BackgroundPosition extends StandardProperty {
     addLinks(
       "https://www.w3.org/TR/CSS22/colors.html#propdef-background-position",
       "https://drafts.csswg.org/css-backgrounds-3/#background-position");
-    addValidators(new BackgroundPositionValidator());
+
+    // TODO: Update validator to strictly follow the specification at https://drafts.csswg.org/css-backgrounds-3/#background-position
+    addValidators(
+      new PlusMultiplierValidator(
+        ValidatorFactory.getLengthValidator(),
+        ValidatorFactory.getPercentageValidator(),
+        new IdentifierValidator("top", "bottom", "center", "left", "right")
+      ));
   }
 
 }

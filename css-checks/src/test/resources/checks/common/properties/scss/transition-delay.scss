@@ -7,9 +7,8 @@
   transition-delay: 10; /* Noncompliant */
   transition-delay: 10.5; /* Noncompliant */
   transition-delay: abc; /* Noncompliant */
-  // FIXME
-  //transition-delay: 10s, 10s;
-  //transition-delay: 10s, 10s, 0, 10s;
+  transition-delay: 10s, 10s;
+  transition-delay: 10s, 10s, 0, 10s;
   transition-delay: 10s, 10s, 0, -10s; /* Noncompliant */
   transition-delay: 10s, 10s, 10, 10s; /* Noncompliant */
 }

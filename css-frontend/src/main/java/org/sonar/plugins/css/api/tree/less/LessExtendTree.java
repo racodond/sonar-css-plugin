@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.ValueTree;
 
 public interface LessExtendTree extends Tree {
 
@@ -32,6 +33,6 @@ public interface LessExtendTree extends Tree {
 
   SyntaxToken closeParenthesis();
 
-  List<Tree> parameterElements();
+  List<ValueTree> parameterElements();
 
 }
