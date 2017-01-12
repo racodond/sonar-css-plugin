@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 mvn -B clean install
 
 if [ "$TRAVIS_PULL_REQUEST" != "false" ] && [ "$SQ_VERSION" == "LTS" ]; then
