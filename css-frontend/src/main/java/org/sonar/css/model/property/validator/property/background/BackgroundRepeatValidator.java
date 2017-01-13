@@ -72,16 +72,14 @@ public class BackgroundRepeatValidator implements ValueValidator {
       if (listElement.sanitizedValueElements().size() > 2) {
         return false;
       }
-      if (listElement.sanitizedValueElements().size() == 1) {
-        if (!validateOneValueElement(listElement.sanitizedValueElements().get(0))) {
-          return false;
-        }
+      if (listElement.sanitizedValueElements().size() == 1
+        && !validateOneValueElement(listElement.sanitizedValueElements().get(0))) {
+        return false;
       }
-      if (listElement.sanitizedValueElements().size() == 2) {
-        if (!validateTwoValueElements(listElement.sanitizedValueElements().get(0))
-          || !validateTwoValueElements(listElement.sanitizedValueElements().get(1))) {
-          return false;
-        }
+      if (listElement.sanitizedValueElements().size() == 2
+        && (!validateTwoValueElements(listElement.sanitizedValueElements().get(0))
+        || !validateTwoValueElements(listElement.sanitizedValueElements().get(1)))) {
+        return false;
       }
     }
     return true;

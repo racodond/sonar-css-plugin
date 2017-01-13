@@ -28,9 +28,6 @@ import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.ValueCommaSeparatedListTree;
 import org.sonar.plugins.css.api.tree.css.ValueTree;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CursorValidator implements ValueValidator {
 
   private final ValueElementValidator identifierValidator = new IdentifierValidator(
@@ -95,21 +92,6 @@ public class CursorValidator implements ValueValidator {
   @Override
   public String getValidatorFormat() {
     return "[[ <uri> [<number> <number>]?,]* [" + identifierValidator.getValidatorFormat() + "]";
-  }
-
-  private List<List<Tree>> buildCursorList(ValueTree valueTree) {
-    List<List<Tree>> cursorList = new ArrayList<>();
-    cursorList.add(new ArrayList<>());
-    int listIndex = 0;
-    for (Tree valueElement : valueTree.sanitizedValueElements()) {
-      if (ValidatorFactory.getCommaDelimiterValidator().isValid(valueElement)) {
-        cursorList.add(new ArrayList<>());
-        listIndex++;
-      } else {
-        cursorList.get(listIndex).add(valueElement);
-      }
-    }
-    return cursorList;
   }
 
 }

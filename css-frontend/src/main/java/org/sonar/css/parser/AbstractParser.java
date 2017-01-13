@@ -28,6 +28,7 @@ import org.sonar.sslr.grammar.LexerlessGrammarBuilder;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.util.Objects;
 
 public abstract class AbstractParser extends ActionParser<Tree> {
 
@@ -45,7 +46,7 @@ public abstract class AbstractParser extends ActionParser<Tree> {
     if (!parent.isLeaf()) {
       Lists.newArrayList(parent.childrenIterator())
         .stream()
-        .filter(t -> t != null)
+        .filter(Objects::nonNull)
         .forEach(t -> {
           t.setParent(parent);
           createParentLink(t);

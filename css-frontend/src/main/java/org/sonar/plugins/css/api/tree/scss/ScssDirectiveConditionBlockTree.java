@@ -21,7 +21,6 @@ package org.sonar.plugins.css.api.tree.scss;
 
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
-import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 
 public interface ScssDirectiveConditionBlockTree extends Tree {
 

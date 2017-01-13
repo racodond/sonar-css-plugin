@@ -24,7 +24,6 @@ import org.sonar.plugins.css.api.tree.less.LessMixinCallTree;
 import org.sonar.plugins.css.api.tree.less.LessVariableDeclarationTree;
 import org.sonar.plugins.css.api.tree.scss.*;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public interface StatementBlockTree extends Tree {

@@ -26,7 +26,7 @@ import org.sonar.squidbridge.annotations.AnnotationBasedRulesDefinition;
 
 @ExtensionPoint
 @BatchSide
-public abstract class CustomLessRulesDefinition extends CustomRulesDefinition {
+public abstract class CustomLessRulesDefinition implements CustomRulesDefinition {
 
   @Override
   public void define(Context context) {

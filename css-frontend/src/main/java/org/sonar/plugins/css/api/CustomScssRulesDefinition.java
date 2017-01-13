@@ -26,7 +26,7 @@ import org.sonar.squidbridge.annotations.AnnotationBasedRulesDefinition;
 
 @ExtensionPoint
 @BatchSide
-public abstract class CustomScssRulesDefinition extends CustomRulesDefinition {
+public abstract class CustomScssRulesDefinition implements CustomRulesDefinition {
 
   @Override
   public void define(Context context) {

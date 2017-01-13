@@ -21,12 +21,12 @@ package org.sonar.plugins.css.api;
 
 import org.sonar.api.server.rule.RulesDefinition;
 
-public abstract class CustomRulesDefinition implements RulesDefinition {
+public interface CustomRulesDefinition extends RulesDefinition {
 
-  public abstract String repositoryName();
+  String repositoryName();
 
-  public abstract String repositoryKey();
+  String repositoryKey();
 
-  public abstract Class[] checkClasses();
+  Class[] checkClasses();
 
 }

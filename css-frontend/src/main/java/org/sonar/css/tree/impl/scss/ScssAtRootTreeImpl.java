@@ -24,7 +24,6 @@ import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.RulesetTree;
 import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
-import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.scss.ScssAtRootParametersTree;
 import org.sonar.plugins.css.api.tree.scss.ScssAtRootTree;
 import org.sonar.plugins.css.api.tree.scss.ScssDirectiveTree;

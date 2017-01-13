@@ -19,14 +19,14 @@
  */
 package org.sonar.css.model.property.validator.property;
 
-import java.util.List;
-
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.ValueValidator;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
-import org.sonar.plugins.css.api.tree.css.IdentifierTree;
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.IdentifierTree;
 import org.sonar.plugins.css.api.tree.css.ValueTree;
+
+import java.util.List;
 
 public class TextUnderlinePositionValidator implements ValueValidator {
 
@@ -46,13 +46,12 @@ public class TextUnderlinePositionValidator implements ValueValidator {
         if (!(valueElement instanceof IdentifierTree)) {
           return false;
         }
-        if ("under".equals(((IdentifierTree) valueElement).text())) {
-          // Do nothing
-        } else if ("right".equals(((IdentifierTree) valueElement).text())) {
+
+        String identifierText = ((IdentifierTree) valueElement).text();
+
+        if ("right".equals(identifierText) || "left".equals(identifierText)) {
           count++;
-        } else if ("left".equals(((IdentifierTree) valueElement).text())) {
-          count++;
-        } else {
+        } else if (!"under".equals(identifierText)) {
           return false;
         }
       }

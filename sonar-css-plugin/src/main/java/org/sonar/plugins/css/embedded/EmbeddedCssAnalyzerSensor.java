@@ -30,7 +30,6 @@ import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.api.config.Settings;
 import org.sonar.api.issue.NoSonarFilter;
-import org.sonar.api.resources.Language;
 import org.sonar.css.checks.CheckList;
 import org.sonar.css.checks.css.ParsingErrorCheck;
 import org.sonar.css.parser.embedded.EmbeddedCssParser;

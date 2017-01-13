@@ -101,17 +101,14 @@ public class PropertyDeclarationTreeImpl extends TreeImpl implements PropertyDec
       return true;
     }
 
-    if ("scss".equals(language)) {
-      if (doesValueContainScssElements(value.childrenIterator())
-        || property.isScssNested()) {
-        return true;
-      }
+    if ("scss".equals(language)
+      && (doesValueContainScssElements(value.childrenIterator()) || property.isScssNested())) {
+      return true;
     }
 
-    if ("less".equals(language)) {
-      if (doesValueContainLessElements(value.childrenIterator())) {
-        return true;
-      }
+    if ("less".equals(language)
+      && doesValueContainLessElements(value.childrenIterator())) {
+      return true;
     }
 
     if (numberOfValueElements == 0) {
