@@ -5,6 +5,14 @@
 'project:custom/common/charset/charsetNotFirst.css':[
 1,
 ],
+'project:custom/common/class-selector-naming-convention/selectorNamingConvention.css':[
+4,
+7,
+],
+'project:custom/common/class-selector-naming-convention/selectorNamingConventionCustomFormat.css':[
+4,
+7,
+],
 'project:custom/common/displayProperty.css':[
 4,
 8,
@@ -91,6 +99,12 @@
 16,
 22,
 29,
+],
+'project:custom/common/id-selector-naming-convention/selectorNamingConvention.css':[
+7,
+],
+'project:custom/common/id-selector-naming-convention/selectorNamingConventionCustomFormat.css':[
+10,
 ],
 'project:custom/common/ieStaticFilters.css':[
 2,

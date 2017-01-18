@@ -20,32 +20,30 @@
 package org.sonar.css.checks.common;
 
 import com.google.common.annotations.VisibleForTesting;
+import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
+import org.sonar.css.checks.CheckList;
+import org.sonar.css.checks.CheckUtils;
+import org.sonar.css.checks.Tags;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.ClassSelectorTree;
+import org.sonar.plugins.css.api.tree.css.IdSelectorTree;
+import org.sonar.plugins.css.api.tree.scss.ScssPlaceholderSelectorTree;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 import java.text.MessageFormat;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import org.sonar.css.checks.CheckList;
-import org.sonar.css.checks.CheckUtils;
-import org.sonar.check.Priority;
-import org.sonar.check.Rule;
-import org.sonar.check.RuleProperty;
-import org.sonar.css.checks.Tags;
-import org.sonar.plugins.css.api.tree.css.ClassSelectorTree;
-import org.sonar.plugins.css.api.tree.css.IdSelectorTree;
-import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.scss.ScssPlaceholderSelectorTree;
-import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-
 @Rule(
   key = "selector-naming-convention",
   name = "Selectors should follow a naming convention",
   priority = Priority.MINOR,
-  tags = {Tags.CONVENTION})
+  tags = {Tags.CONVENTION},
+  status = "DEPRECATED")
 @SqaleConstantRemediation("10min")
-@ActivatedByDefault
 public class SelectorNamingConventionCheck extends DoubleDispatchVisitorCheck {
 
   private static final String DEFAULT_FORMAT = "^[a-z][-a-z0-9]*$";

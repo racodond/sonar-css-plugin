@@ -1,0 +1,5 @@
+#mybox a%foo { /* Compliant */
+}
+
+#mybox a%f8 { /* Noncompliant ![sc=10;ec=12;el=+0]! !{Rename placeholder selector "f8" to match the regular expression: ^[-a-z]+$}! */
+}

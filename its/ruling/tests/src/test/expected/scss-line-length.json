@@ -4,6 +4,10 @@
 157,
 162,
 ],
+'project:custom/common/class-selector-naming-convention/selectorNamingConvention.scss':[
+4,
+7,
+],
 'project:custom/common/do-not-use-shorthand-properties/doNotUseShorthandProperties.scss':[
 2,
 ],
@@ -16,6 +20,9 @@
 52,
 90,
 96,
+],
+'project:custom/common/id-selector-naming-convention/selectorNamingConvention.scss':[
+7,
 ],
 'project:custom/common/important-position/importantPosition.scss':[
 10,
@@ -944,6 +951,12 @@
 ],
 'project:custom/scss/nested-rulesets/nestedRulesetsCustomThreshold.scss':[
 13,
+],
+'project:custom/scss/placeholder-selector-naming-convention/selectorNamingConvention.scss':[
+4,
+],
+'project:custom/scss/placeholder-selector-naming-convention/selectorNamingConventionCustomFormat.scss':[
+4,
 ],
 'project:custom/scss/sortDeclarationsAndDirectives.scss':[
 13,

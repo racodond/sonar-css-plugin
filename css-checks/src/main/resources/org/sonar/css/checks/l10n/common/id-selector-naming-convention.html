@@ -1,0 +1,54 @@
+<p>
+    Shared coding conventions allow teams to collaborate efficiently. This rule checks that all ID selector names match
+    a provided regular expression.
+</p>
+<p>
+    The default regular expression only allows lowercase letters, digits and hyphens. Uppercase letters are not allowed
+    because CSS selectors are used in HTML. As HTML is case-insensitive, it is usually written in lowercase and it may
+    be confusing and even error-prone to add CSS selectors with uppercase letters to the HTML code.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+With format <code>^[a-z][-a-z0-9]*$</code>:
+<pre>
+#myBox {  /* Noncompliant: Should be 'mybox' or 'my-box' instead for example */
+  color: green;
+}
+
+#my_box {  /* Noncompliant: Should be 'mybox' or 'my-box' instead for example */
+  color: green;
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+With format <code>^[a-z][-a-z0-9]*$</code>:
+<pre>
+#mybox {
+  color: green;
+}
+
+#my-box {
+  color: green;
+}
+</pre>
+
+<h2>Exceptions</h2>
+<p>
+    Less interpolated ID selectors are not checked for naming convention. For instance, the following piece of code does
+    not raise an issue:
+</p>
+<pre>
+#abc-@{DEF} {
+  color: green;
+}
+</pre>
+
+<p>
+    SCSS interpolated ID selectors are not checked for naming convention. For instance, the following piece of code does
+    not raise an issue:
+</p>
+<pre>
+#abc-#{$DEF} {
+  color: green;
+}
+</pre>

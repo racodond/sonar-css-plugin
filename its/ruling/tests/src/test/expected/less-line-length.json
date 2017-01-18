@@ -1,4 +1,8 @@
 {
+'project:custom/common/class-selector-naming-convention/selectorNamingConvention.less':[
+4,
+7,
+],
 'project:custom/common/deprecatedSystemColor.less':[
 19,
 20,
@@ -15,6 +19,9 @@
 52,
 90,
 96,
+],
+'project:custom/common/id-selector-naming-convention/selectorNamingConvention.less':[
+7,
 ],
 'project:custom/common/properties/less/accelerator.less':[
 5,

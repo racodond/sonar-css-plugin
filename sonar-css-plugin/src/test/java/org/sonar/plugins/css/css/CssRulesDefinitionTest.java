@@ -22,7 +22,6 @@ package org.sonar.plugins.css.css;
 import org.junit.Test;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Rule;
-import org.sonar.css.checks.CheckList;
 import org.sonar.css.checks.common.TodoTagCheck;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -38,7 +37,7 @@ public class CssRulesDefinitionTest {
 
     assertThat(repository.name()).isEqualTo("SonarQube");
     assertThat(repository.language()).isEqualTo("css");
-    assertThat(repository.rules()).hasSize(72);
+    assertThat(repository.rules()).hasSize(74);
 
     RulesDefinition.Rule todoRule = repository.rule(TodoTagCheck.class.getAnnotation(Rule.class).key());
     assertThat(todoRule).isNotNull();

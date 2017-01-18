@@ -1,0 +1,14 @@
+#my-box { /* Compliant */
+}
+
+div { /* Compliant */
+}
+
+.abcd #-rrr div { /* Noncompliant ![sc=8;ec=12;el=+0]! !{Rename ID selector "-rrr" to match the regular expression: ^[a-z][-a-z0-9]*$}! */
+}
+
+.abcd #-rrr #ABC { /* Noncompliant */ /* Noncompliant */
+}
+
+#abc#{$DEF}ghi { /* Compliant */
+}

@@ -1,0 +1,28 @@
+<p>
+    Shared coding conventions allow teams to collaborate efficiently. This rule checks that all placeholder selector
+    names match a provided regular expression.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+With format <code>^[a-z][-a-z0-9]*$</code>:
+<pre>
+#context a%EXTREME { /* Noncompliant: Should be 'extreme' instead for example */
+  color: green;
+}
+
+#context a%EX_TREME { /* Noncompliant: Should be 'ex-treme' instead for example */
+  color: green;
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+With format <code>^[a-z][-a-z0-9]*$</code>:
+<pre>
+#context a%extreme {
+  color: green;
+}
+
+#context a%ex-treme {
+  color: green;
+}
+</pre>
