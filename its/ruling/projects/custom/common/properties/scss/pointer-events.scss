@@ -12,6 +12,7 @@
   pointer-events: stroke;
   pointer-events: all;
   pointer-events: none;
-  pointer-events: abc; /* Noncompliant !{Update the invalid value of property "pointer-events". Expected format: visiblepainted | visiblefill | visiblestroke | visible | painted | fill | stroke | all | none}! */
+  pointer-events: auto;
+  pointer-events: abc; /* Noncompliant !{Update the invalid value of property "pointer-events". Expected format: visiblepainted | visiblefill | visiblestroke | visible | painted | fill | stroke | all | none | auto}! */
   pointer-events: 10px; /* Noncompliant */
 }
