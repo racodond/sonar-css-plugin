@@ -23,11 +23,27 @@ import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
+import java.io.File;
+
 public class DeprecatedSystemColorCheckTest {
 
   @Test
-  public void should_contain_some_deprecated_system_colors_and_raise_issues() {
-    CssCheckVerifier.verifyCssFile(new DeprecatedSystemColorCheck(), CheckTestUtils.getCommonTestFile("deprecatedSystemColor.less"));
+  public void test_css() {
+    CssCheckVerifier.verifyCssFile(new DeprecatedSystemColorCheck(), getTestFile("deprecatedSystemColor.css"));
+  }
+
+  @Test
+  public void test_less() {
+    CssCheckVerifier.verifyLessFile(new DeprecatedSystemColorCheck(), getTestFile("deprecatedSystemColor.less"));
+  }
+
+  @Test
+  public void test_scss() {
+    CssCheckVerifier.verifyScssFile(new DeprecatedSystemColorCheck(), getTestFile("deprecatedSystemColor.scss"));
+  }
+
+  private File getTestFile(String fileName) {
+    return CheckTestUtils.getCommonTestFile("deprecated-system-color/" + fileName);
   }
 
 }

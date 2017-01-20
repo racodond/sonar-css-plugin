@@ -44,9 +44,9 @@
 3,
 4,
 ],
-'project:custom/common/deprecatedSystemColor.less':[
-19,
-20,
+'project:custom/common/deprecated-system-color/deprecatedSystemColor.less':[
+22,
+23,
 ],
 'project:custom/common/do-not-use-shorthand-properties/doNotUseShorthandProperties.less':[
 2,
