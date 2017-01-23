@@ -19,23 +19,75 @@
  */
 package org.sonar.css.checks.common;
 
+import com.google.common.collect.ImmutableList;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.Tags;
 import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.css.*;
+import org.sonar.plugins.css.api.tree.css.AtKeywordTree;
+import org.sonar.plugins.css.api.tree.css.FunctionTree;
+import org.sonar.plugins.css.api.tree.css.PropertyTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 @Rule(
   key = "case",
-  name = "Properties, functions and @rule keywords should be lower case",
+  name = "Properties, functions and @-rule keywords should be lower case",
   priority = Priority.MINOR,
   tags = {Tags.CONVENTION})
 @SqaleConstantRemediation("2min")
 @ActivatedByDefault
 public class CaseCheck extends DoubleDispatchVisitorCheck {
+
+  public static final ImmutableList<String> FUNCTION_CASE_EXCEPTIONS = ImmutableList.of(
+    "Alpha", "BasicImage", "BlendTrans", "Blur", "Chroma", "Compositor", "DropShadow", "Emboss", "Engrave", "FlipH",
+    "FlipV", "Glow", "Gray", "ICMFilter", "Invert", "Light", "MaskFilter", "Matrix", "MotionBlur", "Redirect",
+    "RevealTrans", "Shadow", "Wave", "Xray",
+    "progid:DXImageTransform.Microsoft.AlphaImageLoader",
+    "progid:DXImageTransform.Microsoft.Barn",
+    "progid:DXImageTransform.Microsoft.BasicImage",
+    "progid:DXImageTransform.Microsoft.BblendTrans",
+    "progid:DXImageTransform.Microsoft.Blinds",
+    "progid:DXImageTransform.Microsoft.Blur",
+    "progid:DXImageTransform.Microsoft.CheckerBoard",
+    "progid:DXImageTransform.Microsoft.Chroma",
+    "progid:DXImageTransform.Microsoft.Compositor",
+    "progid:DXImageTransform.Microsoft.DropShadow",
+    "progid:DXImageTransform.Microsoft.Emboss",
+    "progid:DXImageTransform.Microsoft.Engrave",
+    "progid:DXImageTransform.Microsoft.Fade",
+    "progid:DXImageTransform.Microsoft.FlipH",
+    "progid:DXImageTransform.Microsoft.FlipV",
+    "progid:DXImageTransform.Microsoft.Glow",
+    "progid:DXImageTransform.Microsoft.Gradient",
+    "progid:DXImageTransform.Microsoft.GradientWipe",
+    "progid:DXImageTransform.Microsoft.Gray",
+    "progid:DXImageTransform.Microsoft.ICMFilter",
+    "progid:DXImageTransform.Microsoft.Inset",
+    "progid:DXImageTransform.Microsoft.Invert",
+    "progid:DXImageTransform.Microsoft.Iris",
+    "progid:DXImageTransform.Microsoft.Light",
+    "progid:DXImageTransform.Microsoft.MaskFilter",
+    "progid:DXImageTransform.Microsoft.Matrix",
+    "progid:DXImageTransform.Microsoft.Motionblur",
+    "progid:DXImageTransform.Microsoft.Pixelate",
+    "progid:DXImageTransform.Microsoft.RadialWipe",
+    "progid:DXImageTransform.Microsoft.RandomBars",
+    "progid:DXImageTransform.Microsoft.RandomDissolve",
+    "progid:DXImageTransform.Microsoft.Redirect",
+    "progid:DXImageTransform.Microsoft.RevealTrans",
+    "progid:DXImageTransform.Microsoft.Shadow",
+    "progid:DXImageTransform.Microsoft.Side",
+    "progid:DXImageTransform.Microsoft.Spiral",
+    "progid:DXImageTransform.Microsoft.Stretch",
+    "progid:DXImageTransform.Microsoft.Strips",
+    "progid:DXImageTransform.Microsoft.Wave",
+    "progid:DXImageTransform.Microsoft.Wheel",
+    "progid:DXImageTransform.Microsoft.Xray",
+    "progid:DXImageTransform.Microsoft.Zigzag",
+    "rotateX", "rotateY", "rotateZ", "scaleX", "scaleY", "scaleZ", "skewX", "skewY", "snapInterval", "snapList",
+    "translateX", "translateY", "translateZ");
 
   @Override
   public void visitProperty(PropertyTree tree) {
@@ -49,14 +101,15 @@ public class CaseCheck extends DoubleDispatchVisitorCheck {
   @Override
   public void visitAtKeyword(AtKeywordTree tree) {
     if (containsUpperCaseCharacter(tree.keyword().text())) {
-      addIssue(tree, "@rule keyword", tree.keyword().text());
+      addIssue(tree, "@-rule keyword", tree.keyword().text());
     }
     super.visitAtKeyword(tree);
   }
 
   @Override
   public void visitFunction(FunctionTree tree) {
-    if (containsUpperCaseCharacter(tree.function().text())) {
+    if (containsUpperCaseCharacter(tree.function().text())
+      && !FUNCTION_CASE_EXCEPTIONS.contains(tree.function().text())) {
       addIssue(tree.function(), "function", tree.function().text());
     }
     super.visitFunction(tree);

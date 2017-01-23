@@ -2,7 +2,7 @@
     Even though CSS syntax is case-insensitive (except for variables), sharing some style conventions is a key point to
     make it possible for a team to efficiently collaborate.
 </p>
-<p>This rule allows to check that all properties, functions, variables and @-rule keywords are written in lowercase.</p>
+<p>This rule allows to check that all properties, functions and @-rule keywords are written in lowercase.</p>
 
 <h2>Noncompliant Code Example</h2>
 <pre>
@@ -14,10 +14,6 @@
 
 .mybox {
   color: RGB(255,255,255); /* Noncompliant function */
-}
-
-:root {
-  --MyVar: red; /* Noncompliant variable */;
 }
 </pre>
 
@@ -31,10 +27,6 @@
 
 .mybox {
   color: rgb(255,255,255);
-}
-
-:root {
-  --myvar: red;
 }
 </pre>
 
@@ -58,3 +50,8 @@
   #{$BG}-color: green;
 }
 </pre>
+
+<p>
+    The following functions can be either written in lowercase or as follow:
+</p>
+[[functionCaseExceptions]]

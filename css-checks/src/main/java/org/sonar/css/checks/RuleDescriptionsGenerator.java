@@ -21,14 +21,9 @@ package org.sonar.css.checks;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
-
-import java.io.*;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.sonar.css.checks.common.CaseCheck;
 import org.sonar.css.model.StandardCssObject;
 import org.sonar.css.model.StandardCssObjectFactory;
 import org.sonar.css.model.Vendor;
@@ -38,6 +33,11 @@ import org.sonar.css.model.function.StandardFunctionFactory;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.StandardPropertyFactory;
 import org.sonar.css.model.pseudo.StandardPseudoComponent;
+
+import java.io.*;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class RuleDescriptionsGenerator {
 
@@ -120,6 +120,7 @@ public class RuleDescriptionsGenerator {
         .collect(Collectors.toList())))
     .put("[[experimentalAtRules]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardAtRule.class, StandardCssObject::isExperimental)))
     .put("[[experimentalPseudos]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardPseudoComponent.class, StandardCssObject::isExperimental)))
+    .put("[[functionCaseExceptions]]", generateHtmlFunctionCaseExceptionsTable(CaseCheck.FUNCTION_CASE_EXCEPTIONS.stream().sorted((o1, o2) -> o1.toLowerCase().compareTo(o2.toLowerCase())).collect(Collectors.toList())))
     .put("[[obsoleteProperties]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardProperty.class, StandardCssObject::isObsolete)))
     .put("[[obsoleteCssFunctions]]", generateHtmlCssFunctionTable(
       StandardFunctionFactory.getAll().stream().filter(f -> f.isCss() && f.isObsolete()).sorted((o1, o2) -> o1.getName().compareTo(o2.getName())).collect(Collectors.toList())))
@@ -307,6 +308,22 @@ public class RuleDescriptionsGenerator {
         for (int i = 1; i < links.size(); i++) {
           html.append("&nbsp;&nbsp;<a target=\"_blank\" href=\"").append(links.get(i)).append("\">#").append(i + 1).append("</a>");
         }
+        html.append("</td>\n");
+      }
+      html.append("</tr>");
+    }
+    html.append("</table>\n");
+    return html.toString();
+  }
+
+  private String generateHtmlFunctionCaseExceptionsTable(List<String> functions) {
+    StringBuilder html = new StringBuilder("<table style=\"border: 0;\">\n");
+    List<List<String>> subLists = Lists.partition(functions, 3);
+    for (List<String> subList : subLists) {
+      html.append("<tr>");
+      for (String function : subList) {
+        html.append("<td style=\"border: 0; \">");
+        html.append("<code>").append(function).append("</code>");
         html.append("</td>\n");
       }
       html.append("</tr>");

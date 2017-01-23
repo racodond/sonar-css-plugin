@@ -2,6 +2,14 @@
 'project:custom/common/boxSizing.css':[
 70,
 ],
+'project:custom/common/case/case.css':[
+12,
+13,
+14,
+15,
+16,
+17,
+],
 'project:custom/common/experimentalIdentifierUsage.css':[
 4,
 ],

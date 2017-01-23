@@ -9,7 +9,13 @@
   Background-color: red; /* Noncompliant ![sc=3;ec=19;el=+0]! !{Write property "Background-color" in lowercase.}! */
   color: rgb(255,255,255);
   color: RGB(255,255,255); /* Noncompliant ![sc=10;ec=13;el=+0]! !{Write function "RGB" in lowercase.}! */
+  color: basicimage();
+  color: BasicImage();
+  color: basicImage(); /* Noncompliant ![sc=10;ec=20;el=+0]! !{Write function "basicImage" in lowercase.}! */
+  color: rotatex();
+  color: rotateX();
+  color: RotateX(); /* Noncompliant ![sc=10;ec=17;el=+0]! !{Write function "RotateX" in lowercase.}! */
   color@{ABC}def: blue;
 }
 
-@KEYFRAMES keyframes {} /* Noncompliant ![sc=1;ec=11;el=+0]! !{Write @rule keyword "KEYFRAMES" in lowercase.}! */
+@KEYFRAMES keyframes {} /* Noncompliant ![sc=1;ec=11;el=+0]! !{Write @-rule keyword "KEYFRAMES" in lowercase.}! */
