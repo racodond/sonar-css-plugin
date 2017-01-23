@@ -18,3 +18,9 @@
 }
 
 @KEYFRAMES keyframes {} /* Noncompliant ![sc=1;ec=11;el=+0]! !{Write @-rule keyword "KEYFRAMES" in lowercase.}! */
+
+a:hover {}
+a:Hover {} /* Noncompliant ![sc=3;ec=8;el=+0]! !{Write identifier "Hover" in lowercase.}! */
+
+a:not() {}
+a:Not() {} /* Noncompliant ![sc=3;ec=6;el=+0]! !{Write function "Not" in lowercase.}! */

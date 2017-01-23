@@ -24,16 +24,14 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.Tags;
 import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.css.AtKeywordTree;
-import org.sonar.plugins.css.api.tree.css.FunctionTree;
-import org.sonar.plugins.css.api.tree.css.PropertyTree;
+import org.sonar.plugins.css.api.tree.css.*;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 @Rule(
   key = "case",
-  name = "Properties, functions and @-rule keywords should be lower case",
+  name = "Properties, functions, @-rule keywords, pseudo functions and pseudo identifiers should be lower case",
   priority = Priority.MINOR,
   tags = {Tags.CONVENTION})
 @SqaleConstantRemediation("2min")
@@ -113,6 +111,22 @@ public class CaseCheck extends DoubleDispatchVisitorCheck {
       addIssue(tree.function(), "function", tree.function().text());
     }
     super.visitFunction(tree);
+  }
+
+  @Override
+  public void visitPseudoFunction(PseudoFunctionTree tree) {
+    if (containsUpperCaseCharacter(tree.function().text())) {
+      addIssue(tree.function().value(), "function", tree.function().text());
+    }
+    super.visitPseudoFunction(tree);
+  }
+
+  @Override
+  public void visitPseudoIdentifier(PseudoIdentifierTree tree) {
+    if (containsUpperCaseCharacter(tree.identifier().text())) {
+      addIssue(tree.identifier(), "identifier", tree.identifier().text());
+    }
+    super.visitPseudoIdentifier(tree);
   }
 
   private void addIssue(Tree tree, String treeType, String value) {

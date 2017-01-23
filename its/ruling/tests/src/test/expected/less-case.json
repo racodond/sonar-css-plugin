@@ -9,6 +9,8 @@
 14,
 17,
 21,
+24,
+27,
 ],
 'project:custom/common/do-not-use-shorthand-properties/doNotUseShorthandProperties.less':[
 6,
@@ -19,6 +21,9 @@
 24,
 25,
 38,
+],
+'project:custom/common/unknown-pseudo/unknownPseudo.less':[
+4,
 ],
 'project:custom/less/lessEscapingFunction.less':[
 4,
