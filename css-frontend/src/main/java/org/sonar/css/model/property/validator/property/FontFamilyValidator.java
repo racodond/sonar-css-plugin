@@ -32,6 +32,6 @@ public class FontFamilyValidator extends HashMultiplierValidator {
 
   @Override
   public String getValidatorFormat() {
-    return "[<family-name> | <generic-family>] [, <family-name>| <generic-family>]*";
+    return "[ <family-name> | <generic-family> ]#";
   }
 }
