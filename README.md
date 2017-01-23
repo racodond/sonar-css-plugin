@@ -183,3 +183,8 @@ A sample plugin with detailed explanations is available [here](https://github.co
 If your custom rules may benefit the community, feel free to create a pull request in order to make the rule available in the CSS / SCSS / Less analyzer.
 
 You're thinking of new rules that may benefit the community but don't have the time or the skills to write them? Feel free to create an [issue](https://github.com/racodond/sonar-css-plugin/issues) for your rules to be taken under consideration.
+
+
+## stylelint / SonarQube Rule Mapping
+
+If you are already using [stylelint](https://stylelint.io/), to define your [quality profile](https://docs.sonarqube.org/display/SONAR/Quality+Profiles), the [stylelint / SonarQube rule mapping](doc/stylelint-sonarqube-rule-mapping.md) may be of great help.
