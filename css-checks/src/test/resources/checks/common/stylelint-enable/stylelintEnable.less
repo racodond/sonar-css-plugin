@@ -1,0 +1,40 @@
+/* stylelint-enable: blabla */ /* Noncompliant */
+h1 {
+  color: green;
+}
+
+/* [stylelint-enable] blabla */ /* Noncompliant */
+h1 {
+  color: green;
+}
+
+/* Noncompliant ![sl=12]! */
+/* stylelint-enable:
+    - blabla
+    - ...
+*/
+h1 {
+  color: green;
+}
+
+/* stylelint-enable: blabla */ /* Noncompliant  */
+h1 {
+  color: green;
+}
+
+/* Noncompliant ![sl=+1]! */
+/* stylelint-enable:
+   stylelint-enable
+*/
+h1 {
+  color: green;
+}
+
+h1 {
+  color: green; /* stylelint-enable: blabla */ /* Noncompliant */
+}
+
+/* stylelint-enableforthefirsttime */
+h1 {
+  color: green;
+}

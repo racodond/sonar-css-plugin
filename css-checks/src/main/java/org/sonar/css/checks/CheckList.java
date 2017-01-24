@@ -163,6 +163,8 @@ public final class CheckList {
       SemicolonDeclarationCheck.class,
       SingleQuotesCheck.class,
       StarHackCheck.class,
+      StylelintDisableTagCheck.class,
+      StylelintEnableTagCheck.class,
       TabCharacterCheck.class,
       TodoTagCheck.class,
       TooManyWebFontsCheck.class,

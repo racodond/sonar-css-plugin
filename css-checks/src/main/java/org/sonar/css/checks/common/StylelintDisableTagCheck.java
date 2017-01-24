@@ -17,31 +17,24 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.plugins.css.css;
+package org.sonar.css.checks.common;
 
-import org.junit.Test;
-import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.css.checks.common.TodoTagCheck;
+import org.sonar.css.checks.CommentContainsPatternChecker;
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-import static org.fest.assertions.Assertions.assertThat;
+@Rule(
+  key = "stylelint-disable",
+  name = "\"stylelint-disable\" tags should be removed",
+  priority = Priority.INFO)
+@ActivatedByDefault
+@SqaleConstantRemediation("5min")
+public class StylelintDisableTagCheck extends CommentContainsPatternChecker {
 
-public class CssRulesDefinitionTest {
-
-  @Test
-  public void test() {
-    CssRulesDefinition rulesDefinition = new CssRulesDefinition();
-    RulesDefinition.Context context = new RulesDefinition.Context();
-    rulesDefinition.define(context);
-    RulesDefinition.Repository repository = context.repository("css");
-
-    assertThat(repository.name()).isEqualTo("SonarQube");
-    assertThat(repository.language()).isEqualTo("css");
-    assertThat(repository.rules()).hasSize(76);
-
-    RulesDefinition.Rule todoRule = repository.rule(TodoTagCheck.class.getAnnotation(Rule.class).key());
-    assertThat(todoRule).isNotNull();
-    assertThat(todoRule.name()).isEqualTo(TodoTagCheck.class.getAnnotation(Rule.class).name());
+  public StylelintDisableTagCheck() {
+    super("stylelint-disable", "Remove this stylelint-disable tag.");
   }
 
 }

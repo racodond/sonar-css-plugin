@@ -72,6 +72,8 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * "@font-face" rule should be made compatible with the required browsers
 * "FIXME" tags should be handled
 * "NOSONAR" tags should not be used to switch off issues
+* "stylelint-disable" tags should be removed
+* "stylelint-enable" tags should be removed
 * "TODO" tags should be handled
 * @charset should be the first element in the style sheet and not be preceded by any character
 * Box model size should be carefully reviewed
