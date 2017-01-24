@@ -16,6 +16,8 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | ["@import" rule should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aimport) | None | |
 | ["FIXME" tags should be handled](http://sonarqube.racodond.com/coding_rules#rule_key=css%3AS1134) | None | |
 | ["NOSONAR" tags should not be used to switch off issues](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Anosonar) | None | |
+| ["stylelint-disable" tags should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Astylelint-disable) | None | |
+| ["stylelint-enable" tags should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Astylelint-enable) | None | |
 | ["TODO" tags should be handled](http://sonarqube.racodond.com/coding_rules#rule_key=css%3AS1135) | None | |
 | [@charset should be the first element in the style sheet and not be preceded by any character](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acharset-first) | None | |
 | [@import rules should precede all other at-rules and style rules](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aimport-first) | None | |
@@ -23,7 +25,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [Byte Order Mark (BOM) should not be used for UTF-8 files](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Abom-utf8-files) | None | |
 | [Case-insensitive flag should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase-insensitive-flag) | None | |
 | [Class selectors should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aclass-selector-naming-convention) | [selector-class-pattern](https://stylelint.io/user-guide/rules/selector-class-pattern/) | |
-| [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | [property-case](https://stylelint.io/user-guide/rules/property-case/)<br/>[function-name-case](https://stylelint.io/user-guide/rules/function-name-case/)<br/>[at-rule-name-case](https://stylelint.io/user-guide/rules/at-rule-name-case/)<br/>[selector-pseudo-class-case](https://stylelint.io/user-guide/rules/selector-pseudo-class-case/)<br/>[selector-pseudo-element-case](https://stylelint.io/user-guide/rules/selector-pseudo-element-case/)<br/> | |
+| [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | [property-case](https://stylelint.io/user-guide/rules/property-case/)<br/>[function-name-case](https://stylelint.io/user-guide/rules/function-name-case/)<br/>[at-rule-name-case](https://stylelint.io/user-guide/rules/at-rule-name-case/)<br/>[selector-pseudo-class-case](https://stylelint.io/user-guide/rules/selector-pseudo-class-case/)<br/>[selector-pseudo-element-case](https://stylelint.io/user-guide/rules/selector-pseudo-element-case/)<br/>[selector-type-case](https://stylelint.io/user-guide/rules/selector-type-case/)<br/>[unit-case](https://stylelint.io/user-guide/rules/unit-case/)<br/>[color-hex-case](https://stylelint.io/user-guide/rules/color-hex-case/) | |
 | [CSS variables should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acss-variable-naming-convention) | [custom-property-pattern](https://stylelint.io/user-guide/rules/custom-property-pattern/) | |
 | [Deprecated system colors should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Adeprecated-system-colors) | None | |
 | [Duplicated background images should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aduplicate-background-images) | None | |
@@ -63,7 +65,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [Shorthand properties should be used whenever possible](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Ashorthand) | [declaration-block-no-redundant-longhand-properties](https://stylelint.io/user-guide/rules/declaration-block-no-redundant-longhand-properties/) | |
 | [Shorthand properties should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Ado-not-use-shorthand-properties) | None | |
 | [Single quotes should be used instead of double quotes for strings](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Asingle-quotes) | [string-quotes](https://stylelint.io/user-guide/rules/string-quotes/) | |
-| [Source code should comply with formatting standards](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aformatting) | [block-opening-brace-newline-after](https://stylelint.io/user-guide/rules/block-opening-brace-newline-after/)<br/>[declaration-colon-space-after](https://stylelint.io/user-guide/rules/declaration-colon-space-after/)<br/>[declaration-colon-space-before](https://stylelint.io/user-guide/rules/declaration-colon-space-before/)<br/>[declaration-bang-space-after](https://stylelint.io/user-guide/rules/declaration-bang-space-after/)<br/> | |
+| [Source code should comply with formatting standards](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aformatting) | [block-opening-brace-newline-after](https://stylelint.io/user-guide/rules/block-opening-brace-newline-after/)<br/>[declaration-colon-space-after](https://stylelint.io/user-guide/rules/declaration-colon-space-after/)<br/>[declaration-colon-space-before](https://stylelint.io/user-guide/rules/declaration-colon-space-before/)<br/>[declaration-bang-space-after](https://stylelint.io/user-guide/rules/declaration-bang-space-after/)<br/>[dollar-variable-colon-space-after](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/dollar-variable-colon-space-after/README.md)<br/>[dollar-variable-colon-space-before](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/dollar-variable-colon-space-before/README.md) | |
 | [Source files should not have any duplicated blocks](http://sonarqube.racodond.com/coding_rules#rule_key=common-css%3ADuplicatedBlocks) | None | |
 | [Standard properties should be specified along with vendor-prefixed properties](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Avendor-prefix) | None | |
 | [Star hack should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Astar-property-hack) | [no-browser-hacks](https://stylelint.io/user-guide/rules/no-browser-hacks/) | |
@@ -100,20 +102,20 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [Always use 'through' instead of 'to' in @for directives](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Athrough-instead-of-to) | None | |
 | [Conditions should not be too complex](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Atoo-complex-condition) | None | |
 | [Control flow directives @if, @else if, @else, @for, @while, and @each should not be nested too deeply](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Anested-control-flow-directives) | None | |
-| [Custom functions should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Acustom-function-naming-convention) | None | |
+| [Custom functions should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Acustom-function-naming-convention) | [at-function-pattern](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/at-function-pattern/README.md) | |
 | [Declarations and directives should be properly sorted](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Asort-declarations-and-directives) | None | |
 | [Deprecated unescaped multiline strings should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Adeprecated-unescaped-multiline-string) | None | |
 | [Empty control flow directive should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Aempty-control-flow-directive) | None | |
 | [Empty mixins should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Aempty-mixin) | [block-no-empty](https://stylelint.io/user-guide/rules/block-no-empty/) | |
-| [Mixins should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Amixin-naming-convention) | None | |
+| [Mixins should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Amixin-naming-convention) | [at-mixin-pattern](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/at-mixin-pattern/README.md) | |
 | [Nested properties should define at least two properties](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Aat-least-two-nested-properties) | None | |
-| [Placeholder selectors should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Aplaceholder-selector-naming-convention) | None | |
+| [Placeholder selectors should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Aplaceholder-selector-naming-convention) | [percent-placeholder-pattern](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/percent-placeholder-pattern/README.md) | |
 | [Related @if / @else if directives should not have the same condition](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Aif-elseif-same-condition) | None | |
 | [Rulesets should not be nested too deeply](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Anested-rulesets) | [max-nesting-depth](https://stylelint.io/user-guide/rules/max-nesting-depth/) | |
-| [SCSS variables should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Ascss-variable-naming-convention) | None | |
+| [SCSS variables should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Ascss-variable-naming-convention) | [dollar-variable-pattern](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/dollar-variable-pattern/README.md) | |
 | [Single-line comments (//) should be preferred over multi-line comments (/* ... */)](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Aprefer-single-line-comments) | None | |
 | [Two branches in the same conditional structure should not have exactly the same implementation](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Abranch-same-implementation) | None | |
-| [Useless parentheses following @include and @mixin with no parameter should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Auseless-parentheses-mixin-no-parameter) | None | |
+| [Useless parentheses following @include and @mixin with no parameter should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Auseless-parentheses-mixin-no-parameter) | [at-mixin-argumentless-call-parentheses](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/at-mixin-argumentless-call-parentheses/README.md) | |
 
 
 ### Specific to Less
@@ -135,7 +137,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 
 | stylelint Rule | SonarQube Related Rules | Comments |
 | -------------- |------------------------ | -------- |
-| color-hex-case | None | |
+| color-hex-case | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
 | color-hex-length | None | |
 | color-named | None | |
 | color-no-hex | None | |
@@ -177,7 +179,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | function-url-quotes | [URL should be quoted](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aquoted-url) | |
 | function-url-scheme-whitelist | None | |
 | function-whitelist | None | |
-| function-whitelist | None | |
+| function-whitespace-after | None | |
 
 
 ### Number
@@ -185,7 +187,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | stylelint Rule | SonarQube Related Rules | Comments |
 | -------------- |------------------------ | -------- |
 | number-leading-zero | [Leading zeros should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aleading-zeros) | |
-| number-max-precision | None | |
+| number-max-precision | None | Planned for SonarQube 3.1. See [issue #111](https://github.com/racodond/sonar-css-plugin/issues/111) |
 | number-no-trailing-zeros | [Trailing zeros for numeric values should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Atrailing-zeros) | |
 
 
@@ -218,7 +220,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | unit-blacklist | None | |
 | unit-case | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
 | unit-no-unknown | None | |
-| unit-whitelist | None | |
+| unit-whitelist | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 
 
 ### Value
@@ -263,7 +265,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | property-case | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
 | property-no-unknown | [Unknown properties should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aknown-properties) | |
 | property-no-vendor-prefix | [Experimental properties should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aexperimental-property-usage) | |
-| property-whitelist | None | |
+| property-whitelist | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 
 
 ### Keyframe declaration
@@ -285,9 +287,9 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | declaration-empty-line-before | None | |
 | declaration-no-important | ["!important" annotation should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aimportant) | |
 | declaration-property-unit-blacklist | None | |
-| declaration-property-unit-whitelist | None | |
-| declaration-property-value-blacklistt | None | |
-| declaration-property-value-whitelist | None | |
+| declaration-property-unit-whitelist | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
+| declaration-property-value-blacklist | None | |
+| declaration-property-value-whitelist | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 
 
 ### Declaration block
@@ -340,27 +342,27 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | selector-descendant-combinator-no-non-space | None | |
 | selector-id-pattern | [ID selectors should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aid-selector-naming-convention) | |
 | selector-max-compound-selectors | [Over-specified selectors should be simplified](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aoverspecific-selectors) | |
-| selector-max-specificity | None | |
+| selector-max-specificity | None | Not convinced by the added value of such a rule. Use [Over-specified selectors should be simplified](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aoverspecific-selectors) instead. No plan to implement it in SonarQube. |
 | selector-nested-pattern | None | |
-| selector-no-attribute | None | |
-| selector-no-combinator | None | |
+| selector-no-attribute | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
+| selector-no-combinator | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | selector-no-empty | None | |
 | selector-no-id | [IDs in selectors should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aids) | |
-| selector-no-qualifying-type | None | |
-| selector-no-type | None | |
+| selector-no-qualifying-type | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
+| selector-no-type | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | selector-no-universal | [Universal selector should not be used as key part](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Auniversal-selector) | |
 | selector-no-vendor-prefix | None | |
 | selector-pseudo-class-blacklist | None | |
 | selector-pseudo-class-case | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
 | selector-pseudo-class-no-unknown | [Unknown pseudo-elements and pseudo-classes should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aunknown-pseudo) | |
 | selector-pseudo-class-parentheses-space-inside | None | |
-| selector-pseudo-class-whitelist | None | |
+| selector-pseudo-class-whitelist | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | selector-pseudo-element-case | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
 | selector-pseudo-element-colon-notation | None | |
 | selector-pseudo-element-no-unknown | [Unknown pseudo-elements and pseudo-classes should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aunknown-pseudo) | |
 | selector-root-no-composition | None | |
-| selector-type-case | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
-| selector-type-no-unknown | None | |
+| [selector-type-case](https://stylelint.io/user-guide/rules/selector-type-case/) | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
+| selector-type-no-unknown | None | See [issue #112](https://github.com/racodond/sonar-css-plugin/issues/112) |
 | selector-max-empty-lines | None | |
 
 
@@ -474,3 +476,38 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | no-missing-end-of-source-newline | [Files should contain an empty new line at the end](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aempty-line-end-of-file) | |
 | no-unknown-animations | None | |
 | no-unsupported-browser-features | None | |
+
+
+### stylelint-scss
+
+| stylelint-css Rule | SonarQube Related Rules | Comments |
+| ------------------ |------------------------ | -------- |
+| [at-else-closing-brace-newline-after](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/at-else-closing-brace-newline-after/README.md) | None | |
+| [at-else-closing-brace-space-after](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/at-else-closing-brace-space-after/README.md) | None | |
+| [at-else-empty-line-before](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/at-else-empty-line-before/README.md) | None | |
+| [at-extend-no-missing-placeholder](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/at-extend-no-missing-placeholder/README.md) | None | |
+| [at-function-pattern](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/at-function-pattern/README.md) | [Custom functions should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Acustom-function-naming-convention) | |
+| [at-if-closing-brace-newline-after](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/at-if-closing-brace-newline-after/README.md) | None | |
+| [at-if-closing-brace-space-after](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/at-if-closing-brace-space-after/README.md) | None | |
+| [at-import-no-partial-leading-underscore](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/at-import-no-partial-leading-underscore/README.md) | None | |
+| [at-import-partial-extension-blacklist](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/at-import-partial-extension-blacklist/README.md) | None | |
+| [at-import-partial-extension-whitelist](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/at-import-partial-extension-whitelist/README.md) | None | |
+| [at-mixin-argumentless-call-parentheses](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/at-mixin-argumentless-call-parentheses/README.md) | [Useless parentheses following @include and @mixin with no parameter should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Auseless-parentheses-mixin-no-parameter) | |
+| [at-mixin-pattern](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/at-mixin-pattern/README.md) | [Mixins should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Amixin-naming-convention) | |
+| [dollar-variable-colon-newline-after](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/dollar-variable-colon-newline-after/README.md) | None | |
+| [dollar-variable-colon-space-after](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/dollar-variable-colon-space-after/README.md) | [Source code should comply with formatting standards](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aformatting) | |
+| [dollar-variable-colon-space-before](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/dollar-variable-colon-space-before/README.md) | [Source code should comply with formatting standards](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aformatting) | |
+| [dollar-variable-empty-line-before](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/dollar-variable-empty-line-before/README.md) | None | |
+| [dollar-variable-no-missing-interpolation](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/dollar-variable-no-missing-interpolation/README.md) | None | |
+| [dollar-variable-pattern](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/dollar-variable-pattern/README.md) | [SCSS variables should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Ascss-variable-naming-convention) |
+| [percent-placeholder-pattern](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/percent-placeholder-pattern/README.md) | [Placeholder selectors should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Aplaceholder-selector-naming-convention) |
+| [double-slash-comment-empty-line-before](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/double-slash-comment-empty-line-before/README.md) | None |
+| [double-slash-comment-inline](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/double-slash-comment-inline/README.md) | None |
+| [double-slash-comment-whitespace-inside](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/double-slash-comment-whitespace-inside/README.md) | None |
+| [declaration-nested-properties](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/declaration-nested-properties/README.md) | None |
+| [media-feature-value-dollar-variable](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/media-feature-value-dollar-variable/README.md) | None |
+| [operator-no-newline-after](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/operator-no-newline-after/README.md) | None |
+| [operator-no-newline-before](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/operator-no-newline-before/README.md) | None |
+| [operator-no-unspaced](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/operator-no-unspaced/README.md) | None |
+| [partial-no-import](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/partial-no-import/README.md) | None |
+| [selector-no-redundant-nesting-selector](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/selector-no-redundant-nesting-selector/README.md) | None |
