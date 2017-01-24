@@ -2,10 +2,16 @@
     Even though CSS syntax is case-insensitive (except for variables), sharing some style conventions is a key point to
     make it possible for a team to efficiently collaborate.
 </p>
-<p>
-    This rule checks that all properties, functions, @-rule keywords, type selectors, pseudo functions and pseudo
-    identifiers are written in lowercase.
-</p>
+<p> This rule checks that all the following elements are written in lower case: </p>
+<ul>
+    <li>properties</li>
+    <li>functions</li>
+    <li>@-rule keywords</li>
+    <li>type selectors</li>
+    <li>pseudo functions</li>
+    <li>pseudo identifiers</li>
+    <li>units</li>
+</ul>
 
 <h2>Noncompliant Code Example</h2>
 <pre>
@@ -24,6 +30,10 @@ A:hover {} /* Noncompliant A type selector */
 a:HOVER {} /* Noncompliant HOVER pseudo identifier */
 
 *:NOT(foo) {} /* Noncompliant NOT pseudo function */
+
+.mybox {
+  width: 10PX; /* Noncompliant PX unit */
+}
 </pre>
 
 <h2>Compliant Solution</h2>
@@ -41,6 +51,11 @@ a:HOVER {} /* Noncompliant HOVER pseudo identifier */
 a:hover {}
 
 *:not(foo) {}
+
+
+.mybox {
+  width: 10px;
+}
 </pre>
 
 <h2>Exceptions</h2>
@@ -78,4 +93,6 @@ a:hover {}
     </li>
     <li><a href="https://stylelint.io/user-guide/rules/selector-pseudo-element-case/" target="_blank">selector-pseudo-element-case</a>
     </li>
+    <li><a href="https://stylelint.io/user-guide/rules/selector-type-case/" target="_blank">selector-type-case</a></li>
+    <li><a href="https://stylelint.io/user-guide/rules/unit-case/" target="_blank">unit-case</a></li>
 </ul>

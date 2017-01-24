@@ -77,6 +77,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Box model size should be carefully reviewed
 * Byte Order Mark (BOM) should not be used for UTF-8 files
 * Case-sensitive flag should not be used
+* CSS should be written in lower case
 * CSS variables should follow a naming convention
 * Deprecated system colors should not be used
 * Duplicated background images should be removed
@@ -106,7 +107,6 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Obsolete pseudo-elements and pseudo-classes should not be used
 * Over-specified selectors should be simplified
 * Properties that do not work with the "display" property should be removed
-* Properties, functions and @-rule keywords should be lower case
 * Property values should be valid
 * Protocol-relative URL should not be used
 * Regular expression like selectors should not be used

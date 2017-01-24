@@ -27,3 +27,10 @@ a:Hover {} /* Noncompliant ![sc=3;ec=8;el=+0]! !{Write identifier "Hover" in low
 
 a:not() {}
 a:Not() {} /* Noncompliant ![sc=3;ec=6;el=+0]! !{Write function "Not" in lowercase.}! */
+
+.mybox1 {
+  width: 10PX; /* Noncompliant ![sc=12;ec=14;el=+0]! !{Write unit "PX" in lowercase.}! */
+}
+.mybox2 {
+  width: 10px;
+}

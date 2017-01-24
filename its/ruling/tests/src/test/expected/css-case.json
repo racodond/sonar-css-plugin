@@ -12,6 +12,7 @@
 23,
 26,
 29,
+32,
 ],
 'project:custom/common/do-not-use-shorthand-properties/doNotUseShorthandProperties.css':[
 6,
@@ -39,6 +40,9 @@
 'project:custom/common/obsoleteProperties.css':[
 3,
 5,
+],
+'project:custom/common/properties/css/animation.css':[
+12,
 ],
 'project:custom/common/unknown-pseudo/unknownPseudo.css':[
 7,

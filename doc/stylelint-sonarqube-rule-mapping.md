@@ -23,6 +23,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [Byte Order Mark (BOM) should not be used for UTF-8 files](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Abom-utf8-files) | None | |
 | [Case-insensitive flag should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase-insensitive-flag) | None | |
 | [Class selectors should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aclass-selector-naming-convention) | [selector-class-pattern](https://stylelint.io/user-guide/rules/selector-class-pattern/) | |
+| [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | [property-case](https://stylelint.io/user-guide/rules/property-case/)<br/>[function-name-case](https://stylelint.io/user-guide/rules/function-name-case/)<br/>[at-rule-name-case](https://stylelint.io/user-guide/rules/at-rule-name-case/)<br/>[selector-pseudo-class-case](https://stylelint.io/user-guide/rules/selector-pseudo-class-case/)<br/>[selector-pseudo-element-case](https://stylelint.io/user-guide/rules/selector-pseudo-element-case/)<br/> | |
 | [CSS variables should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acss-variable-naming-convention) | [custom-property-pattern](https://stylelint.io/user-guide/rules/custom-property-pattern/) | |
 | [Deprecated system colors should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Adeprecated-system-colors) | None | |
 | [Duplicated background images should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aduplicate-background-images) | None | |
@@ -53,7 +54,6 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [Obsolete pseudo-elements and pseudo-classes should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aobsolete-pseudos) | None | |
 | [Over-specified selectors should be simplified](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aoverspecific-selectors) | [selector-max-compound-selectors](https://stylelint.io/user-guide/rules/selector-max-compound-selectors/) | |
 | [Properties that do not work with the "display" property should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Adisplay-property-grouping) | [declaration-block-no-ignored-properties](https://stylelint.io/user-guide/rules/declaration-block-no-ignored-properties/) | Rule should be improved on SonarQube side. See [issue #105](https://github.com/racodond/sonar-css-plugin/issues/105). |
-| [Properties, functions, @-rule keywords, pseudo functions and pseudo identifiers should be lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | [property-case](https://stylelint.io/user-guide/rules/property-case/)<br/>[function-name-case](https://stylelint.io/user-guide/rules/function-name-case/)<br/>[at-rule-name-case](https://stylelint.io/user-guide/rules/at-rule-name-case/)<br/>[selector-pseudo-class-case](https://stylelint.io/user-guide/rules/selector-pseudo-class-case/)<br/>[selector-pseudo-element-case](https://stylelint.io/user-guide/rules/selector-pseudo-element-case/)<br/> | |
 | [Property values should be valid](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Avalidate-property-value) | None | |
 | [Protocol-relative URL should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aprotocol-relative-url) | [function-url-no-scheme-relative](https://stylelint.io/user-guide/rules/function-url-no-scheme-relative/) | |
 | [Regular expression like selectors should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aregex-selectors) | None | |
@@ -169,7 +169,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | function-comma-space-before | None | |
 | function-linear-gradient-no-nonstandard-direction | None | |
 | function-max-empty-lines | None | |
-| function-name-case | [Properties, functions, @-rule keywords, pseudo functions and pseudo identifiers should be lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
+| function-name-case | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
 | function-parentheses-newline-inside | None | |
 | function-parentheses-space-inside | None | |
 | function-url-data-uris | None | |
@@ -216,7 +216,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | stylelint Rule | SonarQube Related Rules | Comments |
 | -------------- |------------------------ | -------- |
 | unit-blacklist | None | |
-| unit-case | None | |
+| unit-case | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
 | unit-no-unknown | None | |
 | unit-whitelist | None | |
 
@@ -260,7 +260,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | stylelint Rule | SonarQube Related Rules | Comments |
 | -------------- |------------------------ | -------- |
 | property-blacklist | [Regular expression on property](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aproperty-regular-expression) | |
-| property-case | [Properties, functions, @-rule keywords, pseudo functions and pseudo identifiers should be lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
+| property-case | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
 | property-no-unknown | [Unknown properties should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aknown-properties) | |
 | property-no-vendor-prefix | [Experimental properties should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aexperimental-property-usage) | |
 | property-whitelist | None | |
@@ -351,15 +351,15 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | selector-no-universal | [Universal selector should not be used as key part](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Auniversal-selector) | |
 | selector-no-vendor-prefix | None | |
 | selector-pseudo-class-blacklist | None | |
-| selector-pseudo-class-case | [Properties, functions, @-rule keywords, pseudo functions and pseudo identifiers should be lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
+| selector-pseudo-class-case | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
 | selector-pseudo-class-no-unknown | [Unknown pseudo-elements and pseudo-classes should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aunknown-pseudo) | |
 | selector-pseudo-class-parentheses-space-inside | None | |
 | selector-pseudo-class-whitelist | None | |
-| selector-pseudo-element-case | [Properties, functions, @-rule keywords, pseudo functions and pseudo identifiers should be lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
+| selector-pseudo-element-case | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
 | selector-pseudo-element-colon-notation | None | |
 | selector-pseudo-element-no-unknown | [Unknown pseudo-elements and pseudo-classes should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aunknown-pseudo) | |
 | selector-root-no-composition | None | |
-| selector-type-case | None | |
+| selector-type-case | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
 | selector-type-no-unknown | None | |
 | selector-max-empty-lines | None | |
 
@@ -429,7 +429,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | -------------- |------------------------ | -------- |
 | at-rule-blacklist | None | |
 | at-rule-empty-line-before | None | |
-| at-rule-name-case | [Properties, functions, @-rule keywords, pseudo functions and pseudo identifiers should be lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
+| at-rule-name-case | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
 | at-rule-name-newline-after | None | |
 | at-rule-name-space-after | None | |
 | at-rule-no-unknown | [Unknown @-rules should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aunknown-at-rules) | |
