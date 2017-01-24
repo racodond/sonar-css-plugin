@@ -31,7 +31,7 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 @Rule(
   key = "case",
-  name = "Properties, functions, @-rule keywords, pseudo functions and pseudo identifiers should be lower case",
+  name = "Properties, functions, @-rule keywords, type selectors, pseudo functions and pseudo identifiers should be lower case",
   priority = Priority.MINOR,
   tags = {Tags.CONVENTION})
 @SqaleConstantRemediation("2min")
@@ -127,6 +127,14 @@ public class CaseCheck extends DoubleDispatchVisitorCheck {
       addIssue(tree.identifier(), "identifier", tree.identifier().text());
     }
     super.visitPseudoIdentifier(tree);
+  }
+
+  @Override
+  public void visitTypeSelector(TypeSelectorTree tree) {
+    if (containsUpperCaseCharacter(tree.identifier().text())) {
+      addIssue(tree.identifier(), "type selector", tree.identifier().text());
+    }
+    super.visitTypeSelector(tree);
   }
 
   private void addIssue(Tree tree, String treeType, String value) {

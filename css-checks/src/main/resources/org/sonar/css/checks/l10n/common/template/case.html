@@ -3,8 +3,8 @@
     make it possible for a team to efficiently collaborate.
 </p>
 <p>
-    This rule checks that all properties, functions, @-rule keywords, pseudo functions and pseudo identifiers are
-    written in lowercase.
+    This rule checks that all properties, functions, @-rule keywords, type selectors, pseudo functions and pseudo
+    identifiers are written in lowercase.
 </p>
 
 <h2>Noncompliant Code Example</h2>
@@ -18,6 +18,8 @@
 .mybox {
   color: RGB(255,255,255); /* Noncompliant RGB function */
 }
+
+A:hover {} /* Noncompliant A type selector */
 
 a:HOVER {} /* Noncompliant HOVER pseudo identifier */
 
@@ -72,6 +74,8 @@ a:hover {}
     <li><a href="https://stylelint.io/user-guide/rules/property-case/" target="_blank">property-case</a></li>
     <li><a href="https://stylelint.io/user-guide/rules/function-name-case/" target="_blank">function-name-case</a></li>
     <li><a href="https://stylelint.io/user-guide/rules/at-rule-name-case/" target="_blank">at-rule-name-case</a></li>
-    <li><a href="https://stylelint.io/user-guide/rules/selector-pseudo-class-case/" target="_blank">selector-pseudo-class-case</a></li>
-    <li><a href="https://stylelint.io/user-guide/rules/selector-pseudo-element-case/" target="_blank">selector-pseudo-element-case</a></li>
+    <li><a href="https://stylelint.io/user-guide/rules/selector-pseudo-class-case/" target="_blank">selector-pseudo-class-case</a>
+    </li>
+    <li><a href="https://stylelint.io/user-guide/rules/selector-pseudo-element-case/" target="_blank">selector-pseudo-element-case</a>
+    </li>
 </ul>
