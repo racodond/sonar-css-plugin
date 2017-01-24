@@ -11,6 +11,7 @@
     <li>pseudo functions</li>
     <li>pseudo identifiers</li>
     <li>units</li>
+    <li>hexadecimal values</li>
 </ul>
 
 <h2>Noncompliant Code Example</h2>
@@ -33,6 +34,7 @@ a:HOVER {} /* Noncompliant HOVER pseudo identifier */
 
 .mybox {
   width: 10PX; /* Noncompliant PX unit */
+  color: #FFFFFF; /* Noncompliant #FFFFFF hexadecimal value */
 }
 </pre>
 
@@ -55,6 +57,7 @@ a:hover {}
 
 .mybox {
   width: 10px;
+  color: #ffffff;
 }
 </pre>
 
@@ -95,4 +98,5 @@ a:hover {}
     </li>
     <li><a href="https://stylelint.io/user-guide/rules/selector-type-case/" target="_blank">selector-type-case</a></li>
     <li><a href="https://stylelint.io/user-guide/rules/unit-case/" target="_blank">unit-case</a></li>
+    <li><a href="https://stylelint.io/user-guide/rules/color-hex-case/" target="_blank">color-hex-case</a></li>
 </ul>

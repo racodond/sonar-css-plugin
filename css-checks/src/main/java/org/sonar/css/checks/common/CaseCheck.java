@@ -137,13 +137,20 @@ public class CaseCheck extends DoubleDispatchVisitorCheck {
     super.visitTypeSelector(tree);
   }
 
-
   @Override
   public void visitUnit(UnitTree tree) {
     if (containsUpperCaseCharacter(tree.text())) {
       addIssue(tree, "unit", tree.text());
     }
     super.visitUnit(tree);
+  }
+
+  @Override
+  public void visitHash(HashTree tree) {
+    if (containsUpperCaseCharacter(tree.value().text())) {
+      addIssue(tree, "hexadecimal value", "#" + tree.value().text());
+    }
+    super.visitHash(tree);
   }
 
   private void addIssue(Tree tree, String treeType, String value) {
