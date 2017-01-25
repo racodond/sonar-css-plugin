@@ -31,8 +31,8 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 @Rule(
   key = "unknown-less-functions",
   name = "Unknown CSS / Less functions should be removed",
-  priority = Priority.MAJOR,
-  tags = {Tags.PITFALL})
+  priority = Priority.CRITICAL,
+  tags = {Tags.BUG})
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
 public class UnknownLessFunctionCheck extends DoubleDispatchVisitorCheck {

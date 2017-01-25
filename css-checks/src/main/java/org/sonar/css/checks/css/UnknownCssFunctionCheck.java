@@ -31,8 +31,8 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 @Rule(
   key = "unknown-functions",
   name = "Unknown CSS functions should be removed",
-  priority = Priority.MAJOR,
-  tags = {Tags.PITFALL})
+  priority = Priority.CRITICAL,
+  tags = {Tags.BUG})
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
 public class UnknownCssFunctionCheck extends DoubleDispatchVisitorCheck {

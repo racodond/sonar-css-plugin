@@ -1,0 +1,31 @@
+div {
+  color: green;
+}
+
+blabla { /* Noncompliant ![sc=1;ec=7;el=+0]! !{Remove this usage of the unknown "blabla" type selector.}!*/
+  color: green;
+}
+
+DIV {
+  color: green;
+}
+
+view {
+  color: green;
+}
+
+d@{i}v {
+  color: green;
+}
+
+div {
+  div {
+    color: green;
+  }
+  blabla { /* Noncompliant ![sc=3;ec=9;el=+0]! !{Remove this usage of the unknown "blabla" type selector.}!*/
+    color: green;
+  }
+  d@{i}v {
+    color: green;
+  }
+}

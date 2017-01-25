@@ -83,6 +83,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [Unknown CSS functions should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aunknown-functions) | None | |
 | [Unknown properties should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aknown-properties) | [property-no-unknown](https://stylelint.io/user-guide/rules/property-no-unknown/) | |
 | [Unknown pseudo-elements and pseudo-classes should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aunknown-pseudo) | [selector-pseudo-class-no-unknown](https://stylelint.io/user-guide/rules/selector-pseudo-class-no-unknown/)<br/>[selector-pseudo-element-no-unknown](https://stylelint.io/user-guide/rules/selector-pseudo-element-no-unknown/) | |
+| [Unknown type selectors should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aunknown-type-selector) | [selector-type-no-unknown](https://stylelint.io/user-guide/rules/selector-type-no-unknown/) | |
 | [URL should be quoted](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aquoted-url) | [function-url-quotes](https://stylelint.io/user-guide/rules/function-url-quotes/) | |
 
 
@@ -362,7 +363,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | selector-pseudo-element-no-unknown | [Unknown pseudo-elements and pseudo-classes should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aunknown-pseudo) | |
 | selector-root-no-composition | None | |
 | [selector-type-case](https://stylelint.io/user-guide/rules/selector-type-case/) | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
-| selector-type-no-unknown | None | See [issue #112](https://github.com/racodond/sonar-css-plugin/issues/112) |
+| [selector-type-no-unknown](https://stylelint.io/user-guide/rules/selector-type-no-unknown/) | [Unknown type selectors should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aunknown-type-selector) | |
 | selector-max-empty-lines | None | |
 
 

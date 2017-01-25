@@ -17,31 +17,35 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.plugins.css.css;
+package org.sonar.css.checks.common;
 
 import org.junit.Test;
-import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.check.Rule;
-import org.sonar.css.checks.common.TodoTagCheck;
+import org.sonar.css.checks.CheckTestUtils;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
-import static org.fest.assertions.Assertions.assertThat;
+import java.io.File;
 
-public class CssRulesDefinitionTest {
+public class UnknownTypeSelectorCheckTest {
+
+  private UnknownTypeSelectorCheck check = new UnknownTypeSelectorCheck();
 
   @Test
-  public void test() {
-    CssRulesDefinition rulesDefinition = new CssRulesDefinition();
-    RulesDefinition.Context context = new RulesDefinition.Context();
-    rulesDefinition.define(context);
-    RulesDefinition.Repository repository = context.repository("css");
+  public void test_css() {
+    CssCheckVerifier.verifyCssFile(check, getTestFile("unknownTypeSelector.css"));
+  }
 
-    assertThat(repository.name()).isEqualTo("SonarQube");
-    assertThat(repository.language()).isEqualTo("css");
-    assertThat(repository.rules()).hasSize(77);
+  @Test
+  public void test_less() {
+    CssCheckVerifier.verifyLessFile(check, getTestFile("unknownTypeSelector.less"));
+  }
 
-    RulesDefinition.Rule todoRule = repository.rule(TodoTagCheck.class.getAnnotation(Rule.class).key());
-    assertThat(todoRule).isNotNull();
-    assertThat(todoRule.name()).isEqualTo(TodoTagCheck.class.getAnnotation(Rule.class).name());
+  @Test
+  public void test_scss() {
+    CssCheckVerifier.verifyScssFile(check, getTestFile("unknownTypeSelector.scss"));
+  }
+
+  private File getTestFile(String fileName) {
+    return CheckTestUtils.getCommonTestFile("unknown-type-selector/" + fileName);
   }
 
 }

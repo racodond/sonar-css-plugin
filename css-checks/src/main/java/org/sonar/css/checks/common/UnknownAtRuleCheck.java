@@ -31,8 +31,8 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 @Rule(
   key = "unknown-at-rules",
   name = "Unknown @-rules should be removed",
-  priority = Priority.MAJOR,
-  tags = {Tags.PITFALL})
+  priority = Priority.CRITICAL,
+  tags = {Tags.BUG})
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
 public class UnknownAtRuleCheck extends DoubleDispatchVisitorCheck {

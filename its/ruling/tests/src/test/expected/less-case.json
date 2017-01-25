@@ -92,6 +92,9 @@
 'project:custom/common/unknown-pseudo/unknownPseudo.less':[
 4,
 ],
+'project:custom/common/unknown-type-selector/unknownTypeSelector.less':[
+9,
+],
 'project:custom/less/experimentalFunctionUsage.less':[
 2,
 ],

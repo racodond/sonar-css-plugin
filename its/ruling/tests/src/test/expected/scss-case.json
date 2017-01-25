@@ -92,4 +92,7 @@
 'project:custom/common/unknown-pseudo/unknownPseudo.scss':[
 7,
 ],
+'project:custom/common/unknown-type-selector/unknownTypeSelector.scss':[
+5,
+],
 }

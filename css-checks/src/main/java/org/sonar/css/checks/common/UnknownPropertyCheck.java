@@ -32,8 +32,8 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 @Rule(
   key = "known-properties",
   name = "Unknown properties should be removed",
-  priority = Priority.MAJOR,
-  tags = {Tags.PITFALL})
+  priority = Priority.CRITICAL,
+  tags = {Tags.BUG})
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
 public class UnknownPropertyCheck extends DoubleDispatchVisitorCheck {

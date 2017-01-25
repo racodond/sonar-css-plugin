@@ -1,0 +1,35 @@
+<p> The list of supported HTML and SVG elements is growing quite large, and it's very easy to miss a typo.</p>
+<p> This rule checks each type selector to make sure that it is a known HTML or SVG element.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+blabla { /* Noncompliant: 'blabla' is not a known HTML or SVG element */
+  color: red;
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+span {
+  color: red;
+}
+</pre>
+
+<h2>List of Known HTML Elements</h2>
+<p>
+    Extracted from the <a href="https://html.spec.whatwg.org/multipage/index.html#toc-semantics" target="_blank">HTML
+    Living Standard</a>.
+</p>
+[[allHtmlElements]]
+
+<h2>List of Known SVG Elements</h2>
+<p>
+    Extracted from the <a href="https://www.w3.org/TR/SVG/eltindex.html" target="_blank">W3C SVG Specifications</a>.
+</p>
+[[allSvgElements]]
+
+<h2>stylelint Related Rules</h2>
+<ul>
+    <li><a href="https://stylelint.io/user-guide/rules/selector-type-no-unknown/" target="_blank">selector-type-no-unknown</a>
+    </li>
+</ul>

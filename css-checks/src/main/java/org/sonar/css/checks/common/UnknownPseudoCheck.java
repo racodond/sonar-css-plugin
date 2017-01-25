@@ -34,8 +34,8 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 @Rule(
   key = "unknown-pseudo",
   name = "Unknown pseudo-elements and pseudo-classes should be removed",
-  priority = Priority.MAJOR,
-  tags = {Tags.PITFALL})
+  priority = Priority.CRITICAL,
+  tags = {Tags.BUG})
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
 public class UnknownPseudoCheck extends DoubleDispatchVisitorCheck {
