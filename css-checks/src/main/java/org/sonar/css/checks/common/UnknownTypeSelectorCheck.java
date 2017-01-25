@@ -71,7 +71,7 @@ public class UnknownTypeSelectorCheck extends DoubleDispatchVisitorCheck {
     if (!tree.identifier().isInterpolated()
       && !KNOWN_HTML_TAGS.contains(tree.identifier().text().toLowerCase())
       && !KNOWN_SVG_TAGS.contains(tree.identifier().text().toLowerCase())
-      && !UNIVERSAL_SELECTOR.equals(tree.identifier().text().toLowerCase())) {
+      && !UNIVERSAL_SELECTOR.equalsIgnoreCase(tree.identifier().text())) {
       addPreciseIssue(
         tree.identifier(),
         "Remove this usage of the unknown \"" + tree.identifier().text() + "\" type selector.");

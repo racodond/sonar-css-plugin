@@ -46,7 +46,7 @@ public abstract class DimensionValidator implements ValueElementValidator {
   public boolean isValid(Tree tree) {
 
     if (tree instanceof DimensionTree) {
-      if (!units.contains(((DimensionTree) tree).unit().text())) {
+      if (!units.contains(((DimensionTree) tree).unit().text().toLowerCase())) {
         return false;
       }
       return isPositiveOnly() ? ((DimensionTree) tree).value().isPositive() : true;

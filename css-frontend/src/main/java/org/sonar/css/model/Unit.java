@@ -25,7 +25,7 @@ public class Unit {
 
   public static final ImmutableList<String> LENGTH_UNITS = ImmutableList.of("em", "ex", "ch", "rem", "vw", "vh", "vmin", "vmax", "cm", "mm", "in", "px", "pt", "pc");
   public static final ImmutableList<String> ANGLE_UNITS = ImmutableList.of("deg", "grad", "rad", "turn");
-  public static final ImmutableList<String> FREQUENCY_UNITS = ImmutableList.of("Hz", "kHz");
+  public static final ImmutableList<String> FREQUENCY_UNITS = ImmutableList.of("hz", "khz");
   public static final ImmutableList<String> RESOLUTION_UNITS = ImmutableList.of("dpi", "dpcm", "dppx");
   public static final ImmutableList<String> TIME_UNITS = ImmutableList.of("ms", "s");
 
