@@ -19,14 +19,14 @@
  */
 package org.sonar.css.model.property.validator.valueelement.dimension;
 
-import java.util.List;
-
 import org.sonar.css.model.function.standard.Calc;
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.valueelement.function.FunctionValidator;
+import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.DimensionTree;
 import org.sonar.plugins.css.api.tree.css.NumberTree;
-import org.sonar.plugins.css.api.tree.Tree;
+
+import java.util.List;
 
 public abstract class DimensionValidator implements ValueElementValidator {
 

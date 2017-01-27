@@ -19,19 +19,74 @@
  */
 package org.sonar.css.model.property.validator.property;
 
-import org.sonar.css.model.property.validator.HashMultiplierValidator;
 import org.sonar.css.model.property.validator.ValidatorFactory;
+import org.sonar.css.model.property.validator.ValueValidator;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.ValueCommaSeparatedListTree;
+import org.sonar.plugins.css.api.tree.css.ValueTree;
 
-public class FontFamilyValidator extends HashMultiplierValidator {
+import java.util.List;
 
-  public FontFamilyValidator() {
-    super(
-      ValidatorFactory.getAnyIdentifierValidator(),
-      ValidatorFactory.getStringValidator());
+public class FontFamilyValidator implements ValueValidator {
+
+  @Override
+  public boolean isValid(ValueTree tree) {
+
+    List<Tree> elements = tree.sanitizedValueElements();
+
+    if (elements.isEmpty()) {
+      return false;
+    }
+
+    if (elements.size() == 1) {
+      if (isValidSingleValue(elements.get(0))) {
+        return true;
+      } else if (elements.get(0).is(Tree.Kind.VALUE_COMMA_SEPARATED_LIST)) {
+        return isValidCommaSeparatedList((ValueCommaSeparatedListTree) elements.get(0));
+      } else {
+        return false;
+      }
+    }
+
+    if (elements.size() > 1) {
+      return onlyContainsIdentifiers(elements);
+    }
+
+    return false;
+
   }
 
   @Override
   public String getValidatorFormat() {
     return "[ <family-name> | <generic-family> ]#";
   }
+
+  private boolean onlyContainsIdentifiers(List<Tree> trees) {
+    for (Tree tree : trees) {
+      if (!ValidatorFactory.getAnyIdentifierValidator().isValid(tree)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private boolean isValidSingleValue(Tree tree) {
+    return ValidatorFactory.getAnyIdentifierValidator().isValid(tree) || ValidatorFactory.getStringValidator().isValid(tree);
+  }
+
+  private boolean isValidCommaSeparatedListElement(ValueTree tree) {
+    List<Tree> elements = tree.sanitizedValueElements();
+    return (elements.size() > 1 && onlyContainsIdentifiers(elements))
+      || (elements.size() == 1 && isValidSingleValue(elements.get(0)));
+  }
+
+  private boolean isValidCommaSeparatedList(ValueCommaSeparatedListTree list) {
+    for (ValueTree element : list.values()) {
+      if (!isValidCommaSeparatedListElement(element)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
 }

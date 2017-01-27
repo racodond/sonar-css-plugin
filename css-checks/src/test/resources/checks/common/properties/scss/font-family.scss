@@ -5,8 +5,23 @@
   font-family: "Arial";
   font-family: Helvetica;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue";
+  font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue';
   font-family: Helvetica, Arial, Helvetica, Arial;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial;
   font-family: 0; /* Noncompliant {Update the invalid value of property "font-family". Expected format: [<family-name> | <generic-family>] [, <family-name>| <generic-family>]*}! */
   font-family: 10%; /* Noncompliant */
+  font-family: Arial Helvetica;
+  font-family: Arial 10px; /* Noncompliant */
+  font-family: "Arial" "Helvetica"; /* Noncompliant */
+  font-family: "Arial", "Helvetica", 10px; /* Noncompliant */
+  font-family: "Arial", "Helvetica" "Arial"; /* Noncompliant */
+  font-family: "Arial", "Helvetica" !important;
+  font-family: "Arial" !important;
+  font-family: sans-serif !important;
+  font-family: MS Trebuchet;
+
+  font-family: #{$my-font};
+  font-family: #{$my-font}, #{$my-font};
+  font-family: #{$my-font}, "Arial";
+  font-family: abc#{$my-font}def, "Arial";
 }

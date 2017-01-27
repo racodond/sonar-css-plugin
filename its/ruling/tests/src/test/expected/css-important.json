@@ -56,6 +56,11 @@
 'project:custom/common/properties/css/filter.css':[
 21,
 ],
+'project:custom/common/properties/css/font-family.css':[
+18,
+19,
+20,
+],
 'project:custom/css/embeddedCss.html':[
 7,
 ],

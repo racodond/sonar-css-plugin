@@ -11,6 +11,11 @@
 'project:custom/common/properties/less/filter.less':[
 21,
 ],
+'project:custom/common/properties/less/font-family.less':[
+18,
+19,
+20,
+],
 'project:custom/less/experimentalFunctionUsage.less':[
 11,
 15,
