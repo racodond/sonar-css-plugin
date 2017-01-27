@@ -1,0 +1,24 @@
+<p>
+    The <code>font-family</code> and <code>font</code> properties accept a list of generic family names:
+    <code>serif</code>, <code>sans-serif</code>, <code>cursive</code>, <code>fantasy</code> and <code>monospace</code>.
+    If you wrap these generic family names in quotes, the browser will not interpret them as generic family names, but
+    will instead look for a font by that name (e.g. will look for a "sans-serif" font) -- which is almost never what you
+    want.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+font-family: 'Arial', 'sans-serif';
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+font-family: 'Arial', sans-serif;
+</pre>
+
+<h2>stylelint Related Rules</h2>
+<ul>
+    <li><a href="https://stylelint.io/user-guide/rules/font-family-name-quotes/"
+           target="_blank">font-family-name-quotes</a>
+    </li>
+</ul>

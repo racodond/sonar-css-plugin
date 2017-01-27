@@ -877,6 +877,9 @@
 'project:custom/common/properties/scss/zoom.scss':[
 6,
 ],
+'project:custom/common/quoted-generic-font-family-names/quotedGenericFontFamilyNames.scss':[
+5,
+],
 'project:custom/common/selectorNamingConvention/selectorNamingConventionScssPlaceholder.scss':[
 6,
 ],

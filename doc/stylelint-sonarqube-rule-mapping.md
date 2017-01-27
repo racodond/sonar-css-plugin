@@ -43,6 +43,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [Files should contain an empty new line at the end](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aempty-line-end-of-file) | [no-missing-end-of-source-newline](https://stylelint.io/user-guide/rules/no-missing-end-of-source-newline/) | |
 | [Files should not have too many lines](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Afile-too-many-lines) | None | |
 | [Font files inlining should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Ainlining-font-files) | None | |
+| [Generic family names should not be quoted](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aquoted-generic-family-names) | [font-family-name-quotes](https://stylelint.io/user-guide/rules/font-family-name-quotes/) | |
 | [Gradient definitions should be set for all vendors](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Agradients) | None | |
 | [ID selectors should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aid-selector-naming-convention) | [selector-id-pattern](https://stylelint.io/user-guide/rules/selector-id-pattern/) | |
 | [IDs in selectors should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aids) | [selector-no-id](https://stylelint.io/user-guide/rules/selector-no-id/) | |
@@ -149,7 +150,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 
 | stylelint Rule | SonarQube Related Rules | Comments |
 | -------------- |------------------------ | -------- |
-| font-family-name-quotes | None | Planned for SonarQube 3.1. See [issue #101](https://github.com/racodond/sonar-css-plugin/issues/101) |
+| font-family-name-quotes | [Generic family names should not be quoted](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aquoted-generic-family-names) | |
 | font-family-no-duplicate-names | None | Planned for SonarQube 3.1. See [issue #102](https://github.com/racodond/sonar-css-plugin/issues/102) |
 
 

@@ -1,0 +1,15 @@
+.mybox1 {
+  font-family: sans-serif;
+  font-family: 'sans-serif'; /* Noncompliant ![sc=16;ec=28;el=+0]! !{Unquote this generic font family name.}! */
+  font-family: "sans-serif"; /* Noncompliant ![sc=16;ec=28;el=+0]! !{Unquote this generic font family name.}! */
+  font-family: "Arial", "sans-serif";  /* Noncompliant ![sc=25;ec=37;el=+0]! !{Unquote this generic font family name.}! */
+  font-family: "Arial", "sans-serif", "monospace"; /* Noncompliant */ /* Noncompliant */
+}
+
+.mybox2 {
+  font: 10px sans-serif;
+  font: 10px 'sans-serif'; /* Noncompliant ![sc=14;ec=26;el=+0]! !{Unquote this generic font family name.}! */
+  font: 10px "sans-serif"; /* Noncompliant ![sc=14;ec=26;el=+0]! !{Unquote this generic font family name.}! */
+  font: 10px "Arial", "sans-serif";  /* Noncompliant ![sc=23;ec=35;el=+0]! !{Unquote this generic font family name.}! */
+  font: 10px "Arial", "sans-serif", "monospace"; /* Noncompliant */ /* Noncompliant */
+}

@@ -1002,6 +1002,9 @@
 'project:custom/common/properties/css/zoom.css':[
 6,
 ],
+'project:custom/common/quoted-generic-font-family-names/quotedGenericFontFamilyNames.css':[
+5,
+],
 'project:custom/common/selectorNamingConvention/selectorNamingConvention.css':[
 10,
 13,
