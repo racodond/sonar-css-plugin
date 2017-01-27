@@ -1,0 +1,96 @@
+/* Not compliant: width and border */
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0]! !{Check this potential box model size issue.}! */
+    border: 1px solid black;
+    width: 100px;
+}
+
+/* width and border with box-sizing */
+.mybox {
+    box-sizing: border-box;
+    border: 1px solid black;
+    width: 100px;
+}
+
+/* width and border-top */
+.mybox {
+    border-top: 1px solid black;
+    width: 100px;
+}
+
+/* Not compliant: height and padding */
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0]! !{Check this potential box model size issue.}! */
+    height: 100px;
+    padding: 10px;
+}
+
+/* height and border-top of none */
+.mybox {
+    border-top: none;
+    height: 100px;
+}
+
+/* Not compliant: 'border' and 'height' */
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0]! !{Check this potential box model size issue.}! */
+  border: 10px;
+  height: 100px;
+}
+
+/* Not compliant: 'border' and 'width' */
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0]! !{Check this potential box model size issue.}! */
+  border: 10px;
+  width: 100px;
+}
+
+/* Compliant: 'border' and 'width' but 'border' is zero*/
+.mybox {
+  border: 0px;
+  width: 100px;
+}
+
+/* Compliant: 'border' and 'width' but 'border' is zero*/
+.mybox {
+  border: 0px;
+  width: 100px;
+}
+
+/* Compliant: 'border' and 'width' but 'border' is zero*/
+.mybox {
+  border: 0%;
+  width: 100px;
+}
+
+/* Compliant: 'border' and 'width' but 'border' is zero*/
+.mybox {
+  border: 0;
+  width: 100px;
+}
+
+/* Compliant: 'border' and 'width' but 'border' is zero*/
+.mybox {
+  border: 0.0;
+  width: 100px;
+}
+
+/* Compliant: 'padding' and 'width' but 'padding' is zero*/
+.mybox {
+  padding: 0;
+  width: 100px;
+}
+
+/* Compliant: 'padding' and 'width' but 'padding' is zero*/
+.mybox {
+  padding: 0px 0px;
+  width: 100px;
+}
+
+/* Not compliant: 'padding' and 'width'*/
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0]! !{Check this potential box model size issue.}! */
+  padding: 0px 10px;
+  width: 100px;
+}
+
+/* Not compliant: 'border' and 'width'*/
+{ /* Noncompliant ![sc=1;ec=2;el=+0]! !{Check this potential box model size issue.}! */
+  border: 0px medium;
+  width: 100px;
+}

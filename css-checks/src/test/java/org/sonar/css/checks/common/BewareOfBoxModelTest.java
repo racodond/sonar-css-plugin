@@ -23,11 +23,24 @@ import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
+import java.io.File;
+
 public class BewareOfBoxModelTest {
 
+  private BewareOfBoxModelCheck check = new BewareOfBoxModelCheck();
+
   @Test
-  public void test() {
-    CssCheckVerifier.verifyCssFile(new BewareOfBoxModelCheck(), CheckTestUtils.getCommonTestFile("boxSizing.css"));
+  public void test_css() {
+    CssCheckVerifier.verifyCssFile(check, getTestFile("boxModel.css"));
+  }
+
+  @Test
+  public void test_scss() {
+    CssCheckVerifier.verifyScssFile(check, getTestFile("boxModel.scss"));
+  }
+
+  private File getTestFile(String fileName) {
+    return CheckTestUtils.getCommonTestFile("box-model/" + fileName);
   }
 
 }

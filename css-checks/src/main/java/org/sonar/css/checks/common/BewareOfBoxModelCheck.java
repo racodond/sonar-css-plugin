@@ -20,22 +20,21 @@
 package org.sonar.css.checks.common;
 
 import com.google.common.collect.ImmutableList;
+import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.css.checks.CheckUtils;
+import org.sonar.css.checks.Tags;
+import org.sonar.css.model.property.validator.ValidatorFactory;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.*;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
-
-import org.sonar.css.checks.CheckUtils;
-import org.sonar.check.Priority;
-import org.sonar.check.Rule;
-import org.sonar.css.checks.Tags;
-import org.sonar.css.model.property.validator.ValidatorFactory;
-import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.css.*;
-import org.sonar.plugins.css.api.visitors.SubscriptionVisitorCheck;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 @Rule(
   key = "box-model",
@@ -44,7 +43,7 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   tags = {Tags.PITFALL})
 @SqaleConstantRemediation("1h")
 @ActivatedByDefault
-public class BewareOfBoxModelCheck extends SubscriptionVisitorCheck {
+public class BewareOfBoxModelCheck extends DoubleDispatchVisitorCheck {
 
   private static final List<String> WIDTH_SIZING = ImmutableList.of(
     "border", "border-left", "border-right", "border-width", "border-left-width", "border-right-width", "padding", "padding-left", "padding-right");
@@ -58,22 +57,11 @@ public class BewareOfBoxModelCheck extends SubscriptionVisitorCheck {
   private static final List<String> BORDER_WIDTH = ImmutableList.of(
     "border", "border-left", "border-right", "border-top", "border-bottom", "border-top-width", "border-bottom-width", "border-left-width", "border-right-width");
 
-  private Set<Combinations> combinations;
-
   @Override
-  public List<Tree.Kind> nodesToVisit() {
-    return ImmutableList.of(
-      Tree.Kind.RULESET,
-      Tree.Kind.AT_RULE,
-      Tree.Kind.PROPERTY_DECLARATION);
-  }
+  public void visitRuleset(RulesetTree tree) {
+    Set<Combinations> combinations = EnumSet.noneOf(Combinations.class);
 
-  @Override
-  public void visitNode(Tree tree) {
-    if (tree.is(Tree.Kind.AT_RULE, Tree.Kind.RULESET)) {
-      combinations = EnumSet.noneOf(Combinations.class);
-    } else {
-      PropertyDeclarationTree propertyDeclarationTree = (PropertyDeclarationTree) tree;
+    for (PropertyDeclarationTree propertyDeclarationTree : tree.block().propertyDeclarations()) {
       PropertyTree propertyTree = propertyDeclarationTree.property();
       if (isBoxSizing(propertyTree)) {
         combinations.clear();
@@ -93,15 +81,13 @@ public class BewareOfBoxModelCheck extends SubscriptionVisitorCheck {
         }
       }
     }
-  }
 
-  @Override
-  public void leaveNode(Tree tree) {
-    if (tree.is(Tree.Kind.RULESET)
-      && (combinations.containsAll(Arrays.asList(Combinations.WIDTH_FOUND, Combinations.WIDTH_SIZING))
-        || combinations.containsAll(Arrays.asList(Combinations.HEIGHT_FOUND, Combinations.HEIGHT_SIZING)))) {
-      addPreciseIssue(CheckUtils.rulesetIssueLocation((RulesetTree) tree), "Check this potential box model size issue.");
+    if (combinations.containsAll(Arrays.asList(Combinations.WIDTH_FOUND, Combinations.WIDTH_SIZING))
+      || combinations.containsAll(Arrays.asList(Combinations.HEIGHT_FOUND, Combinations.HEIGHT_SIZING))) {
+      addPreciseIssue(CheckUtils.rulesetIssueLocation(tree), "Check this potential box model size issue.");
     }
+
+    super.visitRuleset(tree);
   }
 
   private boolean isWidthSizing(PropertyDeclarationTree tree) {

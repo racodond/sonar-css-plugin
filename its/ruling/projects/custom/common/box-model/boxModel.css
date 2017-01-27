@@ -1,15 +1,3 @@
-@font-face {
-    font-family: 'MyFontFamily';
-
-    /* First web font is missing query string */
-    src: url('myfont-webfont.eot') format('embedded-opentype'),
-        url('myfont-webfont.woff') format('woff'),
-        url('myfont-webfont.ttf')  format('truetype'),
-        url('myfont-webfont.svg#svgFontName') format('svg');
-}
-h1 {
-  color:red;
-}
 /* Not compliant: width and border */
 .mybox { /* Noncompliant ![sc=1;ec=7;el=+0]! !{Check this potential box model size issue.}! */
     border: 1px solid black;
