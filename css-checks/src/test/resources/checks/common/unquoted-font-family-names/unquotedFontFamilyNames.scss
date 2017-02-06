@@ -1,0 +1,11 @@
+.mybox1 {
+  font-family: inherit;
+  font-family: sans-serif;
+  font-family: 'Arial';
+  font-family: "MS Trebuchet";
+  font-family: Arial; /* Noncompliant ![sc=16;ec=21;el=+0]! !{Quote this font family name.}! */
+  font-family: MS Trebuchet; /* Noncompliant */ /* Noncompliant */
+  font-family: "Arial", Arial; /* Noncompliant ![sc=25;ec=30;el=+0]! !{Quote this font family name.}! */
+
+  font-family: "#{$abc}Arial", A#{$abc}rial; /* Noncompliant ![sc=32;ec=44;el=+0]! !{Quote this font family name.}! */
+}

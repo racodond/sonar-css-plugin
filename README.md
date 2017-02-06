@@ -19,9 +19,9 @@ and:
 * Validates your CSS code
 * Checks for duplicated code
 * Checks various guidelines to find out code smells and potential bugs through more than:
-  * [70 checks](http://sonarqube.racodond.com/coding_rules#languages=css%2Ccss) on CSS code
-  * [80 checks](http://sonarqube.racodond.com/coding_rules#languages=scss%2Ccss) on SCSS code
-  * [70 checks](http://sonarqube.racodond.com/coding_rules#languages=less%2Ccss) on Less code
+  * [80 checks](http://sonarqube.racodond.com/coding_rules#languages=css%2Ccss) on CSS code
+  * [90 checks](http://sonarqube.racodond.com/coding_rules#languages=scss%2Ccss) on SCSS code
+  * [80 checks](http://sonarqube.racodond.com/coding_rules#languages=less%2Ccss) on Less code
 * Provides the ability to write your own checks
 
 

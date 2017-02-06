@@ -19,7 +19,10 @@
  */
 package org.sonar.css.model.property;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import org.sonar.css.model.StandardCssObject;
+import org.sonar.css.model.property.validator.Validator;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,10 +30,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.sonar.css.model.StandardCssObject;
-import org.sonar.css.model.property.validator.Validator;
-
 public class StandardProperty extends StandardCssObject {
+
+  public static final List<String> COMMON_VALUES = ImmutableList.of("inherit", "initial", "unset");
 
   private final List<Validator> validators;
   private final Set<StandardProperty> shorthandFor;

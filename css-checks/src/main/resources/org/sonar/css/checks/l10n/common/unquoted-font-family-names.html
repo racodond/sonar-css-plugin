@@ -1,0 +1,33 @@
+<p>It is not always necessary to wrap font family names around quotes but it is safer.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+font-family: Arial, MS Trebuchet, sans-serif;
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+font-family: 'Arial', 'MS Trebuchet', sans-serif;
+</pre>
+
+<h2>Exceptions</h2>
+<p>
+    Generic font family names (<code>serif</code>, <code>sans-serif</code>, <code>cursive</code>, <code>fantasy</code>
+    and <code>monospace</code>) must not be quoted.
+</p>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://css-tricks.com/almanac/properties/f/font-family/" target="_blank">CSS Tricks - font-family</a>
+    </li>
+    <li><a href="https://mathiasbynens.be/notes/unquoted-font-family" target="_blank">Unquoted font family names in
+        CSS</a>
+    </li>
+</ul>
+
+<h2>stylelint Related Rules</h2>
+<ul>
+    <li><a href="https://stylelint.io/user-guide/rules/font-family-name-quotes/"
+           target="_blank">font-family-name-quotes</a>
+    </li>
+</ul>

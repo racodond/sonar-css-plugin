@@ -19,7 +19,6 @@
  */
 package org.sonar.css.checks.common;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.Tags;
@@ -46,19 +45,12 @@ import java.util.List;
 @ActivatedByDefault
 public class QuotedGenericFontFamilyNamesCheck extends DoubleDispatchVisitorCheck {
 
-  private static final List<String> GENERIC_FONT_FAMILY_NAMES = ImmutableList.of(
-    "serif",
-    "sans-serif",
-    "cursive",
-    "fantasy",
-    "monospace");
-
   @Override
   public void visitPropertyDeclaration(PropertyDeclarationTree tree) {
     if (tree.property().standardProperty() instanceof FontFamily
       || tree.property().standardProperty() instanceof Font) {
       getAllStrings(tree.value()).stream()
-        .filter(t -> GENERIC_FONT_FAMILY_NAMES.contains(t.actualText().toLowerCase()))
+        .filter(t -> FontFamily.GENERIC_FAMILY_NAMES.contains(t.actualText().toLowerCase()))
         .forEach(t -> addPreciseIssue(t, "Unquote this generic font family name."));
     }
     super.visitPropertyDeclaration(tree);

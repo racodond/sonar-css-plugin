@@ -22,6 +22,7 @@ package org.sonar.css.tree.impl.css;
 import com.google.common.collect.Iterators;
 import org.sonar.css.model.function.standard.Expression;
 import org.sonar.css.model.function.standard.Var;
+import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.Validator;
 import org.sonar.css.model.property.validator.ValueElementValidator;
 import org.sonar.css.model.property.validator.ValueValidator;
@@ -130,7 +131,7 @@ public class PropertyDeclarationTreeImpl extends TreeImpl implements PropertyDec
       }
     }
 
-    return new IdentifierValidator("inherit", "initial", "unset").isValid(valueElements.get(0))
+    return new IdentifierValidator(StandardProperty.COMMON_VALUES).isValid(valueElements.get(0))
       || new FunctionValidator(Var.class, Expression.class).isValid(valueElements.get(0));
   }
 

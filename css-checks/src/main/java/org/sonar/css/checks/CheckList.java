@@ -178,6 +178,7 @@ public final class CheckList {
       UnknownPropertyCheck.class,
       UnknownPseudoCheck.class,
       UnknownTypeSelectorCheck.class,
+      UnquotedFontFamilyNamesCheck.class,
       UseShorthandPropertyCheck.class,
       ValidatePropertyValueCheck.class,
       VendorPrefixWithStandardCheck.class);
@@ -248,6 +249,7 @@ public final class CheckList {
       UnknownPropertyCheck.class,
       UnknownPseudoCheck.class,
       UnknownTypeSelectorCheck.class,
+      UnquotedFontFamilyNamesCheck.class,
       UseShorthandPropertyCheck.class,
       ValidatePropertyValueCheck.class,
       VendorPrefixWithStandardCheck.class,

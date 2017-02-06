@@ -17,24 +17,35 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.model.property.standard;
+package org.sonar.css.checks.common;
 
-import com.google.common.collect.ImmutableList;
-import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.property.FontFamilyValidator;
+import org.junit.Test;
+import org.sonar.css.checks.CheckTestUtils;
+import org.sonar.css.checks.verifier.CssCheckVerifier;
 
-import java.util.List;
+import java.io.File;
 
-public class FontFamily extends StandardProperty {
+public class UnquotedFontFamilyNamesCheckTest {
 
-  public static final List<String> GENERIC_FAMILY_NAMES = ImmutableList.of("serif", "sans-serif", "cursive", "fantasy", "monospace");
+  private UnquotedFontFamilyNamesCheck check = new UnquotedFontFamilyNamesCheck();
 
-  public FontFamily() {
-    addLinks(
-      "https://www.w3.org/TR/CSS22/fonts.html#propdef-font-family",
-      "https://drafts.csswg.org/css-fonts-3/#propdef-font-family");
+  @Test
+  public void test_css() {
+    CssCheckVerifier.verifyCssFile(check, getTestFile("unquotedFontFamilyNames.css"));
+  }
 
-    addValidators(new FontFamilyValidator());
+  @Test
+  public void test_less() {
+    CssCheckVerifier.verifyLessFile(check, getTestFile("unquotedFontFamilyNames.less"));
+  }
+
+  @Test
+  public void test_scss() {
+    CssCheckVerifier.verifyScssFile(check, getTestFile("unquotedFontFamilyNames.scss"));
+  }
+
+  private File getTestFile(String fileName) {
+    return CheckTestUtils.getCommonTestFile("unquoted-font-family-names/" + fileName);
   }
 
 }
