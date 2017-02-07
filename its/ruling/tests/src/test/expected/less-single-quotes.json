@@ -1,4 +1,7 @@
 {
+'project:custom/common/font-family-not-ending-with-generic-font-family/fontFamilyNotEndingWithGenericFontFamily.less':[
+6,
+],
 'project:custom/common/properties/less/clip-path.less':[
 4,
 ],
@@ -109,6 +112,10 @@
 ],
 'project:custom/common/single-quotes/singleQuotes.less':[
 3,
+],
+'project:custom/common/unquoted-font-family-names/unquotedFontFamilyNames.less':[
+5,
+8,
 ],
 'project:custom/common/validate-property-value/validatePropertyValue.less':[
 13,

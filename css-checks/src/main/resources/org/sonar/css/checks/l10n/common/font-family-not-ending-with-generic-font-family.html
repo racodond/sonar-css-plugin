@@ -1,0 +1,32 @@
+<p>
+    A generic font family should always be defined at the end of a <code>font-family</code> list. Because there is no
+    guarantee that a specific font is installed on the computer or can be downloaded using a <code>@font-face</code>
+    at-rule. The generic family lets the browser select an acceptable fallback font when needed.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+font-family: 'Arial', 'MS Trebuchet';
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+font-family: 'Arial', 'MS Trebuchet', sans-serif;
+</pre>
+
+<h2>Note</h2>
+<p>
+    Obviously, this check does not apply to <code>font-family</code> descriptors in <code>@font-face</code> at-rules.
+    For instance, the following piece of code does not raise any issue:
+</p>
+<pre>
+@font-face {
+  font-family: 'My font family';
+  src: url('http://xxx');
+}
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://developer.mozilla.org/en/docs/Web/CSS/font-family" target="_blank">MDN font-family</a></li>
+</ul>

@@ -1,4 +1,7 @@
 {
+'project:custom/common/font-family-not-ending-with-generic-font-family/fontFamilyNotEndingWithGenericFontFamily.scss':[
+6,
+],
 'project:custom/common/properties/scss/clip-path.scss':[
 4,
 ],
@@ -103,6 +106,11 @@
 'project:custom/common/single-quotes/singleQuotes.scss':[
 3,
 8,
+],
+'project:custom/common/unquoted-font-family-names/unquotedFontFamilyNames.scss':[
+5,
+8,
+10,
 ],
 'project:custom/scss/branchSameImplementation.scss':[
 2,

@@ -1,0 +1,20 @@
+.mybox1 {
+  font-family: inherit;
+  font-family: sans-serif;
+  font-family: 'Arial', sans-serif;
+  font-family: 'Arial', sans-serif !important;
+  font-family: "MS Trebuchet", sans-serif;
+  font-family: MS Trebuchet, sans-serif;
+  font-family: unquote('abc');
+  font-family: Arial; /* Noncompliant ![sc=16;ec=21;el=+0]! !{Add a generic font family at the end of the declaration.}! */
+  font-family: MS Trebuchet; /* Noncompliant ![sc=16;ec=28;el=+0]! !{Add a generic font family at the end of the declaration.}! */
+  font-family: Arial, 'Arial'; /* Noncompliant ![sc=16;ec=30;el=+0]! !{Add a generic font family at the end of the declaration.}! */
+  font-family: Arial, 'Arial', 'sans-serif'; /* Noncompliant ![sc=16;ec=44;el=+0]! !{Add a generic font family at the end of the declaration.}! */
+  font-family: Arial, #{$abc};
+  font-family: Arial, $abc;
+}
+
+@font-face {
+  src: url('http://xxx');
+  font-family: 'MyFont';
+}

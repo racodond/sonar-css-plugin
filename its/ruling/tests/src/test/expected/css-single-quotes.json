@@ -22,6 +22,9 @@
 85,
 88,
 ],
+'project:custom/common/font-family-not-ending-with-generic-font-family/fontFamilyNotEndingWithGenericFontFamily.css':[
+6,
+],
 'project:custom/common/known-properties/knownProperties.css':[
 38,
 68,
@@ -151,6 +154,10 @@
 27,
 37,
 38,
+],
+'project:custom/common/unquoted-font-family-names/unquotedFontFamilyNames.css':[
+5,
+8,
 ],
 'project:custom/css/custom/forbiddenProperties.css':[
 8,

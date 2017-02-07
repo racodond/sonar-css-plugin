@@ -42,6 +42,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [Experimental selector combinators should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aexperimental-selector-combinator-usage) | None | |
 | [Files should contain an empty new line at the end](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aempty-line-end-of-file) | [no-missing-end-of-source-newline](https://stylelint.io/user-guide/rules/no-missing-end-of-source-newline/) | |
 | [Files should not have too many lines](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Afile-too-many-lines) | None | |
+| [font-family properties should end with a generic font family](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Afont-family-not-ending-with-generic-font-family) | None | |
 | [Font family names should be quoted](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aunquoted-font-family-names) | [font-family-name-quotes](https://stylelint.io/user-guide/rules/font-family-name-quotes/) | |
 | [Font files inlining should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Ainlining-font-files) | None | |
 | [Generic family names should not be quoted](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aquoted-generic-family-names) | [font-family-name-quotes](https://stylelint.io/user-guide/rules/font-family-name-quotes/) | |
