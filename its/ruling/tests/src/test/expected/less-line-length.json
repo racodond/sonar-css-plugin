@@ -10,6 +10,9 @@
 'project:custom/common/do-not-use-shorthand-properties/doNotUseShorthandProperties.less':[
 2,
 ],
+'project:custom/common/duplicated-font-families/duplicatedFontFamilies.less':[
+7,
+],
 'project:custom/common/duplicated-properties/duplicatedProperties.less':[
 2,
 7,

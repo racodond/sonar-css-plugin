@@ -1,4 +1,16 @@
 {
+'project:custom/common/duplicated-font-families/duplicatedFontFamilies.less':[
+4,
+5,
+7,
+8,
+12,
+13,
+14,
+18,
+19,
+20,
+],
 'project:custom/common/font-family-not-ending-with-generic-font-family/fontFamilyNotEndingWithGenericFontFamily.less':[
 9,
 10,
@@ -24,6 +36,8 @@
 21,
 25,
 26,
+27,
+29,
 ],
 'project:custom/common/quoted-generic-font-family-names/quotedGenericFontFamilyNames.less':[
 3,

@@ -47,7 +47,7 @@ public interface Tree {
 
   void setParent(Tree parent);
 
-  boolean isChildOrGrandChildOf(Class<? extends Tree> clazz);
+  boolean hasAncestor(Class<? extends Tree> clazz);
 
   boolean isLeaf();
 

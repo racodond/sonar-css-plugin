@@ -65,6 +65,17 @@
 8,
 9,
 ],
+'project:custom/common/duplicated-font-families/duplicatedFontFamilies.less':[
+7,
+8,
+9,
+10,
+11,
+12,
+13,
+15,
+20,
+],
 'project:custom/common/duplicated-properties/duplicatedProperties.less':[
 2,
 7,
@@ -740,6 +751,7 @@
 15,
 16,
 17,
+29,
 ],
 'project:custom/common/properties/less/font-language-override.less':[
 6,

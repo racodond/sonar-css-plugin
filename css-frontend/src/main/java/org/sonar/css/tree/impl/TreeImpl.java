@@ -41,12 +41,12 @@ public abstract class TreeImpl implements Tree {
   }
 
   @Override
-  public boolean isChildOrGrandChildOf(Class<? extends Tree> clazz) {
+  public boolean hasAncestor(Class<? extends Tree> clazz) {
     while (this.parent() != null) {
       if (clazz.isAssignableFrom(this.parent().getClass())) {
         return true;
       } else {
-        return this.parent().isChildOrGrandChildOf(clazz);
+        return this.parent().hasAncestor(clazz);
       }
     }
     return false;

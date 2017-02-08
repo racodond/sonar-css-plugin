@@ -43,7 +43,7 @@ public class UnknownPropertyCheck extends DoubleDispatchVisitorCheck {
     if (tree.standardProperty() instanceof UnknownProperty
       && tree.property().isValidable()
       && !tree.isScssNested()
-      && !tree.isChildOrGrandChildOf(ScssNestedPropertiesDeclarationTree.class)) {
+      && !tree.hasAncestor(ScssNestedPropertiesDeclarationTree.class)) {
       addPreciseIssue(tree, "Remove this usage of the unknown \"" + tree.standardProperty().getName() + "\" property.");
     }
     super.visitProperty(tree);

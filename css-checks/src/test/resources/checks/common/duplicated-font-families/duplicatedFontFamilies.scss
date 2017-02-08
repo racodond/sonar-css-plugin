@@ -1,0 +1,21 @@
+.mybox {
+  font-family: inherit;
+  font-family: sans-serif;
+  font-family: Arial;
+  font-family: "Arial";
+  font-family: 'Arial', 'MS Trebuchet', sans-serif !important;
+  font-family: 'Arial' , 'Arial' !important; /* Noncompliant ![sc=16;ec=23;el=+0;secondary=+0]! !{Remove this duplicated font family.}! */
+  font-family: Arial , Arial !important; /* Noncompliant */
+  font-family: 'Arial', 'Arial', sans-serif; /* Noncompliant */
+  font-family: 'Arial', "Arial", sans-serif; /* Noncompliant */
+  font-family: 'Arial', Arial, sans-serif; /* Noncompliant */
+  font-family: 'MS Trebuchet', MS Trebuchet; /* Noncompliant */
+  font-family: 'MS Trebuchet', Arial, MS Trebuchet; /* Noncompliant */
+  font-family: 'MS  Trebuchet', MS Trebuchet;
+  font-family: MS Trebuchet, MS Trebuchet, sans-serif; /* Noncompliant */
+  font-family: MS Trebuchet, "blabla" MS Trebuchet, sans-serif;
+
+  font-family: $abc "Arial", Arial;
+  font-family: $abc Arial, Arial;
+  font-family: $abc Arial, Arial, Arial; /* Noncompliant */
+}

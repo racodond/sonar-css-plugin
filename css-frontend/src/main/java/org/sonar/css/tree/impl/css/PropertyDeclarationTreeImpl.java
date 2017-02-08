@@ -166,7 +166,7 @@ public class PropertyDeclarationTreeImpl extends TreeImpl implements PropertyDec
     return false;
   }
 
-  private boolean isLessElement(Tree tree) {
+  private static boolean isLessElement(Tree tree) {
     return tree instanceof LessVariableTree
       || (tree instanceof IdentifierTree && ((IdentifierTree) tree).isLessInterpolated())
       || tree instanceof LessEscapingTree
@@ -174,11 +174,15 @@ public class PropertyDeclarationTreeImpl extends TreeImpl implements PropertyDec
       || tree instanceof LessOperatorTree;
   }
 
-  private boolean isScssElement(Tree tree) {
+  private static boolean isScssElement(Tree tree) {
     return tree instanceof ScssVariableTree
       || (tree instanceof IdentifierTree && ((IdentifierTree) tree).isScssInterpolated())
       || tree instanceof FunctionTree
       || tree instanceof ScssOperatorTree;
+  }
+
+  public static boolean isScssOrLessElement(Tree tree) {
+    return isScssElement(tree) || isLessElement(tree);
   }
 
 }

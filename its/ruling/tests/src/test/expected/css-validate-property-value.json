@@ -13,6 +13,9 @@
 16,
 17,
 ],
+'project:custom/common/duplicated-font-families/duplicatedFontFamilies.css':[
+16,
+],
 'project:custom/common/experimentalIdentifierUsage.css':[
 4,
 ],
@@ -613,6 +616,7 @@
 15,
 16,
 17,
+22,
 ],
 'project:custom/common/properties/css/font-language-override.css':[
 6,

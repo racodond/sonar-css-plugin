@@ -1,4 +1,10 @@
 {
+'project:custom/common/duplicated-font-families/duplicatedFontFamilies.scss':[
+5,
+10,
+16,
+18,
+],
 'project:custom/common/font-family-not-ending-with-generic-font-family/fontFamilyNotEndingWithGenericFontFamily.scss':[
 6,
 ],
@@ -25,6 +31,7 @@
 19,
 25,
 26,
+27,
 ],
 'project:custom/common/properties/scss/font-language-override.scss':[
 4,

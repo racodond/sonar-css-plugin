@@ -1,0 +1,30 @@
+<p>
+    Duplicated font family names in a <code>font-family</code> property value are either:
+</p>
+<ul>
+    <li>Useless and the duplicated font family names can be safely removed</li>
+    <li>
+        Or it is the result of a bad copy/paste and the duplicated font family names should be replaced with the
+        intended ones
+    </li>
+</ul>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+.mybox {
+  font-family: 'Arial', 'MS Trebuchet', 'Arial', sans-serif;
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+.mybox {
+  font-family: 'Arial', 'MS Trebuchet', sans-serif;
+}
+</pre>
+
+<h2>stylelint Related Rules</h2>
+<ul>
+    <li><a href="https://stylelint.io/user-guide/rules/font-family-no-duplicate-names/" target="_blank">font-family-no-duplicate-names</a>
+    </li>
+</ul>

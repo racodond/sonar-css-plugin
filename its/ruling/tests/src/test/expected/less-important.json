@@ -1,4 +1,9 @@
 {
+'project:custom/common/duplicated-font-families/duplicatedFontFamilies.less':[
+6,
+7,
+8,
+],
 'project:custom/common/font-family-not-ending-with-generic-font-family/fontFamilyNotEndingWithGenericFontFamily.less':[
 5,
 ],
@@ -18,6 +23,7 @@
 18,
 19,
 20,
+29,
 ],
 'project:custom/less/experimentalFunctionUsage.less':[
 11,

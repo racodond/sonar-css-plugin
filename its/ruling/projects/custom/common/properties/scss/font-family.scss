@@ -24,4 +24,7 @@
   font-family: #{$my-font}, #{$my-font};
   font-family: #{$my-font}, "Arial";
   font-family: abc#{$my-font}def, "Arial";
+  font-family: $my-font, "Arial";
+
+  font-family: !important; /* Noncompliant */
 }

@@ -19,4 +19,5 @@
   font-family: "Arial" !important;
   font-family: sans-serif !important;
   font-family: MS Trebuchet;
+  font-family: !important; /* Noncompliant */
 }
