@@ -32,7 +32,7 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 @Rule(
   key = "important-position",
-  name = "\"!important\" annotation should be placed at the end of the declaration",
+  name = "\"!important\" flag should be placed at the end of the declaration",
   priority = Priority.CRITICAL,
   tags = {Tags.BUG})
 @ActivatedByDefault
@@ -46,7 +46,7 @@ public class ImportantPositionCheck extends DoubleDispatchVisitorCheck {
         for (int j = i + 1; j < tree.valueElements().size(); j++) {
           if (!(tree.valueElements().get(j) instanceof ScssDefaultFlagTree)
             && !(tree.valueElements().get(j) instanceof ScssGlobalFlagTree)) {
-            addPreciseIssue(tree.valueElements().get(i), "Move the \"!important\" annotation to the end of the declaration.");
+            addPreciseIssue(tree.valueElements().get(i), "Move the \"!important\" flag to the end of the declaration.");
             break;
           }
         }

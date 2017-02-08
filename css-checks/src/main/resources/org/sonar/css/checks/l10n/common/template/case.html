@@ -62,6 +62,7 @@ a:hover {}
 </pre>
 
 <h2>Exceptions</h2>
+[begin-less]
 <p>
     Less interpolated properties are not checked for lowercase. For instance, the following piece of code does not raise
     any issue:
@@ -71,7 +72,9 @@ a:hover {}
   @{BG}-color: green;
 }
 </pre>
+[end-less]
 
+[begin-scss]
 <p>
     SCSS interpolated properties are not checked for lowercase. For instance, the following piece of code does not raise
     any issue:
@@ -81,6 +84,7 @@ a:hover {}
   #{$BG}-color: green;
 }
 </pre>
+[end-scss]
 
 <p>
     The following functions can be either written in lowercase or as follow:

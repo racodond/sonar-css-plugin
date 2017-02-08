@@ -1,5 +1,5 @@
 <p>
-    The <code>!important</code> flag must be placed at the end of the line, immediately before the semicolon,
+    The <code>!important</code> flag must be placed at the end of the declaration, immediately before the semicolon,
     otherwise it will not be taken into account by the browser.
 </p>
 
@@ -19,12 +19,14 @@
 }
 </pre>
 
+[begin-scss]
 <h2>Exceptions</h2>
 <p>
-    For SCSS, the <code>!default</code> and <code>!global</code> flags are allowed after the <code>!important</code>
+    <code>!default</code> and <code>!global</code> flags are allowed after the <code>!important</code>
     flag. The following piece of code does not raise any issue:
 </p>
 <pre>
 $var1: 10px !important !global;
 $var2: 10px !important !default;
 </pre>
+[end-scss]

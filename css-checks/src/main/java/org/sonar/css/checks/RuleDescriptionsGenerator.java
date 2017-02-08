@@ -137,10 +137,10 @@ public class RuleDescriptionsGenerator {
     .put("[[shorthandProperties]]", generateShorthandPropertiesHtmlTable())
     .build();
 
-  public void generateHtmlRuleDescription(String templatePath, String outputPath) throws IOException {
+  public void generateHtmlRuleDescription(String templatePath, String outputPath, String language) throws IOException {
     try (OutputStream fileOutputStream = new FileOutputStream(outputPath)) {
       Writer writer = new BufferedWriter(new OutputStreamWriter(fileOutputStream, UTF_8));
-      writer.write(replaceTags(FileUtils.readFileToString(new File(templatePath), UTF_8)));
+      writer.write(processTemplate(FileUtils.readFileToString(new File(templatePath), UTF_8), language));
       writer.flush();
       writer.close();
     } catch (IOException e) {
@@ -361,6 +361,13 @@ public class RuleDescriptionsGenerator {
     return html.toString();
   }
 
+  private String processTemplate(String rawDescription, String language) {
+    String description = rawDescription;
+    description = replaceTags(description);
+    description = removeOtherLanguagesSpecificDetails(description, language);
+    return description;
+  }
+
   private String replaceTags(String rawDescription) {
     String description = rawDescription;
     for (Map.Entry<String, String> tag : tags.entrySet()) {
@@ -377,6 +384,25 @@ public class RuleDescriptionsGenerator {
         "<a target=\"_blank\" href=\"" + link.getValue() + "\">" + StringEscapeUtils.escapeHtml(link.getKey()) + "</a>");
     }
     return validator;
+  }
+
+  private String removeOtherLanguagesSpecificDetails(String rawDescription, String language) {
+    String description = rawDescription;
+    if ("css".equals(language)) {
+      description = description.replaceAll("(?s)\\[begin-scss].*?\\[end-scss]", "");
+      description = description.replaceAll("(?s)\\[begin-less].*?\\[end-less]", "");
+    } else if ("scss".equals(language)) {
+      description = description.replaceAll("(?s)\\[begin-less].*?\\[end-less]", "");
+      description = description.replaceAll("\\[begin-scss]", "");
+      description = description.replaceAll("\\[end-scss]", "");
+    } else if ("less".equals(language)) {
+      description = description.replaceAll("(?s)\\[begin-scss].*?\\[end-scss]", "");
+      description = description.replaceAll("\\[begin-less]", "");
+      description = description.replaceAll("\\[end-less]", "");
+    } else {
+      throw new IllegalStateException("Cannot remove other languages specific details. Unknown language: " + language);
+    }
+    return description;
   }
 
 }

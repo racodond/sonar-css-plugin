@@ -4,7 +4,8 @@
 </p>
 
 <p>
-  This rule applies to all statement blocks (rulesets, @-rules, mixins, SCSS nested properties, etc.).
+    This rule applies to all statement blocks (rulesets, @-rules,[begin-less] mixins,[end-less][begin-scss] mixins,
+    nested properties,[end-scss] etc.).
 </p>
 
 <h2>Noncompliant Code Example</h2>
@@ -69,6 +70,7 @@
 }
 </pre>
 
+[begin-less]
 <h2>Exceptions</h2>
 <p>
     Less interpolated properties are not taken into account. For instance, the following piece of code does not raise an
@@ -81,9 +83,13 @@
   @{bar}: red;
 }
 </pre>
+[end-less]
+
+[begin-scss]
+<h2>Exceptions</h2>
 <p>
-  SCSS interpolated properties are not taken into account. For instance, the following piece of code does not raise an
-  issue:
+    SCSS interpolated properties are not taken into account. For instance, the following piece of code does not raise an
+    issue:
 </p>
 <pre>
 .mybox {
@@ -92,8 +98,10 @@
   #{$bar}: red;
 }
 </pre>
+[end-scss]
 
 <h2>stylelint Related Rules</h2>
 <ul>
-  <li><a href="https://stylelint.io/user-guide/rules/declaration-block-properties-order/" target="_blank">declaration-block-properties-order</a></li>
+    <li><a href="https://stylelint.io/user-guide/rules/declaration-block-properties-order/" target="_blank">declaration-block-properties-order</a>
+    </li>
 </ul>

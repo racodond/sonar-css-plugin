@@ -29,7 +29,7 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 @Rule(
   key = "important",
-  name = "\"!important\" annotation should not be used",
+  name = "\"!important\" flag should not be used",
   priority = Priority.MAJOR,
   tags = {Tags.PITFALL, Tags.DESIGN})
 @SqaleConstantRemediation("1h")
@@ -38,7 +38,7 @@ public class ImportantUsageCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitImportant(ImportantFlagTree tree) {
-    addPreciseIssue(tree, "Remove this usage of the \"!important\" annotation.");
+    addPreciseIssue(tree, "Remove this usage of the \"!important\" flag.");
     super.visitImportant(tree);
   }
 }

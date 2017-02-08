@@ -1,11 +1,11 @@
 .mybox {
   color: red;
-  color: red !important; /* Noncompliant ![sc=14;ec=24;el=+0]! !{Remove this usage of the "!important" annotation.}! */
-  color: red ! important; /* Noncompliant ![sc=14;ec=25;el=+0]! !{Remove this usage of the "!important" annotation.}! */
-  color: red !  important ; /* Noncompliant ![sc=14;ec=26;el=+0]! !{Remove this usage of the "!important" annotation.}! */
-  color: red !IMPORTANT; /* Noncompliant ![sc=14;ec=24;el=+0]! !{Remove this usage of the "!important" annotation.}! */
-  color: red ! IMPORTANT; /* Noncompliant ![sc=14;ec=25;el=+0]! !{Remove this usage of the "!important" annotation.}! */
-  color: red !  IMPORTANT ; /* Noncompliant ![sc=14;ec=26;el=+0]! !{Remove this usage of the "!important" annotation.}! */
-  color: red !Important; /* Noncompliant ![sc=14;ec=24;el=+0]! !{Remove this usage of the "!important" annotation.}! */
-  color: red !ImporTant; /* Noncompliant ![sc=14;ec=24;el=+0]! !{Remove this usage of the "!important" annotation.}! */
+  color: red !important; /* Noncompliant ![sc=14;ec=24;el=+0]! !{Remove this usage of the "!important" flag.}! */
+  color: red ! important; /* Noncompliant ![sc=14;ec=25;el=+0]! !{Remove this usage of the "!important" flag.}! */
+  color: red !  important ; /* Noncompliant ![sc=14;ec=26;el=+0]! !{Remove this usage of the "!important" flag.}! */
+  color: red !IMPORTANT; /* Noncompliant ![sc=14;ec=24;el=+0]! !{Remove this usage of the "!important" flag.}! */
+  color: red ! IMPORTANT; /* Noncompliant ![sc=14;ec=25;el=+0]! !{Remove this usage of the "!important" flag.}! */
+  color: red !  IMPORTANT ; /* Noncompliant ![sc=14;ec=26;el=+0]! !{Remove this usage of the "!important" flag.}! */
+  color: red !Important; /* Noncompliant ![sc=14;ec=24;el=+0]! !{Remove this usage of the "!important" flag.}! */
+  color: red !ImporTant; /* Noncompliant ![sc=14;ec=24;el=+0]! !{Remove this usage of the "!important" flag.}! */
 }

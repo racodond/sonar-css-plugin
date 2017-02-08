@@ -15,6 +15,7 @@
     documentation</a> for detailed regular expression syntax.
 </p>
 
+[begin-less]
 <h2>Exceptions</h2>
 <p>
     Less interpolated properties are not checked against this rule. For instance, the following piece of code does not
@@ -25,7 +26,10 @@
   foo-@{animation}-bar: green;
 }
 </pre>
+[end-less]
 
+[begin-scss]
+<h2>Exceptions</h2>
 <p>
     SCSS interpolated properties are not checked against this rule. For instance, the following piece of code does not
     raise an issue when the regular expression is set to <code>(?i).*animation.*</code>:
@@ -35,6 +39,7 @@
   foo-#{$animation}-bar: green;
 }
 </pre>
+[end-scss]
 
 <h2>stylelint Related Rules</h2>
 <ul>

@@ -19,10 +19,10 @@
  */
 package org.sonar.css.checks;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import java.io.IOException;
-
-import org.apache.commons.io.FileUtils;
 
 public class GenerateRuleDescriptionsBatch {
 
@@ -60,14 +60,12 @@ public class GenerateRuleDescriptionsBatch {
       throw new IllegalStateException("Cannot create directory " + LESS_TARGET_DIRECTORY);
     }
 
-    generateRuleDescriptionsFromTemplates(COMMON_TEMPLATE_DIRECTORY, COMMON_TARGET_DIRECTORY);
-    generateRuleDescriptionsFromTemplates(SCSS_TEMPLATE_DIRECTORY, SCSS_TARGET_DIRECTORY);
-    generateRuleDescriptionsFromTemplates(LESS_TEMPLATE_DIRECTORY, LESS_TARGET_DIRECTORY);
-    generateRuleDescriptionsFromTemplates(CSS_TEMPLATE_DIRECTORY, CSS_TARGET_DIRECTORY);
-
-    FileUtils.copyDirectory(new File(COMMON_TARGET_DIRECTORY), new File(CSS_TARGET_DIRECTORY));
-    FileUtils.copyDirectory(new File(COMMON_TARGET_DIRECTORY), new File(SCSS_TARGET_DIRECTORY));
-    FileUtils.copyDirectory(new File(COMMON_TARGET_DIRECTORY), new File(LESS_TARGET_DIRECTORY));
+    generateRuleDescriptionsFromTemplates(COMMON_TEMPLATE_DIRECTORY, CSS_TARGET_DIRECTORY, "css");
+    generateRuleDescriptionsFromTemplates(COMMON_TEMPLATE_DIRECTORY, SCSS_TARGET_DIRECTORY, "scss");
+    generateRuleDescriptionsFromTemplates(COMMON_TEMPLATE_DIRECTORY, LESS_TARGET_DIRECTORY, "less");
+    generateRuleDescriptionsFromTemplates(SCSS_TEMPLATE_DIRECTORY, SCSS_TARGET_DIRECTORY, "scss");
+    generateRuleDescriptionsFromTemplates(LESS_TEMPLATE_DIRECTORY, LESS_TARGET_DIRECTORY, "less");
+    generateRuleDescriptionsFromTemplates(CSS_TEMPLATE_DIRECTORY, CSS_TARGET_DIRECTORY, "css");
 
     FileUtils.copyDirectory(new File(COMMON_RESOURCE_DIRECTORY), new File(CSS_TARGET_DIRECTORY));
     FileUtils.copyDirectory(new File(COMMON_RESOURCE_DIRECTORY), new File(SCSS_TARGET_DIRECTORY));
@@ -78,10 +76,10 @@ public class GenerateRuleDescriptionsBatch {
     FileUtils.copyDirectory(new File(LESS_RESSOURCE_DIRECTORY), new File(LESS_TARGET_DIRECTORY));
   }
 
-  private static void generateRuleDescriptionsFromTemplates(String templateDirectoryPath, String targetDirectoryPath) throws IOException {
+  private static void generateRuleDescriptionsFromTemplates(String templateDirectoryPath, String targetDirectoryPath, String language) throws IOException {
     File[] files = new File(templateDirectoryPath).listFiles();
     for (File file : files) {
-      RULE_DESCRIPTIONS_GENERATOR.generateHtmlRuleDescription(file.getPath(), targetDirectoryPath + file.getName());
+      RULE_DESCRIPTIONS_GENERATOR.generateHtmlRuleDescription(file.getPath(), targetDirectoryPath + file.getName(), language);
     }
   }
 

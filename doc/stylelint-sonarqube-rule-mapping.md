@@ -10,8 +10,8 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 
 | SonarQube Rule | stylelint Related Rules | Comments |
 | -------------- |------------------------ | -------- |
-| ["!important" annotation should be placed at the end of the declaration](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aimportant-position) | None | |
-| ["!important" annotation should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aimportant) | [declaration-no-important](https://stylelint.io/user-guide/rules/declaration-no-important/)<br/>[keyframe-declaration-no-important](https://stylelint.io/user-guide/rules/keyframe-declaration-no-important/) | |
+| ["!important" flag should be placed at the end of the declaration](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aimportant-position) | None | |
+| ["!important" flag should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aimportant) | [declaration-no-important](https://stylelint.io/user-guide/rules/declaration-no-important/)<br/>[keyframe-declaration-no-important](https://stylelint.io/user-guide/rules/keyframe-declaration-no-important/) | |
 | ["@font-face" rule should be made compatible with the required browsers](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Afont-face-browser-compatibility) | None | |
 | ["@import" rule should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aimport) | None | |
 | ["FIXME" tags should be handled](http://sonarqube.racodond.com/coding_rules#rule_key=css%3AS1134) | None | |
@@ -279,7 +279,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 
 | stylelint Rule | SonarQube Related Rules | Comments |
 | -------------- |------------------------ | -------- |
-| [keyframe-declaration-no-important](https://stylelint.io/user-guide/rules/keyframe-declaration-no-important/) | ["!important" annotation should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aimportant) | |
+| [keyframe-declaration-no-important](https://stylelint.io/user-guide/rules/keyframe-declaration-no-important/) | ["!important" flag should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aimportant) | |
 
 
 ### Declaration
@@ -292,7 +292,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [declaration-colon-space-after](https://stylelint.io/user-guide/rules/declaration-colon-space-after/) | [Source code should comply with formatting standards](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aformatting) | |
 | [declaration-colon-space-before](https://stylelint.io/user-guide/rules/declaration-colon-space-before/) | [Source code should comply with formatting standards](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aformatting) | |
 | [declaration-empty-line-before](https://stylelint.io/user-guide/rules/declaration-empty-line-before/) | None | |
-| [declaration-no-important](https://stylelint.io/user-guide/rules/declaration-no-important/) | ["!important" annotation should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aimportant) | |
+| [declaration-no-important](https://stylelint.io/user-guide/rules/declaration-no-important/) | ["!important" flag should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aimportant) | |
 | [declaration-property-unit-blacklist](https://stylelint.io/user-guide/rules/declaration-property-unit-blacklist/) | None | |
 | [declaration-property-unit-whitelist](https://stylelint.io/user-guide/rules/declaration-property-unit-whitelist/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [declaration-property-value-blacklist](https://stylelint.io/user-guide/rules/declaration-property-value-blacklist/) | None | |
