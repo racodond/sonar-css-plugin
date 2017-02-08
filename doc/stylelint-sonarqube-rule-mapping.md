@@ -64,7 +64,8 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [Protocol-relative URL should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aprotocol-relative-url) | [function-url-no-scheme-relative](https://stylelint.io/user-guide/rules/function-url-no-scheme-relative/) | |
 | [Regular expression like selectors should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aregex-selectors) | None | |
 | [Regular expression on comment](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acomment-regular-expression) | [comment-word-blacklist](https://stylelint.io/user-guide/rules/comment-word-blacklist/) | |
-| [Regular expression on property](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aproperty-regular-expression) | [property-blacklist](https://stylelint.io/user-guide/rules/property-blacklist/) | This SonarQube rule template can be used to create stylelint property-blacklist rule. |
+| [Regular expression on function](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Afunction-regular-expression) | [function-blacklist](https://stylelint.io/user-guide/rules/function-blacklist/) | This SonarQube rule template can be used to create a rule similar to stylelint function-blacklist. |
+| [Regular expression on property](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aproperty-regular-expression) | [property-blacklist](https://stylelint.io/user-guide/rules/property-blacklist/) | This SonarQube rule template can be used to create a rule similar to stylelint property-blacklist. |
 | [Rule properties should be alphabetically ordered](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aalphabetize-declarations) | [declaration-block-properties-order](declaration-block-properties-order) | |
 | [Shorthand properties should be used whenever possible](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Ashorthand) | [declaration-block-no-redundant-longhand-properties](https://stylelint.io/user-guide/rules/declaration-block-no-redundant-longhand-properties/) | |
 | [Shorthand properties should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Ado-not-use-shorthand-properties) | None | |
@@ -143,10 +144,10 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | stylelint Rule | SonarQube Related Rules | Comments |
 | -------------- |------------------------ | -------- |
 | [color-hex-case](https://stylelint.io/user-guide/rules/color-hex-case/) | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
-| [color-hex-length](https://stylelint.io/user-guide/rules/color-hex-length/) | None | |
+| [color-hex-length](https://stylelint.io/user-guide/rules/color-hex-length/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [color-named](https://stylelint.io/user-guide/rules/color-named/) | None | See [issue #77](https://github.com/racodond/sonar-css-plugin/issues/77) |
-| [color-no-hex](https://stylelint.io/user-guide/rules/color-no-hex/) | None | |
-| [color-no-invalid-hex](https://stylelint.io/user-guide/rules/color-no-invalid-hex/) | None | |
+| [color-no-hex](https://stylelint.io/user-guide/rules/color-no-hex/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
+| [color-no-invalid-hex](https://stylelint.io/user-guide/rules/color-no-invalid-hex/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 
 
 ### Font family
@@ -168,7 +169,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 
 | stylelint Rule | SonarQube Related Rules | Comments |
 | -------------- |------------------------ | -------- |
-| [function-blacklist](https://stylelint.io/user-guide/rules/function-blacklist/) | None | |
+| [function-blacklist](https://stylelint.io/user-guide/rules/function-blacklist/) | [Regular expression on function](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Afunction-regular-expression) | |
 | [function-calc-no-unspaced-operator](https://stylelint.io/user-guide/rules/function-calc-no-unspaced-operator/) | None | |
 | [function-comma-newline-after](https://stylelint.io/user-guide/rules/function-comma-newline-after/) | None | |
 | [function-comma-newline-before](https://stylelint.io/user-guide/rules/function-comma-newline-before/) | None | |

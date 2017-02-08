@@ -1,0 +1,7 @@
+.mybox {
+  color: ease(); /* Noncompliant ![sc=10;ec=14;el=+0]! !{Remove this function...}! */
+  color: hello();
+  color: counter(); /* Noncompliant ![sc=10;ec=17;el=+0]! !{Remove this function...}! */
+  color: counter(2); /* Noncompliant ![sc=10;ec=17;el=+0]! !{Remove this function...}! */
+  color: counter;
+}
