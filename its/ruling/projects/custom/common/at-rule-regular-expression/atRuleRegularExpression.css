@@ -1,0 +1,8 @@
+@charset "UTF-8"; /* Noncompliant ![sc=1;ec=9;el=+0]! !{Remove this @-rule...}! */
+
+@font-face { /* Noncompliant ![sc=1;ec=11;el=+0]! !{Remove this @-rule...}! */
+  @font-face { /* Noncompliant ![sc=3;ec=13;el=+0]! !{Remove this @-rule...}! */
+  }
+}
+
+@hello {}

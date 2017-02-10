@@ -1,0 +1,23 @@
+<p>
+    This rule template can be used to create rules which will be triggered when an @-rule matches a given regular
+    expression.
+</p>
+<p>
+    For example, one can create a rule with the regular expression <code>(charset|font-face)</code> to match
+    <code>charset</code> and <code>font-face</code> @-rules (to warn developers not to use them for some reasons for
+    instance).
+</p>
+<p>
+    Note that, in order to match <code>charset</code> and <code>font-face</code> @-rules regardless of the case, the
+    <code>(?i)</code> modifier can be prepended to the expression, as in <code>(?i)(charset|font-face)</code>.
+</p>
+<p>
+    See <a target="_blank" href="http://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html">Java
+    documentation</a> for detailed regular expression syntax.
+</p>
+
+<h2>stylelint Related Rules</h2>
+<ul>
+    <li><a href="https://stylelint.io/user-guide/rules/at-rule-blacklist/" target="_blank">at-rule-blacklist</a></li>
+    <li><a href="https://stylelint.io/user-guide/rules/at-rule-whitelist/" target="_blank">at-rule-whitelist</a></li>
+</ul>

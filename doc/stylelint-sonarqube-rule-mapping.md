@@ -64,8 +64,9 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [Protocol-relative URL should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aprotocol-relative-url) | [function-url-no-scheme-relative](https://stylelint.io/user-guide/rules/function-url-no-scheme-relative/) | |
 | [Regular expression like selectors should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aregex-selectors) | None | |
 | [Regular expression on comment](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acomment-regular-expression) | [comment-word-blacklist](https://stylelint.io/user-guide/rules/comment-word-blacklist/) | |
-| [Regular expression on function](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Afunction-regular-expression) | [function-blacklist](https://stylelint.io/user-guide/rules/function-blacklist/) | This SonarQube rule template can be used to create a rule similar to stylelint function-blacklist. |
-| [Regular expression on property](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aproperty-regular-expression) | [property-blacklist](https://stylelint.io/user-guide/rules/property-blacklist/) | This SonarQube rule template can be used to create a rule similar to stylelint property-blacklist. |
+| [Regular expression on @-rule](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aat-rule-regular-expression) | [at-rule-blacklist](https://stylelint.io/user-guide/rules/at-rule-blacklist/)<br/>[at-rule-whitelist](https://stylelint.io/user-guide/rules/at-rule-whitelist/) | This SonarQube rule template can be used to create a rule similar to stylelint at-rule-blacklist and at-rule-whitelist. |
+| [Regular expression on function](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Afunction-regular-expression) | [function-blacklist](https://stylelint.io/user-guide/rules/function-blacklist/)<br/>[function-whitelist](https://stylelint.io/user-guide/rules/function-whitelist/) | This SonarQube rule template can be used to create a rule similar to stylelint function-blacklist and function-whitelist. |
+| [Regular expression on property](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aproperty-regular-expression) | [property-blacklist](https://stylelint.io/user-guide/rules/property-blacklist/)<br/>[property-whitelist](https://stylelint.io/user-guide/rules/property-whitelist/) | This SonarQube rule template can be used to create a rule similar to stylelint property-blacklist and property-whitelist. |
 | [Rule properties should be alphabetically ordered](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aalphabetize-declarations) | [declaration-block-properties-order](declaration-block-properties-order) | |
 | [Shorthand properties should be used whenever possible](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Ashorthand) | [declaration-block-no-redundant-longhand-properties](https://stylelint.io/user-guide/rules/declaration-block-no-redundant-longhand-properties/) | |
 | [Shorthand properties should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Ado-not-use-shorthand-properties) | None | |
@@ -274,7 +275,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [property-case](https://stylelint.io/user-guide/rules/property-case/) | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
 | [property-no-unknown](https://stylelint.io/user-guide/rules/property-no-unknown/) | [Unknown properties should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aknown-properties) | |
 | [property-no-vendor-prefix](https://stylelint.io/user-guide/rules/property-no-vendor-prefix/) | [Experimental properties should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aexperimental-property-usage) | |
-| [property-whitelist](https://stylelint.io/user-guide/rules/property-whitelist/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
+| [property-whitelist](https://stylelint.io/user-guide/rules/property-whitelist/) | [Regular expression on property](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aproperty-regular-expression) | |
 
 
 ### Keyframe declaration
@@ -439,7 +440,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 
 | stylelint Rule | SonarQube Related Rules | Comments |
 | -------------- |------------------------ | -------- |
-| [at-rule-blacklist](https://stylelint.io/user-guide/rules/at-rule-blacklist/) | None | |
+| [at-rule-blacklist](https://stylelint.io/user-guide/rules/at-rule-blacklist/) | [Regular expression on @-rule](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aat-rule-regular-expression) | |
 | [at-rule-empty-line-before](https://stylelint.io/user-guide/rules/at-rule-empty-line-before/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [at-rule-name-case](https://stylelint.io/user-guide/rules/at-rule-name-case/) | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
 | [at-rule-name-newline-after](https://stylelint.io/user-guide/rules/at-rule-name-newline-after/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
@@ -447,7 +448,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [at-rule-no-unknown](https://stylelint.io/user-guide/rules/at-rule-no-unknown/) | [Unknown @-rules should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aunknown-at-rules) | |
 | [at-rule-no-vendor-prefix](https://stylelint.io/user-guide/rules/at-rule-no-vendor-prefix/) | [Experimental @-rules should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aexperimental-atrule-usage) | |
 | [at-rule-semicolon-newline-after](https://stylelint.io/user-guide/rules/at-rule-semicolon-newline-after/) | None | |
-| [at-rule-whitelist](https://stylelint.io/user-guide/rules/at-rule-whitelist/) | None | |
+| [at-rule-whitelist](https://stylelint.io/user-guide/rules/at-rule-whitelist/) | [Regular expression on @-rule](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aat-rule-regular-expression) | |
 
 
 ### stylelint-disable comment

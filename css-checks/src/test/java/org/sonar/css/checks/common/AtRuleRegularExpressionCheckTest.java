@@ -27,32 +27,32 @@ import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class FunctionRegularExpressionCheckTest {
+public class AtRuleRegularExpressionCheckTest {
 
-  private final FunctionRegularExpressionCheck check = new FunctionRegularExpressionCheck();
+  private final AtRuleRegularExpressionCheck check = new AtRuleRegularExpressionCheck();
 
   @Test
   public void test_css() {
-    check.setRegularExpression("(?i)(counter|ease)");
-    check.setMessage("Remove this function...");
+    check.setRegularExpression("(?i)(charset|font-face)");
+    check.setMessage("Remove this @-rule...");
 
-    CssCheckVerifier.verifyCssFile(check, getTestFile("functionRegularExpression.css"));
+    CssCheckVerifier.verifyCssFile(check, getTestFile("atRuleRegularExpression.css"));
   }
 
   @Test
   public void test_less() {
-    check.setRegularExpression("(?i)(counter|ease)");
-    check.setMessage("Remove this function...");
+    check.setRegularExpression("(?i)(charset|font-face)");
+    check.setMessage("Remove this @-rule...");
 
-    CssCheckVerifier.verifyLessFile(check, getTestFile("functionRegularExpression.less"));
+    CssCheckVerifier.verifyLessFile(check, getTestFile("atRuleRegularExpression.less"));
   }
 
   @Test
   public void test_scss() {
-    check.setRegularExpression("(?i)(counter|ease)");
-    check.setMessage("Remove this function...");
+    check.setRegularExpression("(?i)(charset|font-face)");
+    check.setMessage("Remove this @-rule...");
 
-    CssCheckVerifier.verifyScssFile(check, getTestFile("functionRegularExpression.scss"));
+    CssCheckVerifier.verifyScssFile(check, getTestFile("atRuleRegularExpression.scss"));
   }
 
   @Test
@@ -61,16 +61,16 @@ public class FunctionRegularExpressionCheckTest {
       check.setRegularExpression("(");
       check.setMessage("blabla");
 
-      CssCheckVerifier.issuesOnCssFile(check, getTestFile("functionRegularExpression.css")).noMore();
+      CssCheckVerifier.issuesOnCssFile(check, getTestFile("atRuleRegularExpression.css")).noMore();
 
     } catch (IllegalStateException e) {
-      assertThat(e.getMessage()).isEqualTo("Check css:function-regular-expression (Regular expression on function): "
+      assertThat(e.getMessage()).isEqualTo("Check css:at-rule-regular-expression (Regular expression on @-rule): "
         + "regularExpression parameter \"(\" is not a valid regular expression.");
     }
   }
 
   private File getTestFile(String fileName) {
-    return CheckTestUtils.getCommonTestFile("function-regular-expression/" + fileName);
+    return CheckTestUtils.getCommonTestFile("at-rule-regular-expression/" + fileName);
   }
 
 }

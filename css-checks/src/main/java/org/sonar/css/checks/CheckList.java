@@ -115,6 +115,7 @@ public final class CheckList {
     return ImmutableList.of(
       AllGradientDefinitionsCheck.class,
       AlphabetizeDeclarationsCheck.class,
+      AtRuleRegularExpressionCheck.class,
       BewareOfBoxModelCheck.class,
       BOMCheck.class,
       CaseCheck.class,
@@ -194,6 +195,7 @@ public final class CheckList {
       // Common
       AllGradientDefinitionsCheck.class,
       AlphabetizeDeclarationsCheck.class,
+      AtRuleRegularExpressionCheck.class,
       BewareOfBoxModelCheck.class,
       CaseCheck.class,
       CaseInsensitiveFlagCheck.class,
