@@ -75,6 +75,7 @@ public final class CheckList {
         DeprecatedUnescapedMultilineStringCheck.class,
         EmptyControlFlowDirectiveCheck.class,
         EmptyMixinCheck.class,
+        ExtendCheck.class,
         IfElseIfWithoutElseCheck.class,
         org.sonar.css.checks.scss.ParsingErrorCheck.class,
         IfElseIfSameConditionCheck.class,

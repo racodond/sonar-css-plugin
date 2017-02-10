@@ -13,6 +13,9 @@
 'project:custom/common/selectorNamingConvention/selectorNamingConventionScssPlaceholder.scss':[
 6,
 ],
+'project:custom/scss/extend.scss':[
+1,
+],
 'project:custom/scss/placeholder-selector-naming-convention/selectorNamingConvention.scss':[
 4,
 ],

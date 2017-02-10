@@ -104,6 +104,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | SonarQube Rule | stylelint Related Rules | Comments |
 | -------------- |------------------------ | -------- |
 | [@debug directives should not be used in production code](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Adebug) | None | |
+| [@extend directives should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Aextend) | None | |
 | [@if ... @else if ... constructs should end with @else directive](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Aif-elseif-without-else) | None | |
 | [Always use 'through' instead of 'to' in @for directives](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Athrough-instead-of-to) | None | |
 | [Conditions should not be too complex](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Atoo-complex-condition) | None | |

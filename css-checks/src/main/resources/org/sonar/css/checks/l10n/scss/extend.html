@@ -1,0 +1,35 @@
+<p>
+    From <a href="https://csswizardry.com/2017/02/code-smells-in-css-revisited/" target="_blank">CSS Wizardry</a>:
+</p>
+<blockquote>
+    The problems with <code>@extend</code> are manifold, but to summarise:
+    <ul>
+        <li>
+            <strong>It’s actually worse for performance than mixins are.</strong> Gzip favours repetition, so CSS files
+            with greater repetition (i.e. mixins) achieve a greater compression delta.
+        </li>
+        <li>
+            <strong>It’s greedy.</strong> Sass’ <code>@extend</code> will extend every instance of a class that it
+            finds, giving us crazy-long selector chains that look like this.
+        </li>
+        <li>
+            <strong>It moves things around your codebase.</strong> Source order is vital in CSS, so moving selectors
+            around your project should always be avoided.
+        </li>
+        <li>
+            <strong>It obscures the paper-trail.</strong><code>@extend</code> hides a lot of complexity in your Sass
+            that you need to unpick more gradually, whereas the multiple class approach puts all of the information
+            front-and-center in your markup.
+        </li>
+    </ul>
+</blockquote>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://csswizardry.com/2016/02/mixins-better-for-performance/" target="_blank">Mixins Better for
+        Performance</a></li>
+    <li><a href="https://csswizardry.com/2014/11/when-to-use-extend-when-to-use-a-mixin/" target="_blank">When to use
+        @extend; when to use a mixin</a></li>
+    <li><a href="https://csswizardry.com/2014/01/extending-silent-classes-in-sass/" target="_blank">Extending silent
+        classes in Sass</a></li>
+</ul>

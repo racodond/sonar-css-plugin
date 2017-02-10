@@ -1,0 +1,4 @@
+.seriousError {
+  @extend .error; /* Noncompliant ![sc=3;ec=10]! !{Remove this @extend directive.}! */
+  border-width: 3px;
+}
