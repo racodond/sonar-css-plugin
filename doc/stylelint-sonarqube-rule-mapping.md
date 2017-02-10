@@ -79,7 +79,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [Stylesheets should not contain too many selectors](http://sonarqube.racodond.com/coding_rules#rule_key=css%3AS2732) | None | |
 | [Tabulation characters should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Atab-character) | None | |
 | [The number of web fonts should be reduced](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Afont-faces) | None | |
-| [There should be one single declaration per line](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aone-declaration-per-line) | [block-no-single-line](https://stylelint.io/user-guide/rules/block-no-single-line/)<br/>[declaration-block-single-line-max-declarations](https://stylelint.io/user-guide/rules/declaration-block-single-line-max-declarations/) | |
+| [There should be one single declaration per line](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aone-declaration-per-line) | [block-no-single-line](https://stylelint.io/user-guide/rules/block-no-single-line/)<br/>[declaration-block-single-line-max-declarations](https://stylelint.io/user-guide/rules/declaration-block-single-line-max-declarations/)<br/>[declaration-block-semicolon-newline-after](https://stylelint.io/user-guide/rules/declaration-block-semicolon-newline-after/) | |
 | [Trailing zeros for numeric values should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Atrailing-zeros) | [number-no-trailing-zeros](https://stylelint.io/user-guide/rules/number-no-trailing-zeros/) | |
 | [Underscore hack should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aunderscore-property-hack) | [no-browser-hacks](https://stylelint.io/user-guide/rules/no-browser-hacks/) | |
 | [Units for zero length values should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Azero-units) | [length-zero-no-unit](https://stylelint.io/user-guide/rules/length-zero-no-unit/) | |
@@ -255,7 +255,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | stylelint Rule | SonarQube Related Rules | Comments |
 | -------------- |------------------------ | -------- |
 | [custom-property-empty-line-before](https://stylelint.io/user-guide/rules/custom-property-empty-line-before/) | None | |
-| [custom-property-no-outside-root](https://stylelint.io/user-guide/rules/custom-property-no-outside-root/) (deprecated) | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. | |
+| [custom-property-no-outside-root](https://stylelint.io/user-guide/rules/custom-property-no-outside-root/) (deprecated) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [custom-property-pattern](https://stylelint.io/user-guide/rules/custom-property-pattern/) | [CSS variables should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acss-variable-naming-convention) | |
 
 
@@ -295,9 +295,9 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [declaration-colon-space-before](https://stylelint.io/user-guide/rules/declaration-colon-space-before/) | [Source code should comply with formatting standards](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aformatting) | |
 | [declaration-empty-line-before](https://stylelint.io/user-guide/rules/declaration-empty-line-before/) | None | |
 | [declaration-no-important](https://stylelint.io/user-guide/rules/declaration-no-important/) | ["!important" flag should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aimportant) | |
-| [declaration-property-unit-blacklist](https://stylelint.io/user-guide/rules/declaration-property-unit-blacklist/) | None | |
+| [declaration-property-unit-blacklist](https://stylelint.io/user-guide/rules/declaration-property-unit-blacklist/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [declaration-property-unit-whitelist](https://stylelint.io/user-guide/rules/declaration-property-unit-whitelist/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
-| [declaration-property-value-blacklist](https://stylelint.io/user-guide/rules/declaration-property-value-blacklist/) | None | |
+| [declaration-property-value-blacklist](https://stylelint.io/user-guide/rules/declaration-property-value-blacklist/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [declaration-property-value-whitelist](https://stylelint.io/user-guide/rules/declaration-property-value-whitelist/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 
 
@@ -310,9 +310,9 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [declaration-block-no-redundant-longhand-properties](https://stylelint.io/user-guide/rules/declaration-block-no-redundant-longhand-properties/) | [Shorthand properties should be used whenever possible](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Ashorthand) | |
 | [declaration-block-no-shorthand-property-overrides](https://stylelint.io/user-guide/rules/declaration-block-no-shorthand-property-overrides/) | None | |
 | [declaration-block-properties-order](https://stylelint.io/user-guide/rules/declaration-block-properties-order/) (deprecated) | [Rule properties should be alphabetically ordered](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aalphabetize-declarations) | |
-| [declaration-block-semicolon-newline-after](https://stylelint.io/user-guide/rules/declaration-block-semicolon-newline-after/) | None | |
-| [declaration-block-semicolon-newline-before](https://stylelint.io/user-guide/rules/declaration-block-semicolon-newline-before/) | None | |
-| [declaration-block-semicolon-space-after](https://stylelint.io/user-guide/rules/declaration-block-semicolon-space-after/) | None | |
+| [declaration-block-semicolon-newline-after](https://stylelint.io/user-guide/rules/declaration-block-semicolon-newline-after/) | [There should be one single declaration per line](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aone-declaration-per-line) | |
+| [declaration-block-semicolon-newline-before](https://stylelint.io/user-guide/rules/declaration-block-semicolon-newline-before/) | [There should be one single declaration per line](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aone-declaration-per-line) | |
+| [declaration-block-semicolon-space-after](https://stylelint.io/user-guide/rules/declaration-block-semicolon-space-after/) | [There should be one single declaration per line](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aone-declaration-per-line) | |
 | [declaration-block-semicolon-space-before](https://stylelint.io/user-guide/rules/declaration-block-semicolon-space-before/) | None | |
 | [declaration-block-single-line-max-declarations](https://stylelint.io/user-guide/rules/declaration-block-single-line-max-declarations/) | [There should be one single declaration per line](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aone-declaration-per-line) | |
 | [declaration-block-trailing-semicolon](https://stylelint.io/user-guide/rules/declaration-block-trailing-semicolon/) | [Each declaration should end with a semicolon](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Asemicolon-declaration) | |
@@ -340,10 +340,10 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | stylelint Rule | SonarQube Related Rules | Comments |
 | -------------- |------------------------ | -------- |
 | [selector-attribute-brackets-space-inside](https://stylelint.io/user-guide/rules/selector-attribute-brackets-space-inside/) | None | |
-| [selector-attribute-operator-blacklist](https://stylelint.io/user-guide/rules/selector-attribute-operator-blacklist/) | None | |
+| [selector-attribute-operator-blacklist](https://stylelint.io/user-guide/rules/selector-attribute-operator-blacklist/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [selector-attribute-operator-space-after](https://stylelint.io/user-guide/rules/selector-attribute-operator-space-after/) | None | |
 | [selector-attribute-operator-space-before](https://stylelint.io/user-guide/rules/selector-attribute-operator-space-before/) | None | |
-| [selector-attribute-operator-whitelist](https://stylelint.io/user-guide/rules/selector-attribute-operator-whitelist/) | None | |
+| [selector-attribute-operator-whitelist](https://stylelint.io/user-guide/rules/selector-attribute-operator-whitelist/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [selector-attribute-quotes](https://stylelint.io/user-guide/rules/selector-attribute-quotes/) | None | |
 | [selector-class-pattern](https://stylelint.io/user-guide/rules/selector-class-pattern/) | [Class selectors should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aclass-selector-naming-convention) | |
 | [selector-combinator-space-after](https://stylelint.io/user-guide/rules/selector-combinator-space-after/) | None | |
@@ -355,7 +355,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [selector-nested-pattern](https://stylelint.io/user-guide/rules/selector-nested-pattern/) | None | |
 | [selector-no-attribute](https://stylelint.io/user-guide/rules/selector-no-attribute/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [selector-no-combinator](https://stylelint.io/user-guide/rules/selector-no-combinator/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
-| [selector-no-empty](https://stylelint.io/user-guide/rules/selector-no-empty/) (deprecated) | None | |
+| [selector-no-empty](https://stylelint.io/user-guide/rules/selector-no-empty/) (deprecated) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [selector-no-id](https://stylelint.io/user-guide/rules/selector-no-id/) | [IDs in selectors should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aids) | |
 | [selector-no-qualifying-type](https://stylelint.io/user-guide/rules/selector-no-qualifying-type/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [selector-no-type](https://stylelint.io/user-guide/rules/selector-no-type/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
@@ -372,7 +372,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [selector-root-no-composition](https://stylelint.io/user-guide/rules/selector-root-no-composition/) (deprecated) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [selector-type-case](https://stylelint.io/user-guide/rules/selector-type-case/) | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
 | [selector-type-no-unknown](https://stylelint.io/user-guide/rules/selector-type-no-unknown/) | [Unknown type selectors should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aunknown-type-selector) | |
-| [selector-max-empty-lines](https://stylelint.io/user-guide/rules/selector-max-empty-lines/) | None | |
+| [selector-max-empty-lines](https://stylelint.io/user-guide/rules/selector-max-empty-lines/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 
 
 ### Selector list
@@ -440,14 +440,14 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | stylelint Rule | SonarQube Related Rules | Comments |
 | -------------- |------------------------ | -------- |
 | [at-rule-blacklist](https://stylelint.io/user-guide/rules/at-rule-blacklist/) | None | |
-| [at-rule-empty-line-before](https://stylelint.io/user-guide/rules/at-rule-empty-line-before/) | None | |
+| [at-rule-empty-line-before](https://stylelint.io/user-guide/rules/at-rule-empty-line-before/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [at-rule-name-case](https://stylelint.io/user-guide/rules/at-rule-name-case/) | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
-| [at-rule-name-newline-after](https://stylelint.io/user-guide/rules/at-rule-name-newline-after/) | None | |
+| [at-rule-name-newline-after](https://stylelint.io/user-guide/rules/at-rule-name-newline-after/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [at-rule-name-space-after](https://stylelint.io/user-guide/rules/at-rule-name-space-after/) | None | |
 | [at-rule-no-unknown](https://stylelint.io/user-guide/rules/at-rule-no-unknown/) | [Unknown @-rules should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aunknown-at-rules) | |
 | [at-rule-no-vendor-prefix](https://stylelint.io/user-guide/rules/at-rule-no-vendor-prefix/) | [Experimental @-rules should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aexperimental-atrule-usage) | |
 | [at-rule-semicolon-newline-after](https://stylelint.io/user-guide/rules/at-rule-semicolon-newline-after/) | None | |
-| [at-rule-whitelist](https://stylelint.io/user-guide/rules/at-rule-whitelist/ | None | |
+| [at-rule-whitelist](https://stylelint.io/user-guide/rules/at-rule-whitelist/) | None | |
 
 
 ### stylelint-disable comment
