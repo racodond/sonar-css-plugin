@@ -21,21 +21,17 @@ package org.sonar.css;
 
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
+import org.junit.BeforeClass;
+import org.junit.ClassRule;
+import org.junit.Test;
+import org.sonar.wsclient.issue.Issue;
+import org.sonar.wsclient.issue.IssueQuery;
 
 import java.io.File;
 import java.util.List;
 
-import org.junit.BeforeClass;
-import org.junit.ClassRule;
-import org.junit.Test;
-import org.sonar.wsclient.Sonar;
-import org.sonar.wsclient.issue.Issue;
-import org.sonar.wsclient.issue.IssueQuery;
-import org.sonar.wsclient.services.Measure;
-import org.sonar.wsclient.services.Resource;
-import org.sonar.wsclient.services.ResourceQuery;
-
 import static org.fest.assertions.Assertions.assertThat;
+import static org.sonar.css.Tests.getMeasureAsDouble;
 
 public class MinifiedTest {
 
@@ -43,7 +39,6 @@ public class MinifiedTest {
   public static Orchestrator orchestrator = Tests.ORCHESTRATOR;
 
   private static final String PROJECT_KEY = "minified";
-  private static Sonar wsClient;
 
   @BeforeClass
   public static void init() {
@@ -57,22 +52,19 @@ public class MinifiedTest {
     orchestrator.getServer().provisionProject(PROJECT_KEY, PROJECT_KEY);
     Tests.setCssProfile("zero-units-only-profile", PROJECT_KEY);
     orchestrator.executeBuild(build);
-
-    wsClient = orchestrator.getServer().getWsClient();
   }
 
   @Test
   public void should_analyze_three_files_but_only_raise_issues_and_compute_measures_on_the_non_minified_file() {
     List<Issue> issues = orchestrator.getServer().wsClient().issueClient().find(IssueQuery.create()).list();
 
-    assertThat(getProjectMeasure("files").getIntValue()).isEqualTo(3);
-    assertThat(getProjectMeasure("ncloc").getIntValue()).isEqualTo(6);
+    assertThat(getProjectMeasure("files")).isEqualTo(3);
+    assertThat(getProjectMeasure("ncloc")).isEqualTo(6);
     assertThat(issues).hasSize(1);
   }
 
-  private Measure getProjectMeasure(String metricKey) {
-    Resource resource = wsClient.find(ResourceQuery.createForMetrics(PROJECT_KEY, metricKey));
-    return resource == null ? null : resource.getMeasure(metricKey);
+  private Double getProjectMeasure(String metricKey) {
+    return getMeasureAsDouble(PROJECT_KEY, metricKey);
   }
 
 }

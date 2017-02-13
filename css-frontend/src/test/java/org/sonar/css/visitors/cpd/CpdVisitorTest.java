@@ -84,7 +84,7 @@ public class CpdVisitorTest {
     com.google.common.io.Files.write(toParse, file, Charsets.UTF_8);
     cpdVisitor.scanTree(visitorContext);
 
-    List<TokensLine> cpdTokenLines = sensorContext.cpdTokens("moduleKey:" + inputFile.getFile().getName());
+    List<TokensLine> cpdTokenLines = sensorContext.cpdTokens("moduleKey:" + inputFile.relativePath());
     assertThat(cpdTokenLines).hasSize(4);
 
     TokensLine tokensline;

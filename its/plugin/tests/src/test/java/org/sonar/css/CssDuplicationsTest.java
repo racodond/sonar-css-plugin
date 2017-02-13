@@ -21,18 +21,14 @@ package org.sonar.css;
 
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
-
-import java.io.File;
-
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.sonar.wsclient.Sonar;
-import org.sonar.wsclient.services.Measure;
-import org.sonar.wsclient.services.Resource;
-import org.sonar.wsclient.services.ResourceQuery;
+
+import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.sonar.css.Tests.getMeasureAsDouble;
 
 public class CssDuplicationsTest {
 
@@ -40,7 +36,6 @@ public class CssDuplicationsTest {
   public static Orchestrator orchestrator = Tests.ORCHESTRATOR;
 
   private static final String PROJECT_KEY = "css-duplications";
-  private static Sonar wsClient;
 
   @BeforeClass
   public static void init() {
@@ -54,61 +49,52 @@ public class CssDuplicationsTest {
     orchestrator.getServer().provisionProject(PROJECT_KEY, PROJECT_KEY);
     Tests.setCssProfile("css-empty-profile", PROJECT_KEY);
     orchestrator.executeBuild(build);
-
-    wsClient = orchestrator.getServer().getWsClient();
   }
 
   @Test
   public void project_measures() {
-    assertThat(getProjectMeasure("duplicated_lines").getIntValue()).isEqualTo(40);
-    assertThat(getProjectMeasure("duplicated_files").getIntValue()).isEqualTo(2);
-    assertThat(getProjectMeasure("duplicated_blocks").getIntValue()).isEqualTo(3);
-    assertThat(getProjectMeasure("duplicated_lines_density").getValue()).isEqualTo(95.2);
+    assertThat(getProjectMeasure("duplicated_lines")).isEqualTo(40);
+    assertThat(getProjectMeasure("duplicated_files")).isEqualTo(2);
+    assertThat(getProjectMeasure("duplicated_blocks")).isEqualTo(3);
+    assertThat(getProjectMeasure("duplicated_lines_density")).isEqualTo(95.2);
   }
 
   @Test
   public void dir_measures() {
-    assertThat(getDirMeasure("duplicated_lines").getIntValue()).isEqualTo(13);
-    assertThat(getDirMeasure("duplicated_files").getIntValue()).isEqualTo(1);
-    assertThat(getDirMeasure("duplicated_blocks").getIntValue()).isEqualTo(1);
-    assertThat(getDirMeasure("duplicated_lines_density").getValue()).isEqualTo(100.0);
+    assertThat(getDirMeasure("duplicated_lines")).isEqualTo(13);
+    assertThat(getDirMeasure("duplicated_files")).isEqualTo(1);
+    assertThat(getDirMeasure("duplicated_blocks")).isEqualTo(1);
+    assertThat(getDirMeasure("duplicated_lines_density")).isEqualTo(100.0);
   }
 
   @Test
   public void file1_measures() {
-    assertThat(getFile1Measure("duplicated_lines").getIntValue()).isEqualTo(27);
-    assertThat(getFile1Measure("duplicated_blocks").getIntValue()).isEqualTo(2);
-    assertThat(getFile1Measure("duplicated_lines_density").getValue()).isEqualTo(93.1);
+    assertThat(getFile1Measure("duplicated_lines")).isEqualTo(27);
+    assertThat(getFile1Measure("duplicated_blocks")).isEqualTo(2);
+    assertThat(getFile1Measure("duplicated_lines_density")).isEqualTo(93.1);
   }
 
   @Test
   public void file2_measures() {
-    assertThat(getFile2Measure("duplicated_lines").getIntValue()).isEqualTo(13);
-    assertThat(getFile2Measure("duplicated_blocks").getIntValue()).isEqualTo(1);
-    assertThat(getFile2Measure("duplicated_lines_density").getValue()).isEqualTo(100.0);
+    assertThat(getFile2Measure("duplicated_lines")).isEqualTo(13);
+    assertThat(getFile2Measure("duplicated_blocks")).isEqualTo(1);
+    assertThat(getFile2Measure("duplicated_lines_density")).isEqualTo(100.0);
   }
 
-  private Measure getProjectMeasure(String metricKey) {
-    Resource resource = wsClient.find(ResourceQuery.createForMetrics(PROJECT_KEY, metricKey));
-    return resource == null ? null : resource.getMeasure(metricKey);
+  private Double getProjectMeasure(String metricKey) {
+    return getMeasureAsDouble(PROJECT_KEY, metricKey);
   }
 
-  private Measure getDirMeasure(String metricKey) {
-    Resource resource = wsClient.find(ResourceQuery.createForMetrics(PROJECT_KEY + ":src/dir", metricKey));
-    return resource == null ? null : resource.getMeasure(metricKey);
+  private Double getDirMeasure(String metricKey) {
+    return getMeasureAsDouble(PROJECT_KEY + ":src/dir", metricKey);
   }
 
-  private Measure getFileMeasure(String metricKey, String fileKey) {
-    Resource resource = wsClient.find(ResourceQuery.createForMetrics(fileKey, metricKey));
-    return resource == null ? null : resource.getMeasure(metricKey);
+  private Double getFile1Measure(String metricKey) {
+    return getMeasureAsDouble(PROJECT_KEY + ":src/file1.css", metricKey);
   }
 
-  private Measure getFile1Measure(String metricKey) {
-    return getFileMeasure(metricKey, PROJECT_KEY + ":src/file1.css");
-  }
-
-  private Measure getFile2Measure(String metricKey) {
-    return getFileMeasure(metricKey, PROJECT_KEY + ":src/dir/file2.css");
+  private Double getFile2Measure(String metricKey) {
+    return getMeasureAsDouble(PROJECT_KEY + ":src/dir/file2.css", metricKey);
   }
 
 }
