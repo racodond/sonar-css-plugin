@@ -45,6 +45,8 @@ import static java.util.Collections.singletonList;
   LessDuplicationsTest.class,
   LessMetricsTest.class,
   MinifiedTest.class,
+  ScssDuplicationsTest.class,
+  ScssMetricsTest.class,
   IssuesTest.class,
 })
 public class Tests {
@@ -53,12 +55,16 @@ public class Tests {
   public static final Orchestrator ORCHESTRATOR = Orchestrator.builderEnv()
     .addPlugin(FileLocation.byWildcardFilename(new File("../../../sonar-css-plugin/target"), "sonar-css-plugin-*-SNAPSHOT.jar"))
     .addPlugin(FileLocation.byWildcardFilename(new File("../plugins/css-custom-rules-plugin/target"), "css-custom-rules-plugin-*-SNAPSHOT.jar"))
-    .restoreProfileAtStartup(FileLocation.ofClasspath("/org/sonar/css/profiles/zero-units-only-profile.xml"))
+    .restoreProfileAtStartup(FileLocation.ofClasspath("/org/sonar/css/profiles/css-zero-units-only-profile.xml"))
+    .restoreProfileAtStartup(FileLocation.ofClasspath("/org/sonar/css/profiles/less-zero-units-only-profile.xml"))
+    .restoreProfileAtStartup(FileLocation.ofClasspath("/org/sonar/css/profiles/scss-zero-units-only-profile.xml"))
     .restoreProfileAtStartup(FileLocation.ofClasspath("/org/sonar/css/profiles/less-variable-naming-convention-only-profile.xml"))
     .restoreProfileAtStartup(FileLocation.ofClasspath("/org/sonar/css/profiles/css-empty-profile.xml"))
     .restoreProfileAtStartup(FileLocation.ofClasspath("/org/sonar/css/profiles/less-empty-profile.xml"))
+    .restoreProfileAtStartup(FileLocation.ofClasspath("/org/sonar/css/profiles/scss-empty-profile.xml"))
     .restoreProfileAtStartup(FileLocation.ofClasspath("/org/sonar/css/profiles/css-custom-rules-profile.xml"))
     .restoreProfileAtStartup(FileLocation.ofClasspath("/org/sonar/css/profiles/less-custom-rules-profile.xml"))
+    .restoreProfileAtStartup(FileLocation.ofClasspath("/org/sonar/css/profiles/scss-custom-rules-profile.xml"))
     .build();
 
   public static SonarScanner createSonarScannerBuild() {
@@ -75,6 +81,10 @@ public class Tests {
 
   public static void setLessProfile(String profileName, String projectKey) {
     ORCHESTRATOR.getServer().associateProjectToQualityProfile(projectKey, "less", profileName);
+  }
+
+  public static void setScssProfile(String profileName, String projectKey) {
+    ORCHESTRATOR.getServer().associateProjectToQualityProfile(projectKey, "scss", profileName);
   }
 
   @CheckForNull

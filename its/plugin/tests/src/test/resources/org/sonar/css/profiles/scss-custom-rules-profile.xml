@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<profile>
+  <name>scss-custom-rules-profile</name>
+  <language>scss</language>
+  <rules>
+    <rule>
+      <repositoryKey>custom-scss</repositoryKey>
+      <key>interpolated-properties</key>
+      <priority>CRITICAL</priority>
+      <parameters/>
+    </rule>
+  </rules>
+</profile>

@@ -53,6 +53,7 @@ public class CustomRulesTest {
     orchestrator.getServer().provisionProject(PROJECT_KEY, PROJECT_KEY);
     Tests.setCssProfile("css-custom-rules-profile", PROJECT_KEY);
     Tests.setLessProfile("less-custom-rules-profile", PROJECT_KEY);
+    Tests.setScssProfile("scss-custom-rules-profile", PROJECT_KEY);
     orchestrator.executeBuild(build);
 
     issueClient = orchestrator.getServer().wsClient().issueClient();
@@ -92,6 +93,18 @@ public class CustomRulesTest {
 
     Issue issue = issues.get(0);
     assertThat(issue.message()).isEqualTo("Remove this usage of the \"@{my-var}-color\" interpolated property.");
+    assertThat(issue.debt()).isEqualTo("5min");
+    assertThat(issue.severity()).isEqualTo("CRITICAL");
+  }
+
+  @Test
+  public void issues_against_scss_rule_interpolated_properties() {
+    List<Issue> issues = issueClient.find(IssueQuery.create().rules("custom-scss:interpolated-properties")).list();
+
+    assertThat(issues).hasSize(2);
+
+    Issue issue = issues.get(0);
+    assertThat(issue.message()).isEqualTo("Remove this usage of the \"#{$my-var}-color\" interpolated property.");
     assertThat(issue.debt()).isEqualTo("5min");
     assertThat(issue.severity()).isEqualTo("CRITICAL");
   }

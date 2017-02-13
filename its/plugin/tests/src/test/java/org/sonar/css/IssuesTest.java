@@ -49,23 +49,16 @@ public class IssuesTest {
       .setProjectName(PROJECT_KEY);
 
     orchestrator.getServer().provisionProject(PROJECT_KEY, PROJECT_KEY);
-    Tests.setCssProfile("zero-units-only-profile", PROJECT_KEY);
+    Tests.setCssProfile("css-zero-units-only-profile", PROJECT_KEY);
+    Tests.setLessProfile("less-zero-units-only-profile", PROJECT_KEY);
+    Tests.setScssProfile("scss-zero-units-only-profile", PROJECT_KEY);
     orchestrator.executeBuild(build);
   }
 
   @Test
   public void issues_for_rule_zero_units() {
     List<Issue> issues = orchestrator.getServer().wsClient().issueClient().find(IssueQuery.create()).list();
-
-    assertThat(issues).hasSize(2);
-
-    assertThat(issues.get(0).ruleKey()).isEqualTo("css:zero-units");
-    assertThat(issues.get(0).severity()).isEqualTo("MAJOR");
-    assertThat(issues.get(0).line()).isEqualTo(2);
-
-    assertThat(issues.get(1).ruleKey()).isEqualTo("css:zero-units");
-    assertThat(issues.get(1).severity()).isEqualTo("MAJOR");
-    assertThat(issues.get(1).line()).isEqualTo(2);
+    assertThat(issues).hasSize(6);
   }
 
 }

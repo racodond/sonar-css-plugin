@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<profile>
+  <name>scss-zero-units-only-profile</name>
+  <language>scss</language>
+  <rules>
+    <rule>
+      <repositoryKey>scss</repositoryKey>
+      <key>zero-units</key>
+      <priority>MAJOR</priority>
+    </rule>
+  </rules>
+</profile>

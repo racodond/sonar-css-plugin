@@ -24,47 +24,77 @@ import com.sonar.orchestrator.build.SonarScanner;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.sonar.wsclient.issue.Issue;
-import org.sonar.wsclient.issue.IssueQuery;
 
 import java.io.File;
-import java.util.List;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.sonar.css.Tests.getMeasureAsDouble;
 
-public class MinifiedTest {
+public class ScssDuplicationsTest {
 
   @ClassRule
   public static Orchestrator orchestrator = Tests.ORCHESTRATOR;
 
-  private static final String PROJECT_KEY = "minified";
+  private static final String PROJECT_KEY = "scss-duplications";
 
   @BeforeClass
   public static void init() {
     orchestrator.resetData();
 
     SonarScanner build = Tests.createSonarScannerBuild()
-      .setProjectDir(new File("../projects/minified/"))
+      .setProjectDir(new File("../projects/scss-duplications/"))
       .setProjectKey(PROJECT_KEY)
       .setProjectName(PROJECT_KEY);
 
     orchestrator.getServer().provisionProject(PROJECT_KEY, PROJECT_KEY);
-    Tests.setCssProfile("css-zero-units-only-profile", PROJECT_KEY);
+    Tests.setScssProfile("scss-empty-profile", PROJECT_KEY);
     orchestrator.executeBuild(build);
   }
 
   @Test
-  public void should_analyze_three_files_but_only_raise_issues_and_compute_measures_on_the_non_minified_file() {
-    List<Issue> issues = orchestrator.getServer().wsClient().issueClient().find(IssueQuery.create()).list();
+  public void project_measures() {
+    assertThat(getProjectMeasure("duplicated_lines")).isEqualTo(43);
+    assertThat(getProjectMeasure("duplicated_files")).isEqualTo(2);
+    assertThat(getProjectMeasure("duplicated_blocks")).isEqualTo(3);
+    assertThat(getProjectMeasure("duplicated_lines_density")).isEqualTo(95.6);
+  }
 
-    assertThat(getProjectMeasure("files")).isEqualTo(3);
-    assertThat(getProjectMeasure("ncloc")).isEqualTo(6);
-    assertThat(issues).hasSize(1);
+  @Test
+  public void dir_measures() {
+    assertThat(getDirMeasure("duplicated_lines")).isEqualTo(14);
+    assertThat(getDirMeasure("duplicated_files")).isEqualTo(1);
+    assertThat(getDirMeasure("duplicated_blocks")).isEqualTo(1);
+    assertThat(getDirMeasure("duplicated_lines_density")).isEqualTo(100.0);
+  }
+
+  @Test
+  public void file1_measures() {
+    assertThat(getFile1Measure("duplicated_lines")).isEqualTo(29);
+    assertThat(getFile1Measure("duplicated_blocks")).isEqualTo(2);
+    assertThat(getFile1Measure("duplicated_lines_density")).isEqualTo(93.5);
+  }
+
+  @Test
+  public void file2_measures() {
+    assertThat(getFile2Measure("duplicated_lines")).isEqualTo(14);
+    assertThat(getFile2Measure("duplicated_blocks")).isEqualTo(1);
+    assertThat(getFile2Measure("duplicated_lines_density")).isEqualTo(100.0);
   }
 
   private Double getProjectMeasure(String metricKey) {
     return getMeasureAsDouble(PROJECT_KEY, metricKey);
+  }
+
+  private Double getDirMeasure(String metricKey) {
+    return getMeasureAsDouble(PROJECT_KEY + ":src/dir", metricKey);
+  }
+
+  private Double getFile1Measure(String metricKey) {
+    return getMeasureAsDouble(PROJECT_KEY + ":src/file1.scss", metricKey);
+  }
+
+  private Double getFile2Measure(String metricKey) {
+    return getMeasureAsDouble(PROJECT_KEY + ":src/dir/file2.scss", metricKey);
   }
 
 }

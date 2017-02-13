@@ -17,23 +17,29 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css;
+package org.sonar.css.checks.scss;
 
-import com.google.common.collect.ImmutableList;
-import org.sonar.api.Plugin;
+import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.plugins.css.api.tree.css.PropertyTree;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-/**
- * Extension point to define a SonarQube plugin.
- */
-public class MyCssCustomRulesPlugin implements Plugin {
+@Rule(
+  key = "interpolated-properties",
+  priority = Priority.MAJOR,
+  name = "Interpolated properties should not be used",
+  tags = {"convention"})
+@SqaleConstantRemediation("5min")
+public class InterpolatedPropertiesCheck extends DoubleDispatchVisitorCheck {
 
   @Override
-  public void define(Context context) {
-    context.addExtensions(
-      ImmutableList.of(
-        MyCssCustomRulesDefinition.class,
-        MyLessCustomRulesDefinition.class,
-        MyScssCustomRulesDefinition.class));
+  public void visitProperty(PropertyTree tree) {
+    if (tree.property().isScssInterpolated()) {
+      addPreciseIssue(tree, "Remove this usage of the \"" + tree.property().text() + "\" interpolated property.");
+    }
+    // super method must be called in order to visit what is under the key node in the syntax tree
+    super.visitProperty(tree);
   }
 
 }

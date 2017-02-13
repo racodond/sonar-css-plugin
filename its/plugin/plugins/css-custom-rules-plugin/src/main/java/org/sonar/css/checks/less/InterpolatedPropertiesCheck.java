@@ -35,7 +35,7 @@ public class InterpolatedPropertiesCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitProperty(PropertyTree tree) {
-    if (tree.property().isInterpolated()) {
+    if (tree.property().isLessInterpolated()) {
       addPreciseIssue(tree, "Remove this usage of the \"" + tree.property().text() + "\" interpolated property.");
     }
     // super method must be called in order to visit what is under the key node in the syntax tree

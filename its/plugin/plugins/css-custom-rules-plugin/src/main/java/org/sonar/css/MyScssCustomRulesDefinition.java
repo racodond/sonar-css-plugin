@@ -19,21 +19,37 @@
  */
 package org.sonar.css;
 
-import com.google.common.collect.ImmutableList;
-import org.sonar.api.Plugin;
+import org.sonar.css.checks.scss.InterpolatedPropertiesCheck;
+import org.sonar.plugins.css.api.CustomScssRulesDefinition;
 
 /**
- * Extension point to define a SonarQube plugin.
+ * Extension point to define a SCSS rule repository.
  */
-public class MyCssCustomRulesPlugin implements Plugin {
+public class MyScssCustomRulesDefinition extends CustomScssRulesDefinition {
 
+  /**
+   * Provide the repository name.
+   */
   @Override
-  public void define(Context context) {
-    context.addExtensions(
-      ImmutableList.of(
-        MyCssCustomRulesDefinition.class,
-        MyLessCustomRulesDefinition.class,
-        MyScssCustomRulesDefinition.class));
+  public String repositoryName() {
+    return "My SCSS Custom Repository";
   }
 
+  /**
+   * Provide the repository key.
+   */
+  @Override
+  public String repositoryKey() {
+    return "custom-scss";
+  }
+
+  /**
+   * Provide the list of classes implementing rules.
+   */
+  @Override
+  public Class[] checkClasses() {
+    return new Class[]{
+      InterpolatedPropertiesCheck.class,
+    };
+  }
 }

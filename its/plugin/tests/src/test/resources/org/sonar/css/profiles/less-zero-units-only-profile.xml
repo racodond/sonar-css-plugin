@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<profile>
+  <name>less-zero-units-only-profile</name>
+  <language>less</language>
+  <rules>
+    <rule>
+      <repositoryKey>less</repositoryKey>
+      <key>zero-units</key>
+      <priority>MAJOR</priority>
+    </rule>
+  </rules>
+</profile>
