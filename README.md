@@ -30,11 +30,16 @@ and:
 
 
 ## Usage
+
+### Installation Guide
 1. [Download and install](http://docs.sonarqube.org/display/SONAR/Setup+and+Upgrade) SonarQube
 2. Install the CSS / SCSS /Less analyzer either by a [direct download](https://github.com/racodond/sonar-css-plugin/releases) or through the [update center](http://docs.sonarqube.org/display/SONAR/Update+Center).
 3. Install your [favorite analyzer](http://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code#AnalyzingSourceCode-RunningAnalysis) (SonarQube Scanner, Maven, Ant, etc.) and analyze your code. Note that starting at version 2.0, Java 8 is required to run an analysis.
 
 Plugin versions and compatibility with SonarQube versions: http://docs.sonarqube.org/display/PLUG/Plugin+Version+Matrix
+
+### Getting Started in Two Minutes
+For a quick try, a simple package and procedure is available at https://github.com/racodond/package-test-sonarqube-css
 
 ### Analyzing CSS code embedded in HTML/XHTML files
 The plugin analyzes CSS code embedded in `<style type="text/css">...</style>` tags in HTML/XHTML files.
