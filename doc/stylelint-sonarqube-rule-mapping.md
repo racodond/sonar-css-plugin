@@ -60,7 +60,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [Obsolete pseudo-elements and pseudo-classes should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aobsolete-pseudos) | None | |
 | [Over-specified selectors should be simplified](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aoverspecific-selectors) | [selector-max-compound-selectors](https://stylelint.io/user-guide/rules/selector-max-compound-selectors/) | |
 | [Properties that do not work with the "display" property should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Adisplay-property-grouping) | [declaration-block-no-ignored-properties](https://stylelint.io/user-guide/rules/declaration-block-no-ignored-properties/) | Rule should be improved on SonarQube side. See [issue #105](https://github.com/racodond/sonar-css-plugin/issues/105). |
-| [Property values should be valid](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Avalidate-property-value) | None | |
+| [Property values should be valid](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Avalidate-property-value) | [csstree/stylelint-validator plugin](https://github.com/csstree/stylelint-validator) | |
 | [Protocol-relative URL should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aprotocol-relative-url) | [function-url-no-scheme-relative](https://stylelint.io/user-guide/rules/function-url-no-scheme-relative/) | |
 | [Regular expression like selectors should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aregex-selectors) | None | |
 | [Regular expression on comment](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acomment-regular-expression) | [comment-word-blacklist](https://stylelint.io/user-guide/rules/comment-word-blacklist/) | |
@@ -173,21 +173,21 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | -------------- |------------------------ | -------- |
 | [function-blacklist](https://stylelint.io/user-guide/rules/function-blacklist/) | [Regular expression on function](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Afunction-regular-expression) | |
 | [function-calc-no-unspaced-operator](https://stylelint.io/user-guide/rules/function-calc-no-unspaced-operator/) | None | |
-| [function-comma-newline-after](https://stylelint.io/user-guide/rules/function-comma-newline-after/) | None | |
-| [function-comma-newline-before](https://stylelint.io/user-guide/rules/function-comma-newline-before/) | None | |
+| [function-comma-newline-after](https://stylelint.io/user-guide/rules/function-comma-newline-after/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
+| [function-comma-newline-before](https://stylelint.io/user-guide/rules/function-comma-newline-before/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [function-comma-space-after](https://stylelint.io/user-guide/rules/function-comma-space-after/) | None | |
 | [function-comma-space-before](https://stylelint.io/user-guide/rules/function-comma-space-before/) | None | |
 | [function-linear-gradient-no-nonstandard-direction](https://stylelint.io/user-guide/rules/function-linear-gradient-no-nonstandard-direction/) | None | |
-| [function-max-empty-lines](https://stylelint.io/user-guide/rules/function-max-empty-lines/) | None | |
+| [function-max-empty-lines](https://stylelint.io/user-guide/rules/function-max-empty-lines/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [function-name-case](https://stylelint.io/user-guide/rules/function-name-case/) | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
-| [function-parentheses-newline-inside](https://stylelint.io/user-guide/rules/function-parentheses-newline-inside/) | None | |
-| [function-parentheses-space-inside](https://stylelint.io/user-guide/rules/function-parentheses-space-inside/) | None | |
-| [function-url-data-uris](https://stylelint.io/user-guide/rules/function-url-data-uris/) | None | |
+| [function-parentheses-newline-inside](https://stylelint.io/user-guide/rules/function-parentheses-newline-inside/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
+| [function-parentheses-space-inside](https://stylelint.io/user-guide/rules/function-parentheses-space-inside/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
+| [function-url-data-uris](https://stylelint.io/user-guide/rules/function-url-data-uris/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [function-url-no-scheme-relative](https://stylelint.io/user-guide/rules/function-url-no-scheme-relative/) | [Protocol-relative URL should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aprotocol-relative-url) | |
 | [function-url-quotes](https://stylelint.io/user-guide/rules/function-url-quotes/) | [URL should be quoted](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aquoted-url) | |
-| [function-url-scheme-whitelist](https://stylelint.io/user-guide/rules/function-url-scheme-whitelist/) | None | |
-| [function-whitelist](https://stylelint.io/user-guide/rules/function-whitelist/) | None | |
-| [function-whitespace-after](https://stylelint.io/user-guide/rules/function-whitespace-after/) | None | |
+| [function-url-scheme-whitelist](https://stylelint.io/user-guide/rules/function-url-scheme-whitelist/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
+| [function-whitelist](https://stylelint.io/user-guide/rules/function-whitelist/) | [Regular expression on function](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Afunction-regular-expression) | |
+| [function-whitespace-after](https://stylelint.io/user-guide/rules/function-whitespace-after/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 
 
 ### Number
@@ -228,7 +228,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | -------------- |------------------------ | -------- |
 | [unit-blacklist](https://stylelint.io/user-guide/rules/unit-blacklist/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [unit-case](https://stylelint.io/user-guide/rules/unit-case/) | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
-| [unit-no-unknown](https://stylelint.io/user-guide/rules/unit-no-unknown/) | None | |
+| [unit-no-unknown](https://stylelint.io/user-guide/rules/unit-no-unknown/) | None | For instance, 10zc will be considered as two value elements in SonarQube: number '10' and identifier 'zc'. |
 | [unit-whitelist](https://stylelint.io/user-guide/rules/unit-whitelist/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 
 
@@ -244,18 +244,18 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 
 | stylelint Rule | SonarQube Related Rules | Comments |
 | -------------- |------------------------ | -------- |
-| [value-list-comma-newline-after](https://stylelint.io/user-guide/rules/value-list-comma-newline-after/) | None | |
-| [value-list-comma-newline-before](https://stylelint.io/user-guide/rules/value-list-comma-newline-before/) | None | |
+| [value-list-comma-newline-after](https://stylelint.io/user-guide/rules/value-list-comma-newline-after/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
+| [value-list-comma-newline-before](https://stylelint.io/user-guide/rules/value-list-comma-newline-before/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [value-list-comma-space-after](https://stylelint.io/user-guide/rules/value-list-comma-space-after/) | None | |
 | [value-list-comma-space-before](https://stylelint.io/user-guide/rules/value-list-comma-space-before/) | None | |
-| [value-list-max-empty-lines](https://stylelint.io/user-guide/rules/value-list-max-empty-lines/) | None | |
+| [value-list-max-empty-lines](https://stylelint.io/user-guide/rules/value-list-max-empty-lines/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 
 
 ### Custom property
 
 | stylelint Rule | SonarQube Related Rules | Comments |
 | -------------- |------------------------ | -------- |
-| [custom-property-empty-line-before](https://stylelint.io/user-guide/rules/custom-property-empty-line-before/) | None | |
+| [custom-property-empty-line-before](https://stylelint.io/user-guide/rules/custom-property-empty-line-before/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [custom-property-no-outside-root](https://stylelint.io/user-guide/rules/custom-property-no-outside-root/) (deprecated) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [custom-property-pattern](https://stylelint.io/user-guide/rules/custom-property-pattern/) | [CSS variables should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acss-variable-naming-convention) | |
 
@@ -291,10 +291,10 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | -------------- |------------------------ | -------- |
 | [declaration-bang-space-after](https://stylelint.io/user-guide/rules/declaration-bang-space-after/) | [Source code should comply with formatting standards](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aformatting) | |
 | [declaration-bang-space-before](https://stylelint.io/user-guide/rules/declaration-bang-space-before/) | None | |
-| [declaration-colon-newline-after](https://stylelint.io/user-guide/rules/declaration-colon-newline-after/) | None | |
+| [declaration-colon-newline-after](https://stylelint.io/user-guide/rules/declaration-colon-newline-after/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [declaration-colon-space-after](https://stylelint.io/user-guide/rules/declaration-colon-space-after/) | [Source code should comply with formatting standards](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aformatting) | |
 | [declaration-colon-space-before](https://stylelint.io/user-guide/rules/declaration-colon-space-before/) | [Source code should comply with formatting standards](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aformatting) | |
-| [declaration-empty-line-before](https://stylelint.io/user-guide/rules/declaration-empty-line-before/) | None | |
+| [declaration-empty-line-before](https://stylelint.io/user-guide/rules/declaration-empty-line-before/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [declaration-no-important](https://stylelint.io/user-guide/rules/declaration-no-important/) | ["!important" flag should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aimportant) | |
 | [declaration-property-unit-blacklist](https://stylelint.io/user-guide/rules/declaration-property-unit-blacklist/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [declaration-property-unit-whitelist](https://stylelint.io/user-guide/rules/declaration-property-unit-whitelist/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
@@ -368,7 +368,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [selector-pseudo-class-parentheses-space-inside](https://stylelint.io/user-guide/rules/selector-pseudo-class-parentheses-space-inside/) | None | |
 | [selector-pseudo-class-whitelist](https://stylelint.io/user-guide/rules/selector-pseudo-class-whitelist/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [selector-pseudo-element-case](https://stylelint.io/user-guide/rules/selector-pseudo-element-case/) | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
-| [selector-pseudo-element-colon-notation](https://stylelint.io/user-guide/rules/selector-pseudo-element-colon-notation/) | None | |
+| [selector-pseudo-element-colon-notation](https://stylelint.io/user-guide/rules/selector-pseudo-element-colon-notation/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [selector-pseudo-element-no-unknown](https://stylelint.io/user-guide/rules/selector-pseudo-element-no-unknown/) | [Unknown pseudo-elements and pseudo-classes should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aunknown-pseudo) | |
 | [selector-root-no-composition](https://stylelint.io/user-guide/rules/selector-root-no-composition/) (deprecated) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [selector-type-case](https://stylelint.io/user-guide/rules/selector-type-case/) | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
@@ -398,8 +398,8 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | stylelint Rule | SonarQube Related Rules | Comments |
 | -------------- |------------------------ | -------- |
 | [rule-empty-line-before](https://stylelint.io/user-guide/rules/rule-empty-line-before/) | None | |
-| [rule-nested-empty-line-before](https://stylelint.io/user-guide/rules/rule-nested-empty-line-before/) (deprecated) | None | |
-| [rule-non-nested-empty-line-before](https://stylelint.io/user-guide/rules/rule-non-nested-empty-line-before/) (deprecated) | None | |
+| [rule-nested-empty-line-before](https://stylelint.io/user-guide/rules/rule-nested-empty-line-before/) (deprecated) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
+| [rule-non-nested-empty-line-before](https://stylelint.io/user-guide/rules/rule-non-nested-empty-line-before/) (deprecated) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 
 
 ### Media feature
@@ -505,10 +505,10 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [at-import-partial-extension-whitelist](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/at-import-partial-extension-whitelist/README.md) | None | |
 | [at-mixin-argumentless-call-parentheses](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/at-mixin-argumentless-call-parentheses/README.md) | [Useless parentheses following @include and @mixin with no parameter should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Auseless-parentheses-mixin-no-parameter) | |
 | [at-mixin-pattern](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/at-mixin-pattern/README.md) | [Mixins should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Amixin-naming-convention) | |
-| [dollar-variable-colon-newline-after](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/dollar-variable-colon-newline-after/README.md) | None | |
+| [dollar-variable-colon-newline-after](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/dollar-variable-colon-newline-after/README.md) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [dollar-variable-colon-space-after](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/dollar-variable-colon-space-after/README.md) | [Source code should comply with formatting standards](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aformatting) | |
 | [dollar-variable-colon-space-before](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/dollar-variable-colon-space-before/README.md) | [Source code should comply with formatting standards](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aformatting) | |
-| [dollar-variable-empty-line-before](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/dollar-variable-empty-line-before/README.md) | None | |
+| [dollar-variable-empty-line-before](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/dollar-variable-empty-line-before/README.md) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [dollar-variable-no-missing-interpolation](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/dollar-variable-no-missing-interpolation/README.md) | None | |
 | [dollar-variable-pattern](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/dollar-variable-pattern/README.md) | [SCSS variables should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Ascss-variable-naming-convention) |
 | [percent-placeholder-pattern](https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/percent-placeholder-pattern/README.md) | [Placeholder selectors should follow a naming convention](http://sonarqube.racodond.com/coding_rules#rule_key=scss%3Aplaceholder-selector-naming-convention) |
