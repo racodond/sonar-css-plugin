@@ -892,6 +892,11 @@
 'project:custom/common/selectorNamingConvention/selectorNamingConventionScssPlaceholder.scss':[
 6,
 ],
+'project:custom/common/text-transform-uppercase/textTransformUppercase.scss':[
+4,
+5,
+6,
+],
 'project:custom/common/use-shorthand-properties/shorthand.scss':[
 24,
 75,

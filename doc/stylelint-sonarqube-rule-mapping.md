@@ -18,6 +18,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | ["NOSONAR" tags should not be used to switch off issues](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Anosonar) | None | |
 | ["stylelint-disable" tags should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Astylelint-disable) | None | |
 | ["stylelint-enable" tags should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Astylelint-enable) | None | |
+| ["text-transform" properties should not be set to "uppercase" or "capitalize" for some languages](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Atext-transform-uppercase) | None | |
 | ["TODO" tags should be handled](http://sonarqube.racodond.com/coding_rules#rule_key=css%3AS1135) | None | |
 | [@charset should be the first element in the style sheet and not be preceded by any character](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acharset-first) | None | |
 | [@import rules should precede all other at-rules and style rules](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aimport-first) | None | |

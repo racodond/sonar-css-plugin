@@ -1021,6 +1021,11 @@
 'project:custom/common/single-quotes/singleQuotes.css':[
 4,
 ],
+'project:custom/common/text-transform-uppercase/textTransformUppercase.css':[
+4,
+5,
+6,
+],
 'project:custom/common/toomanywebfonts.css':[
 1,
 ],

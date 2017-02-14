@@ -1,0 +1,8 @@
+.mybox {
+    text-transform: lowercase;
+    text-transform: uppercase; /* Noncompliant ![sc=5;ec=31]! !{Remove this "text-transform" property declaration.}! */
+    text-transform: uppercase !important; /* Noncompliant ![sc=5;ec=42]! !{Remove this "text-transform" property declaration.}! */
+    text-transform: capitalize !important; /* Noncompliant ![sc=5;ec=43]! !{Remove this "text-transform" property declaration.}! */
+    text-transform: capitalize !important; /* Noncompliant ![sc=5;ec=43]! !{Remove this "text-transform" property declaration.}! */
+    text-transform: @{uppercase};
+}

@@ -1,0 +1,28 @@
+<p>
+    For some languages, such as Greek or German, some browsers do not properly support transforming letters to
+    uppercase. Thus, usage of the <code>text-transform</code> property set to <code>uppercase</code> or
+    <code>capitalize</code> should be avoided if those languages are targeted.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+.mybox1 {
+  text-transform: uppercase; /* Noncompliant */
+}
+
+.mybox2 {
+  text-transform: capitalize; /* Noncompliant */
+}
+
+.mybox3 {
+  text-transform: lowercase; /* Compliant */
+}
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://css-tricks.com/almanac/properties/t/text-transform/" target="_blank">CSS-TRICKS
+        text-transform</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform" target="_blank">MDN text-transform</a>
+    </li>
+</ul>
