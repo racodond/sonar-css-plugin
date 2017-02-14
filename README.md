@@ -3,6 +3,7 @@ SonarQube CSS / SCSS / Less Analyzer
 [![Build Status](https://api.travis-ci.org/racodond/sonar-css-plugin.svg?branch=master)](https://travis-ci.org/racodond/sonar-css-plugin)
 [![Build status](https://ci.appveyor.com/api/projects/status/36tt33b2wrfjgmo2/branch/master?svg=true)](https://ci.appveyor.com/project/racodond/sonar-css-plugin/branch/master)
 [![Quality Gate status](https://sonarqube.com/api/badges/gate?key=org.codehaus.sonar-plugins.css%3Acss)](https://sonarqube.com/overview?id=org.codehaus.sonar-plugins.css%3Acss)
+[![Twitter](https://img.shields.io/badge/Twitter-@racodond-blue.svg)](https://twitter.com/racodond)
 
 
 ## Description
