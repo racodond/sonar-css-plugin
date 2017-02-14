@@ -19,8 +19,8 @@
   <url>https://github.com/racodond/sonar-css-plugin</url>
   <inceptionYear>2013</inceptionYear>
   <organization>
-    <name>Tamas Kende and David RACODON</name>
-    <url>mailto:kende.tamas@gmail.com</url>
+    <name>David RACODON and Tamas Kende</name>
+    <url>mailto:david.racodon@gmail.com</url>
   </organization>
   <licenses>
     <license>
@@ -32,14 +32,14 @@
 
   <developers>
     <developer>
-      <id>kalidasya</id>
-      <name>Kende Tamas</name>
-    </developer>
-    <developer>
       <id>racodond</id>
       <name>David RACODON</name>
       <email>david.racodon@gmail.com</email>
       <url>https://www.linkedin.com/pub/david-racodon/11/62/283</url>
+    </developer>
+    <developer>
+      <id>kalidasya</id>
+      <name>Kende Tamas</name>
     </developer>
   </developers>
 
@@ -67,8 +67,8 @@
 
   <properties>
     <license.title>SonarQube CSS / SCSS / Less Analyzer</license.title>
-    <license.mailto>mailto: kende.tamas@gmail.com and david.racodon@gmail.com</license.mailto>
-    <license.owner>Tamas Kende and David RACODON</license.owner>
+    <license.mailto>mailto: david.racodon@gmail.com</license.mailto>
+    <license.owner>David RACODON and Tamas Kende</license.owner>
     <sonar.version>5.6</sonar.version>
     <sslr.version>1.21</sslr.version>
     <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
