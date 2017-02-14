@@ -71,7 +71,7 @@ public class OverspecificSelectorCheck extends DoubleDispatchVisitorCheck {
   }
 
   @VisibleForTesting
-  public void setDeepnessThreshold(int deepnessThreshold) {
+  void setDeepnessThreshold(int deepnessThreshold) {
     this.deepnessThreshold = deepnessThreshold;
   }
 

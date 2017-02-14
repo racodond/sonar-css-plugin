@@ -60,7 +60,7 @@ public class CustomFunctionNamingConventionCheck extends DoubleDispatchVisitorCh
   }
 
   @VisibleForTesting
-  public void setFormat(String format) {
+  void setFormat(String format) {
     this.format = format;
   }
 

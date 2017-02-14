@@ -38,7 +38,7 @@ public class LessRulesDefinitionTest {
 
     assertThat(repository.name()).isEqualTo("SonarQube");
     assertThat(repository.language()).isEqualTo("less");
-    assertThat(repository.rules()).hasSize(85);
+    assertThat(repository.rules()).hasSize(86);
 
     RulesDefinition.Rule rule = repository.rule(DeprecatedEscapingFunctionCheck.class.getAnnotation(Rule.class).key());
     assertThat(rule).isNotNull();

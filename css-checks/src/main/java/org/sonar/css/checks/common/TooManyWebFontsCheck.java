@@ -74,7 +74,7 @@ public class TooManyWebFontsCheck extends DoubleDispatchVisitorCheck {
   }
 
   @VisibleForTesting
-  public void setFontFaceThreshold(int fontFaceThreshold) {
+  void setFontFaceThreshold(int fontFaceThreshold) {
     this.fontFaceThreshold = fontFaceThreshold;
   }
 

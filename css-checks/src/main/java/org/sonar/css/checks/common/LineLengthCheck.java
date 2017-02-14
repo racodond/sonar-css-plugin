@@ -79,7 +79,7 @@ public class LineLengthCheck extends DoubleDispatchVisitorCheck implements Chars
   }
 
   @VisibleForTesting
-  public void setMaximumLineLength(int maximumLineLength) {
+  void setMaximumLineLength(int maximumLineLength) {
     this.maximumLineLength = maximumLineLength;
   }
 

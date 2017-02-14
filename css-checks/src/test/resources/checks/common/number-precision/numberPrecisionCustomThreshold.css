@@ -1,0 +1,14 @@
+.mybox {
+  top: 10;
+  top: 10px;
+  top: 10%;
+  top: 10.12;
+  top: 10.12px;
+  top: 10.12%;
+  top: 10.1234; /* Noncompliant ![sc=8;ec=15;el=+0]! !{Decrease the precision of this number. Actual is 4, maximum expected precision is 2.}! */
+  top: 10.1234px; /* Noncompliant ![sc=8;ec=15;el=+0]! !{Decrease the precision of this number. Actual is 4, maximum expected precision is 2.}! */
+  top: 10.1234%; /* Noncompliant ![sc=8;ec=15;el=+0]! !{Decrease the precision of this number. Actual is 4, maximum expected precision is 2.}! */
+  top: .12345; /* Noncompliant ![sc=8;ec=14;el=+0]! !{Decrease the precision of this number. Actual is 5, maximum expected precision is 2.}! */
+  top: .12345px; /* Noncompliant ![sc=8;ec=14;el=+0]! !{Decrease the precision of this number. Actual is 5, maximum expected precision is 2.}! */
+  top: .12345%; /* Noncompliant ![sc=8;ec=14;el=+0]! !{Decrease the precision of this number. Actual is 5, maximum expected precision is 2.}! */
+}

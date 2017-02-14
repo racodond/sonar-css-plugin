@@ -1,0 +1,32 @@
+<p>
+    Numbers with lots of decimals may be a bit cryptic. Thus, for instance, using the <code>calc</code> function may be
+    a good alternative to improve readability and understandability.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+With a maximum allowed precision of 3:
+<pre>
+.mybox {
+  bottom: 3.3333px; /* Noncompliant */
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+With a maximum allowed precision of 3:
+<pre>
+.mybox {
+  bottom: 3.333px;
+}
+
+OR
+
+.mybox {
+  bottom: calc(10px / 3);
+}
+</pre>
+
+<h2>stylelint Related Rules</h2>
+<ul>
+    <li><a href="https://stylelint.io/user-guide/rules/number-max-precision/" target="_blank">number-max-precision</a>
+    </li>
+</ul>

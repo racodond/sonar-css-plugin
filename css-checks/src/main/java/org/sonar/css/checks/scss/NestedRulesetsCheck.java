@@ -68,7 +68,7 @@ public class NestedRulesetsCheck extends DoubleDispatchVisitorCheck {
   }
 
   @VisibleForTesting
-  public void setMax(int max) {
+  void setMax(int max) {
     this.max = max;
   }
 

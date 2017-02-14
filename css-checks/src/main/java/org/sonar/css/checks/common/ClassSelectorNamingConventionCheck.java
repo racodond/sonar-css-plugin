@@ -63,7 +63,7 @@ public class ClassSelectorNamingConventionCheck extends DoubleDispatchVisitorChe
   }
 
   @VisibleForTesting
-  public void setFormat(String format) {
+  void setFormat(String format) {
     this.format = format;
   }
 

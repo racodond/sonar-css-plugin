@@ -76,7 +76,7 @@ public class FileTooManyLinesCheck extends DoubleDispatchVisitorCheck implements
   }
 
   @VisibleForTesting
-  public void setMax(int max) {
+  void setMax(int max) {
     this.max = max;
   }
 

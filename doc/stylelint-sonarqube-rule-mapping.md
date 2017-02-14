@@ -56,6 +56,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [Lines should not end with trailing whitespaces](http://sonarqube.racodond.com/coding_rules#rule_key=css%3AS1131) | [no-eol-whitespace](https://stylelint.io/user-guide/rules/no-eol-whitespace/) | |
 | [Missing vendor prefixes should be added to experimental properties](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acompatible-vendor-prefixes) | None | |
 | [Name of overqualified element should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aoverqualified-elements) | None | |
+| [Number precision should not be too high](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Anumber-precision) | [number-max-precision](https://stylelint.io/user-guide/rules/number-max-precision/) | |
 | [Obsolete functions should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aobsolete-functions) | None | |
 | [Obsolete properties should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aobsolete-properties) | None | |
 | [Obsolete pseudo-elements and pseudo-classes should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aobsolete-pseudos) | None | |
@@ -196,7 +197,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | stylelint Rule | SonarQube Related Rules | Comments |
 | -------------- |------------------------ | -------- |
 | [number-leading-zero](https://stylelint.io/user-guide/rules/number-leading-zero/) | [Leading zeros should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aleading-zeros) | |
-| [number-max-precision](https://stylelint.io/user-guide/rules/number-max-precision/) | None | See [issue #111](https://github.com/racodond/sonar-css-plugin/issues/111) |
+| [number-max-precision](https://stylelint.io/user-guide/rules/number-max-precision/) | [Number precision should not be too high](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Anumber-precision) | |
 | [number-no-trailing-zeros](https://stylelint.io/user-guide/rules/number-no-trailing-zeros/) | [Trailing zeros for numeric values should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Atrailing-zeros) | |
 
 

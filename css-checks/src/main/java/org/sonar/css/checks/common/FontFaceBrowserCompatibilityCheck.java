@@ -90,7 +90,7 @@ public class FontFaceBrowserCompatibilityCheck extends DoubleDispatchVisitorChec
   }
 
   @VisibleForTesting
-  public void setBrowserSupportLevel(String browserSupportLevel) {
+  void setBrowserSupportLevel(String browserSupportLevel) {
     this.browserSupportLevel = browserSupportLevel;
   }
 
