@@ -1,0 +1,10 @@
+$typography-inset: 0 1px 0 map-get($Base,white) !default; /* Noncompliant ![sc=42;ec=47;el=+0]! !{Replace this named color.}! */
+$my-color: blue; /* Noncompliant ![sc=12;ec=16;el=+0]! !{Replace this named color.}! */
+$red: #ff0033;
+$-local-red-raw: red(rgba($hex-color, 1));
+
+.mybox {
+  color: red; /* Noncompliant ![sc=10;ec=13;el=+0]! !{Replace this named color.}! */
+  color: #ff0033;
+  color: rgba(255, 0, 0, 1);
+}

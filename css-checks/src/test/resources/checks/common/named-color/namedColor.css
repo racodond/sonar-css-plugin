@@ -1,0 +1,6 @@
+.mybox {
+    --red: #ff0033;
+    color: red; /* Noncompliant ![sc=12;ec=15;el=+0]! !{Replace this named color.}! */
+    color: #ff0033;
+    color: rgba(255, 0, 0, 1);
+}

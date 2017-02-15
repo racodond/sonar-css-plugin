@@ -56,6 +56,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [Lines should not end with trailing whitespaces](http://sonarqube.racodond.com/coding_rules#rule_key=css%3AS1131) | [no-eol-whitespace](https://stylelint.io/user-guide/rules/no-eol-whitespace/) | |
 | [Missing vendor prefixes should be added to experimental properties](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acompatible-vendor-prefixes) | None | |
 | [Name of overqualified element should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aoverqualified-elements) | None | |
+| [Named colors should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Anamed-color) | [color-named](https://stylelint.io/user-guide/rules/color-named/) | |
 | [Number precision should not be too high](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Anumber-precision) | [number-max-precision](https://stylelint.io/user-guide/rules/number-max-precision/) | |
 | [Obsolete functions should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aobsolete-functions) | None | |
 | [Obsolete properties should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aobsolete-properties) | None | |
@@ -149,7 +150,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | -------------- |------------------------ | -------- |
 | [color-hex-case](https://stylelint.io/user-guide/rules/color-hex-case/) | [CSS should be written in lower case](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Acase) | |
 | [color-hex-length](https://stylelint.io/user-guide/rules/color-hex-length/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
-| [color-named](https://stylelint.io/user-guide/rules/color-named/) | None | See [issue #77](https://github.com/racodond/sonar-css-plugin/issues/77) |
+| [color-named](https://stylelint.io/user-guide/rules/color-named/) | [Named colors should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Anamed-color) | |
 | [color-no-hex](https://stylelint.io/user-guide/rules/color-no-hex/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [color-no-invalid-hex](https://stylelint.io/user-guide/rules/color-no-invalid-hex/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 

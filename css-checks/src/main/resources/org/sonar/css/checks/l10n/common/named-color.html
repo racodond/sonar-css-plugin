@@ -1,0 +1,36 @@
+<p>
+    Refrain from using named colors and use hexadecimal notation or functions such as <code>rgb</code> or
+    <code>hsl</code> instead.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+.mybox {
+  color: red; /* Noncompliant */
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+.mybox {
+  color: #ff0000;
+}
+
+OR
+
+.mybox {
+  color: rgba(255, 0, 0, 1);
+}
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li>
+        <a href="https://arstechnica.com/information-technology/2015/10/tomato-versus-ff6347-the-tragicomic-history-of-css-color-names/"
+           target="_blank">"Tomato" versus "#FF6347" - the tragicomic history of CSS color names</a></li>
+</ul>
+
+<h2>stylelint Related Rules</h2>
+<ul>
+    <li><a href="https://stylelint.io/user-guide/rules/color-named/" target="_blank">color-named</a></li>
+</ul>

@@ -1,0 +1,8 @@
+@my-color: blue; /* Noncompliant ![sc=12;ec=16;el=+0]! !{Replace this named color.}! */
+@red: #ff0033;
+
+.mybox {
+  color: red; /* Noncompliant ![sc=10;ec=13;el=+0]! !{Replace this named color.}! */
+  color: #ff0033;
+  color: rgba(255, 0, 0, 1);
+}
