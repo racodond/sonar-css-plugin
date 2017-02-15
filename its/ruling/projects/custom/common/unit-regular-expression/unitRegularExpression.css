@@ -1,0 +1,5 @@
+.mybox {
+  width: 10px;
+  width: 10rad; /* Noncompliant ![sc=12;ec=15;el=+0]! !{Remove this unit...}! */
+  width: 10em; /* Noncompliant ![sc=12;ec=14;el=+0]! !{Remove this unit...}! */
+}

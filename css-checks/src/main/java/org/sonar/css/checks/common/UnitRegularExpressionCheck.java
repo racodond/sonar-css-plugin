@@ -25,7 +25,7 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.css.checks.CheckList;
 import org.sonar.css.checks.CheckUtils;
-import org.sonar.plugins.css.api.tree.css.AtRuleTree;
+import org.sonar.plugins.css.api.tree.css.UnitTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.NoSqale;
 import org.sonar.squidbridge.annotations.RuleTemplate;
@@ -34,15 +34,15 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 @Rule(
-  key = "at-rule-regular-expression",
-  name = "Regular expression on @-rule",
+  key = "unit-regular-expression",
+  name = "Regular expression on unit",
   priority = Priority.MAJOR)
 @RuleTemplate
 @NoSqale
-public class AtRuleRegularExpressionCheck extends DoubleDispatchVisitorCheck {
+public class UnitRegularExpressionCheck extends DoubleDispatchVisitorCheck {
 
   private static final String DEFAULT_REGULAR_EXPRESSION = "";
-  private static final String DEFAULT_MESSAGE = "The regular expression matches this @-rule.";
+  private static final String DEFAULT_MESSAGE = "The regular expression matches this unit.";
 
   @RuleProperty(
     key = "regularExpression",
@@ -57,11 +57,11 @@ public class AtRuleRegularExpressionCheck extends DoubleDispatchVisitorCheck {
   private String message = DEFAULT_MESSAGE;
 
   @Override
-  public void visitAtRule(AtRuleTree tree) {
-    if (!tree.atKeyword().keyword().isInterpolated() && tree.atKeyword().keyword().text().matches(regularExpression)) {
-      addPreciseIssue(tree.atKeyword(), message);
+  public void visitUnit(UnitTree tree) {
+    if (tree.text().matches(regularExpression)) {
+      addPreciseIssue(tree, message);
     }
-    super.visitAtRule(tree);
+    super.visitUnit(tree);
   }
 
   @Override
