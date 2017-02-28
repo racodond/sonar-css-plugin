@@ -425,23 +425,23 @@ public class ScssGrammar extends CssGrammar {
         b.token(LexicalGrammar.CLOSE_PARENTHESIS)));
   }
 
-  public SeparatedList<ScssParameterTree, SyntaxToken> SCSS_PARAMETER_LIST() {
-    return b.<SeparatedList<ScssParameterTree, SyntaxToken>>nonterminal().is(
+  public SeparatedList<ScssParameterTree, DelimiterTree> SCSS_PARAMETER_LIST() {
+    return b.<SeparatedList<ScssParameterTree, DelimiterTree>>nonterminal().is(
       f.scssParameterList(
         SCSS_PARAMETER(),
         b.zeroOrMore(
           f.newTuple5(
-            b.token(LexicalGrammar.COMMA),
+            COMMA_DELIMITER(),
             SCSS_PARAMETER()))));
   }
 
-  public SeparatedList<ScssParameterTree, SyntaxToken> SCSS_CALL_PARAMETER_LIST() {
-    return b.<SeparatedList<ScssParameterTree, SyntaxToken>>nonterminal().is(
+  public SeparatedList<ScssParameterTree, DelimiterTree> SCSS_CALL_PARAMETER_LIST() {
+    return b.<SeparatedList<ScssParameterTree, DelimiterTree>>nonterminal().is(
       f.scssCallParameterList(
         SCSS_CALL_PARAMETER(),
         b.zeroOrMore(
           f.newTuple6(
-            b.token(LexicalGrammar.COMMA),
+            COMMA_DELIMITER(),
             SCSS_CALL_PARAMETER()))));
   }
 

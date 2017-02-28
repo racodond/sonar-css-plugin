@@ -23,13 +23,21 @@ import com.google.common.base.Preconditions;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.Tags;
+import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.*;
+import org.sonar.plugins.css.api.tree.less.LessMixinParametersTree;
 import org.sonar.plugins.css.api.tree.less.LessVariableDeclarationTree;
+import org.sonar.plugins.css.api.tree.scss.ScssMapTree;
+import org.sonar.plugins.css.api.tree.scss.ScssParametersTree;
+import org.sonar.plugins.css.api.tree.scss.ScssVariableDeclarationTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
+import org.sonar.plugins.css.api.visitors.issue.PreciseIssue;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+
+import java.util.List;
 
 @Rule(
   key = "formatting",
@@ -115,14 +123,38 @@ public class FormattingCheck extends DoubleDispatchVisitorCheck {
   }
 
   @Override
+  public void visitScssVariableDeclaration(ScssVariableDeclarationTree tree) {
+    if (!isOnSameLine(tree.variable(), tree.colon(), tree.value())) {
+      addPreciseIssue(tree, "Move the variable, colon and value to the same line.");
+    }
+
+    if (isOnSameLine(tree.variable(), tree.colon()) && nbWhitespacesBetween(tree.variable(), tree.colon()) > 0) {
+      addPreciseIssue(tree.colon(), "Remove the whitespaces between the variable and the colon.");
+    }
+
+    if (isOnSameLine(tree.colon(), tree.value())) {
+      if (nbWhitespacesBetween(tree.colon(), tree.value()) == 0) {
+        addPreciseIssue(tree.colon(), "Add one whitespace between the colon and the value.");
+
+      } else if (nbWhitespacesBetween(tree.colon(), tree.value()) > 1) {
+        addPreciseIssue(tree.colon(), "Leave only one whitespace between the colon and the value.");
+      }
+    }
+
+    super.visitScssVariableDeclaration(tree);
+  }
+
+  @Override
   public void visitRuleset(RulesetTree tree) {
 
     if (tree.block().content().isEmpty()) {
+      super.visitRuleset(tree);
       return;
     }
 
     if (tree.block().content().size() < 2
       && isOnSameLine(tree.block().openCurlyBrace(), tree.block().closeCurlyBrace())) {
+      super.visitRuleset(tree);
       return;
     }
 
@@ -158,6 +190,74 @@ public class FormattingCheck extends DoubleDispatchVisitorCheck {
     }
 
     super.visitAtRule(tree);
+  }
+
+  @Override
+  public void visitValueCommaSeparatedList(ValueCommaSeparatedListTree tree) {
+    checkDelimiterSeparatedList(tree.values());
+    super.visitValueCommaSeparatedList(tree);
+  }
+
+  @Override
+  public void visitParameters(ParametersTree tree) {
+    if (tree.parameters() != null) {
+      checkDelimiterSeparatedList(tree.parameters());
+    }
+    super.visitParameters(tree);
+  }
+
+  @Override
+  public void visitScssParameters(ScssParametersTree tree) {
+    if (tree.parameters() != null) {
+      checkDelimiterSeparatedList(tree.parameters());
+    }
+    super.visitScssParameters(tree);
+  }
+
+  @Override
+  public void visitLessMixinParameters(LessMixinParametersTree tree) {
+    if (tree.parameters() != null) {
+      checkDelimiterSeparatedList(tree.parameters());
+    }
+    super.visitLessMixinParameters(tree);
+  }
+
+  @Override
+  public void visitScssMap(ScssMapTree tree) {
+    if (tree.entries() != null) {
+      checkDelimiterSeparatedList(tree.entries());
+    }
+    super.visitScssMap(tree);
+  }
+
+  @Override
+  public void visitSelectors(SelectorsTree tree) {
+    checkDelimiterSeparatedList(tree.selectors());
+    super.visitSelectors(tree);
+  }
+
+  private void checkDelimiterSeparatedList(SeparatedList<? extends Tree, DelimiterTree> list) {
+    List<DelimiterTree> delimiter = list.separators();
+    List<? extends Tree> elements = list;
+
+    for (int i = 0; i < delimiter.size(); i++) {
+      if (!isOnSameLine(delimiter.get(i), elements.get(i))) {
+        PreciseIssue issue = addPreciseIssue(delimiter.get(i), "Move the delimiter right next to its preceding element.");
+        issue.secondary(elements.get(i), "Preceding value");
+      } else if (nbWhitespacesBetween(elements.get(i), delimiter.get(i)) > 0) {
+        addPreciseIssue(delimiter.get(i), "Remove all the whitespaces before the delimiter.");
+      }
+    }
+
+    for (int i = 1; i < elements.size(); i++) {
+      if (isOnSameLine(delimiter.get(i - 1), elements.get(i))) {
+        if (nbWhitespacesBetween(delimiter.get(i - 1), elements.get(i)) == 0) {
+          addPreciseIssue(delimiter.get(i - 1), "Add a whitespace between the delimiter and the following element.");
+        } else if (nbWhitespacesBetween(delimiter.get(i - 1), elements.get(i)) > 1) {
+          addPreciseIssue(delimiter.get(i - 1), "Leave only one single whitespace between the delimiter and the element.");
+        }
+      }
+    }
   }
 
   private void checkAtRuleOpeningCurlyBrace(AtRuleTree tree) {

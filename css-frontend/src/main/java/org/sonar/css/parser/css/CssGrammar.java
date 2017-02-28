@@ -250,15 +250,15 @@ public class CssGrammar {
       f.selectors(SELECTOR_LIST()));
   }
 
-  public SeparatedList<SelectorTree, SyntaxToken> SELECTOR_LIST() {
-    return b.<SeparatedList<SelectorTree, SyntaxToken>>nonterminal().is(
+  public SeparatedList<SelectorTree, DelimiterTree> SELECTOR_LIST() {
+    return b.<SeparatedList<SelectorTree, DelimiterTree>>nonterminal().is(
       f.selectorList(
         SELECTOR(),
         b.zeroOrMore(
           f.newTuple1(
-            b.token(LexicalGrammar.COMMA),
+            COMMA_DELIMITER(),
             SELECTOR())),
-        b.optional(b.token(LexicalGrammar.COMMA))));
+        b.optional(COMMA_DELIMITER())));
   }
 
   public SelectorTree SELECTOR() {
@@ -516,6 +516,11 @@ public class CssGrammar {
   public DelimiterTree COMMA_DELIMITER() {
     return b.<DelimiterTree>nonterminal(LexicalGrammar.COMMA_DELIMITER).is(
       f.commaDelimiter(b.token(LexicalGrammar.COMMA)));
+  }
+
+  public DelimiterTree SEMICOLON_DELIMITER() {
+    return b.<DelimiterTree>nonterminal(LexicalGrammar.SEMICOLON_DELIMITER).is(
+      f.semicolonDelimiter(b.token(LexicalGrammar.SEMICOLON)));
   }
 
   public CaseInsensitiveFlagTree CASE_INSENSITIVE_FLAG() {

@@ -23,6 +23,7 @@ import com.google.common.collect.Iterators;
 import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.DelimiterTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.less.LessMixinParameterTree;
 import org.sonar.plugins.css.api.tree.less.LessMixinParametersTree;
@@ -30,18 +31,16 @@ import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 import java.util.function.Function;
 
 public class LessMixinParametersTreeImpl extends TreeImpl implements LessMixinParametersTree {
 
   private final SyntaxToken openParenthesis;
   private final SyntaxToken closeParenthesis;
-  private final SeparatedList<LessMixinParameterTree, SyntaxToken> parameters;
+  private final SeparatedList<LessMixinParameterTree, DelimiterTree> parameters;
 
-  public LessMixinParametersTreeImpl(SyntaxToken openParenthesis, @Nullable SeparatedList<LessMixinParameterTree, SyntaxToken> parameters, SyntaxToken closeParenthesis) {
+  public LessMixinParametersTreeImpl(SyntaxToken openParenthesis, @Nullable SeparatedList<LessMixinParameterTree, DelimiterTree> parameters, SyntaxToken closeParenthesis) {
     this.openParenthesis = openParenthesis;
     this.closeParenthesis = closeParenthesis;
     this.parameters = parameters;
@@ -71,8 +70,9 @@ public class LessMixinParametersTreeImpl extends TreeImpl implements LessMixinPa
   }
 
   @Override
-  public List<LessMixinParameterTree> parameters() {
-    return parameters != null ? parameters : Collections.emptyList();
+  @Nullable
+  public SeparatedList<LessMixinParameterTree, DelimiterTree> parameters() {
+    return parameters;
   }
 
   @Override

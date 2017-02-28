@@ -3,7 +3,7 @@
     compliance with formatting standards.
 </p>
 
-<h1>Ruleset / @-rule Block</h1>
+<h1><strong>Ruleset / @-rule Block</strong></h1>
 <ul>
     <li>Opening curly brace should be placed on the same line as the block declaration</li>
     <li>Closing curly brace should be placed on its own line</li>
@@ -45,7 +45,7 @@
 .mybox { color: red; }
 </pre>
 
-<h1>Declaration</h1>
+<h1><strong>Declaration</strong></h1>
 <ul>
     <li>Property/variable, colon and value should be placed on the same line</li>
     <li>No whitespace between the property and the colon</li>
@@ -79,6 +79,24 @@
 .mybox {
   color:red;      /* Noncompliant: there should be one single whitespace between the colon and the value */
 }
+[begin-scss]
+.mybox {
+  $abc:          /* Noncompliant: value should be on the same line as variable and colon */
+    red;
+}
+
+.mybox {
+  $abc : red;    /* Noncompliant: there shouldn't be any whitespace between the variable and the colon */
+}[end-scss]
+[begin-less]
+.mybox {
+  @abc:          /* Noncompliant: value should be on the same line as variable and colon */
+    red;
+}
+
+.mybox {
+  @abc : red;    /* Noncompliant: there shouldn't be any whitespace between the variable and the colon */
+}[end-less]
 </pre>
 
 <h2>Compliant Solution</h2>
@@ -92,7 +110,7 @@
 }
 </pre>
 
-<h1>Important flag</h1>
+<h1><strong>Important flag</strong></h1>
 <p>There should not be any whitespaces between <code>!</code> and <code>important</code>.</p>
 
 <h2>Noncompliant Code Example</h2>
@@ -109,10 +127,57 @@
 }
 </pre>
 
+
+<h1><strong>Comma/Semicolon-separated list</strong></h1>
+<ul>
+    <li>A delimiter and its preceding element should be placed on the same line</li>
+    <li>There should not be any whitespace between a delimiter and its preceding element</li>
+    <li>There should be one single whitespace between a delimiter and its following element if they are on the same line</li>
+</ul>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+.mybox {
+  background: linear-gradient(red , yellow, blue); /* Noncompliant: Whitespace after 'red' should be removed */
+}
+
+.mybox {
+  background: linear-gradient(red
+                              ,              /* Noncompliant: The comma should be moved to the previous line */
+                              yellow,
+                              blue);
+}
+
+.foo,.bar { /* Noncompliant: A whitespace should be added after the comma */
+  ...
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+.mybox {
+  background: linear-gradient(red, yellow, blue);
+}
+
+.mybox {
+  background: linear-gradient(red,
+                              yellow,
+                              blue);
+}
+
+.foo, .bar {
+  ...
+}
+</pre>
+
 <h2>stylelint Related Rules</h2>
 <ul>
     <li><a href="https://stylelint.io/user-guide/rules/block-opening-brace-newline-after/" target="_blank">block-opening-brace-newline-after</a></li>
     <li><a href="https://stylelint.io/user-guide/rules/declaration-colon-space-after/" target="_blank">declaration-colon-space-after</a></li>
     <li><a href="https://stylelint.io/user-guide/rules/declaration-colon-space-before/" target="_blank">declaration-colon-space-before</a></li>
     <li><a href="https://stylelint.io/user-guide/rules/declaration-bang-space-after/" target="_blank">declaration-bang-space-after</a></li>
+    <li><a href="https://stylelint.io/user-guide/rules/value-list-comma-space-after/" target="_blank">value-list-comma-space-after</a></li>
+    <li><a href="https://stylelint.io/user-guide/rules/value-list-comma-space-before/" target="_blank">value-list-comma-space-before</a></li>
+    <li><a href="https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/dollar-variable-colon-space-after/README.md" target="_blank">dollar-variable-colon-space-after</a></li>
+    <li><a href="https://github.com/kristerkari/stylelint-scss/blob/master/src/rules/dollar-variable-colon-space-before/README.md" target="_blank">dollar-variable-colon-space-before</a></li>
 </ul>

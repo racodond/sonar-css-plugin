@@ -322,20 +322,20 @@ public class LessGrammar extends CssGrammar {
         b.token(LexicalGrammar.CLOSE_PARENTHESIS)));
   }
 
-  public SeparatedList<LessMixinParameterTree, SyntaxToken> LESS_MIXIN_PARAMETER_LIST() {
-    return b.<SeparatedList<LessMixinParameterTree, SyntaxToken>>nonterminal().is(
+  public SeparatedList<LessMixinParameterTree, DelimiterTree> LESS_MIXIN_PARAMETER_LIST() {
+    return b.<SeparatedList<LessMixinParameterTree, DelimiterTree>>nonterminal().is(
       f.lessMixinParameterList(
         LESS_MIXIN_PARAMETER(),
         b.zeroOrMore(
           f.newTuple3(
             b.firstOf(
-              b.token(LexicalGrammar.COMMA),
-              b.token(LexicalGrammar.SEMICOLON)),
+              COMMA_DELIMITER(),
+              SEMICOLON_DELIMITER()),
             LESS_MIXIN_PARAMETER())),
         b.optional(
           b.firstOf(
-            b.token(LexicalGrammar.COMMA),
-            b.token(LexicalGrammar.SEMICOLON)))));
+            COMMA_DELIMITER(),
+            SEMICOLON_DELIMITER()))));
   }
 
   public LessMixinParameterTree LESS_MIXIN_PARAMETER() {

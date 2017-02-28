@@ -22,20 +22,19 @@ package org.sonar.css.tree.impl.css;
 import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.DelimiterTree;
 import org.sonar.plugins.css.api.tree.css.SelectorTree;
 import org.sonar.plugins.css.api.tree.css.SelectorsTree;
-import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.function.Function;
 
 public class SelectorsTreeImpl extends TreeImpl implements SelectorsTree {
 
-  private final SeparatedList<SelectorTree, SyntaxToken> selectors;
+  private final SeparatedList<SelectorTree, DelimiterTree> selectors;
 
-  public SelectorsTreeImpl(SeparatedList<SelectorTree, SyntaxToken> selectors) {
+  public SelectorsTreeImpl(SeparatedList<SelectorTree, DelimiterTree> selectors) {
     this.selectors = selectors;
   }
 
@@ -55,7 +54,7 @@ public class SelectorsTreeImpl extends TreeImpl implements SelectorsTree {
   }
 
   @Override
-  public List<SelectorTree> selectors() {
+  public SeparatedList<SelectorTree, DelimiterTree> selectors() {
     return selectors;
   }
 

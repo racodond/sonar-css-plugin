@@ -133,16 +133,16 @@ public class TreeFactory {
     return new SeparatedList<>(parameters, separators);
   }
 
-  public SelectorsTree selectors(SeparatedList<SelectorTree, SyntaxToken> selectors) {
+  public SelectorsTree selectors(SeparatedList<SelectorTree, DelimiterTree> selectors) {
     return new SelectorsTreeImpl(selectors);
   }
 
-  public SeparatedList<SelectorTree, SyntaxToken> selectorList(SelectorTree selector, Optional<List<Tuple<SyntaxToken, SelectorTree>>> subsequentSelectors, Optional<SyntaxToken> trailingComma) {
+  public SeparatedList<SelectorTree, DelimiterTree> selectorList(SelectorTree selector, Optional<List<Tuple<DelimiterTree, SelectorTree>>> subsequentSelectors, Optional<DelimiterTree> trailingComma) {
     List<SelectorTree> selectors = Lists.newArrayList(selector);
-    List<SyntaxToken> separators = Lists.newArrayList();
+    List<DelimiterTree> separators = Lists.newArrayList();
 
     if (subsequentSelectors.isPresent()) {
-      for (Tuple<SyntaxToken, SelectorTree> t : subsequentSelectors.get()) {
+      for (Tuple<DelimiterTree, SelectorTree> t : subsequentSelectors.get()) {
         separators.add(t.first());
         selectors.add(t.second());
       }
@@ -305,6 +305,10 @@ public class TreeFactory {
     return new DelimiterTreeImpl(comma);
   }
 
+  public DelimiterTree semicolonDelimiter(SyntaxToken semicolon) {
+    return new DelimiterTreeImpl(semicolon);
+  }
+
   public CaseInsensitiveFlagTree caseInsensitiveFlag(SyntaxToken flag) {
     return new CaseInsensitiveFlagTreeImpl(flag);
   }
@@ -415,24 +419,24 @@ public class TreeFactory {
     return new ScssIncludeTreeImpl(directive, name, parameters.orNull(), block.orNull(), semicolon.orNull());
   }
 
-  public ScssParametersTree scssParameters(SyntaxToken openParenthesis, Optional<SeparatedList<ScssParameterTree, SyntaxToken>> parameters, SyntaxToken closeParenthesis) {
+  public ScssParametersTree scssParameters(SyntaxToken openParenthesis, Optional<SeparatedList<ScssParameterTree, DelimiterTree>> parameters, SyntaxToken closeParenthesis) {
     return new ScssParametersTreeImpl(openParenthesis, parameters.orNull(), closeParenthesis);
   }
 
-  public ScssParametersTree scssCallParameters(SyntaxToken openParenthesis, Optional<SeparatedList<ScssParameterTree, SyntaxToken>> parameters, SyntaxToken closeParenthesis) {
+  public ScssParametersTree scssCallParameters(SyntaxToken openParenthesis, Optional<SeparatedList<ScssParameterTree, DelimiterTree>> parameters, SyntaxToken closeParenthesis) {
     return new ScssParametersTreeImpl(openParenthesis, parameters.orNull(), closeParenthesis);
   }
 
-  public SeparatedList<ScssParameterTree, SyntaxToken> scssCallParameterList(ScssParameterTree parameter, Optional<List<Tuple<SyntaxToken, ScssParameterTree>>> subsequentParameters) {
+  public SeparatedList<ScssParameterTree, DelimiterTree> scssCallParameterList(ScssParameterTree parameter, Optional<List<Tuple<DelimiterTree, ScssParameterTree>>> subsequentParameters) {
     return scssParameterList(parameter, subsequentParameters);
   }
 
-  public SeparatedList<ScssParameterTree, SyntaxToken> scssParameterList(ScssParameterTree parameter, Optional<List<Tuple<SyntaxToken, ScssParameterTree>>> subsequentParameters) {
+  public SeparatedList<ScssParameterTree, DelimiterTree> scssParameterList(ScssParameterTree parameter, Optional<List<Tuple<DelimiterTree, ScssParameterTree>>> subsequentParameters) {
     List<ScssParameterTree> parameters = Lists.newArrayList(parameter);
-    List<SyntaxToken> separators = Lists.newArrayList();
+    List<DelimiterTree> separators = Lists.newArrayList();
 
     if (subsequentParameters.isPresent()) {
-      for (Tuple<SyntaxToken, ScssParameterTree> t : subsequentParameters.get()) {
+      for (Tuple<DelimiterTree, ScssParameterTree> t : subsequentParameters.get()) {
         separators.add(t.first());
         parameters.add(t.second());
       }
@@ -695,16 +699,16 @@ public class TreeFactory {
     return new SeparatedList<>(conditions, separators);
   }
 
-  public LessMixinParametersTree lessMixinParameters(SyntaxToken openParenthesis, Optional<SeparatedList<LessMixinParameterTree, SyntaxToken>> parameters, SyntaxToken closeParenthesis) {
+  public LessMixinParametersTree lessMixinParameters(SyntaxToken openParenthesis, Optional<SeparatedList<LessMixinParameterTree, DelimiterTree>> parameters, SyntaxToken closeParenthesis) {
     return new LessMixinParametersTreeImpl(openParenthesis, parameters.orNull(), closeParenthesis);
   }
 
-  public SeparatedList<LessMixinParameterTree, SyntaxToken> lessMixinParameterList(LessMixinParameterTree parameter, Optional<List<Tuple<SyntaxToken, LessMixinParameterTree>>> subsequentParameters, Optional<SyntaxToken> trailingSeparator) {
+  public SeparatedList<LessMixinParameterTree, DelimiterTree> lessMixinParameterList(LessMixinParameterTree parameter, Optional<List<Tuple<DelimiterTree, LessMixinParameterTree>>> subsequentParameters, Optional<DelimiterTree> trailingSeparator) {
     List<LessMixinParameterTree> parameters = Lists.newArrayList(parameter);
-    List<SyntaxToken> separators = Lists.newArrayList();
+    List<DelimiterTree> separators = Lists.newArrayList();
 
     if (subsequentParameters.isPresent()) {
-      for (Tuple<SyntaxToken, LessMixinParameterTree> t : subsequentParameters.get()) {
+      for (Tuple<DelimiterTree, LessMixinParameterTree> t : subsequentParameters.get()) {
         separators.add(t.first());
         parameters.add(t.second());
       }

@@ -23,6 +23,7 @@ import com.google.common.collect.Iterators;
 import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.DelimiterTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.scss.ScssParameterTree;
 import org.sonar.plugins.css.api.tree.scss.ScssParametersTree;
@@ -37,9 +38,9 @@ public class ScssParametersTreeImpl extends TreeImpl implements ScssParametersTr
 
   private final SyntaxToken openParenthesis;
   private final SyntaxToken closeParenthesis;
-  private final SeparatedList<ScssParameterTree, SyntaxToken> parameters;
+  private final SeparatedList<ScssParameterTree, DelimiterTree> parameters;
 
-  public ScssParametersTreeImpl(SyntaxToken openParenthesis, @Nullable SeparatedList<ScssParameterTree, SyntaxToken> parameters, SyntaxToken closeParenthesis) {
+  public ScssParametersTreeImpl(SyntaxToken openParenthesis, @Nullable SeparatedList<ScssParameterTree, DelimiterTree> parameters, SyntaxToken closeParenthesis) {
     this.openParenthesis = openParenthesis;
     this.closeParenthesis = closeParenthesis;
     this.parameters = parameters;
@@ -75,7 +76,7 @@ public class ScssParametersTreeImpl extends TreeImpl implements ScssParametersTr
 
   @Override
   @Nullable
-  public SeparatedList<ScssParameterTree, SyntaxToken> parameters() {
+  public SeparatedList<ScssParameterTree, DelimiterTree> parameters() {
     return parameters;
   }
 

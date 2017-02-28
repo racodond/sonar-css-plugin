@@ -19,16 +19,19 @@
  */
 package org.sonar.plugins.css.api.tree.less;
 
-import org.sonar.plugins.css.api.tree.css.SyntaxToken;
+import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.DelimiterTree;
+import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 
-import java.util.List;
+import javax.annotation.Nullable;
 
 public interface LessMixinParametersTree extends Tree {
 
   SyntaxToken openParenthesis();
 
-  List<LessMixinParameterTree> parameters();
+  @Nullable
+  SeparatedList<LessMixinParameterTree, DelimiterTree> parameters();
 
   SyntaxToken closeParenthesis();
 

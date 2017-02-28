@@ -60,7 +60,7 @@ public class ScssParameterTreeImpl extends TreeImpl implements ScssParameterTree
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    return Iterators.forArray(value, variableDeclaration);
+    return Iterators.forArray(value, variable, variableArgument, variableDeclaration);
   }
 
   @Override

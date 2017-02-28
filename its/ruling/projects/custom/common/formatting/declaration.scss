@@ -1,0 +1,79 @@
+.mybox {
+  color: red; /* Compliant */
+}
+
+.mybox {
+  color:  red; /* Noncompliant !{Leave only one whitespace between the colon and the value.}! */
+}
+
+.mybox {
+  color:    red; /* Noncompliant !{Leave only one whitespace between the colon and the value.}! */
+}
+
+.mybox {
+  color : red; /* Noncompliant !{Remove the whitespaces between the property and the colon.}! */
+}
+
+.mybox {
+  color     : red; /* Noncompliant !{Remove the whitespaces between the property and the colon.}! */
+}
+
+.mybox {
+  color: /* Noncompliant !{Move the property, colon and value to the same line.}! */
+   red;
+  color /* Noncompliant !{Move the property, colon and value to the same line.}! */
+  : blue;
+    color /* Noncompliant !{Move the property, colon and value to the same line.}! */
+    :
+    green;
+}
+
+.mybox {
+  --abc: red; /* Compliant */
+}
+
+.mybox {
+  --abc:  red; /* Noncompliant !{Leave only one whitespace between the colon and the value.}! */
+}
+
+.mybox {
+  --abc:    red; /* Noncompliant !{Leave only one whitespace between the colon and the value.}! */
+}
+
+.mybox {
+  --abc : red; /* Noncompliant !{Remove the whitespaces between the variable and the colon.}! */
+}
+
+.mybox {
+  --abc     : red; /* Noncompliant !{Remove the whitespaces between the variable and the colon.}! */
+}
+
+.mybox {
+  --abc: /* Noncompliant !{Move the variable, colon and value to the same line.}! */
+   red;
+  --abc /* Noncompliant !{Move the variable, colon and value to the same line.}! */
+  : blue;
+    --abc /* Noncompliant !{Move the variable, colon and value to the same line.}! */
+    :
+    green;
+}
+
+.mybox {
+  abc:red; /* Noncompliant !{Add one whitespace between the colon and the value.}! */
+}
+
+.mybox {
+  --abc:red; /* Noncompliant !{Add one whitespace between the colon and the value.}! */
+}
+
+.mybox {
+  $abc : red; /* Noncompliant !{Remove the whitespaces between the variable and the colon.}! */
+  $abc:red; /* Noncompliant !{Add one whitespace between the colon and the value.}! */
+  $var: /* Noncompliant !{Move the variable, colon and value to the same line.}! */
+          red;
+  $var /* Noncompliant !{Move the variable, colon and value to the same line.}! */
+  : blue;
+  $var /* Noncompliant !{Move the variable, colon and value to the same line.}! */
+  :
+          green;
+}

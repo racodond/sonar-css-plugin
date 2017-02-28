@@ -19,16 +19,16 @@
  */
 package org.sonar.plugins.css.api.tree.scss;
 
+import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.DelimiterTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
-
-import java.util.List;
 
 public interface ScssMapTree extends Tree {
 
   SyntaxToken openParenthesis();
 
-  List<ScssMapEntryTree> entries();
+  SeparatedList<ScssMapEntryTree, DelimiterTree> entries();
 
   SyntaxToken closeParenthesis();
 

@@ -24,13 +24,12 @@ import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.DelimiterTree;
+import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.scss.ScssMapEntryTree;
 import org.sonar.plugins.css.api.tree.scss.ScssMapTree;
-import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.function.Function;
 
 public class ScssMapTreeImpl extends TreeImpl implements ScssMapTree {
@@ -74,7 +73,7 @@ public class ScssMapTreeImpl extends TreeImpl implements ScssMapTree {
   }
 
   @Override
-  public List<ScssMapEntryTree> entries() {
+  public SeparatedList<ScssMapEntryTree, DelimiterTree> entries() {
     return entries;
   }
 

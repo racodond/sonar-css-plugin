@@ -36,16 +36,16 @@ public class LessMixinParametersTreeTest extends LessTreeTest {
     LessMixinParametersTree tree;
 
     tree = checkParsed("()");
-    assertThat(tree.parameters()).isEmpty();
+    assertThat(tree.parameters()).isNull();
 
     tree = checkParsed("( )");
-    assertThat(tree.parameters()).isEmpty();
+    assertThat(tree.parameters()).isNull();
 
     tree = checkParsed(" ()");
-    assertThat(tree.parameters()).isEmpty();
+    assertThat(tree.parameters()).isNull();
 
     tree = checkParsed(" ( )");
-    assertThat(tree.parameters()).isEmpty();
+    assertThat(tree.parameters()).isNull();
 
     tree = checkParsed("(@var: blue)");
     assertThat(tree.parameters()).hasSize(1);

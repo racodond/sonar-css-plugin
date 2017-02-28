@@ -23,21 +23,54 @@ import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
+import java.io.File;
+
 public class FormattingCheckTest {
+
+  private FormattingCheck check = new FormattingCheck();
 
   @Test
   public void block() {
-    CssCheckVerifier.verifyCssFile(new FormattingCheck(), CheckTestUtils.getCommonTestFile("formatting/block.css"));
+    CssCheckVerifier.verifyCssFile(check, getTestFile("block.css"));
   }
 
   @Test
-  public void declaration() {
-    CssCheckVerifier.verifyLessFile(new FormattingCheck(), CheckTestUtils.getCommonTestFile("formatting/declaration.less"));
+  public void declaration_css() {
+    CssCheckVerifier.verifyCssFile(check, getTestFile("declaration.css"));
+  }
+
+  @Test
+  public void declaration_less() {
+    CssCheckVerifier.verifyLessFile(check, getTestFile("declaration.less"));
+  }
+
+  @Test
+  public void declaration_scss() {
+    CssCheckVerifier.verifyScssFile(check, getTestFile("declaration.scss"));
   }
 
   @Test
   public void important() {
-    CssCheckVerifier.verifyCssFile(new FormattingCheck(), CheckTestUtils.getCommonTestFile("formatting/important.css"));
+    CssCheckVerifier.verifyCssFile(check, getTestFile("important.css"));
+  }
+
+  @Test
+  public void delimiter_separated_list_css() {
+    CssCheckVerifier.verifyCssFile(check, getTestFile("delimiterSeparatedList.css"));
+  }
+
+  @Test
+  public void delimiter_separated_list_less() {
+    CssCheckVerifier.verifyLessFile(check, getTestFile("delimiterSeparatedList.less"));
+  }
+
+  @Test
+  public void delimiter_separated_list_scss() {
+    CssCheckVerifier.verifyScssFile(check, getTestFile("delimiterSeparatedList.scss"));
+  }
+
+  private File getTestFile(String fileName) {
+    return CheckTestUtils.getCommonTestFile("formatting/" + fileName);
   }
 
 }

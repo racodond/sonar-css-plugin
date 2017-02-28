@@ -69,6 +69,7 @@ public enum LexicalGrammar implements GrammarRuleKey {
 
   DELIMITER,
   COMMA_DELIMITER,
+  SEMICOLON_DELIMITER,
 
   IMPORTANT_FLAG,
 

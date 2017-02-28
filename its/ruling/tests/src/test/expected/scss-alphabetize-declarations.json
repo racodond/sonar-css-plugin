@@ -35,6 +35,9 @@
 'project:custom/common/font-family-not-ending-with-generic-font-family/fontFamilyNotEndingWithGenericFontFamily.scss':[
 17,
 ],
+'project:custom/common/formatting/delimiterSeparatedList.scss':[
+1,
+],
 'project:custom/common/important-position/importantPosition.scss':[
 4,
 ],

@@ -19,13 +19,12 @@
  */
 package org.sonar.plugins.css.api.tree.css;
 
+import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.plugins.css.api.tree.Tree;
-
-import java.util.List;
 
 public interface SelectorsTree extends Tree {
 
-  List<SelectorTree> selectors();
+  SeparatedList<SelectorTree, DelimiterTree> selectors();
 
   SelectorTree lastSelector();
 
