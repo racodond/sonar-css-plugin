@@ -19,25 +19,23 @@ and:
 * Computes metrics: lines of code, complexity, number of rules, etc.
 * Validates your CSS code
 * Checks for duplicated code
-* Checks various guidelines to find out code smells and potential bugs through more than:
+* Checks various guidelines to find out potential bugs, vulnerabilities and code smells through more than:
   * [80 checks](http://sonarqube.racodond.com/coding_rules#languages=css%2Ccss) on CSS code
   * [90 checks](http://sonarqube.racodond.com/coding_rules#languages=scss%2Ccss) on SCSS code
   * [80 checks](http://sonarqube.racodond.com/coding_rules#languages=less%2Ccss) on Less code
 * Provides the ability to write your own checks
 
-
-## SonarQube CSS / SCSS / Less Analyzer in Action
-* [Demo project](http://sonarqube.racodond.com/dashboard/index?id=css-sample-project)
+A live example is available [here](http://sonarqube.racodond.com/dashboard/index?id=css-sample-project).
 
 
 ## Usage
 
 ### Installation Guide
 1. [Download and install](http://docs.sonarqube.org/display/SONAR/Setup+and+Upgrade) SonarQube
-2. Install the CSS / SCSS /Less analyzer either by a [direct download](https://github.com/racodond/sonar-css-plugin/releases) or through the [update center](http://docs.sonarqube.org/display/SONAR/Update+Center).
-3. Install your [favorite analyzer](http://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code#AnalyzingSourceCode-RunningAnalysis) (SonarQube Scanner, Maven, Ant, etc.) and analyze your code. Note that starting at version 2.0, Java 8 is required to run an analysis.
+1. Install the CSS / SCSS / Less plugin either by a [direct download](https://github.com/racodond/sonar-css-plugin/releases) or through the [update center](http://docs.sonarqube.org/display/SONAR/Update+Center). See [plugin compatibility with SonarQube versions](http://docs.sonarqube.org/display/PLUG/Plugin+Version+Matrix).
+1. Install your [favorite scanner](http://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code#AnalyzingSourceCode-RunningAnalysis) (SonarQube Scanner, Maven, Ant, etc.)
+1. [Analyze your code](http://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code#AnalyzingSourceCode-RunningAnalysis)
 
-Plugin versions and compatibility with SonarQube versions: http://docs.sonarqube.org/display/PLUG/Plugin+Version+Matrix
 
 ### Getting Started in Two Minutes
 For a quick try, a simple package and procedure is available at https://github.com/racodond/package-test-sonarqube-css
