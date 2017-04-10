@@ -20,23 +20,20 @@
 package org.sonar.css.checks.common;
 
 import com.google.common.collect.ImmutableList;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.sonar.css.checks.CheckUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.css.checks.CheckUtils;
 import org.sonar.css.checks.Tags;
 import org.sonar.plugins.css.api.tree.css.FunctionTree;
 import org.sonar.plugins.css.api.tree.css.PropertyDeclarationTree;
 import org.sonar.plugins.css.api.tree.css.RulesetTree;
-import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.visitors.SubscriptionVisitorCheck;
+import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Rule(
   key = "gradients",
@@ -45,7 +42,7 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   tags = {Tags.BROWSER_COMPATIBILITY})
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
-public class AllGradientDefinitionsCheck extends SubscriptionVisitorCheck {
+public class AllGradientDefinitionsCheck extends DoubleDispatchVisitorCheck {
 
   // TODO:
   // - Not specific enough because the check does not take into account the property name. What if all gradient functions are used but
@@ -61,45 +58,33 @@ public class AllGradientDefinitionsCheck extends SubscriptionVisitorCheck {
     "-webkit-gradient.*");
 
   private static final String GRADIENT_MATCHER = "-(ms|o|moz|webkit)-.*gradient.*";
-  private List<String> missingGradients;
 
   @Override
-  public List<Tree.Kind> nodesToVisit() {
-    return ImmutableList.of(
-      Tree.Kind.RULESET,
-      Tree.Kind.PROPERTY_DECLARATION);
+  public void visitRuleset(RulesetTree tree) {
+    List<String> missingGradients = missingGradients(tree);
+
+    if (!missingGradients.isEmpty() && missingGradients.size() != GRADIENTS.size()) {
+      addPreciseIssue(
+        CheckUtils.rulesetIssueLocation(tree),
+        "Add missing gradient definitions: " + missingGradients.stream().collect(Collectors.joining(", ")));
+    }
+
+    super.visitRuleset(tree);
   }
 
-  @Override
-  public void visitNode(Tree tree) {
-    if (tree.is(Tree.Kind.RULESET)) {
-      missingGradients = new ArrayList<>(GRADIENTS);
-    } else {
-      for (FunctionTree functionTree : ((PropertyDeclarationTree) tree).value().valueElementsOfType(FunctionTree.class)) {
-        String functionName = functionTree.function().text().toLowerCase();
+  private List<String> missingGradients(RulesetTree tree) {
+    List<String> missingGradients = new ArrayList<>(GRADIENTS);
+
+    for (PropertyDeclarationTree propertyDeclaration : tree.block().propertyDeclarations()) {
+      for (FunctionTree function : propertyDeclaration.value().valueElementsOfType(FunctionTree.class)) {
+        String functionName = function.function().text().toLowerCase();
         if (functionName.matches(GRADIENT_MATCHER)) {
-          removeMatch(functionName);
+          missingGradients.removeIf(functionName::matches);
         }
       }
     }
-  }
 
-  @Override
-  public void leaveNode(Tree tree) {
-    if (tree.is(Tree.Kind.RULESET) && !missingGradients.isEmpty() && missingGradients.size() != GRADIENTS.size()) {
-      addPreciseIssue(
-        CheckUtils.rulesetIssueLocation((RulesetTree) tree),
-        "Add missing gradient definitions: " + missingGradients.stream().collect(Collectors.joining(", ")));
-    }
-  }
-
-  private void removeMatch(String value) {
-    Iterator<String> gradientIt = missingGradients.iterator();
-    while (gradientIt.hasNext()) {
-      if (value.matches(gradientIt.next())) {
-        gradientIt.remove();
-      }
-    }
+    return missingGradients;
   }
 
 }
