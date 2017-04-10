@@ -15,7 +15,7 @@
   <description>Integration tests of the SonarQube CSS / SCSS / Less Analyzer</description>
   <inceptionYear>2013</inceptionYear>
   <organization>
-    <name>David RACODON and Tamas Kende</name>
+    <name>David RACODON</name>
     <url>mailto:david.racodon@gmail.com</url>
   </organization>
   <licenses>
@@ -27,10 +27,6 @@
   </licenses>
 
   <developers>
-    <developer>
-      <id>kalidasya</id>
-      <name>Kende Tamas</name>
-    </developer>
     <developer>
       <id>racodond</id>
       <name>David RACODON</name>

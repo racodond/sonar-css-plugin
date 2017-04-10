@@ -4,9 +4,6 @@ jdk:
   - oraclejdk8
 
 addons:
-  sonarqube: true
-
-addons:
   apt:
     packages:
       - oracle-java8-installer
@@ -23,6 +20,5 @@ env:
 cache:
   directories:
     - '$HOME/.m2/repository'
-    - '$HOME/.sonar/cache'
 
 script: ./travis.sh
