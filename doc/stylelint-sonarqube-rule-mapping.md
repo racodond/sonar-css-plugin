@@ -452,6 +452,7 @@ Note that there is not always a strict one-to-one relationship between [SonarQub
 | [at-rule-no-unknown](https://stylelint.io/user-guide/rules/at-rule-no-unknown/) | [Unknown @-rules should be removed](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aunknown-at-rules) | |
 | [at-rule-no-vendor-prefix](https://stylelint.io/user-guide/rules/at-rule-no-vendor-prefix/) | [Experimental @-rules should not be used](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aexperimental-atrule-usage) | |
 | [at-rule-semicolon-newline-after](https://stylelint.io/user-guide/rules/at-rule-semicolon-newline-after/) | None | |
+| [at-rule-semicolon-space-before](https://stylelint.io/user-guide/rules/at-rule-semicolon-space-before/) | None | Not convinced by the added value of such a rule. No plan to implement it in SonarQube. |
 | [at-rule-whitelist](https://stylelint.io/user-guide/rules/at-rule-whitelist/) | [Regular expression on @-rule](http://sonarqube.racodond.com/coding_rules#rule_key=css%3Aat-rule-regular-expression) | |
 
 
