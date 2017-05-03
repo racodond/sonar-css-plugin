@@ -22,6 +22,7 @@ package org.sonar.css.parser.less;
 import org.junit.Test;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.*;
+import org.sonar.plugins.css.api.tree.less.LessParentReferencingSelectorTree;
 import org.sonar.plugins.css.api.tree.less.LessParentSelectorTree;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -111,6 +112,10 @@ public class CompoundSelectorTreeTest extends LessTreeTest {
     assertThat(tree.selectors()).hasSize(2);
     assertThat(tree.selectors().get(0)).isInstanceOf(LessParentSelectorTree.class);
     assertThat(tree.selectors().get(1)).isInstanceOf(ClassSelectorTree.class);
+
+    tree = checkParsed("&-bar");
+    assertThat(tree.selectors()).hasSize(1);
+    assertThat(tree.selectors().get(0)).isInstanceOf(LessParentReferencingSelectorTree.class);
   }
 
   private CompoundSelectorTree checkParsed(String toParse) {

@@ -269,6 +269,7 @@ public class ScssGrammar extends CssGrammar {
       f.compoundSelector(
         b.oneOrMore(
           b.firstOf(
+            SCSS_PARENT_REFERENCING_SELECTOR(),
             SCSS_PARENT_SELECTOR(),
             SCSS_PLACEHOLDER_SELECTOR(),
             SIMPLE_CSS_SELECTOR()))));
@@ -352,6 +353,15 @@ public class ScssGrammar extends CssGrammar {
   public ScssParentSelectorTree SCSS_PARENT_SELECTOR() {
     return b.<ScssParentSelectorTree>nonterminal(LexicalGrammar.SCSS_PARENT_SELECTOR).is(
       f.scssParentSelector(b.token(LexicalGrammar.SCSS_PARENT_SELECTOR_KEYWORD)));
+  }
+
+  public ScssParentReferencingSelectorTree SCSS_PARENT_REFERENCING_SELECTOR() {
+    return b.<ScssParentReferencingSelectorTree>nonterminal(LexicalGrammar.SCSS_PARENT_REFERENCING_SELECTOR).is(
+      f.scssParentReferencingSelector(
+        SCSS_PARENT_SELECTOR(),
+        b.firstOf(
+          SCSS_INTERPOLATED_IDENTIFIER_NO_WS(),
+          IDENTIFIER_NO_WS())));
   }
 
   public ScssPlaceholderSelectorTree SCSS_PLACEHOLDER_SELECTOR() {

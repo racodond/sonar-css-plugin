@@ -388,6 +388,10 @@ public abstract class DoubleDispatchVisitor implements TreeVisitor {
     scanChildren(tree);
   }
 
+  public void visitScssParentReferencingSelector(ScssParentReferencingSelectorTree tree) {
+    scanChildren(tree);
+  }
+
   public void visitScssPlaceholderSelector(ScssPlaceholderSelectorTree tree) {
     scanChildren(tree);
   }
@@ -430,6 +434,10 @@ public abstract class DoubleDispatchVisitor implements TreeVisitor {
   }
 
   public void visitLessParentSelector(LessParentSelectorTree tree) {
+    scanChildren(tree);
+  }
+
+  public void visitLessParentReferencingSelector(LessParentReferencingSelectorTree tree) {
     scanChildren(tree);
   }
 

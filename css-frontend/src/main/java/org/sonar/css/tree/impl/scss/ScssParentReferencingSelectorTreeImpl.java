@@ -17,53 +17,56 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.tree.impl.css;
+package org.sonar.css.tree.impl.scss;
 
 import com.google.common.collect.Iterators;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.IdentifierTree;
-import org.sonar.plugins.css.api.tree.css.NamespaceTree;
-import org.sonar.plugins.css.api.tree.css.TypeSelectorTree;
+import org.sonar.plugins.css.api.tree.scss.ScssParentReferencingSelectorTree;
+import org.sonar.plugins.css.api.tree.scss.ScssParentSelectorTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
-import javax.annotation.Nullable;
 import java.util.Iterator;
 
-public class TypeSelectorTreeImpl extends TreeImpl implements TypeSelectorTree {
+public class ScssParentReferencingSelectorTreeImpl extends TreeImpl implements ScssParentReferencingSelectorTree {
 
-  private NamespaceTree namespace;
-  private IdentifierTree identifier;
+  private final ScssParentSelectorTree parent;
+  private final IdentifierTree append;
 
-  public TypeSelectorTreeImpl(@Nullable NamespaceTree namespace, IdentifierTree identifier) {
-    this.namespace = namespace;
-    this.identifier = identifier;
+  public ScssParentReferencingSelectorTreeImpl(ScssParentSelectorTree parent, IdentifierTree append) {
+    this.parent = parent;
+    this.append = append;
   }
 
   @Override
   public Kind getKind() {
-    return Kind.TYPE_SELECTOR;
+    return Kind.SCSS_PARENT_REFERENCING_SELECTOR;
   }
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    return Iterators.forArray(namespace, identifier);
+    return Iterators.forArray(parent, append);
   }
 
   @Override
   public void accept(DoubleDispatchVisitor visitor) {
-    visitor.visitTypeSelector(this);
+    visitor.visitScssParentReferencingSelector(this);
   }
 
   @Override
-  public IdentifierTree identifier() {
-    return identifier;
+  public ScssParentSelectorTree parent() {
+    return parent;
   }
 
   @Override
-  @Nullable
-  public NamespaceTree namespace() {
-    return namespace;
+  public IdentifierTree append() {
+    return append;
+  }
+
+  @Override
+  public String text() {
+    return append.text();
   }
 
 }

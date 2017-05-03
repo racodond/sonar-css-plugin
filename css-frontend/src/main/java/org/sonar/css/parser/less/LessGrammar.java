@@ -177,6 +177,7 @@ public class LessGrammar extends CssGrammar {
       f.compoundSelector(
         b.oneOrMore(
           b.firstOf(
+            LESS_PARENT_REFERENCING_SELECTOR(),
             LESS_PARENT_SELECTOR(),
             SIMPLE_CSS_SELECTOR()))));
   }
@@ -259,6 +260,15 @@ public class LessGrammar extends CssGrammar {
   public LessParentSelectorTree LESS_PARENT_SELECTOR() {
     return b.<LessParentSelectorTree>nonterminal(LexicalGrammar.LESS_PARENT_SELECTOR).is(
       f.lessParentSelector(b.token(LexicalGrammar.LESS_PARENT_SELECTOR_KEYWORD)));
+  }
+
+  public LessParentReferencingSelectorTree LESS_PARENT_REFERENCING_SELECTOR() {
+    return b.<LessParentReferencingSelectorTree>nonterminal(LexicalGrammar.LESS_PARENT_REFERENCING_SELECTOR).is(
+      f.lessParentReferencingSelector(
+        LESS_PARENT_SELECTOR(),
+        b.firstOf(
+          LESS_INTERPOLATED_IDENTIFIER_NO_WS(),
+          IDENTIFIER_NO_WS())));
   }
 
   public LessVariableDeclarationTree LESS_VARIABLE_DECLARATION() {

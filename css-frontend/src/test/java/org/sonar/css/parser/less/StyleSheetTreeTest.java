@@ -140,6 +140,8 @@ public class StyleSheetTreeTest extends LessTreeTest {
     assertThat(tree.lessVariableDeclarations()).isEmpty();
     assertThat(tree.lessMixinCalls()).hasSize(1);
     assertThat(tree.all()).hasSize(1);
+
+    checkParsed(".nav-top__icons { display: inline-block; margin-left: 10px; &-item { cursor: pointer; display: inline-block; padding: 10px 9px; } }");
   }
 
   private StyleSheetTree checkParsed(String toParse) {

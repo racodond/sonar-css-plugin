@@ -22,6 +22,7 @@ package org.sonar.css.parser.scss;
 import org.junit.Test;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.*;
+import org.sonar.plugins.css.api.tree.scss.ScssParentReferencingSelectorTree;
 import org.sonar.plugins.css.api.tree.scss.ScssParentSelectorTree;
 import org.sonar.plugins.css.api.tree.scss.ScssPlaceholderSelectorTree;
 
@@ -126,6 +127,10 @@ public class CompoundSelectorTreeTest extends ScssTreeTest {
     assertThat(tree.selectors()).hasSize(2);
     assertThat(tree.selectors().get(0)).isInstanceOf(ClassSelectorTree.class);
     assertThat(tree.selectors().get(1)).isInstanceOf(ScssPlaceholderSelectorTree.class);
+
+    tree = checkParsed("&-bar");
+    assertThat(tree.selectors()).hasSize(1);
+    assertThat(tree.selectors().get(0)).isInstanceOf(ScssParentReferencingSelectorTree.class);
   }
 
   private CompoundSelectorTree checkParsed(String toParse) {

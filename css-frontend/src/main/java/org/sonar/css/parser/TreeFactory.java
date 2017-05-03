@@ -367,6 +367,10 @@ public class TreeFactory {
     return new ScssParentSelectorTreeImpl(parentSelector);
   }
 
+  public ScssParentReferencingSelectorTree scssParentReferencingSelector(ScssParentSelectorTree parent, IdentifierTree append) {
+    return new ScssParentReferencingSelectorTreeImpl(parent, append);
+  }
+
   public ScssPlaceholderSelectorTree scssPlaceholderSelector(SyntaxToken prefix, IdentifierTree name) {
     return new ScssPlaceholderSelectorTreeImpl(prefix, name);
   }
@@ -670,6 +674,10 @@ public class TreeFactory {
 
   public LessParentSelectorTree lessParentSelector(SyntaxToken parentSelector) {
     return new LessParentSelectorTreeImpl(parentSelector);
+  }
+
+  public LessParentReferencingSelectorTree lessParentReferencingSelector(LessParentSelectorTree parent, IdentifierTree append) {
+    return new LessParentReferencingSelectorTreeImpl(parent, append);
   }
 
   public SelectorCombinatorTree lessParentSelectorCombinator(SyntaxToken combinator) {

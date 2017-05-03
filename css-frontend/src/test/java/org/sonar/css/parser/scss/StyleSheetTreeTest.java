@@ -25,7 +25,6 @@ import org.junit.Test;
 import org.sonar.css.parser.LexicalGrammar;
 import org.sonar.plugins.css.api.tree.css.SelectorCombinatorTree;
 import org.sonar.plugins.css.api.tree.css.StyleSheetTree;
-import org.sonar.plugins.css.api.tree.scss.ScssNestedPropertiesDeclarationTree;
 
 import java.io.File;
 
@@ -105,6 +104,7 @@ public class StyleSheetTreeTest extends ScssTreeTest {
     assertThat(tree.rulesets()).hasSize(1);
     assertThat(tree.rulesets().get(0).selectors().selectors().get(0).scssParentCombinator().type()).isEqualTo(SelectorCombinatorTree.COMBINATOR.DEEP_ALIAS);
 
+    checkParsed(".nav-top__icons { display: inline-block; margin-left: 10px; &-item { cursor: pointer; display: inline-block; padding: 10px 9px; } }");
   }
 
   private StyleSheetTree checkParsed(String toParse) {
