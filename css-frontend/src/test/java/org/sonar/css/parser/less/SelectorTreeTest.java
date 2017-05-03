@@ -123,6 +123,11 @@ public class SelectorTreeTest extends LessTreeTest {
     tree = checkParsed(".selected * a");
     assertThat(tree.compoundSelectors()).hasSize(3);
 
+    tree = checkParsed("abc /deep/ def >>> jkl");
+    assertThat(tree.compoundSelectors()).hasSize(3);
+    assertThat(tree.compoundSelectorsCombinationList().separators().get(0).type()).isEqualTo(SelectorCombinatorTree.COMBINATOR.DEEP);
+    assertThat(tree.compoundSelectorsCombinationList().separators().get(1).type()).isEqualTo(SelectorCombinatorTree.COMBINATOR.DEEP_ALIAS);
+
     tree = checkParsed(".selected :extend(div)");
     assertThat(tree.lessExtend()).isNotNull();
 

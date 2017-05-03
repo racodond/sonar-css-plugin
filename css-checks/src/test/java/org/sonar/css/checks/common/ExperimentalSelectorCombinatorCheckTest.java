@@ -23,11 +23,29 @@ import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
+import java.io.File;
+
 public class ExperimentalSelectorCombinatorCheckTest {
 
+  private ExperimentalSelectorCombinatorCheck check = new ExperimentalSelectorCombinatorCheck();
+
   @Test
-  public void test() {
-    CssCheckVerifier.verifyCssFile(new ExperimentalSelectorCombinatorCheck(), CheckTestUtils.getCommonTestFile("experimentalSelectorCombinatorUsage.css"));
+  public void test_css() {
+    CssCheckVerifier.verifyCssFile(check, getTestFile("experimentalSelectorCombinatorUsage.css"));
+  }
+
+  @Test
+  public void test_less() {
+    CssCheckVerifier.verifyLessFile(check, getTestFile("experimentalSelectorCombinatorUsage.less"));
+  }
+
+  @Test
+  public void test_scss() {
+    CssCheckVerifier.verifyScssFile(check, getTestFile("experimentalSelectorCombinatorUsage.scss"));
+  }
+
+  private File getTestFile(String fileName) {
+    return CheckTestUtils.getCommonTestFile("experimental-selector-combinator-usage/" + fileName);
   }
 
 }

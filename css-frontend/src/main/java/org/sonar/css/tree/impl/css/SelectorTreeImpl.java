@@ -97,9 +97,9 @@ public class SelectorTreeImpl extends TreeImpl implements SelectorTree {
   @Override
   public Iterator<Tree> childrenIterator() {
     return Iterators.concat(
-      Iterators.singletonIterator(lessParentCombinator),
+      Iterators.forArray(lessParentCombinator, scssParentCombinator),
       compoundSelectorsCombinationList.elementsAndSeparators(Function.identity(), Function.identity()),
-      Iterators.forArray(lessExtend, lessMixinParameters, lessMixinGuard));
+      Iterators.forArray(scssBlockCombinator, lessExtend, lessMixinParameters, lessMixinGuard));
   }
 
   @Override

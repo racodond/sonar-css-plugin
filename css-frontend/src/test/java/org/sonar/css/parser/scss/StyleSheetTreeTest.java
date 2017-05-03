@@ -23,6 +23,7 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import org.junit.Test;
 import org.sonar.css.parser.LexicalGrammar;
+import org.sonar.plugins.css.api.tree.css.SelectorCombinatorTree;
 import org.sonar.plugins.css.api.tree.css.StyleSheetTree;
 import org.sonar.plugins.css.api.tree.scss.ScssNestedPropertiesDeclarationTree;
 
@@ -95,6 +96,15 @@ public class StyleSheetTreeTest extends ScssTreeTest {
     tree = checkParsed(" ;;");
     assertThat(tree.emptyStatements()).hasSize(2);
     assertThat(tree.all()).hasSize(2);
+
+    tree = checkParsed("/deep/ .modal-content {width: 10px}");
+    assertThat(tree.rulesets()).hasSize(1);
+    assertThat(tree.rulesets().get(0).selectors().selectors().get(0).scssParentCombinator().type()).isEqualTo(SelectorCombinatorTree.COMBINATOR.DEEP);
+
+    tree = checkParsed(">>> .modal-content {width: 10px}");
+    assertThat(tree.rulesets()).hasSize(1);
+    assertThat(tree.rulesets().get(0).selectors().selectors().get(0).scssParentCombinator().type()).isEqualTo(SelectorCombinatorTree.COMBINATOR.DEEP_ALIAS);
+
   }
 
   private StyleSheetTree checkParsed(String toParse) {

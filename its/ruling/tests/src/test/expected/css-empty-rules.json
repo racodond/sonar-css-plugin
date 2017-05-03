@@ -39,6 +39,14 @@
 23,
 24,
 ],
+'project:custom/common/experimental-selector-combinator-usage/experimentalSelectorCombinatorUsage.css':[
+1,
+5,
+8,
+11,
+14,
+17,
+],
 'project:custom/common/experimentalAtRuleUsage.css':[
 1,
 2,
@@ -46,12 +54,6 @@
 46,
 47,
 75,
-],
-'project:custom/common/experimentalSelectorCombinatorUsage.css':[
-1,
-5,
-8,
-11,
 ],
 'project:custom/common/fontface/basic.css':[
 1,

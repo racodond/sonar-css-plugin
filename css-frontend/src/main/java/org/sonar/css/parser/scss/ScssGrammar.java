@@ -367,6 +367,8 @@ public class ScssGrammar extends CssGrammar {
     return b.<SelectorCombinatorTree>nonterminal(LexicalGrammar.SCSS_PARENT_SELECTOR_COMBINATOR).is(
       f.scssParentSelectorCombinator(
         b.firstOf(
+          b.token(LexicalGrammar.DEEP_COMBINATOR),
+          b.token(LexicalGrammar.DEEP_ALIAS_COMBINATOR),
           b.token(LexicalGrammar.CHILD_COMBINATOR),
           b.token(LexicalGrammar.NEXT_SIBLING_COMBINATOR),
           b.token(LexicalGrammar.FOLLOWING_SIBLING_COMBINATOR))));

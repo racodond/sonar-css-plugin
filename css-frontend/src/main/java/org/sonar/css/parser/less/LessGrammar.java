@@ -164,6 +164,8 @@ public class LessGrammar extends CssGrammar {
     return b.<SelectorCombinatorTree>nonterminal(LexicalGrammar.LESS_PARENT_SELECTOR_COMBINATOR).is(
       f.lessParentSelectorCombinator(
         b.firstOf(
+          b.token(LexicalGrammar.DEEP_COMBINATOR),
+          b.token(LexicalGrammar.DEEP_ALIAS_COMBINATOR),
           b.token(LexicalGrammar.CHILD_COMBINATOR),
           b.token(LexicalGrammar.NEXT_SIBLING_COMBINATOR),
           b.token(LexicalGrammar.FOLLOWING_SIBLING_COMBINATOR))));

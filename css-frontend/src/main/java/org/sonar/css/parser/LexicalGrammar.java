@@ -144,6 +144,8 @@ public enum LexicalGrammar implements GrammarRuleKey {
   NEXT_SIBLING_COMBINATOR,
   FOLLOWING_SIBLING_COMBINATOR,
   COLUMN_COMBINATOR,
+  DEEP_COMBINATOR,
+  DEEP_ALIAS_COMBINATOR,
 
   FROM,
   TO,
@@ -475,6 +477,8 @@ public enum LexicalGrammar implements GrammarRuleKey {
     b.rule(NEXT_SIBLING_COMBINATOR).is(SPACING, "+", SPACING);
     b.rule(FOLLOWING_SIBLING_COMBINATOR).is(SPACING, "~", SPACING);
     b.rule(COLUMN_COMBINATOR).is(SPACING, "||", SPACING);
+    b.rule(DEEP_COMBINATOR).is(SPACING, "/deep/", SPACING);
+    b.rule(DEEP_ALIAS_COMBINATOR).is(SPACING, ">>>", SPACING);
 
     b.rule(DOT).is(".");
     b.rule(EXCLAMATION_MARK).is(SPACING, "!");

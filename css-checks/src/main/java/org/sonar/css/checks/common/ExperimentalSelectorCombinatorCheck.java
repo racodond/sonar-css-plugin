@@ -38,11 +38,17 @@ public class ExperimentalSelectorCombinatorCheck extends DoubleDispatchVisitorCh
 
   @Override
   public void visitSelectorCombinator(SelectorCombinatorTree tree) {
+    checkForExperimentalSelectorCombinator(tree);
+    super.visitSelectorCombinator(tree);
+  }
+
+  private void checkForExperimentalSelectorCombinator(SelectorCombinatorTree tree) {
     if (tree.type() == SelectorCombinatorTree.COMBINATOR.DESCENDANT
-      || tree.type() == SelectorCombinatorTree.COMBINATOR.COLUMN) {
+      || tree.type() == SelectorCombinatorTree.COMBINATOR.COLUMN
+      || tree.type() == SelectorCombinatorTree.COMBINATOR.DEEP
+      || tree.type() == SelectorCombinatorTree.COMBINATOR.DEEP_ALIAS) {
       addPreciseIssue(tree, "Remove this experimental selector combinator.");
     }
-    super.visitSelectorCombinator(tree);
   }
 
 }

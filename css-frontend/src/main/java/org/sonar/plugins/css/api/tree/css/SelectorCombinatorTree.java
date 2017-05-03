@@ -32,6 +32,8 @@ public interface SelectorCombinatorTree extends Tree {
     CHILD(">"),
     NEXT_SIBLING("+"),
     FOLLOWING_SIBLING("~"),
+    DEEP("/deep/"),
+    DEEP_ALIAS(">>>"),
     COLUMN("||");
 
     private static final Map<String, COMBINATOR> LOOKUP = new HashMap<>();

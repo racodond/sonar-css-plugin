@@ -38,12 +38,16 @@ public class SelectorCombinatorTreeTest extends CssTreeTest {
     checkParsed("+", SelectorCombinatorTree.COMBINATOR.NEXT_SIBLING, "+");
     checkParsed("~", SelectorCombinatorTree.COMBINATOR.FOLLOWING_SIBLING, "~");
     checkParsed("||", SelectorCombinatorTree.COMBINATOR.COLUMN, "||");
+    checkParsed("/deep/", SelectorCombinatorTree.COMBINATOR.DEEP, "/deep/");
+    checkParsed(">>>", SelectorCombinatorTree.COMBINATOR.DEEP_ALIAS, ">>>");
 
     checkParsed(" >>", SelectorCombinatorTree.COMBINATOR.DESCENDANT, ">>");
     checkParsed(" >", SelectorCombinatorTree.COMBINATOR.CHILD, ">");
     checkParsed(" +", SelectorCombinatorTree.COMBINATOR.NEXT_SIBLING, "+");
     checkParsed(" ~", SelectorCombinatorTree.COMBINATOR.FOLLOWING_SIBLING, "~");
     checkParsed(" ||", SelectorCombinatorTree.COMBINATOR.COLUMN, "||");
+    checkParsed(" /deep/", SelectorCombinatorTree.COMBINATOR.DEEP, "/deep/");
+    checkParsed(" >>>", SelectorCombinatorTree.COMBINATOR.DEEP_ALIAS, ">>>");
   }
 
   @Test

@@ -280,6 +280,8 @@ public class CssGrammar {
     return b.<SelectorCombinatorTree>nonterminal(LexicalGrammar.SELECTOR_COMBINATOR).is(
       f.selectorCombinator(
         b.firstOf(
+          b.token(LexicalGrammar.DEEP_COMBINATOR),
+          b.token(LexicalGrammar.DEEP_ALIAS_COMBINATOR),
           b.token(LexicalGrammar.DESCENDANT_COMBINATOR),
           b.token(LexicalGrammar.CHILD_COMBINATOR),
           b.token(LexicalGrammar.COLUMN_COMBINATOR),
