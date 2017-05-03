@@ -25,7 +25,9 @@ public class Scope extends StandardPseudoIdentifier {
 
   public Scope() {
     setExperimental(true);
-    addLinks("https://drafts.csswg.org/selectors-4/#scope-pseudo");
+    addLinks(
+      "https://drafts.csswg.org/selectors-4/#scope-pseudo",
+      "https://www.w3.org/TR/css-scoping-1/#scope-pseudo");
   }
 
 }

@@ -14,6 +14,10 @@ p:-moz-abc(ltr) { /* Noncompliant ![sc=3;ec=11;el=+0]! !{Remove this usage of th
   color: red;
 }
 
+:host { /* Noncompliant ![sc=2;ec=6;el=+0]! !{Remove this usage of the experimental "host" pseudo.}! */
+  color: red;
+}
+
 p:empty {
   color: red;
 }

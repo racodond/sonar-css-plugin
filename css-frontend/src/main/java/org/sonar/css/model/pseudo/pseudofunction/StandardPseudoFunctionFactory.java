@@ -20,10 +20,9 @@
 package org.sonar.css.model.pseudo.pseudofunction;
 
 import com.google.common.collect.ImmutableSet;
+import org.sonar.css.model.pseudo.pseudofunction.standard.*;
 
 import java.util.*;
-
-import org.sonar.css.model.pseudo.pseudofunction.standard.*;
 
 public class StandardPseudoFunctionFactory {
 
@@ -33,6 +32,8 @@ public class StandardPseudoFunctionFactory {
     Dir.class,
     Drop.class,
     Has.class,
+    Host.class,
+    HostContext.class,
     Lang.class,
     Matches.class,
     Not.class,
@@ -41,7 +42,8 @@ public class StandardPseudoFunctionFactory {
     NthLastChild.class,
     NthLastColumn.class,
     NthLastOfType.class,
-    NthOfType.class);
+    NthOfType.class,
+    ScopeContext.class);
 
   private static final Map<String, StandardPseudoFunction> ALL = new HashMap<>();
 

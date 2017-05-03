@@ -17,17 +17,15 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.model.pseudo;
+package org.sonar.css.model.pseudo.pseudofunction.standard;
 
-import org.junit.Test;
+import org.sonar.css.model.pseudo.pseudofunction.StandardPseudoFunction;
 
-import static org.junit.Assert.assertEquals;
+public class HostContext extends StandardPseudoFunction {
 
-public class StandardPseudoComponentFactoryTest {
-
-  @Test
-  public void number_of_standard_pseudo_components() {
-    assertEquals(75, StandardPseudoComponentFactory.getAll().size());
+  public HostContext() {
+    setExperimental(true);
+    addLinks("https://www.w3.org/TR/css-scoping-1/#selectordef-host-context");
   }
 
 }

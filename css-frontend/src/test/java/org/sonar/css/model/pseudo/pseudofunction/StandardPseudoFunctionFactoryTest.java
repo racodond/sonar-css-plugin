@@ -61,7 +61,7 @@ public class StandardPseudoFunctionFactoryTest {
 
   @Test
   public void number_of_standard_pseudo_functions() {
-    assertEquals(14, StandardPseudoFunctionFactory.getAll().size());
+    assertEquals(17, StandardPseudoFunctionFactory.getAll().size());
   }
 
   @Test
@@ -71,7 +71,7 @@ public class StandardPseudoFunctionFactoryTest {
 
   @Test
   public void number_of_experimental_pseudo_functions() {
-    assertEquals(7, StandardPseudoFunctionFactory.getAll().stream().filter(StandardPseudoFunction::isExperimental).count());
+    assertEquals(10, StandardPseudoFunctionFactory.getAll().stream().filter(StandardPseudoFunction::isExperimental).count());
   }
 
 }

@@ -20,10 +20,9 @@
 package org.sonar.css.model.atrule;
 
 import com.google.common.collect.ImmutableSet;
+import org.sonar.css.model.atrule.standard.*;
 
 import java.util.*;
-
-import org.sonar.css.model.atrule.standard.*;
 
 public class StandardAtRuleFactory {
 
@@ -53,6 +52,7 @@ public class StandardAtRuleFactory {
     RightBottom.class,
     RightMiddle.class,
     RightTop.class,
+    Scope.class,
     Styleset.class,
     Stylistic.class,
     Supports.class,

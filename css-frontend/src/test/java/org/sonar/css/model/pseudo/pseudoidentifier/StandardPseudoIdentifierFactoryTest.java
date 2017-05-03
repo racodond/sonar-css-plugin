@@ -61,7 +61,7 @@ public class StandardPseudoIdentifierFactoryTest {
 
   @Test
   public void number_of_standard_pseudo_identifiers() {
-    assertEquals(54, StandardPseudoIdentifierFactory.getAll().size());
+    assertEquals(58, StandardPseudoIdentifierFactory.getAll().size());
   }
 
   @Test
@@ -71,7 +71,7 @@ public class StandardPseudoIdentifierFactoryTest {
 
   @Test
   public void number_of_experimental_pseudo_identifiers() {
-    assertEquals(27, StandardPseudoIdentifierFactory.getAll().stream().filter(StandardPseudoIdentifier::isExperimental).count());
+    assertEquals(31, StandardPseudoIdentifierFactory.getAll().stream().filter(StandardPseudoIdentifier::isExperimental).count());
   }
 
 }
