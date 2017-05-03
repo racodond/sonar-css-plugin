@@ -1,0 +1,23 @@
+.mybox {
+  border-radius: 5px;
+  -ah-border-radius: 5px; /* Noncompliant ![sc=3;ec=20;el=+0]! !{Remove this usage of the experimental "border-radius" property.}! */
+  -apple-border-radius: 5px; /* Noncompliant ![sc=3;ec=23;el=+0]! !{Remove this usage of the experimental "border-radius" property.}! */
+  -atsc-border-radius: 5px; /* Noncompliant ![sc=3;ec=22;el=+0]! !{Remove this usage of the experimental "border-radius" property.}! */
+  -epub-border-radius: 5px; /* Noncompliant ![sc=3;ec=22;el=+0]! !{Remove this usage of the experimental "border-radius" property.}! */
+  -fx-border-radius: 5px; /* Noncompliant ![sc=3;ec=20;el=+0]! !{Remove this usage of the experimental "border-radius" property.}! */
+  -hp-border-radius: 5px; /* Noncompliant ![sc=3;ec=20;el=+0]! !{Remove this usage of the experimental "border-radius" property.}! */
+  -khtml-border-radius: 5px; /* Noncompliant ![sc=3;ec=23;el=+0]! !{Remove this usage of the experimental "border-radius" property.}! */
+  -ms-border-radius: 5px; /* Noncompliant ![sc=3;ec=20;el=+0]! !{Remove this usage of the experimental "border-radius" property.}! */
+  -moz-border-radius: 5px; /* Noncompliant ![sc=3;ec=21;el=+0]! !{Remove this usage of the experimental "border-radius" property.}! */
+  mso-border-radius: 5px; /* Noncompliant ![sc=3;ec=20;el=+0]! !{Remove this usage of the experimental "border-radius" property.}! */
+  -o-border-radius: 5px; /* Noncompliant ![sc=3;ec=19;el=+0]! !{Remove this usage of the experimental "border-radius" property.}! */
+  prince-border-radius: 5px; /* Noncompliant ![sc=3;ec=23;el=+0]! !{Remove this usage of the experimental "border-radius" property.}! */
+  -ro-border-radius: 5px; /* Noncompliant ![sc=3;ec=20;el=+0]! !{Remove this usage of the experimental "border-radius" property.}! */
+  -rim-border-radius: 5px; /* Noncompliant ![sc=3;ec=21;el=+0]! !{Remove this usage of the experimental "border-radius" property.}! */
+  -tc-border-radius: 5px; /* Noncompliant ![sc=3;ec=20;el=+0]! !{Remove this usage of the experimental "border-radius" property.}! */
+  -wap-border-radius: 5px; /* Noncompliant ![sc=3;ec=21;el=+0]! !{Remove this usage of the experimental "border-radius" property.}! */
+  -webkit-border-radius: 5px; /* Noncompliant ![sc=3;ec=24;el=+0]! !{Remove this usage of the experimental "border-radius" property.}! */
+  -xv-border-radius: 5px; /* Noncompliant ![sc=3;ec=20;el=+0]! !{Remove this usage of the experimental "border-radius" property.}! */
+  -XV-border-radius: 5px; /* Noncompliant ![sc=3;ec=20;el=+0]! !{Remove this usage of the experimental "border-radius" property.}! */
+  pause: 3s; /* Noncompliant ![sc=3;ec=8;el=+0]! !{Remove this usage of the experimental "pause" property.}! */
+}

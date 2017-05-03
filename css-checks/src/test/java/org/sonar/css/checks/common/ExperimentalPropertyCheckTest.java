@@ -23,11 +23,29 @@ import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
+import java.io.File;
+
 public class ExperimentalPropertyCheckTest {
 
+  private ExperimentalPropertyCheck check = new ExperimentalPropertyCheck();
+
   @Test
-  public void test() {
-    CssCheckVerifier.verifyCssFile(new ExperimentalPropertyCheck(), CheckTestUtils.getCommonTestFile("experimentalPropertyUsage.css"));
+  public void test_css() {
+    CssCheckVerifier.verifyCssFile(check, getTestFile("experimentalPropertyUsage.css"));
+  }
+
+  @Test
+  public void test_less() {
+    CssCheckVerifier.verifyLessFile(check, getTestFile("experimentalPropertyUsage.less"));
+  }
+
+  @Test
+  public void test_scss() {
+    CssCheckVerifier.verifyScssFile(check, getTestFile("experimentalPropertyUsage.scss"));
+  }
+
+  private File getTestFile(String fileName) {
+    return CheckTestUtils.getCommonTestFile("experimental-property-usage/" + fileName);
   }
 
 }
