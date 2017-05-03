@@ -39,6 +39,9 @@ public class ScssNestedPropertiesDeclarationTreeImpl extends TreeImpl implements
     this.namespace = namespace;
     this.colon = colon;
     this.block = block;
+
+    this.namespace.setScssNamespace(true);
+    setActualPropertiesForNestedProperties();
   }
 
   @Override
@@ -68,7 +71,7 @@ public class ScssNestedPropertiesDeclarationTreeImpl extends TreeImpl implements
 
   @Override
   public ValueTree value() {
-    throw new IllegalStateException("Not yet implemented");
+    throw new IllegalStateException("Not implemented");
   }
 
   @Override
@@ -84,6 +87,12 @@ public class ScssNestedPropertiesDeclarationTreeImpl extends TreeImpl implements
   @Override
   public List<PropertyDeclarationTree> propertyDeclarations() {
     return block.propertyDeclarations();
+  }
+
+  private void setActualPropertiesForNestedProperties() {
+    for (PropertyDeclarationTree propertyDeclaration : block.propertyDeclarations()) {
+      propertyDeclaration.property().setProperty(namespace.property().text() + "-" + propertyDeclaration.property().property().text());
+    }
   }
 
 }

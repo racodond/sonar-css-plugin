@@ -38,7 +38,7 @@ public class StarHackCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitProperty(PropertyTree tree) {
-    if ("*".equals(tree.hack())) {
+    if ("*".equals(tree.hack()) && !tree.isScssNamespace()) {
       addPreciseIssue(tree, "Remove this usage of the \"*\" hack.");
     }
     super.visitProperty(tree);

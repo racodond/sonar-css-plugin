@@ -28,7 +28,6 @@ import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.IdentifierTree;
 import org.sonar.plugins.css.api.tree.css.PropertyTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
-import org.sonar.plugins.css.api.tree.scss.ScssNestedPropertiesDeclarationTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 import javax.annotation.Nullable;
@@ -38,17 +37,16 @@ import java.util.Locale;
 public class PropertyTreeImpl extends TreeImpl implements PropertyTree {
 
   private final IdentifierTree property;
-  private final StandardProperty standardProperty;
-  private final Vendor vendor;
-  private final String hack;
   private final SyntaxToken lessMerge;
+  private StandardProperty standardProperty;
+  private Vendor vendor;
+  private String hack;
+  private boolean scssNamespace;
 
   public PropertyTreeImpl(IdentifierTree property, @Nullable SyntaxToken lessMerge) {
     this.property = property;
     this.lessMerge = lessMerge;
-    this.hack = setHack();
-    this.vendor = setVendorPrefix();
-    this.standardProperty = setStandardProperty();
+    setProperty(property.text());
   }
 
   @Override
@@ -82,6 +80,11 @@ public class PropertyTreeImpl extends TreeImpl implements PropertyTree {
   }
 
   @Override
+  public boolean isScssNamespace() {
+    return scssNamespace;
+  }
+
+  @Override
   public Vendor vendor() {
     return vendor;
   }
@@ -108,37 +111,23 @@ public class PropertyTreeImpl extends TreeImpl implements PropertyTree {
   }
 
   @Override
-  public boolean isScssNested() {
-    return this.parent() != null
-      && this.parent().parent() != null
-      && this.parent().parent().parent() != null
-      && this.parent().parent().parent() instanceof ScssNestedPropertiesDeclarationTree;
-  }
-
-  @Override
   public String unhackedFullName() {
     return (vendor != null ? vendor.getPrefix() : "") + standardProperty.getName();
   }
 
-  private String setHack() {
-    if (property.text().startsWith("*") || property.text().startsWith("_")) {
-      return property.text().substring(0, 1);
-    } else {
-      return null;
-    }
+  @Override
+  public void setProperty(String propertyName) {
+    this.hack = setHack(propertyName);
+    this.vendor = setVendorPrefix(propertyName);
+    this.standardProperty = setStandardProperty(propertyName, vendor);
   }
 
-  private Vendor setVendorPrefix() {
-    for (Vendor v : Vendor.values()) {
-      if (property.text().toLowerCase(Locale.ENGLISH).startsWith(v.getPrefix())) {
-        return v;
-      }
-    }
-    return null;
+  @Override
+  public void setScssNamespace(boolean scssNamespace) {
+    this.scssNamespace = scssNamespace;
   }
 
-  private StandardProperty setStandardProperty() {
-    String propertyName = property.text();
+  private StandardProperty setStandardProperty(String propertyName, Vendor vendor) {
     if (isHacked()) {
       propertyName = propertyName.substring(1);
     }
@@ -146,6 +135,23 @@ public class PropertyTreeImpl extends TreeImpl implements PropertyTree {
       propertyName = propertyName.substring(vendor.getPrefix().length());
     }
     return StandardPropertyFactory.getByName(propertyName);
+  }
+
+  private String setHack(String propertyName) {
+    if (propertyName.startsWith("*") || propertyName.startsWith("_")) {
+      return propertyName.substring(0, 1);
+    } else {
+      return null;
+    }
+  }
+
+  private Vendor setVendorPrefix(String propertyName) {
+    for (Vendor v : Vendor.values()) {
+      if (propertyName.toLowerCase(Locale.ENGLISH).startsWith(v.getPrefix())) {
+        return v;
+      }
+    }
+    return null;
   }
 
 }

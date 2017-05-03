@@ -38,7 +38,7 @@ public class ExperimentalPropertyCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitProperty(PropertyTree tree) {
-    if (tree.isVendorPrefixed() || tree.standardProperty().isExperimental()) {
+    if (!tree.isScssNamespace() && (tree.isVendorPrefixed() || tree.standardProperty().isExperimental())) {
       addPreciseIssue(
         tree,
         "Remove this usage of the experimental \"" + tree.standardProperty().getName() + "\" property.");

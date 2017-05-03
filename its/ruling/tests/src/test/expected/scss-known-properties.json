@@ -16,6 +16,11 @@
 159,
 163,
 164,
+168,
+169,
+172,
+173,
+174,
 ],
 'project:custom/common/duplicated-properties/duplicatedProperties.scss':[
 73,
@@ -30,6 +35,8 @@
 7,
 26,
 30,
+40,
+41,
 ],
 'project:custom/common/use-shorthand-properties/shorthand.scss':[
 69,
@@ -77,5 +84,9 @@
 390,
 398,
 404,
+],
+'project:custom/common/validate-property-value/validateNestedProperties.scss':[
+3,
+9,
 ],
 }

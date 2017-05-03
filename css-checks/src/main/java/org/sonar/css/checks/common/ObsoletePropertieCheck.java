@@ -19,8 +19,6 @@
  */
 package org.sonar.css.checks.common;
 
-import java.text.MessageFormat;
-
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.Tags;
@@ -28,6 +26,8 @@ import org.sonar.plugins.css.api.tree.css.PropertyTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+
+import java.text.MessageFormat;
 
 @Rule(
   key = "obsolete-properties",
@@ -40,7 +40,8 @@ public class ObsoletePropertieCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitProperty(PropertyTree tree) {
-    if (tree.standardProperty().isObsolete()) {
+    if (tree.standardProperty().isObsolete()
+      && !tree.isScssNamespace()) {
       addPreciseIssue(
         tree,
         MessageFormat.format(

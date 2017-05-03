@@ -5,6 +5,9 @@
 'project:custom/common/emptyRule.css':[
 35,
 ],
+'project:custom/common/experimental-property-usage/experimentalPropertyUsage.css':[
+26,
+],
 'project:custom/common/experimentalAtRuleUsage.css':[
 66,
 ],

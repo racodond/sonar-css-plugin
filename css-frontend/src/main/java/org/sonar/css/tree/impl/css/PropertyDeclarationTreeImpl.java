@@ -103,7 +103,7 @@ public class PropertyDeclarationTreeImpl extends TreeImpl implements PropertyDec
     }
 
     if ("scss".equals(language)
-      && (doesValueContainScssElements(value.childrenIterator()) || property.isScssNested())) {
+      && doesValueContainScssElements(value.childrenIterator())) {
       return true;
     }
 

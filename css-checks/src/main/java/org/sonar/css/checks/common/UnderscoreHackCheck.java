@@ -38,7 +38,7 @@ public class UnderscoreHackCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitProperty(PropertyTree tree) {
-    if ("_".equals(tree.hack())) {
+    if ("_".equals(tree.hack()) && !tree.isScssNamespace()) {
       addPreciseIssue(tree, "Remove this usage of the \"_\" hack.");
     }
     super.visitProperty(tree);

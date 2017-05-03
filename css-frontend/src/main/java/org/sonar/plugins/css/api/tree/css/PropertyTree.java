@@ -19,11 +19,11 @@
  */
 package org.sonar.plugins.css.api.tree.css;
 
-import javax.annotation.Nullable;
-
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.plugins.css.api.tree.Tree;
+
+import javax.annotation.Nullable;
 
 public interface PropertyTree extends Tree {
 
@@ -48,6 +48,10 @@ public interface PropertyTree extends Tree {
 
   boolean isLessMerge();
 
-  boolean isScssNested();
+  boolean isScssNamespace();
+
+  void setScssNamespace(boolean scssNamespace);
+
+  void setProperty(String propertyName);
 
 }

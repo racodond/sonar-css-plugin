@@ -37,29 +37,7 @@ h1 {
 
 h1 {
   abc: {
-    def: def;
-    jkl: jkl;
-  }
-}
-
-h1 {
-  abc: {
-    @if $x == 1 {
-      def: def;
-    } @else {
-      jkl: jkl;
-    }
-  }
-}
-
-h1 {
-  abc: {
-    @if $x == 1 {
-      @if $z == 2 {
-        def: def;
-      }
-    } @else {
-      jkl: jkl;
-    }
+    def: def; /* Noncompliant ![sc=5;ec=8;el=+0]! !{Remove this usage of the unknown "abc-def" property.}! */
+    jkl: jkl; /* Noncompliant ![sc=5;ec=8;el=+0]! !{Remove this usage of the unknown "abc-jkl" property.}! */
   }
 }

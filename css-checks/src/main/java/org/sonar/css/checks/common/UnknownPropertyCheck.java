@@ -24,7 +24,6 @@ import org.sonar.check.Rule;
 import org.sonar.css.checks.Tags;
 import org.sonar.css.model.property.UnknownProperty;
 import org.sonar.plugins.css.api.tree.css.PropertyTree;
-import org.sonar.plugins.css.api.tree.scss.ScssNestedPropertiesDeclarationTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -42,8 +41,7 @@ public class UnknownPropertyCheck extends DoubleDispatchVisitorCheck {
   public void visitProperty(PropertyTree tree) {
     if (tree.standardProperty() instanceof UnknownProperty
       && tree.property().isValidable()
-      && !tree.isScssNested()
-      && !tree.hasAncestor(ScssNestedPropertiesDeclarationTree.class)) {
+      && !tree.isScssNamespace()) {
       addPreciseIssue(tree, "Remove this usage of the unknown \"" + tree.standardProperty().getName() + "\" property.");
     }
     super.visitProperty(tree);
