@@ -72,9 +72,10 @@ public class LessGrammar extends CssGrammar {
         b.token(LexicalGrammar.OPEN_CURLY_BRACE),
         b.zeroOrMore(
           b.firstOf(
-            DECLARATION(),
+            LESS_VARIABLE_DECLARATION(),
             AT_RULE(),
             RULESET(),
+            CSS_DECLARATION(),
             LESS_MIXIN_CALL(),
             EMPTY_STATEMENT())),
         b.token(LexicalGrammar.CLOSE_CURLY_BRACE)));
@@ -129,14 +130,6 @@ public class LessGrammar extends CssGrammar {
         LESS_VARIABLE(),
         b.token(LexicalGrammar.COLON),
         DELIMITER()));
-  }
-
-  @Override
-  public DeclarationTree DECLARATION() {
-    return b.<DeclarationTree>nonterminal(LexicalGrammar.DECLARATION).is(
-      b.firstOf(
-        LESS_VARIABLE_DECLARATION(),
-        CSS_DECLARATION()));
   }
 
   @Override
