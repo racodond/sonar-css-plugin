@@ -24,7 +24,6 @@ import org.sonar.css.model.atrule.StandardAtRule;
 public class Keyframes extends StandardAtRule {
 
   public Keyframes() {
-    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-animations/#keyframes");
   }
 

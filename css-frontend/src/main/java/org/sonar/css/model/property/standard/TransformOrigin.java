@@ -19,15 +19,12 @@
  */
 package org.sonar.css.model.property.standard;
 
-import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 
 public class TransformOrigin extends StandardProperty {
 
   public TransformOrigin() {
-    setExperimental(true);
     addLinks("http://dev.w3.org/csswg/css-transforms/#propdef-transform-origin");
-    addVendors(Vendor.WEBKIT);
   }
 
 }

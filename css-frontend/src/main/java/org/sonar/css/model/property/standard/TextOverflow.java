@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.MultiplierValidator;
 import org.sonar.css.model.property.validator.ValidatorFactory;
@@ -28,9 +27,7 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class TextOverflow extends StandardProperty {
 
   public TextOverflow() {
-    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-ui/#propdef-text-overflow");
-    addVendors(Vendor.MICROSOFT);
     addValidators(
       new MultiplierValidator(
         2,

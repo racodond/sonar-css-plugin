@@ -71,7 +71,7 @@ public class StandardAtRuleFactoryTest {
     assertEquals(atRule.getName(), "keyframes");
     assertEquals(atRule.getLinks().size(), 1);
     assertFalse(atRule.isObsolete());
-    assertTrue(atRule.isExperimental());
+    assertFalse(atRule.isExperimental());
   }
 
   @Test
@@ -82,7 +82,7 @@ public class StandardAtRuleFactoryTest {
   @Test
   public void number_of_experimental_standard_at_rules() {
     assertEquals(
-      29,
+      28,
       StandardAtRuleFactory.getAll()
         .stream()
         .filter(StandardAtRule::isExperimental)

@@ -19,19 +19,16 @@
  */
 package org.sonar.css.model.property.standard;
 
-import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.OverflowValidator;
 
 public class OverflowX extends StandardProperty {
 
   public OverflowX() {
-    setExperimental(true);
     addLinks(
       "https://drafts.csswg.org/css-overflow-3/#propdef-overflow-x",
       "http://dev.w3.org/csswg/css-box-3/#overflow-x");
     addValidators(new OverflowValidator());
-    addVendors(Vendor.MICROSOFT);
   }
 
 }

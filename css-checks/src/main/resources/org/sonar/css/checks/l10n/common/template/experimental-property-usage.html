@@ -8,7 +8,10 @@
 <p>The rule raises an issue when one of the following prefixes is found:</p>
 [[vendors]]
 
-<p>This rule also raises an issue when one of the following experimental properties is found:</p>
+<p>
+    This rule also raises an issue when one of the following experimental properties is found. A property is considered
+    as experimental if it is not supported by IE/Edge 11+, Firefox 44+ and Chrome 48+.
+</p>
 [[experimentalProperties]]
 
 <h2>Noncompliant Code Example</h2>
@@ -21,5 +24,6 @@
 
 <h2>stylelint Related Rules</h2>
 <ul>
-    <li><a href="https://stylelint.io/user-guide/rules/property-no-vendor-prefix/" target="_blank">property-no-vendor-prefix</a></li>
+    <li><a href="https://stylelint.io/user-guide/rules/property-no-vendor-prefix/" target="_blank">property-no-vendor-prefix</a>
+    </li>
 </ul>

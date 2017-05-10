@@ -19,15 +19,12 @@
  */
 package org.sonar.css.model.property.standard;
 
-import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class TransformStyle extends StandardProperty {
 
   public TransformStyle() {
-    setExperimental(true);
-    addVendors(Vendor.WEBKIT);
     addLinks("http://dev.w3.org/csswg/css-transforms/#propdef-transform-style");
     addValidators(new IdentifierValidator("auto", "flat", "preserve-3d"));
   }

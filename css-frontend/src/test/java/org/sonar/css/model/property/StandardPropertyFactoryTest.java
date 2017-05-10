@@ -19,15 +19,18 @@
  */
 package org.sonar.css.model.property;
 
-import java.util.stream.Collectors;
-
 import org.junit.Test;
 import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.standard.Border;
 import org.sonar.css.model.property.standard.BorderEnd;
+import org.sonar.css.model.property.standard.ColumnCount;
 import org.sonar.css.model.property.standard.TransitionProperty;
 
+import java.util.stream.Collectors;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class StandardPropertyFactoryTest {
 
@@ -63,21 +66,22 @@ public class StandardPropertyFactoryTest {
     assertEquals(property.getLinks().size(), 0);
     assertEquals(property.getValidators().size(), 0);
     assertEquals(property.getVendors().size(), 0);
-    assertEquals(property.isObsolete(), true);
+    assertTrue(property.isObsolete());
   }
 
   @Test
-  public void should_return_a_valid_transition_property_object() {
-    StandardProperty property = StandardPropertyFactory.getByName("transition-property");
-    assertEquals(TransitionProperty.class, property.getClass());
-    assertEquals(property.getName(), "transition-property");
-    assertEquals(property.getLinks().size(), 1);
-    assertEquals(property.getLinks().get(0), "https://drafts.csswg.org/css-transitions-1/#propdef-transition-property");
-    assertEquals(property.getValidators().size(), 0);
+  public void should_return_a_valid_column_count_object() {
+    StandardProperty property = StandardPropertyFactory.getByName("column-count");
+    assertEquals(ColumnCount.class, property.getClass());
+    assertEquals(property.getName(), "column-count");
+    assertEquals(property.getLinks().size(), 2);
+    assertEquals(property.getLinks().get(0), "http://dev.w3.org/csswg/css-multicol-1/#propdef-column-count");
+    assertEquals(property.getLinks().get(1), "https://developer.mozilla.org/en-US/docs/Web/CSS/column-count");
+    assertEquals(property.getValidators().size(), 1);
     assertEquals(property.getVendors().size(), 1);
-    assertEquals(property.getVendors().contains(Vendor.WEBKIT), true);
-    assertEquals(property.getVendors().contains(Vendor.MICROSOFT), false);
-    assertEquals(property.isObsolete(), false);
+    assertTrue(property.getVendors().contains(Vendor.MOZILLA));
+    assertFalse(property.getVendors().contains(Vendor.MICROSOFT));
+    assertFalse(property.isObsolete());
   }
 
   @Test
@@ -88,12 +92,24 @@ public class StandardPropertyFactoryTest {
     assertEquals(property.getLinks().size(), 0);
     assertEquals(property.getValidators().size(), 0);
     assertEquals(property.getVendors().size(), 0);
-    assertEquals(property.isObsolete(), false);
+    assertFalse(property.isObsolete());
   }
 
   @Test
   public void number_of_standard_properties() {
     assertEquals(614, StandardPropertyFactory.getAll().size());
+  }
+
+  @Test
+  public void number_of_experimental_properties() {
+    assertEquals(
+      353,
+      StandardPropertyFactory
+        .getAll()
+        .stream()
+        .filter(StandardProperty::isExperimental)
+        .collect(Collectors.toList())
+        .size());
   }
 
   @Test

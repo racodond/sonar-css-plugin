@@ -19,15 +19,12 @@
  */
 package org.sonar.css.model.property.standard;
 
-import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 
 public class TransitionProperty extends StandardProperty {
 
   public TransitionProperty() {
-    setExperimental(true);
     addLinks("https://drafts.csswg.org/css-transitions-1/#propdef-transition-property");
-    addVendors(Vendor.WEBKIT);
   }
 
 }

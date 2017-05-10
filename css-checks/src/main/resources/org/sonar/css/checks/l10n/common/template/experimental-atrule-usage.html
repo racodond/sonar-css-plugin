@@ -8,7 +8,10 @@
 <p>The rule raises an issue when one of the following prefixes is found:</p>
 [[vendors]]
 
-<p>This rule also raises an issue when one of the following experimental @-rules is found:</p>
+<p>
+    This rule also raises an issue when one of the following experimental @-rules is found. An @-rule is considered as
+    experimental if it is not supported by IE/Edge 11+, Firefox 44+ and Chrome 48+.
+</p>
 [[experimentalAtRules]]
 
 <h2>Noncompliant Code Example</h2>
@@ -21,5 +24,6 @@
 
 <h2>stylelint Related Rules</h2>
 <ul>
-    <li><a href="https://stylelint.io/user-guide/rules/at-rule-no-vendor-prefix/" target="_blank">at-rule-no-vendor-prefix</a></li>
+    <li><a href="https://stylelint.io/user-guide/rules/at-rule-no-vendor-prefix/" target="_blank">at-rule-no-vendor-prefix</a>
+    </li>
 </ul>

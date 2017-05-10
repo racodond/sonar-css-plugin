@@ -43,8 +43,8 @@
   }
 }
 
-@keyframes fade {} /* Noncompliant ![sc=1;ec=11;el=+0]! !{Remove this usage of the experimental "keyframes" @-rule.}! */
-@KEYFRAMES fade {} /* Noncompliant ![sc=1;ec=11;el=+0]! !{Remove this usage of the experimental "keyframes" @-rule.}! */
+@keyframes fade {}
+@KEYFRAMES fade {}
 
 @viewport { /* Noncompliant ![sc=1;ec=10;el=+0]! !{Remove this usage of the experimental "viewport" @-rule.}! */
   max-width: 10px;
