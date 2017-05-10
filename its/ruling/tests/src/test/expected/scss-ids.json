@@ -2,6 +2,10 @@
 'project:custom/common/class-selector-naming-convention/selectorNamingConvention.scss':[
 10,
 ],
+'project:custom/common/experimental-pseudo-usage/experimentalPseudoUsage.scss':[
+1,
+5,
+],
 'project:custom/common/id-selector-naming-convention/selectorNamingConvention.scss':[
 1,
 7,

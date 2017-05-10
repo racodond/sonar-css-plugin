@@ -22,58 +22,46 @@ package org.sonar.css.tree.impl.less;
 import com.google.common.collect.Iterators;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.css.ValueTree;
 import org.sonar.plugins.css.api.tree.less.LessMixinParameterDefaultValueTree;
-import org.sonar.plugins.css.api.tree.less.LessMixinParameterTree;
-import org.sonar.plugins.css.api.tree.less.LessVariableTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
-import javax.annotation.Nullable;
 import java.util.Iterator;
 
-public class LessMixinParameterTreeImpl extends TreeImpl implements LessMixinParameterTree {
+public class LessMixinParameterDefaultValueTreeImpl extends TreeImpl implements LessMixinParameterDefaultValueTree {
 
-  private final LessVariableTree variable;
+  private final SyntaxToken colon;
   private final ValueTree value;
-  private final LessMixinParameterDefaultValueTree defaultValue;
 
-  public LessMixinParameterTreeImpl(@Nullable LessVariableTree variable, @Nullable ValueTree value, @Nullable LessMixinParameterDefaultValueTree defaultValue) {
-    this.variable = variable;
+  public LessMixinParameterDefaultValueTreeImpl(SyntaxToken colon, ValueTree value) {
+    this.colon = colon;
     this.value = value;
-    this.defaultValue = defaultValue;
   }
 
   @Override
   public Kind getKind() {
-    return Kind.LESS_MIXIN_PARAMETER;
+    return Kind.LESS_MIXIN_PARAMETER_DEFAULT_VALUE;
   }
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    return Iterators.forArray(variable, value, defaultValue);
+    return Iterators.forArray(colon, value);
   }
 
   @Override
   public void accept(DoubleDispatchVisitor visitor) {
-    visitor.visitLessMixinParameter(this);
+    visitor.visitLessMixinParameterDefaultValue(this);
   }
 
   @Override
-  @Nullable
-  public LessVariableTree variable() {
-    return variable;
+  public SyntaxToken colon() {
+    return colon;
   }
 
   @Override
-  @Nullable
   public ValueTree value() {
     return value;
-  }
-
-  @Override
-  @Nullable
-  public LessMixinParameterDefaultValueTree defaultValue() {
-    return defaultValue;
   }
 
 }

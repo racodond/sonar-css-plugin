@@ -17,35 +17,16 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.checks.common;
+package org.sonar.plugins.css.api.tree.less;
 
-import org.junit.Test;
-import org.sonar.css.checks.CheckTestUtils;
-import org.sonar.css.checks.verifier.CssCheckVerifier;
+import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.SyntaxToken;
+import org.sonar.plugins.css.api.tree.css.ValueTree;
 
-import java.io.File;
+public interface LessMixinParameterDefaultValueTree extends Tree {
 
-public class ExperimentalPseudoCheckTest {
+  SyntaxToken colon();
 
-  private ExperimentalPseudoCheck check = new ExperimentalPseudoCheck();
-
-  @Test
-  public void test_css() {
-    CssCheckVerifier.verifyCssFile(check, getTestFile("experimentalPseudoUsage.css"));
-  }
-
-  @Test
-  public void test_less() {
-    CssCheckVerifier.verifyLessFile(check, getTestFile("experimentalPseudoUsage.less"));
-  }
-
-  @Test
-  public void test_scss() {
-    CssCheckVerifier.verifyScssFile(check, getTestFile("experimentalPseudoUsage.scss"));
-  }
-
-  private File getTestFile(String fileName) {
-    return CheckTestUtils.getCommonTestFile("experimental-pseudo-usage/" + fileName);
-  }
+  ValueTree value();
 
 }

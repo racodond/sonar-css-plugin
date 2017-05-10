@@ -19,11 +19,10 @@
  */
 package org.sonar.plugins.css.api.tree.less;
 
-import javax.annotation.Nullable;
-
-import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.ValueTree;
+
+import javax.annotation.Nullable;
 
 public interface LessMixinParameterTree extends Tree {
 
@@ -31,9 +30,9 @@ public interface LessMixinParameterTree extends Tree {
   LessVariableTree variable();
 
   @Nullable
-  SyntaxToken colon();
+  ValueTree value();
 
   @Nullable
-  ValueTree value();
+  LessMixinParameterDefaultValueTree defaultValue();
 
 }

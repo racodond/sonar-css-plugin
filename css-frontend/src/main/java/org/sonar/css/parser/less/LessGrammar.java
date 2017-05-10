@@ -348,9 +348,15 @@ public class LessGrammar extends CssGrammar {
       b.firstOf(
         f.lessMixinParameter(
           LESS_VARIABLE(),
-          b.optional(b.token(LexicalGrammar.COLON)),
-          b.optional(DECLARATION_VALUE())),
+          b.optional(LESS_MIXIN_PARAMETER_DEFAULT_VALUE())),
         f.lessMixinParameter(DECLARATION_VALUE())));
+  }
+
+  public LessMixinParameterDefaultValueTree LESS_MIXIN_PARAMETER_DEFAULT_VALUE() {
+    return b.<LessMixinParameterDefaultValueTree>nonterminal(LexicalGrammar.LESS_MIXIN_PARAMETER_DEFAULT_VALUE).is(
+      f.lessMixinParameterDefaultValue(
+        b.token(LexicalGrammar.COLON),
+        DECLARATION_VALUE()));
   }
 
   public IdentifierTree LESS_INTERPOLATED_IDENTIFIER() {

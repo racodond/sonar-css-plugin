@@ -2,6 +2,10 @@
 'project:custom/common/class-selector-naming-convention/selectorNamingConvention.less':[
 10,
 ],
+'project:custom/common/experimental-pseudo-usage/experimentalPseudoUsage.less':[
+1,
+5,
+],
 'project:custom/common/id-selector-naming-convention/selectorNamingConvention.less':[
 1,
 7,

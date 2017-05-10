@@ -729,12 +729,16 @@ public class TreeFactory {
     return new SeparatedList<>(parameters, separators);
   }
 
-  public LessMixinParameterTree lessMixinParameter(LessVariableTree variable, Optional<SyntaxToken> colon, Optional<ValueTree> value) {
-    return new LessMixinParameterTreeImpl(variable, colon.orNull(), value.orNull());
+  public LessMixinParameterTree lessMixinParameter(LessVariableTree variable, Optional<LessMixinParameterDefaultValueTree> defaultValue) {
+    return new LessMixinParameterTreeImpl(variable, null, defaultValue.orNull());
   }
 
   public LessMixinParameterTree lessMixinParameter(ValueTree value) {
-    return new LessMixinParameterTreeImpl(null, null, value);
+    return new LessMixinParameterTreeImpl(null, value, null);
+  }
+
+  public LessMixinParameterDefaultValueTree lessMixinParameterDefaultValue(SyntaxToken colon, ValueTree value) {
+    return new LessMixinParameterDefaultValueTreeImpl(colon, value);
   }
 
   public LessEscapingTree lessEscaping(SyntaxToken escapingSymbol, StringTree string) {

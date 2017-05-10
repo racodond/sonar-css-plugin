@@ -1,0 +1,31 @@
+#fullscreen:fullscreen > h1 { /* Noncompliant ![sc=13;ec=23;el=+0]! !{Remove this usage of the experimental "fullscreen" pseudo.}! */
+  color: red;
+}
+
+#id:-moz-abc { /* Noncompliant ![sc=5;ec=13;el=+0]! !{Remove this usage of the experimental "abc" pseudo.}! */
+  color: red;
+}
+
+p:dir(ltr) { /* Noncompliant ![sc=3;ec=6;el=+0]! !{Remove this usage of the experimental "dir" pseudo.}! */
+  color: red;
+}
+
+p:-moz-abc(ltr) { /* Noncompliant ![sc=3;ec=11;el=+0]! !{Remove this usage of the experimental "abc" pseudo.}! */
+  color: red;
+}
+
+:host { /* Noncompliant ![sc=2;ec=6;el=+0]! !{Remove this usage of the experimental "host" pseudo.}! */
+  color: red;
+}
+
+p:empty {
+  color: red;
+}
+
+p:not(.mybox) {
+  color: red;
+}
+
+.animation (@animation-name, @animation-count: infinte, @timing-function:linear) {
+  color: #000000;
+}

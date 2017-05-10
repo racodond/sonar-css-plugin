@@ -17,35 +17,32 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.checks.common;
+package org.sonar.css.parser.less;
 
 import org.junit.Test;
-import org.sonar.css.checks.CheckTestUtils;
-import org.sonar.css.checks.verifier.CssCheckVerifier;
+import org.sonar.css.parser.LexicalGrammar;
+import org.sonar.plugins.css.api.tree.less.LessMixinParameterDefaultValueTree;
 
-import java.io.File;
+import static org.fest.assertions.Assertions.assertThat;
 
-public class ExperimentalPseudoCheckTest {
+public class LessMixinParameterDefaultValueTreeTest extends LessTreeTest {
 
-  private ExperimentalPseudoCheck check = new ExperimentalPseudoCheck();
-
-  @Test
-  public void test_css() {
-    CssCheckVerifier.verifyCssFile(check, getTestFile("experimentalPseudoUsage.css"));
+  public LessMixinParameterDefaultValueTreeTest() {
+    super(LexicalGrammar.LESS_MIXIN_PARAMETER_DEFAULT_VALUE);
   }
 
   @Test
-  public void test_less() {
-    CssCheckVerifier.verifyLessFile(check, getTestFile("experimentalPseudoUsage.less"));
+  public void lessMixinParameterDefaultValue() {
+    checkParsed(":abc");
+    checkParsed(": abc");
+    checkParsed(" : abc");
   }
 
-  @Test
-  public void test_scss() {
-    CssCheckVerifier.verifyScssFile(check, getTestFile("experimentalPseudoUsage.scss"));
-  }
-
-  private File getTestFile(String fileName) {
-    return CheckTestUtils.getCommonTestFile("experimental-pseudo-usage/" + fileName);
+  private LessMixinParameterDefaultValueTree checkParsed(String toParse) {
+    LessMixinParameterDefaultValueTree tree = (LessMixinParameterDefaultValueTree) parser().parse(toParse);
+    assertThat(tree.colon()).isNotNull();
+    assertThat(tree.value()).isNotNull();
+    return tree;
   }
 
 }

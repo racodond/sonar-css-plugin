@@ -27,19 +27,21 @@ import java.io.File;
 
 public class DeprecatedSystemColorCheckTest {
 
+  private DeprecatedSystemColorCheck check = new DeprecatedSystemColorCheck();
+
   @Test
   public void test_css() {
-    CssCheckVerifier.verifyCssFile(new DeprecatedSystemColorCheck(), getTestFile("deprecatedSystemColor.css"));
+    CssCheckVerifier.verifyCssFile(check, getTestFile("deprecatedSystemColor.css"));
   }
 
   @Test
   public void test_less() {
-    CssCheckVerifier.verifyLessFile(new DeprecatedSystemColorCheck(), getTestFile("deprecatedSystemColor.less"));
+    CssCheckVerifier.verifyLessFile(check, getTestFile("deprecatedSystemColor.less"));
   }
 
   @Test
   public void test_scss() {
-    CssCheckVerifier.verifyScssFile(new DeprecatedSystemColorCheck(), getTestFile("deprecatedSystemColor.scss"));
+    CssCheckVerifier.verifyScssFile(check, getTestFile("deprecatedSystemColor.scss"));
   }
 
   private File getTestFile(String fileName) {
