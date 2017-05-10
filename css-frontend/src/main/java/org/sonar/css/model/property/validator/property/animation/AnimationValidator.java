@@ -19,11 +19,12 @@
  */
 package org.sonar.css.model.property.validator.property.animation;
 
-import java.util.List;
-
 import org.sonar.css.model.property.validator.ValueValidator;
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.ValueCommaSeparatedListTree;
 import org.sonar.plugins.css.api.tree.css.ValueTree;
+
+import java.util.List;
 
 public class AnimationValidator implements ValueValidator {
 
@@ -44,24 +45,50 @@ public class AnimationValidator implements ValueValidator {
     if (numberOfValueElements > 8) {
       return false;
     }
+
+    if (valueElements.size() == 1 && valueElements.get(0).is(Tree.Kind.VALUE_COMMA_SEPARATED_LIST)) {
+      return validateMultipleAnimations((ValueCommaSeparatedListTree) valueElements.get(0));
+    }
+
+    return validateSingleAnimation(valueElements);
+  }
+
+  @Override
+  public String getValidatorFormat() {
+    return "[ <time> || <single-timing-function> || <time> || <single-animation-iteration-count> || <single-animation-direction> || <single-animation-fill-mode> || <single-animation-play-state> || <single-animation-name> ]#";
+  }
+
+  private boolean validateSingleAnimationValueElement(Tree valueElement) {
+    return ANIMATION_DELAY_VALIDATOR.isValid(valueElement)
+      || ANIMATION_DIRECTION_VALIDATOR.isValid(valueElement)
+      || ANIMATION_DURATION_VALIDATOR.isValid(valueElement)
+      || ANIMATION_FILL_MODE_VALIDATOR.isValid(valueElement)
+      || ANIMATION_ITERATION_COUNT_VALIDATOR.isValid(valueElement)
+      || ANIMATION_NAME_VALIDATOR.isValid(valueElement)
+      || ANIMATION_PLAY_STATE_VALIDATOR.isValid(valueElement)
+      || ANIMATION_TIMING_FUNCTION_VALIDATOR.isValid(valueElement);
+  }
+
+  private boolean validateSingleAnimation(List<Tree> valueElements) {
+    if (valueElements.size() > 8) {
+      return false;
+    }
+
     for (Tree valueElement : valueElements) {
-      if (!ANIMATION_DELAY_VALIDATOR.isValid(valueElement)
-        && !ANIMATION_DIRECTION_VALIDATOR.isValid(valueElement)
-        && !ANIMATION_DURATION_VALIDATOR.isValid(valueElement)
-        && !ANIMATION_FILL_MODE_VALIDATOR.isValid(valueElement)
-        && !ANIMATION_ITERATION_COUNT_VALIDATOR.isValid(valueElement)
-        && !ANIMATION_NAME_VALIDATOR.isValid(valueElement)
-        && !ANIMATION_PLAY_STATE_VALIDATOR.isValid(valueElement)
-        && !ANIMATION_TIMING_FUNCTION_VALIDATOR.isValid(valueElement)) {
+      if (!validateSingleAnimationValueElement(valueElement)) {
         return false;
       }
     }
     return true;
   }
 
-  @Override
-  public String getValidatorFormat() {
-    return "<time> || <single-timing-function> || <time> || <single-animation-iteration-count> || <single-animation-direction> || <single-animation-fill-mode> || <single-animation-play-state> || <single-animation-name>";
+  private boolean validateMultipleAnimations(ValueCommaSeparatedListTree animations) {
+    for (ValueTree animation : animations.values()) {
+      if (!validateSingleAnimation(animation.sanitizedValueElements())) {
+        return false;
+      }
+    }
+    return true;
   }
 
 }
