@@ -406,3 +406,21 @@
   motion-offset: green;
   motion-rotation: green;
 }
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3]! !{Use the "place-items" shorthand property instead.}! */
+  abc: 10px;
+  align-items: normal;
+  justify-items: normal;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3]! !{Use the "place-content" shorthand property instead.}! */
+  abc: 10px;
+  align-content: normal;
+  justify-content: normal;
+}
+
+.mybox { /* Noncompliant ![sc=1;ec=7;el=+0;secondary=+2,+3]! !{Use the "place-self" shorthand property instead.}! */
+  abc: 10px;
+  align-self: normal;
+  justify-self: normal;
+}
