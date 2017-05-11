@@ -1,11 +1,22 @@
 .mybox {
   align-self: inherit;
   align-self: auto;
-  align-self: flex-start;
-  align-self: flex-end;
-  align-self: center;
-  align-self: baseline;
+  align-self: normal;
   align-self: stretch;
-  align-self: abc; /* Noncompliant !{Update the invalid value of property "align-self". Expected format: auto | flex-start | flex-end | center | baseline | stretch}! */
+  align-self: center;
+  align-self: start;
+  align-self: end;
+  align-self: self-start;
+  align-self: self-end;
+  align-self: flex-end;
+  align-self: flex-start;
+  align-self: left;
+  align-self: right;
+  align-self: safe center;
+  align-self: center safe; /* Noncompliant */
+  align-self: unsafe flex-end;
+  align-self: abc; /* Noncompliant !{Update the invalid value of property "align-self". Expected format: auto | normal | stretch | [ [first | last]? baseline ] | [ [unsafe | safe]? [center | start | end | self-start | self-end | flex-start | flex-end | left | right] ]}! */
   align-self: 10; /* Noncompliant */
+  align-self: safe; /* Noncompliant */
+  align-self: unsafe flex-end flex-end; /* Noncompliant */
 }

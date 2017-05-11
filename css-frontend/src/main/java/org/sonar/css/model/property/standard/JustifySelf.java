@@ -20,12 +20,14 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.property.JustifySelfValidator;
 
 public class JustifySelf extends StandardProperty {
 
   public JustifySelf() {
     setExperimental(true);
     addLinks("https://drafts.csswg.org/css-align-3/#propdef-justify-self");
+    addValidators(new JustifySelfValidator());
   }
 
 }

@@ -1,10 +1,26 @@
 .mybox {
   align-items: inherit;
-  align-items: flex-start;
-  align-items: flex-end;
-  align-items: center;
-  align-items: baseline;
+  align-items: normal;
   align-items: stretch;
-  align-items: abc; /* Noncompliant !{Update the invalid value of property "align-items". Expected format: flex-start | flex-end | center | baseline | stretch}! */
+  align-items: center;
+  align-items: start;
+  align-items: end;
+  align-items: self-start;
+  align-items: self-end;
+  align-items: flex-end;
+  align-items: flex-start;
+  align-items: left;
+  align-items: right;
+  align-items: baseline;
+  align-items: legacy; /* Noncompliant */
+  align-items: legacy right; /* Noncompliant */
+  align-items: right legacy; /* Noncompliant */
+  align-items: safe center;
+  align-items: center safe; /* Noncompliant */
+  align-items: unsafe flex-end;
+  align-items: abc; /* Noncompliant !{Update the invalid value of property "align-items". Expected format: normal | stretch | [ [first | last]? baseline ] | [ [unsafe | safe]? [center | start | end | self-start | self-end | flex-start | flex-end | left | right] ]}! */
   align-items: 10; /* Noncompliant */
+  align-items: safe; /* Noncompliant */
+  align-items: first baseline;
+  align-items: unsafe flex-end flex-end; /* Noncompliant */
 }

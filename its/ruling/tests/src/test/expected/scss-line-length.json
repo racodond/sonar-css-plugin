@@ -118,10 +118,10 @@
 19,
 ],
 'project:custom/common/properties/scss/align-items.scss':[
-8,
+21,
 ],
 'project:custom/common/properties/scss/align-self.scss':[
-9,
+18,
 ],
 'project:custom/common/properties/scss/alignment-baseline.scss':[
 16,
@@ -507,6 +507,12 @@
 ],
 'project:custom/common/properties/scss/justify-content.scss':[
 17,
+],
+'project:custom/common/properties/scss/justify-items.scss':[
+20,
+],
+'project:custom/common/properties/scss/justify-self.scss':[
+18,
 ],
 'project:custom/common/properties/scss/layout-flow.scss':[
 5,

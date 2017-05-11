@@ -1,0 +1,22 @@
+.mybox {
+  justify-self: inherit;
+  justify-self: auto;
+  justify-self: normal;
+  justify-self: stretch;
+  justify-self: center;
+  justify-self: start;
+  justify-self: end;
+  justify-self: self-start;
+  justify-self: self-end;
+  justify-self: flex-end;
+  justify-self: flex-start;
+  justify-self: left;
+  justify-self: right;
+  justify-self: safe center;
+  justify-self: center safe;
+  justify-self: unsafe flex-end;
+  justify-self: abc; /* Noncompliant !{Update the invalid value of property "justify-self". Expected format: auto | normal | stretch | [ [first | last]? baseline ] | [ [unsafe | safe]? && [center | start | end | self-start | self-end | flex-start | flex-end | left | right] ]}! */
+  justify-self: 10; /* Noncompliant */
+  justify-self: safe; /* Noncompliant */
+  justify-self: unsafe flex-end flex-end; /* Noncompliant */
+}

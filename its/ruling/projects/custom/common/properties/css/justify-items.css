@@ -1,0 +1,24 @@
+.mybox {
+  justify-items: inherit;
+  justify-items: normal;
+  justify-items: stretch;
+  justify-items: center;
+  justify-items: start;
+  justify-items: end;
+  justify-items: self-start;
+  justify-items: self-end;
+  justify-items: flex-end;
+  justify-items: flex-start;
+  justify-items: left;
+  justify-items: right;
+  justify-items: legacy;
+  justify-items: legacy right;
+  justify-items: right legacy;
+  justify-items: safe center;
+  justify-items: center safe; /* Noncompliant */
+  justify-items: unsafe flex-end;
+  justify-items: abc; /* Noncompliant !{Update the invalid value of property "justify-items". Expected format: normal | stretch | [ [first | last]? baseline ] | [ [unsafe | safe]? && [center | start | end | self-start | self-end | flex-start | flex-end | left | right] ] | [ legacy || [left | right | center] ]}! */
+  justify-items: 10; /* Noncompliant */
+  justify-items: safe; /* Noncompliant */
+  justify-items: unsafe flex-end flex-end; /* Noncompliant */
+}

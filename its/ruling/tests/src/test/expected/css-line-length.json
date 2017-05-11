@@ -204,10 +204,10 @@
 19,
 ],
 'project:custom/common/properties/css/align-items.css':[
-8,
+21,
 ],
 'project:custom/common/properties/css/align-self.css':[
-9,
+18,
 ],
 'project:custom/common/properties/css/alignment-baseline.css':[
 16,
@@ -596,6 +596,12 @@
 ],
 'project:custom/common/properties/css/justify-content.css':[
 17,
+],
+'project:custom/common/properties/css/justify-items.css':[
+20,
+],
+'project:custom/common/properties/css/justify-self.css':[
+18,
 ],
 'project:custom/common/properties/css/layout-flow.css':[
 5,

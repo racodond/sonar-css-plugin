@@ -20,7 +20,7 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
+import org.sonar.css.model.property.validator.property.AlignItemsValidator;
 
 public class AlignItems extends StandardProperty {
 
@@ -28,7 +28,7 @@ public class AlignItems extends StandardProperty {
     addLinks(
       "http://dev.w3.org/csswg/css-flexbox-1/#propdef-align-items",
       "https://drafts.csswg.org/css-align-3/#propdef-align-items");
-    addValidators(new IdentifierValidator("flex-start", "flex-end", "center", "baseline", "stretch"));
+    addValidators(new AlignItemsValidator());
   }
 
 }

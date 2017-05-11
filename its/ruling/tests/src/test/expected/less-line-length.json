@@ -94,10 +94,10 @@
 19,
 ],
 'project:custom/common/properties/less/align-items.less':[
-8,
+21,
 ],
 'project:custom/common/properties/less/align-self.less':[
-9,
+18,
 ],
 'project:custom/common/properties/less/alignment-baseline.less':[
 16,
@@ -486,6 +486,12 @@
 ],
 'project:custom/common/properties/less/justify-content.less':[
 17,
+],
+'project:custom/common/properties/less/justify-items.less':[
+20,
+],
+'project:custom/common/properties/less/justify-self.less':[
+18,
 ],
 'project:custom/common/properties/less/layout-flow.less':[
 5,
