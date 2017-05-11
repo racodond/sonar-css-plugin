@@ -1,0 +1,12 @@
+.mybox {
+  text-wrap: inherit;
+  text-wrap: wrap;
+  text-wrap: nowrap;
+  text-wrap: balance;
+  text-wrap: multi-line;
+  text-wrap: multi-line !important;
+  text-wrap: abc; /* Noncompliant !{Update the invalid value of property "text-wrap". Expected format: wrap | nowrap | balance | multi-line}! */
+  text-wrap: 10; /* Noncompliant */
+  text-wrap: 10px; /* Noncompliant */
+  text-wrap: balance balance; /* Noncompliant */
+}

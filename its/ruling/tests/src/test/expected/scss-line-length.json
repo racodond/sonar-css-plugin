@@ -910,6 +910,9 @@
 'project:custom/common/properties/scss/text-underline-position.scss':[
 11,
 ],
+'project:custom/common/properties/scss/text-wrap.scss':[
+8,
+],
 'project:custom/common/properties/scss/top.scss':[
 8,
 ],
@@ -960,6 +963,12 @@
 ],
 'project:custom/common/properties/scss/word-spacing.scss':[
 8,
+],
+'project:custom/common/properties/scss/wrap-after.scss':[
+10,
+],
+'project:custom/common/properties/scss/wrap-before.scss':[
+10,
 ],
 'project:custom/common/properties/scss/writing-mode.scss':[
 13,

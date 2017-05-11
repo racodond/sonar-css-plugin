@@ -892,6 +892,9 @@
 'project:custom/common/properties/less/text-underline-position.less':[
 11,
 ],
+'project:custom/common/properties/less/text-wrap.less':[
+8,
+],
 'project:custom/common/properties/less/top.less':[
 8,
 ],
@@ -945,6 +948,12 @@
 ],
 'project:custom/common/properties/less/word-spacing.less':[
 8,
+],
+'project:custom/common/properties/less/wrap-after.less':[
+10,
+],
+'project:custom/common/properties/less/wrap-before.less':[
+10,
 ],
 'project:custom/common/properties/less/writing-mode.less':[
 13,

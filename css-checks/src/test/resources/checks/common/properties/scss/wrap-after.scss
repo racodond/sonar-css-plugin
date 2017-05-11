@@ -1,0 +1,14 @@
+.mybox {
+  wrap-after: inherit;
+  wrap-after: auto;
+  wrap-after: avoid;
+  wrap-after: avoid-line;
+  wrap-after: avoid-flex;
+  wrap-after: line;
+  wrap-after: flex;
+  wrap-after: flex !important;
+  wrap-after: abc; /* Noncompliant !{Update the invalid value of property "wrap-after". Expected format: auto | avoid | avoid-line | avoid-flex | line | flex}! */
+  wrap-after: 10; /* Noncompliant */
+  wrap-after: 10px; /* Noncompliant */
+  wrap-after: avoid avoid; /* Noncompliant */
+}

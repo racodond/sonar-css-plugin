@@ -20,12 +20,14 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class WrapBefore extends StandardProperty {
 
   public WrapBefore() {
     setExperimental(true);
     addLinks("https://drafts.csswg.org/css-text-4/#propdef-wrap-before");
+    addValidators(new IdentifierValidator("auto", "avoid", "avoid-line", "avoid-flex", "line", "flex"));
   }
 
 }

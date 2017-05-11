@@ -1,0 +1,14 @@
+.mybox {
+  wrap-before: inherit;
+  wrap-before: auto;
+  wrap-before: avoid;
+  wrap-before: avoid-line;
+  wrap-before: avoid-flex;
+  wrap-before: line;
+  wrap-before: flex;
+  wrap-before: flex !important;
+  wrap-before: abc; /* Noncompliant !{Update the invalid value of property "wrap-before". Expected format: auto | avoid | avoid-line | avoid-flex | line | flex}! */
+  wrap-before: 10; /* Noncompliant */
+  wrap-before: 10px; /* Noncompliant */
+  wrap-before: avoid avoid; /* Noncompliant */
+}

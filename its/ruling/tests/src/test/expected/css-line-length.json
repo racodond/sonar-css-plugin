@@ -996,6 +996,9 @@
 'project:custom/common/properties/css/text-underline-position.css':[
 11,
 ],
+'project:custom/common/properties/css/text-wrap.css':[
+8,
+],
 'project:custom/common/properties/css/top.css':[
 8,
 ],
@@ -1049,6 +1052,12 @@
 ],
 'project:custom/common/properties/css/word-spacing.css':[
 8,
+],
+'project:custom/common/properties/css/wrap-after.css':[
+10,
+],
+'project:custom/common/properties/css/wrap-before.css':[
+10,
 ],
 'project:custom/common/properties/css/writing-mode.css':[
 13,

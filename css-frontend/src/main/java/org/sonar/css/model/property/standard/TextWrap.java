@@ -20,12 +20,14 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class TextWrap extends StandardProperty {
 
   public TextWrap() {
     setExperimental(true);
     addLinks("https://drafts.csswg.org/css-text-4/#propdef-text-wrap");
+    addValidators(new IdentifierValidator("wrap", "nowrap", "balance", "multi-line"));
   }
 
 }
