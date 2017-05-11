@@ -20,11 +20,14 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.MultiplierValidator;
+import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 
 public class BorderImageRepeat extends StandardProperty {
 
   public BorderImageRepeat() {
     addLinks("https://drafts.csswg.org/css-backgrounds-3/#border-image-repeat");
+    addValidators(new MultiplierValidator(2, new IdentifierValidator("stretch", "repeat", "round", "space")));
   }
 
 }

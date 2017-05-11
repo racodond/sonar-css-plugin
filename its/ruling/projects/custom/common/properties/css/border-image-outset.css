@@ -1,0 +1,17 @@
+.mybox {
+  border-image-outset: inherit;
+  border-image-outset: 10px;
+  border-image-outset: 10px !important;
+  border-image-outset: 10;
+  border-image-outset: 0;
+  border-image-outset: 10.1;
+  border-image-outset: 10px 10px;
+  border-image-outset: 10px 10px 10px;
+  border-image-outset: 10px 10px 10px 10px;
+  border-image-outset: 10px 10px 10px 10px !important;
+  border-image-outset: abc; /* Noncompliant !{Update the invalid value of property "border-image-outset". Expected format: [ <length>(>=0) | <number>(>=0) ]{1,4}}! */
+  border-image-outset: -10px; /* Noncompliant */
+  border-image-outset: -10; /* Noncompliant */
+  border-image-outset: 10px 10px 10px 10px 10px; /* Noncompliant */
+  border-image-outset: 10px 10px abc; /* Noncompliant */
+}

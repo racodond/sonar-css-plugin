@@ -24,7 +24,7 @@ import org.sonar.css.model.property.StandardProperty;
 public class PerspectiveOrigin extends StandardProperty {
 
   public PerspectiveOrigin() {
-    addLinks("http://dev.w3.org/csswg/css-transforms/#propdef-perspective-origin");
+    addLinks("https://drafts.csswg.org/css-transforms-2/#propdef-perspective-origin");
   }
 
 }

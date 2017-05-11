@@ -1,0 +1,20 @@
+.mybox {
+  border-image-width: inherit;
+  border-image-width: auto;
+  border-image-width: 10px;
+  border-image-width: 10px !important;
+  border-image-width: 10;
+  border-image-width: 10%;
+  border-image-width: 0;
+  border-image-width: 10.1;
+  border-image-width: 10px 10px;
+  border-image-width: 10px 10px 10px;
+  border-image-width: 10px 10px 10px 10px;
+  border-image-width: 10px 10px 10px 10px !important;
+  border-image-width: abc; /* Noncompliant !{Update the invalid value of property "border-image-width". Expected format: [ auto | <length>(>=0) | <percentage>(>=0) | <number>(>=0) ]{1,4}}! */
+  border-image-width: -10px; /* Noncompliant */
+  border-image-width: -10; /* Noncompliant */
+  border-image-width: -10%; /* Noncompliant */
+  border-image-width: 10px 10px 10px 10px 10px; /* Noncompliant */
+  border-image-width: 10px 10px abc; /* Noncompliant */
+}

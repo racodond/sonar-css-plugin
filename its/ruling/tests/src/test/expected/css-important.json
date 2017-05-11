@@ -65,6 +65,17 @@
 31,
 32,
 ],
+'project:custom/common/properties/css/border-image-outset.css':[
+4,
+11,
+],
+'project:custom/common/properties/css/border-image-repeat.css':[
+7,
+],
+'project:custom/common/properties/css/border-image-width.css':[
+5,
+13,
+],
 'project:custom/common/properties/css/filter.css':[
 21,
 ],

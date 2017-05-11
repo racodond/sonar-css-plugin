@@ -48,6 +48,10 @@
 19,
 20,
 21,
+32,
+35,
+36,
+37,
 ],
 'project:custom/common/experimental-pseudo-usage/experimentalPseudoUsage.scss':[
 1,
@@ -218,6 +222,15 @@
 ],
 'project:custom/common/properties/scss/border-color.scss':[
 7,
+],
+'project:custom/common/properties/scss/border-image-outset.scss':[
+12,
+],
+'project:custom/common/properties/scss/border-image-repeat.scss':[
+9,
+],
+'project:custom/common/properties/scss/border-image-width.scss':[
+14,
 ],
 'project:custom/common/properties/scss/border-left-color.scss':[
 5,

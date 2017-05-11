@@ -20,11 +20,17 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
+import org.sonar.css.model.property.validator.MultiplierValidator;
+import org.sonar.css.model.property.validator.ValidatorFactory;
 
 public class BorderImageOutset extends StandardProperty {
 
   public BorderImageOutset() {
     addLinks("https://drafts.csswg.org/css-backgrounds-3/#border-image-outset");
+    addValidators(new MultiplierValidator(
+      4,
+      ValidatorFactory.getPositiveLengthValidator(),
+      ValidatorFactory.getPositiveNumberValidator()));
   }
 
 }

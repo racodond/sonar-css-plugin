@@ -29,6 +29,17 @@
 31,
 32,
 ],
+'project:custom/common/properties/scss/border-image-outset.scss':[
+4,
+11,
+],
+'project:custom/common/properties/scss/border-image-repeat.scss':[
+7,
+],
+'project:custom/common/properties/scss/border-image-width.scss':[
+5,
+13,
+],
 'project:custom/common/properties/scss/filter.scss':[
 17,
 ],

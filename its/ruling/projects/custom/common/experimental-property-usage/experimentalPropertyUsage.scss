@@ -21,3 +21,19 @@
   -XV-border-radius: 5px; /* Noncompliant ![sc=3;ec=20;el=+0]! !{Remove this usage of the experimental "border-radius" property.}! */
   pause: 3s; /* Noncompliant ![sc=3;ec=8;el=+0]! !{Remove this usage of the experimental "pause" property.}! */
 }
+
+@mixin my-mixin {
+  font: {
+    family: Arial, Helvetica, sans-serif;
+    size: $fontSize-m;
+    weight: 300;
+  }
+  background: {
+    blend-mode: alpha(10); /* Noncompliant ![sc=5;ec=15;el=+0]! !{Remove this usage of the experimental "background-blend-mode" property.}! */
+  }
+  -moz-font: {
+    family: Arial, Helvetica, sans-serif; /* Noncompliant ![sc=5;ec=11;el=+0]! !{Remove this usage of the experimental "font-family" property.}! */
+    size: $fontSize-m; /* Noncompliant ![sc=5;ec=9;el=+0]! !{Remove this usage of the experimental "font-size" property.}! */
+    weight: 300; /* Noncompliant ![sc=5;ec=11;el=+0]! !{Remove this usage of the experimental "font-weight" property.}! */
+  }
+}

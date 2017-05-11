@@ -60,10 +60,6 @@
 19,
 20,
 21,
-32,
-35,
-36,
-37,
 ],
 'project:custom/common/experimental-pseudo-usage/experimentalPseudoUsage.css':[
 1,
@@ -312,6 +308,15 @@
 ],
 'project:custom/common/properties/css/border-color.css':[
 7,
+],
+'project:custom/common/properties/css/border-image-outset.css':[
+12,
+],
+'project:custom/common/properties/css/border-image-repeat.css':[
+9,
+],
+'project:custom/common/properties/css/border-image-width.css':[
+14,
 ],
 'project:custom/common/properties/css/border-left-color.css':[
 5,

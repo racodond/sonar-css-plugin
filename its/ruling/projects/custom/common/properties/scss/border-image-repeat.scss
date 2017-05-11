@@ -1,0 +1,12 @@
+.mybox {
+  border-image-repeat: inherit;
+  border-image-repeat: stretch;
+  border-image-repeat: repeat;
+  border-image-repeat: round;
+  border-image-repeat: space;
+  border-image-repeat: stretch !important;
+  border-image-repeat: stretch round;
+  border-image-repeat: 10px; /* Noncompliant !{Update the invalid value of property "border-image-repeat". Expected format: [ stretch | repeat | round | space ]{1,2}}! */
+  border-image-repeat: abc; /* Noncompliant */
+  border-image-repeat: stretch stretch stretch; /* Noncompliant */
+}
