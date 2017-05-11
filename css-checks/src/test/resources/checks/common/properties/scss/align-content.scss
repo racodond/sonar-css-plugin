@@ -1,11 +1,25 @@
 .mybox {
   align-content: inherit;
-  align-content: flex-start;
-  align-content: flex-end;
-  align-content: center;
+  align-content: normal;
   align-content: space-between;
   align-content: space-around;
+  align-content: space-evenly;
   align-content: stretch;
-  align-content: abc; /* Noncompliant !{Update the invalid value of property "align-content". Expected format: flex-start | flex-end | center | space-between | space-around | stretch}! */
+  align-content: center;
+  align-content: start;
+  align-content: end;
+  align-content: flex-end;
+  align-content: flex-start;
+  align-content: left;
+  align-content: right;
+  align-content: baseline;
+  align-content: safe center;
+  align-content: unsafe flex-end;
+  align-content: first baseline;
+  align-content: abc; /* Noncompliant !{Update the invalid value of property "align-content". Expected format: normal | space-between | space-around | space-evenly | stretch | [ [first | last]? baseline ] | [ [unsafe | safe]? [center | start | end | flex-start | flex-end | left | right] ]}! */
   align-content: 10; /* Noncompliant */
+  align-content: safe; /* Noncompliant */
+  align-content: unsafe flex-end flex-end; /* Noncompliant */
+  align-content: flex-end safe; /* Noncompliant */
+  align-content: first; /* Noncompliant */
 }

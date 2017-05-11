@@ -48,8 +48,12 @@
 7,
 ],
 'project:custom/common/properties/css/align-content.css':[
-9,
-10,
+19,
+20,
+21,
+22,
+23,
+24,
 ],
 'project:custom/common/properties/css/align-items.css':[
 8,
@@ -749,8 +753,11 @@
 7,
 ],
 'project:custom/common/properties/css/justify-content.css':[
-8,
-9,
+17,
+18,
+19,
+20,
+21,
 ],
 'project:custom/common/properties/css/kerning.css':[
 6,
@@ -1687,8 +1694,6 @@
 375,
 376,
 388,
-394,
-395,
 400,
 ],
 'project:custom/common/vendorprefixwithstandard.css':[

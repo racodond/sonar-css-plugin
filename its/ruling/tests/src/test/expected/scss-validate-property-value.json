@@ -20,8 +20,12 @@
 7,
 ],
 'project:custom/common/properties/scss/align-content.scss':[
-9,
-10,
+19,
+20,
+21,
+22,
+23,
+24,
 ],
 'project:custom/common/properties/scss/align-items.scss':[
 8,
@@ -703,8 +707,11 @@
 7,
 ],
 'project:custom/common/properties/scss/justify-content.scss':[
-8,
-9,
+17,
+18,
+19,
+20,
+21,
 ],
 'project:custom/common/properties/scss/kerning.scss':[
 6,
@@ -1635,8 +1642,6 @@
 399,
 400,
 412,
-418,
-419,
 424,
 ],
 'project:custom/common/validate-property-value/validateNestedProperties.scss':[

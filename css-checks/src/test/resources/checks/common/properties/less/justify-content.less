@@ -1,10 +1,22 @@
 .mybox {
   justify-content: inherit;
-  justify-content: flex-start;
-  justify-content: flex-end;
-  justify-content: center;
+  justify-content: normal;
   justify-content: space-between;
   justify-content: space-around;
-  justify-content: abc; /* Noncompliant !{Update the invalid value of property "justify-content". Expected format: flex-start | flex-end | center | space-between | space-around}! */
+  justify-content: space-evenly;
+  justify-content: stretch;
+  justify-content: center;
+  justify-content: start;
+  justify-content: end;
+  justify-content: flex-end;
+  justify-content: flex-start;
+  justify-content: left;
+  justify-content: right;
+  justify-content: safe center;
+  justify-content: unsafe flex-end;
+  justify-content: abc; /* Noncompliant !{Update the invalid value of property "justify-content". Expected format: normal | space-between | space-around | space-evenly | stretch | [ [unsafe | safe]? [center | start | end | flex-start | flex-end | left | right] ]}! */
   justify-content: 10; /* Noncompliant */
+  justify-content: safe; /* Noncompliant */
+  justify-content: unsafe flex-end flex-end; /* Noncompliant */
+  justify-content: flex-end safe; /* Noncompliant */
 }
