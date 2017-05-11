@@ -33,7 +33,7 @@ public class BackgroundPositionY extends StandardProperty {
     addValidators(
       ValidatorFactory.getLengthValidator(),
       ValidatorFactory.getPercentageValidator(),
-      new IdentifierValidator("left", "center", "right"));
+      new IdentifierValidator("top", "center", "bottom"));
   }
 
 }
