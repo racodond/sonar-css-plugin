@@ -17,17 +17,20 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.model.property.standard;
+package org.sonar.css.model.property.validator.property;
 
-import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.property.WillChangeValidator;
+import org.sonar.css.model.property.validator.HashMultiplierValidator;
+import org.sonar.css.model.property.validator.ValidatorFactory;
 
-public class WillChange extends StandardProperty {
+public class WillChangeValidator extends HashMultiplierValidator {
 
-  public WillChange() {
-    setExperimental(true);
-    addLinks("https://drafts.csswg.org/css-will-change/#propdef-will-change");
-    addValidators(new WillChangeValidator());
+  public WillChangeValidator() {
+    super(ValidatorFactory.getAnyIdentifierValidator());
+  }
+
+  @Override
+  public String getValidatorFormat() {
+    return "auto | [scroll-position | contents | <identifier>]#";
   }
 
 }

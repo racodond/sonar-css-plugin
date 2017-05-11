@@ -1,0 +1,11 @@
+.mybox {
+  will-change: inherit;
+  will-change: auto;
+  will-change: auto;
+  will-change: blabla;
+  will-change: blabla !important;
+  will-change: blabla, blabla;
+  will-change: contents, blabla, blabla !important;
+  will-change: 10; /* Noncompliant !{Update the invalid value of property "will-change". Expected format: auto | [scroll-position | contents | <identifier>]#}! */
+  will-change: blabla, 10; /* Noncompliant */
+}

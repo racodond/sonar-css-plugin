@@ -21,6 +21,7 @@ package org.sonar.css.checks;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.sonar.css.checks.common.CaseCheck;
@@ -38,72 +39,77 @@ import org.sonar.css.model.pseudo.StandardPseudoComponent;
 import java.io.*;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class RuleDescriptionsGenerator {
 
   private static final String UTF_8 = "UTF-8";
 
-  private static final Map<String, String> CSS_OBJECT_LINKS = ImmutableMap.<String, String>builder()
-    .put("||", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar")
-    .put("|", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar")
-    .put("&&", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_ampersand")
-    .put("?", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Question_mark_()")
-    .put("+", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Plus_()")
-    .put("*", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Asterisk_(*)")
-    .put("[", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Brackets")
-    .put("]", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Brackets")
-    .put("<angle>", "http://dev.w3.org/csswg/css-values-3/#angle-value")
-    .put("<basic-shape>", "http://dev.w3.org/csswg/css-shapes/#typedef-basic-shape")
-    .put("<border-style>", "http://dev.w3.org/csswg/css-backgrounds-3/#border-style")
-    .put("<border-width>", "http://dev.w3.org/csswg/css-backgrounds-3/#border-width")
-    .put("<box>", "http://dev.w3.org/csswg/css-backgrounds-3/#box")
-    .put("<color>", "http://dev.w3.org/csswg/css-color/#typedef-color")
-    .put("<counter-style>", "http://dev.w3.org/csswg/css-counter-styles-3/#typedef-counter-style")
-    .put("<cue-after>", "http://www.w3.org/TR/css3-speech/#cue-after")
-    .put("<cue-before>", "http://www.w3.org/TR/css3-speech/#cue-before")
-    .put("<family-name>", "https://www.w3.org/TR/CSS22/fonts.html#value-def-family-name")
-    .put("<filter-function>", "http://dev.w3.org/fxtf/filters/#typedef-filter-function")
-    .put("<flex-direction>", "http://dev.w3.org/csswg/css-flexbox-1/#propdef-flex-direction")
-    .put("<flex-wrap>", "http://dev.w3.org/csswg/css-flexbox-1/#propdef-flex-wrap")
-    .put("<frequency>", "http://dev.w3.org/csswg/css-values-3/#frequency-value")
-    .put("<function>", "https://wiki.csswg.org/ideas/functional-notation")
-    .put("<generic-family>", "https://www.w3.org/TR/CSS22/fonts.html#value-def-generic-family")
-    .put("<id>", "https://drafts.csswg.org/css-ui/#typedef-id")
-    .put("<identifier>", "http://dev.w3.org/csswg/css-values-3/#identifier-value")
-    .put("<image>", "https://drafts.csswg.org/css-images-3/#typedef-image")
-    .put("<integer>", "http://dev.w3.org/csswg/css-values-3/#integer-value")
-    .put("<length>", "http://dev.w3.org/csswg/css-values-3/#length-value")
-    .put("<line-stacking-ruby>", "http://www.w3.org/TR/css3-linebox/#line-stacking-ruby")
-    .put("<line-stacking-shift>", "http://www.w3.org/TR/css3-linebox/#line-stacking-shift")
-    .put("<line-stacking-strategy>", "http://www.w3.org/TR/css3-linebox/#line-stacking-strategy")
-    .put("<list-style-position>", "http://dev.w3.org/csswg/css-lists-3/#propdef-list-style-position")
-    .put("<list-style-image>", "http://dev.w3.org/csswg/css-lists-3/#propdef-list-style-image")
-    .put("<list-style-type>", "http://dev.w3.org/csswg/css-lists-3/#propdef-list-style-type")
-    .put("<margin-width>", "http://www.w3.org/TR/CSS2/box.html#value-def-margin-width")
-    .put("<number>", "http://dev.w3.org/csswg/css-values-3/#number-value")
-    .put("<outline-color>", "http://www.w3.org/TR/CSS2/ui.html#propdef-outline-color")
-    .put("<outline-style>", "http://www.w3.org/TR/CSS2/ui.html#propdef-outline-style")
-    .put("<outline-width>", "http://www.w3.org/TR/CSS2/ui.html#propdef-outline-width")
-    .put("<padding-width>", "http://www.w3.org/TR/CSS2/box.html#value-def-padding-width")
-    .put("<pause-after>", "https://drafts.csswg.org/css-speech-1/#pause-after")
-    .put("<pause-before>", "https://drafts.csswg.org/css-speech-1/#pause-before")
-    .put("<percentage>", "http://dev.w3.org/csswg/css-values-3/#percentage-value")
-    .put("<resolution>", "http://dev.w3.org/csswg/css-values-3/#resolution-value")
-    .put("<uri>", "http://dev.w3.org/csswg/css-values-3/#url-value")
-    .put("<single-animation-name>", "http://www.w3.org/TR/css3-animations/#single-animation-name")
-    .put("<single-animation-direction>", "http://www.w3.org/TR/css3-animations/#single-animation-direction")
-    .put("<single-animation-fill-mode>", "http://www.w3.org/TR/css3-animations/#single-animation-fill-mode")
-    .put("<single-animation-iteration-count>", "http://www.w3.org/TR/css3-animations/#single-animation-iteration-count")
-    .put("<single-animation-play-state>", "http://www.w3.org/TR/css3-animations/#single-animation-play-state")
-    .put("<shape-box>", "https://drafts.csswg.org/css-shapes/#typedef-shape-box")
-    .put("<single-timing-function>", "http://www.w3.org/TR/2012/WD-css3-transitions-20120403/#transition-timing-function")
-    .put("<string>", "http://dev.w3.org/csswg/css-values-3/#string-value")
-    .put("<target-name>", "https://drafts.csswg.org/css-ui/#typedef-target-name")
-    .put("<time>", "http://dev.w3.org/csswg/css-values-3/#time-value")
-    .put("<transform-function>", "https://drafts.csswg.org/css-transforms/#typedef-transform-function")
-    .put("<width>", "http://dev.w3.org/csswg/css2/visudet.html#propdef-width")
-    .build();
+  private static final Map<String, String> CSS_OBJECT_LINKS = Maps.newLinkedHashMap();
+
+  static {
+    CSS_OBJECT_LINKS.put("#", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Hash_mark_()");
+    CSS_OBJECT_LINKS.put("\\|\\|", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_bar");
+    CSS_OBJECT_LINKS.put("(?<!\\|)\\|(?!\\|)", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Single_bar");
+    CSS_OBJECT_LINKS.put("\\&\\&", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Double_ampersand");
+    CSS_OBJECT_LINKS.put("\\?", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Question_mark_()");
+    CSS_OBJECT_LINKS.put("\\+", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Plus_()");
+    CSS_OBJECT_LINKS.put("\\*", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Asterisk_(*)");
+    CSS_OBJECT_LINKS.put("\\[", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Brackets");
+    CSS_OBJECT_LINKS.put("\\]", "https://developer.mozilla.org/en-US/docs/Web/CSS/Value_definition_syntax#Brackets");
+    CSS_OBJECT_LINKS.put("<angle>", "http://dev.w3.org/csswg/css-values-3/#angle-value");
+    CSS_OBJECT_LINKS.put("<basic-shape>", "http://dev.w3.org/csswg/css-shapes/#typedef-basic-shape");
+    CSS_OBJECT_LINKS.put("<border-style>", "http://dev.w3.org/csswg/css-backgrounds-3/#border-style");
+    CSS_OBJECT_LINKS.put("<border-width>", "http://dev.w3.org/csswg/css-backgrounds-3/#border-width");
+    CSS_OBJECT_LINKS.put("<box>", "http://dev.w3.org/csswg/css-backgrounds-3/#box");
+    CSS_OBJECT_LINKS.put("<color>", "http://dev.w3.org/csswg/css-color/#typedef-color");
+    CSS_OBJECT_LINKS.put("<counter-style>", "http://dev.w3.org/csswg/css-counter-styles-3/#typedef-counter-style");
+    CSS_OBJECT_LINKS.put("<cue-after>", "http://www.w3.org/TR/css3-speech/#cue-after");
+    CSS_OBJECT_LINKS.put("<cue-before>", "http://www.w3.org/TR/css3-speech/#cue-before");
+    CSS_OBJECT_LINKS.put("<family-name>", "https://www.w3.org/TR/CSS22/fonts.html#value-def-family-name");
+    CSS_OBJECT_LINKS.put("<filter-function>", "http://dev.w3.org/fxtf/filters/#typedef-filter-function");
+    CSS_OBJECT_LINKS.put("<flex-direction>", "http://dev.w3.org/csswg/css-flexbox-1/#propdef-flex-direction");
+    CSS_OBJECT_LINKS.put("<flex-wrap>", "http://dev.w3.org/csswg/css-flexbox-1/#propdef-flex-wrap");
+    CSS_OBJECT_LINKS.put("<frequency>", "http://dev.w3.org/csswg/css-values-3/#frequency-value");
+    CSS_OBJECT_LINKS.put("<function>", "https://wiki.csswg.org/ideas/functional-notation");
+    CSS_OBJECT_LINKS.put("<generic-family>", "https://www.w3.org/TR/CSS22/fonts.html#value-def-generic-family");
+    CSS_OBJECT_LINKS.put("<id>", "https://drafts.csswg.org/css-ui/#typedef-id");
+    CSS_OBJECT_LINKS.put("<identifier>", "http://dev.w3.org/csswg/css-values-3/#identifier-value");
+    CSS_OBJECT_LINKS.put("<image>", "https://drafts.csswg.org/css-images-3/#typedef-image");
+    CSS_OBJECT_LINKS.put("<integer>", "http://dev.w3.org/csswg/css-values-3/#integer-value");
+    CSS_OBJECT_LINKS.put("<length>", "http://dev.w3.org/csswg/css-values-3/#length-value");
+    CSS_OBJECT_LINKS.put("<line-stacking-ruby>", "http://www.w3.org/TR/css3-linebox/#line-stacking-ruby");
+    CSS_OBJECT_LINKS.put("<line-stacking-shift>", "http://www.w3.org/TR/css3-linebox/#line-stacking-shift");
+    CSS_OBJECT_LINKS.put("<line-stacking-strategy>", "http://www.w3.org/TR/css3-linebox/#line-stacking-strategy");
+    CSS_OBJECT_LINKS.put("<list-style-position>", "http://dev.w3.org/csswg/css-lists-3/#propdef-list-style-position");
+    CSS_OBJECT_LINKS.put("<list-style-image>", "http://dev.w3.org/csswg/css-lists-3/#propdef-list-style-image");
+    CSS_OBJECT_LINKS.put("<list-style-type>", "http://dev.w3.org/csswg/css-lists-3/#propdef-list-style-type");
+    CSS_OBJECT_LINKS.put("<margin-width>", "http://www.w3.org/TR/CSS2/box.html#value-def-margin-width");
+    CSS_OBJECT_LINKS.put("<number>", "http://dev.w3.org/csswg/css-values-3/#number-value");
+    CSS_OBJECT_LINKS.put("<outline-color>", "http://www.w3.org/TR/CSS2/ui.html#propdef-outline-color");
+    CSS_OBJECT_LINKS.put("<outline-style>", "http://www.w3.org/TR/CSS2/ui.html#propdef-outline-style");
+    CSS_OBJECT_LINKS.put("<outline-width>", "http://www.w3.org/TR/CSS2/ui.html#propdef-outline-width");
+    CSS_OBJECT_LINKS.put("<padding-width>", "http://www.w3.org/TR/CSS2/box.html#value-def-padding-width");
+    CSS_OBJECT_LINKS.put("<pause-after>", "https://drafts.csswg.org/css-speech-1/#pause-after");
+    CSS_OBJECT_LINKS.put("<pause-before>", "https://drafts.csswg.org/css-speech-1/#pause-before");
+    CSS_OBJECT_LINKS.put("<percentage>", "http://dev.w3.org/csswg/css-values-3/#percentage-value");
+    CSS_OBJECT_LINKS.put("<resolution>", "http://dev.w3.org/csswg/css-values-3/#resolution-value");
+    CSS_OBJECT_LINKS.put("<uri>", "http://dev.w3.org/csswg/css-values-3/#url-value");
+    CSS_OBJECT_LINKS.put("<single-animation-name>", "http://www.w3.org/TR/css3-animations/#single-animation-name");
+    CSS_OBJECT_LINKS.put("<single-animation-direction>", "http://www.w3.org/TR/css3-animations/#single-animation-direction");
+    CSS_OBJECT_LINKS.put("<single-animation-fill-mode>", "http://www.w3.org/TR/css3-animations/#single-animation-fill-mode");
+    CSS_OBJECT_LINKS.put("<single-animation-iteration-count>", "http://www.w3.org/TR/css3-animations/#single-animation-iteration-count");
+    CSS_OBJECT_LINKS.put("<single-animation-play-state>", "http://www.w3.org/TR/css3-animations/#single-animation-play-state");
+    CSS_OBJECT_LINKS.put("<shape-box>", "https://drafts.csswg.org/css-shapes/#typedef-shape-box");
+    CSS_OBJECT_LINKS.put("<single-timing-function>", "http://www.w3.org/TR/2012/WD-css3-transitions-20120403/#transition-timing-function");
+    CSS_OBJECT_LINKS.put("<string>", "http://dev.w3.org/csswg/css-values-3/#string-value");
+    CSS_OBJECT_LINKS.put("<target-name>", "https://drafts.csswg.org/css-ui/#typedef-target-name");
+    CSS_OBJECT_LINKS.put("<time>", "http://dev.w3.org/csswg/css-values-3/#time-value");
+    CSS_OBJECT_LINKS.put("<transform-function>", "https://drafts.csswg.org/css-transforms/#typedef-transform-function");
+    CSS_OBJECT_LINKS.put("<width>", "http://dev.w3.org/csswg/css2/visudet.html#propdef-width");
+  }
 
   private final Map<String, String> tags = ImmutableMap.<String, String>builder()
     .put("[[allProperties]]", generateHtmlTable(StandardCssObjectFactory.getStandardCssObjects(StandardProperty.class, o -> true)))
@@ -379,9 +385,10 @@ public class RuleDescriptionsGenerator {
   private String replaceLinks(String rawValidator) {
     String validator = rawValidator;
     for (Map.Entry<String, String> link : CSS_OBJECT_LINKS.entrySet()) {
-      validator = validator.replace(
-        link.getKey(),
-        "<a target=\"_blank\" href=\"" + link.getValue() + "\">" + StringEscapeUtils.escapeHtml(link.getKey()) + "</a>");
+      Matcher m = Pattern.compile(link.getKey()).matcher(validator);
+      while (m.find()) {
+        validator = m.replaceAll("<a target=\"_blank\" href=\"" + link.getValue() + "\">" + StringEscapeUtils.escapeHtml(m.group(0)) + "</a>");
+      }
     }
     return validator;
   }

@@ -74,9 +74,9 @@ public class ValidatePropertyValueCheckTest {
 
   @Test
   public void test_number_of_validated_properties() {
-    Assert.assertEquals(300, CheckTestUtils.getCommonTestFile("properties/css").listFiles().length);
-    Assert.assertEquals(300, CheckTestUtils.getCommonTestFile("properties/less").listFiles().length);
-    Assert.assertEquals(300, CheckTestUtils.getCommonTestFile("properties/scss").listFiles().length);
+    Assert.assertEquals(301, CheckTestUtils.getCommonTestFile("properties/css").listFiles().length);
+    Assert.assertEquals(301, CheckTestUtils.getCommonTestFile("properties/less").listFiles().length);
+    Assert.assertEquals(301, CheckTestUtils.getCommonTestFile("properties/scss").listFiles().length);
   }
 
 }
