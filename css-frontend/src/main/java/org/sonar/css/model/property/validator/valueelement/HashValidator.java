@@ -20,14 +20,14 @@
 package org.sonar.css.model.property.validator.valueelement;
 
 import org.sonar.css.model.property.validator.ValueElementValidator;
-import org.sonar.plugins.css.api.tree.css.HashTree;
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.HashTree;
 
 public class HashValidator implements ValueElementValidator {
 
   @Override
   public boolean isValid(Tree tree) {
-    return tree instanceof HashTree && ((HashTree) tree).value().text().matches("^([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
+    return tree instanceof HashTree && ((HashTree) tree).value().text().matches("^([A-Fa-f0-9]{8}|[A-Fa-f0-9]{6}|[A-Fa-f0-9]{4}|[A-Fa-f0-9]{3})$");
   }
 
   @Override
