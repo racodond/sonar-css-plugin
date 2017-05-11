@@ -11,7 +11,7 @@
 
   <groupId>org.codehaus.sonar-plugins.css</groupId>
   <artifactId>css</artifactId>
-  <version>4.4</version>
+  <version>4.5-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>SonarQube CSS / SCSS / Less Analyzer</name>
