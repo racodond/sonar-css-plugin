@@ -643,6 +643,7 @@ public enum LexicalGrammar implements GrammarRuleKey {
           "-",
           "/",
           "*",
+          "%",
           "==",
           "!=",
           "=",

@@ -64,6 +64,8 @@ public class ScssVariableDeclarationTreeTest extends ScssTreeTest {
       "  lg: $grid-gutter-width-base,\n" +
       "  xl: $grid-gutter-width-base\n" +
       ") !default;");
+
+    checkParsed(" $abc: ($top + $bot) % $component-space");
   }
 
   @Test

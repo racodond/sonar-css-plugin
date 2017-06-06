@@ -59,9 +59,9 @@ public class ScssOperatorTreeTest extends ScssTreeTest {
     assertThat(tree.type()).isEqualTo(ScssOperatorTree.OPERATOR.OR);
     assertThat(tree.operator().text()).isEqualTo("or");
 
-    tree = checkParsed(" or");
-    assertThat(tree.type()).isEqualTo(ScssOperatorTree.OPERATOR.OR);
-    assertThat(tree.operator().text()).isEqualTo("or");
+    tree = checkParsed(" %");
+    assertThat(tree.type()).isEqualTo(ScssOperatorTree.OPERATOR.MODULO);
+    assertThat(tree.operator().text()).isEqualTo("%");
   }
 
   @Test

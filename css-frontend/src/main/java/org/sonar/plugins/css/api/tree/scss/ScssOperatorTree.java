@@ -35,6 +35,7 @@ public interface ScssOperatorTree extends Tree {
     MINUS("-"),
     TIMES("*"),
     DIV("/"),
+    MODULO("%"),
     EQUALS("="),
     DOUBLE_EQUALS("=="),
     NOT_EQUALS("!="),
