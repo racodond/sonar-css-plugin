@@ -42,7 +42,6 @@ public class LessMixinGuardTreeTest extends LessTreeTest {
     assertThat(tree.conditions()).hasSize(1);
 
     tree = checkParsed(" when not (@a > 2) ");
-    assertThat(tree.not()).isNotNull();
     assertThat(tree.conditions()).hasSize(1);
 
     tree = checkParsed(" when (@a > 2), (@a = \"blue\"), (@b) ");
@@ -52,6 +51,12 @@ public class LessMixinGuardTreeTest extends LessTreeTest {
     assertThat(tree.conditions()).hasSize(2);
 
     tree = checkParsed("when (@type = width) and (@index > 0),(@index > 1)");
+    assertThat(tree.conditions()).hasSize(3);
+
+    tree = checkParsed("when (@type = width) and not (@index > 0),(@index > 1)");
+    assertThat(tree.conditions()).hasSize(3);
+
+    tree = checkParsed("when not (@type = width) and not (@index > 0),(@index > 1)");
     assertThat(tree.conditions()).hasSize(3);
   }
 

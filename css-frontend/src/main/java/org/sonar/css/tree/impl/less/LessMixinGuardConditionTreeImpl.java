@@ -20,53 +20,50 @@
 package org.sonar.css.tree.impl.less;
 
 import com.google.common.collect.Iterators;
-import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.ParenthesisBlockTree;
 import org.sonar.plugins.css.api.tree.css.SyntaxToken;
 import org.sonar.plugins.css.api.tree.less.LessMixinGuardConditionTree;
-import org.sonar.plugins.css.api.tree.less.LessMixinGuardTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
+import javax.annotation.Nullable;
 import java.util.Iterator;
-import java.util.List;
-import java.util.function.Function;
 
-public class LessMixinGuardTreeImpl extends TreeImpl implements LessMixinGuardTree {
+public class LessMixinGuardConditionTreeImpl extends TreeImpl implements LessMixinGuardConditionTree {
 
-  private final SyntaxToken when;
-  private final SeparatedList<LessMixinGuardConditionTree, SyntaxToken> conditions;
+  private final ParenthesisBlockTree block;
+  private final SyntaxToken not;
 
-  public LessMixinGuardTreeImpl(SyntaxToken when, SeparatedList<LessMixinGuardConditionTree, SyntaxToken> conditions) {
-    this.when = when;
-    this.conditions = conditions;
+  public LessMixinGuardConditionTreeImpl(@Nullable SyntaxToken not, ParenthesisBlockTree block) {
+    this.not = not;
+    this.block = block;
   }
 
   @Override
   public Kind getKind() {
-    return Kind.LESS_MIXIN_GUARD;
+    return Kind.LESS_MIXIN_GUARD_CONDITION;
   }
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    return Iterators.concat(
-      Iterators.singletonIterator(when),
-      conditions.elementsAndSeparators(Function.identity(), Function.identity()));
+    return Iterators.forArray(not, block);
   }
 
   @Override
   public void accept(DoubleDispatchVisitor visitor) {
-    visitor.visitLessMixinGuard(this);
+    visitor.visitLessMixinGuardCondition(this);
   }
 
   @Override
-  public SyntaxToken when() {
-    return when;
+  @Nullable
+  public SyntaxToken not() {
+    return not;
   }
 
   @Override
-  public List<LessMixinGuardConditionTree> conditions() {
-    return conditions;
+  public ParenthesisBlockTree block() {
+    return block;
   }
 
 }

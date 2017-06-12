@@ -689,22 +689,26 @@ public class TreeFactory {
     return new LessMixinCallTreeImpl(parentCombinator.orNull(), selector, important.orNull(), semicolon.orNull());
   }
 
-  public LessMixinGuardTree lessMixinGuard(SyntaxToken when, Optional<SyntaxToken> not, SeparatedList<ParenthesisBlockTree, SyntaxToken> conditions) {
-    return new LessMixinGuardTreeImpl(when, not.orNull(), conditions);
+  public LessMixinGuardTree lessMixinGuard(SyntaxToken when, SeparatedList<LessMixinGuardConditionTree, SyntaxToken> conditions) {
+    return new LessMixinGuardTreeImpl(when, conditions);
   }
 
-  public SeparatedList<ParenthesisBlockTree, SyntaxToken> lessMixinGuardConditionList(ParenthesisBlockTree condition, Optional<List<Tuple<SyntaxToken, ParenthesisBlockTree>>> subsequentConditions) {
-    List<ParenthesisBlockTree> conditions = Lists.newArrayList(condition);
+  public SeparatedList<LessMixinGuardConditionTree, SyntaxToken> lessMixinGuardConditionList(LessMixinGuardConditionTree condition, Optional<List<Tuple<SyntaxToken, LessMixinGuardConditionTree>>> subsequentConditions) {
+    List<LessMixinGuardConditionTree> conditions = Lists.newArrayList(condition);
     List<SyntaxToken> separators = Lists.newArrayList();
 
     if (subsequentConditions.isPresent()) {
-      for (Tuple<SyntaxToken, ParenthesisBlockTree> t : subsequentConditions.get()) {
+      for (Tuple<SyntaxToken, LessMixinGuardConditionTree> t : subsequentConditions.get()) {
         separators.add(t.first());
         conditions.add(t.second());
       }
     }
 
     return new SeparatedList<>(conditions, separators);
+  }
+
+  public LessMixinGuardConditionTree lessMixinGuardCondition(Optional<SyntaxToken> not, ParenthesisBlockTree block) {
+    return new LessMixinGuardConditionTreeImpl(not.orNull(), block);
   }
 
   public LessMixinParametersTree lessMixinParameters(SyntaxToken openParenthesis, Optional<SeparatedList<LessMixinParameterTree, DelimiterTree>> parameters, SyntaxToken closeParenthesis) {
