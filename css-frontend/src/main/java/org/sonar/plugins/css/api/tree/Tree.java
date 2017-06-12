@@ -152,6 +152,7 @@ public interface Tree {
     LESS_PARENT_REFERENCING_SELECTOR(LessParentReferencingSelectorTree.class),
     LESS_MIXIN_CALL(LessMixinCallTree.class),
     LESS_MIXIN_GUARD(LessMixinGuardTree.class),
+    LESS_MIXIN_GUARD_CONDITION(LessMixinGuardConditionTree.class),
     LESS_MIXIN_PARAMETERS(LessMixinParametersTree.class),
     LESS_MIXIN_PARAMETER(LessMixinParameterTree.class),
     LESS_MIXIN_PARAMETER_DEFAULT_VALUE(LessMixinParameterDefaultValueTree.class),

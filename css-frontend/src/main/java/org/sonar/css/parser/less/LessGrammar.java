@@ -303,20 +303,26 @@ public class LessGrammar extends CssGrammar {
     return b.<LessMixinGuardTree>nonterminal(LexicalGrammar.LESS_MIXIN_GUARD).is(
       f.lessMixinGuard(
         b.token(LexicalGrammar.LESS_MIXIN_GUARD_WHEN),
-        b.optional(b.token(LexicalGrammar.LESS_MIXIN_GUARD_NOT)),
         LESS_MIXIN_GUARD_CONDITION_LIST()));
   }
 
-  public SeparatedList<ParenthesisBlockTree, SyntaxToken> LESS_MIXIN_GUARD_CONDITION_LIST() {
-    return b.<SeparatedList<ParenthesisBlockTree, SyntaxToken>>nonterminal().is(
+  public SeparatedList<LessMixinGuardConditionTree, SyntaxToken> LESS_MIXIN_GUARD_CONDITION_LIST() {
+    return b.<SeparatedList<LessMixinGuardConditionTree, SyntaxToken>>nonterminal().is(
       f.lessMixinGuardConditionList(
-        PARENTHESIS_BLOCK(),
+        LESS_MIXIN_GUARD_CONDITION(),
         b.zeroOrMore(
           f.newTuple2(
             b.firstOf(
               b.token(LexicalGrammar.LESS_MIXIN_GUARD_AND),
               b.token(LexicalGrammar.LESS_MIXIN_GUARD_OR)),
-            PARENTHESIS_BLOCK()))));
+            LESS_MIXIN_GUARD_CONDITION()))));
+  }
+
+  public LessMixinGuardConditionTree LESS_MIXIN_GUARD_CONDITION() {
+    return b.<LessMixinGuardConditionTree>nonterminal(LexicalGrammar.LESS_MIXIN_GUARD_CONDITION).is(
+      f.lessMixinGuardCondition(
+        b.optional(b.token(LexicalGrammar.LESS_MIXIN_GUARD_NOT)),
+        PARENTHESIS_BLOCK()));
   }
 
   public LessMixinParametersTree LESS_MIXIN_PARAMETERS() {

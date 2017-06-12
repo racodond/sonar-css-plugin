@@ -142,6 +142,10 @@ public class StyleSheetTreeTest extends LessTreeTest {
     assertThat(tree.all()).hasSize(1);
 
     checkParsed(".nav-top__icons { display: inline-block; margin-left: 10px; &-item { cursor: pointer; display: inline-block; padding: 10px 9px; } }");
+
+    checkParsed(".background-opacity(@c, @alpha) when (iscolor(@c)) and not (@c=~\"transparent\") {\n" +
+      "background: hsla(hue(@c), saturation(@c), lightness(@c), @alpha);\n" +
+      "}");
   }
 
   private StyleSheetTree checkParsed(String toParse) {
