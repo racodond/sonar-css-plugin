@@ -155,7 +155,6 @@ public interface Tree {
     LESS_MIXIN_GUARD_CONDITION(LessMixinGuardConditionTree.class),
     LESS_MIXIN_PARAMETERS(LessMixinParametersTree.class),
     LESS_MIXIN_PARAMETER(LessMixinParameterTree.class),
-    LESS_MIXIN_PARAMETER_DEFAULT_VALUE(LessMixinParameterDefaultValueTree.class),
     LESS_ESCAPING(LessEscapingTree.class),
     LESS_OPERATOR(LessOperatorTree.class);
 

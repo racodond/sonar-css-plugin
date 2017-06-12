@@ -49,7 +49,8 @@ public class LessMixinParametersTreeTest extends LessTreeTest {
 
     tree = checkParsed("(@var: blue)");
     assertThat(tree.parameters()).hasSize(1);
-      tree = checkParsed("(@var: blue;)");
+
+    tree = checkParsed("(@var: blue;)");
     assertThat(tree.parameters()).hasSize(1);
 
     tree = checkParsed("(@var: blue,)");
@@ -67,9 +68,18 @@ public class LessMixinParametersTreeTest extends LessTreeTest {
     tree = checkParsed("(@var: blue; ...)");
     assertThat(tree.parameters()).hasSize(2);
 
-    //FIXME: remove ';' from valuetree in this case?
-    /*tree = checkParsed("(@var: blue, @myvar: blue)");
-    assertThat(tree.parameters()).hasSize(2);*/
+    tree = checkParsed("(@var: blue; @myvar...)");
+    assertThat(tree.parameters()).hasSize(2);
+
+    tree = checkParsed("(@var: blue, @myvar: blue)");
+    assertThat(tree.parameters()).hasSize(2);
+
+    tree = checkParsed("(@var: blue, green, @myvar: blue)");
+    assertThat(tree.parameters()).hasSize(3);
+
+    // FIXME: Deal with semicolon-separated list of parameters
+    // tree = checkParsed("(@var: blue, green; @myvar: blue)");
+    // assertThat(tree.parameters()).hasSize(2);
   }
 
   @Test

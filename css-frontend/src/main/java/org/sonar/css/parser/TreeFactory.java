@@ -652,6 +652,10 @@ public class TreeFactory {
     return new LessVariableDeclarationTreeImpl(variable, colon, value, semicolon.orNull());
   }
 
+  public LessVariableDeclarationTree lessVariableDeclarationAsParameter(LessVariableTree variable, SyntaxToken colon, ValueTree value) {
+    return new LessVariableDeclarationTreeImpl(variable, colon, value, null);
+  }
+
   public LessVariableTree lessVariable(SyntaxToken variablePrefix, IdentifierTree variable) {
     return new LessVariableTreeImpl(variablePrefix, variable);
   }
@@ -733,16 +737,8 @@ public class TreeFactory {
     return new SeparatedList<>(parameters, separators);
   }
 
-  public LessMixinParameterTree lessMixinParameter(LessVariableTree variable, Optional<LessMixinParameterDefaultValueTree> defaultValue) {
-    return new LessMixinParameterTreeImpl(variable, null, defaultValue.orNull());
-  }
-
-  public LessMixinParameterTree lessMixinParameter(ValueTree value) {
-    return new LessMixinParameterTreeImpl(null, value, null);
-  }
-
-  public LessMixinParameterDefaultValueTree lessMixinParameterDefaultValue(SyntaxToken colon, ValueTree value) {
-    return new LessMixinParameterDefaultValueTreeImpl(colon, value);
+  public LessMixinParameterTree lessMixinParameter(Tree parameter) {
+    return new LessMixinParameterTreeImpl(parameter);
   }
 
   public LessEscapingTree lessEscaping(SyntaxToken escapingSymbol, StringTree string) {
@@ -751,6 +747,10 @@ public class TreeFactory {
 
   public LessOperatorTree lessOperator(SyntaxToken operator) {
     return new LessOperatorTreeImpl(operator);
+  }
+
+  public ValueTree simpleValueLessExpressionWithoutCommaSeparatedList(List<Tree> valueElements) {
+    return new ValueTreeImpl(valueElements);
   }
 
   // ---------------------------------

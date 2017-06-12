@@ -19,6 +19,9 @@
 7,
 8,
 ],
+'project:custom/common/experimental-pseudo-usage/experimentalPseudoUsage.less':[
+29,
+],
 'project:custom/common/formatting/declaration.less':[
 6,
 10,
@@ -238,6 +241,9 @@
 15,
 15,
 15,
+],
+'project:custom/common/semicolon-declaration/semicolonDeclaration.less':[
+52,
 ],
 'project:custom/less/experimentalFunctionUsage.less':[
 3,

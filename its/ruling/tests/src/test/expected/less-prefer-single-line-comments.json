@@ -1898,6 +1898,18 @@
 22,
 25,
 ],
+'project:custom/common/semicolon-declaration/semicolonDeclaration.less':[
+1,
+5,
+10,
+17,
+22,
+28,
+31,
+42,
+49,
+57,
+],
 'project:custom/common/single-quotes/singleQuotes.less':[
 3,
 ],
@@ -2066,6 +2078,8 @@
 'project:custom/less/multipleVariableDeclarationsSameScope.less':[
 1,
 5,
+20,
+26,
 ],
 'project:custom/less/nestedRulesets/nestedRulesets.less':[
 1,

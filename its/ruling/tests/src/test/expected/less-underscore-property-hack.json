@@ -14,4 +14,7 @@
 'project:custom/common/properties/less/all.less':[
 8,
 ],
+'project:custom/common/semicolon-declaration/semicolonDeclaration.less':[
+27,
+],
 }

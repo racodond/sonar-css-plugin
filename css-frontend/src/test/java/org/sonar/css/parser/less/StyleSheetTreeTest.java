@@ -146,6 +146,15 @@ public class StyleSheetTreeTest extends LessTreeTest {
     checkParsed(".background-opacity(@c, @alpha) when (iscolor(@c)) and not (@c=~\"transparent\") {\n" +
       "background: hsla(hue(@c), saturation(@c), lightness(@c), @alpha);\n" +
       "}");
+
+    checkParsed(".sprites(@sprites, @i: 1) when (@i <= length(@sprites)) {\n" +
+      "@sprite: extract(@sprites, @i);\n" +
+      "@sprite-name: e(extract(@sprite, 10));\n" +
+      ".@{sprite-name} {\n" +
+      ".sprite(@sprite);\n" +
+      "}\n" +
+      ".sprites(@sprites, @i + 1);\n" +
+      "}");
   }
 
   private StyleSheetTree checkParsed(String toParse) {

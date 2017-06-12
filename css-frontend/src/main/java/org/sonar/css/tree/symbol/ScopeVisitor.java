@@ -23,6 +23,7 @@ import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
 import org.sonar.plugins.css.api.tree.css.StyleSheetTree;
 import org.sonar.plugins.css.api.tree.embedded.FileWithEmbeddedCssTree;
+import org.sonar.plugins.css.api.tree.less.LessMixinParametersTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 import java.util.HashMap;
@@ -60,6 +61,13 @@ public class ScopeVisitor extends DoubleDispatchVisitor {
   public void visitStatementBlock(StatementBlockTree tree) {
     newScope(tree);
     super.visitStatementBlock(tree);
+    leaveScope();
+  }
+
+  @Override
+  public void visitLessMixinParameters(LessMixinParametersTree tree) {
+    newScope(tree);
+    super.visitLessMixinParameters(tree);
     leaveScope();
   }
 

@@ -975,6 +975,9 @@
 13,
 19,
 ],
+'project:custom/common/semicolon-declaration/semicolonDeclaration.less':[
+42,
+],
 'project:custom/common/text-transform-uppercase/textTransformUppercase.less':[
 4,
 5,
@@ -1030,6 +1033,8 @@
 'project:custom/less/multipleVariableDeclarationsSameScope.less':[
 1,
 5,
+20,
+26,
 ],
 'project:custom/less/nestedRulesets/nestedRulesets.less':[
 18,

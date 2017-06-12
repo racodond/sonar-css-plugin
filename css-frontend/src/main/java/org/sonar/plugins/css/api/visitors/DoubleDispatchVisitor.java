@@ -461,10 +461,6 @@ public abstract class DoubleDispatchVisitor implements TreeVisitor {
     scanChildren(tree);
   }
 
-  public void visitLessMixinParameterDefaultValue(LessMixinParameterDefaultValueTree tree) {
-    scanChildren(tree);
-  }
-
   public void visitLessEscaping(LessEscapingTree tree) {
     scanChildren(tree);
   }

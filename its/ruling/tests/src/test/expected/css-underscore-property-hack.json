@@ -13,7 +13,7 @@
 'project:custom/common/properties/css/all.css':[
 8,
 ],
-'project:custom/common/semicolonDeclaration.css':[
+'project:custom/common/semicolon-declaration/semicolonDeclaration.css':[
 27,
 ],
 'project:custom/common/underscorehack.css':[

@@ -7,6 +7,10 @@
 'project:custom/common/known-properties/knownProperties.less':[
 37,
 ],
+'project:custom/common/semicolon-declaration/semicolonDeclaration.less':[
+56,
+57,
+],
 'project:custom/less/multipleVariableDeclarationsSameScope.less':[
 8,
 9,
