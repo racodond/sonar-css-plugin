@@ -12,4 +12,8 @@
 'project:custom/common/quotedUrl/quotedUrl.less':[
 5,
 ],
+'project:custom/common/semicolon-declaration/semicolonDeclaration.less':[
+34,
+42,
+],
 }

@@ -25,3 +25,5 @@ p:empty {
 p:not(.mybox) {
   color: red;
 }
+
+@mixin hello ($abc, $def:abc) {}

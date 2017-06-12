@@ -25,7 +25,9 @@ import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
 import org.sonar.plugins.css.api.tree.css.StyleSheetTree;
 import org.sonar.plugins.css.api.tree.embedded.FileWithEmbeddedCssTree;
+import org.sonar.plugins.css.api.tree.less.LessMixinParametersTree;
 import org.sonar.plugins.css.api.tree.less.LessVariableTree;
+import org.sonar.plugins.css.api.tree.scss.ScssParametersTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 import java.util.Map;
@@ -65,6 +67,13 @@ public class SymbolVisitor extends DoubleDispatchVisitor {
     leaveScope();
   }
 
+  @Override
+  public void visitLessMixinParameters(LessMixinParametersTree tree) {
+    enterScope(tree);
+    super.visitLessMixinParameters(tree);
+    leaveScope();
+  }
+
   private void leaveScope() {
     if (currentScope != null) {
       currentScope = currentScope.outer();
@@ -82,7 +91,7 @@ public class SymbolVisitor extends DoubleDispatchVisitor {
   public void visitLessVariable(LessVariableTree tree) {
     Usage.Kind usage;
 
-    if (tree.parent().is(Tree.Kind.LESS_VARIABLE_DECLARATION)) {
+    if (tree.parent().is(Tree.Kind.LESS_VARIABLE_DECLARATION, Tree.Kind.LESS_MIXIN_PARAMETER)) {
       usage = Usage.Kind.DECLARATION;
     } else {
       usage = Usage.Kind.READ;

@@ -21,4 +21,7 @@
 'project:custom/common/properties/less/all.less':[
 7,
 ],
+'project:custom/common/semicolon-declaration/semicolonDeclaration.less':[
+22,
+],
 }

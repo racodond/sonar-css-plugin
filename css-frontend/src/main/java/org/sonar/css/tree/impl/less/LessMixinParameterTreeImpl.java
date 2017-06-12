@@ -23,8 +23,8 @@ import com.google.common.collect.Iterators;
 import org.sonar.css.tree.impl.TreeImpl;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.ValueTree;
-import org.sonar.plugins.css.api.tree.less.LessMixinParameterDefaultValueTree;
 import org.sonar.plugins.css.api.tree.less.LessMixinParameterTree;
+import org.sonar.plugins.css.api.tree.less.LessVariableDeclarationTree;
 import org.sonar.plugins.css.api.tree.less.LessVariableTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
@@ -33,14 +33,23 @@ import java.util.Iterator;
 
 public class LessMixinParameterTreeImpl extends TreeImpl implements LessMixinParameterTree {
 
-  private final LessVariableTree variable;
-  private final ValueTree value;
-  private final LessMixinParameterDefaultValueTree defaultValue;
+  private ValueTree value = null;
+  private LessVariableTree variable = null;
+  private LessVariableDeclarationTree variableDeclaration = null;
 
-  public LessMixinParameterTreeImpl(@Nullable LessVariableTree variable, @Nullable ValueTree value, @Nullable LessMixinParameterDefaultValueTree defaultValue) {
-    this.variable = variable;
-    this.value = value;
-    this.defaultValue = defaultValue;
+  public LessMixinParameterTreeImpl(Tree parameter) {
+    if (parameter instanceof ValueTree) {
+      if (((ValueTree) parameter).valueElements().size() == 1
+        && (((ValueTree) parameter).valueElements().get(0) instanceof LessVariableTree)) {
+        variable = (LessVariableTree) ((ValueTree) parameter).valueElements().get(0);
+      } else {
+        value = (ValueTree) parameter;
+      }
+    } else if (parameter instanceof LessVariableDeclarationTree) {
+      variableDeclaration = (LessVariableDeclarationTree) parameter;
+    } else {
+      throw new IllegalStateException("Unknown Less parameter type: " + parameter.getClass());
+    }
   }
 
   @Override
@@ -50,18 +59,12 @@ public class LessMixinParameterTreeImpl extends TreeImpl implements LessMixinPar
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    return Iterators.forArray(variable, value, defaultValue);
+    return Iterators.forArray(value, variable, variableDeclaration);
   }
 
   @Override
   public void accept(DoubleDispatchVisitor visitor) {
     visitor.visitLessMixinParameter(this);
-  }
-
-  @Override
-  @Nullable
-  public LessVariableTree variable() {
-    return variable;
   }
 
   @Override
@@ -72,8 +75,14 @@ public class LessMixinParameterTreeImpl extends TreeImpl implements LessMixinPar
 
   @Override
   @Nullable
-  public LessMixinParameterDefaultValueTree defaultValue() {
-    return defaultValue;
+  public LessVariableTree variable() {
+    return variable;
+  }
+
+  @Override
+  @Nullable
+  public LessVariableDeclarationTree variableDeclaration() {
+    return variableDeclaration;
   }
 
 }

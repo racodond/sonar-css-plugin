@@ -21,7 +21,7 @@
 'project:custom/common/properties/css/all.css':[
 7,
 ],
-'project:custom/common/semicolonDeclaration.css':[
+'project:custom/common/semicolon-declaration/semicolonDeclaration.css':[
 22,
 ],
 'project:custom/common/starhack.css':[

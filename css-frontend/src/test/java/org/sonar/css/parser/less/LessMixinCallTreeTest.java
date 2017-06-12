@@ -92,6 +92,8 @@ public class LessMixinCallTreeTest extends LessTreeTest {
 
     tree = checkParsed("> #outer>.inner() !important ;");
     assertThat(tree.parentCombinator()).isNotNull();
+
+    checkParsed(".sprites(@sprites, @i + 1);");
   }
 
   @Test

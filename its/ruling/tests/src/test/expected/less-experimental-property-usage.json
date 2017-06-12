@@ -2085,6 +2085,14 @@
 389,
 401,
 ],
+'project:custom/less/multipleVariableDeclarationsSameScope.less':[
+15,
+16,
+21,
+22,
+27,
+28,
+],
 'project:custom/less/obsoleteFunctions.less':[
 6,
 ],

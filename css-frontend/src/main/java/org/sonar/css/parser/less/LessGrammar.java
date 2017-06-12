@@ -351,18 +351,24 @@ public class LessGrammar extends CssGrammar {
 
   public LessMixinParameterTree LESS_MIXIN_PARAMETER() {
     return b.<LessMixinParameterTree>nonterminal(LexicalGrammar.LESS_MIXIN_PARAMETER).is(
-      b.firstOf(
-        f.lessMixinParameter(
-          LESS_VARIABLE(),
-          b.optional(LESS_MIXIN_PARAMETER_DEFAULT_VALUE())),
-        f.lessMixinParameter(DECLARATION_VALUE())));
+      f.lessMixinParameter(
+        b.firstOf(
+          LESS_VARIABLE_DECLARATION_AS_PARAMETER(),
+          LESS_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST())));
   }
 
-  public LessMixinParameterDefaultValueTree LESS_MIXIN_PARAMETER_DEFAULT_VALUE() {
-    return b.<LessMixinParameterDefaultValueTree>nonterminal(LexicalGrammar.LESS_MIXIN_PARAMETER_DEFAULT_VALUE).is(
-      f.lessMixinParameterDefaultValue(
+  public LessVariableDeclarationTree LESS_VARIABLE_DECLARATION_AS_PARAMETER() {
+    return b.<LessVariableDeclarationTree>nonterminal(LexicalGrammar.LESS_VARIABLE_DECLARATION_AS_PARAMETER).is(
+      f.lessVariableDeclarationAsParameter(
+        LESS_VARIABLE(),
         b.token(LexicalGrammar.COLON),
-        DECLARATION_VALUE()));
+        LESS_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST()));
+  }
+
+  public ValueTree LESS_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST() {
+    return b.<ValueTree>nonterminal(LexicalGrammar.LESS_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST).is(
+      f.simpleValueLessExpressionWithoutCommaSeparatedList(
+        b.oneOrMore(ANY_WITHOUT_COMMA_SEPARATED_LIST())));
   }
 
   public IdentifierTree LESS_INTERPOLATED_IDENTIFIER() {

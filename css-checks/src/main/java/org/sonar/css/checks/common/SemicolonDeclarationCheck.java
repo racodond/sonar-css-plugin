@@ -20,17 +20,16 @@
 package org.sonar.css.checks.common;
 
 import com.google.common.collect.ImmutableList;
-
-import java.util.List;
-
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.Tags;
-import org.sonar.plugins.css.api.tree.css.DeclarationTree;
 import org.sonar.plugins.css.api.tree.Tree;
+import org.sonar.plugins.css.api.tree.css.DeclarationTree;
 import org.sonar.plugins.css.api.visitors.SubscriptionVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+
+import java.util.List;
 
 @Rule(
   key = "semicolon-declaration",
@@ -51,7 +50,9 @@ public class SemicolonDeclarationCheck extends SubscriptionVisitorCheck {
 
   @Override
   public void visitNode(Tree tree) {
-    if (((DeclarationTree) tree).semicolon() == null) {
+    DeclarationTree declarationTree = (DeclarationTree) tree;
+    if (declarationTree.semicolon() == null
+      && !declarationTree.parent().is(Tree.Kind.SCSS_PARAMETER, Tree.Kind.LESS_MIXIN_PARAMETER)) {
       addPreciseIssue(tree, "Add a semicolon at the end of this declaration.");
     }
   }

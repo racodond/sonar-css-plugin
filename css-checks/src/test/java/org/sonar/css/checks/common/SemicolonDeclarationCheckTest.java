@@ -23,11 +23,24 @@ import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
+import java.io.File;
+
 public class SemicolonDeclarationCheckTest {
 
+  private SemicolonDeclarationCheck check = new SemicolonDeclarationCheck();
+
   @Test
-  public void test() {
-    CssCheckVerifier.verifyCssFile(new SemicolonDeclarationCheck(), CheckTestUtils.getCommonTestFile("semicolonDeclaration.css"));
+  public void test_css() {
+    CssCheckVerifier.verifyCssFile(check, getTestFile("semicolonDeclaration.css"));
+  }
+
+  @Test
+  public void test_less() {
+    CssCheckVerifier.verifyLessFile(check, getTestFile("semicolonDeclaration.less"));
+  }
+
+  private File getTestFile(String fileName) {
+    return CheckTestUtils.getCommonTestFile("semicolon-declaration/" + fileName);
   }
 
 }

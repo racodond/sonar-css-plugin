@@ -301,8 +301,10 @@ public enum LexicalGrammar implements GrammarRuleKey {
 
   /* Less */
   LESS_VARIABLE_DECLARATION,
+  LESS_VARIABLE_DECLARATION_AS_PARAMETER,
   LESS_VARIABLE,
   LESS_VARIABLE_PREFIX,
+  LESS_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST,
 
   LESS_INTERPOLATED_IDENTIFIER,
   LESS_INTERPOLATED_IDENTIFIER_NO_WS,
@@ -336,7 +338,6 @@ public enum LexicalGrammar implements GrammarRuleKey {
 
   LESS_OPERATOR,
   LESS_OPERATOR_LITERAL;
-
 
   private static final String CSS_COMMENT_REGEX = "(?:" + "(?:/\\*[\\s\\S]*?\\*/)" + "|" + "(?:\\<\\!--[\\s\\S]*?--\\>)" + ")";
   private static final String LESS_COMMENT_REGEX = "(?:" + "(?:/\\*[\\s\\S]*?\\*/)" + "|" + "(?:\\<\\!--[\\s\\S]*?--\\>)" + "|" + "//[^\\n\\r]*+" + ")";

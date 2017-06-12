@@ -5,6 +5,14 @@
 'project:custom/common/properties/less/background-origin.less':[
 8,
 ],
+'project:custom/common/semicolon-declaration/semicolonDeclaration.less':[
+17,
+22,
+28,
+42,
+49,
+57,
+],
 'project:custom/common/single-quotes/singleQuotes.less':[
 5,
 ],
