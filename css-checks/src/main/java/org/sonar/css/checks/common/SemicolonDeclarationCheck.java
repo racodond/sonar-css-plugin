@@ -45,6 +45,7 @@ public class SemicolonDeclarationCheck extends SubscriptionVisitorCheck {
     return ImmutableList.of(
       Tree.Kind.PROPERTY_DECLARATION,
       Tree.Kind.VARIABLE_DECLARATION,
+      Tree.Kind.SCSS_VARIABLE_DECLARATION,
       Tree.Kind.LESS_VARIABLE_DECLARATION);
   }
 

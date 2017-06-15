@@ -21,4 +21,7 @@
 'project:custom/common/properties/scss/all.scss':[
 7,
 ],
+'project:custom/common/semicolon-declaration/semicolonDeclaration.scss':[
+22,
+],
 }

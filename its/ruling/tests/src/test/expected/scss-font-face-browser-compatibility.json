@@ -6,4 +6,8 @@
 'project:custom/common/font-family-not-ending-with-generic-font-family/fontFamilyNotEndingWithGenericFontFamily.scss':[
 18,
 ],
+'project:custom/common/semicolon-declaration/semicolonDeclaration.scss':[
+34,
+42,
+],
 }

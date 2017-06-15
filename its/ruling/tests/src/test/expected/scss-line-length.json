@@ -988,6 +988,9 @@
 'project:custom/common/selectorNamingConvention/selectorNamingConventionScssPlaceholder.scss':[
 6,
 ],
+'project:custom/common/semicolon-declaration/semicolonDeclaration.scss':[
+42,
+],
 'project:custom/common/text-transform-uppercase/textTransformUppercase.scss':[
 4,
 5,
