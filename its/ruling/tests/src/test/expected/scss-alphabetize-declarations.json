@@ -50,6 +50,9 @@
 'project:custom/common/property-regular-expression/propertyRegularExpression.scss':[
 1,
 ],
+'project:custom/common/semicolon-declaration/semicolonDeclaration.scss':[
+53,
+],
 'project:custom/common/use-shorthand-properties/shorthand.scss':[
 24,
 32,

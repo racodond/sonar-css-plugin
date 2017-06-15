@@ -2,4 +2,12 @@
 'project:custom/common/important-position/importantPosition.scss':[
 13,
 ],
+'project:custom/common/semicolon-declaration/semicolonDeclaration.scss':[
+17,
+22,
+28,
+42,
+49,
+61,
+],
 }

@@ -35,6 +35,11 @@ public class SemicolonDeclarationCheckTest {
   }
 
   @Test
+  public void test_scss() {
+    CssCheckVerifier.verifyScssFile(check, getTestFile("semicolonDeclaration.scss"));
+  }
+
+  @Test
   public void test_less() {
     CssCheckVerifier.verifyLessFile(check, getTestFile("semicolonDeclaration.less"));
   }
