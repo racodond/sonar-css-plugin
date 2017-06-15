@@ -1,12 +1,18 @@
+dist: trusty
+sudo: required
+
 language: java
 
 jdk:
   - oraclejdk8
 
 addons:
-  apt:
-    packages:
-      - oracle-java8-installer
+  sonarqube:
+    organization: racodond-github
+    token:
+      secure: ...
+    github_token:
+      secure: ...
 
 env:
   global:
@@ -20,5 +26,6 @@ env:
 cache:
   directories:
     - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
 
 script: ./travis.sh
