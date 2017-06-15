@@ -71,12 +71,17 @@ public class UnknownTypeSelectorCheck extends DoubleDispatchVisitorCheck {
     if (!tree.identifier().isInterpolated()
       && !KNOWN_HTML_TAGS.contains(tree.identifier().text().toLowerCase())
       && !KNOWN_SVG_TAGS.contains(tree.identifier().text().toLowerCase())
-      && !UNIVERSAL_SELECTOR.equalsIgnoreCase(tree.identifier().text())) {
+      && !UNIVERSAL_SELECTOR.equalsIgnoreCase(tree.identifier().text())
+      && !isAngularJSMaterialsTypeSelector(tree)) {
       addPreciseIssue(
         tree.identifier(),
         "Remove this usage of the unknown \"" + tree.identifier().text() + "\" type selector.");
     }
     super.visitTypeSelector(tree);
+  }
+
+  private boolean isAngularJSMaterialsTypeSelector(TypeSelectorTree tree) {
+    return tree.identifier().text().startsWith("md-");
   }
 
 }

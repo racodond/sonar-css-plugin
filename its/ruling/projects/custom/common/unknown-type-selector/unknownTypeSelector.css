@@ -13,3 +13,7 @@ view {
 blabla { /* Noncompliant ![sc=1;ec=7;el=+0]! !{Remove this usage of the unknown "blabla" type selector.}!*/
     color: green;
 }
+
+md-abc { /* Compliant: Detected as AngularJS Materials type selector */
+    color: green;
+}
