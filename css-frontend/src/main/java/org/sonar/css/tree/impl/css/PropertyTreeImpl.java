@@ -127,14 +127,15 @@ public class PropertyTreeImpl extends TreeImpl implements PropertyTree {
     this.scssNamespace = scssNamespace;
   }
 
-  private StandardProperty setStandardProperty(String propertyName, Vendor vendor) {
+  private StandardProperty setStandardProperty(String propertyName, @Nullable Vendor vendor) {
+    String actualPropertyName = propertyName;
     if (isHacked()) {
-      propertyName = propertyName.substring(1);
+      actualPropertyName = propertyName.substring(1);
     }
-    if (isVendorPrefixed()) {
-      propertyName = propertyName.substring(vendor.getPrefix().length());
+    if (vendor != null) {
+      actualPropertyName = propertyName.substring(vendor.getPrefix().length());
     }
-    return StandardPropertyFactory.getByName(propertyName);
+    return StandardPropertyFactory.getByName(actualPropertyName);
   }
 
   private String setHack(String propertyName) {
@@ -145,6 +146,7 @@ public class PropertyTreeImpl extends TreeImpl implements PropertyTree {
     }
   }
 
+  @Nullable
   private Vendor setVendorPrefix(String propertyName) {
     for (Vendor v : Vendor.values()) {
       if (propertyName.toLowerCase(Locale.ENGLISH).startsWith(v.getPrefix())) {

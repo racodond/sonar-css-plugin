@@ -27,7 +27,6 @@ import org.sonar.plugins.css.api.tree.css.StyleSheetTree;
 import org.sonar.plugins.css.api.tree.embedded.FileWithEmbeddedCssTree;
 import org.sonar.plugins.css.api.tree.less.LessMixinParametersTree;
 import org.sonar.plugins.css.api.tree.less.LessVariableTree;
-import org.sonar.plugins.css.api.tree.scss.ScssParametersTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitor;
 
 import java.util.Map;
