@@ -25,23 +25,58 @@ import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 import java.io.File;
 
-public class UnknownTypeSelectorCheckTest {
+import static org.fest.assertions.Assertions.assertThat;
 
-  private UnknownTypeSelectorCheck check = new UnknownTypeSelectorCheck();
+public class UnknownTypeSelectorCheckTest {
 
   @Test
   public void test_css() {
-    CssCheckVerifier.verifyCssFile(check, getTestFile("unknownTypeSelector.css"));
+    CssCheckVerifier.verifyCssFile(new UnknownTypeSelectorCheck(), getTestFile("unknownTypeSelector.css"));
   }
 
   @Test
   public void test_less() {
-    CssCheckVerifier.verifyLessFile(check, getTestFile("unknownTypeSelector.less"));
+    CssCheckVerifier.verifyLessFile(new UnknownTypeSelectorCheck(), getTestFile("unknownTypeSelector.less"));
   }
 
   @Test
   public void test_scss() {
-    CssCheckVerifier.verifyScssFile(check, getTestFile("unknownTypeSelector.scss"));
+    CssCheckVerifier.verifyScssFile(new UnknownTypeSelectorCheck(), getTestFile("unknownTypeSelector.scss"));
+  }
+
+  @Test
+  public void test_css_custom_type_selector() {
+    UnknownTypeSelectorCheck check = new UnknownTypeSelectorCheck();
+    check.setExclusions("custom-.*");
+    CssCheckVerifier.verifyCssFile(check, getTestFile("unknownTypeSelectorCustom.css"));
+  }
+
+  @Test
+  public void test_less_custom_type_selector() {
+    UnknownTypeSelectorCheck check = new UnknownTypeSelectorCheck();
+    check.setExclusions("custom-.*");
+    CssCheckVerifier.verifyLessFile(check, getTestFile("unknownTypeSelectorCustom.less"));
+  }
+
+  @Test
+  public void test_scss_custom_type_selector() {
+    UnknownTypeSelectorCheck check = new UnknownTypeSelectorCheck();
+    check.setExclusions("custom-.*");
+    CssCheckVerifier.verifyScssFile(check, getTestFile("unknownTypeSelectorCustom.scss"));
+  }
+
+  @Test
+  public void should_throw_an_illegal_state_exception_as_the_exclusions_parameter_is_not_valid() {
+    try {
+      UnknownTypeSelectorCheck check = new UnknownTypeSelectorCheck();
+      check.setExclusions("(");
+
+      CssCheckVerifier.issuesOnCssFile(check, getTestFile("unknownTypeSelector.css")).noMore();
+
+    } catch (IllegalStateException e) {
+      assertThat(e.getMessage()).isEqualTo("Check css:unknown-type-selector (Unknown type selectors "
+        + "should be removed): exclusions parameter \"(\" is not a valid regular expression.");
+    }
   }
 
   private File getTestFile(String fileName) {
