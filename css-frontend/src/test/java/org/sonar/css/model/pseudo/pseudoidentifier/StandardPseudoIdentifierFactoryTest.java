@@ -61,12 +61,12 @@ public class StandardPseudoIdentifierFactoryTest {
 
   @Test
   public void number_of_standard_pseudo_identifiers() {
-    assertEquals(58, StandardPseudoIdentifierFactory.getAll().size());
+    assertEquals(59, StandardPseudoIdentifierFactory.getAll().size());
   }
 
   @Test
-  public void number_of_obsolete_pseudo_functions() {
-    assertEquals(0, StandardPseudoIdentifierFactory.getAll().stream().filter(StandardPseudoIdentifier::isObsolete).count());
+  public void number_of_obsolete_pseudo_identifiers() {
+    assertEquals(1, StandardPseudoIdentifierFactory.getAll().stream().filter(StandardPseudoIdentifier::isObsolete).count());
   }
 
   @Test

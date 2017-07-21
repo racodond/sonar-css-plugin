@@ -1,7 +1,0 @@
-:any(ol, ul, menu, dir) { /* Noncompliant ![sc=2;ec=5;el=+0]! !{Remove this usage of the obsolete / not on W3C Standards track "any" pseudo.}! */
-  list-style-type: square;
-}
-
-p:empty {
-  color: red;
-}
