@@ -17,35 +17,15 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.checks.common;
+package org.sonar.css.model.pseudo.pseudoidentifier.standard;
 
-import org.junit.Test;
-import org.sonar.css.checks.CheckTestUtils;
-import org.sonar.css.checks.verifier.CssCheckVerifier;
+import org.sonar.css.model.pseudo.pseudoidentifier.StandardPseudoIdentifier;
 
-import java.io.File;
+public class NgDeep extends StandardPseudoIdentifier {
 
-public class ObsoletePseudoCheckTest {
-
-  private ObsoletePseudoCheck check = new ObsoletePseudoCheck();
-
-  @Test
-  public void test_css() {
-    CssCheckVerifier.verifyCssFile(check, getTestFile("obsoletePseudos.css"));
-  }
-
-  @Test
-  public void test_less() {
-    CssCheckVerifier.verifyLessFile(check, getTestFile("obsoletePseudos.less"));
-  }
-
-  @Test
-  public void test_scss() {
-    CssCheckVerifier.verifyScssFile(check, getTestFile("obsoletePseudos.scss"));
-  }
-
-  private File getTestFile(String fileName) {
-    return CheckTestUtils.getCommonTestFile("obsolete-pseudos/" + fileName);
+  public NgDeep() {
+    setObsolete(true);
+    addLinks("https://angular.io/guide/component-styles#deprecated-deep--and-ng-deep");
   }
 
 }

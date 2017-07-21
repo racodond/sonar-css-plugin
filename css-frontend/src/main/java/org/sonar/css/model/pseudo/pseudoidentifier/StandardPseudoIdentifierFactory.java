@@ -20,11 +20,10 @@
 package org.sonar.css.model.pseudo.pseudoidentifier;
 
 import com.google.common.collect.ImmutableSet;
-
-import java.util.*;
-
 import org.sonar.css.model.pseudo.pseudoidentifier.standard.*;
 import org.sonar.css.model.pseudo.pseudoidentifier.standard.Optional;
+
+import java.util.*;
 
 public class StandardPseudoIdentifierFactory {
 
@@ -64,6 +63,7 @@ public class StandardPseudoIdentifierFactory {
     Left.class,
     Link.class,
     Marker.class,
+    NgDeep.class,
     OnlyChild.class,
     OnlyOfType.class,
     Optional.class,

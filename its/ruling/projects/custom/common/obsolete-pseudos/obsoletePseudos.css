@@ -1,0 +1,11 @@
+:any(ol, ul, menu, dir) { /* Noncompliant ![sc=2;ec=5;el=+0]! !{Remove this usage of the obsolete / not on W3C Standards track "any" pseudo.}! */
+  color: #000000;
+}
+
+::ng-deep { /* Noncompliant ![sc=3;ec=10;el=+0]! !{Remove this usage of the obsolete / not on W3C Standards track "ng-deep" pseudo.}! */
+  color: #000000;
+}
+
+p:empty {
+  color: #000000;
+}

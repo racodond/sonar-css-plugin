@@ -27,7 +27,7 @@ public class StandardPseudoComponentFactoryTest {
 
   @Test
   public void number_of_standard_pseudo_components() {
-    assertEquals(75, StandardPseudoComponentFactory.getAll().size());
+    assertEquals(76, StandardPseudoComponentFactory.getAll().size());
   }
 
 }
