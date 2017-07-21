@@ -101,6 +101,9 @@
 'project:custom/common/unknown-type-selector/unknownTypeSelector.less':[
 9,
 ],
+'project:custom/common/unknown-type-selector/unknownTypeSelectorCustom.less':[
+5,
+],
 'project:custom/less/experimentalFunctionUsage.less':[
 2,
 ],

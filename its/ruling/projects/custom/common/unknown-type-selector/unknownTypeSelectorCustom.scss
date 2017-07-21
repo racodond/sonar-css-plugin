@@ -1,0 +1,19 @@
+div {
+    color: #000000;
+}
+
+DIV {
+    color: #000000;
+}
+
+view {
+    color: #000000;
+}
+
+customblabla { /* Noncompliant ![sc=1;ec=13;el=+0]! !{Remove this usage of the unknown "customblabla" type selector.}!*/
+    color: #000000;
+}
+
+custom-blabla { /* Compliant: Matches custom type selector regular expression */
+    color: #000000;
+}

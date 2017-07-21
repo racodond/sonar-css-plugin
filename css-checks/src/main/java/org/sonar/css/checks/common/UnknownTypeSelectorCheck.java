@@ -19,16 +19,23 @@
  */
 package org.sonar.css.checks.common;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
+import org.sonar.css.checks.CheckList;
+import org.sonar.css.checks.CheckUtils;
 import org.sonar.css.checks.Tags;
 import org.sonar.plugins.css.api.tree.css.TypeSelectorTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
+import java.text.MessageFormat;
 import java.util.List;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 @Rule(
   key = "unknown-type-selector",
@@ -66,13 +73,23 @@ public class UnknownTypeSelectorCheck extends DoubleDispatchVisitorCheck {
 
   private static final String UNIVERSAL_SELECTOR = "*";
 
+  private static final String DEFAULT_EXCLUSIONS = "";
+  @RuleProperty(
+    key = "Exclusions",
+    description = "Regular expression to exclude custom type selectors. See "
+      + CheckUtils.LINK_TO_JAVA_REGEX_PATTERN_DOC
+      + " for detailed regular expression syntax.",
+    defaultValue = DEFAULT_EXCLUSIONS)
+  private String exclusions = DEFAULT_EXCLUSIONS;
+
   @Override
   public void visitTypeSelector(TypeSelectorTree tree) {
     if (!tree.identifier().isInterpolated()
       && !KNOWN_HTML_TAGS.contains(tree.identifier().text().toLowerCase())
       && !KNOWN_SVG_TAGS.contains(tree.identifier().text().toLowerCase())
       && !UNIVERSAL_SELECTOR.equalsIgnoreCase(tree.identifier().text())
-      && !isAngularJSMaterialsTypeSelector(tree)) {
+      && !isAngularJSMaterialsTypeSelector(tree)
+      && !isCustomTypeSelector(tree)) {
       addPreciseIssue(
         tree.identifier(),
         "Remove this usage of the unknown \"" + tree.identifier().text() + "\" type selector.");
@@ -80,8 +97,33 @@ public class UnknownTypeSelectorCheck extends DoubleDispatchVisitorCheck {
     super.visitTypeSelector(tree);
   }
 
+  @VisibleForTesting
+  void setExclusions(String exclusions) {
+    this.exclusions = exclusions;
+  }
+
+  @Override
+  public void validateParameters() {
+    try {
+      Pattern.compile(exclusions);
+    } catch (PatternSyntaxException exception) {
+      throw new IllegalStateException(paramsErrorMessage(), exception);
+    }
+  }
+
+  private String paramsErrorMessage() {
+    return CheckUtils.paramsErrorMessage(
+      this.getClass(),
+      CheckList.CSS_REPOSITORY_KEY,
+      MessageFormat.format("exclusions parameter \"{0}\" is not a valid regular expression.", exclusions));
+  }
+
   private boolean isAngularJSMaterialsTypeSelector(TypeSelectorTree tree) {
     return tree.identifier().text().startsWith("md-");
+  }
+
+  private boolean isCustomTypeSelector(TypeSelectorTree tree) {
+    return tree.identifier().text().matches(exclusions);
   }
 
 }
