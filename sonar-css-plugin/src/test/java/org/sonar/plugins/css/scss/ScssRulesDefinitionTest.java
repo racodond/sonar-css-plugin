@@ -38,7 +38,7 @@ public class ScssRulesDefinitionTest {
 
     assertThat(repository.name()).isEqualTo("SonarQube");
     assertThat(repository.language()).isEqualTo("scss");
-    assertThat(repository.rules()).hasSize(99);
+    assertThat(repository.rules()).hasSize(100);
 
     RulesDefinition.Rule rule = repository.rule(ScssVariableNamingConventionCheck.class.getAnnotation(Rule.class).key());
     assertThat(rule).isNotNull();

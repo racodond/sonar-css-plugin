@@ -98,6 +98,14 @@
 'project:custom/common/inliningFontFiles.css':[
 30,
 ],
+'project:custom/common/obsolete-selector-combinator-usage/obsoleteSelectorCombinatorUsage.css':[
+1,
+4,
+7,
+10,
+13,
+16,
+],
 'project:custom/common/overqualified.css':[
 18,
 21,
