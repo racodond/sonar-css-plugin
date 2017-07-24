@@ -28,24 +28,24 @@ import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 @Rule(
-  key = "experimental-selector-combinator-usage",
-  name = "Experimental selector combinators should not be used",
+  key = "obsolete-selector-combinator-usage",
+  name = "Obsolete selector combinators should not be used",
   priority = Priority.MAJOR,
-  tags = {Tags.CONVENTION, Tags.BROWSER_COMPATIBILITY})
-@SqaleConstantRemediation("5min")
+  tags = {Tags.BROWSER_COMPATIBILITY})
+@SqaleConstantRemediation("10min")
 @ActivatedByDefault
-public class ExperimentalSelectorCombinatorCheck extends DoubleDispatchVisitorCheck {
+public class ObsoletelSelectorCombinatorCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitSelectorCombinator(SelectorCombinatorTree tree) {
-    checkForExperimentalSelectorCombinator(tree);
+    checkForObsoleteSelectorCombinator(tree);
     super.visitSelectorCombinator(tree);
   }
 
-  private void checkForExperimentalSelectorCombinator(SelectorCombinatorTree tree) {
-    if (tree.type() == SelectorCombinatorTree.COMBINATOR.DESCENDANT
-      || tree.type() == SelectorCombinatorTree.COMBINATOR.COLUMN) {
-      addPreciseIssue(tree, "Remove this experimental selector combinator.");
+  private void checkForObsoleteSelectorCombinator(SelectorCombinatorTree tree) {
+    if (tree.type() == SelectorCombinatorTree.COMBINATOR.DEEP
+      || tree.type() == SelectorCombinatorTree.COMBINATOR.DEEP_ALIAS) {
+      addPreciseIssue(tree, "Remove this obsolete selector combinator.");
     }
   }
 

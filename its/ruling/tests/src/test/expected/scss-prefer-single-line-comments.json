@@ -163,9 +163,6 @@
 'project:custom/common/experimental-selector-combinator-usage/experimentalSelectorCombinatorUsage.scss':[
 1,
 5,
-8,
-11,
-14,
 ],
 'project:custom/common/font-family-not-ending-with-generic-font-family/fontFamilyNotEndingWithGenericFontFamily.scss':[
 9,
@@ -295,6 +292,10 @@
 'project:custom/common/obsolete-pseudos/obsoletePseudos.scss':[
 1,
 5,
+],
+'project:custom/common/obsolete-selector-combinator-usage/obsoleteSelectorCombinatorUsage.scss':[
+7,
+10,
 ],
 'project:custom/common/properties/scss/accelerator.scss':[
 5,

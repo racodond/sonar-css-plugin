@@ -140,6 +140,7 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Number precision should not be too high
 * Obsolete properties should not be used
 * Obsolete pseudo-elements and pseudo-classes should not be used
+* Obsolete selector combinators should not be used
 * Over-specified selectors should be simplified
 * Properties that do not work with the "display" property should be removed
 * Property values should be valid
