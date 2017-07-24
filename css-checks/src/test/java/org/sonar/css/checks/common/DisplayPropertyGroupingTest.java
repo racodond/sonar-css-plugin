@@ -23,11 +23,30 @@ import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
+import java.io.File;
+
 public class DisplayPropertyGroupingTest {
 
+  private DisplayPropertyGroupingCheck check = new DisplayPropertyGroupingCheck();
+
   @Test
-  public void test() {
-    CssCheckVerifier.verifyCssFile(new DisplayPropertyGroupingCheck(), CheckTestUtils.getCommonTestFile("displayProperty.css"));
+  public void test_css() {
+    CssCheckVerifier.verifyCssFile(check, getTestFile("displayProperty.css"));
+  }
+
+  @Test
+  public void test_less() {
+    CssCheckVerifier.verifyLessFile(check, getTestFile("displayProperty.less"));
+  }
+
+  @Test
+  public void test_scss() {
+    CssCheckVerifier.verifyScssFile(check, getTestFile("displayProperty.scss"));
+  }
+
+
+  private File getTestFile(String fileName) {
+    return CheckTestUtils.getCommonTestFile("display-property-grouping/" + fileName);
   }
 
 }
