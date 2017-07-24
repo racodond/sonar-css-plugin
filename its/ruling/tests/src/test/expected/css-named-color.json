@@ -4159,10 +4159,11 @@
 4,
 5,
 ],
-'project:custom/common/displayProperty.css':[
+'project:custom/common/display-property-grouping/displayProperty.css':[
 3,
 9,
 31,
+36,
 ],
 'project:custom/common/do-not-use-shorthand-properties/doNotUseShorthandProperties.css':[
 10,

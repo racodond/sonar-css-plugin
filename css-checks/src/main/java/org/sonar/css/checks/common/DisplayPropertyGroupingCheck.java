@@ -24,6 +24,8 @@ import com.google.common.collect.ImmutableMap;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.css.checks.Tags;
+import org.sonar.css.model.property.validator.ValidatorFactory;
+import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.IdentifierTree;
 import org.sonar.plugins.css.api.tree.css.PropertyDeclarationTree;
 import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
@@ -88,13 +90,23 @@ public class DisplayPropertyGroupingCheck extends DoubleDispatchVisitorCheck {
   private void addIssues(List<PropertyDeclarationTree> propertyDeclarationTrees, List<String> propertiesToNotUse) {
     for (PropertyDeclarationTree declaration : propertyDeclarationTrees) {
       String propertyName = declaration.property().standardProperty().getName();
-      if (propertiesToNotUse.contains(propertyName)) {
+      if (propertiesToNotUse.contains(propertyName) && !isFloatNone(declaration)) {
         PreciseIssue issue = addPreciseIssue(
           declaration,
           "Remove this \"" + propertyName + "\" declaration that does not work with the \"display\" declaration.");
         issue.secondary(displayDeclaration, "\"display\" property declaration");
       }
     }
+  }
+
+  private boolean isFloatNone(PropertyDeclarationTree declaration) {
+    if ("float".equals(declaration.property().standardProperty().getName())) {
+      List<Tree> valueElements = declaration.value().sanitizedValueElements();
+      if (valueElements.size() == 1 && ValidatorFactory.getNoneValidator().isValid(valueElements.get(0))) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }
