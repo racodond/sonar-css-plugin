@@ -1,7 +1,7 @@
 stylelint / SonarQube Rule Mapping
 ==================================
 
-Note that there is not always a strict one-to-one relationship between [SonarQube rules].
+Note that there is not always a strict one-to-one relationship between SonarQube and stylelint rules.
 
 ## SonarQube => stylelint
 
