@@ -2,4 +2,7 @@
 'project:custom/common/experimental-selector-combinator-usage/experimentalSelectorCombinatorUsage.less':[
 5,
 ],
+'project:custom/common/obsolete-selector-combinator-usage/obsoleteSelectorCombinatorUsage.less':[
+4,
+],
 }

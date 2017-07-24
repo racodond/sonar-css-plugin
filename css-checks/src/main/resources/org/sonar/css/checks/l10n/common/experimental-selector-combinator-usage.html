@@ -1,6 +1,6 @@
 <p>
-    Experimental column (<code>||</code>), descendant (<code>&gt;&gt;</code>) and deep (<code>&gt;&gt;&gt;</code> or
-    <code>/deep/</code>) combinators should not be used in production code.
+    Experimental column (<code>||</code>) and descendant (<code>&gt;&gt;</code>) combinators should not be used in
+    production code.
 </p>
 
 <h2>Noncompliant Code Example</h2>
@@ -10,12 +10,6 @@ div >> p {
 
 col.selected || td {
 }
-
-foo /deep/ p {
-}
-
-foo >>> p {
-}
 </pre>
 
 <h2>See</h2>
@@ -24,6 +18,4 @@ foo >>> p {
         Column combinator</a></li>
     <li><a href="https://drafts.csswg.org/selectors-4/#descendant-combinators">W3C Selectors Level 4 Specifications:
         Descendant combinator</a></li>
-    <li><a href="https://www.w3.org/TR/css-scoping-1/#selectordef-deep">W3C CSS Scoping Module Level 1 Specifications:
-        Deep combinator</a></li>
 </ul>

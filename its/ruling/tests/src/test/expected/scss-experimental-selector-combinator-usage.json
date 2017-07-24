@@ -2,8 +2,9 @@
 'project:custom/common/experimental-selector-combinator-usage/experimentalSelectorCombinatorUsage.scss':[
 1,
 5,
-8,
-11,
-14,
+],
+'project:custom/common/obsolete-selector-combinator-usage/obsoleteSelectorCombinatorUsage.scss':[
+1,
+4,
 ],
 }

@@ -128,9 +128,6 @@
 'project:custom/common/experimental-selector-combinator-usage/experimentalSelectorCombinatorUsage.less':[
 1,
 5,
-8,
-11,
-14,
 ],
 'project:custom/common/fixme/fixmeTagPresence.less':[
 1,
@@ -258,6 +255,10 @@
 'project:custom/common/obsolete-pseudos/obsoletePseudos.less':[
 1,
 5,
+],
+'project:custom/common/obsolete-selector-combinator-usage/obsoleteSelectorCombinatorUsage.less':[
+7,
+10,
 ],
 'project:custom/common/properties/less/accelerator.less':[
 5,
