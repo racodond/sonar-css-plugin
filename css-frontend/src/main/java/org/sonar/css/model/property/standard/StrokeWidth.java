@@ -25,7 +25,6 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class StrokeWidth extends StandardProperty {
 
   public StrokeWidth() {
-    setExperimental(true);
     addLinks("https://www.w3.org/TR/SVG/painting.html#StrokeWidthProperty");
     addValidators(ValidatorFactory.getPositiveLengthValidator(), ValidatorFactory.getPositivePercentageValidator());
   }

@@ -25,7 +25,6 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class FillRule extends StandardProperty {
 
   public FillRule() {
-    setExperimental(true);
     addLinks("https://www.w3.org/TR/SVG/painting.html#FillRuleProperty");
     addValidators(new IdentifierValidator("nonzero", "evenodd"));
   }

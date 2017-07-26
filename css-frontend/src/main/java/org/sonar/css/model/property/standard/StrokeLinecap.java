@@ -25,7 +25,6 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class StrokeLinecap extends StandardProperty {
 
   public StrokeLinecap() {
-    setExperimental(true);
     addLinks("https://www.w3.org/TR/SVG/painting.html#StrokeLinecapProperty");
     addValidators(new IdentifierValidator("butt", "round", "square"));
   }

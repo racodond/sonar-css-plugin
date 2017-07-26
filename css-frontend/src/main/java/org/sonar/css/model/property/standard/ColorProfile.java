@@ -20,15 +20,15 @@
 package org.sonar.css.model.property.standard;
 
 import org.sonar.css.model.property.StandardProperty;
-import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
+import org.sonar.css.model.property.validator.ValidatorFactory;
 
-public class PointerEvents extends StandardProperty {
+public class ColorProfile extends StandardProperty {
 
-  public PointerEvents() {
-    addLinks(
-      "https://www.w3.org/TR/SVG/interact.html#PointerEventsProperty",
-      "https://developer.mozilla.org/en/docs/Web/CSS/pointer-events");
-    addValidators(new IdentifierValidator("visiblepainted", "visiblefill", "visiblestroke", "visible", "painted", "fill", "stroke", "all", "none", "auto"));
+  public ColorProfile() {
+    addLinks("https://www.w3.org/TR/SVG/color.html#ColorProfileProperty");
+    addValidators(
+      ValidatorFactory.getAnyIdentifierValidator(),
+      ValidatorFactory.getUriValidator());
   }
 
 }

@@ -25,7 +25,6 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class TextRendering extends StandardProperty {
 
   public TextRendering() {
-    setExperimental(true);
     addLinks("http://www.w3.org/TR/SVG11/painting.html#TextRenderingProperty");
     addValidators(new IdentifierValidator("auto", "optimizespeed", "optimizelegibility", "geometricprecision"));
   }

@@ -25,7 +25,6 @@ import org.sonar.css.model.property.validator.valueelement.numeric.NumberRangeVa
 public class StrokeMiterlimit extends StandardProperty {
 
   public StrokeMiterlimit() {
-    setExperimental(true);
     addLinks("https://www.w3.org/TR/SVG/painting.html#StrokeMiterlimitProperty");
     addValidators(new NumberRangeValidator(1.0));
   }

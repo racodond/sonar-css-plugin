@@ -25,7 +25,6 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class TextAnchor extends StandardProperty {
 
   public TextAnchor() {
-    setExperimental(true);
     addLinks("https://www.w3.org/TR/SVG/text.html#TextAnchorProperty");
     addValidators(new IdentifierValidator("start", "middle", "end"));
   }
