@@ -163,6 +163,7 @@ public class StandardPropertyFactory {
     ColorIndex.class,
     ColorInterpolation.class,
     ColorInterpolationFilters.class,
+    ColorProfile.class,
     ColorRendering.class,
     ColumnCount.class,
     ColumnFill.class,

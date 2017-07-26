@@ -25,7 +25,6 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class Kerning extends StandardProperty {
 
   public Kerning() {
-    setExperimental(true);
     addLinks("https://www.w3.org/TR/SVG/text.html#KerningProperty");
     addValidators(ValidatorFactory.getAutoValidator(), ValidatorFactory.getLengthValidator());
   }

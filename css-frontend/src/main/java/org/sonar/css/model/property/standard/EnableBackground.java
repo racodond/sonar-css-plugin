@@ -24,7 +24,6 @@ import org.sonar.css.model.property.StandardProperty;
 public class EnableBackground extends StandardProperty {
 
   public EnableBackground() {
-    setExperimental(true);
     addLinks("https://www.w3.org/TR/SVG/filters.html#EnableBackgroundProperty");
   }
 

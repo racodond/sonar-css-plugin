@@ -1,0 +1,8 @@
+.mybox {
+  color-profile: inherit;
+  color-profile: auto;
+  color-profile: abc;
+  color-profile: url('abc');
+  color-profile: 10px; /* Noncompliant !{Update the invalid value of property "color-profile". Expected format: <identifier> | <uri>}! */
+  color-profile: 10; /* Noncompliant */
+}

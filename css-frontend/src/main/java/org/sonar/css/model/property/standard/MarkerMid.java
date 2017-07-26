@@ -25,7 +25,6 @@ import org.sonar.css.model.property.validator.ValidatorFactory;
 public class MarkerMid extends StandardProperty {
 
   public MarkerMid() {
-    setExperimental(true);
     addLinks("https://www.w3.org/TR/SVG/painting.html#MarkerMidProperty");
     addValidators(ValidatorFactory.getNoneValidator(), ValidatorFactory.getUriValidator());
   }
