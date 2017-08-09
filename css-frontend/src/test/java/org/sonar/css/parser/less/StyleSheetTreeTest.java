@@ -155,6 +155,27 @@ public class StyleSheetTreeTest extends LessTreeTest {
       "}\n" +
       ".sprites(@sprites, @i + 1);\n" +
       "}");
+
+    checkParsed("// declare detached ruleset\n" +
+      "@detached-ruleset: { background: red; };\n" +
+      "\n" +
+      "// use detached ruleset\n" +
+      ".top {\n" +
+      "    @detached-ruleset(); \n" +
+      "}");
+
+    checkParsed(".desktop-and-old-ie(@rules) {\n" +
+      "  @media screen and (min-width: 1200px) { @rules(); }\n" +
+      "  html.lt-ie9 &                         { @rules(); }\n" +
+      "}\n" +
+      "\n" +
+      "header {\n" +
+      "  background-color: blue;\n" +
+      "\n" +
+      "  .desktop-and-old-ie({\n" +
+      "    background-color: red;\n" +
+      "  });\n" +
+      "}");
   }
 
   private StyleSheetTree checkParsed(String toParse) {
