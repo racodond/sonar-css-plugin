@@ -116,6 +116,7 @@ public class LessGrammar extends CssGrammar {
         PSEUDO_SELECTOR(),
         PARENTHESIS_BLOCK(),
         BRACKET_BLOCK(),
+        STATEMENT_BLOCK(),
         PERCENTAGE(),
         DIMENSION(),
         NUMBER(),
