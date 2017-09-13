@@ -92,3 +92,10 @@ a {
   word-spacing: normal;
   writing-mode: lr;
 }
+
+@media (min-width: 768px) {
+  a:focus,
+  .btn:focus {
+    outline: 2px;
+  }
+}
