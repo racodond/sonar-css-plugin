@@ -76,9 +76,9 @@ public class CssGrammar {
         b.token(LexicalGrammar.OPEN_CURLY_BRACE),
         b.zeroOrMore(
           b.firstOf(
-            DECLARATION(),
             AT_RULE(),
             RULESET(),
+            DECLARATION(),
             EMPTY_STATEMENT())),
         b.token(LexicalGrammar.CLOSE_CURLY_BRACE)));
   }

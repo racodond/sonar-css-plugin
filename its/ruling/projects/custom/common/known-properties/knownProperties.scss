@@ -41,3 +41,10 @@ h1 {
     jkl: jkl; /* Noncompliant ![sc=5;ec=8;el=+0]! !{Remove this usage of the unknown "abc-jkl" property.}! */
   }
 }
+
+@media (min-width: 768px) {
+  a:focus,
+  .btn:focus {
+    outline: 2px;
+  }
+}
