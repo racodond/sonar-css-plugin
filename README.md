@@ -152,7 +152,6 @@ It computes the complexity/rule, meaning the average number of selectors per rul
 * Regular expression on property
 * Regular expression on unit
 * Rule properties should be alphabetically ordered
-* Selectors should follow a naming convention
 * Shorthand properties should be used whenever possible
 * Shorthand properties should not be used
 * Single quotes should be used instead of double quotes for strings
