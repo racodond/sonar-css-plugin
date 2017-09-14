@@ -28,6 +28,7 @@ import org.sonar.css.checks.CheckUtils;
 import org.sonar.css.checks.Tags;
 import org.sonar.plugins.css.api.tree.css.ClassSelectorTree;
 import org.sonar.plugins.css.api.tree.css.IdentifierTree;
+import org.sonar.plugins.css.api.tree.less.LessMixinCallTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -56,7 +57,9 @@ public class ClassSelectorNamingConventionCheck extends DoubleDispatchVisitorChe
 
   @Override
   public void visitClassSelector(ClassSelectorTree tree) {
-    if (!tree.className().isInterpolated() && !tree.className().text().matches(format)) {
+    if (!tree.className().isInterpolated()
+      && !tree.className().text().matches(format)
+      && !tree.parent().hasAncestor(LessMixinCallTree.class)) {
       addIssue(tree.className());
     }
     super.visitClassSelector(tree);

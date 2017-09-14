@@ -39,6 +39,9 @@ public class StyleSheetTreeTest extends LessTreeTest {
   public void stylesheet() throws Exception {
     StyleSheetTree tree;
 
+    tree = checkParsed(".abc { .space; }");
+    assertThat(tree.atRules()).isEmpty();
+
     checkParsed("");
     checkParsed(" ");
     checkParsed("  ");
