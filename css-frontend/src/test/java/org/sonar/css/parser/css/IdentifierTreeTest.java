@@ -63,6 +63,8 @@ public class IdentifierTreeTest extends CssTreeTest {
     checkNotParsed("123");
     checkNotParsed("123px");
     checkNotParsed("@{abc}");
+    checkNotParsed("-");
+    checkNotParsed("-(");
   }
 
   private IdentifierTree checkParsed(String toParse, String expectedIdent) {
