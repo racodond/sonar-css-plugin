@@ -38,7 +38,7 @@ public class CssRulesDefinitionTest {
 
     assertThat(repository.name()).isEqualTo("SonarQube");
     assertThat(repository.language()).isEqualTo("css");
-    assertThat(repository.rules()).hasSize(87);
+    assertThat(repository.rules()).hasSize(88);
     assertThat(CheckList.getEmbeddedCssChecks()).hasSize(repository.rules().size() - 6);
 
 
