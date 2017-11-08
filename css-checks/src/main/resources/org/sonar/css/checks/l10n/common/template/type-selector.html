@@ -1,0 +1,37 @@
+<p>
+    Using types in selectors reduces the flexibility and narrows the applicability of css-styles. Classes should be
+    preferred as they improve the understandability by giving elements a context-specific name.
+    For example:
+</p>
+<pre>
+.myBox span {
+  color: black;
+}
+</pre>
+<p>
+    This styling can only be applied to a limited subset of all containers with the .someThing class.
+    Furthermore the reader cannot identify what the span actually represents.
+    An alternative using a class instead of a type does not have this issue:
+</p>
+<pre>
+.myBox .headline {
+  color: black;
+}
+</pre>
+<p>The intent is clear and the contextual understandability improved dramatically.</p>
+
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+span {
+  display: block;
+}
+
+.mybox div {
+  color: red;
+}
+</pre>
+
+<p>
+    You can exclude certain types via the configuration of this rule as e.g. the anchor type is a valid exception from this rule as it should always denote a link of some sort.
+</p>
