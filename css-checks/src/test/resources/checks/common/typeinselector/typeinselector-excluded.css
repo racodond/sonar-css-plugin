@@ -1,0 +1,19 @@
+.mybox {
+  display: block;
+}
+
+div { /* Noncompliant ![sc=1;ec=4;el=+0]! !{Remove the type "div" from this selector.}! */
+  display: block;
+}
+
+#mybox {
+  display: block;
+}
+
+.mybox span {
+  color: red;
+}
+
+.mybox #go > a {
+  color: red;
+}
