@@ -1,15 +1,16 @@
-# sonar-runner
-.sonar/
+# SonarQube Scanner
+.sonar
+.scannerwork
 
 # Maven
-target/
+target
 *.versionsBackup
 
 # IntelliJ IDEA
 *.iws
 *.iml
 *.ipr
-.idea/
+.idea
 
 # Eclipse
 .classpath
