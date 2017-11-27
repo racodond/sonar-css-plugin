@@ -35,6 +35,7 @@ import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.css.parser.css.CssParser;
 import org.sonar.css.tree.impl.TreeImpl;
+import org.sonar.css.visitors.CpdVisitor;
 import org.sonar.duplications.internal.pmd.TokensLine;
 import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.visitors.TreeVisitorContext;

@@ -33,7 +33,7 @@ import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.css.checks.CheckList;
 import org.sonar.css.checks.css.ParsingErrorCheck;
 import org.sonar.css.parser.css.CssParser;
-import org.sonar.css.visitors.cpd.CpdVisitor;
+import org.sonar.css.visitors.CpdVisitor;
 import org.sonar.css.visitors.highlighter.CssSyntaxHighlighterVisitor;
 import org.sonar.css.visitors.metrics.css.CssMetricsVisitor;
 import org.sonar.plugins.css.AbstractLanguageAnalyzerSensor;
