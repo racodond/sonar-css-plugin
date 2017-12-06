@@ -17,14 +17,16 @@
   border-radius: @radius;
 }
 
-.border-radius2(@radius, @radius) { /* Noncompliant ![sc=18;ec=24;secondary=+0]! !{Merge those multiple variable declarations within the same scope.}! */
+.border-radius2(@radius) {
   -webkit-border-radius: @radius;
   -moz-border-radius: @radius;
   border-radius: @radius;
+  @radius: 10;
 }
 
-.border-radius3(@radius: 3px, @radius: 4px) { /* Noncompliant ![sc=18;ec=24;secondary=+0]! !{Merge those multiple variable declarations within the same scope.}! */
-  -webkit-border-radius: @radius;
-  -moz-border-radius: @radius;
+@radius: 10;
+
+.myclass {
+  @radius: 10;
   border-radius: @radius;
 }
