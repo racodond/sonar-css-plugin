@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-mvn -B clean install
+mvn -B clean install -Pits -Dsonar.runtimeVersion=$SQ_VERSION
 
 if [ "$TRAVIS_PULL_REQUEST" != "false" ] && [ "$SQ_VERSION" == "LTS" ]; then
   mvn -B sonar:sonar \
@@ -20,8 +20,3 @@ elif [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] &
       -Dsonar.login=$SONAR_TOKEN \
       -Dsonar.organization=racodond-github
 fi
-
-cd its
-
-mvn -B clean install \
-    -Dsonar.runtimeVersion=$SQ_VERSION
