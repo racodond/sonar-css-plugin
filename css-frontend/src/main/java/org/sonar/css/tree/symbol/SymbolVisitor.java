@@ -73,24 +73,10 @@ public class SymbolVisitor extends DoubleDispatchVisitor {
     leaveScope();
   }
 
-  private void leaveScope() {
-    if (currentScope != null) {
-      currentScope = currentScope.outer();
-    }
-  }
-
-  private void enterScope(Tree tree) {
-    currentScope = treeScopeMap.get(tree);
-    if (currentScope == null) {
-      throw new IllegalStateException("No scope found for the tree");
-    }
-  }
-
   @Override
   public void visitLessVariable(LessVariableTree tree) {
     Usage.Kind usage;
-
-    if (tree.parent().is(Tree.Kind.LESS_VARIABLE_DECLARATION, Tree.Kind.LESS_MIXIN_PARAMETER)) {
+    if (tree.parent().is(Tree.Kind.LESS_VARIABLE_DECLARATION)) {
       usage = Usage.Kind.DECLARATION;
     } else {
       usage = Usage.Kind.READ;
@@ -106,6 +92,20 @@ public class SymbolVisitor extends DoubleDispatchVisitor {
   private void initScopes() {
     symbolModel = (SymbolModelBuilder) getContext().getSymbolModel();
     currentScope = null;
+  }
+
+
+  private void leaveScope() {
+    if (currentScope != null) {
+      currentScope = currentScope.outer();
+    }
+  }
+
+  private void enterScope(Tree tree) {
+    currentScope = treeScopeMap.get(tree);
+    if (currentScope == null) {
+      throw new IllegalStateException("No scope found for the tree");
+    }
   }
 
 }
