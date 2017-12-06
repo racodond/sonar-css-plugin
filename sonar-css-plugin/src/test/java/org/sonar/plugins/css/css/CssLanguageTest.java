@@ -21,7 +21,6 @@ package org.sonar.plugins.css.css;
 
 import org.junit.Test;
 import org.sonar.api.config.Settings;
-import org.sonar.plugins.css.css.CssLanguage;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
