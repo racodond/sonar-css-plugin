@@ -61,7 +61,7 @@ public class StandardPseudoFunctionFactoryTest {
 
   @Test
   public void number_of_standard_pseudo_functions() {
-    assertEquals(17, StandardPseudoFunctionFactory.getAll().size());
+    assertEquals(19, StandardPseudoFunctionFactory.getAll().size());
   }
 
   @Test

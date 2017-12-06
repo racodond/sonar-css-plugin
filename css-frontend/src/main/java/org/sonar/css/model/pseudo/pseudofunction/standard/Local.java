@@ -17,17 +17,14 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.model.pseudo;
+package org.sonar.css.model.pseudo.pseudofunction.standard;
 
-import org.junit.Test;
+import org.sonar.css.model.pseudo.pseudofunction.StandardPseudoFunction;
 
-import static org.junit.Assert.assertEquals;
+public class Local extends StandardPseudoFunction {
 
-public class StandardPseudoComponentFactoryTest {
-
-  @Test
-  public void number_of_standard_pseudo_components() {
-    assertEquals(78, StandardPseudoComponentFactory.getAll().size());
+  public Local() {
+    addLinks("https://github.com/webpack-contrib/css-loader#scope");
   }
 
 }
