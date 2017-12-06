@@ -13,7 +13,6 @@ env:
   matrix:
     - SQ_VERSION=LTS
     - SQ_VERSION=LATEST_RELEASE
-    - SQ_VERSION=DEV
 
 cache:
   directories:
