@@ -1,7 +1,11 @@
+[![Release](https://img.shields.io/github/release/racodond/sonar-css-plugin.svg)](https://github.com/racodond/sonar-css-plugin/releases/latest)
 [![Build Status](https://api.travis-ci.org/racodond/sonar-css-plugin.svg?branch=master)](https://travis-ci.org/racodond/sonar-css-plugin)
 [![Build status](https://ci.appveyor.com/api/projects/status/jkl46pwunl60soio/branch/master?svg=true)](https://ci.appveyor.com/project/racodond/sonar-css-plugin-oy7u9/branch/master)
-[![Quality Gate status](https://sonarcloud.io/api/badges/gate?key=org.codehaus.sonar-plugins.css%3Acss)](https://sonarcloud.io/dashboard/index/org.codehaus.sonar-plugins.css%3Acss)
-[![Release](https://img.shields.io/github/release/racodond/sonar-css-plugin.svg)](https://github.com/racodond/sonar-css-plugin/releases/latest)
+
+[![Quality Gate status](https://sonarcloud.io/api/project_badges/measure?project=org.codehaus.sonar-plugins.css%3Acss&metric=alert_status)](https://sonarcloud.io/dashboard?id=org.codehaus.sonar-plugins.css%3Acss)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=org.codehaus.sonar-plugins.css%3Acss&metric=ncloc)](https://sonarcloud.io/dashboard?id=org.codehaus.sonar-plugins.css%3Acss)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=org.codehaus.sonar-plugins.css%3Acss&metric=coverage)](https://sonarcloud.io/dashboard?id=org.codehaus.sonar-plugins.css%3Acss)
+
 
 # SonarQube CSS / SCSS / Less Analyzer
 
