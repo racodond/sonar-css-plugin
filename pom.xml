@@ -116,18 +116,13 @@
       </dependency>
       <dependency>
         <groupId>org.sonarsource.sslr</groupId>
-        <artifactId>sslr-xpath</artifactId>
-        <version>${sslr.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.sonarsource.sslr</groupId>
-        <artifactId>sslr-toolkit</artifactId>
-        <version>${sslr.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.sonarsource.sslr</groupId>
         <artifactId>sslr-testing-harness</artifactId>
         <version>${sslr.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.sonarsource.analyzer-commons</groupId>
+        <artifactId>sonar-analyzer-commons</artifactId>
+        <version>1.5.0.178</version>
       </dependency>
       <dependency>
         <groupId>org.sonarsource.orchestrator</groupId>
