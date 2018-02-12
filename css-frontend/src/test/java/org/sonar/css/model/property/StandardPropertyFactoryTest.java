@@ -24,13 +24,10 @@ import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.standard.Border;
 import org.sonar.css.model.property.standard.BorderEnd;
 import org.sonar.css.model.property.standard.ColumnCount;
-import org.sonar.css.model.property.standard.TransitionProperty;
 
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class StandardPropertyFactoryTest {
 
@@ -38,34 +35,34 @@ public class StandardPropertyFactoryTest {
   public void should_return_a_valid_border_property_object() {
     StandardProperty property = StandardPropertyFactory.getByName("border");
     assertEquals(Border.class, property.getClass());
-    assertEquals(property.getName(), "border");
-    assertEquals(property.getLinks().size(), 2);
-    assertEquals(property.getLinks().get(0), "https://www.w3.org/TR/CSS22/box.html#propdef-border");
-    assertEquals(property.getLinks().get(1), "https://drafts.csswg.org/css-backgrounds-3/#border");
-    assertEquals(property.getVendors().size(), 0);
-    assertEquals(property.isObsolete(), false);
+    assertEquals("border", property.getName());
+    assertEquals(2, property.getLinks().size());
+    assertEquals("https://www.w3.org/TR/CSS22/box.html#propdef-border", property.getLinks().get(0));
+    assertEquals("https://drafts.csswg.org/css-backgrounds-3/#border", property.getLinks().get(1));
+    assertEquals(0, property.getVendors().size());
+    assertFalse(property.isObsolete());
   }
 
   @Test
   public void should_return_a_valid_border_property_object_uppercase_test() {
     StandardProperty property = StandardPropertyFactory.getByName("BORDER");
     assertEquals(Border.class, property.getClass());
-    assertEquals(property.getName(), "border");
-    assertEquals(property.getLinks().size(), 2);
-    assertEquals(property.getLinks().get(0), "https://www.w3.org/TR/CSS22/box.html#propdef-border");
-    assertEquals(property.getLinks().get(1), "https://drafts.csswg.org/css-backgrounds-3/#border");
-    assertEquals(property.getVendors().size(), 0);
-    assertEquals(property.isObsolete(), false);
+    assertEquals("border", property.getName());
+    assertEquals(2, property.getLinks().size());
+    assertEquals("https://www.w3.org/TR/CSS22/box.html#propdef-border", property.getLinks().get(0));
+    assertEquals("https://drafts.csswg.org/css-backgrounds-3/#border", property.getLinks().get(1));
+    assertEquals(0, property.getVendors().size());
+    assertFalse(property.isObsolete());
   }
 
   @Test
   public void should_return_a_valid_border_end_property_object() {
     StandardProperty property = StandardPropertyFactory.getByName("border-end");
     assertEquals(BorderEnd.class, property.getClass());
-    assertEquals(property.getName(), "border-end");
-    assertEquals(property.getLinks().size(), 0);
-    assertEquals(property.getValidators().size(), 0);
-    assertEquals(property.getVendors().size(), 0);
+    assertEquals("border-end", property.getName());
+    assertEquals(0, property.getLinks().size());
+    assertEquals(0, property.getValidators().size());
+    assertEquals(0, property.getVendors().size());
     assertTrue(property.isObsolete());
   }
 
@@ -73,12 +70,12 @@ public class StandardPropertyFactoryTest {
   public void should_return_a_valid_column_count_object() {
     StandardProperty property = StandardPropertyFactory.getByName("column-count");
     assertEquals(ColumnCount.class, property.getClass());
-    assertEquals(property.getName(), "column-count");
-    assertEquals(property.getLinks().size(), 2);
-    assertEquals(property.getLinks().get(0), "http://dev.w3.org/csswg/css-multicol-1/#propdef-column-count");
-    assertEquals(property.getLinks().get(1), "https://developer.mozilla.org/en-US/docs/Web/CSS/column-count");
-    assertEquals(property.getValidators().size(), 1);
-    assertEquals(property.getVendors().size(), 1);
+    assertEquals("column-count", property.getName());
+    assertEquals(2, property.getLinks().size());
+    assertEquals("http://dev.w3.org/csswg/css-multicol-1/#propdef-column-count", property.getLinks().get(0));
+    assertEquals("https://developer.mozilla.org/en-US/docs/Web/CSS/column-count", property.getLinks().get(1));
+    assertEquals(1, property.getValidators().size());
+    assertEquals(1, property.getVendors().size());
     assertTrue(property.getVendors().contains(Vendor.MOZILLA));
     assertFalse(property.getVendors().contains(Vendor.MICROSOFT));
     assertFalse(property.isObsolete());
@@ -89,9 +86,9 @@ public class StandardPropertyFactoryTest {
     StandardProperty property = StandardPropertyFactory.getByName("Bla-bla");
     assertEquals(UnknownProperty.class, property.getClass());
     assertEquals("bla-bla", property.getName());
-    assertEquals(property.getLinks().size(), 0);
-    assertEquals(property.getValidators().size(), 0);
-    assertEquals(property.getVendors().size(), 0);
+    assertEquals(0, property.getLinks().size());
+    assertEquals(0, property.getValidators().size());
+    assertEquals(0, property.getVendors().size());
     assertFalse(property.isObsolete());
   }
 

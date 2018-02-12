@@ -24,6 +24,7 @@ import org.sonar.css.model.function.standard.RepeatingLinearGradient;
 import org.sonar.css.model.function.standard.Rotatex;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class StandardFunctionFactoryTest {
 
@@ -31,53 +32,53 @@ public class StandardFunctionFactoryTest {
   public void should_return_a_valid_rotatex_function_object() {
     StandardFunction function = StandardFunctionFactory.getByName("rotatex");
     assertEquals(Rotatex.class, function.getClass());
-    assertEquals(function.getName(), "rotatex");
-    assertEquals(function.getLinks().size(), 1);
-    assertEquals(function.getLinks().get(0), "https://drafts.csswg.org/css-transforms/#three-d-transform-functions");
-    assertEquals(function.isExperimental(), false);
-    assertEquals(function.isObsolete(), false);
+    assertEquals("rotatex", function.getName());
+    assertEquals(1, function.getLinks().size());
+    assertEquals("https://drafts.csswg.org/css-transforms/#three-d-transform-functions", function.getLinks().get(0));
+    assertFalse(function.isExperimental());
+    assertFalse(function.isObsolete());
   }
 
   @Test
   public void should_return_a_valid_rotatex_function_object_uppercase_test() {
     StandardFunction function = StandardFunctionFactory.getByName("ROTATEX");
     assertEquals(Rotatex.class, function.getClass());
-    assertEquals(function.getName(), "rotatex");
-    assertEquals(function.getLinks().size(), 1);
-    assertEquals(function.getLinks().get(0), "https://drafts.csswg.org/css-transforms/#three-d-transform-functions");
-    assertEquals(function.isExperimental(), false);
-    assertEquals(function.isObsolete(), false);
+    assertEquals("rotatex", function.getName());
+    assertEquals(1, function.getLinks().size());
+    assertEquals("https://drafts.csswg.org/css-transforms/#three-d-transform-functions", function.getLinks().get(0));
+    assertFalse(function.isExperimental());
+    assertFalse(function.isObsolete());
   }
 
   @Test
   public void should_return_a_valid_rotatex_function_object_mix_uppercase_lowercase_test() {
     StandardFunction function = StandardFunctionFactory.getByName("rotateX");
     assertEquals(Rotatex.class, function.getClass());
-    assertEquals(function.getName(), "rotatex");
-    assertEquals(function.getLinks().size(), 1);
-    assertEquals(function.getLinks().get(0), "https://drafts.csswg.org/css-transforms/#three-d-transform-functions");
-    assertEquals(function.isExperimental(), false);
-    assertEquals(function.isObsolete(), false);
+    assertEquals("rotatex", function.getName());
+    assertEquals(1, function.getLinks().size());
+    assertEquals("https://drafts.csswg.org/css-transforms/#three-d-transform-functions", function.getLinks().get(0));
+    assertFalse(function.isExperimental());
+    assertFalse(function.isObsolete());
   }
 
   @Test
   public void should_return_a_valid_repeating_linear_gradient_function_object() {
     StandardFunction function = StandardFunctionFactory.getByName("repeating-linear-gradient");
     assertEquals(RepeatingLinearGradient.class, function.getClass());
-    assertEquals(function.getName(), "repeating-linear-gradient");
-    assertEquals(function.getLinks().size(), 1);
-    assertEquals(function.isExperimental(), false);
-    assertEquals(function.isObsolete(), false);
+    assertEquals("repeating-linear-gradient", function.getName());
+    assertEquals(1, function.getLinks().size());
+    assertFalse(function.isExperimental());
+    assertFalse(function.isObsolete());
   }
 
   @Test
   public void should_return_a_valid_repeating_linear_gradient_function_object_mix_uppercase_lowercase_test() {
     StandardFunction function = StandardFunctionFactory.getByName("repEating-Linear-gradient");
     assertEquals(RepeatingLinearGradient.class, function.getClass());
-    assertEquals(function.getName(), "repeating-linear-gradient");
-    assertEquals(function.getLinks().size(), 1);
-    assertEquals(function.isExperimental(), false);
-    assertEquals(function.isObsolete(), false);
+    assertEquals("repeating-linear-gradient", function.getName());
+    assertEquals(1, function.getLinks().size());
+    assertFalse(function.isExperimental());
+    assertFalse(function.isObsolete());
   }
 
   @Test

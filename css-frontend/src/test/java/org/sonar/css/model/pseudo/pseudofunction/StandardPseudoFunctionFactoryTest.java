@@ -22,7 +22,7 @@ package org.sonar.css.model.pseudo.pseudofunction;
 import org.junit.Test;
 import org.sonar.css.model.pseudo.pseudofunction.standard.Has;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class StandardPseudoFunctionFactoryTest {
 
@@ -30,33 +30,33 @@ public class StandardPseudoFunctionFactoryTest {
   public void should_return_a_valid_has_pseudo_function_object() {
     StandardPseudoFunction function = StandardPseudoFunctionFactory.getByName("has");
     assertEquals(Has.class, function.getClass());
-    assertEquals(function.getName(), "has");
-    assertEquals(function.getLinks().size(), 1);
-    assertEquals(function.getLinks().get(0), "https://drafts.csswg.org/selectors-4/#overview");
-    assertEquals(function.isExperimental(), true);
-    assertEquals(function.isObsolete(), false);
+    assertEquals("has", function.getName());
+    assertEquals(1, function.getLinks().size());
+    assertEquals("https://drafts.csswg.org/selectors-4/#overview", function.getLinks().get(0));
+    assertTrue(function.isExperimental());
+    assertFalse(function.isObsolete());
   }
 
   @Test
   public void should_return_a_valid_has_pseudo_function_object_uppercase_test() {
     StandardPseudoFunction function = StandardPseudoFunctionFactory.getByName("HAS");
     assertEquals(Has.class, function.getClass());
-    assertEquals(function.getName(), "has");
-    assertEquals(function.getLinks().size(), 1);
-    assertEquals(function.getLinks().get(0), "https://drafts.csswg.org/selectors-4/#overview");
-    assertEquals(function.isExperimental(), true);
-    assertEquals(function.isObsolete(), false);
+    assertEquals("has", function.getName());
+    assertEquals(1, function.getLinks().size());
+    assertEquals("https://drafts.csswg.org/selectors-4/#overview", function.getLinks().get(0));
+    assertTrue(function.isExperimental());
+    assertFalse(function.isObsolete());
   }
 
   @Test
   public void should_return_a_valid_has_pseudo_function_object_mix_uppercase_lowercase_test() {
     StandardPseudoFunction function = StandardPseudoFunctionFactory.getByName("HaS");
     assertEquals(Has.class, function.getClass());
-    assertEquals(function.getName(), "has");
-    assertEquals(function.getLinks().size(), 1);
-    assertEquals(function.getLinks().get(0), "https://drafts.csswg.org/selectors-4/#overview");
-    assertEquals(function.isExperimental(), true);
-    assertEquals(function.isObsolete(), false);
+    assertEquals("has", function.getName());
+    assertEquals(1, function.getLinks().size());
+    assertEquals("https://drafts.csswg.org/selectors-4/#overview", function.getLinks().get(0));
+    assertTrue(function.isExperimental());
+    assertFalse(function.isObsolete());
   }
 
   @Test
