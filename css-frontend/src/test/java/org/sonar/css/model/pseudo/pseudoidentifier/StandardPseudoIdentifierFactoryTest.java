@@ -23,6 +23,7 @@ import org.junit.Test;
 import org.sonar.css.model.pseudo.pseudoidentifier.standard.FirstLine;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class StandardPseudoIdentifierFactoryTest {
 
@@ -30,33 +31,33 @@ public class StandardPseudoIdentifierFactoryTest {
   public void should_return_a_valid_first_line_identifier_function_object() {
     StandardPseudoIdentifier identifier = StandardPseudoIdentifierFactory.getByName("first-line");
     assertEquals(FirstLine.class, identifier.getClass());
-    assertEquals(identifier.getName(), "first-line");
-    assertEquals(identifier.getLinks().size(), 1);
-    assertEquals(identifier.getLinks().get(0), "https://drafts.csswg.org/css-pseudo-4/#first-line-pseudo");
-    assertEquals(identifier.isExperimental(), false);
-    assertEquals(identifier.isObsolete(), false);
+    assertEquals("first-line", identifier.getName());
+    assertEquals(1, identifier.getLinks().size());
+    assertEquals("https://drafts.csswg.org/css-pseudo-4/#first-line-pseudo", identifier.getLinks().get(0));
+    assertFalse(identifier.isExperimental());
+    assertFalse(identifier.isObsolete());
   }
 
   @Test
   public void should_return_a_valid_first_line_pseudo_identifier_object_uppercase_test() {
     StandardPseudoIdentifier identifier = StandardPseudoIdentifierFactory.getByName("FIRST-LINE");
     assertEquals(FirstLine.class, identifier.getClass());
-    assertEquals(identifier.getName(), "first-line");
-    assertEquals(identifier.getLinks().size(), 1);
-    assertEquals(identifier.getLinks().get(0), "https://drafts.csswg.org/css-pseudo-4/#first-line-pseudo");
-    assertEquals(identifier.isExperimental(), false);
-    assertEquals(identifier.isObsolete(), false);
+    assertEquals("first-line", identifier.getName());
+    assertEquals(1, identifier.getLinks().size());
+    assertEquals("https://drafts.csswg.org/css-pseudo-4/#first-line-pseudo", identifier.getLinks().get(0));
+    assertFalse(identifier.isExperimental());
+    assertFalse(identifier.isObsolete());
   }
 
   @Test
   public void should_return_a_valid_first_line_pseudo_identifier_object_mix_uppercase_lowercase_test() {
     StandardPseudoIdentifier identifier = StandardPseudoIdentifierFactory.getByName("FIRSt-LINE");
     assertEquals(FirstLine.class, identifier.getClass());
-    assertEquals(identifier.getName(), "first-line");
-    assertEquals(identifier.getLinks().size(), 1);
-    assertEquals(identifier.getLinks().get(0), "https://drafts.csswg.org/css-pseudo-4/#first-line-pseudo");
-    assertEquals(identifier.isExperimental(), false);
-    assertEquals(identifier.isObsolete(), false);
+    assertEquals("first-line", identifier.getName());
+    assertEquals(1, identifier.getLinks().size());
+    assertEquals("https://drafts.csswg.org/css-pseudo-4/#first-line-pseudo", identifier.getLinks().get(0));
+    assertFalse(identifier.isExperimental());
+    assertFalse(identifier.isObsolete());
   }
 
   @Test
