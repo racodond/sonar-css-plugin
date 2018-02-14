@@ -74,10 +74,8 @@ public class StandardPropertyFactoryTest {
     assertEquals(2, property.getLinks().size());
     assertEquals("http://dev.w3.org/csswg/css-multicol-1/#propdef-column-count", property.getLinks().get(0));
     assertEquals("https://developer.mozilla.org/en-US/docs/Web/CSS/column-count", property.getLinks().get(1));
-    assertEquals(1, property.getValidators().size());
-    assertEquals(1, property.getVendors().size());
-    assertTrue(property.getVendors().contains(Vendor.MOZILLA));
-    assertFalse(property.getVendors().contains(Vendor.MICROSOFT));
+    assertEquals(2, property.getValidators().size());
+    assertEquals(0, property.getVendors().size());
     assertFalse(property.isObsolete());
   }
 

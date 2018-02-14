@@ -19,7 +19,6 @@
  */
 package org.sonar.css.model.property.standard;
 
-import org.sonar.css.model.Vendor;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 
@@ -30,8 +29,7 @@ public class ColumnCount extends StandardProperty {
     addLinks(
       "http://dev.w3.org/csswg/css-multicol-1/#propdef-column-count",
       "https://developer.mozilla.org/en-US/docs/Web/CSS/column-count");
-    addVendors(Vendor.MOZILLA);
-    addValidators(ValidatorFactory.getPositiveIntegerValidator());
+    addValidators(ValidatorFactory.getAutoValidator(), ValidatorFactory.getPositiveIntegerValidator());
   }
 
 }

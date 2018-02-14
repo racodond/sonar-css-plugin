@@ -1,5 +1,6 @@
 .mybox {
   column-count: inherit;
+  column-count: auto;
   column-count: 0;
   column-count: 10;
   column-count: 10.3; /* Noncompliant !{Update the invalid value of property "column-count". Expected format: <integer>(>=0)}! */
