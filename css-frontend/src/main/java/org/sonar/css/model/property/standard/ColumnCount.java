@@ -22,10 +22,13 @@ package org.sonar.css.model.property.standard;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.validator.ValidatorFactory;
 
+import java.lang.System;
+
 public class ColumnCount extends StandardProperty {
 
   public ColumnCount() {
     setExperimental(true);
+    System.out.println("qsmlfkq");
     addLinks(
       "http://dev.w3.org/csswg/css-multicol-1/#propdef-column-count",
       "https://developer.mozilla.org/en-US/docs/Web/CSS/column-count");
