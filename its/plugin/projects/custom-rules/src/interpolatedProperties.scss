@@ -7,5 +7,5 @@ $my-var: background;
 .mybox2 {
   #{$my-var}-color: blue; /* Noncompliant ![sc=3;ec=19]! !{Remove this usage of the "#{$my-var}-color" interpolated property.}! */
   color: red;
-  #{$my-var}-color: url("paper.gif"); /* Noncompliant ![sc=3;ec=19]! !{Remove this usage of the "#{$my-var}-image" interpolated property.}! */
+  #{$my-var}-image: url("paper.gif"); /* Noncompliant ![sc=3;ec=19]! !{Remove this usage of the "#{$my-var}-image" interpolated property.}! */
 }
