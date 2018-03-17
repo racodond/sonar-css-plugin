@@ -19,21 +19,34 @@
  */
 package org.sonar.css.checks.common;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
+import org.sonar.css.checks.CheckList;
+import org.sonar.css.checks.CheckUtils;
 import org.sonar.css.checks.Tags;
 import org.sonar.css.model.atrule.standard.FontFace;
 import org.sonar.css.model.property.StandardProperty;
 import org.sonar.css.model.property.standard.FontFamily;
 import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.css.*;
+import org.sonar.plugins.css.api.tree.css.AtRuleTree;
+import org.sonar.plugins.css.api.tree.css.DelimiterTree;
+import org.sonar.plugins.css.api.tree.css.IdentifierTree;
+import org.sonar.plugins.css.api.tree.css.PropertyDeclarationTree;
+import org.sonar.plugins.css.api.tree.css.StringTree;
+import org.sonar.plugins.css.api.tree.css.ValueCommaSeparatedListTree;
+import org.sonar.plugins.css.api.tree.css.ValueTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 import javax.annotation.Nullable;
+import java.text.MessageFormat;
 import java.util.List;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 @Rule(
   key = "font-family-not-ending-with-generic-font-family",
@@ -43,6 +56,16 @@ import java.util.List;
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
 public class FontFamilyNotEndingWithGenericFontFamilyCheck extends DoubleDispatchVisitorCheck {
+
+  private static final String DEFAULT_EXCLUSIONS = "(?i)^(FontAwesome|Glyphicons Halflings|Ionicons|Genericons)$";
+  @RuleProperty(
+    key = "Exclusions",
+    description = "Regular expression of font families to exclude. See "
+      + CheckUtils.LINK_TO_JAVA_REGEX_PATTERN_DOC
+      + " for detailed regular expression syntax.",
+    defaultValue = DEFAULT_EXCLUSIONS)
+  private String exclusions = DEFAULT_EXCLUSIONS;
+
 
   @Override
   public void visitPropertyDeclaration(PropertyDeclarationTree tree) {
@@ -85,7 +108,7 @@ public class FontFamilyNotEndingWithGenericFontFamilyCheck extends DoubleDispatc
       return false;
     }
 
-    if (!tree.is(Tree.Kind.IDENTIFIER, Tree.Kind.LESS_VARIABLE, Tree.Kind.SCSS_VARIABLE, Tree.Kind.VARIABLE, Tree.Kind.FUNCTION)) {
+    if (!tree.is(Tree.Kind.IDENTIFIER, Tree.Kind.STRING, Tree.Kind.LESS_VARIABLE, Tree.Kind.SCSS_VARIABLE, Tree.Kind.VARIABLE, Tree.Kind.FUNCTION)) {
       return false;
     }
 
@@ -93,10 +116,16 @@ public class FontFamilyNotEndingWithGenericFontFamilyCheck extends DoubleDispatc
       IdentifierTree identifier = (IdentifierTree) tree;
       if (!identifier.isInterpolated()
         && !FontFamily.GENERIC_FAMILY_NAMES.contains(identifier.text().toLowerCase())
-        && !StandardProperty.COMMON_VALUES.contains(identifier.text().toLowerCase())) {
+        && !StandardProperty.COMMON_VALUES.contains(identifier.text().toLowerCase())
+        && !identifier.text().matches(exclusions)) {
         return false;
       }
     }
+
+    if (tree.is(Tree.Kind.STRING) && !((StringTree) tree).actualText().matches(exclusions)) {
+      return false;
+    }
+
     return true;
   }
 
@@ -113,6 +142,27 @@ public class FontFamilyNotEndingWithGenericFontFamilyCheck extends DoubleDispatc
     }
 
     return true;
+  }
+
+  @VisibleForTesting
+  void setExclusions(String exclusions) {
+    this.exclusions = exclusions;
+  }
+
+  @Override
+  public void validateParameters() {
+    try {
+      Pattern.compile(exclusions);
+    } catch (PatternSyntaxException exception) {
+      throw new IllegalStateException(paramsErrorMessage(), exception);
+    }
+  }
+
+  private String paramsErrorMessage() {
+    return CheckUtils.paramsErrorMessage(
+      this.getClass(),
+      CheckList.CSS_REPOSITORY_KEY,
+      MessageFormat.format("exclusions parameter \"{0}\" is not a valid regular expression.", exclusions));
   }
 
 }

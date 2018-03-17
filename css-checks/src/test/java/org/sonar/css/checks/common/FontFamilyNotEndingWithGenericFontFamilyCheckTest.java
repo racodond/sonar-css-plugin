@@ -25,23 +25,53 @@ import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 import java.io.File;
 
-public class FontFamilyNotEndingWithGenericFontFamilyCheckTest {
+import static org.fest.assertions.Assertions.assertThat;
 
-  private FontFamilyNotEndingWithGenericFontFamilyCheck check = new FontFamilyNotEndingWithGenericFontFamilyCheck();
+public class FontFamilyNotEndingWithGenericFontFamilyCheckTest {
 
   @Test
   public void test_css() {
+    FontFamilyNotEndingWithGenericFontFamilyCheck check = new FontFamilyNotEndingWithGenericFontFamilyCheck();
     CssCheckVerifier.verifyCssFile(check, getTestFile("fontFamilyNotEndingWithGenericFontFamily.css"));
   }
 
   @Test
   public void test_less() {
+    FontFamilyNotEndingWithGenericFontFamilyCheck check = new FontFamilyNotEndingWithGenericFontFamilyCheck();
     CssCheckVerifier.verifyLessFile(check, getTestFile("fontFamilyNotEndingWithGenericFontFamily.less"));
   }
 
   @Test
   public void test_scss() {
+    FontFamilyNotEndingWithGenericFontFamilyCheck check = new FontFamilyNotEndingWithGenericFontFamilyCheck();
     CssCheckVerifier.verifyScssFile(check, getTestFile("fontFamilyNotEndingWithGenericFontFamily.scss"));
+  }
+
+  @Test
+  public void test_with_default_exclusions() {
+    FontFamilyNotEndingWithGenericFontFamilyCheck check = new FontFamilyNotEndingWithGenericFontFamilyCheck();
+    CssCheckVerifier.verifyCssFile(check, getTestFile("fontFamilyNotEndingWithGenericFontFamilyDefaultExclusions.css"));
+  }
+
+  @Test
+  public void test_with_custom_format() {
+    FontFamilyNotEndingWithGenericFontFamilyCheck check = new FontFamilyNotEndingWithGenericFontFamilyCheck();
+    check.setExclusions("^My-.+$");
+    CssCheckVerifier.verifyCssFile(check, getTestFile("fontFamilyNotEndingWithGenericFontFamilyCustomExclusions.css"));
+  }
+
+  @Test
+  public void should_throw_an_illegal_state_exception_as_the_exclusions_parameter_is_not_valid() {
+    try {
+      FontFamilyNotEndingWithGenericFontFamilyCheck check = new FontFamilyNotEndingWithGenericFontFamilyCheck();
+      check.setExclusions("(");
+
+      CssCheckVerifier.issuesOnCssFile(check, getTestFile("fontFamilyNotEndingWithGenericFontFamily.css")).noMore();
+
+    } catch (IllegalStateException e) {
+      assertThat(e.getMessage()).isEqualTo("Check css:font-family-not-ending-with-generic-font-family (font-family properties should end with a generic font family): "
+        + "exclusions parameter \"(\" is not a valid regular expression.");
+    }
   }
 
   private File getTestFile(String fileName) {

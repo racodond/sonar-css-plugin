@@ -14,6 +14,14 @@
 11,
 12,
 ],
+'project:custom/common/font-family-not-ending-with-generic-font-family/fontFamilyNotEndingWithGenericFontFamilyCustomExclusions.css':[
+3,
+4,
+],
+'project:custom/common/font-family-not-ending-with-generic-font-family/fontFamilyNotEndingWithGenericFontFamilyDefaultExclusions.css':[
+11,
+12,
+],
 'project:custom/common/formatting/delimiterSeparatedList.css':[
 2,
 ],
