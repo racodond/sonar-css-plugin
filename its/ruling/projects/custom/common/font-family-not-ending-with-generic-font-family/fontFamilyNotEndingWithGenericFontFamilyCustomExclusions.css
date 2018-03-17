@@ -1,0 +1,5 @@
+.mybox1 {
+  font-family: FontAwesome; /* Noncompliant ![sc=16;ec=27;el=+0]! !{Add a generic font family at the end of the declaration.}! */
+  font-family: My-Icons;
+  font-family: my-icons; /* Noncompliant ![sc=16;ec=24;el=+0]! !{Add a generic font family at the end of the declaration.}! */
+}

@@ -30,6 +30,14 @@
 'project:custom/common/font-family-not-ending-with-generic-font-family/fontFamilyNotEndingWithGenericFontFamily.css':[
 6,
 ],
+'project:custom/common/font-family-not-ending-with-generic-font-family/fontFamilyNotEndingWithGenericFontFamilyDefaultExclusions.css':[
+3,
+4,
+6,
+8,
+10,
+12,
+],
 'project:custom/common/known-properties/knownProperties.css':[
 38,
 68,

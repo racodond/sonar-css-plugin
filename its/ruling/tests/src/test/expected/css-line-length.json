@@ -84,6 +84,14 @@
 11,
 12,
 ],
+'project:custom/common/font-family-not-ending-with-generic-font-family/fontFamilyNotEndingWithGenericFontFamilyCustomExclusions.css':[
+2,
+4,
+],
+'project:custom/common/font-family-not-ending-with-generic-font-family/fontFamilyNotEndingWithGenericFontFamilyDefaultExclusions.css':[
+11,
+12,
+],
 'project:custom/common/fontface/basic.css':[
 58,
 63,

@@ -1,0 +1,13 @@
+.mybox1 {
+  font-family: FontAwesome;
+  font-family: "FontAwesome";
+  font-family: "Glyphicons Halflings";
+  font-family: Ionicons;
+  font-family: "Ionicons";
+  font-family: Genericons;
+  font-family: "Genericons";
+  font-family: genericons;
+  font-family: "genericons";
+  font-family: MyIcons; /* Noncompliant ![sc=16;ec=23;el=+0]! !{Add a generic font family at the end of the declaration.}! */
+  font-family: "MyIcons"; /* Noncompliant ![sc=16;ec=25;el=+0]! !{Add a generic font family at the end of the declaration.}! */
+}
