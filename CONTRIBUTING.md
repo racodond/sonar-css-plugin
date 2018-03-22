@@ -1,7 +1,6 @@
 ## Raising a Bug
-While raising a bug, please provide:
-* Version of the SonarQube platform
-* Version of the CSS / SCSS / Less plugin
+While raising a bug, please, make sure that you run the [latest version](https://github.com/racodond/sonar-css-plugin/releases/latest) of the SonarQube CSS / SCSS / Less plugin and provide:
+* Version of your SonarQube platform
 * Log file of the analysis
 * Source code to reproduce the error
 
