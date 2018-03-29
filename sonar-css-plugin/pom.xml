@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.codehaus.sonar-plugins.css</groupId>
     <artifactId>css</artifactId>
-    <version>4.15-SNAPSHOT</version>
+    <version>4.15</version>
   </parent>
 
   <artifactId>sonar-css-plugin</artifactId>
