@@ -35,6 +35,8 @@ public class IdSelectorTreeTest extends ScssTreeTest {
   public void idSelector() {
     checkParsed("#id", "id", false);
     checkParsed("#id#{$abc}-def", "id#{$abc}-def", true);
+    checkParsed("#-id#{$abc}-def", "-id#{$abc}-def", true);
+    checkParsed("#--id#{$abc}-def", "--id#{$abc}-def", true);
   }
 
   @Test

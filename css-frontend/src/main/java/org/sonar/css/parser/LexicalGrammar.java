@@ -299,6 +299,8 @@ public enum LexicalGrammar implements GrammarRuleKey {
   SCSS_MULTILINE_STRING,
   SCSS_MULTILINE_STRING_LITERAL,
 
+  SCSS_IDENT,
+
   /* Less */
   LESS_VARIABLE_DECLARATION,
   LESS_VARIABLE_DECLARATION_AS_PARAMETER,
@@ -623,10 +625,17 @@ public enum LexicalGrammar implements GrammarRuleKey {
     b.rule(SCSS_AT_ROOT_WITH).is(SPACING, b.token(GenericTokenType.LITERAL, "with"));
     b.rule(SCSS_AT_ROOT_WITHOUT).is(SPACING, b.token(GenericTokenType.LITERAL, "without"));
 
+    b.rule(SCSS_IDENT).is(
+      b.firstOf(
+        b.regexp("(?i)(progid:DXImageTransform\\.Microsoft\\.[a-z]+)"),
+        b.sequence(_NMSTART, b.zeroOrMore(_NMCHAR)),
+        b.oneOrMore(_NMCHAR)))
+      .skip();
+
     b.rule(SCSS_IDENT_INTERPOLATED_IDENTIFIER_NO_WS).is(
       b.token(GenericTokenType.LITERAL,
         b.sequence(
-          b.optional(IDENT_IDENTIFIER_NO_WS),
+          b.optional(SCSS_IDENT),
           b.regexp("#\\{[^\\n\\r\\f\\}]*\\}"),
           b.zeroOrMore(
             b.firstOf(

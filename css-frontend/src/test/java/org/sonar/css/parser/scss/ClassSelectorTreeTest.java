@@ -41,6 +41,8 @@ public class ClassSelectorTreeTest extends ScssTreeTest {
     checkParsed(".abc#{$class}", "abc#{$class}", true);
     checkParsed(".abc#{$class}#{$class1}def", "abc#{$class}#{$class1}def", true);
     checkParsed(".abc#{$class}e#{$class1}def", "abc#{$class}e#{$class1}def", true);
+    checkParsed(".-abc#{$class}e#{$class1}def", "-abc#{$class}e#{$class1}def", true);
+    checkParsed(".--abc#{$class}e#{$class1}def", "--abc#{$class}e#{$class1}def", true);
   }
 
   @Test

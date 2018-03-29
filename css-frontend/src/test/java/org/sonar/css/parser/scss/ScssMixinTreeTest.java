@@ -95,6 +95,8 @@ public class ScssMixinTreeTest extends ScssTreeTest {
     assertThat(tree.block().propertyDeclarations()).hasSize(2);
     assertThat(tree.block().rulesets()).hasSize(2);
     assertThat(tree.block().scssMixinIncludes()).hasSize(2);
+
+    checkParsed("@mixin view-mixin($key) { &-#{$key}-view { color: red; } }");
   }
 
   @Test

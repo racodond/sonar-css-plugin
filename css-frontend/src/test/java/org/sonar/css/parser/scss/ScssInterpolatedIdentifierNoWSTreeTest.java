@@ -40,6 +40,7 @@ public class ScssInterpolatedIdentifierNoWSTreeTest extends ScssTreeTest {
     checkParsed("abc#{$class}");
     checkParsed("abc#{$class}#{$class1}def");
     checkParsed("-moz-abc#{$class}e#{$class1}def");
+    checkParsed("--abc#{$class}e#{$class1}def");
   }
 
   @Test
