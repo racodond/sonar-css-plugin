@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+git fetch --unshallow
+
 mvn -B clean install -Pits -Dsonar.runtimeVersion=$SQ_VERSION
 
 if [ "$SQ_VERSION" == "LTS" ]; then
