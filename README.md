@@ -37,10 +37,6 @@ and:
 1. Install your [favorite scanner](http://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code#AnalyzingSourceCode-RunningAnalysis) (SonarQube Scanner, Maven, Ant, etc.)
 1. [Analyze your code](http://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code#AnalyzingSourceCode-RunningAnalysis)
 
-
-### Getting Started in Two Minutes
-For a quick try, a simple package and procedure is available at https://github.com/racodond/package-test-sonarqube-css
-
 ### Analyzing CSS code embedded in HTML/XHTML files
 The plugin analyzes CSS code embedded in `<style type="text/css">...</style>` tags in HTML/XHTML files.
 To do so, as a prerequisite, SonarQube has to import those files. Either:
