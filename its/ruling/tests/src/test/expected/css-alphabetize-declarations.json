@@ -143,6 +143,9 @@
 'project:custom/css/experimentalFunctionUsage.css':[
 1,
 ],
+'project:custom/css/experimentalFunctionUsageExcludeFunctions.css':[
+1,
+],
 'project:custom/css/unknownFunctions.css':[
 1,
 ],

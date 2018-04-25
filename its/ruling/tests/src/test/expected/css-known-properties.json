@@ -96,4 +96,7 @@
 'project:custom/css/experimentalFunctionUsage.css':[
 7,
 ],
+'project:custom/css/experimentalFunctionUsageExcludeFunctions.css':[
+4,
+],
 }
