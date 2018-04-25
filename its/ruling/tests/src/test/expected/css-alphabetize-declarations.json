@@ -38,6 +38,9 @@
 'project:custom/common/emptyRule.css':[
 27,
 ],
+'project:custom/common/experimental-property-usage/experimentalPropertyUsageExcludeProperties.css':[
+1,
+],
 'project:custom/common/experimentalAtRuleUsage.css':[
 6,
 19,
