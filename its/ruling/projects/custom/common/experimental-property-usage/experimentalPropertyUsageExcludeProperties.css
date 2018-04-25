@@ -1,0 +1,6 @@
+.mybox {
+  border-radius: 5px;
+  user-select: all;
+  voice-balance: center;
+  pause: 3s; /* Noncompliant ![sc=3;ec=8;el=+0]! !{Remove this usage of the experimental "pause" property.}! */
+}
