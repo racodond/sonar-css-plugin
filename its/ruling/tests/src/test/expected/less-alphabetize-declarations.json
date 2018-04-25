@@ -29,6 +29,16 @@
 50,
 57,
 ],
+'project:custom/common/experimental-atrule-usage/experimentalAtRuleUsage.less':[
+6,
+19,
+31,
+56,
+],
+'project:custom/common/experimental-atrule-usage/experimentalAtRuleUsageExcludeAtRules.less':[
+1,
+9,
+],
 'project:custom/common/experimental-property-usage/experimentalPropertyUsageExcludeProperties.less':[
 1,
 ],

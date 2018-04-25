@@ -33,6 +33,10 @@
 'project:custom/common/display-property-grouping/displayProperty.scss':[
 30,
 ],
+'project:custom/common/experimental-atrule-usage/experimentalAtRuleUsage.scss':[
+19,
+66,
+],
 'project:custom/common/experimental-pseudo-usage/experimentalPseudoUsage.scss':[
 1,
 9,

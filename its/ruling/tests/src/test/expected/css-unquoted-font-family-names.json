@@ -23,7 +23,7 @@
 'project:custom/common/emptyRule.css':[
 28,
 ],
-'project:custom/common/experimentalAtRuleUsage.css':[
+'project:custom/common/experimental-atrule-usage/experimentalAtRuleUsage.css':[
 56,
 ],
 'project:custom/common/font-family-not-ending-with-generic-font-family/fontFamilyNotEndingWithGenericFontFamily.css':[

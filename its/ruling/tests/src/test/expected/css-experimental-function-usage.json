@@ -1,9 +1,12 @@
 {
-'project:custom/common/experimentalAtRuleUsage.css':[
+'project:custom/common/experimental-atrule-usage/experimentalAtRuleUsage.css':[
 15,
 16,
 17,
 88,
+],
+'project:custom/common/experimental-atrule-usage/experimentalAtRuleUsageExcludeAtRules.css':[
+17,
 ],
 'project:custom/common/function-regular-expression/functionRegularExpression.css':[
 4,
