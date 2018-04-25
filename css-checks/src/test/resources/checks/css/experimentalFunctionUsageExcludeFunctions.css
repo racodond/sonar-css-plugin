@@ -1,0 +1,5 @@
+.mybox {
+  background: conic-gradient(#f06, rgba(0,0,0,.5));
+  width: counter(1);
+  abc: supports(); /* Noncompliant */
+}
