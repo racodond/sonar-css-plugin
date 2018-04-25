@@ -19,14 +19,21 @@
  */
 package org.sonar.css.checks.common;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
+import org.sonar.css.checks.CheckList;
+import org.sonar.css.checks.CheckUtils;
 import org.sonar.css.checks.Tags;
 import org.sonar.plugins.css.api.tree.css.IdentifierTree;
 import org.sonar.plugins.css.api.tree.css.ValueTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 @Rule(
   key = "experimental-identifier-usage",
@@ -37,14 +44,43 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 @ActivatedByDefault
 public class ExperimentalIdentifierCheck extends DoubleDispatchVisitorCheck {
 
+  private static final String DEFAULT_IDENTIFIERS_TO_EXCLUDE = "";
+
+  @RuleProperty(
+    key = "identifiersToExclude",
+    description = "A regular expression to exclude identifiers from being considered as experimental. Example: \"gradient|flex.*\". See " + CheckUtils.LINK_TO_JAVA_REGEX_PATTERN_DOC + " for detailed regular expression syntax.",
+    defaultValue = DEFAULT_IDENTIFIERS_TO_EXCLUDE)
+  private String identifiersToExclude = DEFAULT_IDENTIFIERS_TO_EXCLUDE;
+
   @Override
   public void visitValue(ValueTree tree) {
     tree.valueElementsOfType(IdentifierTree.class)
       .stream()
-      .filter(IdentifierTree::isVendorPrefixed)
+      .filter(i -> i.isVendorPrefixed() && !i.name().matches(identifiersToExclude))
       .forEach(i -> addPreciseIssue(i, "Remove this usage of the experimental \"" + i.text() + "\" identifier."));
 
     super.visitValue(tree);
+  }
+
+  @Override
+  public void validateParameters() {
+    try {
+      Pattern.compile(identifiersToExclude);
+    } catch (PatternSyntaxException exception) {
+      throw new IllegalStateException(paramsErrorMessage(), exception);
+    }
+  }
+
+  @VisibleForTesting
+  void setIdentifiersToExclude(String identifiersToExclude) {
+    this.identifiersToExclude = identifiersToExclude;
+  }
+
+  private String paramsErrorMessage() {
+    return CheckUtils.paramsErrorMessage(
+      this.getClass(),
+      CheckList.CSS_REPOSITORY_KEY,
+      "identifiersToExclude parameter \"" + identifiersToExclude + "\" is not a valid regular expression.");
   }
 
 }

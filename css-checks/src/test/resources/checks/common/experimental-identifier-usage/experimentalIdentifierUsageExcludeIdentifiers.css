@@ -1,0 +1,5 @@
+.mybox {
+  display: -moz-abc; /* Noncompliant ![sc=12;ec=20;el=+0]! !{Remove this usage of the experimental "-moz-abc" identifier.}! */
+  display: -ms-definite;
+  display: -moz-flex;
+}

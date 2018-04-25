@@ -81,5 +81,4 @@ public class ExperimentalAtRuleCheckTest {
     return CheckTestUtils.getCommonTestFile("experimental-atrule-usage/" + fileName);
   }
 
-
 }
