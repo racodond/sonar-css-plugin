@@ -99,6 +99,9 @@
 'project:custom/less/experimentalFunctionUsage.less':[
 1,
 ],
+'project:custom/less/experimentalFunctionUsageExcludeFunctions.less':[
+1,
+],
 'project:custom/less/unknownFunctions.less':[
 1,
 ],
