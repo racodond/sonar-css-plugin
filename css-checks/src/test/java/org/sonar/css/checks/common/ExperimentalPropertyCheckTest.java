@@ -25,23 +25,56 @@ import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 import java.io.File;
 
-public class ExperimentalPropertyCheckTest {
+import static org.fest.assertions.Assertions.assertThat;
 
-  private ExperimentalPropertyCheck check = new ExperimentalPropertyCheck();
+public class ExperimentalPropertyCheckTest {
 
   @Test
   public void test_css() {
-    CssCheckVerifier.verifyCssFile(check, getTestFile("experimentalPropertyUsage.css"));
+    CssCheckVerifier.verifyCssFile(new ExperimentalPropertyCheck(), getTestFile("experimentalPropertyUsage.css"));
+  }
+
+  @Test
+  public void test_css_exclude_properties() {
+    ExperimentalPropertyCheck check = new ExperimentalPropertyCheck();
+    check.setPropertiesToExclude("user-select|voice.*");
+    CssCheckVerifier.verifyCssFile(check, getTestFile("experimentalPropertyUsageExcludeProperties.css"));
   }
 
   @Test
   public void test_less() {
-    CssCheckVerifier.verifyLessFile(check, getTestFile("experimentalPropertyUsage.less"));
+    CssCheckVerifier.verifyLessFile(new ExperimentalPropertyCheck(), getTestFile("experimentalPropertyUsage.less"));
+  }
+
+  @Test
+  public void test_less_exclude_properties() {
+    ExperimentalPropertyCheck check = new ExperimentalPropertyCheck();
+    check.setPropertiesToExclude("user-select|voice.*");
+    CssCheckVerifier.verifyCssFile(check, getTestFile("experimentalPropertyUsageExcludeProperties.less"));
   }
 
   @Test
   public void test_scss() {
-    CssCheckVerifier.verifyScssFile(check, getTestFile("experimentalPropertyUsage.scss"));
+    CssCheckVerifier.verifyScssFile(new ExperimentalPropertyCheck(), getTestFile("experimentalPropertyUsage.scss"));
+  }
+
+  @Test
+  public void test_scss_exclude_properties() {
+    ExperimentalPropertyCheck check = new ExperimentalPropertyCheck();
+    check.setPropertiesToExclude("user-select|voice.*");
+    CssCheckVerifier.verifyCssFile(check, getTestFile("experimentalPropertyUsageExcludeProperties.scss"));
+  }
+
+  @Test
+  public void should_throw_an_illegal_state_exception_as_the_regular_expression_parameter_is_not_valid() {
+    try {
+      ExperimentalPropertyCheck check = new ExperimentalPropertyCheck();
+      check.setPropertiesToExclude("(");
+      CssCheckVerifier.issuesOnCssFile(check, getTestFile("experimentalPropertyUsage.css")).noMore();
+    } catch (IllegalStateException e) {
+      assertThat(e.getMessage()).isEqualTo("Check css:experimental-property-usage (Experimental properties should not be used): "
+        + "propertiesToExclude parameter \"(\" is not a valid regular expression.");
+    }
   }
 
   private File getTestFile(String fileName) {
