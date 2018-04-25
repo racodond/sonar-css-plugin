@@ -1,0 +1,27 @@
+#id:-moz-abc { /* Noncompliant ![sc=5;ec=13;el=+0]! !{Remove this usage of the experimental "abc" pseudo.}! */
+  color: red;
+}
+
+p:-moz-abc(ltr) { /* Noncompliant ![sc=3;ec=11;el=+0]! !{Remove this usage of the experimental "abc" pseudo.}! */
+  color: red;
+}
+
+:host { /* Noncompliant ![sc=2;ec=6;el=+0]! !{Remove this usage of the experimental "host" pseudo.}! */
+  color: red;
+}
+
+:content {
+  color: red;
+}
+
+:any-link() {
+  color: red;
+}
+
+p:empty {
+  color: red;
+}
+
+p:not(.mybox) {
+  color: red;
+}

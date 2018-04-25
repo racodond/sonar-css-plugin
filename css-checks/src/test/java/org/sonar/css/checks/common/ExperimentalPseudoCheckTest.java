@@ -25,23 +25,56 @@ import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 import java.io.File;
 
-public class ExperimentalPseudoCheckTest {
+import static org.fest.assertions.Assertions.assertThat;
 
-  private ExperimentalPseudoCheck check = new ExperimentalPseudoCheck();
+public class ExperimentalPseudoCheckTest {
 
   @Test
   public void test_css() {
-    CssCheckVerifier.verifyCssFile(check, getTestFile("experimentalPseudoUsage.css"));
+    CssCheckVerifier.verifyCssFile(new ExperimentalPseudoCheck(), getTestFile("experimentalPseudoUsage.css"));
+  }
+
+  @Test
+  public void test_css_exclude_pseudos() {
+    ExperimentalPseudoCheck check = new ExperimentalPseudoCheck();
+    check.setPseudosToExclude("any-link|cont.*");
+    CssCheckVerifier.verifyCssFile(check, getTestFile("experimentalPseudoUsageExcludePseudos.css"));
   }
 
   @Test
   public void test_less() {
-    CssCheckVerifier.verifyLessFile(check, getTestFile("experimentalPseudoUsage.less"));
+    CssCheckVerifier.verifyLessFile(new ExperimentalPseudoCheck(), getTestFile("experimentalPseudoUsage.less"));
+  }
+
+  @Test
+  public void test_less_exclude_pseudos() {
+    ExperimentalPseudoCheck check = new ExperimentalPseudoCheck();
+    check.setPseudosToExclude("any-link|cont.*");
+    CssCheckVerifier.verifyLessFile(check, getTestFile("experimentalPseudoUsageExcludePseudos.less"));
   }
 
   @Test
   public void test_scss() {
-    CssCheckVerifier.verifyScssFile(check, getTestFile("experimentalPseudoUsage.scss"));
+    CssCheckVerifier.verifyScssFile(new ExperimentalPseudoCheck(), getTestFile("experimentalPseudoUsage.scss"));
+  }
+
+  @Test
+  public void test_scss_exclude_pseudos() {
+    ExperimentalPseudoCheck check = new ExperimentalPseudoCheck();
+    check.setPseudosToExclude("any-link|cont.*");
+    CssCheckVerifier.verifyScssFile(check, getTestFile("experimentalPseudoUsageExcludePseudos.scss"));
+  }
+
+  @Test
+  public void should_throw_an_illegal_state_exception_as_the_pseudosToExclude_parameter_is_not_valid() {
+    try {
+      ExperimentalPseudoCheck check = new ExperimentalPseudoCheck();
+      check.setPseudosToExclude("(");
+      CssCheckVerifier.issuesOnCssFile(check, getTestFile("experimentalPseudoUsage.css")).noMore();
+    } catch (IllegalStateException e) {
+      assertThat(e.getMessage()).isEqualTo("Check css:experimental-pseudo-usage (Experimental pseudo-elements and pseudo-classes should not be used): "
+        + "pseudosToExclude parameter \"(\" is not a valid regular expression.");
+    }
   }
 
   private File getTestFile(String fileName) {
