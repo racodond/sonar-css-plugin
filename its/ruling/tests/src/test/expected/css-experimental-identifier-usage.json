@@ -1,7 +1,12 @@
 {
-'project:custom/common/experimentalIdentifierUsage.css':[
+'project:custom/common/experimental-identifier-usage/experimentalIdentifierUsage.css':[
 5,
 6,
+],
+'project:custom/common/experimental-identifier-usage/experimentalIdentifierUsageExcludeIdentifiers.css':[
+2,
+3,
+4,
 ],
 'project:custom/common/properties/css/display.css':[
 28,

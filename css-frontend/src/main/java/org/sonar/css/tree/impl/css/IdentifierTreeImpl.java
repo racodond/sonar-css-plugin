@@ -34,12 +34,14 @@ public class IdentifierTreeImpl extends LiteralTreeImpl implements IdentifierTre
   private static final Pattern LESS_INTERPOLATED_VARIABLE = Pattern.compile("@\\{[\\w-_]+\\}");
   private static final Pattern SCSS_INTERPOLATED_VARIABLE = Pattern.compile("#\\{.+\\}");
   private final Vendor vendor;
+  private final String name;
   private Scope scope;
   private Symbol symbol = null;
 
   public IdentifierTreeImpl(SyntaxToken ident) {
     super(ident);
     this.vendor = setVendorPrefix();
+    this.name = setName();
   }
 
   @Override
@@ -82,6 +84,11 @@ public class IdentifierTreeImpl extends LiteralTreeImpl implements IdentifierTre
     return vendor;
   }
 
+  @Override
+  public String name() {
+    return name;
+  }
+
   private Vendor setVendorPrefix() {
     for (Vendor v : Vendor.values()) {
       if (text().toLowerCase(Locale.ENGLISH).startsWith(v.getPrefix())) {
@@ -89,6 +96,15 @@ public class IdentifierTreeImpl extends LiteralTreeImpl implements IdentifierTre
       }
     }
     return null;
+  }
+
+  private String setName() {
+    for (Vendor v : Vendor.values()) {
+      if (text().toLowerCase(Locale.ENGLISH).startsWith(v.getPrefix())) {
+        return text().substring(v.getPrefix().length());
+      }
+    }
+    return text();
   }
 
   @Override

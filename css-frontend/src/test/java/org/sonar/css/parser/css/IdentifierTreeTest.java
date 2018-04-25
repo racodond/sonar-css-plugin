@@ -46,11 +46,13 @@ public class IdentifierTreeTest extends CssTreeTest {
     assertThat(tree.isVendorPrefixed()).isTrue();
     assertThat(tree.vendor()).isEqualTo(Vendor.MOZILLA);
     assertThat(tree.isLessInterpolated()).isFalse();
+    assertThat(tree.name()).isEqualTo("box-sizing");
 
     tree = checkParsed("_dunno-what");
     assertThat(tree.isVendorPrefixed()).isFalse();
     assertThat(tree.vendor()).isNull();
     assertThat(tree.isLessInterpolated()).isFalse();
+    assertThat(tree.name()).isEqualTo("_dunno-what");
 
     checkParsed("*");
   }

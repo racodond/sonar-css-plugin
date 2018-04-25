@@ -24,6 +24,9 @@
 4,
 10,
 ],
+'project:custom/common/experimental-identifier-usage/experimentalIdentifierUsage.css':[
+3,
+],
 'project:custom/common/experimental-property-usage/experimentalPropertyUsage.css':[
 3,
 4,
@@ -50,9 +53,6 @@
 3,
 4,
 5,
-],
-'project:custom/common/experimentalIdentifierUsage.css':[
-3,
 ],
 'project:custom/common/ieStaticFilters.css':[
 2,

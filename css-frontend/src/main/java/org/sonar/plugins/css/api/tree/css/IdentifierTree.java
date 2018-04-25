@@ -32,6 +32,8 @@ public interface IdentifierTree extends LiteralTree {
   @Nullable
   Vendor vendor();
 
+  String name();
+
   boolean isInterpolated();
 
   boolean isLessInterpolated();
