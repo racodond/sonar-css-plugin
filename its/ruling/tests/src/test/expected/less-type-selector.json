@@ -32,6 +32,10 @@
 'project:custom/common/display-property-grouping/displayProperty.less':[
 30,
 ],
+'project:custom/common/experimental-atrule-usage/experimentalAtRuleUsage.less':[
+19,
+42,
+],
 'project:custom/common/experimental-pseudo-usage/experimentalPseudoUsage.less':[
 1,
 9,

@@ -1,0 +1,90 @@
+@-moz-vendoratrule {} /* Noncompliant ![sc=1;ec=19;el=+0]! !{Remove this usage of the experimental "vendoratrule" @-rule.}! */
+@-MOZ-vendoratrule {} /* Noncompliant ![sc=1;ec=19;el=+0]! !{Remove this usage of the experimental "vendoratrule" @-rule.}! */
+
+@-ms-keyframes fade {} /* Noncompliant ![sc=1;ec=15;el=+0]! !{Remove this usage of the experimental "keyframes" @-rule.}! */
+
+@counter-style winners-list { /* Noncompliant ![sc=1;ec=15;el=+0]! !{Remove this usage of the experimental "counter-style" @-rule.}! */
+  system: fixed;
+  symbols: url(gold-medal.svg) url(silver-medal.svg) url(bronze-medal.svg);
+  suffix: " ";
+}
+
+@custom-media --narrow-window (max-width: 30em); /* Noncompliant ![sc=1;ec=14;el=+0]! !{Remove this usage of the experimental "custom-media" @-rule.}! */
+
+@document url("http://www.w3.org/"), /* Noncompliant ![sc=1;ec=10;el=+0]! !{Remove this usage of the experimental "document" @-rule.}! */
+          url-prefix("http://www.w3.org/"),
+          domain(mozilla.org),
+          regexp("https:.*")
+{
+  body {
+    color: purple;
+    background: yellow;
+  }
+}
+
+@font-feature-values Font One { /* Noncompliant ![sc=1;ec=21;el=+0]! !{Remove this usage of the experimental "font-feature-values" @-rule.}! */
+  @swash { /* Noncompliant ![sc=3;ec=9;el=+0]! !{Remove this usage of the experimental "swash" @-rule.}! */
+    nice-style: 12;
+  }
+  @ornaments { /* Noncompliant ![sc=3;ec=13;el=+0]! !{Remove this usage of the experimental "ornaments" @-rule.}! */
+    nice-style: 12;
+  }
+  @annotation { /* Noncompliant ![sc=3;ec=14;el=+0]! !{Remove this usage of the experimental "annotation" @-rule.}! */
+    nice-style: 12;
+  }
+  @stylistic { /* Noncompliant ![sc=3;ec=13;el=+0]! !{Remove this usage of the experimental "stylistic" @-rule.}! */
+    nice-style: 12;
+  }
+  @styleset { /* Noncompliant ![sc=3;ec=12;el=+0]! !{Remove this usage of the experimental "styleset" @-rule.}! */
+    nice-style: 12;
+  }
+  @character-variant { /* Noncompliant ![sc=3;ec=21;el=+0]! !{Remove this usage of the experimental "character-variant" @-rule.}! */
+    nice-style: 12;
+  }
+}
+
+@keyframes fade {}
+@KEYFRAMES fade {}
+
+@viewport { /* Noncompliant ![sc=1;ec=10;el=+0]! !{Remove this usage of the experimental "viewport" @-rule.}! */
+  max-width: 10px;
+}
+
+@charset "UTF-8";
+
+@font-face {
+  font-family: MyHelvetica;
+  src: local("Helvetica Neue Bold"),
+       local("HelveticaNeue-Bold"),
+       url(MgOpenModernaBold.ttf);
+  font-weight: bold;
+}
+
+@import 'custom.css';
+
+@media screen, print {
+  body { line-height: 1.2 }
+}
+
+@namespace url(http://www.w3.org/1999/xhtml);
+
+@page :pseudo-class {
+  margin:2in;
+}
+
+@supports ( (perspective: 10px) or (-moz-perspective: 10px) or (-webkit-perspective: 10px) or
+            (-ms-perspective: 10px) or (-o-perspective: 10px) ) {
+  /* specific CSS applied when 3D transforms, eventually prefixed, are supported */
+}
+
+@page {
+  size: 8.5in 11in;
+  margin: 10%;
+
+  @top-left { /* Noncompliant ![sc=3;ec=12;el=+0]! !{Remove this usage of the experimental "top-left" @-rule.}! */
+    content: "Hamlet";
+  }
+  @top-right { /* Noncompliant ![sc=3;ec=13;el=+0]! !{Remove this usage of the experimental "top-right" @-rule.}! */
+    content: "Page " counter(page);
+  }
+}

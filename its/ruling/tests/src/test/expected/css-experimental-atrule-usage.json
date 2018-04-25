@@ -1,5 +1,5 @@
 {
-'project:custom/common/experimentalAtRuleUsage.css':[
+'project:custom/common/experimental-atrule-usage/experimentalAtRuleUsage.css':[
 1,
 2,
 4,
@@ -16,6 +16,12 @@
 49,
 84,
 87,
+],
+'project:custom/common/experimental-atrule-usage/experimentalAtRuleUsageExcludeAtRules.css':[
+1,
+7,
+13,
+16,
 ],
 'project:custom/common/oneDeclarationPerLine.css':[
 26,

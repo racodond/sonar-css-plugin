@@ -23,11 +23,63 @@ import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
+import java.io.File;
+
+import static org.fest.assertions.Assertions.assertThat;
+
 public class ExperimentalAtRuleCheckTest {
 
   @Test
-  public void test() {
-    CssCheckVerifier.verifyCssFile(new ExperimentalAtRuleCheck(), CheckTestUtils.getCommonTestFile("experimentalAtRuleUsage.css"));
+  public void test_css() {
+    CssCheckVerifier.verifyCssFile(new ExperimentalAtRuleCheck(), getTestFile("experimentalAtRuleUsage.css"));
   }
+
+  @Test
+  public void test_css_exclude_at_rules() {
+    ExperimentalAtRuleCheck check = new ExperimentalAtRuleCheck();
+    check.setAtRulesToExclude("custom-media|count.*");
+    CssCheckVerifier.verifyCssFile(check, getTestFile("experimentalAtRuleUsageExcludeAtRules.css"));
+  }
+
+  @Test
+  public void test_less() {
+    CssCheckVerifier.verifyLessFile(new ExperimentalAtRuleCheck(), getTestFile("experimentalAtRuleUsage.less"));
+  }
+
+  @Test
+  public void test_less_exclude_at_rules() {
+    ExperimentalAtRuleCheck check = new ExperimentalAtRuleCheck();
+    check.setAtRulesToExclude("custom-media|count.*");
+    CssCheckVerifier.verifyLessFile(check, getTestFile("experimentalAtRuleUsageExcludeAtRules.less"));
+  }
+
+  @Test
+  public void test_scss() {
+    CssCheckVerifier.verifyScssFile(new ExperimentalAtRuleCheck(), getTestFile("experimentalAtRuleUsage.scss"));
+  }
+
+  @Test
+  public void test_scss_exclude_at_rules() {
+    ExperimentalAtRuleCheck check = new ExperimentalAtRuleCheck();
+    check.setAtRulesToExclude("custom-media|count.*");
+    CssCheckVerifier.verifyScssFile(check, getTestFile("experimentalAtRuleUsageExcludeAtRules.scss"));
+  }
+
+  @Test
+  public void should_throw_an_illegal_state_exception_as_the_atRulesToExclude_parameter_is_not_valid() {
+    try {
+      ExperimentalAtRuleCheck check = new ExperimentalAtRuleCheck();
+      check.setAtRulesToExclude("(");
+      CssCheckVerifier.issuesOnCssFile(check, getTestFile("experimentalAtRuleUsage.css")).noMore();
+    } catch (IllegalStateException e) {
+      assertThat(e.getMessage()).isEqualTo("Check css:experimental-atrule-usage (Experimental @-rules should not be used): "
+        + "atRulesToExclude parameter \"(\" is not a valid regular expression.");
+    }
+  }
+
+  private File getTestFile(String fileName) {
+    return CheckTestUtils.getCommonTestFile("experimental-atrule-usage/" + fileName);
+  }
+
 
 }

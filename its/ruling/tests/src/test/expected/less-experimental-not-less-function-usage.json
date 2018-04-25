@@ -1,4 +1,13 @@
 {
+'project:custom/common/experimental-atrule-usage/experimentalAtRuleUsage.less':[
+15,
+16,
+17,
+64,
+],
+'project:custom/common/experimental-atrule-usage/experimentalAtRuleUsageExcludeAtRules.less':[
+17,
+],
 'project:custom/common/function-regular-expression/functionRegularExpression.less':[
 4,
 5,

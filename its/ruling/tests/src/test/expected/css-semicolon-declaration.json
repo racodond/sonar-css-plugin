@@ -5,7 +5,7 @@
 'project:custom/common/emptyRule.css':[
 35,
 ],
-'project:custom/common/experimentalAtRuleUsage.css':[
+'project:custom/common/experimental-atrule-usage/experimentalAtRuleUsage.css':[
 66,
 ],
 'project:custom/common/formatting/important.css':[

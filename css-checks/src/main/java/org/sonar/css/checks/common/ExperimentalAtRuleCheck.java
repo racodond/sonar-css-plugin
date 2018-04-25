@@ -19,13 +19,20 @@
  */
 package org.sonar.css.checks.common;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
+import org.sonar.css.checks.CheckList;
+import org.sonar.css.checks.CheckUtils;
 import org.sonar.css.checks.Tags;
 import org.sonar.plugins.css.api.tree.css.AtRuleTree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 @Rule(
   key = "experimental-atrule-usage",
@@ -36,14 +43,44 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 @ActivatedByDefault
 public class ExperimentalAtRuleCheck extends DoubleDispatchVisitorCheck {
 
+  private static final String DEFAULT_AT_RULES_TO_EXCLUDE = "";
+
+  @RuleProperty(
+    key = "atRulesToExclude",
+    description = "A regular expression to exclude @-rules from being considered as experimental. Example: \"annotation|bottom.*\". See " + CheckUtils.LINK_TO_JAVA_REGEX_PATTERN_DOC + " for detailed regular expression syntax.",
+    defaultValue = DEFAULT_AT_RULES_TO_EXCLUDE)
+  private String atRulesToExclude = DEFAULT_AT_RULES_TO_EXCLUDE;
+
   @Override
   public void visitAtRule(AtRuleTree tree) {
-    if (tree.isVendorPrefixed() || tree.standardAtRule().isExperimental()) {
+    if (!tree.standardAtRule().getName().matches(atRulesToExclude)
+      && (tree.isVendorPrefixed() || tree.standardAtRule().isExperimental())) {
       addPreciseIssue(
         tree.atKeyword(),
         "Remove this usage of the experimental \"" + tree.standardAtRule().getName() + "\" @-rule.");
     }
     super.visitAtRule(tree);
+  }
+
+  @Override
+  public void validateParameters() {
+    try {
+      Pattern.compile(atRulesToExclude);
+    } catch (PatternSyntaxException exception) {
+      throw new IllegalStateException(paramsErrorMessage(), exception);
+    }
+  }
+
+  @VisibleForTesting
+  void setAtRulesToExclude(String atRulesToExclude) {
+    this.atRulesToExclude = atRulesToExclude;
+  }
+
+  private String paramsErrorMessage() {
+    return CheckUtils.paramsErrorMessage(
+      this.getClass(),
+      CheckList.CSS_REPOSITORY_KEY,
+      "atRulesToExclude parameter \"" + atRulesToExclude + "\" is not a valid regular expression.");
   }
 
 }

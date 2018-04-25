@@ -37,6 +37,16 @@
 50,
 57,
 ],
+'project:custom/common/experimental-atrule-usage/experimentalAtRuleUsage.scss':[
+6,
+19,
+55,
+80,
+],
+'project:custom/common/experimental-atrule-usage/experimentalAtRuleUsageExcludeAtRules.scss':[
+1,
+9,
+],
 'project:custom/common/experimental-property-usage/experimentalPropertyUsageExcludeProperties.scss':[
 1,
 ],
