@@ -2,6 +2,9 @@
 'project:custom/common/experimental-atrule-usage/experimentalAtRuleUsage.css':[
 71,
 ],
+'project:custom/common/experimental-pseudo-usage/experimentalPseudoUsageExcludePseudos.css':[
+17,
+],
 'project:custom/common/unknown-pseudo/unknownPseudo.css':[
 1,
 10,

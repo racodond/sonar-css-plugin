@@ -19,15 +19,22 @@
  */
 package org.sonar.css.checks.common;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
+import org.sonar.css.checks.CheckList;
+import org.sonar.css.checks.CheckUtils;
 import org.sonar.css.checks.Tags;
+import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.tree.css.PseudoFunctionTree;
 import org.sonar.plugins.css.api.tree.css.PseudoIdentifierTree;
-import org.sonar.plugins.css.api.tree.Tree;
 import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 @Rule(
   key = "experimental-pseudo-usage",
@@ -38,9 +45,18 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 @ActivatedByDefault
 public class ExperimentalPseudoCheck extends DoubleDispatchVisitorCheck {
 
+  private static final String DEFAULT_PSEUDOS_TO_EXCLUDE = "";
+
+  @RuleProperty(
+    key = "pseudosToExclude",
+    description = "A regular expression to exclude pseudo-elements and pseudo-classes from being considered as experimental. Example: \"any-link|user.*\". See " + CheckUtils.LINK_TO_JAVA_REGEX_PATTERN_DOC + " for detailed regular expression syntax.",
+    defaultValue = DEFAULT_PSEUDOS_TO_EXCLUDE)
+  private String pseudosToExclude = DEFAULT_PSEUDOS_TO_EXCLUDE;
+
   @Override
   public void visitPseudoFunction(PseudoFunctionTree tree) {
-    if (tree.isVendorPrefixed() || tree.standardFunction().isExperimental()) {
+    if (!tree.standardFunction().getName().matches(pseudosToExclude)
+      && (tree.isVendorPrefixed() || tree.standardFunction().isExperimental())) {
       createIssue(tree.function(), tree.standardFunction().getName());
     }
     super.visitPseudoFunction(tree);
@@ -48,7 +64,8 @@ public class ExperimentalPseudoCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitPseudoIdentifier(PseudoIdentifierTree tree) {
-    if (tree.isVendorPrefixed() || tree.standardPseudoIdentifier().isExperimental()) {
+    if (!tree.standardPseudoIdentifier().getName().matches(pseudosToExclude)
+      && (tree.isVendorPrefixed() || tree.standardPseudoIdentifier().isExperimental())) {
       createIssue(tree.identifier(), tree.standardPseudoIdentifier().getName());
     }
     super.visitPseudoIdentifier(tree);
@@ -56,6 +73,27 @@ public class ExperimentalPseudoCheck extends DoubleDispatchVisitorCheck {
 
   private void createIssue(Tree location, String pseudo) {
     addPreciseIssue(location, "Remove this usage of the experimental \"" + pseudo + "\" pseudo.");
+  }
+
+  @Override
+  public void validateParameters() {
+    try {
+      Pattern.compile(pseudosToExclude);
+    } catch (PatternSyntaxException exception) {
+      throw new IllegalStateException(paramsErrorMessage(), exception);
+    }
+  }
+
+  @VisibleForTesting
+  void setPseudosToExclude(String pseudosToExclude) {
+    this.pseudosToExclude = pseudosToExclude;
+  }
+
+  private String paramsErrorMessage() {
+    return CheckUtils.paramsErrorMessage(
+      this.getClass(),
+      CheckList.CSS_REPOSITORY_KEY,
+      "pseudosToExclude parameter \"" + pseudosToExclude + "\" is not a valid regular expression.");
   }
 
 }
