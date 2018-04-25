@@ -21,13 +21,35 @@ package org.sonar.css.checks.less;
 
 import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
+import org.sonar.css.checks.css.ExperimentalCssFunctionCheck;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
+
+import static org.fest.assertions.Assertions.assertThat;
 
 public class ExperimentalNotLessFunctionCheckTest {
 
   @Test
   public void test() {
     CssCheckVerifier.verifyLessFile(new ExperimentalNotLessFunctionCheck(), CheckTestUtils.getLessTestFile("experimentalFunctionUsage.less"));
+  }
+
+  @Test
+  public void test_exclude_functions() {
+    ExperimentalNotLessFunctionCheck check = new ExperimentalNotLessFunctionCheck();
+    check.setFunctionsToExclude("conic-gradient|count.*");
+    CssCheckVerifier.verifyLessFile(check, CheckTestUtils.getLessTestFile("experimentalFunctionUsageExcludeFunctions.less"));
+  }
+
+  @Test
+  public void should_throw_an_illegal_state_exception_as_the_functionsToExclude_parameter_is_not_valid() {
+    try {
+      ExperimentalNotLessFunctionCheck check = new ExperimentalNotLessFunctionCheck();
+      check.setFunctionsToExclude("(");
+      CssCheckVerifier.issuesOnLessFile(check, CheckTestUtils.getLessTestFile("experimentalFunctionUsage.less")).noMore();
+    } catch (IllegalStateException e) {
+      assertThat(e.getMessage()).isEqualTo("Check less:experimental-not-less-function-usage (Experimental functions should not be used): "
+        + "functionsToExclude parameter \"(\" is not a valid regular expression.");
+    }
   }
 
 }

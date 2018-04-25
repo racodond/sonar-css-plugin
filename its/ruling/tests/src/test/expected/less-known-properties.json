@@ -75,4 +75,7 @@
 'project:custom/less/experimentalFunctionUsage.less':[
 7,
 ],
+'project:custom/less/experimentalFunctionUsageExcludeFunctions.less':[
+4,
+],
 }
