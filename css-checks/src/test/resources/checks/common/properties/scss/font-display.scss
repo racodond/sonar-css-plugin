@@ -1,0 +1,12 @@
+.mybox {
+  font-display: inherit;
+  font-display: auto;
+  font-display: block;
+  font-display: swap;
+  font-display: fallback;
+  font-display: optional;
+  font-display: blabla; /* Noncompliant {Update the invalid value of property "font-display". Expected format: [auto | block | swap | fallback | optional]}! */
+  font-display: "auto"; /* Noncompliant */
+  font-display: 3; /* Noncompliant */
+  font-display: block, swap; /* Noncompliant */
+}

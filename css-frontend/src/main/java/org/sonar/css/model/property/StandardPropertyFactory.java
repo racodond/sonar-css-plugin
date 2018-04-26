@@ -230,6 +230,7 @@ public class StandardPropertyFactory {
     FlowFrom.class,
     FlowInto.class,
     Font.class,
+    FontDisplay.class,
     FontFamily.class,
     FontFeatureSettings.class,
     FontKerning.class,
