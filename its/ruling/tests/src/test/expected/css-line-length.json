@@ -559,6 +559,12 @@
 'project:custom/common/properties/css/font-language-override.css':[
 6,
 ],
+'project:custom/common/properties/css/font-max-size.css':[
+17,
+],
+'project:custom/common/properties/css/font-min-size.css':[
+17,
+],
 'project:custom/common/properties/css/font-size-adjust.css':[
 6,
 ],

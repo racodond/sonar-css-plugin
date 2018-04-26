@@ -1,0 +1,22 @@
+.mybox {
+  font-max-size: inherit;
+  font-max-size: xx-small;
+  font-max-size: x-small;
+  font-max-size: small;
+  font-max-size: medium;
+  font-max-size: large;
+  font-max-size: x-large;
+  font-max-size: xx-large;
+  font-max-size: larger;
+  font-max-size: smaller;
+  font-max-size: 10px;
+  font-max-size: 1.5em;
+  font-max-size: 0;
+  font-max-size: 10%;
+  font-max-size: 10.5%;
+  font-max-size: abc; /* Noncompliant !{Update the invalid value of property "font-max-size". Expected format: xx-small | x-small | small | medium | large | x-large | xx-large | larger | smaller | infinity | <length>(>=0) | <percentage>(>=0)}! */
+  font-max-size: 10; /* Noncompliant */
+  font-max-size: -10px; /* Noncompliant */
+  font-max-size: -10%; /* Noncompliant */
+  font-max-size: infinity;
+}
