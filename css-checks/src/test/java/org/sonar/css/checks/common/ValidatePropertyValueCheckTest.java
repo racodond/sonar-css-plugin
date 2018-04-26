@@ -19,12 +19,13 @@
  */
 package org.sonar.css.checks.common;
 
-import junit.framework.Assert;
 import org.junit.Test;
 import org.sonar.css.checks.CheckTestUtils;
 import org.sonar.css.checks.verifier.CssCheckVerifier;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
 
 public class ValidatePropertyValueCheckTest {
 
@@ -74,9 +75,9 @@ public class ValidatePropertyValueCheckTest {
 
   @Test
   public void test_number_of_validated_properties() {
-    Assert.assertEquals(310, CheckTestUtils.getCommonTestFile("properties/css").listFiles().length);
-    Assert.assertEquals(310, CheckTestUtils.getCommonTestFile("properties/less").listFiles().length);
-    Assert.assertEquals(310, CheckTestUtils.getCommonTestFile("properties/scss").listFiles().length);
+    assertEquals(311, CheckTestUtils.getCommonTestFile("properties/css").listFiles().length);
+    assertEquals(311, CheckTestUtils.getCommonTestFile("properties/less").listFiles().length);
+    assertEquals(311, CheckTestUtils.getCommonTestFile("properties/scss").listFiles().length);
   }
 
 }
