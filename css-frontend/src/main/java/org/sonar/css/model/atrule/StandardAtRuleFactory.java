@@ -40,6 +40,7 @@ public class StandardAtRuleFactory {
     Document.class,
     FontFace.class,
     FontFeatureValues.class,
+    FontPaletteValues.class,
     Import.class,
     Keyframes.class,
     LeftBottom.class,

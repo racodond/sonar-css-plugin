@@ -88,3 +88,9 @@
     content: "Page " counter(page);
   }
 }
+
+
+@font-palette-values Augusta { /* Noncompliant ![sc=1;ec=21;el=+0]! !{Remove this usage of the experimental "font-palette-values" @-rule.}! */
+  font-family: Handover Sans;
+  base-palette: 3;
+}

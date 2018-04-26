@@ -76,13 +76,13 @@ public class StandardAtRuleFactoryTest {
 
   @Test
   public void number_of_standard_at_rules() {
-    assertEquals(36, StandardAtRuleFactory.getAll().size());
+    assertEquals(37, StandardAtRuleFactory.getAll().size());
   }
 
   @Test
   public void number_of_experimental_standard_at_rules() {
     assertEquals(
-      28,
+      29,
       StandardAtRuleFactory.getAll()
         .stream()
         .filter(StandardAtRule::isExperimental)
