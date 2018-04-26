@@ -453,6 +453,12 @@
 'project:custom/common/properties/less/font-language-override.less':[
 6,
 ],
+'project:custom/common/properties/less/font-max-size.less':[
+17,
+],
+'project:custom/common/properties/less/font-min-size.less':[
+17,
+],
 'project:custom/common/properties/less/font-size-adjust.less':[
 6,
 ],

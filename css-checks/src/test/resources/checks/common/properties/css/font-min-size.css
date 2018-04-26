@@ -1,0 +1,22 @@
+.mybox {
+  font-min-size: inherit;
+  font-min-size: xx-small;
+  font-min-size: x-small;
+  font-min-size: small;
+  font-min-size: medium;
+  font-min-size: large;
+  font-min-size: x-large;
+  font-min-size: xx-large;
+  font-min-size: larger;
+  font-min-size: smaller;
+  font-min-size: 10px;
+  font-min-size: 1.5em;
+  font-min-size: 0;
+  font-min-size: 10%;
+  font-min-size: 10.5%;
+  font-min-size: abc; /* Noncompliant !{Update the invalid value of property "font-min-size". Expected format: xx-small | x-small | small | medium | large | x-large | xx-large | larger | smaller | <length>(>=0) | <percentage>(>=0)}! */
+  font-min-size: 10; /* Noncompliant */
+  font-min-size: -10px; /* Noncompliant */
+  font-min-size: -10%; /* Noncompliant */
+  font-min-size: infinity; /* Noncompliant */
+}

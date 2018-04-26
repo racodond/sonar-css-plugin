@@ -477,6 +477,12 @@
 'project:custom/common/properties/scss/font-language-override.scss':[
 6,
 ],
+'project:custom/common/properties/scss/font-max-size.scss':[
+17,
+],
+'project:custom/common/properties/scss/font-min-size.scss':[
+17,
+],
 'project:custom/common/properties/scss/font-size-adjust.scss':[
 6,
 ],
