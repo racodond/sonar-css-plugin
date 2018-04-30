@@ -237,6 +237,7 @@ public class StandardPropertyFactory {
     FontLanguageOverride.class,
     FontMaxSize.class,
     FontMinSize.class,
+    FontOpticalSizing.class,
     FontSize.class,
     FontSizeAdjust.class,
     FontStretch.class,

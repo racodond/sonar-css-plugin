@@ -565,6 +565,9 @@
 'project:custom/common/properties/css/font-min-size.css':[
 17,
 ],
+'project:custom/common/properties/css/font-optical-sizing.css':[
+5,
+],
 'project:custom/common/properties/css/font-size-adjust.css':[
 6,
 ],
