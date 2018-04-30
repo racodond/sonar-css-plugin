@@ -1,0 +1,10 @@
+.mybox {
+  base-palette: inherit;
+  base-palette: 10;
+  base-palette: -10;
+  base-palette: 10.1; /* Noncompliant {Update the invalid value of property "base-palette". Expected format: <integer>}! */
+  base-palette: 10 10; /* Noncompliant */
+  base-palette: 10px; /* Noncompliant */
+  base-palette: normal; /* Noncompliant */
+  base-palette: auto none; /* Noncompliant */
+}
