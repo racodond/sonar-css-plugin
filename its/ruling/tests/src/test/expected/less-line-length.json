@@ -459,6 +459,9 @@
 'project:custom/common/properties/less/font-min-size.less':[
 17,
 ],
+'project:custom/common/properties/less/font-optical-sizing.less':[
+5,
+],
 'project:custom/common/properties/less/font-size-adjust.less':[
 6,
 ],

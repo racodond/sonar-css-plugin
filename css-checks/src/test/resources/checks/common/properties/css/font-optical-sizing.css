@@ -1,0 +1,9 @@
+.mybox {
+  font-optical-sizing: inherit;
+  font-optical-sizing: auto;
+  font-optical-sizing: none;
+  font-optical-sizing: 0; /* Noncompliant {Update the invalid value of property "font-optical-sizing". Expected format: auto | none}! */
+  font-optical-sizing: 10px; /* Noncompliant */
+  font-optical-sizing: normal; /* Noncompliant */
+  font-optical-sizing: auto none; /* Noncompliant */
+}

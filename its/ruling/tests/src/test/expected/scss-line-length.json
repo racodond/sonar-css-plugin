@@ -483,6 +483,9 @@
 'project:custom/common/properties/scss/font-min-size.scss':[
 17,
 ],
+'project:custom/common/properties/scss/font-optical-sizing.scss':[
+5,
+],
 'project:custom/common/properties/scss/font-size-adjust.scss':[
 6,
 ],
