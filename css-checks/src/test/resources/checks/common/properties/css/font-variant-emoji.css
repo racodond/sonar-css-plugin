@@ -1,0 +1,10 @@
+.mybox {
+  font-variant-emoji: inherit;
+  font-variant-emoji: auto;
+  font-variant-emoji: text;
+  font-variant-emoji: emoji;
+  font-variant-emoji: 0; /* Noncompliant {Update the invalid value of property "font-variant-emoji". Expected format: auto | none}! */
+  font-variant-emoji: 10px; /* Noncompliant */
+  font-variant-emoji: normal; /* Noncompliant */
+  font-variant-emoji: auto none; /* Noncompliant */
+}

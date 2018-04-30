@@ -507,6 +507,9 @@
 'project:custom/common/properties/scss/font-variant-caps.scss':[
 10,
 ],
+'project:custom/common/properties/scss/font-variant-emoji.scss':[
+6,
+],
 'project:custom/common/properties/scss/font-variant-position.scss':[
 6,
 ],

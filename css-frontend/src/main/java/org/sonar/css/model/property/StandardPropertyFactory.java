@@ -248,6 +248,7 @@ public class StandardPropertyFactory {
     FontVariantAlternates.class,
     FontVariantCaps.class,
     FontVariantEastAsian.class,
+    FontVariantEmoji.class,
     FontVariantLigatures.class,
     FontVariantNumeric.class,
     FontVariantPosition.class,
