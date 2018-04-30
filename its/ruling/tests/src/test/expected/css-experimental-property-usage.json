@@ -17,6 +17,7 @@
 8,
 9,
 81,
+95,
 ],
 'project:custom/common/experimental-atrule-usage/experimentalAtRuleUsageExcludeAtRules.css':[
 2,
@@ -159,6 +160,16 @@
 10,
 11,
 12,
+],
+'project:custom/common/properties/css/base-palette.css':[
+2,
+3,
+4,
+5,
+6,
+7,
+8,
+9,
 ],
 'project:custom/common/properties/css/baseline-shift.css':[
 2,

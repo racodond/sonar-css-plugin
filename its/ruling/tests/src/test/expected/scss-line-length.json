@@ -212,6 +212,9 @@
 'project:custom/common/properties/scss/background-size.scss':[
 19,
 ],
+'project:custom/common/properties/scss/base-palette.scss':[
+5,
+],
 'project:custom/common/properties/scss/baseline-shift.scss':[
 9,
 ],

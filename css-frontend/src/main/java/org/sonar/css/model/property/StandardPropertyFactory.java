@@ -67,6 +67,7 @@ public class StandardPropertyFactory {
     BackgroundRepeat.class,
     BackgroundSize.class,
     BaselineShift.class,
+    BasePalette.class,
     Behavior.class,
     Binding.class,
     Bleed.class,

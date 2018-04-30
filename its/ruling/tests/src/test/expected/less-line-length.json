@@ -185,6 +185,9 @@
 'project:custom/common/properties/less/background-size.less':[
 19,
 ],
+'project:custom/common/properties/less/base-palette.less':[
+5,
+],
 'project:custom/common/properties/less/baseline-shift.less':[
 9,
 ],
