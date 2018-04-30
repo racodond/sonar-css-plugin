@@ -249,6 +249,7 @@ public class StandardPropertyFactory {
     FontVariantLigatures.class,
     FontVariantNumeric.class,
     FontVariantPosition.class,
+    FontVariationSettings.class,
     FontWeight.class,
     FootnoteDisplay.class,
     FootnotePolicy.class,

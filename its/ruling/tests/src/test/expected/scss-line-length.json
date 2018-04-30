@@ -504,6 +504,9 @@
 'project:custom/common/properties/scss/font-variant-position.scss':[
 6,
 ],
+'project:custom/common/properties/scss/font-variation-settings.scss':[
+12,
+],
 'project:custom/common/properties/scss/font-weight.scss':[
 16,
 ],
