@@ -92,13 +92,13 @@ public class StandardPropertyFactoryTest {
 
   @Test
   public void number_of_standard_properties() {
-    assertEquals(624, StandardPropertyFactory.getAll().size());
+    assertEquals(625, StandardPropertyFactory.getAll().size());
   }
 
   @Test
   public void number_of_experimental_properties() {
     assertEquals(
-      338,
+      339,
       StandardPropertyFactory
         .getAll()
         .stream()
