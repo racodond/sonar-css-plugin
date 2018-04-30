@@ -480,6 +480,9 @@
 'project:custom/common/properties/less/font-variant-position.less':[
 6,
 ],
+'project:custom/common/properties/less/font-variation-settings.less':[
+12,
+],
 'project:custom/common/properties/less/font-weight.less':[
 16,
 ],

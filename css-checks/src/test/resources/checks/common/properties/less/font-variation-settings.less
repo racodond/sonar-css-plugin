@@ -1,0 +1,18 @@
+.mybox {
+  font-variation-settings: inherit;
+  font-variation-settings: normal;
+  font-variation-settings: "abc" 3;
+  font-variation-settings: "abc" -3;
+  font-variation-settings: "abc" 10.5;
+  font-variation-settings: "abc" -10.5;
+  font-variation-settings: "abc" -10.5 !important;
+  font-variation-settings: "abc" 3, "def" 5;
+  font-variation-settings: "abc" 3, "def" 5, "jkl" 10;
+  font-variation-settings: "abc" 3, "def" 5, "jkl" 10 !important;
+  font-variation-settings: 0; /* Noncompliant {Update the invalid value of property "font-variation-settings". Expected format: normal | [string number]#}! */
+  font-variation-settings: "abc"; /* Noncompliant */
+  font-variation-settings: "abc" "def"; /* Noncompliant */
+  font-variation-settings: 0 "abc"; /* Noncompliant */
+  font-variation-settings: "abc" 0, "def"; /* Noncompliant */
+  font-variation-settings: "abc" 0, 3; /* Noncompliant */
+}

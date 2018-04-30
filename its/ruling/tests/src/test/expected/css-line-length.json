@@ -586,6 +586,9 @@
 'project:custom/common/properties/css/font-variant-position.css':[
 6,
 ],
+'project:custom/common/properties/css/font-variation-settings.css':[
+12,
+],
 'project:custom/common/properties/css/font-weight.css':[
 16,
 ],
