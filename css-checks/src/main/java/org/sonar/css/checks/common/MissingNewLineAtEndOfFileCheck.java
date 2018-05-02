@@ -42,7 +42,7 @@ public class MissingNewLineAtEndOfFileCheck extends DoubleDispatchVisitorCheck {
   @Override
   public void visitStyleSheet(StyleSheetTree tree) {
     try (RandomAccessFile randomAccessFile = new RandomAccessFile(getContext().getFile(), "r")) {
-      if (!endsWithNewline(randomAccessFile)) {
+      if (!endsWithNewline(randomAccessFile) && !tree.all().isEmpty()) {
         addFileIssue("Add an empty new line at the end of this file.");
       }
     } catch (IOException e) {
