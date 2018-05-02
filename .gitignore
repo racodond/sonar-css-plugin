@@ -32,7 +32,7 @@ Thumbs.db
 # Folder config file
 Desktop.ini
 
-log.txt
+log*.txt
 nano.save
 
 *~*
