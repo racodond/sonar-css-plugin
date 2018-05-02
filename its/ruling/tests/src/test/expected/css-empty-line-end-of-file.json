@@ -2,10 +2,7 @@
 'project:custom/common/comment-regular-expression/commentRegularExpression.css':[
 0,
 ],
-'project:custom/common/empty-stylesheet/emptyStylesheet.css':[
-0,
-],
-'project:custom/common/empty-stylesheet/emptyStylesheetNoComment.css':[
+'project:custom/common/empty-line-end-of-file/noNewLineEndOfFile.css':[
 0,
 ],
 'project:custom/common/lineLength.css':[
@@ -18,9 +15,6 @@
 0,
 ],
 'project:custom/common/noDuplication.css':[
-0,
-],
-'project:custom/common/noNewLineEndOfFile.css':[
 0,
 ],
 'project:custom/common/properties/css/alignment-baseline.css':[
