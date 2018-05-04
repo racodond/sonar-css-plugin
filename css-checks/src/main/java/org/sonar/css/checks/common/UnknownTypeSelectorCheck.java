@@ -78,7 +78,7 @@ public class UnknownTypeSelectorCheck extends DoubleDispatchVisitorCheck {
     key = "Exclusions",
     description = "Regular expression to exclude custom type selectors. See "
       + CheckUtils.LINK_TO_JAVA_REGEX_PATTERN_DOC
-      + " for detailed regular expression syntax.",
+      + " for detailed regular expression syntax. For instance '(?i)custom-.+' to exclude 'custom-type', 'CUSTOM-TYPE', 'custom-blabla', ...",
     defaultValue = DEFAULT_EXCLUSIONS)
   private String exclusions = DEFAULT_EXCLUSIONS;
 
