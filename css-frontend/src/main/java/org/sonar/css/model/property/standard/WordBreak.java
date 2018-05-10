@@ -25,8 +25,8 @@ import org.sonar.css.model.property.validator.valueelement.IdentifierValidator;
 public class WordBreak extends StandardProperty {
 
   public WordBreak() {
-    addLinks("https://drafts.csswg.org/css-text-3/#propdef-word-break");
-    addValidators(new IdentifierValidator("normal", "keep-all", "break-all"));
+    addLinks("https://www.w3.org/TR/css-text-3/#word-break-property");
+    addValidators(new IdentifierValidator("normal", "keep-all", "break-all", "break-word"));
   }
 
 }
