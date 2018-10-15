@@ -17,24 +17,31 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.css.checks.less;
+package org.sonar.css.parser.scss;
 
-import org.sonar.check.Priority;
-import org.sonar.check.Rule;
-import org.sonar.css.checks.Tags;
-import org.sonar.plugins.css.api.visitors.DoubleDispatchVisitorCheck;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.junit.Test;
+import org.sonar.css.parser.LexicalGrammar;
+import org.sonar.plugins.css.api.tree.scss.ScssParentSelectorTree;
 
-@Rule(
-  key = "S2260",
-  name = "Less parser failure",
-  priority = Priority.CRITICAL,
-  tags = {Tags.BUG})
-@ActivatedByDefault
-@SqaleConstantRemediation("30min")
-public class ParsingErrorCheck extends DoubleDispatchVisitorCheck {
+import static org.fest.assertions.Assertions.assertThat;
 
-  public static final String MESSAGE = "Parse error";
+public class ScssParentSelectorWithSpacingTreeTest extends ScssTreeTest {
+
+  public ScssParentSelectorWithSpacingTreeTest() {
+    super(LexicalGrammar.SCSS_PARENT_SELECTOR_WITH_SPACING);
+  }
+
+  @Test
+  public void sscsParentSelector() {
+    checkParsed("&");
+    checkParsed(" &");
+  }
+
+  private void checkParsed(String toParse) {
+    ScssParentSelectorTree tree = (ScssParentSelectorTree) parser().parse(toParse);
+    assertThat(tree).isNotNull();
+    assertThat(tree.parentSelector()).isNotNull();
+    assertThat(tree.parentSelector().text()).isEqualTo("&");
+  }
 
 }

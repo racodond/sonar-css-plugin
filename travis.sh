@@ -6,7 +6,7 @@ git fetch --unshallow
 
 mvn -B clean install -Pits -Dsonar.runtimeVersion=$SQ_VERSION
 
-if [ "$SQ_VERSION" == "LTS" ]; then
+if [ "$SQ_VERSION" == "DEV" ]; then
 
     mvnCommand='mvn -B sonar:sonar'
     commonArgs="-Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.organization=racodond-github"

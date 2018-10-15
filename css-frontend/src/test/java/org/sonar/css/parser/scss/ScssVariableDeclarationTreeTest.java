@@ -56,6 +56,11 @@ public class ScssVariableDeclarationTreeTest extends ScssTreeTest {
     checkParsed(" $abc : 123");
     checkParsed(" $abc : 123;");
     checkParsed(" $abc: 10, $def");
+    checkParsed(" $abc:&");
+    checkParsed(" $abc:&-name");
+    checkParsed(" $abc: &");
+    checkParsed(" $abc: &-name");
+    checkParsed(" $abc: &-name abc");
 
     checkParsed("$grid-gutter-widths: (\n" +
       "  xs: $grid-gutter-width-base,\n" +

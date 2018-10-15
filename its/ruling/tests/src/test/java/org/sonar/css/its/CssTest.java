@@ -23,6 +23,7 @@ import com.google.common.io.Files;
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
 import com.sonar.orchestrator.locator.FileLocation;
+import com.sonar.orchestrator.locator.MavenLocation;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -39,9 +40,9 @@ public class CssTest {
 
   @ClassRule
   public static Orchestrator orchestrator = Orchestrator.builderEnv()
+    .setSonarVersion(System.getProperty("sonar.runtimeVersion", "DEV"))
     .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../../sonar-css-plugin/target"), "sonar-css-plugin-*-SNAPSHOT.jar"))
-    .setOrchestratorProperty("litsVersion", "0.6")
-    .addPlugin("lits")
+    .addPlugin(MavenLocation.of("org.sonarsource.sonar-lits-plugin", "sonar-lits-plugin", "0.6"))
     .build();
 
   @Before
@@ -70,13 +71,11 @@ public class CssTest {
       .setProjectKey("project")
       .setSourceDirs("./")
       .setSourceEncoding("UTF-8")
-      .setProperty("sonar.import_unknown_files", "true")
       .setProperty("sonar.analysis.mode", "preview")
-      .setProperty("sonar.issuesReport.html.enable", "true")
       .setProperty("dump.old", FileLocation.of("src/test/expected").getFile().getAbsolutePath())
       .setProperty("dump.new", FileLocation.of("target/actual").getFile().getAbsolutePath())
       .setProperty("lits.differences", litsDifferencesFile.getAbsolutePath())
-      .setProperty("sonar.cpd.skip", "true");
+      .setProperty("sonar.cpd.exclusions", "**/*");
     orchestrator.executeBuild(build);
 
     assertThat(Files.asCharSource(litsDifferencesFile, StandardCharsets.UTF_8).read()).isEmpty();

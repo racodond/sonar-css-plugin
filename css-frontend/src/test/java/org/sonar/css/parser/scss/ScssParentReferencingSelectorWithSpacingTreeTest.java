@@ -21,31 +21,36 @@ package org.sonar.css.parser.scss;
 
 import org.junit.Test;
 import org.sonar.css.parser.LexicalGrammar;
-import org.sonar.plugins.css.api.tree.css.ValueTree;
+import org.sonar.plugins.css.api.tree.scss.ScssParentReferencingSelectorTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class ScssSassScriptExpressionTreeTest extends ScssTreeTest {
+public class ScssParentReferencingSelectorWithSpacingTreeTest extends ScssTreeTest {
 
-  public ScssSassScriptExpressionTreeTest() {
-    super(LexicalGrammar.SCSS_SASS_SCRIPT_EXPRESSION);
+  public ScssParentReferencingSelectorWithSpacingTreeTest() {
+    super(LexicalGrammar.SCSS_PARENT_REFERENCING_SELECTOR_WITH_SPACING);
   }
 
   @Test
-  public void scssSassScriptExpression() {
-    checkParsed("1+2");
-    checkParsed("1 + 2");
-    checkParsed("(a: 2, b: 3)");
-    checkParsed("abc((a: 2, b: 3))");
-    checkParsed("&");
-    checkParsed("&-name");
-    checkParsed("&-name abc");
+  public void scssParentReferencingSelector() {
+    checkParsed("&-bar", "-bar");
+    checkParsed(" &-bar", "-bar");
+    checkParsed("&bar", "bar");
+    checkParsed(" &bar", "bar");
   }
 
-  private ValueTree checkParsed(String toParse) {
-    ValueTree tree = (ValueTree) parser().parse(toParse);
+  @Test
+  public void notScssParentReferencingSelector() {
+    checkNotParsed("&");
+    checkNotParsed("& bar");
+  }
+
+  private void checkParsed(String toParse, String expectedIdentifier) {
+    ScssParentReferencingSelectorTree tree = (ScssParentReferencingSelectorTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
-    return tree;
+    assertThat(tree.parent()).isNotNull();
+    assertThat(tree.append()).isNotNull();
+    assertThat(tree.text()).isEqualTo(expectedIdentifier);
   }
 
 }

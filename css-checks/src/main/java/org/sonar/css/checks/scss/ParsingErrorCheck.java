@@ -34,4 +34,7 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 @ActivatedByDefault
 @SqaleConstantRemediation("30min")
 public class ParsingErrorCheck extends DoubleDispatchVisitorCheck {
+
+  public static final String MESSAGE = "Parse error";
+
 }
