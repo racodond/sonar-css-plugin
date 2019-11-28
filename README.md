@@ -9,6 +9,9 @@
 
 # SonarQube CSS / SCSS / Less Analyzer
 
+## Disclaimer
+I don't want to keep maintaining this plugin. Feel free to ping me if you want to take over.
+
 ## Description
 This [SonarQube](http://www.sonarqube.org) plugin analyzes:
 
