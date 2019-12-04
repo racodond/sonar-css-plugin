@@ -82,14 +82,14 @@ public class ScssVariableDeclarationTreeImpl extends TreeImpl implements ScssVar
   @Nullable
   public ScssDefaultFlagTree defaultFlag() {
     Optional<ScssDefaultFlagTree> defaultFlag = value.firstValueElementOfType(ScssDefaultFlagTree.class);
-    return defaultFlag.isPresent() ? defaultFlag.get() : null;
+    return defaultFlag.orElse(null);
   }
 
   @Override
   @Nullable
   public ScssGlobalFlagTree globalFlag() {
     Optional<ScssGlobalFlagTree> globalFlag = value.firstValueElementOfType(ScssGlobalFlagTree.class);
-    return globalFlag.isPresent() ? globalFlag.get() : null;
+    return globalFlag.orElse(null);
   }
 
   @Override

@@ -26,7 +26,23 @@ import org.sonar.css.parser.css.CssGrammar;
 import org.sonar.css.tree.impl.SeparatedList;
 import org.sonar.css.tree.impl.css.InternalSyntaxToken;
 import org.sonar.plugins.css.api.tree.Tree;
-import org.sonar.plugins.css.api.tree.css.*;
+import org.sonar.plugins.css.api.tree.css.AttributeMatcherExpressionTree;
+import org.sonar.plugins.css.api.tree.css.AttributeSelectorTree;
+import org.sonar.plugins.css.api.tree.css.ClassSelectorTree;
+import org.sonar.plugins.css.api.tree.css.CompoundSelectorTree;
+import org.sonar.plugins.css.api.tree.css.DeclarationTree;
+import org.sonar.plugins.css.api.tree.css.DelimiterTree;
+import org.sonar.plugins.css.api.tree.css.IdSelectorTree;
+import org.sonar.plugins.css.api.tree.css.IdentifierTree;
+import org.sonar.plugins.css.api.tree.css.PropertyTree;
+import org.sonar.plugins.css.api.tree.css.PseudoIdentifierTree;
+import org.sonar.plugins.css.api.tree.css.SelectorCombinatorTree;
+import org.sonar.plugins.css.api.tree.css.SelectorTree;
+import org.sonar.plugins.css.api.tree.css.StatementBlockTree;
+import org.sonar.plugins.css.api.tree.css.StyleSheetTree;
+import org.sonar.plugins.css.api.tree.css.TypeSelectorTree;
+import org.sonar.plugins.css.api.tree.css.ValueCommaSeparatedListTree;
+import org.sonar.plugins.css.api.tree.css.ValueTree;
 import org.sonar.plugins.css.api.tree.scss.*;
 
 /**
@@ -129,6 +145,8 @@ public class ScssGrammar extends CssGrammar {
   public Tree ANY_SASS_SCRIPT_EXPRESSION() {
     return b.<Tree>nonterminal().is(
       b.firstOf(
+        SCSS_PARENT_REFERENCING_SELECTOR_WITH_SPACING(),
+        SCSS_PARENT_SELECTOR_WITH_SPACING(),
         VALUE_COMMA_SEPARATED_LIST(),
         IMPORTANT_FLAG(),
         SCSS_GLOBAL_FLAG(),
@@ -154,6 +172,8 @@ public class ScssGrammar extends CssGrammar {
   public Tree ANY_SASS_SCRIPT_EXPRESSION_WITHOUT_COMMA_SEPARATED_LIST() {
     return b.<Tree>nonterminal().is(
       b.firstOf(
+        SCSS_PARENT_REFERENCING_SELECTOR_WITH_SPACING(),
+        SCSS_PARENT_SELECTOR_WITH_SPACING(),
         IMPORTANT_FLAG(),
         SCSS_GLOBAL_FLAG(),
         SCSS_DEFAULT_FLAG(),
@@ -353,10 +373,24 @@ public class ScssGrammar extends CssGrammar {
       f.scssParentSelector(b.token(LexicalGrammar.SCSS_PARENT_SELECTOR_KEYWORD)));
   }
 
+  public ScssParentSelectorTree SCSS_PARENT_SELECTOR_WITH_SPACING() {
+    return b.<ScssParentSelectorTree>nonterminal(LexicalGrammar.SCSS_PARENT_SELECTOR_WITH_SPACING).is(
+      f.scssParentSelector(b.token(LexicalGrammar.SCSS_PARENT_SELECTOR_KEYWORD_WITH_SPACING)));
+  }
+
   public ScssParentReferencingSelectorTree SCSS_PARENT_REFERENCING_SELECTOR() {
     return b.<ScssParentReferencingSelectorTree>nonterminal(LexicalGrammar.SCSS_PARENT_REFERENCING_SELECTOR).is(
       f.scssParentReferencingSelector(
         SCSS_PARENT_SELECTOR(),
+        b.firstOf(
+          SCSS_INTERPOLATED_IDENTIFIER_NO_WS(),
+          IDENTIFIER_NO_WS())));
+  }
+
+  public ScssParentReferencingSelectorTree SCSS_PARENT_REFERENCING_SELECTOR_WITH_SPACING() {
+    return b.<ScssParentReferencingSelectorTree>nonterminal(LexicalGrammar.SCSS_PARENT_REFERENCING_SELECTOR_WITH_SPACING).is(
+      f.scssParentReferencingSelector(
+        SCSS_PARENT_SELECTOR_WITH_SPACING(),
         b.firstOf(
           SCSS_INTERPOLATED_IDENTIFIER_NO_WS(),
           IDENTIFIER_NO_WS())));

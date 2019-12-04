@@ -53,7 +53,8 @@ public class Tests {
 
   @ClassRule
   public static final Orchestrator ORCHESTRATOR = Orchestrator.builderEnv()
-    .addPlugin(FileLocation.byWildcardFilename(new File("../../../sonar-css-plugin/target"), "sonar-css-plugin-*-SNAPSHOT.jar"))
+    .setSonarVersion(System.getProperty("sonar.runtimeVersion", "DEV"))
+    .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../../sonar-css-plugin/target"), "sonar-css-plugin-*-SNAPSHOT.jar"))
     .addPlugin(FileLocation.byWildcardFilename(new File("../plugins/css-custom-rules-plugin/target"), "css-custom-rules-plugin-*-SNAPSHOT.jar"))
     .restoreProfileAtStartup(FileLocation.ofClasspath("/org/sonar/css/profiles/css-zero-units-only-profile.xml"))
     .restoreProfileAtStartup(FileLocation.ofClasspath("/org/sonar/css/profiles/less-zero-units-only-profile.xml"))
@@ -68,11 +69,10 @@ public class Tests {
     .build();
 
   public static SonarScanner createSonarScannerBuild() {
-    SonarScanner build = SonarScanner.create();
-    build.setProjectVersion("1.0");
-    build.setSourceEncoding("UTF-8");
-    build.setSourceDirs("src");
-    return build;
+    return SonarScanner.create()
+      .setProjectVersion("1.0")
+      .setSourceEncoding("UTF-8")
+      .setSourceDirs("src");
   }
 
   public static void setCssProfile(String profileName, String projectKey) {
