@@ -65,7 +65,7 @@
     <license.title>SonarQube CSS / SCSS / Less Analyzer</license.title>
     <license.mailto>mailto: david.racodon@gmail.com</license.mailto>
     <license.owner>David RACODON</license.owner>
-    <sonar.version>5.6</sonar.version>
+    <sonar.version>7.4</sonar.version>
     <sslr.version>1.22</sslr.version>
     <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
   </properties>
